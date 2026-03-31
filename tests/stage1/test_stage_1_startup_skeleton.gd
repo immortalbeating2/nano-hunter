@@ -32,7 +32,7 @@ func test_main_scene_spawns_placeholder_player_at_spawn_point() -> void:
 	var main_scene: Node = packed_scene.instantiate()
 	add_child_autofree(main_scene)
 
-	var runtime: Node = main_scene.get_node_or_null("Runtime")
+	var runtime: Node2D = main_scene.get_node_or_null("Runtime") as Node2D
 	var player_spawn: Marker2D = main_scene.get_node_or_null("PlayerSpawn") as Marker2D
 
 	assert_not_null(runtime)
@@ -55,8 +55,10 @@ func test_placeholder_player_scene_has_required_nodes() -> void:
 	var player_scene: Node = packed_scene.instantiate()
 
 	assert_true(player_scene is CharacterBody2D)
-	assert_not_null(player_scene.get_node_or_null("Body"))
-	assert_not_null(player_scene.get_node_or_null("CollisionShape2D"))
-	assert_not_null(player_scene.get_node_or_null("Camera2D"))
+	assert_true(player_scene.get_node_or_null("Body") is Polygon2D)
+	assert_not_null(player_scene.get_node_or_null("CollisionShape2D") as CollisionShape2D)
+	var camera: Camera2D = player_scene.get_node_or_null("Camera2D") as Camera2D
+	assert_not_null(camera)
+	assert_true(camera.enabled)
 
 	player_scene.free()
