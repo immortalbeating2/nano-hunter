@@ -101,6 +101,7 @@ Last Updated: 2026-04-01
 - 之前的基线验证暴露过 `better-terrain` 在当前 Godot 4.6 环境下的兼容性问题，因此后续再次启用前需要重新验证
 - 当前阶段的 Godot 基线验证应使用 `godot --headless --path . --import`，不是 `--quit`
 - `godot --headless --path . --import` 仍会在退出时输出 `ObjectDB instances leaked at exit` 警告，暂未定位到项目侧根因
+- 同一条 `--import` 还会重建未跟踪的 `scripts/rooms/test_room.gd.uid` 并规范化写回 `project.godot`，导致工作树变脏；后续运行后需要检查并清理这些自动生成和规范化噪音，避免误判为新的功能改动
 - `PlayerSpawn` 当前与 `TestRoom` 为并列节点；阶段 2 如果开始调整房间原点或复用房间模板，需要明确两者的归属关系
 
 ## Next Recommended Steps
