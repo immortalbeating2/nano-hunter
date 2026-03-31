@@ -44,8 +44,6 @@ func test_main_scene_spawns_placeholder_player_at_spawn_point() -> void:
 	assert_not_null(placeholder_player)
 	assert_eq(placeholder_player.position, player_spawn.position)
 
-	main_scene.free()
-
 
 func test_test_room_scene_has_required_boundary_nodes() -> void:
 	var packed_scene: PackedScene = load("res://scenes/rooms/test_room.tscn") as PackedScene
@@ -53,13 +51,19 @@ func test_test_room_scene_has_required_boundary_nodes() -> void:
 	assert_not_null(packed_scene)
 
 	var test_room: Node = packed_scene.instantiate()
+	add_child_autofree(test_room)
 
-	assert_not_null(test_room.get_node_or_null("Backdrop"))
-	assert_not_null(test_room.get_node_or_null("Floor"))
-	assert_not_null(test_room.get_node_or_null("LeftWall"))
-	assert_not_null(test_room.get_node_or_null("RightWall"))
+	assert_true(test_room.get_node_or_null("Backdrop") is Polygon2D)
+	var floor: StaticBody2D = test_room.get_node_or_null("Floor") as StaticBody2D
+	var left_wall: StaticBody2D = test_room.get_node_or_null("LeftWall") as StaticBody2D
+	var right_wall: StaticBody2D = test_room.get_node_or_null("RightWall") as StaticBody2D
 
-	test_room.free()
+	assert_not_null(floor)
+	assert_not_null(left_wall)
+	assert_not_null(right_wall)
+	assert_not_null(floor.get_node_or_null("CollisionShape2D") as CollisionShape2D)
+	assert_not_null(left_wall.get_node_or_null("CollisionShape2D") as CollisionShape2D)
+	assert_not_null(right_wall.get_node_or_null("CollisionShape2D") as CollisionShape2D)
 
 
 func test_main_scene_instances_test_room() -> void:
@@ -70,7 +74,10 @@ func test_main_scene_instances_test_room() -> void:
 	var main_scene: Node = packed_scene.instantiate()
 	add_child_autofree(main_scene)
 
-	assert_not_null(main_scene.get_node_or_null("TestRoom"))
+	var test_room: Node2D = main_scene.get_node_or_null("TestRoom") as Node2D
+
+	assert_not_null(test_room)
+	assert_true(test_room.get_node_or_null("Backdrop") is Polygon2D)
 
 
 func test_placeholder_player_scene_has_required_nodes() -> void:
