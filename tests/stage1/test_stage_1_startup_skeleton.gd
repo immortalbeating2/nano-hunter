@@ -1,6 +1,38 @@
 extends GutTest
 
 
+func test_project_uses_stage_1_display_scaling_defaults() -> void:
+	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_width", 0), 640)
+	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_height", 0), 360)
+	assert_eq(ProjectSettings.get_setting("display/window/size/window_width_override", 0), 1280)
+	assert_eq(ProjectSettings.get_setting("display/window/size/window_height_override", 0), 720)
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/mode", ""), "viewport")
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/aspect", ""), "keep")
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/scale_mode", ""), "integer")
+	assert_eq(
+		ProjectSettings.get_setting(
+			"rendering/environment/defaults/default_clear_color",
+			Color(0.3, 0.3, 0.3, 1)
+		),
+		Color(0.0745098, 0.129412, 0.219608, 1)
+	)
+
+
+func test_main_scene_sets_window_minimum_size_to_base_viewport() -> void:
+	var previous_min_size: Vector2i = get_window().min_size
+	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
+
+	assert_not_null(packed_scene)
+
+	var main_scene: Node = packed_scene.instantiate()
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+
+	assert_eq(get_window().min_size, Vector2i(640, 360))
+
+	get_window().min_size = previous_min_size
+
+
 func test_project_points_to_a_loadable_stage_1_main_scene() -> void:
 	var main_scene_path: String = ProjectSettings.get_setting("application/run/main_scene", "")
 
