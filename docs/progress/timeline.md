@@ -22,3 +22,10 @@
 - 完成 `阶段 1` Task 2：新增 `scripts/main/main.gd`、`player_placeholder` 场景与结构测试，提交 `939f251`；随后根据 review 修正占位玩家可见性与出生时序，提交 `719fc92`。
 - 完成 `阶段 1` Task 3：新增 `scenes/rooms/test_room.tscn` 并在 `Main.tscn` 中实例化测试房间，提交 `49d69e4`；随后补强房间碰撞与实例化测试契约，提交 `6770ba5`。
 - 当前 worktree 版本已经可以直接启动进入 `Main.tscn`，形成第一个可启动、可看、可调的试玩检查点；已将后续 `PlayerSpawn` 与 `TestRoom` 归属问题记为阶段 2 注意项。
+
+## 2026-04-01
+
+- 根据当前试玩反馈，确认阶段 1 仍需补做固定分辨率、整数倍缩放、保比例留边和房间边界相机限制。
+- 编写并提交阶段 1 画面与相机调优设计 `spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`，提交 `3a5f4da`。
+- 编写 `阶段 1` 画面与相机调优计划 `docs/superpowers/plans/2026-04-01-stage-1-display-and-camera-tuning.md`，准备进入执行方式确认。
+- 当前代码状态仍保持 `阶段 1：可启动骨架（已完成，可试玩）`，画面与相机构图调优尚未开始实现。

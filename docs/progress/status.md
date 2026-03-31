@@ -1,6 +1,6 @@
 # Nano Hunter Status
 
-Last Updated: 2026-03-31
+Last Updated: 2026-04-01
 
 ## Current Phase
 
@@ -12,7 +12,7 @@ Last Updated: 2026-03-31
 
 ## Stage Goal
 
-保持阶段 1 的启动骨架可试玩，并收集主场景比例、测试房间尺度、玩家可读性与相机观感的反馈，为阶段 2 的移动手感开发做准备。
+保持阶段 1 的启动骨架可试玩，并在不扩大范围的前提下完成首轮画面与相机构图调优，为阶段 2 的移动手感开发做准备。
 
 ## Playable Now
 
@@ -63,6 +63,7 @@ Last Updated: 2026-03-31
 - 维护项目专属 `AGENTS.md` 与设计文档
 - 维护 `docs/progress/` 的状态、时间线、日记录文档
 - 收集 `阶段 1：可启动骨架` 的试玩反馈
+- 准备执行 `阶段 1` 画面与相机调优计划
 - 准备 `阶段 2：基础移动手感` 的实现计划与参数目标
 
 ## Recently Completed
@@ -86,6 +87,8 @@ Last Updated: 2026-03-31
 - 完成 `阶段 1` Task 2：占位玩家与启动脚本，提交 `939f251`，并修正可见性与生成顺序，提交 `719fc92`
 - 完成 `阶段 1` Task 3：测试房间壳体，提交 `49d69e4`，并补强房间测试契约，提交 `6770ba5`
 - 当前 worktree 已可直接启动进入 `Main.tscn`，形成第一个可试玩检查点
+- 编写并提交 `spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`，提交 `3a5f4da`
+- 编写 `docs/superpowers/plans/2026-04-01-stage-1-display-and-camera-tuning.md`，等待执行方式确认
 
 ## Risks And Blockers
 
@@ -98,6 +101,6 @@ Last Updated: 2026-03-31
 
 ## Next Recommended Steps
 
-1. 启动并试玩当前 `阶段 1：可启动骨架`，记录房间尺寸、出生点与相机比例反馈
-2. 为 `阶段 2：基础移动手感` 编写实现计划
-3. 在阶段 2 中为玩家加入最小移动、跳跃和落地反馈
+1. 确认并执行 `docs/superpowers/plans/2026-04-01-stage-1-display-and-camera-tuning.md`
+2. 试玩调优后的当前画面，记录房间尺寸、出生点与相机比例反馈
+3. 在画面与相机调优收口后，为 `阶段 2：基础移动手感` 编写实现计划
