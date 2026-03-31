@@ -40,6 +40,7 @@ Last Updated: 2026-03-31
 - 在当前 worktree 中建立并更新 `docs/progress/` 的状态、时间线和日记录文档，尚未提交
 - 在 `AGENTS.md` 中补充项目内代码的注释约定
 - 在 `AGENTS.md` 中补充 `subagent` / `multi-agent` 原则，并要求重要委派写入 `Delegation Log`
+- 在 `AGENTS.md` 中补充交互语言约定，明确面向用户与项目文档默认使用中文
 
 ## Risks And Blockers
 

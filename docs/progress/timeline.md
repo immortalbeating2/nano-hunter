@@ -14,3 +14,4 @@
 - 在 `spec-design/2026-03-31-nano-hunter-agents-design.md` 中补充文档定位说明，明确设计稿负责记录治理依据，`AGENTS.md` 负责承载当前执行规范。
 - 在 `AGENTS.md` 中补充项目内代码的注释约定，明确中文注释、关键玩法流程的引导性注释以及低信息量注释的限制。
 - 在 `AGENTS.md` 与设计稿中补充 `subagent` / `multi-agent` 使用原则，并明确重要委派需写入当日日志的 `Delegation Log`。
+- 在 `AGENTS.md` 与设计稿中补充交互语言约定，明确面向用户与项目文档默认使用中文，系统固定 UI 允许保留原文。
