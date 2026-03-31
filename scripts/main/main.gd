@@ -38,9 +38,11 @@ func _apply_test_room_camera_limits(player: CharacterBody2D) -> void:
 		return
 
 	var camera_limits: Rect2i = test_room.call("get_camera_limits")
+	var room_world_offset := Vector2i(test_room.global_position.round())
+	var world_camera_limits := Rect2i(camera_limits.position + room_world_offset, camera_limits.size)
 
 	camera.limit_enabled = true
-	camera.limit_left = camera_limits.position.x
-	camera.limit_top = camera_limits.position.y
-	camera.limit_right = camera_limits.end.x
-	camera.limit_bottom = camera_limits.end.y
+	camera.limit_left = world_camera_limits.position.x
+	camera.limit_top = world_camera_limits.position.y
+	camera.limit_right = world_camera_limits.end.x
+	camera.limit_bottom = world_camera_limits.end.y

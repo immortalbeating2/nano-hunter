@@ -155,6 +155,39 @@ func test_main_scene_applies_test_room_camera_limits_to_placeholder_camera() -> 
 	assert_eq(camera.limit_bottom, 192)
 
 
+func test_main_scene_offsets_camera_limits_when_test_room_is_translated() -> void:
+	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
+
+	assert_not_null(packed_scene)
+
+	var main_scene: Node = packed_scene.instantiate()
+	var test_room: Node2D = main_scene.get_node_or_null("TestRoom") as Node2D
+
+	assert_not_null(test_room)
+
+	test_room.position = Vector2(64, 32)
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+
+	var runtime: Node2D = main_scene.get_node_or_null("Runtime") as Node2D
+
+	assert_not_null(runtime)
+	assert_eq(runtime.get_child_count(), 1)
+
+	var player: CharacterBody2D = runtime.get_child(0) as CharacterBody2D
+
+	assert_not_null(player)
+
+	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+
+	assert_not_null(camera)
+	assert_true(camera.limit_enabled)
+	assert_eq(camera.limit_left, -448)
+	assert_eq(camera.limit_top, -160)
+	assert_eq(camera.limit_right, 576)
+	assert_eq(camera.limit_bottom, 224)
+
+
 func test_placeholder_player_scene_has_required_nodes() -> void:
 	var packed_scene: PackedScene = load("res://scenes/player/player_placeholder.tscn") as PackedScene
 
