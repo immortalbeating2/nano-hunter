@@ -22,7 +22,6 @@ window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
 window/stretch/scale_mode="integer"
 
 [editor_plugins]
@@ -35,5 +34,5 @@ enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg", "res://addons/gut
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.0745098, 0.129412, 0.219608, 1)
 rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0.0745098, 0.129412, 0.219608, 1)

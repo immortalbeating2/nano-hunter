@@ -92,6 +92,7 @@ Last Updated: 2026-04-01
 - 编写并提交 `docs/superpowers/plans/2026-04-01-stage-1-display-and-camera-tuning.md`，提交 `d7418d2`
 - 完成 `阶段 1` Task 1：实现显示设置与基础启动收口，提交 `6597c44`，并根据 review 修复收口问题，提交 `1c832ab`
 - 完成 `阶段 1` Task 2：实现测试房间边界相机限制与房间构图调优，提交 `9213814`，并根据 review 修复收口问题，提交 `ccd6ad7`
+- 完成导入验证卫生修复，补跟踪 `scripts/rooms/test_room.gd.uid`，并接受 `project.godot` 的 Godot 规范化写回形式
 - 本轮阶段 1 画面与相机调优已完成，当前进入试玩反馈收集和阶段 2 准备
 
 ## Risks And Blockers
@@ -101,7 +102,7 @@ Last Updated: 2026-04-01
 - 之前的基线验证暴露过 `better-terrain` 在当前 Godot 4.6 环境下的兼容性问题，因此后续再次启用前需要重新验证
 - 当前阶段的 Godot 基线验证应使用 `godot --headless --path . --import`，不是 `--quit`
 - `godot --headless --path . --import` 仍会在退出时输出 `ObjectDB instances leaked at exit` 警告，暂未定位到项目侧根因
-- 同一条 `--import` 还会重建未跟踪的 `scripts/rooms/test_room.gd.uid` 并规范化写回 `project.godot`，导致工作树变脏；后续运行后需要检查并清理这些自动生成和规范化噪音，避免误判为新的功能改动
+- `--import` 相关的工作树噪音已收口：`scripts/rooms/test_room.gd.uid` 已补跟踪，`project.godot` 已调整为 Godot 规范化写回后的稳定形式
 - `PlayerSpawn` 当前与 `TestRoom` 为并列节点；阶段 2 如果开始调整房间原点或复用房间模板，需要明确两者的归属关系
 
 ## Next Recommended Steps
