@@ -11,3 +11,4 @@
 - 关闭 `better-terrain` 的当前阶段激活，仅保留 `godot_mcp` 与 `gut` 作为默认可用插件，提交 `5cfc113`。
 - 在当前 worktree 中开始建立项目级进度留痕体系，落地 `docs/progress/` 的状态、时间线和日记录文档。
 - 在当前 worktree 中创建项目专属 `AGENTS.md`，并补齐 `docs/progress/` 的状态、时间线和日记录文档；这些治理改动尚未提交。
+- 在 `spec-design/2026-03-31-nano-hunter-agents-design.md` 中补充文档定位说明，明确设计稿负责记录治理依据，`AGENTS.md` 负责承载当前执行规范。
