@@ -6,9 +6,43 @@ Last Updated: 2026-03-31
 
 `Vertical Slice / 原型期`
 
+## Current Stage
+
+`阶段 1：可启动骨架（待开始）`
+
+## Stage Goal
+
+建立可直接启动进入主场景的最小骨架，为后续移动、战斗和教程区验证提供稳定入口。
+
+## Playable Now
+
+- 当前还没有可直接运行的主场景
+- 目前只能进行工程导入验证、阶段规划与资产策略收敛
+
+## Adjustable Now
+
+- 阶段 1 的范围与退出条件
+- 主场景比例、测试房间尺寸、基础相机策略
+- 原型期资产替代方式与视觉方向
+
+## Exit Criteria
+
+- 已配置 `run/main_scene`
+- 存在 `Main.tscn`、测试房间、玩家出生点、相机与基础碰撞
+- 项目可直接启动进入场景，作为后续移动手感开发入口
+
+## Asset Status
+
+- 当前以占位资产规划为主，允许免费替代与少量 AI 视觉探索
+- 尚未进入正式项目资产生产
+
+## Next Stage
+
+`阶段 2：基础移动手感`
+
 ## Current Goal
 
-项目级治理基线已经落地，继续维护 `AGENTS.md`、时间线和日记录文档，然后再进入第一版可玩原型的实现计划。
+项目级治理基线已经落地，下一步是为 `阶段 1：可启动骨架` 编写实现计划并进入实现。
 
 ## Current Defaults
 
@@ -23,9 +57,9 @@ Last Updated: 2026-03-31
 
 ## In Progress
 
-- 维护项目专属 `AGENTS.md`
+- 维护项目专属 `AGENTS.md` 与设计文档
 - 维护 `docs/progress/` 的状态、时间线、日记录文档
-- 为后续第一版可玩原型整理实现入口
+- 为 `阶段 1：可启动骨架` 整理实现入口与资产策略
 
 ## Recently Completed
 
@@ -36,21 +70,24 @@ Last Updated: 2026-03-31
 - 通过 worktree 隔离创建 `codex/agents-foundation`
 - 修复 Godot 基线问题，禁用当前阶段不需要的 `better-terrain` 激活
 - 保留 `godot_mcp` 与 `gut` 作为当前阶段默认可用插件
-- 在当前 worktree 中创建项目专属 `AGENTS.md`，尚未提交
-- 在当前 worktree 中建立并更新 `docs/progress/` 的状态、时间线和日记录文档，尚未提交
+- 在当前 worktree 中创建并持续完善项目专属 `AGENTS.md`
+- 在当前 worktree 中建立并持续更新 `docs/progress/` 的状态、时间线和日记录文档
 - 在 `AGENTS.md` 中补充项目内代码的注释约定
 - 在 `AGENTS.md` 中补充 `subagent` / `multi-agent` 原则，并要求重要委派写入 `Delegation Log`
 - 在 `AGENTS.md` 中补充交互语言约定，明确面向用户与项目文档默认使用中文
+- 在 `AGENTS.md` 与设计稿中补充 5 个可试玩检查点、阶段记录要求与原型期资产策略
 
 ## Risks And Blockers
 
 - 目前还没有主场景、玩家控制器、关卡原型或测试目录
 - 如果没有统一的项目级规范和进度文档，后续多 session 开发容易偏离目标
+- 阶段 1 的实现计划尚未编写，当前还没有可试玩入口
+- 资产需求仍处于原型期规划阶段，目前依赖占位、免费资源和 AI 临时探索并行推进
 - 之前的基线验证暴露过 `better-terrain` 在当前 Godot 4.6 环境下的兼容性问题，因此后续再次启用前需要重新验证
 - 当前阶段的 Godot 基线验证应使用 `godot --headless --path . --import`，不是 `--quit`
 
 ## Next Recommended Steps
 
-1. 继续维护 `AGENTS.md` 和进度留痕体系
-2. 在规范稳定后，为第一版可玩原型编写实现计划
-3. 从主场景和玩家基础移动开始推进垂直切片
+1. 为 `阶段 1：可启动骨架` 编写实现计划
+2. 落地 `Main.tscn` 与 `run/main_scene`
+3. 形成第一个可启动、可看、可调的测试场景
