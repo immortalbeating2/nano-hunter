@@ -16,3 +16,4 @@
 - 在 `AGENTS.md` 与设计稿中补充 `subagent` / `multi-agent` 使用原则，并明确重要委派需写入当日日志的 `Delegation Log`。
 - 在 `AGENTS.md` 与设计稿中补充交互语言约定，明确面向用户与项目文档默认使用中文，系统固定 UI 允许保留原文。
 - 在 `AGENTS.md`、设计稿与 `status.md` 中补充 5 个可试玩检查点、阶段记录字段与原型期资产策略，明确每阶段都必须可看、可玩、可调。
+- 编写并保存 `阶段 1：可启动骨架` 的实现计划 `docs/superpowers/plans/2026-03-31-stage-1-startup-skeleton.md`，为 `Main.tscn`、测试房间与占位玩家的落地做任务拆分。

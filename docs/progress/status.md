@@ -42,7 +42,7 @@ Last Updated: 2026-03-31
 
 ## Current Goal
 
-项目级治理基线已经落地，下一步是为 `阶段 1：可启动骨架` 编写实现计划并进入实现。
+`阶段 1：可启动骨架` 的实现计划已经完成，下一步是在该计划基础上选择执行方式并开始落地。
 
 ## Current Defaults
 
@@ -59,7 +59,7 @@ Last Updated: 2026-03-31
 
 - 维护项目专属 `AGENTS.md` 与设计文档
 - 维护 `docs/progress/` 的状态、时间线、日记录文档
-- 为 `阶段 1：可启动骨架` 整理实现入口与资产策略
+- 为 `阶段 1：可启动骨架` 准备执行环境与文件边界
 
 ## Recently Completed
 
@@ -76,18 +76,19 @@ Last Updated: 2026-03-31
 - 在 `AGENTS.md` 中补充 `subagent` / `multi-agent` 原则，并要求重要委派写入 `Delegation Log`
 - 在 `AGENTS.md` 中补充交互语言约定，明确面向用户与项目文档默认使用中文
 - 在 `AGENTS.md` 与设计稿中补充 5 个可试玩检查点、阶段记录要求与原型期资产策略
+- 编写 `docs/superpowers/plans/2026-03-31-stage-1-startup-skeleton.md`
 
 ## Risks And Blockers
 
 - 目前还没有主场景、玩家控制器、关卡原型或测试目录
 - 如果没有统一的项目级规范和进度文档，后续多 session 开发容易偏离目标
-- 阶段 1 的实现计划尚未编写，当前还没有可试玩入口
+- 阶段 1 仍未开始实现，当前还没有可试玩入口
 - 资产需求仍处于原型期规划阶段，目前依赖占位、免费资源和 AI 临时探索并行推进
 - 之前的基线验证暴露过 `better-terrain` 在当前 Godot 4.6 环境下的兼容性问题，因此后续再次启用前需要重新验证
 - 当前阶段的 Godot 基线验证应使用 `godot --headless --path . --import`，不是 `--quit`
 
 ## Next Recommended Steps
 
-1. 为 `阶段 1：可启动骨架` 编写实现计划
+1. 选择 `阶段 1：可启动骨架` 的执行方式
 2. 落地 `Main.tscn` 与 `run/main_scene`
 3. 形成第一个可启动、可看、可调的测试场景
