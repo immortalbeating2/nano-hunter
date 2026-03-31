@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[node name="Main" type="Node2D"]
+
+[node name="Runtime" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(-320, 96)
