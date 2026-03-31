@@ -47,6 +47,32 @@ func test_main_scene_spawns_placeholder_player_at_spawn_point() -> void:
 	main_scene.free()
 
 
+func test_test_room_scene_has_required_boundary_nodes() -> void:
+	var packed_scene: PackedScene = load("res://scenes/rooms/test_room.tscn") as PackedScene
+
+	assert_not_null(packed_scene)
+
+	var test_room: Node = packed_scene.instantiate()
+
+	assert_not_null(test_room.get_node_or_null("Backdrop"))
+	assert_not_null(test_room.get_node_or_null("Floor"))
+	assert_not_null(test_room.get_node_or_null("LeftWall"))
+	assert_not_null(test_room.get_node_or_null("RightWall"))
+
+	test_room.free()
+
+
+func test_main_scene_instances_test_room() -> void:
+	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
+
+	assert_not_null(packed_scene)
+
+	var main_scene: Node = packed_scene.instantiate()
+	add_child_autofree(main_scene)
+
+	assert_not_null(main_scene.get_node_or_null("TestRoom"))
+
+
 func test_placeholder_player_scene_has_required_nodes() -> void:
 	var packed_scene: PackedScene = load("res://scenes/player/player_placeholder.tscn") as PackedScene
 
