@@ -17,9 +17,6 @@ func _configure_window_defaults() -> void:
 
 
 func _spawn_placeholder_player() -> void:
-	if runtime.get_child_count() > 0:
-		return
-
 	var player: CharacterBody2D = PLAYER_PLACEHOLDER_SCENE.instantiate() as CharacterBody2D
 
 	if player == null:
