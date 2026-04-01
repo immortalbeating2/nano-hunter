@@ -32,3 +32,6 @@
 - 完成 `阶段 1` Task 2：实现测试房间边界相机限制与房间构图调优，提交 `9213814`，并在 review 后以 `ccd6ad7` 完成修复收口。
 - 当前阶段 1 已具备固定分辨率、留边策略和房间边界相机限制，试玩时不再露出默认灰色空区。
 - 为保证 `--import` 校验后工作树仍保持干净，补跟踪 `scripts/rooms/test_room.gd.uid`，并将 `project.godot` 调整为 Godot 规范化写回形式。
+- 在 `main` 上先单独提交一组既有的 `godot_mcp` 与项目入口调整，提交 `00721fe`，避免后续合并时把在途改动和阶段成果混在一起。
+- 将 `codex/agents-foundation` 合并回 `main`，提交 `6e11ff6`，让阶段 1 原型、治理基线和进度文档正式进入主线。
+- 合并完成后清理 `codex/agents-foundation` 分支与对应 worktree，只保留主工作区继续作为当前稳定基线。

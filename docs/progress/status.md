@@ -94,6 +94,8 @@ Last Updated: 2026-04-01
 - 完成 `阶段 1` Task 2：实现测试房间边界相机限制与房间构图调优，提交 `9213814`，并根据 review 修复收口问题，提交 `ccd6ad7`
 - 完成导入验证卫生修复，补跟踪 `scripts/rooms/test_room.gd.uid`，并接受 `project.godot` 的 Godot 规范化写回形式
 - 本轮阶段 1 画面与相机调优已完成，当前进入试玩反馈收集和阶段 2 准备
+- 将 `codex/agents-foundation` 合并回 `main`，提交 `6e11ff6`，并清理对应分支与 worktree
+- 在 `AGENTS.md` 中补充分支生命周期与分支操作留痕规则，统一后续阶段开发节奏
 
 ## Risks And Blockers
 
