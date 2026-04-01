@@ -20,9 +20,15 @@ config/icon="res://icon.svg"
 BetterTerrain="*uid://bifon2gj62g3b"
 DialogueManager="*uid://c3rodes2l3gxb"
 ControllerIcons="*uid://bwuqcsg4d8ju7"
-MCPScreenshot="*res://addons/godot_mcp/mcp_screenshot_service.gd"
-MCPInputService="*res://addons/godot_mcp/mcp_input_service.gd"
-MCPGameInspector="*res://addons/godot_mcp/mcp_game_inspector_service.gd"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
@@ -35,3 +41,4 @@ enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg", "res://addon
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0.0745098, 0.129412, 0.219608, 1)
