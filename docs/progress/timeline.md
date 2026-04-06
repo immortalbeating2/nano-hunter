@@ -35,3 +35,9 @@
 - 在 `main` 上先单独提交一组既有的 `godot_mcp` 与项目入口调整，提交 `00721fe`，避免后续合并时把在途改动和阶段成果混在一起。
 - 将 `codex/agents-foundation` 合并回 `main`，提交 `6e11ff6`，让阶段 1 原型、治理基线和进度文档正式进入主线。
 - 合并完成后清理 `codex/agents-foundation` 分支与对应 worktree，只保留主工作区继续作为当前稳定基线。
+
+## 2026-04-06
+
+- 基于阶段 1 的实践经验，收敛分支与 worktree 使用策略：默认先开分支，只有阶段型开发、并行开发或需要隔离 Godot 现场时再额外创建 worktree。
+- 新建设计文档 `spec-design/2026-04-06-branch-and-worktree-strategy.md`，明确“仅分支”与“分支 + worktree”的适用条件。
+- 从 `main` 开出短分支 `codex/branch-vs-worktree-policy`，本次采用模式为 `仅分支`，用于落地工作流规则修订并作为今后留痕示例。

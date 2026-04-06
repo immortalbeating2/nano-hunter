@@ -1,6 +1,6 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-01
+Last Updated: 2026-04-06
 
 ## Current Phase
 
@@ -66,6 +66,7 @@ Last Updated: 2026-04-01
 - 维护 `docs/progress/` 的状态、时间线、日记录文档
 - 收集最新试玩反馈，确认调优后的画面感受
 - 整理阶段 2 的准备事项与参数目标
+- 收敛分支与 worktree 使用规则，避免小任务流程过重
 
 ## Recently Completed
 
@@ -96,6 +97,7 @@ Last Updated: 2026-04-01
 - 本轮阶段 1 画面与相机调优已完成，当前进入试玩反馈收集和阶段 2 准备
 - 将 `codex/agents-foundation` 合并回 `main`，提交 `6e11ff6`，并清理对应分支与 worktree
 - 在 `AGENTS.md` 中补充分支生命周期与分支操作留痕规则，统一后续阶段开发节奏
+- 明确后续采用“默认先开分支，阶段开发按需增加 worktree”的开发节奏，并补充对应设计文档与留痕规则
 
 ## Risks And Blockers
 
@@ -111,4 +113,4 @@ Last Updated: 2026-04-01
 
 1. 收集新的试玩反馈，确认当前 `640x360` 画面、整数倍缩放和留边观感是否稳定
 2. 评估阶段 2 前是否需要调整 `PlayerSpawn` 与 `TestRoom` 的场景归属
-3. 为 `阶段 2：基础移动手感` 整理实现计划与参数目标
+3. 按新规则从 `main` 为 `阶段 2：基础移动手感` 开新分支，并额外创建 worktree
