@@ -44,3 +44,4 @@
 - 将 `codex/branch-vs-worktree-policy` 快进合并回 `main`，并再次验证阶段 1 测试保持 `10/10 passed`。
 - 删除已合并的 `codex/branch-vs-worktree-policy`，把主工作目录重新收拢到 `main`。
 - 将 `codex/stage-2-movement-feel` 及其 worktree 快进到最新 `main`，保留为后续阶段 2 的开发入口。
+- 在 `main` 追加分支整理留痕后，再次将 `codex/stage-2-movement-feel` 快进到 `d0967f9`，保证阶段 2 分支与当前主线完全一致。
