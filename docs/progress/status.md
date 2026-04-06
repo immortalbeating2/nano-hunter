@@ -67,6 +67,7 @@ Last Updated: 2026-04-06
 - 收集最新试玩反馈，确认调优后的画面感受
 - 整理阶段 2 的准备事项与参数目标
 - 收敛分支与 worktree 使用规则，避免小任务流程过重
+- 整理当前仓库结构，使主工作目录回到 `main`，并让阶段 2 分支对齐最新主线
 
 ## Recently Completed
 
@@ -98,6 +99,7 @@ Last Updated: 2026-04-06
 - 将 `codex/agents-foundation` 合并回 `main`，提交 `6e11ff6`，并清理对应分支与 worktree
 - 在 `AGENTS.md` 中补充分支生命周期与分支操作留痕规则，统一后续阶段开发节奏
 - 明确后续采用“默认先开分支，阶段开发按需增加 worktree”的开发节奏，并补充对应设计文档与留痕规则
+- 将 `codex/branch-vs-worktree-policy` 合并回 `main` 并删除分支，同时把 `codex/stage-2-movement-feel` 快进到最新主线
 
 ## Risks And Blockers
 

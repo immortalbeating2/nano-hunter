@@ -41,3 +41,6 @@
 - 基于阶段 1 的实践经验，收敛分支与 worktree 使用策略：默认先开分支，只有阶段型开发、并行开发或需要隔离 Godot 现场时再额外创建 worktree。
 - 新建设计文档 `spec-design/2026-04-06-branch-and-worktree-strategy.md`，明确“仅分支”与“分支 + worktree”的适用条件。
 - 从 `main` 开出短分支 `codex/branch-vs-worktree-policy`，本次采用模式为 `仅分支`，用于落地工作流规则修订并作为今后留痕示例。
+- 将 `codex/branch-vs-worktree-policy` 快进合并回 `main`，并再次验证阶段 1 测试保持 `10/10 passed`。
+- 删除已合并的 `codex/branch-vs-worktree-policy`，把主工作目录重新收拢到 `main`。
+- 将 `codex/stage-2-movement-feel` 及其 worktree 快进到最新 `main`，保留为后续阶段 2 的开发入口。
