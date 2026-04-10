@@ -1,6 +1,6 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-06
+Last Updated: 2026-04-10
 
 ## Current Phase
 
@@ -12,7 +12,7 @@ Last Updated: 2026-04-06
 
 ## Stage Goal
 
-保持阶段 1 的启动骨架可试玩，并在不扩大范围的前提下完成首轮画面与相机构图调优，为阶段 2 的移动手感开发做准备。
+保持 `main` 上的阶段 1 稳定试玩基线，同时把后续阶段统一切换到新的默认开发节奏，减少 session 之间的流程漂移。
 
 ## Playable Now
 
@@ -47,7 +47,7 @@ Last Updated: 2026-04-06
 
 ## Current Goal
 
-本轮阶段 1 画面与相机调优已完成，当前转入试玩反馈收集和阶段 2 准备。
+`main` 当前继续承载阶段 1 的稳定基线；阶段 2 及后续大功能默认按“设计确认 -> 设计留痕 -> 简短计划 -> 实现 -> 验证 -> 文档收口”的节奏推进。
 
 ## Current Defaults
 
@@ -64,11 +64,9 @@ Last Updated: 2026-04-06
 
 - 维护项目专属 `AGENTS.md` 与设计文档
 - 维护 `docs/progress/` 的状态、时间线、日记录文档
+- 维护阶段 2 worktree 与主线 `main` 的职责分离：`main` 保持稳定基线，阶段开发在专用分支 / worktree 推进
 - 收集最新试玩反馈，确认调优后的画面感受
 - 整理阶段 2 的准备事项与参数目标
-- 收敛分支与 worktree 使用规则，避免小任务流程过重
-- 整理当前仓库结构，使主工作目录回到 `main`，并让阶段 2 分支对齐最新主线
-- 确认 `codex/stage-2-movement-feel` 已最终对齐到当前 `main` 提交 `d0967f9`
 
 ## Recently Completed
 
@@ -102,10 +100,14 @@ Last Updated: 2026-04-06
 - 明确后续采用“默认先开分支，阶段开发按需增加 worktree”的开发节奏，并补充对应设计文档与留痕规则
 - 将 `codex/branch-vs-worktree-policy` 合并回 `main` 并删除分支，同时把 `codex/stage-2-movement-feel` 快进到最新主线
 - 复核并确认 `codex/stage-2-movement-feel` 当前已与 `main` 同步到 `d0967f9`
+- 将“短 brainstorming 确认 + 简短实现计划 + 2-3 个提交点 + 只在可分离时用 subagent”的默认开发节奏正式写回 `AGENTS.md`
+- 新增 `spec-design/2026-04-10-development-cadence-standardization.md`，作为开发节奏标准化的设计留痕
+- 新增 `docs/superpowers/plans/2026-04-10-development-cadence-standardization.md`，作为治理修订的实现计划留痕
 
 ## Risks And Blockers
 
 - 如果没有统一的项目级规范和进度文档，后续多 session 开发容易偏离目标
+- 如果默认开发节奏只停留在聊天上下文而没有写回主线文档，后续 session 仍可能重复出现阶段 1 与阶段 2 那种流程漂移
 - 资产需求仍处于原型期规划阶段，目前依赖占位、免费资源和 AI 临时探索并行推进
 - 之前的基线验证暴露过 `better-terrain` 在当前 Godot 4.6 环境下的兼容性问题，因此后续再次启用前需要重新验证
 - 当前阶段的 Godot 基线验证应使用 `godot --headless --path . --import`，不是 `--quit`
@@ -115,6 +117,6 @@ Last Updated: 2026-04-06
 
 ## Next Recommended Steps
 
-1. 收集新的试玩反馈，确认当前 `640x360` 画面、整数倍缩放和留边观感是否稳定
-2. 评估阶段 2 前是否需要调整 `PlayerSpawn` 与 `TestRoom` 的场景归属
-3. 按新规则从 `main` 为 `阶段 2：基础移动手感` 开新分支，并额外创建 worktree
+1. 以 `AGENTS.md` 的新默认节奏为基线，继续在 `codex/stage-2-movement-feel` worktree 中推进阶段 2，并补齐 GUI 手动试玩收口
+2. 收集新的试玩反馈，确认当前 `640x360` 画面、整数倍缩放和留边观感是否稳定
+3. 后续阶段 3、4、5 分别按“大功能默认节奏”推进，避免再把攻击、冲刺、HUD 或房间系统重构提前混入当前阶段

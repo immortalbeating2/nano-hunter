@@ -45,3 +45,11 @@
 - 删除已合并的 `codex/branch-vs-worktree-policy`，把主工作目录重新收拢到 `main`。
 - 将 `codex/stage-2-movement-feel` 及其 worktree 快进到最新 `main`，保留为后续阶段 2 的开发入口。
 - 在 `main` 追加分支整理留痕后，再次将 `codex/stage-2-movement-feel` 快进到 `d0967f9`，保证阶段 2 分支与当前主线完全一致。
+
+## 2026-04-10
+
+- 基于阶段 1 与阶段 2 的执行差异，补充“默认开发节奏”治理规则，明确它是对 `AGENTS.md` 现有“大功能 / 小改动”分流的执行层细化，而不是替代规则。
+- 在 `AGENTS.md` 中新增“大功能默认节奏”“小改动默认节奏”与对应决策规则，统一 `brainstorming`、`subagent`、`worktree` 与提交次数的默认用法。
+- 新建设计留痕 `spec-design/2026-04-10-development-cadence-standardization.md`，说明为什么要把阶段型开发节奏从聊天约定提升为项目内显式规范。
+- 新增实现计划 `docs/superpowers/plans/2026-04-10-development-cadence-standardization.md`，把本次治理修订限定为文档与规则收口，不混入额外玩法实现。
+- 更新 `docs/progress/status.md`、`docs/progress/timeline.md` 与当日日志，明确后续阶段 3、4、5 默认沿用大功能节奏，文档修订、配置调整与单点 bugfix 则沿用小改动节奏。
