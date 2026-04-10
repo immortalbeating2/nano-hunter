@@ -8,6 +8,9 @@ size = Vector2(1024, 32)
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(32, 384)
 
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(224, 24)
+
 [node name="TestRoom" type="Node2D"]
 script = ExtResource("1")
 
@@ -44,3 +47,13 @@ shape = SubResource("2")
 [node name="RightWallVisual" type="Polygon2D" parent="RightWall"]
 color = Color(0.184314, 0.262745, 0.333333, 1)
 polygon = PackedVector2Array(-16, -192, 16, -192, 16, 192, -16, 192)
+
+[node name="MidPlatform" type="StaticBody2D" parent="."]
+position = Vector2(128, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MidPlatform"]
+shape = SubResource("3")
+
+[node name="PlatformVisual" type="Polygon2D" parent="MidPlatform"]
+color = Color(0.423529, 0.364706, 0.247059, 1)
+polygon = PackedVector2Array(-112, -12, 112, -12, 112, 12, -112, 12)

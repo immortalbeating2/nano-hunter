@@ -3,6 +3,12 @@ extends Node2D
 const BASE_VIEWPORT_SIZE := Vector2i(640, 360)
 const PLAYER_PLACEHOLDER_SCENE: PackedScene = preload("res://scenes/player/player_placeholder.tscn")
 
+const INPUT_BINDINGS := {
+	"move_left": [KEY_A, KEY_LEFT],
+	"move_right": [KEY_D, KEY_RIGHT],
+	"jump": [KEY_SPACE, KEY_W, KEY_UP],
+}
+
 @onready var test_room: Node2D = $TestRoom
 @onready var runtime: Node2D = $Runtime
 @onready var player_spawn: Marker2D = $PlayerSpawn
@@ -10,11 +16,27 @@ const PLAYER_PLACEHOLDER_SCENE: PackedScene = preload("res://scenes/player/playe
 
 func _ready() -> void:
 	_configure_window_defaults()
+	_ensure_default_input_bindings()
 	_spawn_placeholder_player()
 
 
 func _configure_window_defaults() -> void:
 	get_window().min_size = BASE_VIEWPORT_SIZE
+
+
+func _ensure_default_input_bindings() -> void:
+	for action_name in INPUT_BINDINGS.keys():
+		if not InputMap.has_action(action_name):
+			InputMap.add_action(action_name)
+
+		if not InputMap.action_get_events(action_name).is_empty():
+			continue
+
+		for keycode: Key in INPUT_BINDINGS[action_name]:
+			var event := InputEventKey.new()
+			event.keycode = keycode
+			event.physical_keycode = keycode
+			InputMap.action_add_event(action_name, event)
 
 
 func _spawn_placeholder_player() -> void:
