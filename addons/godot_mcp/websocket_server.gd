@@ -2,8 +2,9 @@
 extends Node
 
 ## Multi-connection WebSocket client.
-## Connects to multiple Node.js MCP server instances on ports 6505-6509.
+## Connects to multiple Node.js MCP server instances on ports 6505-6514.
 ## Each Claude Code session gets its own port; Godot talks to all of them.
+## Ports 6505-6509: MCP servers (stdio), 6510-6514: CLI tool connections.
 
 signal client_connected()
 signal client_disconnected()
@@ -14,7 +15,7 @@ signal command_completed(method: String, success: bool, response: String, source
 var command_router: Node
 
 const BASE_PORT := 6505
-const MAX_PORT := 6509
+const MAX_PORT := 6514
 const RECONNECT_INTERVAL := 3.0
 const BUFFER_SIZE := 16 * 1024 * 1024  # 16MB
 
@@ -102,7 +103,7 @@ func _process(delta: float) -> void:
 					_connected[p] = true
 					_connect_times[p] = 0.0
 					_timers[p] = 0.0
-					print("[MCP] Connected on port %d" % p)
+					print_verbose("[MCP] Connected on port %d" % p)
 					client_connected.emit()
 				else:
 					_connect_times[p] = _connect_times.get(p, 0.0) + delta
@@ -118,7 +119,7 @@ func _process(delta: float) -> void:
 			WebSocketPeer.STATE_CLOSED:
 				if _connected.get(p, false):
 					_connected[p] = false
-					print("[MCP] Disconnected from port %d" % p)
+					print_verbose("[MCP] Disconnected from port %d" % p)
 					client_disconnected.emit()
 				_peers[p] = null
 				_timers[p] = 0.0
