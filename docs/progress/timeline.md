@@ -51,3 +51,15 @@
 - 修复当前 codex/stage-2-movement-feel worktree 的 Git 索引损坏，恢复 git status 与 git diff --check。
 - 将 codex/stage-2-movement-feel 本地合并回 main，并在主线结果上重新确认 --import、阶段 1 GUT、阶段 2 GUT 与 git diff --check 全部通过。
 
+## 2026-04-20
+
+- 将当前一组 `godot_mcp` 相关改动确认为插件正常更新，而不是临时实验；本轮按主线小改动收口，不与阶段 3 玩法实现混做。
+- 本轮 MCP 更新包含：
+  - 插件版本从 `1.10.1` 升级到 `1.12.0`
+  - 插件退出时只清理“本 session 注入的 autoload”
+  - `command_router` 接入 Android 相关命令
+  - `base_command` 改进游戏用户目录解析逻辑
+- 将 `.mcp.json` 明确保留为本地配置，并加入本地 Git 忽略，而不是写入项目级 `.gitignore`。
+- 从收口后的 `main` 建立 `codex/stage-3-combat-feel` 与 `.worktrees/stage-3-combat-feel`，作为阶段 3 的隔离开发现场。
+- 在阶段 3 worktree 中启动设计文档、实现计划、状态页、时间线与当日日志，锁定第一轮范围为“攻击 + 木桩目标”，暂不写入实际战斗实现。
+

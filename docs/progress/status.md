@@ -1,6 +1,6 @@
 ﻿# Nano Hunter Status
 
-Last Updated: 2026-04-11
+Last Updated: 2026-04-20
 
 ## Current Phase
 
@@ -58,7 +58,7 @@ Last Updated: 2026-04-11
 
 ## Current Goal
 
-阶段 2 已完成收口；`main` 当前承载阶段 2 的稳定基线，下一步按已标准化的默认开发节奏转入阶段 3 的攻击循环设计与实现。
+`main` 当前继续承载阶段 2 的稳定基线；本轮先收口一组 MCP 正常插件更新与本地配置噪音，再从干净主线建立阶段 3 的隔离开发现场。
 
 ## Current Defaults
 
@@ -71,8 +71,9 @@ Last Updated: 2026-04-11
 ## In Progress
 
 - 维护阶段 2 已完成基线的文档留痕
+- 收口本轮 MCP 插件正常更新，并把 `.mcp.json` 限定为本地忽略文件
 - 以新的默认开发节奏作为后续阶段推进基线
-- 为阶段 3 的最小攻击循环准备设计与接入点
+- 为阶段 3 的最小攻击循环准备独立分支与 worktree 入口
 
 ## Recently Completed
 
@@ -87,6 +88,8 @@ Last Updated: 2026-04-11
 - 同步后续阶段分工：攻击阶段 3，冲刺阶段 4，HUD 与房间系统重构阶段 5
 - 修正阶段 2 worktree 中的 Godot MCP 版本与项目级 autoload 兼容问题
 - 在沙箱外重新确认 `godot --headless --path . --import`、阶段 1 GUT 与阶段 2 GUT 全部通过
+- 将本轮 MCP 扩展改动确认为“插件正常更新”处理，而不是额外实验功能
+- 准备从干净 `main` 新建 `codex/stage-3-combat-feel` 与对应 worktree，作为阶段 3 的唯一开发入口
 
 ## Risks And Blockers
 
@@ -95,9 +98,10 @@ Last Updated: 2026-04-11
 - 本轮恢复了部分项目级 autoload 以保证编辑器可解析，但不改变阶段 2 玩法范围
 - `PlayerSpawn` 仍与 `TestRoom` 并列，阶段 2 本轮不处理场景归属重构
 - 如果后续 session 不按 `AGENTS.md -> status.md -> 当日日志 -> 相关 spec` 的顺序接续，仍可能重新出现流程漂移
+- 若 MCP 插件更新与阶段 3 玩法开发混在同一提交中，后续回溯工具链问题会变难
 
 ## Next Recommended Steps
 
-1. 以当前阶段 2 基线为起点，开始阶段 3 的攻击循环设计和实现计划
-2. 若后续仍依赖编辑器侧自动试玩，可继续跟进 `simulate_key(KEY_SPACE)` 的工具链噪声，但不把它当作阶段 2 玩法阻塞
-3. 继续沿用已经写回主线文档的默认开发节奏，避免后续阶段再把攻击、冲刺、HUD 或房间系统重构提前混入当前目标
+1. 先把本轮 MCP 插件更新作为独立小改动收口并验证，再从干净 `main` 建立 `codex/stage-3-combat-feel` worktree
+2. 在阶段 3 worktree 内完成“攻击 + 木桩目标”的设计文档、实现计划与状态页启动
+3. 若后续仍依赖编辑器侧自动试玩，可继续跟进 `simulate_key(KEY_SPACE)` 的工具链噪声，但不把它当作阶段 3 启动阻塞
