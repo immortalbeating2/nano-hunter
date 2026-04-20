@@ -62,4 +62,6 @@
 - 将 `.mcp.json` 明确保留为本地配置，并加入本地 Git 忽略，而不是写入项目级 `.gitignore`。
 - 从收口后的 `main` 建立 `codex/stage-3-combat-feel` 与 `.worktrees/stage-3-combat-feel`，作为阶段 3 的隔离开发现场。
 - 在阶段 3 worktree 中启动设计文档、实现计划、状态页、时间线与当日日志，锁定第一轮范围为“攻击 + 木桩目标”，暂不写入实际战斗实现。
-
+- 新建设计文档 `spec-design/2026-04-20-stage-3-combat-feel-design.md`，明确本轮只做玩家普通攻击、固定木桩目标、命中反馈与基础受击反馈。
+- 新增实现计划 `docs/superpowers/plans/2026-04-20-stage-3-combat-feel.md`，把阶段 3 拆为输入契约、玩家攻击、木桩目标、阶段 3 GUT 与文档收口五个实施项。
+- 将 worktree 内 `docs/progress/status.md` 从“阶段 2 已完成”推进到“阶段 3 设计准备中”，让后续 session 进入时能直接读到当前战斗阶段目标。
