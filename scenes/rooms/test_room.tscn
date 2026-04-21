@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/test_room.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/combat/training_dummy.tscn" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1024, 32)
@@ -57,3 +58,6 @@ shape = SubResource("3")
 [node name="PlatformVisual" type="Polygon2D" parent="MidPlatform"]
 color = Color(0.423529, 0.364706, 0.247059, 1)
 polygon = PackedVector2Array(-112, -12, 112, -12, 112, 12, -112, 12)
+
+[node name="TrainingDummy" parent="." instance=ExtResource("2")]
+position = Vector2(208, 136)

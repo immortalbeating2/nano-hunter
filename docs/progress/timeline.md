@@ -62,4 +62,31 @@
 - 将 `.mcp.json` 明确保留为本地配置，并加入本地 Git 忽略，而不是写入项目级 `.gitignore`。
 - 从收口后的 `main` 建立 `codex/stage-3-combat-feel` 与 `.worktrees/stage-3-combat-feel`，作为阶段 3 的隔离开发现场。
 - 在阶段 3 worktree 中启动设计文档、实现计划、状态页、时间线与当日日志，锁定第一轮范围为“攻击 + 木桩目标”，暂不写入实际战斗实现。
+- 新建设计文档 `spec-design/2026-04-20-stage-3-combat-feel-design.md`，明确本轮只做玩家普通攻击、固定木桩目标、命中反馈与基础受击反馈。
+- 新增实现计划 `docs/superpowers/plans/2026-04-20-stage-3-combat-feel.md`，把阶段 3 拆为输入契约、玩家攻击、木桩目标、阶段 3 GUT 与文档收口五个实施项。
+- 将 worktree 内 `docs/progress/status.md` 从“阶段 2 已完成”推进到“阶段 3 设计准备中”，让后续 session 进入时能直接读到当前战斗阶段目标。
 
+## 2026-04-21
+
+- 补充阶段 3 与阶段 4 的“打击感反馈分层约定”，明确阶段 3 允许做基础可读性反馈，更强反馈留到阶段 4 结合能力差异评估。
+- 在 `project.godot` 中新增 `attack` 动作与默认键位，将阶段 3 输入契约静态写回工程配置。
+- 将占位玩家增量演进为支持地面普通攻击的原型：新增 `attack` 状态、前方命中范围、单次攻击单次命中与攻击恢复逻辑。
+- 新增 `TrainingDummy` 场景与脚本，并将其接入 `TestRoom`，建立固定木桩目标与最小受击反馈。
+- 新增 `tests/stage3/test_stage_3_combat_feel.gd`，覆盖输入契约、攻击状态、命中朝向、单次命中与木桩契约。
+- 重新确认 `godot --headless --path . --import`、阶段 1 GUT、阶段 2 GUT、阶段 3 GUT 与 `git diff --check` 全部通过；`--import` 退出时仍保留 `ObjectDB instances leaked at exit` 历史警告。
+- 当晚继续微调 Stage 3 时，清理当前 worktree 的 `.godot` 缓存后暴露出 `project.godot` 的历史配置风险：`autoload` 仍保留 `BetterTerrain`，且插件入口使用 `uid://...` 引用。
+- 修复 `project.godot`：移除 `BetterTerrain` autoload，并将 `DialogueManager`、`ControllerIcons` 改回 `res://...` 路径引用，避免冷启动后再次触发 `Unrecognized UID` 与 `better-terrain` 解析错误。
+- 修复后重新确认 `godot --headless --path . --import`、阶段 1 GUT、阶段 2 GUT 与 `git diff --check` 通过。
+- 当前仍存在单独阻塞：Stage 3 的 GUT 入口会触发 Godot signal 11 崩溃，尚未定位到最终根因。
+- 进一步缩小 Stage 3 GUT 崩溃范围：确认 `test_stage_3_combat_feel.gd` 可以在健康的 Stage 1 GUT 上下文中被加载、反射、实例化并手动执行单条测试方法，因此当前更像是 “GUT 将其作为独立目标测试入口运行” 的链路在 Godot 4.6 下不稳定，而不是 Stage 3 测试脚本内容本身立即崩溃。
+- 将 Stage 3 GUT 崩溃继续前移定位：确认 Stage 1 / Stage 2 的 `-gtest` 目标仍可正常进入 `gut_cmdln` 入口，而 Stage 3 目标、缺失脚本目标与非测试脚本目标都会在 `gut_cmdln.gd` `_init()` 之前触发 Godot `signal 11`，因此当前更像是目标路径启动链异常，而不是 Stage 3 测试逻辑本身立即崩溃。
+- 通过稳定入口恢复 Stage 3 自动化回归：保留 `tests/stage3/test_stage_3_combat_feel.gd` 作为真实测试定义，在 `tests/stage2/test_stage_2_movement_feel.gd` 中新增 5 条 `test_stage_3_bridge_*` 包装测试，重新确认 `Stage 2 + Stage 3 bridge` 命令达到 `12/12 passed`。
+- 将 `project.godot` 中实际残留的 `BetterTerrain` autoload 真正移除，与当前阶段“不启用 better-terrain”的项目规范重新对齐。
+- 用户补充 Windows 崩溃弹窗，确认 Stage 3 独立入口触发的是 Godot Win64 原生访问冲突（空指针附近 `0x58` 读错误）。
+- 在干净复现里进一步确认：Stage 3 独立 `-gtest` 可以跑到 `GutRunner.quit`，但会在原生退出阶段触发 `signal 11`；只跑最简单的输入契约单测也同样崩溃。
+- 临时最小探针 `tests/stage1/test_probe_minimal.gd` 证明“新增独立测试脚本目标”也可能触发同类问题；删除探针并重新导入后，Stage 1 独立入口恢复通过。
+- 继续对 `tests/stage3/test_stage_3_combat_feel.gd` 做同路径二分后确认：将该文件整份重写并规范化后，Stage 3 独立 `-gtest` 恢复正常，说明先前崩溃更像是该文件文本/编码状态异常，而不是 Stage 3 玩法测试逻辑本身错误。
+- 移除 Stage 2 中为绕过崩溃而添加的 `test_stage_3_bridge_*` 临时桥接，恢复独立的 Stage 3 suite 入口。
+- 补充 `AGENTS.md` 中的“测试文件异常排查约定”，把本轮 Stage 3 GUT 文本状态异常的高置信度排查经验沉淀为后续默认排查顺序。
+- 重新以 fresh 验证确认 `godot --headless --path . --import`、阶段 1 GUT、阶段 2 GUT、阶段 3 GUT 与 `git diff --check` 全部通过，确认 Stage 3 已达到可合并里程碑。
+- 将 `codex/stage-3-combat-feel` 以“分支 + worktree”模式本地合并回 `main`，并清理 `.worktrees/stage-3-combat-feel`，使主线进入“阶段 3 已完成，待进入阶段 4”的稳定状态。
