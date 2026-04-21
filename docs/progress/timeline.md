@@ -87,3 +87,6 @@
 - 临时最小探针 `tests/stage1/test_probe_minimal.gd` 证明“新增独立测试脚本目标”也可能触发同类问题；删除探针并重新导入后，Stage 1 独立入口恢复通过。
 - 继续对 `tests/stage3/test_stage_3_combat_feel.gd` 做同路径二分后确认：将该文件整份重写并规范化后，Stage 3 独立 `-gtest` 恢复正常，说明先前崩溃更像是该文件文本/编码状态异常，而不是 Stage 3 玩法测试逻辑本身错误。
 - 移除 Stage 2 中为绕过崩溃而添加的 `test_stage_3_bridge_*` 临时桥接，恢复独立的 Stage 3 suite 入口。
+- 补充 `AGENTS.md` 中的“测试文件异常排查约定”，把本轮 Stage 3 GUT 文本状态异常的高置信度排查经验沉淀为后续默认排查顺序。
+- 重新以 fresh 验证确认 `godot --headless --path . --import`、阶段 1 GUT、阶段 2 GUT、阶段 3 GUT 与 `git diff --check` 全部通过，确认 Stage 3 已达到可合并里程碑。
+- 将 `codex/stage-3-combat-feel` 以“分支 + worktree”模式本地合并回 `main`，并清理 `.worktrees/stage-3-combat-feel`，使主线进入“阶段 3 已完成，待进入阶段 4”的稳定状态。
