@@ -49,9 +49,11 @@ func test_project_points_to_a_loadable_stage_1_main_scene() -> void:
 	assert_eq(main_scene.name, "Main")
 
 	var runtime: Node2D = main_scene.get_node_or_null("Runtime") as Node2D
+	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
 	var player_spawn: Marker2D = main_scene.get_node_or_null("PlayerSpawn") as Marker2D
 
 	assert_not_null(runtime)
+	assert_not_null(room)
 	assert_not_null(player_spawn)
 	assert_eq(player_spawn.position, Vector2(-320, 96))
 
@@ -98,7 +100,7 @@ func test_test_room_scene_has_required_boundary_nodes() -> void:
 	assert_not_null(right_wall.get_node_or_null("CollisionShape2D") as CollisionShape2D)
 
 
-func test_main_scene_instances_test_room() -> void:
+func test_main_scene_instances_main_room_contract() -> void:
 	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
 
 	assert_not_null(packed_scene)
@@ -106,10 +108,11 @@ func test_main_scene_instances_test_room() -> void:
 	var main_scene: Node = packed_scene.instantiate()
 	add_child_autofree(main_scene)
 
-	var test_room: Node2D = main_scene.get_node_or_null("TestRoom") as Node2D
+	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
 
-	assert_not_null(test_room)
-	assert_true(test_room.get_node_or_null("Backdrop") is Polygon2D)
+	assert_not_null(room)
+	assert_true(room.has_method("get_camera_limits"))
+	assert_true(room.get_node_or_null("Backdrop") is Polygon2D)
 
 
 func test_test_room_exposes_stage_1_camera_limits() -> void:
@@ -127,12 +130,48 @@ func test_test_room_exposes_stage_1_camera_limits() -> void:
 	assert_eq(camera_limits, Rect2i(-512, -192, 1024, 384))
 
 
-func test_main_scene_applies_test_room_camera_limits_to_placeholder_camera() -> void:
+func test_main_scene_applies_main_room_camera_limits_to_placeholder_camera() -> void:
 	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
 
 	assert_not_null(packed_scene)
 
 	var main_scene: Node = packed_scene.instantiate()
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+
+	var runtime: Node2D = main_scene.get_node_or_null("Runtime") as Node2D
+	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
+
+	assert_not_null(runtime)
+	assert_not_null(room)
+	assert_eq(runtime.get_child_count(), 1)
+
+	var player: CharacterBody2D = runtime.get_child(0) as CharacterBody2D
+
+	assert_not_null(player)
+
+	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+
+	assert_not_null(camera)
+	assert_true(camera.limit_enabled)
+	var camera_limits: Rect2i = room.call("get_camera_limits")
+	assert_eq(camera.limit_left, camera_limits.position.x)
+	assert_eq(camera.limit_top, camera_limits.position.y)
+	assert_eq(camera.limit_right, camera_limits.end.x)
+	assert_eq(camera.limit_bottom, camera_limits.end.y)
+
+
+func test_main_scene_offsets_camera_limits_when_main_room_is_translated() -> void:
+	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
+
+	assert_not_null(packed_scene)
+
+	var main_scene: Node = packed_scene.instantiate()
+	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
+
+	assert_not_null(room)
+
+	room.position = Vector2(64, 32)
 	add_child_autofree(main_scene)
 	await get_tree().process_frame
 
@@ -149,43 +188,12 @@ func test_main_scene_applies_test_room_camera_limits_to_placeholder_camera() -> 
 
 	assert_not_null(camera)
 	assert_true(camera.limit_enabled)
-	assert_eq(camera.limit_left, -512)
-	assert_eq(camera.limit_top, -192)
-	assert_eq(camera.limit_right, 512)
-	assert_eq(camera.limit_bottom, 192)
-
-
-func test_main_scene_offsets_camera_limits_when_test_room_is_translated() -> void:
-	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
-
-	assert_not_null(packed_scene)
-
-	var main_scene: Node = packed_scene.instantiate()
-	var test_room: Node2D = main_scene.get_node_or_null("TestRoom") as Node2D
-
-	assert_not_null(test_room)
-
-	test_room.position = Vector2(64, 32)
-	add_child_autofree(main_scene)
-	await get_tree().process_frame
-
-	var runtime: Node2D = main_scene.get_node_or_null("Runtime") as Node2D
-
-	assert_not_null(runtime)
-	assert_eq(runtime.get_child_count(), 1)
-
-	var player: CharacterBody2D = runtime.get_child(0) as CharacterBody2D
-
-	assert_not_null(player)
-
-	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
-
-	assert_not_null(camera)
-	assert_true(camera.limit_enabled)
-	assert_eq(camera.limit_left, -448)
-	assert_eq(camera.limit_top, -160)
-	assert_eq(camera.limit_right, 576)
-	assert_eq(camera.limit_bottom, 224)
+	var camera_limits: Rect2i = room.call("get_camera_limits")
+	var world_camera_limits := Rect2i(camera_limits.position + Vector2i(64, 32), camera_limits.size)
+	assert_eq(camera.limit_left, world_camera_limits.position.x)
+	assert_eq(camera.limit_top, world_camera_limits.position.y)
+	assert_eq(camera.limit_right, world_camera_limits.end.x)
+	assert_eq(camera.limit_bottom, world_camera_limits.end.y)
 
 
 func test_placeholder_player_scene_has_required_nodes() -> void:

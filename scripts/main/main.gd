@@ -7,12 +7,14 @@ const INPUT_BINDINGS := {
 	"move_left": [KEY_A, KEY_LEFT],
 	"move_right": [KEY_D, KEY_RIGHT],
 	"jump": [KEY_SPACE, KEY_W, KEY_UP],
+	"attack": [KEY_J],
 	"dash": [KEY_K],
 }
 
-@onready var test_room: Node2D = $TestRoom
+@onready var room: Node2D = $Room
 @onready var runtime: Node2D = $Runtime
 @onready var player_spawn: Marker2D = $PlayerSpawn
+@onready var tutorial_hud: Control = $HUD/TutorialHUD
 
 
 func _ready() -> void:
@@ -47,21 +49,22 @@ func _spawn_placeholder_player() -> void:
 		return
 
 	player.position = player_spawn.position
-	_apply_test_room_camera_limits(player)
 	runtime.add_child(player)
+	_apply_room_camera_limits(player)
+	_bind_stage_5_runtime_dependencies(player)
 
 
-func _apply_test_room_camera_limits(player: CharacterBody2D) -> void:
+func _apply_room_camera_limits(player: CharacterBody2D) -> void:
 	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
 
 	if camera == null:
 		return
 
-	if test_room == null or not test_room.has_method("get_camera_limits"):
+	if room == null or not room.has_method("get_camera_limits"):
 		return
 
-	var camera_limits: Rect2i = test_room.call("get_camera_limits")
-	var room_world_offset := Vector2i(test_room.global_position.round())
+	var camera_limits: Rect2i = room.call("get_camera_limits")
+	var room_world_offset := Vector2i(room.global_position.round())
 	var world_camera_limits := Rect2i(camera_limits.position + room_world_offset, camera_limits.size)
 
 	camera.limit_enabled = true
@@ -69,3 +72,17 @@ func _apply_test_room_camera_limits(player: CharacterBody2D) -> void:
 	camera.limit_top = world_camera_limits.position.y
 	camera.limit_right = world_camera_limits.end.x
 	camera.limit_bottom = world_camera_limits.end.y
+
+
+func _bind_stage_5_runtime_dependencies(player: CharacterBody2D) -> void:
+	if room != null and room.has_method("bind_player"):
+		room.call("bind_player", player)
+
+	if tutorial_hud == null:
+		return
+
+	if tutorial_hud.has_method("bind_room"):
+		tutorial_hud.call("bind_room", room)
+
+	if tutorial_hud.has_method("bind_player"):
+		tutorial_hud.call("bind_player", player)
