@@ -7,6 +7,7 @@ const INPUT_BINDINGS := {
 	"move_left": [KEY_A, KEY_LEFT],
 	"move_right": [KEY_D, KEY_RIGHT],
 	"jump": [KEY_SPACE, KEY_W, KEY_UP],
+	"dash": [KEY_K],
 }
 
 @onready var test_room: Node2D = $TestRoom

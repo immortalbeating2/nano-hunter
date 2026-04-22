@@ -90,3 +90,24 @@
 - 补充 `AGENTS.md` 中的“测试文件异常排查约定”，把本轮 Stage 3 GUT 文本状态异常的高置信度排查经验沉淀为后续默认排查顺序。
 - 重新以 fresh 验证确认 `godot --headless --path . --import`、阶段 1 GUT、阶段 2 GUT、阶段 3 GUT 与 `git diff --check` 全部通过，确认 Stage 3 已达到可合并里程碑。
 - 将 `codex/stage-3-combat-feel` 以“分支 + worktree”模式本地合并回 `main`，并清理 `.worktrees/stage-3-combat-feel`，使主线进入“阶段 3 已完成，待进入阶段 4”的稳定状态。
+
+## 2026-04-22
+
+- 从当前 `main` 建立 `codex/stage-4-minimal-ability-difference` 与 `.worktrees/stage-4-minimal-ability-difference`，作为阶段 4 的唯一开发入口。
+- 新建设计文档 `spec-design/2026-04-22-stage-4-minimal-ability-difference-design.md`，固定本轮能力形式为“仅地面冲刺”，验证形式为“TestRoom 混合验证”。
+- 新增实现计划 `docs/superpowers/plans/2026-04-22-stage-4-minimal-ability-difference.md`，把阶段 4 拆为 preflight、冲刺状态、TestRoom 门槛、轻量反馈、自动化验证与文档收口五个实施项。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 4 已启动，设计与 preflight 已完成”，并明确延后项归属：哪些留在阶段 4、哪些明确留给阶段 5、哪些继续后延。
+- 将修正后的 `subagent` / `multi-agent` 规则同步到当前 worktree 的 `AGENTS.md`，使阶段 4 后续实现默认主动评估代理协作，而不是默认主代理单线推进。
+- 完成 fresh preflight 的首轮验证：`.worktrees` 忽略检查通过，`godot --headless --path . --import` 通过，Stage 1 GUT 与 Stage 2 GUT 通过。
+- 复核确认 Stage 3 独立 `-gtest` 本身未回归失败；使用沙箱外稳定运行方式后，`main` 与 stage4 worktree 中的 Stage 3 GUT 都恢复 `5/5` 通过。
+- 因此阶段 4 当前状态更新为“preflight 已完成，可进入实际实现”。
+- 进入阶段 4 的第一批实际实现：在 `project.godot` 与 `scripts/main/main.gd` 中接入 `dash` 输入契约，在 `scripts/player/player_placeholder.gd` 中加入仅地面 `dash` 状态、方向规则、持续时间、速度与冷却时间。
+- 新增 `tests/stage4/test_stage_4_minimal_ability_difference.gd`，覆盖阶段 4 的最小能力差异核心契约，并确认 `6/6` 通过。
+- 扩展 `scenes/rooms/test_room.tscn`，加入 `DashGapLeft`、`DashGapRight` 与 `DashCombatDummy`，作为阶段 4 的最小探索 / 战斗门槛节点。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 GUT 与 `git diff --check` 全部通过。
+- 通过 Godot MCP Pro CLI 与内置 MCP 工具复核运行态，确认 `Main/TestRoom/Runtime/PlayerPlaceholder` 与 stage4 新节点全部进入运行树，并成功触发一次 `dash` 位移。
+- 在第二轮 stage4 收敛中，将 `TestRoom` 从“有节点但价值不清晰”进一步推进为真正的验证区：加入 `FloorRight` 与 `DashGateCeiling`，把地面缺口和低顶组合成明确的仅地面 dash 门槛。
+- 同时回调 `dash` 默认参数：将 `dash_duration` 提高到 `0.24`、`dash_speed` 提高到 `440.0`，让 stage4 默认手感更贴近“能力差异”而不是“擦线可用”。
+- 将 `tests/stage4/test_stage_4_minimal_ability_difference.gd` 扩展到 `8/8` 通过，新增探索门槛与战斗接敌价值验证，确认无 dash 无法稳定通过 gate，而 dash 可以稳定通过并更快进入可出手区。
+- 再补做一轮运行态人工手感复核，确认低顶 + 缺口构图已经足够表达“仅地面 dash 门槛”，且过门槛后到 `DashCombatDummy` 只需短距离补位即可进入出手区，使阶段 4 进入可收口判断。
+- 最后补上最小 dash 可读性反馈：冲刺期间玩家本体切到更亮的冷白色，退出后恢复默认颜色；stage4 自动化同步扩展到 `9/9` 通过，阶段 4 达到可收口状态。

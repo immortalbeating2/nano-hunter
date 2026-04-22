@@ -7,6 +7,7 @@ const STATE_JUMP_RISE: StringName = &"jump_rise"
 const STATE_JUMP_FALL: StringName = &"jump_fall"
 const STATE_LAND: StringName = &"land"
 const STATE_ATTACK: StringName = &"attack"
+const STATE_DASH: StringName = &"dash"
 
 const FLOOR_VELOCITY_TOLERANCE := 0.5
 
@@ -28,8 +29,14 @@ const FLOOR_VELOCITY_TOLERANCE := 0.5
 @export var attack_hitbox_size := Vector2(44.0, 28.0)
 @export var attack_hitbox_offset := Vector2(26.0, -4.0)
 @export var attack_knockback_force: float = 120.0
+@export var dash_duration: float = 0.24
+@export var dash_speed: float = 440.0
+@export var dash_cooldown: float = 0.22
+@export var dash_body_color := Color(0.901961, 0.956863, 1.0, 1.0)
 
 var current_state: StringName = STATE_IDLE
+
+@onready var _body_polygon: Polygon2D = $Body
 
 var _coyote_timer := 0.0
 var _jump_buffer_timer := 0.0
@@ -39,28 +46,40 @@ var _facing_direction := 1.0
 var _attack_elapsed := 0.0
 var _attack_was_active := false
 var _attack_hit_ids: Dictionary = {}
+var _dash_elapsed := 0.0
+var _dash_cooldown_remaining := 0.0
+var _dash_direction := 1.0
+var _body_idle_color := Color(1.0, 1.0, 1.0, 1.0)
 
 
 func _ready() -> void:
 	current_state = STATE_IDLE
 	_was_on_floor = false
 	_facing_direction = 1.0
+	if _body_polygon != null:
+		_body_idle_color = _body_polygon.color
 
 
 func _physics_process(delta: float) -> void:
 	var jump_pressed := Input.is_action_just_pressed("jump")
 	var jump_released := Input.is_action_just_released("jump")
 	var attack_pressed := Input.is_action_just_pressed("attack")
+	var dash_pressed := Input.is_action_just_pressed("dash")
 	var was_grounded := is_on_floor()
 
 	_update_jump_window_timers(delta, was_grounded, jump_pressed)
+	_update_dash_cooldown(delta)
 	if _is_attacking():
 		_update_attack_state(delta, was_grounded)
+	elif _is_dashing():
+		_update_dash_state(delta, was_grounded)
 	else:
 		_apply_horizontal_movement(delta)
 		_apply_vertical_motion(delta, was_grounded)
 
-		if _can_start_attack(was_grounded, attack_pressed):
+		if _can_start_dash(was_grounded, dash_pressed):
+			_start_dash()
+		elif _can_start_attack(was_grounded, attack_pressed):
 			_start_attack()
 		elif _can_start_jump(was_grounded):
 			_start_jump()
@@ -115,7 +134,7 @@ func _apply_vertical_motion(delta: float, was_grounded: bool) -> void:
 
 
 func _can_start_jump(was_grounded: bool) -> bool:
-	if _is_attacking():
+	if _is_attacking() or _is_dashing():
 		return false
 
 	if _jump_buffer_timer <= 0.0:
@@ -125,7 +144,17 @@ func _can_start_jump(was_grounded: bool) -> bool:
 
 
 func _can_start_attack(was_grounded: bool, attack_pressed: bool) -> bool:
-	return was_grounded and attack_pressed and not _is_attacking()
+	return was_grounded and attack_pressed and not _is_attacking() and not _is_dashing()
+
+
+func _can_start_dash(was_grounded: bool, dash_pressed: bool) -> bool:
+	if not dash_pressed or not was_grounded:
+		return false
+
+	if _dash_cooldown_remaining > 0.0 or _is_attacking() or _is_dashing():
+		return false
+
+	return current_state == STATE_IDLE or current_state == STATE_RUN or current_state == STATE_LAND
 
 
 func _start_jump() -> void:
@@ -144,6 +173,19 @@ func _start_attack() -> void:
 	_jump_buffer_timer = 0.0
 	current_state = STATE_ATTACK
 	velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
+
+
+func _start_dash() -> void:
+	var input_axis := Input.get_axis("move_left", "move_right")
+	_dash_direction = _facing_direction if absf(input_axis) <= 0.01 else signf(input_axis)
+	_facing_direction = _dash_direction
+	_dash_elapsed = 0.0001
+	_landing_state_timer = 0.0
+	_jump_buffer_timer = 0.0
+	current_state = STATE_DASH
+	velocity.x = dash_speed * _dash_direction
+	velocity.y = 0.0
+	_set_dash_feedback_active(true)
 
 
 func _update_attack_state(delta: float, was_grounded: bool) -> void:
@@ -166,6 +208,17 @@ func _apply_attack_movement(delta: float, was_grounded: bool) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, air_acceleration * delta)
 
 	_apply_vertical_motion(delta, was_grounded)
+
+
+func _update_dash_state(delta: float, was_grounded: bool) -> void:
+	velocity.x = dash_speed * _dash_direction
+	# 阶段 4 的 dash 只允许从地面起手，但持续期内保持平直位移，
+	# 这样才能稳定承担“穿过短门槛 / 快速接敌”的最小能力差异价值。
+	velocity.y = 0.0
+
+	_dash_elapsed += delta
+	if _dash_elapsed >= dash_duration:
+		_finish_dash()
 
 
 func _perform_attack_hits() -> void:
@@ -220,6 +273,14 @@ func _finish_attack() -> void:
 	current_state = STATE_IDLE
 
 
+func _finish_dash() -> void:
+	_dash_elapsed = 0.0
+	_dash_cooldown_remaining = dash_cooldown
+	velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
+	current_state = STATE_IDLE
+	_set_dash_feedback_active(false)
+
+
 func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) -> void:
 	if _is_attacking():
 		_landing_state_timer = 0.0
@@ -234,6 +295,10 @@ func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) 
 func _update_current_state(is_grounded: bool) -> void:
 	if _is_attacking():
 		current_state = STATE_ATTACK
+		return
+
+	if _is_dashing():
+		current_state = STATE_DASH
 		return
 
 	if is_grounded:
@@ -258,6 +323,14 @@ func _is_attacking() -> bool:
 	return _attack_elapsed > 0.0 or current_state == STATE_ATTACK
 
 
+func _is_dashing() -> bool:
+	return _dash_elapsed > 0.0 or current_state == STATE_DASH
+
+
+func _update_dash_cooldown(delta: float) -> void:
+	_dash_cooldown_remaining = maxf(_dash_cooldown_remaining - delta, 0.0)
+
+
 func _attack_is_active() -> bool:
 	var active_start := attack_startup_duration
 	var active_end := active_start + attack_active_duration
@@ -273,3 +346,11 @@ func get_attack_hitbox_center() -> Vector2:
 		attack_hitbox_offset.x * _facing_direction,
 		attack_hitbox_offset.y
 	)
+
+
+func _set_dash_feedback_active(is_active: bool) -> void:
+	if _body_polygon == null:
+		return
+
+	# 阶段 4 只补最小可读性反馈：冲刺期间高亮本体，结束后立刻恢复。
+	_body_polygon.color = dash_body_color if is_active else _body_idle_color
