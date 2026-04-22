@@ -8,7 +8,7 @@ Last Updated: 2026-04-22
 
 ## Current Stage
 
-`阶段 4：最小能力差异（进行中，探索/战斗价值验证已接入）`
+`阶段 4：最小能力差异（已完成，待进入阶段 5）`
 
 ## Stage Goal
 
@@ -70,7 +70,7 @@ Last Updated: 2026-04-22
 
 ## Current Goal
 
-继续验证当前 `dash` 与 TestRoom 门槛是否已经形成足够清晰、足够好调的能力差异；若手感或可读性仍偏弱，再补最小反馈或更强的房间验证，而不是提前扩系统。
+`main` 现已承载阶段 4 的稳定基线；下一步优先进入阶段 5“教程区垂直切片”的设计确认、实现计划与新的分支 / worktree 入口。
 
 ## Current Defaults
 
@@ -82,9 +82,9 @@ Last Updated: 2026-04-22
 
 ## In Progress
 
-- 准备将阶段 4 作为“最小能力差异已成立”的稳定检查点收口
-- 整理阶段 4 的提交拆分、分支收口与合并前验证结论
-- 继续在 stage4 worktree 中同步最终收口文档
+- 维护阶段 4 已完成基线的主线留痕
+- 以新的代理协作默认规则作为后续阶段推进基线
+- 为阶段 5 的设计确认、实现计划与隔离开发现场做准备
 
 ## Recently Completed
 
@@ -96,16 +96,18 @@ Last Updated: 2026-04-22
 - 通过 Godot MCP Pro CLI 与内置 MCP 工具复核主场景运行树，确认 stage4 新节点已进入运行态，且 `DashGateCeiling.position == (0, 90)`、`DashCombatDummy.position == (56, 136)`
 - 完成一轮额外的运行态人工手感复核：确认低顶 + 缺口构图已经能直观表达“仅地面 dash”，且过门槛后到 `DashCombatDummy` 只剩短距离接敌
 - 为 `dash` 补上一层最小可读性反馈：冲刺期间玩家本体从默认蓝青色切到更亮的冷白色，并在结束后立即恢复；对应 stage4 自动化扩展到 `9/9` 通过
+- 将 `codex/stage-4-minimal-ability-difference` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认阶段 1 / 2 / 3 / 4 自动化全部通过
 
 ## Risks And Blockers
 
 - `godot --headless --path . --import` 退出时仍会输出 `ObjectDB instances leaked at exit` 历史警告
 - `PlayerSpawn` 仍与 `TestRoom` 并列，本轮不处理场景归属重构
-- 当前 stage4 自动化、运行态复核与最小可读性反馈都已到位；当前已无明确玩法阻塞项，主要剩分支收口与合并准备
-- 主工作区里仍保留一份未提交的 `AGENTS.md` 修订；stage4 worktree 已同步，但主工作区仍需后续单独收口
+- `godot --headless --path . --import` 退出时仍会输出 `ObjectDB instances leaked at exit` 历史警告，但当前不作为阶段阻塞项
+- `PlayerSpawn` 仍与 `TestRoom` 并列，本轮不处理场景归属重构
+- 当前已无明确玩法阻塞项；后续主要风险转为阶段 5 启动时是否会过早引入 HUD、门控和教程串联之外的额外系统
 
 ## Next Recommended Steps
 
-1. 进入阶段 4 的提交拆分、分支收口与合并准备。
-2. 若合并前还想再看一眼，只做最终试玩确认，不再追加新系统。
-3. 阶段 4 收口后，把下一轮重点切到阶段 5 的教程区垂直切片设计。
+1. 以当前 `main` 为新稳定基线，启动阶段 5“教程区垂直切片”的 brainstorming、设计文档与实现计划。
+2. 新建阶段 5 分支与 worktree，并把 HUD、教程区短流程、简单门控和基础敌人 / 障碍的边界一次性写清。
+3. 若阶段 5 接入教程串联后发现当前 `dash` 与 `attack` 节奏不匹配，优先回调现有参数，不提前扩展更多战斗系统。

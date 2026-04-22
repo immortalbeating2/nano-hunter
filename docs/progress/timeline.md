@@ -111,3 +111,4 @@
 - 将 `tests/stage4/test_stage_4_minimal_ability_difference.gd` 扩展到 `8/8` 通过，新增探索门槛与战斗接敌价值验证，确认无 dash 无法稳定通过 gate，而 dash 可以稳定通过并更快进入可出手区。
 - 再补做一轮运行态人工手感复核，确认低顶 + 缺口构图已经足够表达“仅地面 dash 门槛”，且过门槛后到 `DashCombatDummy` 只需短距离补位即可进入出手区，使阶段 4 进入可收口判断。
 - 最后补上最小 dash 可读性反馈：冲刺期间玩家本体切到更亮的冷白色，退出后恢复默认颜色；stage4 自动化同步扩展到 `9/9` 通过，阶段 4 达到可收口状态。
+- 将 `codex/stage-4-minimal-ability-difference` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 GUT 与 `git diff --check` 全部通过。
