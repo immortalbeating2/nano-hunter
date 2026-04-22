@@ -4,13 +4,19 @@
 [ext_resource type="PackedScene" path="res://scenes/combat/training_dummy.tscn" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(1024, 32)
+size = Vector2(384, 32)
 
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(32, 384)
 
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(224, 24)
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(88, 32)
+
+[sub_resource type="RectangleShape2D" id="5"]
+size = Vector2(96, 8)
 
 [node name="TestRoom" type="Node2D"]
 script = ExtResource("1")
@@ -20,14 +26,24 @@ color = Color(0.0745098, 0.129412, 0.219608, 1)
 polygon = PackedVector2Array(-512, -192, 512, -192, 512, 192, -512, 192)
 
 [node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(0, 160)
+position = Vector2(-320, 160)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("1")
 
 [node name="FloorVisual" type="Polygon2D" parent="Floor"]
 color = Color(0.294118, 0.231373, 0.164706, 1)
-polygon = PackedVector2Array(-512, -16, 512, -16, 512, 16, -512, 16)
+polygon = PackedVector2Array(-192, -16, 192, -16, 192, 16, -192, 16)
+
+[node name="FloorRight" type="StaticBody2D" parent="."]
+position = Vector2(320, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorRight"]
+shape = SubResource("1")
+
+[node name="FloorVisual" type="Polygon2D" parent="FloorRight"]
+color = Color(0.294118, 0.231373, 0.164706, 1)
+polygon = PackedVector2Array(-192, -16, 192, -16, 192, 16, -192, 16)
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2(-496, 0)
@@ -50,7 +66,7 @@ color = Color(0.184314, 0.262745, 0.333333, 1)
 polygon = PackedVector2Array(-16, -192, 16, -192, 16, 192, -16, 192)
 
 [node name="MidPlatform" type="StaticBody2D" parent="."]
-position = Vector2(128, 48)
+position = Vector2(196, 48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MidPlatform"]
 shape = SubResource("3")
@@ -59,5 +75,38 @@ shape = SubResource("3")
 color = Color(0.423529, 0.364706, 0.247059, 1)
 polygon = PackedVector2Array(-112, -12, 112, -12, 112, 12, -112, 12)
 
+[node name="DashGapLeft" type="StaticBody2D" parent="."]
+position = Vector2(-64, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGapLeft"]
+shape = SubResource("4")
+
+[node name="PlatformVisual" type="Polygon2D" parent="DashGapLeft"]
+color = Color(0.470588, 0.4, 0.243137, 1)
+polygon = PackedVector2Array(-44, -16, 44, -16, 44, 16, -44, 16)
+
+[node name="DashGapRight" type="StaticBody2D" parent="."]
+position = Vector2(64, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGapRight"]
+shape = SubResource("4")
+
+[node name="PlatformVisual" type="Polygon2D" parent="DashGapRight"]
+color = Color(0.470588, 0.4, 0.243137, 1)
+polygon = PackedVector2Array(-44, -16, 44, -16, 44, 16, -44, 16)
+
+[node name="DashGateCeiling" type="StaticBody2D" parent="."]
+position = Vector2(0, 90)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGateCeiling"]
+shape = SubResource("5")
+
+[node name="CeilingVisual" type="Polygon2D" parent="DashGateCeiling"]
+color = Color(0.239216, 0.309804, 0.376471, 1)
+polygon = PackedVector2Array(-48, -4, 48, -4, 48, 4, -48, 4)
+
 [node name="TrainingDummy" parent="." instance=ExtResource("2")]
-position = Vector2(208, 136)
+position = Vector2(-208, 136)
+
+[node name="DashCombatDummy" parent="." instance=ExtResource("2")]
+position = Vector2(56, 136)
