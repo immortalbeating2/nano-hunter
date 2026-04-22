@@ -112,3 +112,30 @@
 - 再补做一轮运行态人工手感复核，确认低顶 + 缺口构图已经足够表达“仅地面 dash 门槛”，且过门槛后到 `DashCombatDummy` 只需短距离补位即可进入出手区，使阶段 4 进入可收口判断。
 - 最后补上最小 dash 可读性反馈：冲刺期间玩家本体切到更亮的冷白色，退出后恢复默认颜色；stage4 自动化同步扩展到 `9/9` 通过，阶段 4 达到可收口状态。
 - 将 `codex/stage-4-minimal-ability-difference` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 GUT 与 `git diff --check` 全部通过。
+- 从当前 `main` 建立 `codex/stage-5-tutorial-vertical-slice` 与 `.worktrees/stage-5-tutorial-vertical-slice`，作为阶段 5 的唯一开发入口。
+- 新建设计文档 `spec-design/2026-04-22-stage-5-tutorial-vertical-slice-design.md`，固定本轮采用“单场景线性教程区 + 低压教学 + 能力教学优先”的方案。
+- 新增实现计划 `docs/superpowers/plans/2026-04-22-stage-5-tutorial-vertical-slice.md`，将阶段 5 拆为主房间契约迁移、`TutorialRoom`、最小 HUD、阶段 5 自动化与文档收口。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 5：教程区垂直切片（设计与开发准备中）”，并明确本轮的主流程目标、历史耦合风险与下一步实现入口。
+- 明确阶段 5 的代理协作建议：若写入范围可分离，优先按“`Main` 契约迁移 / `TutorialRoom` + HUD / 测试与文档”三块主动评估 `multi-agent` 并行。
+
+## 2026-04-23
+
+- 在 `codex/stage-5-tutorial-vertical-slice` 中完成阶段 5 的主入口迁移：`Main` 不再硬编码 `TestRoom`，而是默认加载 `TutorialRoom` 并依赖统一主房间契约。
+- 新增 `TutorialRoom` 与最小 HUD，建立“移动/跳跃 -> dash -> 攻击 -> 出口”的单场景低压教学切片。
+- 新增 `tests/stage5/test_stage_5_tutorial_vertical_slice.gd`，覆盖主入口迁移、教程顺序推进、`dash` 门槛、出口解锁与 HUD 战斗面板布局。
+- 收敛 HUD 首屏提示、教程节点布局与 `BattlePanel` 重叠问题，确认当前垂直切片在自动化与运行态证据上都达到可收口状态。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 GUT 与 `git diff --check` 全部通过，确认阶段 5 已达到稳定基线并可准备合并回 `main`。
+
+## 2026-04-23
+
+- 排查并修复当前 stage5 worktree 中 `godot_mcp` 的会话错连问题：确认旧 `godot-mcp-pro` bridge 残留占用 `6505-6509`，清理旧 bridge 后恢复当前会话与 Godot 的 MCP 连通性。
+- 基于这次排障，将“阶段 / worktree 收口时同步确认旧 `godot-mcp-pro` bridge 已退出”的高置信度经验写回 `AGENTS.md`，避免后续 session 重复踩坑。
+- 正式进入阶段 5 的第一轮实现：把 `Main` 从固定 `TestRoom` 入口迁移为主房间契约入口，并默认实例化 `TutorialRoom`。
+- 新增 `scenes/rooms/tutorial_room.tscn` 与 `scripts/rooms/tutorial_room.gd`，落地单场景线性教学流程：`move / jump -> dash -> attack -> exit`。
+- 新增 `scenes/ui/tutorial_hud.tscn` 与 `scripts/ui/tutorial_hud.gd`，接入最小 HUD：提示区 + 战斗面板；战斗面板只做展示，不接正式生命 / 死亡循环。
+- 更新 Stage 1 契约测试，移除 `Main -> TestRoom` 的固定耦合假设；新增 `tests/stage5/test_stage_5_tutorial_vertical_slice.gd`，覆盖主房间迁移、教程顺序、`dash` 门槛与出口解锁。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 GUT 与 `git diff --check` 全部通过。
+- 通过运行态 Godot MCP 复核确认 `Main/Room/TutorialDummy`、`Main/HUD/TutorialHUD` 与提示标签全部进入运行树，阶段 5 已从“开发准备中”推进到“首轮可玩实现已落地”。
+- 在后续轻量收敛中，补强了 `StepLabel`、首条按键提示文案、首段跳台位置与 `dash -> attack` 的稳定推进条件，使阶段 5 从“能跑通”进一步推进到“教程表达更清楚”。
+- 在 HUD 排障中确认 `BattlePanel` 的文本重叠根因是 `PanelContainer` 与手动定位混用；改为普通 `Panel` 后，战斗面板两行文本恢复稳定分离。
+- 最终重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 GUT、运行态主入口与 HUD 读值均正常，阶段 5 达到“已完成，形成稳定基线”的里程碑状态。
