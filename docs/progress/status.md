@@ -78,11 +78,11 @@ Last Updated: 2026-04-23
 
 ## Next Stage
 
-`阶段 5 已完成，等待合并 / 进入下一轮里程碑规划`
+`阶段 5 已完成，等待下一轮里程碑规划`
 
 ## Current Goal
 
-当前 `codex/stage-5-tutorial-vertical-slice` 已完成阶段 5 的完整收口：`Main` 主房间契约迁移、`TutorialRoom`、最小 HUD、节奏 / 文案收敛、HUD 错绘修复与 Stage 5 自动化均已闭环；当前结果可作为后续扩展的稳定基线。
+`main` 现已承载阶段 5 的稳定基线：`Main` 主房间契约迁移、`TutorialRoom`、最小 HUD、节奏 / 文案收敛、HUD 错绘修复与 Stage 5 自动化均已闭环；下一步更适合进入新的里程碑设计，而不是继续在阶段 5 内追加内容。
 
 ## Current Defaults
 
@@ -95,7 +95,7 @@ Last Updated: 2026-04-23
 ## In Progress
 
 - 当前无新的阶段 5 实现项在进行中
-- 当前更适合进入“准备合并 / 规划下一里程碑”的收口阶段
+- 当前更适合进入“下一轮里程碑规划”的设计阶段
 
 ## Recently Completed
 
@@ -104,6 +104,7 @@ Last Updated: 2026-04-23
 - `main` 已成为阶段 5 的稳定起点
 - 新建阶段 5 worktree，并补齐阶段 5 的设计文档、实现计划与进度页启动记录
 - 阶段 5 教程区垂直切片已完整收口，自动化验证覆盖主入口迁移、教程顺序、`dash` 门槛、出口解锁与 HUD 战斗面板布局
+- `codex/stage-5-tutorial-vertical-slice` 已本地合并回 `main`，主线 fresh 验证继续保持绿色
 
 ## Risks And Blockers
 
@@ -114,6 +115,6 @@ Last Updated: 2026-04-23
 
 ## Next Recommended Steps
 
-1. 将 `codex/stage-5-tutorial-vertical-slice` 作为阶段 5 稳定里程碑候选，准备合并回 `main`。
-2. 若合并前还想再加信心，优先补一轮真人试玩记录，不再继续扩教程系统。
-3. 下一轮里程碑应重新开设计文档，明确是扩主流程、扩战斗验证，还是进入更正式的内容生产阶段。
+1. 为下一轮里程碑重新开设计文档，明确是扩主流程、扩战斗验证，还是进入更正式的内容生产阶段。
+2. 若想继续提高信心，优先补一轮真人试玩记录，不在当前基线上直接扩更多系统。
+3. 后续新阶段继续沿用“分支 + worktree + 文档先行 + fresh 验证”的收口节奏。

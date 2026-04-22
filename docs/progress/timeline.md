@@ -139,3 +139,4 @@
 - 在后续轻量收敛中，补强了 `StepLabel`、首条按键提示文案、首段跳台位置与 `dash -> attack` 的稳定推进条件，使阶段 5 从“能跑通”进一步推进到“教程表达更清楚”。
 - 在 HUD 排障中确认 `BattlePanel` 的文本重叠根因是 `PanelContainer` 与手动定位混用；改为普通 `Panel` 后，战斗面板两行文本恢复稳定分离。
 - 最终重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 GUT、运行态主入口与 HUD 读值均正常，阶段 5 达到“已完成，形成稳定基线”的里程碑状态。
+- 将 `codex/stage-5-tutorial-vertical-slice` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 GUT 与 `git diff --check` 全部通过。
