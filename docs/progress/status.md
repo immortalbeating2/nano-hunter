@@ -8,13 +8,13 @@ Last Updated: 2026-04-23
 
 ## Current Stage
 
-`阶段 6：最小真实战斗循环（首轮实现已完成）`
+`阶段 7：短链路主流程串联（设计与 preflight 中）`
 
-> Update: 2026-04-23 宸插畬鎴?stage6 棣栬疆鎵嬫劅鏀舵暃锛岄鎺ユ晫鍘嬪姏涓庡彈鍑诲悗鑴辩鎰熼兘宸茬粡鍋氫簡涓€杞?TDD 鎶ゅ銆?
+> Update: 2026-04-23 已从阶段 6 稳定基线建立 `codex/stage-7-short-mainline-chain` 与对应 worktree，当前只完成 stage7 的设计、计划与进度启动记录，尚未进入玩法实现。
 
 ## Stage Goal
 
-在阶段 5 已完成的教程区垂直切片基线上，做出一个“教程后独立战斗房 + 1 个基础近战敌人 + 玩家生命 / 受击 / 本段即时重置”的最小真实战斗闭环，让玩家第一次真正承受战斗压力，而不只是完成教学目标。
+在阶段 6 已完成的最小真实战斗循环基线上，把当前 `TutorialRoom -> CombatTrialRoom` 扩展为一条真正可顺序推进的短主流程：`TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`。本轮固定验证三段流转、混合门控目标房、最小房间契约升级和三段 HUD 提示，而不引入大地图、存档、正式 checkpoint、多分支路线或第二类敌人。
 
 ## Playable Now
 
@@ -32,6 +32,7 @@ Last Updated: 2026-04-23
 - 战斗房出口默认锁定，击败敌人后出口解锁
 - 最小 HUD 已从“教程展示”升级为“真实读取当前房间提示 + 生命值 + dash 状态”
 - `BattlePanel` 的两行文本布局仍保持稳定分离，不再出现重叠错绘
+- 当前主流程仍只到 `CombatTrialRoom` 为止，尚未接入阶段 7 的 `GoalTrialRoom`
 
 ## Adjustable Now
 
@@ -74,15 +75,15 @@ Last Updated: 2026-04-23
 
 ## Exit Criteria
 
-- 教程完成后能稳定进入 `CombatTrialRoom`
-- 玩家拥有最小生命、受击、无敌与 `defeated` 闭环
-- 战斗房的基础近战敌人能稳定制造第一次真实压力
-- 玩家死亡后会被低摩擦地重置到战斗房本段起点
-- HUD 能真实反映生命值与当前战斗提示
-- 阶段 1 / 2 / 3 / 4 / 5 / 6 自动化验证全部通过
-- 当前结果足以作为阶段 7 的稳定前置基线
+- `Main` 能稳定推进 `TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`
+- `GoalTrialRoom` 满足主房间契约，并提供独立出生点与明确完成条件
+- 目标房初始门控关闭，满足条件后解锁
+- HUD 能随教学房、实战房、目标房与完成态切换提示
+- 玩家若在 `CombatTrialRoom` 中失败，仍只重置当前战斗房，不回滚整条链路
+- 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 自动化验证全部通过
+- 当前结果足以作为阶段 8 的稳定前置基线
 
-当前状态：以上退出条件已满足。
+当前状态：以上退出条件尚未开始验证，当前仅完成设计与 preflight。
 
 ## Asset Status
 
@@ -92,11 +93,11 @@ Last Updated: 2026-04-23
 
 ## Next Stage
 
-`阶段 7：短链路主流程串联`
+`阶段 8：系统稳固与内容生产前准备`
 
 ## Current Goal
 
-当前 `codex/stage-6-minimal-real-combat-loop` worktree 已完成阶段 6 的首轮实现与自动化验证；当前目标是完成文档收口，并把这套“教程后实战压力 + 玩家受击 / 重置”的结果作为阶段 7 的稳定前置基线。
+当前 `codex/stage-7-short-mainline-chain` worktree 的目标是先完成 stage7 preflight：补齐设计文档、实现计划、状态页、时间线和当日日志启动记录，并把“三段顺序链路 + 混合门控目标房 + 代理协作硬约束”写成明确起点，再进入正式实现。
 
 ## Current Defaults
 
@@ -108,33 +109,27 @@ Last Updated: 2026-04-23
 
 ## In Progress
 
-- `阶段 6：最小真实战斗循环` 的首轮实现已经完成，当前处于文档收口与可合并评估阶段
+- `阶段 7：短链路主流程串联` 当前处于设计与 preflight 中
 - 本轮继续采用 `分支 + worktree`
-- 本轮最终未启用 `multi-agent`，主代理按 TDD 串行收口完成实现与验证
+- 当前 preflight 只补文档与启动留痕，不混入玩法代码实现
+- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束：满足“2 个以上子任务、写入可隔离、验证可独立、下一步不强依赖单一结果”时，必须启用代理协作
 
 ## Recently Completed
 
-- 阶段 6 的“最小真实战斗循环”首轮实现已完成：
-- `Main` 已补上最小房间过渡与当前战斗房重置能力
-- 新增 `CombatTrialRoom` 与 `BasicMeleeEnemy`
-- 玩家已接入生命 / 受击 / 无敌 / `defeated`
-- HUD 已改为真实读取生命值与当前战斗提示
-- 新增 `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`，并确认阶段 1 / 2 / 3 / 4 / 5 / 6 自动化全部通过
-- 阶段 4 的“最小能力差异”已完成并合并回 `main`
-- 当前 `dash` 已同时具备输入契约、探索价值、战斗接敌价值与最小可读性反馈
-- `main` 已成为阶段 5 的稳定起点
-- 新建阶段 5 worktree，并补齐阶段 5 的设计文档、实现计划与进度页启动记录
-- 阶段 5 教程区垂直切片已完整收口，自动化验证覆盖主入口迁移、教程顺序、`dash` 门槛、出口解锁与 HUD 战斗面板布局
-- `codex/stage-5-tutorial-vertical-slice` 已本地合并回 `main`，主线 fresh 验证继续保持绿色
-- 已确认阶段 5 完成后的默认路线为 `阶段 6 -> 阶段 7 -> 阶段 8`
+- 阶段 6 的“最小真实战斗循环”已完成并收口为当前稳定基线
+- `Main` 已具备最小房间过渡与当前战斗房重置能力
+- `CombatTrialRoom`、`BasicMeleeEnemy`、玩家生命 / 受击 / `defeated` 与 HUD 真实读值均已成立
+- 阶段 1 / 2 / 3 / 4 / 5 / 6 自动化验证已在主线上全部通过
+- 已基于干净 `main` 建立 `codex/stage-7-short-mainline-chain` 与 `.worktrees/stage-7-short-mainline-chain`
+- 已补齐 stage7 的设计文档、实现计划与进度启动记录
 
 ## Risks And Blockers
 
 - `godot --headless --path . --import` 退出时仍会输出 `ObjectDB instances leaked at exit` 历史警告，但当前不作为阶段阻塞项
-- 阶段 6 最容易失控的方向是：把 checkpoint、多敌人、远程敌人、复杂 AI 与多房间流程一起提前混入
-- `Main` 本轮只应补最小房间过渡与当前房间重置，不应顺势扩成完整房间系统
-- 当前 `Main` 的房间切换逻辑仍是阶段 6 定向方案，尚未上升为正式房间系统
-- 当前 `AGENTS.md` 中仍有重复的“测试文件异常排查约定”段落；这不是阶段阻塞项，但后续整理规范时可收口
+- 阶段 7 最容易失控的方向是：把三段短链路顺势扩成完整房间图、地图系统或正式 checkpoint
+- `GoalTrialRoom` 若做成纯平台或纯战斗，会削弱本轮验证价值
+- 当前 `Main` 的房间切换逻辑仍是阶段 6 定向方案，尚未上升为三段顺序链路
+- 若本轮在实现时再次把代理协作只停留在文字上，而没有真正启用，会重复阶段 6 的执行偏差
 
 ## Recommended Roadmap
 
@@ -150,6 +145,6 @@ Last Updated: 2026-04-23
 
 ## Next Recommended Steps
 
-1. 基于当前阶段 6 稳定基线，开始阶段 7 的设计确认与短链路主流程规划。
-2. 在进入阶段 7 前，补做一次更接近人工试玩的实战节奏复核，确认战斗房压力、重置摩擦与 HUD 读感。
-3. 若阶段 7 写入范围可分离，继续按 `Main/房间流程`、`战斗房/玩家/敌人`、`HUD/测试/文档` 三块主动评估代理协作。
+1. 在当前 stage7 worktree 中完成 preflight 收口后，正式进入“三段顺序链路”实现。
+2. 实现开始前先按 `Main/房间流转`、`GoalTrialRoom/门控流程`、`HUD/测试/文档` 三块做代理拆分，并按计划实际启用 `multi-agent` 或降级后的 `subagent`。
+3. 优先保持范围稳定，不提前混入阶段 8 的系统稳固项。
