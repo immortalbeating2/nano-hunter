@@ -191,3 +191,9 @@
 - 将 `codex/stage-8-systems-hardening-and-content-prep` 以“分支 + worktree”模式本地合并回 `main`，并在主线上再次确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 GUT 与 `git diff --check` 全部通过。
 - 阶段 8 收口时，先关闭直接指向该 worktree 的 Godot 编辑器进程；首次 `git worktree remove` 因 Windows 长路径失败，但 Git 侧元数据已移除。
 - 随后改用长路径方式成功清理 `.worktrees/stage-8-systems-hardening-and-content-prep` 物理目录，并删除本地分支 `codex/stage-8-systems-hardening-and-content-prep`。
+- 在阶段 6-8 全部完成后，重新评估后续路线，不再沿用原型前半段那种“单个验证点一个阶段”的颗粒度。
+- 正式将阶段 9-11 调整为更大颗粒度的内容型阶段：
+  - `阶段 9：首个小区域内容生产`
+  - `阶段 10：战斗变化与轻量成长循环`
+  - `阶段 11：可交付试玩 Demo 切片`
+- 新建设计留痕 `spec-design/2026-04-24-post-stage8-roadmap.md`，把阶段 8 完成后的新路线、放大阶段颗粒度的原因与阶段 9-11 边界正式写回仓库。
