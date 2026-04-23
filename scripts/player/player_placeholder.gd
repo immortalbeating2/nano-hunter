@@ -15,33 +15,37 @@ const STATE_DASH: StringName = &"dash"
 
 const FLOOR_VELOCITY_TOLERANCE := 0.5
 
-@export var max_run_speed: float = 180.0
-@export var ground_acceleration: float = 900.0
-@export var ground_deceleration: float = 1200.0
-@export var air_acceleration: float = 700.0
-@export var jump_velocity: float = -340.0
-@export_range(0.1, 1.0, 0.05) var jump_cut_ratio: float = 0.25
-@export var rise_gravity: float = 950.0
-@export var fall_gravity: float = 1350.0
-@export var max_fall_speed: float = 520.0
-@export var coyote_time_window: float = 0.12
-@export var jump_buffer_window: float = 0.12
-@export var landing_state_duration: float = 0.08
-@export var attack_startup_duration: float = 0.05
-@export var attack_active_duration: float = 0.08
-@export var attack_recovery_duration: float = 0.1
-@export var attack_hitbox_size := Vector2(44.0, 28.0)
-@export var attack_hitbox_offset := Vector2(26.0, -4.0)
-@export var attack_knockback_force: float = 120.0
-@export var dash_duration: float = 0.24
-@export var dash_speed: float = 440.0
-@export var dash_cooldown: float = 0.22
-@export var dash_body_color := Color(0.901961, 0.956863, 1.0, 1.0)
-@export var max_health: int = 3
-@export var damage_invulnerability_duration: float = 0.35
-@export var damage_knockback_speed: float = 260.0
-@export var damage_knockback_lift: float = -150.0
-@export var damage_flash_color := Color(1.0, 0.756863, 0.756863, 1.0)
+const DEFAULT_PLAYER_CONFIG := preload("res://scenes/player/player_placeholder_config.tres")
+
+@export var player_config: PlayerConfig
+
+var max_run_speed: float = 180.0
+var ground_acceleration: float = 900.0
+var ground_deceleration: float = 1200.0
+var air_acceleration: float = 700.0
+var jump_velocity: float = -340.0
+var jump_cut_ratio: float = 0.25
+var rise_gravity: float = 950.0
+var fall_gravity: float = 1350.0
+var max_fall_speed: float = 520.0
+var coyote_time_window: float = 0.12
+var jump_buffer_window: float = 0.12
+var landing_state_duration: float = 0.08
+var attack_startup_duration: float = 0.05
+var attack_active_duration: float = 0.08
+var attack_recovery_duration: float = 0.1
+var attack_hitbox_size: Vector2 = Vector2(44.0, 28.0)
+var attack_hitbox_offset: Vector2 = Vector2(26.0, -4.0)
+var attack_knockback_force: float = 120.0
+var dash_duration: float = 0.24
+var dash_speed: float = 440.0
+var dash_cooldown: float = 0.22
+var dash_body_color: Color = Color(0.901961, 0.956863, 1.0, 1.0)
+var max_health: int = 3
+var damage_invulnerability_duration: float = 0.35
+var damage_knockback_speed: float = 260.0
+var damage_knockback_lift: float = -150.0
+var damage_flash_color: Color = Color(1.0, 0.756863, 0.756863, 1.0)
 
 var current_state: StringName = STATE_IDLE
 var current_health: int = 3
@@ -66,12 +70,54 @@ var _dash_feedback_active := false
 
 
 func _ready() -> void:
+	_apply_player_config()
 	current_state = STATE_IDLE
 	current_health = max_health
 	_was_on_floor = false
 	_facing_direction = 1.0
 	if _body_polygon != null:
 		_body_idle_color = _body_polygon.color
+
+
+func _apply_player_config() -> void:
+	var resolved_config := _get_resolved_player_config()
+
+	# Stage 8 先把玩家关键参数收口到只读 Resource，运行期只复制值，不反向写回配置。
+	max_run_speed = resolved_config.max_run_speed
+	ground_acceleration = resolved_config.ground_acceleration
+	ground_deceleration = resolved_config.ground_deceleration
+	air_acceleration = resolved_config.air_acceleration
+	jump_velocity = resolved_config.jump_velocity
+	jump_cut_ratio = resolved_config.jump_cut_ratio
+	rise_gravity = resolved_config.rise_gravity
+	fall_gravity = resolved_config.fall_gravity
+	max_fall_speed = resolved_config.max_fall_speed
+	coyote_time_window = resolved_config.coyote_time_window
+	jump_buffer_window = resolved_config.jump_buffer_window
+	landing_state_duration = resolved_config.landing_state_duration
+	attack_startup_duration = resolved_config.attack_startup_duration
+	attack_active_duration = resolved_config.attack_active_duration
+	attack_recovery_duration = resolved_config.attack_recovery_duration
+	attack_hitbox_size = resolved_config.attack_hitbox_size
+	attack_hitbox_offset = resolved_config.attack_hitbox_offset
+	attack_knockback_force = resolved_config.attack_knockback_force
+	dash_duration = resolved_config.dash_duration
+	dash_speed = resolved_config.dash_speed
+	dash_cooldown = resolved_config.dash_cooldown
+	dash_body_color = resolved_config.dash_body_color
+	max_health = resolved_config.max_health
+	damage_invulnerability_duration = resolved_config.damage_invulnerability_duration
+	damage_knockback_speed = resolved_config.damage_knockback_speed
+	damage_knockback_lift = resolved_config.damage_knockback_lift
+	damage_flash_color = resolved_config.damage_flash_color
+
+
+func _get_resolved_player_config() -> PlayerConfig:
+	if player_config != null:
+		return player_config
+
+	player_config = DEFAULT_PLAYER_CONFIG
+	return player_config
 
 
 func _physics_process(delta: float) -> void:
@@ -385,6 +431,29 @@ func restore_full_health() -> void:
 	_damage_invulnerability_remaining = 0.0
 	_refresh_body_color()
 	health_changed.emit(current_health, max_health)
+
+
+func get_current_health() -> int:
+	return current_health
+
+
+func get_max_health() -> int:
+	return max_health
+
+
+func is_dash_ready() -> bool:
+	return _dash_cooldown_remaining <= 0.0 and not _is_dashing() and not _is_defeated
+
+
+func get_hud_status_snapshot() -> Dictionary:
+	return {
+		"current_health": current_health,
+		"max_health": max_health,
+		"dash_ready": is_dash_ready(),
+		"dash_cooldown_remaining": _dash_cooldown_remaining,
+		"current_state": String(current_state),
+		"is_defeated": _is_defeated
+	}
 
 
 func _set_dash_feedback_active(is_active: bool) -> void:

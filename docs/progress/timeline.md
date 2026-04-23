@@ -1,5 +1,14 @@
 ﻿# Nano Hunter Timeline
 
+## 2026-04-24
+
+- 在 `codex/stage-8-systems-hardening-and-content-prep` worktree 中完成 Stage 8 首轮实现：新增玩家配置资源、房间流程配置资源、基础敌人配置资源，并把当前关键参数从脚本导出字段收口到只读资源。
+- 新增 `scripts/combat/base_enemy.gd`，将 `BasicMeleeEnemy` 从单体原型收口为基于基础契约的最小模板入口，同时保留 `receive_attack(...)` 与 `defeated` 契约。
+- 收口 HUD 第二轮接口：房间侧新增 `get_hud_context()`，玩家侧新增 `get_hud_status_snapshot()`，`TutorialHUD` 改为统一消费只读快照而非继续依赖零散 `get()` 探测。
+- 新增 `tests/stage8/test_stage_8_systems_hardening_and_content_prep.gd`，覆盖玩家配置应用、房间 HUD 上下文、基础敌人配置应用与模板契约。
+- 在当前会话中重新定位 `godot-mcp` 阻塞：清理旧 `6505-6509` 监听后仍无法恢复工具直连，确认当前问题不再是旧 bridge 占端口，而是 Codex 侧 bridge 未在本会话重新建立监听；本轮改用 shell + headless 验证完成 fallback。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 GUT 与 `git diff --check` 全部通过，确认 Stage 8 当前结果已达到“可作为继续扩内容前稳定基线”的首轮退出条件。
+
 ## 2026-03-31
 
 - 初始化 `nano-hunter` 的 Godot 4.6 工程并建立基础仓库结构。
@@ -172,3 +181,8 @@
 - 将 `codex/stage-7-short-mainline-chain` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 GUT 与 `git diff --check` 全部通过。
 - 阶段 7 收口时，先检查直接指向该 worktree 的进程；Git 侧 worktree 元数据在第一次删除时已移除，但物理目录因 WindowsTerminal 占用未能立即删除。
 - 关闭对应的 `WindowsTerminal` 进程后，使用长路径方式成功清理 `.worktrees/stage-7-short-mainline-chain` 物理目录，并删除本地分支 `codex/stage-7-short-mainline-chain`。
+- 将 `stage8` 执行版计划写回主线：新增 `docs/superpowers/plans/2026-04-23-stage-8-systems-hardening-and-content-prep.md`，固定本轮优先级为“参数数据化 -> HUD 第二轮 -> 敌人模板化”。
+- 从干净 `main` 建立 `codex/stage-8-systems-hardening-and-content-prep` 与 `.worktrees/stage-8-systems-hardening-and-content-prep`，作为阶段 8 的唯一开发入口。
+- 在 stage8 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-8-systems-hardening-and-content-prep-design.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 8：系统稳固与内容生产前准备（设计与 preflight 中）”，并明确本轮不新增能力、不新增敌人种类、不扩主流程长度。
+- 明确阶段 8 的代理协作要求：若写入范围可分离，优先按“配置资源 / HUD 接口 / 敌人模板 + 测试文档”三块实际启用代理协作，而不是只写建议。

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"clear": "实战完成 · 前往目标房",
+&"combat": "实战 1/1 · 击败敌人"
+}
+step_prompts = {
+&"clear": "敌人已被击败，出口打开了。继续向右前进，进入目标房完成这条短链路。",
+&"combat": "前方出现了第一只近战敌人。观察接敌压力，利用冲刺与攻击击败它。"
+}
+step_dash_visibility = {
+&"clear": true,
+&"combat": true
+}
+spawn_positions = {
+&"combat_entry": Vector2(-64, 120),
+&"combat_retry": Vector2(-64, 120)
+}
+thresholds = {}

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"attack": "教程 3/4 · 基础攻击",
+&"complete": "教程完成",
+&"dash": "教程 2/4 · 冲刺穿门",
+&"exit": "教程 4/4 · 离开教程区",
+&"move_jump": "教程 1/4 · 移动与跳跃"
+}
+step_prompts = {
+&"attack": "靠近训练目标后按 J 攻击，打通出口。",
+&"complete": "阶段 5 教程区已完成，可以继续扩展主流程。",
+&"dash": "前面是低顶短门槛，按 K 冲刺贴地穿过去。",
+&"exit": "出口已经打开，继续向右前进离开教程区。",
+&"move_jump": "按 A/D 或 ←/→ 移动，再按 Space、W 或 ↑ 跳到上方平台。"
+}
+step_dash_visibility = {
+&"attack": true,
+&"complete": true,
+&"dash": true,
+&"exit": true,
+&"move_jump": false
+}
+spawn_positions = {
+&"tutorial_start": Vector2(-320, 96)
+}
+thresholds = {
+&"dash_gate_x": 252.0,
+&"dash_gate_y": 80.0,
+&"move_jump_goal_x": -80.0,
+&"move_jump_goal_y": 40.0
+}

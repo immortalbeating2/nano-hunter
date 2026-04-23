@@ -1,12 +1,14 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player_placeholder.gd" id="1"]
+[ext_resource type="Resource" path="res://scenes/player/player_placeholder_config.tres" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(24, 40)
 
 [node name="PlayerPlaceholder" type="CharacterBody2D"]
 script = ExtResource("1")
+player_config = ExtResource("2")
 
 [node name="Body" type="Polygon2D" parent="."]
 color = Color(0.298039, 0.831373, 0.956863, 1)

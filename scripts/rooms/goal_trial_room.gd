@@ -8,6 +8,7 @@ const STEP_GOAL_GATE: StringName = &"goal_gate"
 const STEP_GOAL_REACH: StringName = &"goal_reach"
 const STEP_COMPLETE: StringName = &"complete"
 const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
+const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
 
 const STEP_TITLES := {
 	STEP_GOAL_GATE: "目标 1/2 · 解除门控",
@@ -35,6 +36,8 @@ var _player: CharacterBody2D
 var _current_step: StringName = STEP_GOAL_GATE
 var _goal_unlocked := false
 var _goal_finished := false
+
+@export var flow_config: RoomFlowConfig
 
 
 func _ready() -> void:
@@ -66,14 +69,23 @@ func get_current_step_id() -> StringName:
 
 
 func get_current_step_title() -> String:
+	if flow_config != null:
+		return flow_config.get_step_title(_current_step, STEP_TITLES.get(_current_step, "目标推进中"))
+
 	return STEP_TITLES.get(_current_step, "目标推进中")
 
 
 func get_current_prompt_text() -> String:
+	if flow_config != null:
+		return flow_config.get_step_prompt(_current_step, STEP_PROMPTS.get(_current_step, ""))
+
 	return STEP_PROMPTS.get(_current_step, "")
 
 
 func get_spawn_position(spawn_id: StringName = &"goal_entry") -> Vector2:
+	if flow_config != null:
+		return flow_config.get_spawn_position(spawn_id, SPAWN_POSITIONS[&"goal_entry"])
+
 	return SPAWN_POSITIONS.get(spawn_id, SPAWN_POSITIONS[&"goal_entry"])
 
 
@@ -82,11 +94,23 @@ func should_reset_on_player_defeat() -> bool:
 
 
 func is_dash_available_in_hud() -> bool:
+	if flow_config != null:
+		return flow_config.is_dash_visible(_current_step, true)
+
 	return true
 
 
 func is_goal_unlocked() -> bool:
 	return _goal_unlocked
+
+
+func get_hud_context() -> Dictionary:
+	return {
+		"step_id": _current_step,
+		"step_title": get_current_step_title(),
+		"prompt_text": get_current_prompt_text(),
+		"dash_available": is_dash_available_in_hud(),
+	}
 
 
 func _on_basic_melee_enemy_defeated() -> void:

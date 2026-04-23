@@ -1,7 +1,8 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/combat_trial_room.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/combat/basic_melee_enemy.tscn" id="2"]
+[ext_resource type="Resource" path="res://assets/configs/rooms/combat_trial_room_flow.tres" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -17,6 +18,7 @@ size = Vector2(96, 128)
 
 [node name="CombatTrialRoom" type="Node2D"]
 script = ExtResource("1")
+flow_config = ExtResource("3")
 
 [node name="Backdrop" type="Polygon2D" parent="."]
 color = Color(0.0980392, 0.0705882, 0.133333, 1)

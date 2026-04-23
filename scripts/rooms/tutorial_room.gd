@@ -11,6 +11,7 @@ const STEP_ATTACK: StringName = &"attack"
 const STEP_EXIT: StringName = &"exit"
 const STEP_COMPLETE: StringName = &"complete"
 const COMBAT_TRIAL_ROOM_PATH := "res://scenes/rooms/combat_trial_room.tscn"
+const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
 
 const CAMERA_LIMITS := Rect2i(-512, -192, 1536, 384)
 
@@ -48,6 +49,8 @@ var _current_step: StringName = STEP_MOVE_JUMP
 var _exit_unlocked := false
 var _transition_requested := false
 
+@export var flow_config: RoomFlowConfig
+
 
 func _ready() -> void:
 	if tutorial_dummy != null and tutorial_dummy.has_signal("hit_registered"):
@@ -63,11 +66,11 @@ func _process(_delta: float) -> void:
 
 	match _current_step:
 		STEP_MOVE_JUMP:
-			if _player.global_position.x >= -80.0 and _player.global_position.y <= 40.0:
+			if _player.global_position.x >= _get_threshold_float(&"move_jump_goal_x", -80.0) and _player.global_position.y <= _get_threshold_float(&"move_jump_goal_y", 40.0):
 				_set_current_step(STEP_DASH)
 		STEP_DASH:
 			# 这里改用空间位置判断，避免测试或瞬移校验时过度依赖单帧 floor 状态。
-			if _player.global_position.x >= 252.0 and _player.global_position.y >= 80.0:
+			if _player.global_position.x >= _get_threshold_float(&"dash_gate_x", 252.0) and _player.global_position.y >= _get_threshold_float(&"dash_gate_y", 80.0):
 				_set_current_step(STEP_ATTACK)
 		STEP_ATTACK:
 			if tutorial_dummy != null and tutorial_dummy.get("hit_count") > 0:
@@ -91,10 +94,16 @@ func get_current_step_id() -> StringName:
 
 
 func get_current_prompt_text() -> String:
+	if flow_config != null:
+		return flow_config.get_step_prompt(_current_step, STEP_PROMPTS.get(_current_step, ""))
+
 	return STEP_PROMPTS.get(_current_step, "")
 
 
 func get_current_step_title() -> String:
+	if flow_config != null:
+		return flow_config.get_step_title(_current_step, STEP_TITLES.get(_current_step, "教程进行中"))
+
 	return STEP_TITLES.get(_current_step, "教程进行中")
 
 
@@ -103,14 +112,29 @@ func is_exit_unlocked() -> bool:
 
 
 func is_dash_available_in_hud() -> bool:
+	if flow_config != null:
+		return flow_config.is_dash_visible(_current_step, STEP_ORDER.get(_current_step, 0) >= STEP_ORDER[STEP_DASH])
+
 	return STEP_ORDER.get(_current_step, 0) >= STEP_ORDER[STEP_DASH]
 
 
 func get_spawn_position(spawn_id: StringName = &"tutorial_start") -> Vector2:
+	if flow_config != null:
+		return flow_config.get_spawn_position(spawn_id, Vector2(-320, 96))
+
 	if spawn_id == &"tutorial_start":
 		return Vector2(-320, 96)
 
 	return Vector2(-320, 96)
+
+
+func get_hud_context() -> Dictionary:
+	return {
+		"step_id": _current_step,
+		"step_title": get_current_step_title(),
+		"prompt_text": get_current_prompt_text(),
+		"dash_available": is_dash_available_in_hud(),
+	}
 
 
 func _set_current_step(step_id: StringName) -> void:
@@ -153,3 +177,10 @@ func _unlock_exit_after_attack() -> void:
 	_exit_unlocked = true
 	_apply_exit_lock_state()
 	_set_current_step(STEP_EXIT)
+
+
+func _get_threshold_float(key: StringName, fallback: float) -> float:
+	if flow_config == null:
+		return fallback
+
+	return float(flow_config.get_threshold(key, fallback))
