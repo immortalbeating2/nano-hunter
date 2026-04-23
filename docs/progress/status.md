@@ -164,3 +164,52 @@ Last Updated: 2026-04-24
 1. 在当前 stage9 worktree 中完成 preflight 收口后，正式进入小区域线性主线内容生产。
 2. 实现开始前，先按“小区域房间 / 地面冲锋敌 / Stage 9 GUT 与文档留痕”三块拆分代理协作。
 3. 保持范围稳定，不提前混入阶段 10 的玩家新动作、支路或成长循环。
+## Update - 2026-04-24 Stage 9 Implementation Completion
+
+### Current Stage
+
+`阶段 9：首个小区域内容生产（已实现并完成自动化验证）`
+
+### Current Playable Content
+
+- 新增 5 个连续房间的线性主线小区域：
+  - `stage9_zone_entry_room`
+  - `stage9_zone_combat_room`
+  - `stage9_zone_charger_room`
+  - `stage9_zone_switch_room`
+  - `stage9_zone_final_room`
+- 新增第 2 类敌人 `GroundChargerEnemy`，行为为“短巡逻 -> 触发后横向冲锋 -> 恢复”
+- `Main` 现已支持运行期 checkpoint 恢复；stage9 中会记录最近一次房间入口恢复点
+- stage9 已接入首个正式开关门；`stage9_zone_switch_room` 可通过开关解除门控
+- 最终房 `stage9_zone_final_room` 使用 `BasicMeleeEnemy + GroundChargerEnemy` 的混合遭遇收口
+
+### Current Adjustable Entries
+
+- `res://scripts/configs/ground_charger_enemy_config.tres`
+  - `patrol_distance`
+  - `patrol_speed`
+  - `touch_damage`
+  - `trigger_distance`
+  - `charge_speed`
+  - `charge_duration`
+  - `recovery_duration`
+- `res://assets/configs/rooms/stage9_zone_*.tres`
+  - 房间标题
+  - HUD 提示
+  - 房间入口 spawn
+
+### Verification Snapshot
+
+- `godot --headless --path . --import`：通过
+- Stage 1-9 GUT：全部通过
+- `git diff --check`：通过
+- `godot_mcp` 当前会话连通性：已恢复；`get_open_scripts` 返回 `count = 0`
+
+### Residual Notes
+
+- `godot --headless --path . --import` 退出时仍会输出历史性的 `ObjectDB instances leaked at exit`
+- Stage 9 GUT 当前有 1 条 `unfreed children` warning，测试结果仍为 `4/4 passed`
+
+### Next Stage
+
+`阶段 10：战斗变化与轻量成长循环`

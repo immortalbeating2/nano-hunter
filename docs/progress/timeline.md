@@ -205,3 +205,8 @@
   - checkpoint：`房间入口存档点`
   - 门控：`开关门`
   - 区域结构：`线性主线区`
+- 完成阶段 9 的首轮 TDD 实现：新增 `tests/stage9/test_stage_9_first_content_zone_production.gd`，先以红测固定“5 房间线性主线区 / GroundChargerEnemy / 开关门 / checkpoint 恢复”四类行为。
+- 新增 `GroundChargerEnemy`、`ground_charger_enemy_config.tres` 与 5 个 `stage9_zone_*` 房间场景，将 stage8 的配置化入口首次真正用于小区域内容生产。
+- 扩展 `scripts/main/main.gd`，让 `Main` 支持运行期 checkpoint 恢复；stage9 中玩家失败后会从最近一次激活的房间入口恢复，而不是只重置当前房间。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 GUT 与 `git diff --check` 全部通过，确认阶段 9 已达到阶段 10 的稳定前置基线。
+- 在同一轮收口中复测当前线程的 `godot_mcp` 连通性：重新打开当前 worktree 的 Godot 编辑器后，`mcp__godot_mcp_pro__.get_open_scripts` 成功返回 `count = 0`，说明本会话直连已恢复。
