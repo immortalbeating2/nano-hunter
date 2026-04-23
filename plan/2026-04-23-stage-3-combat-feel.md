@@ -1,6 +1,6 @@
 # 阶段 3：基础战斗手感最终计划记录
 
-> 说明：本文档用于留存本会话补归档后的 `stage3` 最终计划记录。  
+> 说明：本文档用于留存 `stage3` 的最终确认版计划。  
 > 原始执行用计划仍保留在 [2026-04-20-stage-3-combat-feel.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/superpowers/plans/2026-04-20-stage-3-combat-feel.md)。
 
 ## Summary
@@ -32,7 +32,6 @@
 - 统一使用最小受击契约：
   - `receive_attack(hit_direction: Vector2, knockback_force: float) -> void`
 - 在 `TestRoom` 中加入单个固定木桩
-- 不改动房间系统结构
 
 ### 自动化验证
 
@@ -44,17 +43,6 @@
   - 木桩可被命中
   - 单次攻击单次命中
   - 攻击结束后状态恢复
-- 保持阶段 1 与阶段 2 测试继续通过
-
-### 阶段边界
-
-- 本轮明确不做：
-  - 敌人 AI
-  - 连段
-  - 冲刺
-  - HUD
-  - 房间系统重构
-- 本轮只建立“普通攻击 + 木桩反馈”的最小战斗起点
 
 ## Test Plan
 
@@ -64,10 +52,7 @@
 - Stage 3 GUT
 - `git diff --check`
 
-## Completion Criteria
+## Assumptions
 
-- 玩家可稳定出手并命中木桩
-- 命中反馈与受击反馈可看
-- 攻击窗口、命中范围和击退力度可调
-- 阶段 1 / 2 / 3 自动化验证全部通过
-- 当前结果足以承接后续能力差异与更真实战斗压力的接入
+- `stage3` 固定为“玩家攻击 + 木桩反馈”，不提前演进成完整敌人系统
+- 当前受击契约会在后续阶段继续沿用

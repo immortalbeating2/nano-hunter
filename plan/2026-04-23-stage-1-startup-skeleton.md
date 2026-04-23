@@ -1,9 +1,7 @@
 # 阶段 1：可启动骨架最终计划记录
 
-> 说明：本文档用于留存本会话补归档后的 `stage1` 整体最终计划记录。  
-> `stage1` 当时分两段执行，原始执行用计划仍保留在：
-> - [2026-03-31-stage-1-startup-skeleton.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/superpowers/plans/2026-03-31-stage-1-startup-skeleton.md)
-> - [2026-04-01-stage-1-display-and-camera-tuning.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/superpowers/plans/2026-04-01-stage-1-display-and-camera-tuning.md)
+> 说明：本文档用于留存 `stage1` 的最终确认版计划。  
+> 原始执行用计划仍保留在 [2026-03-31-stage-1-startup-skeleton.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/superpowers/plans/2026-03-31-stage-1-startup-skeleton.md) 和 [2026-04-01-stage-1-display-and-camera-tuning.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/superpowers/plans/2026-04-01-stage-1-display-and-camera-tuning.md)。
 
 ## Summary
 
@@ -46,7 +44,6 @@
   - HUD
   - 房间切换
   - 正式关卡系统
-- 保持目录与场景结构尽量小，为 `stage2` 的移动手感直接复用
 
 ## Test Plan
 
@@ -54,11 +51,7 @@
 - `godot --headless --path . --import`
 - `godot --path .`
 
-## Completion Criteria
+## Assumptions
 
-- `run/main_scene` 已正确指向 `Main.tscn`
-- `Main.tscn` 能稳定实例化 `TestRoom` 和占位玩家
-- `TestRoom` 具备基础地面、侧墙、背景与房间边界
-- 窗口缩放和构图已稳定，不再露出默认灰色空区
-- 玩家相机已受房间边界限制
-- 当前结果足以作为 `stage2` 的稳定起点
+- `stage1` 固定以“启动骨架 + 构图稳定”作为目标，不承接移动、战斗或 HUD 开发
+- `Main`、`Runtime`、`PlayerSpawn` 与 `TestRoom` 的基础结构会在后续阶段继续复用

@@ -1,6 +1,6 @@
 # 阶段 2：基础移动手感最终计划记录
 
-> 说明：本文档用于留存本会话补归档后的 `stage2` 最终计划记录。  
+> 说明：本文档用于留存 `stage2` 的最终确认版计划。  
 > 原始执行用计划仍保留在 [2026-04-10-stage-2-movement-feel.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/superpowers/plans/2026-04-10-stage-2-movement-feel.md)。
 
 ## Summary
@@ -23,7 +23,6 @@
   - `move_right`
   - `jump`
 - 明确当前阶段继续禁用 `better-terrain`
-- 保持 `godot_mcp` 与 `gut` 作为当前阶段默认插件
 
 ### 玩家移动原型
 
@@ -47,15 +46,6 @@
 - `jump buffer`
 - `可变跳高`
 
-### 测试房间扩展
-
-- 在 `TestRoom` 中加入中段平台
-- 用最小平台路径验证：
-  - 平地跑停
-  - 起跳
-  - 落地
-  - 离台补跳
-
 ### 阶段边界
 
 - 本轮明确不做：
@@ -63,10 +53,6 @@
   - 冲刺
   - HUD
   - 房间系统重构
-- 并显式把后续归属定为：
-  - 攻击：`stage3`
-  - 冲刺：`stage4`
-  - HUD / 房间系统重构：`stage5`
 
 ## Test Plan
 
@@ -75,10 +61,7 @@
 - `godot --headless --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/stage2/test_stage_2_movement_feel.gd -gexit`
 - `git diff --check`
 
-## Completion Criteria
+## Assumptions
 
-- 玩家能稳定跑停、起跳、下落与落地
-- `coyote time`、`jump buffer` 与可变跳高全部成立
-- 测试房间路径能稳定覆盖阶段 2 的关键动作
-- 阶段 1 / 2 自动化验证全部通过
-- 当前结果足以作为 `stage3` 的稳定前置基线
+- `stage2` 固定只验证基础移动与跳跃手感，不提前混入战斗与能力差异
+- 阶段 2 结束时，项目应能稳定承接 `stage3` 的攻击接入
