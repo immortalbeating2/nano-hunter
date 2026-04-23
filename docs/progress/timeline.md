@@ -197,3 +197,11 @@
   - `阶段 10：战斗变化与轻量成长循环`
   - `阶段 11：可交付试玩 Demo 切片`
 - 新建设计留痕 `spec-design/2026-04-24-stage-9-to-stage-11-roadmap.md`，把阶段 8 完成后的新路线、放大阶段颗粒度的原因与阶段 9-11 边界正式写回仓库。
+- 从干净 `main` 建立 `codex/stage-9-first-content-zone-production` 与 `.worktrees/stage-9-first-content-zone-production`，作为阶段 9 的唯一开发入口。
+- 在 stage9 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-24-stage-9-first-content-zone-production-design.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 9：首个小区域内容生产（设计与 preflight 中）”，并明确本轮固定为 `4-6` 房间线性主线区。
+- 明确阶段 9 的关键选择：
+  - 第 `2` 类敌人：`地面冲锋敌`
+  - checkpoint：`房间入口存档点`
+  - 门控：`开关门`
+  - 区域结构：`线性主线区`
