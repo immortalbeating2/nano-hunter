@@ -98,6 +98,8 @@
    - 写入 `spec-design/`
 3. 简短实现计划
    - 写入 `docs/superpowers/plans/`
+   - 每个阶段的开发计划定稿后必须保存到 `docs/superpowers/plans/`
+   - 每个阶段在 `plans/` 中只保留最终那一版正式计划，不额外保留同阶段的多份中间草案
 4. 判定分支策略
    - 阶段型开发默认 `分支 + worktree`
    - 非阶段型但范围较大的任务默认 `仅分支`
