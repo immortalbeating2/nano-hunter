@@ -141,3 +141,9 @@
 - 最终重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 GUT、运行态主入口与 HUD 读值均正常，阶段 5 达到“已完成，形成稳定基线”的里程碑状态。
 - 将 `codex/stage-5-tutorial-vertical-slice` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 GUT 与 `git diff --check` 全部通过。
 - 阶段 5 合并后已删除本地分支 `codex/stage-5-tutorial-vertical-slice`，且 Git worktree 元数据已移除；当前仅剩 `.worktrees/stage-5-tutorial-vertical-slice` 物理目录仍被活动中的 VS Code / Godot 进程占用，待关闭对应窗口后再删。
+- 在阶段 1-5 全部完成后，确认后续默认路线收敛为：
+  - `阶段 6：最小真实战斗循环`
+  - `阶段 7：短链路主流程串联`
+  - `阶段 8：系统稳固与内容生产前准备`
+- 当前推荐顺序是先补“真实战斗压力”，再补“短主流程串联”，最后再做偏长期的系统稳固与内容生产前准备。
+- 新建设计留痕 `spec-design/2026-04-23-post-stage5-roadmap.md`，把阶段 5 完成后的推荐路线、顺序理由与阶段 6-8 边界正式写回仓库。
