@@ -100,7 +100,7 @@ Last Updated: 2026-04-23
 
 ## Current Goal
 
-当前 `codex/stage-7-short-mainline-chain` worktree 的目标已从 preflight 推进到“阶段 7 实现完成、自动化通过并完成人工复核”。当前更适合做阶段 7 的合并判断与现场收口，而不是继续在本轮范围里扩出阶段 8 的系统稳固项。
+阶段 7 已合并回 `main` 并完成分支 / worktree 清理。当前主线目标已切换为：以阶段 7 的三段短链路结果作为新的稳定基线，进入阶段 8 的设计确认与开发前准备，而不是继续在阶段 7 范围里追加临时扩展。
 
 ## Current Defaults
 
@@ -112,9 +112,9 @@ Last Updated: 2026-04-23
 
 ## In Progress
 
-- `阶段 7：短链路主流程串联` 当前已完成实现、自动化验证与人工复核，等待按里程碑决定是否合并回 `main`
-- 本轮继续采用 `分支 + worktree`
-- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束；但当前桌面会话的上层工具约束要求未获用户明确授权时不能启用 `spawn_agent`，因此本轮在日志中对未启用原因单独留痕
+- `main` 当前已承载阶段 7 的稳定结果，可直接作为阶段 8 的前置基线
+- 阶段 7 的 `分支 + worktree` 已完成收口，Git 元数据和物理目录都已清理
+- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束；但阶段 7 实际执行时仍受当前桌面会话上层工具授权边界限制，因此已在日志中对未启用原因单独留痕
 
 ## Recently Completed
 
@@ -126,6 +126,8 @@ Last Updated: 2026-04-23
 - 已补齐 stage7 的设计文档、实现计划与进度启动记录
 - 已完成 `Main` 三段房间流转改造，移除阶段 6 的定向切房逻辑
 - 已新增 `GoalTrialRoom` 与阶段 7 GUT，并确认阶段 1-7 自动化验证全部通过
+- 已将 `codex/stage-7-short-mainline-chain` 本地合并回 `main`
+- 已清理阶段 7 本地分支与 `.worktrees/stage-7-short-mainline-chain` 物理目录
 
 ## Risks And Blockers
 
@@ -149,6 +151,6 @@ Last Updated: 2026-04-23
 
 ## Next Recommended Steps
 
-1. 先判断当前阶段 7 结果是否作为新的稳定里程碑合并回 `main`。
+1. 基于当前阶段 7 主线结果，进入阶段 8 的设计确认与 preflight。
 2. 若进入阶段 8，优先聚焦 HUD 第二轮、参数数据化、敌人与房间模板化，而不是继续扩临时房间分支逻辑。
 3. 若后续 session 仍想严格执行阶段 7 计划中的代理协作硬约束，需要先满足当前桌面会话对 `spawn_agent` 的授权前提。

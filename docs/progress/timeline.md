@@ -169,3 +169,6 @@
 - 新增 `scenes/rooms/goal_trial_room.tscn` 与 `scripts/rooms/goal_trial_room.gd`，以“击败守门敌人 -> 解锁门控 -> 抵达目标点”的最小结构完成阶段 7 的第三段验证。
 - 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 GUT 与 `git diff --check` 全部通过，确认阶段 7 已达到可作为阶段 8 前置基线的稳定状态。
 - 随后补做阶段 7 的完整人工复核：通过真实游戏窗口配合 `godot_mcp` 文件通道读值 / 截图，确认 `TutorialRoom -> CombatTrialRoom -> GoalTrialRoom` 三段链路、战斗房局部重置与目标房“短链路完成”状态都已成立。
+- 将 `codex/stage-7-short-mainline-chain` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 GUT 与 `git diff --check` 全部通过。
+- 阶段 7 收口时，先检查直接指向该 worktree 的进程；Git 侧 worktree 元数据在第一次删除时已移除，但物理目录因 WindowsTerminal 占用未能立即删除。
+- 关闭对应的 `WindowsTerminal` 进程后，使用长路径方式成功清理 `.worktrees/stage-7-short-mainline-chain` 物理目录，并删除本地分支 `codex/stage-7-short-mainline-chain`。
