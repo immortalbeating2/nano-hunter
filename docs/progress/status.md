@@ -8,7 +8,9 @@ Last Updated: 2026-04-23
 
 ## Current Stage
 
-`阶段 6：最小真实战斗循环（设计与 preflight 中）`
+`阶段 6：最小真实战斗循环（首轮实现已完成）`
+
+> Update: 2026-04-23 宸插畬鎴?stage6 棣栬疆鎵嬫劅鏀舵暃锛岄鎺ユ晫鍘嬪姏涓庡彈鍑诲悗鑴辩鎰熼兘宸茬粡鍋氫簡涓€杞?TDD 鎶ゅ銆?
 
 ## Stage Goal
 
@@ -23,9 +25,13 @@ Last Updated: 2026-04-23
 - 阶段 4 的仅地面 `dash` 仍然保持可用，并带有最小可读性反馈
 - `TestRoom` 仍保留为阶段 2 / 3 / 4 的回归与调参沙盒
 - `TutorialRoom` 已接入“移动/跳跃 -> dash -> 攻击 -> 出口”的单场景线性教学流程
-- 最小 HUD 已接入“提示区 + 战斗面板”，提示区默认显示首条移动 / 跳跃教学文案
-- 战斗面板当前只做展示：固定生命框位与 `dash` 状态文本，不接正式扣血 / 死亡 / 恢复循环
-- `BattlePanel` 的两行文本布局已稳定分离，不再出现重叠错绘
+- 教程房现在可过渡到独立 `CombatTrialRoom`，作为阶段 6 的首段真实战斗压力段
+- 玩家现已具备最小生命 / 受击 / 无敌 / `defeated` 闭环，默认生命为 `3`
+- 玩家在战斗房生命归零后，会即时重置当前战斗房与玩家状态，而不会回退整段教程
+- `CombatTrialRoom` 已接入 `BasicMeleeEnemy`，采用“小范围巡逻 + 接触伤害 + 被命中一次即失效”的最小模型
+- 战斗房出口默认锁定，击败敌人后出口解锁
+- 最小 HUD 已从“教程展示”升级为“真实读取当前房间提示 + 生命值 + dash 状态”
+- `BattlePanel` 的两行文本布局仍保持稳定分离，不再出现重叠错绘
 
 ## Adjustable Now
 
@@ -53,20 +59,28 @@ Last Updated: 2026-04-23
 - `dash_duration`
 - `dash_speed`
 - `dash_cooldown`
-- 阶段 5 当前可调项主要集中在：
+- 阶段 5 / 6 当前新增可调项主要集中在：
 - `TutorialRoom` 中各教学节点的位置
 - 教学提示文案
 - 出口门控的开启时机
 - 最小 HUD 的版面与提示表达
+- `max_health`
+- `damage_invulnerability_duration`
+- `damage_knockback_speed`
+- `damage_knockback_lift`
+- `BasicMeleeEnemy.patrol_distance`
+- `BasicMeleeEnemy.patrol_speed`
+- `BasicMeleeEnemy.touch_damage`
 
 ## Exit Criteria
 
-- `Main` 默认加载教程主房间，而不是继续硬编码 `TestRoom`
-- 教程区能按“移动/跳跃 -> dash -> 攻击 -> 出口”顺序稳定推进
-- 最小 HUD 已接入“提示区 + 战斗面板”，且战斗面板仅做展示
-- 教程区门控采用低压模型，不引入正式死亡 / 恢复循环
-- 阶段 1 / 2 / 3 / 4 / 5 自动化测试保持绿色
-- 当前结果足以作为下一轮垂直切片扩展的稳定基线
+- 教程完成后能稳定进入 `CombatTrialRoom`
+- 玩家拥有最小生命、受击、无敌与 `defeated` 闭环
+- 战斗房的基础近战敌人能稳定制造第一次真实压力
+- 玩家死亡后会被低摩擦地重置到战斗房本段起点
+- HUD 能真实反映生命值与当前战斗提示
+- 阶段 1 / 2 / 3 / 4 / 5 / 6 自动化验证全部通过
+- 当前结果足以作为阶段 7 的稳定前置基线
 
 当前状态：以上退出条件已满足。
 
@@ -78,11 +92,11 @@ Last Updated: 2026-04-23
 
 ## Next Stage
 
-`阶段 6 当前已启动；后续目标为阶段 7：短链路主流程串联`
+`阶段 7：短链路主流程串联`
 
 ## Current Goal
 
-当前 `codex/stage-6-minimal-real-combat-loop` worktree 已从稳定 `main` 启动，目标是在不混入 stage7/8 内容的前提下，先补齐阶段 6 的设计文档、实现计划与进度启动记录，再进入“独立战斗房 + 基础近战敌人 + 玩家受击 / 生命 / 重置”的正式实现。
+当前 `codex/stage-6-minimal-real-combat-loop` worktree 已完成阶段 6 的首轮实现与自动化验证；当前目标是完成文档收口，并把这套“教程后实战压力 + 玩家受击 / 重置”的结果作为阶段 7 的稳定前置基线。
 
 ## Current Defaults
 
@@ -94,13 +108,18 @@ Last Updated: 2026-04-23
 
 ## In Progress
 
-- `阶段 6：最小真实战斗循环` 已启动，当前处于 `设计与 preflight` 阶段
-- 已确认本轮采用 `分支 + worktree`
-- 已确认本轮优先评估 `multi-agent`
-- 当前尚未进入玩法脚本和场景实现
+- `阶段 6：最小真实战斗循环` 的首轮实现已经完成，当前处于文档收口与可合并评估阶段
+- 本轮继续采用 `分支 + worktree`
+- 本轮最终未启用 `multi-agent`，主代理按 TDD 串行收口完成实现与验证
 
 ## Recently Completed
 
+- 阶段 6 的“最小真实战斗循环”首轮实现已完成：
+- `Main` 已补上最小房间过渡与当前战斗房重置能力
+- 新增 `CombatTrialRoom` 与 `BasicMeleeEnemy`
+- 玩家已接入生命 / 受击 / 无敌 / `defeated`
+- HUD 已改为真实读取生命值与当前战斗提示
+- 新增 `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`，并确认阶段 1 / 2 / 3 / 4 / 5 / 6 自动化全部通过
 - 阶段 4 的“最小能力差异”已完成并合并回 `main`
 - 当前 `dash` 已同时具备输入契约、探索价值、战斗接敌价值与最小可读性反馈
 - `main` 已成为阶段 5 的稳定起点
@@ -114,6 +133,7 @@ Last Updated: 2026-04-23
 - `godot --headless --path . --import` 退出时仍会输出 `ObjectDB instances leaked at exit` 历史警告，但当前不作为阶段阻塞项
 - 阶段 6 最容易失控的方向是：把 checkpoint、多敌人、远程敌人、复杂 AI 与多房间流程一起提前混入
 - `Main` 本轮只应补最小房间过渡与当前房间重置，不应顺势扩成完整房间系统
+- 当前 `Main` 的房间切换逻辑仍是阶段 6 定向方案，尚未上升为正式房间系统
 - 当前 `AGENTS.md` 中仍有重复的“测试文件异常排查约定”段落；这不是阶段阻塞项，但后续整理规范时可收口
 
 ## Recommended Roadmap
@@ -130,6 +150,6 @@ Last Updated: 2026-04-23
 
 ## Next Recommended Steps
 
-1. 先完成阶段 6 preflight，只保留设计文档、实现计划与进度启动记录改动。
-2. 正式实现时优先验证“教程后独立战斗房 + 基础近战敌人 + 玩家受击 / 重置”是否成立。
-3. 若写入范围可分离，按 `Main` / `CombatTrialRoom + 玩家 + 敌人` / `HUD + 测试 + 文档` 三块主动评估 `multi-agent`。
+1. 基于当前阶段 6 稳定基线，开始阶段 7 的设计确认与短链路主流程规划。
+2. 在进入阶段 7 前，补做一次更接近人工试玩的实战节奏复核，确认战斗房压力、重置摩擦与 HUD 读感。
+3. 若阶段 7 写入范围可分离，继续按 `Main/房间流程`、`战斗房/玩家/敌人`、`HUD/测试/文档` 三块主动评估代理协作。

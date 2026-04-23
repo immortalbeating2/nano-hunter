@@ -1,6 +1,8 @@
 extends StaticBody2D
 
 
+signal hit_registered(hit_count: int)
+
 @export var hit_flash_duration: float = 0.14
 @export var hit_offset_distance: float = 12.0
 @export var hit_scale := Vector2(1.08, 0.92)
@@ -30,6 +32,7 @@ func receive_attack(hit_direction: Vector2, knockback_force: float) -> void:
 	last_hit_direction = hit_direction
 	last_knockback_force = knockback_force
 	_hit_feedback_timer = hit_flash_duration
+	hit_registered.emit(hit_count)
 
 	var direction := hit_direction.normalized()
 	$Body.position = direction * hit_offset_distance
