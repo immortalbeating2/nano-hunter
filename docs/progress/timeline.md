@@ -186,3 +186,8 @@
 - 在 stage8 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-8-systems-hardening-and-content-prep-design.md`。
 - 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 8：系统稳固与内容生产前准备（设计与 preflight 中）”，并明确本轮不新增能力、不新增敌人种类、不扩主流程长度。
 - 明确阶段 8 的代理协作要求：若写入范围可分离，优先按“配置资源 / HUD 接口 / 敌人模板 + 测试文档”三块实际启用代理协作，而不是只写建议。
+- 完成阶段 8 的首轮实现：新增玩家配置资源、房间流程配置资源、基础敌人模板 `base_enemy.gd` 与 Stage 8 GUT，并把 `TutorialHUD`、当前三段房间与 `BasicMeleeEnemy` 收口到稳定只读接口。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 GUT 与 `git diff --check` 全部通过，确认阶段 8 已达到可作为新稳定基线的收口条件。
+- 将 `codex/stage-8-systems-hardening-and-content-prep` 以“分支 + worktree”模式本地合并回 `main`，并在主线上再次确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 GUT 与 `git diff --check` 全部通过。
+- 阶段 8 收口时，先关闭直接指向该 worktree 的 Godot 编辑器进程；首次 `git worktree remove` 因 Windows 长路径失败，但 Git 侧元数据已移除。
+- 随后改用长路径方式成功清理 `.worktrees/stage-8-systems-hardening-and-content-prep` 物理目录，并删除本地分支 `codex/stage-8-systems-hardening-and-content-prep`。

@@ -106,7 +106,7 @@ Last Updated: 2026-04-24
 
 ## Current Goal
 
-当前 `codex/stage-8-systems-hardening-and-content-prep` worktree 的目标已从 preflight 推进到“首轮实现与验证完成”：参数数据化、HUD 第二轮接口收口与基础敌人模板化都已落地，下一步更适合做评审、合并与 worktree 收口，而不是继续扩新内容。
+阶段 8 已合并回 `main` 并完成分支 / worktree 清理。当前主线目标已切换为：以参数数据化、HUD 第二轮接口和基础敌人模板化结果作为新的稳定基线，再决定下一轮更偏内容生产还是继续小范围系统收口，而不是继续在 stage8 worktree 内追加临时扩展。
 
 ## Current Defaults
 
@@ -118,10 +118,10 @@ Last Updated: 2026-04-24
 
 ## In Progress
 
-- `阶段 8：系统稳固与内容生产前准备` 当前已完成首轮实现与验证
-- 本轮继续采用 `分支 + worktree`
+- `main` 当前已承载阶段 8 的稳定结果，可直接作为后续继续扩内容前的前置基线
+- 阶段 8 的 `分支 + worktree` 已完成收口，Git 元数据和物理目录都已清理
 - 本轮已按“玩家配置 / HUD 接口 / 敌人模板与测试文档”拆分并实际启用代理协作
-- 当前只剩文档收口、评审与后续合并决策
+- 当前不再有挂起中的 stage8 收口动作
 
 ## Recently Completed
 
@@ -135,6 +135,8 @@ Last Updated: 2026-04-24
 - `TutorialHUD` 已改为统一消费稳定只读接口
 - `BasicMeleeEnemy` 已整理成基于 `base_enemy.gd` 的最小模板入口
 - `godot --headless --path . --import` 与阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 GUT 已全部通过
+- 已将 `codex/stage-8-systems-hardening-and-content-prep` 本地合并回 `main`
+- 已清理阶段 8 本地分支与 `.worktrees/stage-8-systems-hardening-and-content-prep` 物理目录
 
 ## Risks And Blockers
 
@@ -159,6 +161,6 @@ Last Updated: 2026-04-24
 
 ## Next Recommended Steps
 
-1. 在当前 stage8 worktree 上做一次代码评审，确认首轮实现不需要再扩第二类敌人或更重的数据设施。
-2. 若准备合并回 `main`，先关闭指向该 worktree 的 Godot / 终端等进程，并复核 `project.godot` 未残留临时 MCP autoload。
-3. 合并后再决定下一轮是否进入更偏内容生产的扩展，而不是在 stage8 内继续堆临时逻辑。
+1. 基于当前 Stage 8 主线结果，先做一次路线判断：下一轮是偏内容生产扩展，还是继续小范围系统收口。
+2. 若继续扩内容，优先复用现有配置资源和敌人模板，不回退到脚本级散落参数。
+3. 若再开新阶段，继续沿用这次的收口顺序：先 fresh 验证，再 merge，最后按占用进程顺序清理 worktree。
