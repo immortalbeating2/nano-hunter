@@ -1,6 +1,10 @@
 extends CharacterBody2D
 
 
+signal health_changed(current_health: int, max_health: int)
+signal defeated
+
+
 const STATE_IDLE: StringName = &"idle"
 const STATE_RUN: StringName = &"run"
 const STATE_JUMP_RISE: StringName = &"jump_rise"
@@ -33,8 +37,14 @@ const FLOOR_VELOCITY_TOLERANCE := 0.5
 @export var dash_speed: float = 440.0
 @export var dash_cooldown: float = 0.22
 @export var dash_body_color := Color(0.901961, 0.956863, 1.0, 1.0)
+@export var max_health: int = 3
+@export var damage_invulnerability_duration: float = 0.35
+@export var damage_knockback_speed: float = 260.0
+@export var damage_knockback_lift: float = -150.0
+@export var damage_flash_color := Color(1.0, 0.756863, 0.756863, 1.0)
 
 var current_state: StringName = STATE_IDLE
+var current_health: int = 3
 
 @onready var _body_polygon: Polygon2D = $Body
 
@@ -50,10 +60,14 @@ var _dash_elapsed := 0.0
 var _dash_cooldown_remaining := 0.0
 var _dash_direction := 1.0
 var _body_idle_color := Color(1.0, 1.0, 1.0, 1.0)
+var _damage_invulnerability_remaining := 0.0
+var _is_defeated := false
+var _dash_feedback_active := false
 
 
 func _ready() -> void:
 	current_state = STATE_IDLE
+	current_health = max_health
 	_was_on_floor = false
 	_facing_direction = 1.0
 	if _body_polygon != null:
@@ -61,6 +75,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_update_damage_invulnerability(delta)
+
 	var jump_pressed := Input.is_action_just_pressed("jump")
 	var jump_released := Input.is_action_just_released("jump")
 	var attack_pressed := Input.is_action_just_pressed("attack")
@@ -348,9 +364,58 @@ func get_attack_hitbox_center() -> Vector2:
 	)
 
 
+func receive_damage(amount: int, hit_direction: Vector2 = Vector2.ZERO) -> void:
+	if amount <= 0 or _is_defeated or _damage_invulnerability_remaining > 0.0:
+		return
+
+	current_health = maxi(current_health - amount, 0)
+	_damage_invulnerability_remaining = damage_invulnerability_duration
+	_apply_damage_knockback(hit_direction)
+	_refresh_body_color()
+	health_changed.emit(current_health, max_health)
+
+	if current_health <= 0:
+		_is_defeated = true
+		defeated.emit()
+
+
+func restore_full_health() -> void:
+	current_health = max_health
+	_is_defeated = false
+	_damage_invulnerability_remaining = 0.0
+	_refresh_body_color()
+	health_changed.emit(current_health, max_health)
+
+
 func _set_dash_feedback_active(is_active: bool) -> void:
+	_dash_feedback_active = is_active
+	_refresh_body_color()
+
+
+func _update_damage_invulnerability(delta: float) -> void:
+	_damage_invulnerability_remaining = maxf(_damage_invulnerability_remaining - delta, 0.0)
+	if _damage_invulnerability_remaining <= 0.0:
+		_refresh_body_color()
+
+
+func _apply_damage_knockback(hit_direction: Vector2) -> void:
+	var direction := hit_direction.normalized()
+	var horizontal_direction := signf(direction.x)
+
+	if absf(horizontal_direction) <= 0.01:
+		horizontal_direction = -_facing_direction
+
+	velocity.x = damage_knockback_speed * horizontal_direction
+	velocity.y = damage_knockback_lift
+
+
+func _refresh_body_color() -> void:
 	if _body_polygon == null:
 		return
 
-	# 阶段 4 只补最小可读性反馈：冲刺期间高亮本体，结束后立刻恢复。
-	_body_polygon.color = dash_body_color if is_active else _body_idle_color
+	if _damage_invulnerability_remaining > 0.0:
+		_body_polygon.color = damage_flash_color
+		return
+
+	# 阶段 6 继续沿用最小可读性反馈：优先显示受击无敌，再回落到 dash 高亮。
+	_body_polygon.color = dash_body_color if _dash_feedback_active else _body_idle_color

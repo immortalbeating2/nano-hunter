@@ -147,3 +147,11 @@
   - `阶段 8：系统稳固与内容生产前准备`
 - 当前推荐顺序是先补“真实战斗压力”，再补“短主流程串联”，最后再做偏长期的系统稳固与内容生产前准备。
 - 新建设计留痕 `spec-design/2026-04-23-post-stage5-roadmap.md`，把阶段 5 完成后的推荐路线、顺序理由与阶段 6-8 边界正式写回仓库。
+- 将上述路线收口提交到 `main`：提交 `AGENTS.md`、`status.md`、`timeline.md`、当日日志与 `spec-design/2026-04-23-post-stage5-roadmap.md`，形成“阶段 5 完成后的 stage6-8 路线确认”稳定基线。
+- 从干净 `main` 建立 `codex/stage-6-minimal-real-combat-loop` 与 `.worktrees/stage-6-minimal-real-combat-loop`，作为阶段 6 的唯一开发入口。
+- 在 stage6 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-6-minimal-real-combat-loop-design.md` 与实现计划 `docs/superpowers/plans/2026-04-23-stage-6-minimal-real-combat-loop.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 6：最小真实战斗循环（设计与 preflight 中）”，并明确本轮目标为“独立战斗房 + 基础近战敌人 + 玩家受击 / 生命 / 即时重置”。
+- 明确阶段 6 的代理协作建议：若写入范围可分离，优先按“`Main` 与房间切换 / 玩家生命与战斗房 / HUD + 测试 + 文档”三块主动评估 `multi-agent` 并行。
+- 完成阶段 6 的首轮 TDD 实现：新增 `CombatTrialRoom`、`BasicMeleeEnemy` 与 `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`，并将 `Main`、玩家、HUD 补齐到“教程后实战压力 + 生命 / 受击 / 即时重置”的最小真实战斗闭环。
+- 在收口验证中重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 GUT 与 `git diff --check` 全部通过，确认阶段 6 已形成阶段 7 的稳定前置基线。
+- 在随后的手感收敛中，继续按 TDD 补上“首接敌距离”和“受击后脱离感”的阶段 6 回归约束；仅通过前移 `BasicMeleeEnemy` 初始站位与增强玩家受击击退参数完成最小调参，并再次确认 `--import`、阶段 1 / 2 / 3 / 4 / 5 / 6 GUT 与 `git diff --check` 全部通过。
