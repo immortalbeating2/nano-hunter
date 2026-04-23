@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"room": "区域 1/5 · 入口走廊"
+}
+step_prompts = {
+&"room": "进入首个正式小区域，先向右推进并建立第一个恢复点。"
+}
+step_dash_visibility = {
+&"room": true
+}
+spawn_positions = {
+&"zone_entry_start": Vector2(-240, 96)
+}
+thresholds = {}

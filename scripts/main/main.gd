@@ -21,6 +21,8 @@ const INPUT_BINDINGS := {
 var room: Node2D
 var _current_room_path := TUTORIAL_ROOM_PATH
 var _current_spawn_id: StringName = &"tutorial_start"
+var _checkpoint_room_path := ""
+var _checkpoint_spawn_id: StringName = &""
 var _is_short_chain_completed := false
 
 
@@ -153,6 +155,10 @@ func _ensure_room_signal_binding() -> void:
 	if room.has_signal("goal_completed") and not room.is_connected("goal_completed", complete_callback):
 		room.connect("goal_completed", complete_callback)
 
+	var checkpoint_callback := Callable(self, "_on_checkpoint_requested")
+	if room.has_signal("checkpoint_requested") and not room.is_connected("checkpoint_requested", checkpoint_callback):
+		room.connect("checkpoint_requested", checkpoint_callback)
+
 
 func _resolve_spawn_position(spawn_id: StringName) -> Vector2:
 	if room != null and room.has_method("get_spawn_position"):
@@ -175,16 +181,27 @@ func _on_room_transition_requested(target_room_path: String, spawn_id: StringNam
 
 
 func _on_player_defeated() -> void:
+	if not _checkpoint_room_path.is_empty():
+		_change_room(_checkpoint_room_path, _checkpoint_spawn_id)
+		return
+
 	if room == null:
 		return
 
 	if room.has_method("should_reset_on_player_defeat") and room.call("should_reset_on_player_defeat"):
 		_change_room(_current_room_path, _current_spawn_id)
 
+
 func _get_runtime_player() -> CharacterBody2D:
 	return runtime.get_node_or_null("PlayerPlaceholder") as CharacterBody2D
 
 
 func _on_goal_completed() -> void:
-	# 阶段 7 只记录这条短链路已经完成，具体完成表现继续由目标房与 HUD 负责。
+	# 闃舵 7 鍙褰曠煭閾捐矾宸茬粡瀹屾垚锛屽叿浣撳畬鎴愯〃鐜扮户缁敱鐩爣鎴夸笌 HUD 璐熻矗銆?
 	_is_short_chain_completed = true
+
+
+func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
+	# Stage 9 鐨?checkpoint 鍙褰曡繍琛屾湡鏈€杩戠殑鍖哄煙鎭㈠鐐癸紝涓嶆墿灞曟垚姝ｅ紡瀛樻。绯荤粺銆?
+	_checkpoint_room_path = room_path
+	_checkpoint_spawn_id = spawn_id
