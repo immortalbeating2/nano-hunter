@@ -4,6 +4,7 @@ const BASE_VIEWPORT_SIZE := Vector2i(640, 360)
 const PLAYER_PLACEHOLDER_SCENE: PackedScene = preload("res://scenes/player/player_placeholder.tscn")
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
 const COMBAT_TRIAL_ROOM_PATH := "res://scenes/rooms/combat_trial_room.tscn"
+const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
 
 const INPUT_BINDINGS := {
 	"move_left": [KEY_A, KEY_LEFT],
@@ -20,6 +21,7 @@ const INPUT_BINDINGS := {
 var room: Node2D
 var _current_room_path := TUTORIAL_ROOM_PATH
 var _current_spawn_id: StringName = &"tutorial_start"
+var _is_short_chain_completed := false
 
 
 func _ready() -> void:
@@ -27,12 +29,6 @@ func _ready() -> void:
 	_ensure_default_input_bindings()
 	room = get_node_or_null("Room") as Node2D
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
-
-
-func _process(_delta: float) -> void:
-	_ensure_room_signal_binding()
-	if _should_enter_combat_trial():
-		_change_room(COMBAT_TRIAL_ROOM_PATH, &"combat_entry")
 
 
 func _configure_window_defaults() -> void:
@@ -149,9 +145,13 @@ func _ensure_room_signal_binding() -> void:
 	if room == null:
 		return
 
-	var callback := Callable(self, "_on_room_transition_requested")
-	if room.scene_file_path == TUTORIAL_ROOM_PATH and not room.is_connected("room_transition_requested", callback):
-		room.connect("room_transition_requested", Callable(self, "_on_room_transition_requested"))
+	var transition_callback := Callable(self, "_on_room_transition_requested")
+	if room.has_signal("room_transition_requested") and not room.is_connected("room_transition_requested", transition_callback):
+		room.connect("room_transition_requested", transition_callback)
+
+	var complete_callback := Callable(self, "_on_goal_completed")
+	if room.has_signal("goal_completed") and not room.is_connected("goal_completed", complete_callback):
+		room.connect("goal_completed", complete_callback)
 
 
 func _resolve_spawn_position(spawn_id: StringName) -> Vector2:
@@ -181,24 +181,10 @@ func _on_player_defeated() -> void:
 	if room.has_method("should_reset_on_player_defeat") and room.call("should_reset_on_player_defeat"):
 		_change_room(_current_room_path, _current_spawn_id)
 
-
-func _should_enter_combat_trial() -> bool:
-	if _current_room_path != TUTORIAL_ROOM_PATH or room == null:
-		return false
-
-	var player := _get_runtime_player()
-	if player == null:
-		return false
-
-	if room.has_method("get_current_step_id") and room.call("get_current_step_id") == &"complete":
-		return true
-
-	var tutorial_dummy: Node = room.get_node_or_null("TutorialDummy")
-	if tutorial_dummy == null:
-		return false
-
-	return tutorial_dummy.get("hit_count") > 0 and player.global_position.x >= 796.0
-
-
 func _get_runtime_player() -> CharacterBody2D:
 	return runtime.get_node_or_null("PlayerPlaceholder") as CharacterBody2D
+
+
+func _on_goal_completed() -> void:
+	# 阶段 7 只记录这条短链路已经完成，具体完成表现继续由目标房与 HUD 负责。
+	_is_short_chain_completed = true
