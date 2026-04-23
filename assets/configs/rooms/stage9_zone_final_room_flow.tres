@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"clear": "区域 5/5 · 小区域完成",
+&"room": "区域 5/5 · 混合遭遇"
+}
+step_prompts = {
+&"clear": "首个小区域已经打通，当前结果可以作为 stage10 的内容基线。",
+&"room": "处理最后一组混合遭遇，确认近战敌与冲锋敌可以共同支撑一个正式房间。"
+}
+step_dash_visibility = {
+&"clear": true,
+&"room": true
+}
+spawn_positions = {
+&"zone_final_start": Vector2(-224, 96)
+}
+thresholds = {}

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"clear": "区域 2/5 · 清空前进",
+&"room": "区域 2/5 · 基础战斗"
+}
+step_prompts = {
+&"clear": "房间已清空，出口已打开，继续向右推进。",
+&"room": "先清掉这一段的近战敌人，确认区域主线开始形成战斗节奏。"
+}
+step_dash_visibility = {
+&"clear": true,
+&"room": true
+}
+spawn_positions = {
+&"zone_combat_start": Vector2(-224, 96)
+}
+thresholds = {}

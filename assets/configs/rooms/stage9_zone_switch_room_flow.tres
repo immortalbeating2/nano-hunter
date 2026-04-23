@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"clear": "区域 4/5 · 开关门已开启",
+&"room": "区域 4/5 · 开关门验证"
+}
+step_prompts = {
+&"clear": "开关门已解锁，继续前往区域终点房。",
+&"room": "触发房间中的开关门，验证正式门控已经接入主流程。"
+}
+step_dash_visibility = {
+&"clear": true,
+&"room": true
+}
+spawn_positions = {
+&"zone_switch_start": Vector2(-224, 96)
+}
+thresholds = {}

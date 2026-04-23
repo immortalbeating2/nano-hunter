@@ -39,7 +39,8 @@ func _enter_tree():
 	# UPDATE:
 	# I added it back in when doing the window stuff.  Starting in a window
 	# made it angry (don't remember how) until I added it back in.
-	await get_tree().create_timer(1).timeout
+	if DisplayServer.get_name() != "headless":
+		await get_tree().create_timer(1).timeout
 	# ---
 
 	_bottom_panel.set_interface(get_editor_interface())

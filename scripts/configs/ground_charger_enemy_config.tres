@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GroundChargerEnemyConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/ground_charger_enemy_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+patrol_distance = 18.0
+patrol_speed = 2.4
+touch_damage = 1
+trigger_distance = 108.0
+charge_speed = 260.0
+charge_duration = 0.38
+recovery_duration = 0.5
