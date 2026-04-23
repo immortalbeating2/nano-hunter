@@ -8,9 +8,9 @@ Last Updated: 2026-04-23
 
 ## Current Stage
 
-`阶段 7：短链路主流程串联（设计与 preflight 中）`
+`阶段 7：短链路主流程串联（已实现、自动化通过并完成人工复核）`
 
-> Update: 2026-04-23 已从阶段 6 稳定基线建立 `codex/stage-7-short-mainline-chain` 与对应 worktree，当前只完成 stage7 的设计、计划与进度启动记录，尚未进入玩法实现。
+> Update: 2026-04-23 已在 `codex/stage-7-short-mainline-chain` worktree 中完成阶段 7 的实现、自动化验证与完整人工复核：`Main` 现已稳定推进 `TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`，新增 `GoalTrialRoom` 作为混合门控目标房，HUD 也已随三段主流程与完成态切换提示。
 
 ## Stage Goal
 
@@ -32,7 +32,10 @@ Last Updated: 2026-04-23
 - 战斗房出口默认锁定，击败敌人后出口解锁
 - 最小 HUD 已从“教程展示”升级为“真实读取当前房间提示 + 生命值 + dash 状态”
 - `BattlePanel` 的两行文本布局仍保持稳定分离，不再出现重叠错绘
-- 当前主流程仍只到 `CombatTrialRoom` 为止，尚未接入阶段 7 的 `GoalTrialRoom`
+- `Main` 不再依赖阶段 6 的定向切房判断，而是统一消费房间侧 `room_transition_requested`
+- `CombatTrialRoom` 现已在清房后稳定过渡到 `GoalTrialRoom`
+- 新增 `GoalTrialRoom`，包含“先击败守门敌人 -> 再穿过已解锁空间门控 -> 抵达目标点”的最小混合门控目标流程
+- HUD 现可在教学房、实战房、目标房与短链路完成态之间切换提示
 
 ## Adjustable Now
 
@@ -83,7 +86,7 @@ Last Updated: 2026-04-23
 - 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 自动化验证全部通过
 - 当前结果足以作为阶段 8 的稳定前置基线
 
-当前状态：以上退出条件尚未开始验证，当前仅完成设计与 preflight。
+当前状态：以上退出条件已完成自动化验证，并已补做整条三段短链路的人工复核；阶段 7 已达到可作为阶段 8 前置基线的收口条件。
 
 ## Asset Status
 
@@ -97,7 +100,7 @@ Last Updated: 2026-04-23
 
 ## Current Goal
 
-当前 `codex/stage-7-short-mainline-chain` worktree 的目标是先完成 stage7 preflight：补齐设计文档、实现计划、状态页、时间线和当日日志启动记录，并把“三段顺序链路 + 混合门控目标房 + 代理协作硬约束”写成明确起点，再进入正式实现。
+当前 `codex/stage-7-short-mainline-chain` worktree 的目标已从 preflight 推进到“阶段 7 实现完成、自动化通过并完成人工复核”。当前更适合做阶段 7 的合并判断与现场收口，而不是继续在本轮范围里扩出阶段 8 的系统稳固项。
 
 ## Current Defaults
 
@@ -109,10 +112,9 @@ Last Updated: 2026-04-23
 
 ## In Progress
 
-- `阶段 7：短链路主流程串联` 当前处于设计与 preflight 中
+- `阶段 7：短链路主流程串联` 当前已完成实现、自动化验证与人工复核，等待按里程碑决定是否合并回 `main`
 - 本轮继续采用 `分支 + worktree`
-- 当前 preflight 只补文档与启动留痕，不混入玩法代码实现
-- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束：满足“2 个以上子任务、写入可隔离、验证可独立、下一步不强依赖单一结果”时，必须启用代理协作
+- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束；但当前桌面会话的上层工具约束要求未获用户明确授权时不能启用 `spawn_agent`，因此本轮在日志中对未启用原因单独留痕
 
 ## Recently Completed
 
@@ -122,14 +124,16 @@ Last Updated: 2026-04-23
 - 阶段 1 / 2 / 3 / 4 / 5 / 6 自动化验证已在主线上全部通过
 - 已基于干净 `main` 建立 `codex/stage-7-short-mainline-chain` 与 `.worktrees/stage-7-short-mainline-chain`
 - 已补齐 stage7 的设计文档、实现计划与进度启动记录
+- 已完成 `Main` 三段房间流转改造，移除阶段 6 的定向切房逻辑
+- 已新增 `GoalTrialRoom` 与阶段 7 GUT，并确认阶段 1-7 自动化验证全部通过
 
 ## Risks And Blockers
 
 - `godot --headless --path . --import` 退出时仍会输出 `ObjectDB instances leaked at exit` 历史警告，但当前不作为阶段阻塞项
 - 阶段 7 最容易失控的方向是：把三段短链路顺势扩成完整房间图、地图系统或正式 checkpoint
 - `GoalTrialRoom` 若做成纯平台或纯战斗，会削弱本轮验证价值
-- 当前 `Main` 的房间切换逻辑仍是阶段 6 定向方案，尚未上升为三段顺序链路
-- 若本轮在实现时再次把代理协作只停留在文字上，而没有真正启用，会重复阶段 6 的执行偏差
+- 当前 `GoalTrialRoom` 仍是最小单敌人 + 单门控 + 单目标点方案，后续若想扩展内容，需谨防直接把它演变成阶段 8 的模板化工作
+- 本轮没有实际启用 `subagent / multi-agent`，原因不是项目范围不适合，而是当前会话上层工具约束未允许在未获用户明确授权时使用 `spawn_agent`
 
 ## Recommended Roadmap
 
@@ -145,6 +149,6 @@ Last Updated: 2026-04-23
 
 ## Next Recommended Steps
 
-1. 在当前 stage7 worktree 中完成 preflight 收口后，正式进入“三段顺序链路”实现。
-2. 实现开始前先按 `Main/房间流转`、`GoalTrialRoom/门控流程`、`HUD/测试/文档` 三块做代理拆分，并按计划实际启用 `multi-agent` 或降级后的 `subagent`。
-3. 优先保持范围稳定，不提前混入阶段 8 的系统稳固项。
+1. 先判断当前阶段 7 结果是否作为新的稳定里程碑合并回 `main`。
+2. 若进入阶段 8，优先聚焦 HUD 第二轮、参数数据化、敌人与房间模板化，而不是继续扩临时房间分支逻辑。
+3. 若后续 session 仍想严格执行阶段 7 计划中的代理协作硬约束，需要先满足当前桌面会话对 `spawn_agent` 的授权前提。

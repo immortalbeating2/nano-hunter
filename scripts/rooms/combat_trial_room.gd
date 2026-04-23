@@ -1,20 +1,22 @@
 extends Node2D
 
 
+signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 signal hud_context_changed(step_title: String, prompt_text: String)
 
 const STEP_COMBAT: StringName = &"combat"
 const STEP_CLEAR: StringName = &"clear"
+const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
 const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
 
 const STEP_TITLES := {
 	STEP_COMBAT: "实战 1/1 · 击败敌人",
-	STEP_CLEAR: "实战完成 · 继续前进",
+	STEP_CLEAR: "实战完成 · 前往目标房",
 }
 
 const STEP_PROMPTS := {
 	STEP_COMBAT: "前方出现了第一只近战敌人。观察接敌压力，利用冲刺与攻击击败它。",
-	STEP_CLEAR: "敌人已被击败，出口打开了。继续向右前进，准备进入后续主流程。",
+	STEP_CLEAR: "敌人已被击败，出口打开了。继续向右前进，进入目标房完成这条短链路。",
 }
 
 const SPAWN_POSITIONS := {
@@ -29,6 +31,7 @@ const SPAWN_POSITIONS := {
 var _player: CharacterBody2D
 var _current_step: StringName = STEP_COMBAT
 var _exit_unlocked := false
+var _transition_requested := false
 
 
 func _ready() -> void:
@@ -41,6 +44,15 @@ func _ready() -> void:
 
 func bind_player(player: CharacterBody2D) -> void:
 	_player = player
+
+
+func _process(_delta: float) -> void:
+	if _player == null or not _exit_unlocked or _transition_requested:
+		return
+
+	if _player.global_position.x >= $ExitZone.global_position.x - 36.0:
+		_transition_requested = true
+		room_transition_requested.emit(GOAL_TRIAL_ROOM_PATH, &"goal_entry")
 
 
 func get_camera_limits() -> Rect2i:

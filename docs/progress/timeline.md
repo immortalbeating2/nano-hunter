@@ -163,3 +163,9 @@
   - 代理 B：`GoalTrialRoom` 与门控流程
   - 代理 C：HUD 分段提示、Stage 7 GUT 与文档留痕
 - 完成 stage7 preflight 的最小核对：`main` 与 stage7 worktree 同时存在，当前改动仅限文档启动记录，尚未进入玩法实现。
+- 完成阶段 7 的首轮 TDD 实现：新增 `tests/stage7/test_stage_7_short_mainline_chain.gd`，先以红测确认当前缺口集中在“战斗房未过渡到目标房 / 目标房不存在 / 战斗房失败局部重置回归”三处。
+- 将 `Main` 的房间切换逻辑从阶段 6 的定向判断收敛为统一消费房间侧 `room_transition_requested`，并新增 `GoalTrialRoom` 作为第三段混合门控目标房。
+- 扩展 `CombatTrialRoom`，让其在清房后能稳定过渡到 `GoalTrialRoom`；同时保持战斗房失败时仍只重置当前房间，不回滚整条短链路。
+- 新增 `scenes/rooms/goal_trial_room.tscn` 与 `scripts/rooms/goal_trial_room.gd`，以“击败守门敌人 -> 解锁门控 -> 抵达目标点”的最小结构完成阶段 7 的第三段验证。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 GUT 与 `git diff --check` 全部通过，确认阶段 7 已达到可作为阶段 8 前置基线的稳定状态。
+- 随后补做阶段 7 的完整人工复核：通过真实游戏窗口配合 `godot_mcp` 文件通道读值 / 截图，确认 `TutorialRoom -> CombatTrialRoom -> GoalTrialRoom` 三段链路、战斗房局部重置与目标房“短链路完成”状态都已成立。
