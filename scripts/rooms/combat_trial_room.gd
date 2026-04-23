@@ -8,6 +8,7 @@ const STEP_COMBAT: StringName = &"combat"
 const STEP_CLEAR: StringName = &"clear"
 const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
 const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
+const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
 
 const STEP_TITLES := {
 	STEP_COMBAT: "实战 1/1 · 击败敌人",
@@ -32,6 +33,8 @@ var _player: CharacterBody2D
 var _current_step: StringName = STEP_COMBAT
 var _exit_unlocked := false
 var _transition_requested := false
+
+@export var flow_config: RoomFlowConfig
 
 
 func _ready() -> void:
@@ -64,10 +67,16 @@ func get_current_step_id() -> StringName:
 
 
 func get_current_step_title() -> String:
+	if flow_config != null:
+		return flow_config.get_step_title(_current_step, STEP_TITLES.get(_current_step, "实战进行中"))
+
 	return STEP_TITLES.get(_current_step, "实战进行中")
 
 
 func get_current_prompt_text() -> String:
+	if flow_config != null:
+		return flow_config.get_step_prompt(_current_step, STEP_PROMPTS.get(_current_step, ""))
+
 	return STEP_PROMPTS.get(_current_step, "")
 
 
@@ -76,11 +85,26 @@ func is_exit_unlocked() -> bool:
 
 
 func is_dash_available_in_hud() -> bool:
+	if flow_config != null:
+		return flow_config.is_dash_visible(_current_step, true)
+
 	return true
 
 
 func get_spawn_position(spawn_id: StringName = &"combat_entry") -> Vector2:
+	if flow_config != null:
+		return flow_config.get_spawn_position(spawn_id, SPAWN_POSITIONS[&"combat_entry"])
+
 	return SPAWN_POSITIONS.get(spawn_id, SPAWN_POSITIONS[&"combat_entry"])
+
+
+func get_hud_context() -> Dictionary:
+	return {
+		"step_id": _current_step,
+		"step_title": get_current_step_title(),
+		"prompt_text": get_current_prompt_text(),
+		"dash_available": is_dash_available_in_hud(),
+	}
 
 
 func should_reset_on_player_defeat() -> bool:

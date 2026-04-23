@@ -1,5 +1,14 @@
 ﻿# Nano Hunter Timeline
 
+## 2026-04-24
+
+- 在 `codex/stage-8-systems-hardening-and-content-prep` worktree 中完成 Stage 8 首轮实现：新增玩家配置资源、房间流程配置资源、基础敌人配置资源，并把当前关键参数从脚本导出字段收口到只读资源。
+- 新增 `scripts/combat/base_enemy.gd`，将 `BasicMeleeEnemy` 从单体原型收口为基于基础契约的最小模板入口，同时保留 `receive_attack(...)` 与 `defeated` 契约。
+- 收口 HUD 第二轮接口：房间侧新增 `get_hud_context()`，玩家侧新增 `get_hud_status_snapshot()`，`TutorialHUD` 改为统一消费只读快照而非继续依赖零散 `get()` 探测。
+- 新增 `tests/stage8/test_stage_8_systems_hardening_and_content_prep.gd`，覆盖玩家配置应用、房间 HUD 上下文、基础敌人配置应用与模板契约。
+- 在当前会话中重新定位 `godot-mcp` 阻塞：清理旧 `6505-6509` 监听后仍无法恢复工具直连，确认当前问题不再是旧 bridge 占端口，而是 Codex 侧 bridge 未在本会话重新建立监听；本轮改用 shell + headless 验证完成 fallback。
+- 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 GUT 与 `git diff --check` 全部通过，确认 Stage 8 当前结果已达到“可作为继续扩内容前稳定基线”的首轮退出条件。
+
 ## 2026-03-31
 
 - 初始化 `nano-hunter` 的 Godot 4.6 工程并建立基础仓库结构。

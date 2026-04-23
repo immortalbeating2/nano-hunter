@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"complete": "短链路完成",
+&"goal_gate": "目标 1/2 · 解除门控",
+&"goal_reach": "目标 2/2 · 抵达目标点"
+}
+step_prompts = {
+&"complete": "目标已达成，阶段 7 的三段短链路已经成立。",
+&"goal_gate": "击败守在前方的敌人，解除目标门控，再继续向右推进。",
+&"goal_reach": "门控已解除，利用跳跃与冲刺抵达右侧目标点，完成这条短链路。"
+}
+step_dash_visibility = {
+&"complete": true,
+&"goal_gate": true,
+&"goal_reach": true
+}
+spawn_positions = {
+&"goal_entry": Vector2(-96, 120),
+&"goal_retry": Vector2(-96, 120)
+}
+thresholds = {}

@@ -1,7 +1,9 @@
-[gd_scene format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/goal_trial_room.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/combat/basic_melee_enemy.tscn" id="2"]
+[ext_resource type="Resource" path="res://assets/configs/rooms/goal_trial_room_flow.tres" id="3"]
+[ext_resource type="Resource" path="res://scripts/configs/goal_trial_melee_enemy_config.tres" id="4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -20,6 +22,7 @@ size = Vector2(96, 128)
 
 [node name="GoalTrialRoom" type="Node2D"]
 script = ExtResource("1")
+flow_config = ExtResource("3")
 
 [node name="Backdrop" type="Polygon2D" parent="."]
 color = Color(0.0823529, 0.0941176, 0.152941, 1)
@@ -57,7 +60,7 @@ polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
 
 [node name="BasicMeleeEnemy" parent="." instance=ExtResource("2")]
 position = Vector2(48, 136)
-patrol_distance = 32.0
+config = ExtResource("4")
 
 [node name="GoalBarrier" type="StaticBody2D" parent="."]
 position = Vector2(224, 96)

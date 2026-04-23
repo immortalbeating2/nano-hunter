@@ -341,6 +341,12 @@
   - 删除后必须同时复核 `git worktree list` 与磁盘目录状态，确认 Git 侧和物理目录都已清理完成
 - 阶段收口、关闭旧 worktree 或切换到新 session 后，还应确认旧会话遗留的 `godot-mcp-pro` bridge 进程已退出；高置信度经验表明，若旧 bridge 持续占用 `6505-6509`，新开的 Godot 编辑器可能会连到旧会话，导致当前会话里的 `godot_mcp` 工具报 `Godot editor is not connected`
 - 若出现“Godot 已启动、`godot_mcp` 插件已注入临时 autoload，但当前会话 MCP 工具仍未连接”的组合现象，优先检查 `6505-6509` 的监听进程、启动时间与是否存在旧 `node.exe` bridge 残留，而不要先假设是当前 worktree 配置错误
+- 若已确认旧 `6505-6509` 监听全部释放，但 `godot_mcp` 仍未恢复，不要继续把问题只归因为“旧会话占端口”；下一步应按顺序执行：
+  - 先重开当前 AI 会话，让新的 `godot-mcp-pro` bridge 重新建立监听
+  - 再确认 `6505-6509` 是否出现新启动时间的 `node.exe`
+  - 然后重新打开当前 worktree 的 Godot 编辑器
+  - 最后立刻复测 `godot_mcp` 工具
+- 高置信度经验表明，只有“旧监听已释放 + 新会话 bridge 已监听 + 当前 Godot 编辑器已重开”三者同时满足时，`godot_mcp` 才会稳定恢复直连；缺任何一环都可能继续报 `Godot editor is not connected`
 
 ## 分支操作留痕约定
 

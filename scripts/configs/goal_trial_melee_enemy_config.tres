@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BasicEnemyConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/basic_enemy_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+patrol_distance = 32.0
+patrol_speed = 2.2
+touch_damage = 1

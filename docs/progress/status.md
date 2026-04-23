@@ -1,6 +1,6 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-23
+Last Updated: 2026-04-24
 
 ## Current Phase
 
@@ -8,9 +8,9 @@ Last Updated: 2026-04-23
 
 ## Current Stage
 
-`阶段 8：系统稳固与内容生产前准备（设计与 preflight 中）`
+`阶段 8：系统稳固与内容生产前准备（首轮实现与验证已完成）`
 
-> Update: 2026-04-23 已从阶段 7 稳定基线建立 `codex/stage-8-systems-hardening-and-content-prep` 与对应 worktree，当前只完成 stage8 的设计、执行版计划与进度启动记录，尚未进入任何玩法实现。
+> Update: 2026-04-24 已完成 Stage 8 首轮实现：玩家关键参数、房间流程参数与基础敌人关键参数已收口到只读配置资源；HUD 已统一消费房间 / 玩家快照接口；`BasicMeleeEnemy` 已整理为基于 `base_enemy.gd` 的最小模板入口，并通过阶段 1-8 自动化验证。
 
 ## Stage Goal
 
@@ -36,9 +36,10 @@ Last Updated: 2026-04-23
 - `CombatTrialRoom` 现已在清房后稳定过渡到 `GoalTrialRoom`
 - 新增 `GoalTrialRoom`，包含“先击败守门敌人 -> 再穿过已解锁空间门控 -> 抵达目标点”的最小混合门控目标流程
 - HUD 现可在教学房、实战房、目标房与短链路完成态之间切换提示
-- 当前关键参数仍主要散落在玩家、敌人和房间脚本的导出字段中
-- 当前 HUD 仍主要依赖房间/玩家脚本的分散读取方式，尚未形成稳定接口层
-- 当前 `BasicMeleeEnemy` 仍是可用原型，但还没有整理成可复用模板入口
+- 玩家关键参数现已通过 `res://scenes/player/player_placeholder_config.tres` 统一驱动
+- 房间标题 / 提示 / 出生点 / 阈值现已通过 `res://assets/configs/rooms/*.tres` 统一驱动
+- `TutorialHUD` 现统一读取房间 `get_hud_context()` 与玩家 `get_hud_status_snapshot()`
+- `BasicMeleeEnemy` 现已通过 `res://scripts/combat/base_enemy.gd` 收口基础契约，并通过只读配置资源驱动关键参数
 
 ## Adjustable Now
 
@@ -66,11 +67,13 @@ Last Updated: 2026-04-23
 - `dash_duration`
 - `dash_speed`
 - `dash_cooldown`
-- 阶段 5 / 6 当前新增可调项主要集中在：
-- `TutorialRoom` 中各教学节点的位置
-- 教学提示文案
-- 出口门控的开启时机
-- 最小 HUD 的版面与提示表达
+- 当前 Stage 8 已新增的主要只读配置入口：
+- `res://scenes/player/player_placeholder_config.tres`
+- `res://scripts/configs/basic_melee_enemy_config.tres`
+- `res://scripts/configs/goal_trial_melee_enemy_config.tres`
+- `res://assets/configs/rooms/tutorial_room_flow.tres`
+- `res://assets/configs/rooms/combat_trial_room_flow.tres`
+- `res://assets/configs/rooms/goal_trial_room_flow.tres`
 - `max_health`
 - `damage_invulnerability_duration`
 - `damage_knockback_speed`
@@ -89,7 +92,7 @@ Last Updated: 2026-04-23
 - 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 自动化验证全部通过
 - 当前结果足以作为继续扩内容的稳定前置基线
 
-当前状态：以上退出条件尚未开始验证，当前仅完成设计与 preflight。
+当前状态：以上退出条件已完成首轮实现与验证，当前结果可作为继续扩内容前的稳定前置基线。
 
 ## Asset Status
 
@@ -103,7 +106,7 @@ Last Updated: 2026-04-23
 
 ## Current Goal
 
-当前 `codex/stage-8-systems-hardening-and-content-prep` worktree 的目标是先完成 stage8 preflight：补齐设计文档、执行版计划、状态页、时间线和当日日志启动记录，并把“参数数据化优先 / HUD 第二轮 / 敌人模板化 / 不扩玩法内容”写成明确起点，再进入正式实现。
+当前 `codex/stage-8-systems-hardening-and-content-prep` worktree 的目标已从 preflight 推进到“首轮实现与验证完成”：参数数据化、HUD 第二轮接口收口与基础敌人模板化都已落地，下一步更适合做评审、合并与 worktree 收口，而不是继续扩新内容。
 
 ## Current Defaults
 
@@ -115,10 +118,10 @@ Last Updated: 2026-04-23
 
 ## In Progress
 
-- `阶段 8：系统稳固与内容生产前准备` 当前处于设计与 preflight 中
+- `阶段 8：系统稳固与内容生产前准备` 当前已完成首轮实现与验证
 - 本轮继续采用 `分支 + worktree`
-- 当前 preflight 只补计划、设计与进度启动记录，不混入任何玩法实现
-- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束：满足“2 个以上子任务、写入可隔离、验证可独立、下一步不强依赖单一结果”时，应实际启用代理协作
+- 本轮已按“玩家配置 / HUD 接口 / 敌人模板与测试文档”拆分并实际启用代理协作
+- 当前只剩文档收口、评审与后续合并决策
 
 ## Recently Completed
 
@@ -128,6 +131,10 @@ Last Updated: 2026-04-23
 - 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 自动化验证已在主线上全部通过
 - 已基于干净 `main` 建立 `codex/stage-8-systems-hardening-and-content-prep` 与 `.worktrees/stage-8-systems-hardening-and-content-prep`
 - 已补齐 stage8 的执行版计划、设计文档与进度启动记录
+- 玩家参数、房间流程参数与基础敌人关键参数已收口到只读资源
+- `TutorialHUD` 已改为统一消费稳定只读接口
+- `BasicMeleeEnemy` 已整理成基于 `base_enemy.gd` 的最小模板入口
+- `godot --headless --path . --import` 与阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 GUT 已全部通过
 
 ## Risks And Blockers
 
@@ -136,6 +143,7 @@ Last Updated: 2026-04-23
 - 若 HUD 第二轮同时改结构和表现，容易让本轮从“接口收口”滑向“大规模 UI 重做”
 - 若敌人模板化过早扩成第二类敌人，会直接把本轮拖回新内容开发
 - 当前 worktree 内 `git` 命令需要显式处理 `safe.directory`，后续实现与验证时要保持这一点的一致性
+- 当前桌面会话里的 `godot-mcp` 工具仍未恢复到可直接调用状态；本轮已定位为“Codex 侧 bridge 未在 6505-6509 重建监听”，并已采用 shell + headless 验证完成 fallback
 
 ## Recommended Roadmap
 
@@ -151,6 +159,6 @@ Last Updated: 2026-04-23
 
 ## Next Recommended Steps
 
-1. 在当前 stage8 worktree 中完成 preflight 收口后，正式进入参数数据化与 HUD / 敌人模板化实现。
-2. 实现开始前先按“配置资源 / HUD 接口 / 敌人模板 + 测试文档”三块拆分任务，并优先实际启用代理协作。
-3. 保持范围稳定，不提前混入阶段 9 级别的新内容扩张。
+1. 在当前 stage8 worktree 上做一次代码评审，确认首轮实现不需要再扩第二类敌人或更重的数据设施。
+2. 若准备合并回 `main`，先关闭指向该 worktree 的 Godot / 终端等进程，并复核 `project.godot` 未残留临时 MCP autoload。
+3. 合并后再决定下一轮是否进入更偏内容生产的扩展，而不是在 stage8 内继续堆临时逻辑。

@@ -1,79 +1,52 @@
-extends StaticBody2D
+extends "res://scripts/combat/base_enemy.gd"
 
 
-signal defeated
+const BasicEnemyConfig := preload("res://scripts/configs/basic_enemy_config.gd")
 
-@export var patrol_distance: float = 40.0
-@export var patrol_speed: float = 2.2
-@export var touch_damage: int = 1
+@export var config: BasicEnemyConfig
 
-@onready var _collision_shape: CollisionShape2D = $CollisionShape2D
-@onready var _hurtbox: Area2D = $Hurtbox
-@onready var _hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
-@onready var _body_polygon: Polygon2D = $Body
+var _patrol_distance: float = 40.0
+var _patrol_speed: float = 2.2
+var _touch_damage: int = 1
 
 var _spawn_position := Vector2.ZERO
 var _patrol_elapsed := 0.0
-var _is_defeated := false
 
 
 func _ready() -> void:
+	_apply_config()
 	_spawn_position = position
 
 
 func _process(delta: float) -> void:
-	if _is_defeated:
+	if is_defeated():
 		return
 
 	_patrol_elapsed += delta
-	position.x = _spawn_position.x + sin(_patrol_elapsed * patrol_speed) * patrol_distance
+	position.x = _spawn_position.x + sin(_patrol_elapsed * _patrol_speed) * _patrol_distance
 
 
 func _physics_process(_delta: float) -> void:
-	if _is_defeated or _hurtbox == null:
+	_deal_touch_damage(_touch_damage)
+
+
+func _apply_config() -> void:
+	if config == null:
 		return
 
-	for body in _hurtbox.get_overlapping_bodies():
-		var receiver := _resolve_damage_receiver(body)
-		if receiver == null:
-			continue
-
-		var receiver_node := receiver as Node2D
-		if receiver_node == null:
-			continue
-
-		var hit_direction: Vector2 = receiver_node.global_position - global_position
-		receiver.call("receive_damage", touch_damage, hit_direction)
+	# 模板实例只从只读配置资源同步当前阶段需要的最小参数。
+	_patrol_distance = config.patrol_distance
+	_patrol_speed = config.patrol_speed
+	_touch_damage = config.touch_damage
 
 
-func receive_attack(_hit_direction: Vector2, _knockback_force: float) -> void:
-	if _is_defeated:
-		return
-
-	_is_defeated = true
-	if _collision_shape != null:
-		_collision_shape.disabled = true
-	if _hurtbox_shape != null:
-		_hurtbox_shape.disabled = true
-	if _body_polygon != null:
-		_body_polygon.color = Color(0.572549, 0.294118, 0.294118, 0.45)
-	defeated.emit()
+func get_patrol_distance() -> float:
+	return _patrol_distance
 
 
-func is_defeated() -> bool:
-	return _is_defeated
+func get_patrol_speed() -> float:
+	return _patrol_speed
 
 
-func _resolve_damage_receiver(candidate: Object) -> Node:
-	if candidate == null:
-		return null
-
-	if candidate.has_method("receive_damage"):
-		return candidate as Node
-
-	if candidate is Node:
-		var parent := (candidate as Node).get_parent()
-		if parent != null and parent.has_method("receive_damage"):
-			return parent
-
-	return null
+func get_touch_damage() -> int:
+	return _touch_damage
