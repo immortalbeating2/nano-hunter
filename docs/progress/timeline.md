@@ -172,3 +172,8 @@
 - 将 `codex/stage-7-short-mainline-chain` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 GUT 与 `git diff --check` 全部通过。
 - 阶段 7 收口时，先检查直接指向该 worktree 的进程；Git 侧 worktree 元数据在第一次删除时已移除，但物理目录因 WindowsTerminal 占用未能立即删除。
 - 关闭对应的 `WindowsTerminal` 进程后，使用长路径方式成功清理 `.worktrees/stage-7-short-mainline-chain` 物理目录，并删除本地分支 `codex/stage-7-short-mainline-chain`。
+- 将 `stage8` 执行版计划写回主线：新增 `docs/superpowers/plans/2026-04-23-stage-8-systems-hardening-and-content-prep.md`，固定本轮优先级为“参数数据化 -> HUD 第二轮 -> 敌人模板化”。
+- 从干净 `main` 建立 `codex/stage-8-systems-hardening-and-content-prep` 与 `.worktrees/stage-8-systems-hardening-and-content-prep`，作为阶段 8 的唯一开发入口。
+- 在 stage8 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-8-systems-hardening-and-content-prep-design.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 8：系统稳固与内容生产前准备（设计与 preflight 中）”，并明确本轮不新增能力、不新增敌人种类、不扩主流程长度。
+- 明确阶段 8 的代理协作要求：若写入范围可分离，优先按“配置资源 / HUD 接口 / 敌人模板 + 测试文档”三块实际启用代理协作，而不是只写建议。

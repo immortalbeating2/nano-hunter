@@ -8,13 +8,13 @@ Last Updated: 2026-04-23
 
 ## Current Stage
 
-`阶段 7：短链路主流程串联（已实现、自动化通过并完成人工复核）`
+`阶段 8：系统稳固与内容生产前准备（设计与 preflight 中）`
 
-> Update: 2026-04-23 已在 `codex/stage-7-short-mainline-chain` worktree 中完成阶段 7 的实现、自动化验证与完整人工复核：`Main` 现已稳定推进 `TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`，新增 `GoalTrialRoom` 作为混合门控目标房，HUD 也已随三段主流程与完成态切换提示。
+> Update: 2026-04-23 已从阶段 7 稳定基线建立 `codex/stage-8-systems-hardening-and-content-prep` 与对应 worktree，当前只完成 stage8 的设计、执行版计划与进度启动记录，尚未进入任何玩法实现。
 
 ## Stage Goal
 
-在阶段 6 已完成的最小真实战斗循环基线上，把当前 `TutorialRoom -> CombatTrialRoom` 扩展为一条真正可顺序推进的短主流程：`TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`。本轮固定验证三段流转、混合门控目标房、最小房间契约升级和三段 HUD 提示，而不引入大地图、存档、正式 checkpoint、多分支路线或第二类敌人。
+在阶段 7 已完成的三段短链路主流程基线上，把当前系统从“可玩原型”收口为“更适合持续扩内容的稳定工程基线”。本轮固定优先完成参数数据化，其次收口 HUD 第二轮接口，最后把 `BasicMeleeEnemy` 整理成更可复用的敌人模板入口，而不引入新能力、新房间、新敌人种类或更长主流程。
 
 ## Playable Now
 
@@ -36,6 +36,9 @@ Last Updated: 2026-04-23
 - `CombatTrialRoom` 现已在清房后稳定过渡到 `GoalTrialRoom`
 - 新增 `GoalTrialRoom`，包含“先击败守门敌人 -> 再穿过已解锁空间门控 -> 抵达目标点”的最小混合门控目标流程
 - HUD 现可在教学房、实战房、目标房与短链路完成态之间切换提示
+- 当前关键参数仍主要散落在玩家、敌人和房间脚本的导出字段中
+- 当前 HUD 仍主要依赖房间/玩家脚本的分散读取方式，尚未形成稳定接口层
+- 当前 `BasicMeleeEnemy` 仍是可用原型，但还没有整理成可复用模板入口
 
 ## Adjustable Now
 
@@ -78,15 +81,15 @@ Last Updated: 2026-04-23
 
 ## Exit Criteria
 
-- `Main` 能稳定推进 `TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`
-- `GoalTrialRoom` 满足主房间契约，并提供独立出生点与明确完成条件
-- 目标房初始门控关闭，满足条件后解锁
-- HUD 能随教学房、实战房、目标房与完成态切换提示
-- 玩家若在 `CombatTrialRoom` 中失败，仍只重置当前战斗房，不回滚整条链路
-- 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 自动化验证全部通过
-- 当前结果足以作为阶段 8 的稳定前置基线
+- 玩家关键参数已从只读配置资源稳定读取并成功应用
+- `BasicMeleeEnemy` 关键参数已从只读配置资源稳定读取并成功应用
+- HUD 已改为统一消费稳定只读接口，而不是继续依赖零散探测
+- `BasicMeleeEnemy` 已整理成可复用模板入口，且现有行为不回归
+- `Main`、`TutorialRoom`、`CombatTrialRoom` 与 `GoalTrialRoom` 的当前三段主流程保持稳定，不因系统收口而断链
+- 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 自动化验证全部通过
+- 当前结果足以作为继续扩内容的稳定前置基线
 
-当前状态：以上退出条件已完成自动化验证，并已补做整条三段短链路的人工复核；阶段 7 已达到可作为阶段 8 前置基线的收口条件。
+当前状态：以上退出条件尚未开始验证，当前仅完成设计与 preflight。
 
 ## Asset Status
 
@@ -100,7 +103,7 @@ Last Updated: 2026-04-23
 
 ## Current Goal
 
-阶段 7 已合并回 `main` 并完成分支 / worktree 清理。当前主线目标已切换为：以阶段 7 的三段短链路结果作为新的稳定基线，进入阶段 8 的设计确认与开发前准备，而不是继续在阶段 7 范围里追加临时扩展。
+当前 `codex/stage-8-systems-hardening-and-content-prep` worktree 的目标是先完成 stage8 preflight：补齐设计文档、执行版计划、状态页、时间线和当日日志启动记录，并把“参数数据化优先 / HUD 第二轮 / 敌人模板化 / 不扩玩法内容”写成明确起点，再进入正式实现。
 
 ## Current Defaults
 
@@ -112,30 +115,27 @@ Last Updated: 2026-04-23
 
 ## In Progress
 
-- `main` 当前已承载阶段 7 的稳定结果，可直接作为阶段 8 的前置基线
-- 阶段 7 的 `分支 + worktree` 已完成收口，Git 元数据和物理目录都已清理
-- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束；但阶段 7 实际执行时仍受当前桌面会话上层工具授权边界限制，因此已在日志中对未启用原因单独留痕
+- `阶段 8：系统稳固与内容生产前准备` 当前处于设计与 preflight 中
+- 本轮继续采用 `分支 + worktree`
+- 当前 preflight 只补计划、设计与进度启动记录，不混入任何玩法实现
+- 本轮已明确把 `subagent / multi-agent` 写成实现硬约束：满足“2 个以上子任务、写入可隔离、验证可独立、下一步不强依赖单一结果”时，应实际启用代理协作
 
 ## Recently Completed
 
-- 阶段 6 的“最小真实战斗循环”已完成并收口为当前稳定基线
-- `Main` 已具备最小房间过渡与当前战斗房重置能力
-- `CombatTrialRoom`、`BasicMeleeEnemy`、玩家生命 / 受击 / `defeated` 与 HUD 真实读值均已成立
-- 阶段 1 / 2 / 3 / 4 / 5 / 6 自动化验证已在主线上全部通过
-- 已基于干净 `main` 建立 `codex/stage-7-short-mainline-chain` 与 `.worktrees/stage-7-short-mainline-chain`
-- 已补齐 stage7 的设计文档、实现计划与进度启动记录
-- 已完成 `Main` 三段房间流转改造，移除阶段 6 的定向切房逻辑
-- 已新增 `GoalTrialRoom` 与阶段 7 GUT，并确认阶段 1-7 自动化验证全部通过
-- 已将 `codex/stage-7-short-mainline-chain` 本地合并回 `main`
-- 已清理阶段 7 本地分支与 `.worktrees/stage-7-short-mainline-chain` 物理目录
+- 阶段 7 的“短链路主流程串联”已完成并收口为当前稳定基线
+- `Main` 已稳定推进 `TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`
+- HUD 已能随教学房、实战房、目标房与完成态切换提示
+- 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 自动化验证已在主线上全部通过
+- 已基于干净 `main` 建立 `codex/stage-8-systems-hardening-and-content-prep` 与 `.worktrees/stage-8-systems-hardening-and-content-prep`
+- 已补齐 stage8 的执行版计划、设计文档与进度启动记录
 
 ## Risks And Blockers
 
 - `godot --headless --path . --import` 退出时仍会输出 `ObjectDB instances leaked at exit` 历史警告，但当前不作为阶段阻塞项
-- 阶段 7 最容易失控的方向是：把三段短链路顺势扩成完整房间图、地图系统或正式 checkpoint
-- `GoalTrialRoom` 若做成纯平台或纯战斗，会削弱本轮验证价值
-- 当前 `GoalTrialRoom` 仍是最小单敌人 + 单门控 + 单目标点方案，后续若想扩展内容，需谨防直接把它演变成阶段 8 的模板化工作
-- 本轮没有实际启用 `subagent / multi-agent`，原因不是项目范围不适合，而是当前会话上层工具约束未允许在未获用户明确授权时使用 `spawn_agent`
+- 阶段 8 最容易失控的方向是：借“系统稳固”之名继续扩玩法内容，或者提前铺过重的数据/模板基础设施
+- 若 HUD 第二轮同时改结构和表现，容易让本轮从“接口收口”滑向“大规模 UI 重做”
+- 若敌人模板化过早扩成第二类敌人，会直接把本轮拖回新内容开发
+- 当前 worktree 内 `git` 命令需要显式处理 `safe.directory`，后续实现与验证时要保持这一点的一致性
 
 ## Recommended Roadmap
 
@@ -151,6 +151,6 @@ Last Updated: 2026-04-23
 
 ## Next Recommended Steps
 
-1. 基于当前阶段 7 主线结果，进入阶段 8 的设计确认与 preflight。
-2. 若进入阶段 8，优先聚焦 HUD 第二轮、参数数据化、敌人与房间模板化，而不是继续扩临时房间分支逻辑。
-3. 若后续 session 仍想严格执行阶段 7 计划中的代理协作硬约束，需要先满足当前桌面会话对 `spawn_agent` 的授权前提。
+1. 在当前 stage8 worktree 中完成 preflight 收口后，正式进入参数数据化与 HUD / 敌人模板化实现。
+2. 实现开始前先按“配置资源 / HUD 接口 / 敌人模板 + 测试文档”三块拆分任务，并优先实际启用代理协作。
+3. 保持范围稳定，不提前混入阶段 9 级别的新内容扩张。
