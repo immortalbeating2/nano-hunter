@@ -1,14 +1,17 @@
-﻿# Stage 4 Minimal Ability Difference Implementation Plan
+# Stage 4 Minimal Ability Difference Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 鍦ㄩ樁娈?3 绋冲畾鍩虹嚎涓婏紝閫氳繃鈥滀粎鍦伴潰鍐插埡 + TestRoom 娣峰悎楠岃瘉鈥濊瘉鏄庢渶灏忚兘鍔涘樊寮傚凡缁忓叿澶囧疄闄呯帺娉曚环鍊笺€?
-**Architecture:** 淇濇寔 `Main.tscn + Runtime + TestRoom + PlayerPlaceholder + TrainingDummy` 鐨勭幇鏈夐鏋朵笉鍙橈紝鍦ㄥ崰浣嶇帺瀹朵笂澧為噺鍔犲叆 `dash` 杈撳叆涓庣姸鎬侊紝骞跺彧鎵╁睍 `TestRoom` 鏉ラ獙璇佹帰绱㈤棬妲涘拰鎴樻枟闂ㄦ銆傜户缁部鐢ㄩ樁娈?3 鐨勬敾鍑讳笌鍙楀嚮鏈€灏忓绾︼紝涓嶅紩鍏ョ┖涓啿鍒恒€佹棤鏁屽抚銆佹敾鍑诲彇娑堟垨 HUD銆?
-**Tech Stack:** Godot 4.6銆丟DScript銆乣.tscn` 鏂囨湰鍦烘櫙銆丟UT銆丳owerShell
+**Goal:** 在阶段 3 稳定基线上，通过“仅地面冲刺 + TestRoom 混合验证”证明最小能力差异已经具备实际玩法价值。
+
+**Architecture:** 保持 `Main.tscn + Runtime + TestRoom + PlayerPlaceholder + TrainingDummy` 的现有骨架不变，在占位玩家上增量加入 `dash` 输入与状态，并只扩展 `TestRoom` 来验证探索门槛和战斗门槛。继续沿用阶段 3 的攻击与受击最小契约，不引入空中冲刺、无敌帧、攻击取消或 HUD。
+
+**Tech Stack:** Godot 4.6、GDScript、`.tscn` 文本场景、GUT、PowerShell
 
 ---
 
-## Task 1: 鏀跺彛 Stage 4 鍓嶇疆鏂囨。涓庡紑鍙戠幇鍦?
+## Task 1: 收口 Stage 4 前置文档与开发现场
+
 **Files:**
 - Create: `spec-design/2026-04-22-stage-4-minimal-ability-difference-design.md`
 - Create: `docs/implementation-plans/2026-04-22-stage-4-minimal-ability-difference.md`
@@ -17,31 +20,48 @@
 - Create: `docs/progress/2026-04-22.md`
 - Modify: `AGENTS.md`
 
-- [ ] 鍦?`codex/stage-4-minimal-ability-difference` 涓庡搴?`.worktrees/` 涓惎鍔ㄦ湰杞?preflight銆?- [ ] 鎶?`AGENTS.md` 鐨勪唬鐞嗗崗浣滆鍒欏悓姝ュ埌褰撳墠 worktree锛岄伩鍏嶅疄鐜伴樁娈垫寜鏃ц鍒欒鍒ゃ€?- [ ] 璁板綍鏈疆鍒嗘敮 / worktree 妯″紡銆侀樁娈电洰鏍囥€佸欢鍚庨」褰掑睘涓庨獙璇侀鏈熴€?
-## Task 2: 鏂板鍐插埡杈撳叆涓庢渶灏忕姸鎬佹満
+- [ ] 在 `codex/stage-4-minimal-ability-difference` 与对应 `.worktrees/` 中启动本轮 preflight。
+- [ ] 把 `AGENTS.md` 的代理协作规则同步到当前 worktree，避免实现阶段按旧规则误判。
+- [ ] 记录本轮分支 / worktree 模式、阶段目标、延后项归属与验证预期。
+
+## Task 2: 新增冲刺输入与最小状态机
 
 **Files:**
 - Modify: `project.godot`
 - Modify: `scripts/player/player_placeholder.gd`
 - Test: `tests/stage4/test_stage_4_minimal_ability_difference.gd`
 
-- [ ] 涓?`dash` 杈撳叆濂戠害琛ュけ璐ユ祴璇曘€?- [ ] 鍦ㄧ帺瀹惰剼鏈腑鏂板 `dash` 鐘舵€佷笌瀵煎嚭璋冨弬瀛楁銆?- [ ] 鍥哄畾鏈疆鍐插埡杈圭晫锛?  - 鍙厑璁稿湴闈㈣Е鍙?  - 鍙厑璁镐粠 `idle` / `run` / `land` 杩涘叆
-  - 涓嶈兘鍦?`attack` 涓Е鍙?  - 涓嶈兘鍦ㄧ┖涓Е鍙?- [ ] 璺戦樁娈?4 娴嬭瘯锛岀‘璁ゅ啿鍒虹姸鎬佷笌鏂瑰悜濂戠害杞豢銆?
-## Task 3: 鎵╁睍 TestRoom 鐨勮兘鍔涘樊寮傞獙璇佺偣
+- [ ] 为 `dash` 输入契约补失败测试。
+- [ ] 在玩家脚本中新增 `dash` 状态与导出调参字段。
+- [ ] 固定本轮冲刺边界：
+  - 只允许地面触发
+  - 只允许从 `idle` / `run` / `land` 进入
+  - 不能在 `attack` 中触发
+  - 不能在空中触发
+- [ ] 跑阶段 4 测试，确认冲刺状态与方向契约转绿。
+
+## Task 3: 扩展 TestRoom 的能力差异验证点
 
 **Files:**
 - Modify: `scenes/rooms/test_room.tscn`
 - Test: `tests/stage4/test_stage_4_minimal_ability_difference.gd`
 
-- [ ] 鍦?`TestRoom` 涓柊澧炰竴涓帰绱㈤棬妲涳紝璇佹槑涓嶇敤鍐插埡闅句互绋冲畾閫氳繃銆?- [ ] 鍦?`TestRoom` 涓柊澧炰竴涓垬鏂楅棬妲涳紝璇佹槑鍐插埡鑳芥槑鏄炬敼鍠勬帴鏁岃妭濂忔垨鍑烘墜浣嶇疆銆?- [ ] 淇濇寔 `TrainingDummy` 涓庨樁娈?3 鐨勬渶灏忓彈鍑诲绾︿笉鍙樸€?
-## Task 4: 钀藉湴鏈€灏忚兘鍔涘樊寮傚弽棣?
+- [ ] 在 `TestRoom` 中新增一个探索门槛，证明不用冲刺难以稳定通过。
+- [ ] 在 `TestRoom` 中新增一个战斗门槛，证明冲刺能明显改善接敌节奏或出手位置。
+- [ ] 保持 `TrainingDummy` 与阶段 3 的最小受击契约不变。
+
+## Task 4: 落地最小能力差异反馈
+
 **Files:**
 - Modify: `scripts/player/player_placeholder.gd`
 - Possibly Modify: `scenes/rooms/test_room.tscn`
 - Test: `tests/stage4/test_stage_4_minimal_ability_difference.gd`
 
-- [ ] 涓哄啿鍒鸿ˉ鏈€灏忓彲璇绘€у弽棣堬紝浣嗗彧鏈嶅姟鑳藉姏璇嗗埆銆?- [ ] 涓嶅紩鍏ユ棤鏁屽抚銆佹敾鍑诲彇娑堛€佸Э鎬佺郴缁熸垨鍏冪礌绯荤粺銆?- [ ] 鑻ュ啿鍒烘帴鍏ュ悗鏆撮湶涓庣幇鏈夌Щ鍔?/ 鏀诲嚮鑺傚鍐茬獊锛屼紭鍏堝洖璋冨凡鏈夊弬鏁般€?
-## Task 5: 鑷姩鍖栭獙璇佷笌鏂囨。鏀跺彛
+- [ ] 为冲刺补最小可读性反馈，但只服务能力识别。
+- [ ] 不引入无敌帧、攻击取消、姿态系统或元素系统。
+- [ ] 若冲刺接入后暴露与现有移动 / 攻击节奏冲突，优先回调已有参数。
+
+## Task 5: 自动化验证与文档收口
 
 **Files:**
 - Create: `tests/stage4/test_stage_4_minimal_ability_difference.gd`
@@ -49,7 +69,11 @@
 - Modify: `docs/progress/timeline.md`
 - Modify: `docs/progress/2026-04-22.md`
 
-- [ ] 瑕嗙洊 `dash` 杈撳叆銆佸湴闈㈣Е鍙戙€佺┖涓姝€佹敾鍑讳腑绂佹銆佹柟鍚戣鍒欍€佺姸鎬佹仮澶嶃€?- [ ] 瑕嗙洊鎺㈢储闂ㄦ涓庢垬鏂楅棬妲涚殑鏈€灏忎环鍊奸獙璇併€?- [ ] 璁板綍鍝簺鍙嶉宸插湪闃舵 4 钀藉湴锛屽摢浜涚户缁悗寤躲€?- [ ] 鑻ヤ娇鐢ㄤ簡閲嶈鐨?`subagent` / `multi-agent`锛岃ˉ鍐?`Delegation Log`銆?
+- [ ] 覆盖 `dash` 输入、地面触发、空中禁止、攻击中禁止、方向规则、状态恢复。
+- [ ] 覆盖探索门槛与战斗门槛的最小价值验证。
+- [ ] 记录哪些反馈已在阶段 4 落地，哪些继续后延。
+- [ ] 若使用了重要的 `subagent` / `multi-agent`，补写 `Delegation Log`。
+
 ## Verification
 
 - `godot --headless --path . --import`
@@ -61,4 +85,8 @@
 
 ## Completion Criteria
 
-- 鐜╁鍙ǔ瀹氫粠鍦伴潰瑙﹀彂鍐插埡锛屽苟涓庢櫘閫氱Щ鍔ㄥ舰鎴愭竻鏅板樊寮傘€?- 鍚屼竴娴嬭瘯鎴块棿鍐呭悓鏃跺瓨鍦ㄦ帰绱环鍊煎拰鎴樻枟浠峰€肩殑鏈€灏忛獙璇佺偣銆?- 闃舵 4 鐨勮交閲忓弽棣堣冻浠ヨ〃杈锯€滆兘鍔涘樊寮傗€濓紝浣嗘病鏈夋墿鍐欐垚瀹屾暣婕斿嚭绯荤粺銆?- 闃舵 1 / 2 / 3 / 4 鑷姩鍖栭獙璇佸叏閮ㄩ€氳繃銆?- 褰撳墠缁撴灉瓒充互鎵挎帴闃舵 5 鐨勬暀绋嬪尯鍨傜洿鍒囩墖璁捐銆?
+- 玩家可稳定从地面触发冲刺，并与普通移动形成清晰差异。
+- 同一测试房间内同时存在探索价值和战斗价值的最小验证点。
+- 阶段 4 的轻量反馈足以表达“能力差异”，但没有扩写成完整演出系统。
+- 阶段 1 / 2 / 3 / 4 自动化验证全部通过。
+- 当前结果足以承接阶段 5 的教程区垂直切片设计。
