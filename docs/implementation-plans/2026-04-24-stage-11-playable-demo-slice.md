@@ -28,33 +28,40 @@
 ## Task 2: 收成 Demo 主链路与终点闭环
 
 **Files:**
-- Modify: `Main` / 主流程控制 / 相关房间与配置
-- Create or Modify: demo 终点房或等价终点状态
+- Modify: `scripts/main/main.gd`
+- Modify: `scenes/rooms/stage10_zone_challenge_room.tscn`
+- Create: `scripts/rooms/stage11_demo_end_room.gd`
+- Create: `scenes/rooms/stage11_demo_end_room.tscn`
 
-- [ ] 先补红测，固定“当前主链路还没有明确 demo 终点”
-- [ ] 在不新开第二大区域的前提下，把现有内容推进到 demo 终点
-- [ ] 新增最小完成反馈与可返回 / 重开入口
-- [ ] 不新增新的核心战斗动作或敌人类型
+- [x] 先补红测，固定“当前主链路还没有明确 demo 终点”
+- [x] 在不新开第二大区域的前提下，把现有内容推进到 demo 终点
+- [x] 新增最小完成反馈与可返回 / 重开入口
+- [x] 不新增新的核心战斗动作或敌人类型
 
 ## Task 3: 补 Demo 级 HUD / 提示与内容收束
 
 **Files:**
-- Modify: HUD、关键房间提示、门控提示、终点反馈
+- Modify: `scripts/ui/tutorial_hud.gd`
+- Modify: `scenes/ui/tutorial_hud.tscn`
+- Modify: `assets/configs/rooms/stage10_zone_challenge_room_flow.tres`
 
-- [ ] 让 HUD 能显示当前主目标与 demo 完成反馈
-- [ ] 强化支路 / 挑战房收益可读性
-- [ ] 强化关键门控、终点方向与完成态提示
-- [ ] 不把本轮 HUD 修改扩成正式 UI 系统重构
+- [x] 让 HUD 能显示当前主目标与 demo 完成反馈
+- [x] 强化支路 / 挑战房收益可读性
+- [x] 强化关键门控、终点方向与完成态提示
+- [x] 不把本轮 HUD 修改扩成正式 UI 系统重构
 
 ## Task 4: 同步注释补强到 Stage 11 触达代码
 
 **Files:**
-- Modify: `stage11` 触达的核心脚本与测试文件
+- Modify: `scripts/main/main.gd`
+- Modify: `scripts/ui/tutorial_hud.gd`
+- Create: `scripts/rooms/stage11_demo_end_room.gd`
+- Modify: `tests/stage11/test_stage_11_playable_demo_slice.gd`
 
-- [ ] 为新增脚本补文件头职责注释
-- [ ] 为多职责核心脚本补分段注释
-- [ ] 为 Stage 11 测试文件补“保护什么能力”的文件头说明
-- [ ] 只补高信息量注释，不写逐行解释
+- [x] 为新增脚本补文件头职责注释
+- [x] 为多职责核心脚本补分段注释
+- [x] 为 Stage 11 测试文件补“保护什么能力”的文件头说明
+- [x] 只补高信息量注释，不写逐行解释
 
 ## Task 5: 完成 Stage 11 自动化验证与人工复核收口
 
@@ -62,14 +69,14 @@
 - Create: `tests/stage11/test_stage_11_playable_demo_slice.gd`
 - Modify: `docs/progress/status.md`
 - Modify: `docs/progress/timeline.md`
-- Modify: 当日日志
+- Modify: `docs/progress/2026-04-24.md`
 
-- [ ] 覆盖主线推进到 demo 终点
-- [ ] 覆盖支路 / 挑战房仍可进入且不破坏主线
-- [ ] 覆盖失败 / 重来后仍能回到正确推进点
-- [ ] 覆盖 HUD 的 demo 目标 / 完成反馈读值
-- [ ] 确认 Stage 1-10 不回归
-- [ ] 完成最终人工复核并留痕：
+- [x] 覆盖主线推进到 demo 终点
+- [x] 覆盖支路 / 挑战房仍可进入且不破坏主线
+- [x] 覆盖失败 / 重来后仍能回到正确推进点
+- [x] 覆盖 HUD 的 demo 目标 / 完成反馈读值
+- [x] 确认 Stage 1-10 不回归
+- [x] 完成最终人工复核并留痕：
   - 完整通一遍 demo
   - 至少进入一次支路
   - 至少进入一次挑战房
@@ -78,9 +85,9 @@
 
 ## Completion Criteria
 
-- [ ] demo 主链路可从开始稳定推进到终点
-- [ ] 支路与挑战房仍具有明确价值
-- [ ] HUD / 门控 / 终点反馈足以支撑外部试玩理解
-- [ ] Stage 11 触达的核心脚本满足新注释标准
-- [ ] Stage 1-11 自动化验证通过
-- [ ] 最终人工复核完成并留痕
+- [x] demo 主链路可以从开始稳定推进到终点
+- [x] 支路与挑战房仍具有明确价值
+- [x] HUD / 门控 / 终点反馈足以支撑外部试玩理解
+- [x] Stage 11 触达的核心脚本满足新注释标准
+- [x] Stage 1-11 自动化验证通过
+- [x] 最终人工复核完成并留痕
