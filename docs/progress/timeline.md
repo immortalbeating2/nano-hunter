@@ -2,6 +2,9 @@
 
 ## 2026-04-24
 
+- 从最新 `main` 建立 `codex/stage-10-combat-variation-and-light-progression` 与 `.worktrees/stage-10-combat-variation-and-light-progression`，作为阶段 10 的唯一开发入口。
+- 在 stage10 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-24-stage-10-combat-variation-and-light-progression-design.md` 与实现计划 `docs/implementation-plans/2026-04-24-stage-10-combat-variation-and-light-progression.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 10：战斗变化与轻量成长循环（设计与 preflight 中）”，并明确本轮固定选择为 `空中攻击`、第 `3` 类普通敌人、`恢复点 + 收集物`、`1` 条可选支路与 `1` 个挑战房。
 - 在 `codex/stage-8-systems-hardening-and-content-prep` worktree 中完成 Stage 8 首轮实现：新增玩家配置资源、房间流程配置资源、基础敌人配置资源，并把当前关键参数从脚本导出字段收口到只读资源。
 - 新增 `scripts/combat/base_enemy.gd`，将 `BasicMeleeEnemy` 从单体原型收口为基于基础契约的最小模板入口，同时保留 `receive_attack(...)` 与 `defeated` 契约。
 - 收口 HUD 第二轮接口：房间侧新增 `get_hud_context()`，玩家侧新增 `get_hud_status_snapshot()`，`TutorialHUD` 改为统一消费只读快照而非继续依赖零散 `get()` 探测。

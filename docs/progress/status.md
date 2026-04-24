@@ -8,107 +8,90 @@ Last Updated: 2026-04-24
 
 ## Current Stage
 
-`阶段 9：首个小区域内容生产（设计与 preflight 中）`
+`阶段 10：战斗变化与轻量成长循环（设计与 preflight 中）`
 
-> Update: 2026-04-24 已从阶段 8 稳定基线建立 `codex/stage-9-first-content-zone-production` 与对应 worktree，当前只完成 stage9 的设计、正式计划与进度启动记录，尚未进入玩法实现。
+> Update: 2026-04-24 已从已收口的 `stage9` 稳定基线建立 `codex/stage-10-combat-variation-and-light-progression` 与对应 worktree。当前已锁定本轮关键选择为“`空中攻击` + `第 3 类普通敌人` + `恢复点 + 收集物` + `1` 条可选支路 + `1` 个挑战房”，并正在补齐 stage10 的设计、实现计划与进度启动记录。
 
 ## Stage Goal
 
-在阶段 8 已完成的系统稳固基线上，做出第一个真正像“游戏区域”的内容段：`4-6` 房间的线性主线区，接入第 `2` 类敌人、首个正式 checkpoint 与第一种正式门控，验证当前配置资源、HUD 接口与敌人模板是否足以支撑内容生产。
+在阶段 9 已建立的首个小区域内容基线上，把当前玩法从“通过主线房间并处理两类基础敌人”推进到“存在战斗变化、可选支路、挑战房与轻量成长反馈”的下一版内容型切片。本轮固定不引入正式经济、装备、技能树或第二个大区域，优先验证：
+
+- 新战斗动作 `空中攻击` 是否真的带来可读且有价值的战斗决策
+- 第 `3` 类普通敌人是否能把现有遭遇节奏拉开
+- `恢复点 + 收集物` 是否足以形成最小成长反馈
+- `1` 条可选支路与 `1` 个挑战房` 是否能在不失控扩范围的前提下成立
 
 ## Playable Now
 
-- `godot --path .` 当前会进入 `Main.tscn`，并默认加载 `TutorialRoom`
-- 主场景会生成 1 个占位玩家到 `Runtime`
-- 阶段 2 的移动、跳跃、落地与基础状态切换仍然可用
-- 阶段 3 的地面普通攻击、固定命中范围与 `TrainingDummy` 仍然保留
-- 阶段 4 的仅地面 `dash` 仍然保持可用，并带有最小可读性反馈
-- `TestRoom` 仍保留为阶段 2 / 3 / 4 的回归与调参沙盒
-- `TutorialRoom` 已接入“移动/跳跃 -> dash -> 攻击 -> 出口”的单场景线性教学流程
-- 教程房现在可过渡到独立 `CombatTrialRoom`，作为阶段 6 的首段真实战斗压力段
-- 玩家现已具备最小生命 / 受击 / 无敌 / `defeated` 闭环，默认生命为 `3`
-- 玩家在战斗房生命归零后，会即时重置当前战斗房与玩家状态，而不会回退整段教程
-- `CombatTrialRoom` 已接入 `BasicMeleeEnemy`，采用“小范围巡逻 + 接触伤害 + 被命中一次即失效”的最小模型
-- 战斗房出口默认锁定，击败敌人后出口解锁
-- 最小 HUD 已从“教程展示”升级为“真实读取当前房间提示 + 生命值 + dash 状态”
-- `BattlePanel` 的两行文本布局仍保持稳定分离，不再出现重叠错绘
-- `Main` 不再依赖阶段 6 的定向切房判断，而是统一消费房间侧 `room_transition_requested`
-- `CombatTrialRoom` 现已在清房后稳定过渡到 `GoalTrialRoom`
-- 新增 `GoalTrialRoom`，包含“先击败守门敌人 -> 再穿过已解锁空间门控 -> 抵达目标点”的最小混合门控目标流程
-- HUD 现可在教学房、实战房、目标房与短链路完成态之间切换提示
-- 玩家关键参数现已通过 `res://scenes/player/player_placeholder_config.tres` 统一驱动
-- 房间标题 / 提示 / 出生点 / 阈值现已通过 `res://assets/configs/rooms/*.tres` 统一驱动
-- `TutorialHUD` 现统一读取房间 `get_hud_context()` 与玩家 `get_hud_status_snapshot()`
-- `BasicMeleeEnemy` 现已通过 `res://scripts/combat/base_enemy.gd` 收口基础契约，并通过只读配置资源驱动关键参数
-- 当前仍只有 1 类基础敌人
-- 当前还没有正式 checkpoint
-- 当前还没有真正意义上的小区域关卡
+- `godot --path .` 当前进入 `Main.tscn`，默认从教程主线开始
+- 当前稳定主线链路已成立：
+  - `TutorialRoom`
+  - `CombatTrialRoom`
+  - `GoalTrialRoom`
+  - `stage9_zone_entry_room`
+  - `stage9_zone_combat_room`
+  - `stage9_zone_charger_room`
+  - `stage9_zone_switch_room`
+  - `stage9_zone_final_room`
+- 玩家当前稳定具备：
+  - 基础移动 / 跳跃
+  - 地面 `dash`
+  - 地面普通攻击
+  - 基础生命 / 受击 / 无敌 / defeated 闭环
+- 当前稳定敌人类型为：
+  - `BasicMeleeEnemy`
+  - `GroundChargerEnemy`
+- 当前已成立的轻量区域基线为：
+  - checkpoint 恢复
+  - 开关门门控
+  - 主线清房推进
+  - HUD 稳定读取房间与玩家快照
 
 ## Adjustable Now
 
-- 阶段 2 现有移动参数：
-- `max_run_speed`
-- `ground_acceleration`
-- `ground_deceleration`
-- `air_acceleration`
-- `jump_velocity`
-- `jump_cut_ratio`
-- `rise_gravity`
-- `fall_gravity`
-- `max_fall_speed`
-- `coyote_time_window`
-- `jump_buffer_window`
-- `landing_state_duration`
-- 阶段 3 当前可调的攻击参数：
-- `attack_startup_duration`
-- `attack_active_duration`
-- `attack_recovery_duration`
-- `attack_hitbox_size`
-- `attack_hitbox_offset`
-- `attack_knockback_force`
-- 阶段 4 当前可调的冲刺参数：
-- `dash_duration`
-- `dash_speed`
-- `dash_cooldown`
-- 当前 Stage 8 已新增的主要只读配置入口：
-- `res://scenes/player/player_placeholder_config.tres`
-- `res://scripts/configs/basic_melee_enemy_config.tres`
-- `res://scripts/configs/goal_trial_melee_enemy_config.tres`
-- `res://assets/configs/rooms/tutorial_room_flow.tres`
-- `res://assets/configs/rooms/combat_trial_room_flow.tres`
-- `res://assets/configs/rooms/goal_trial_room_flow.tres`
-- `max_health`
-- `damage_invulnerability_duration`
-- `damage_knockback_speed`
-- `damage_knockback_lift`
-- `BasicMeleeEnemy.patrol_distance`
-- `BasicMeleeEnemy.patrol_speed`
-- `BasicMeleeEnemy.touch_damage`
+- 玩家关键参数继续统一由 `res://scenes/player/player_placeholder_config.tres` 驱动
+- 基础敌人与房间关键参数继续由只读配置资源驱动
+- 当前可直接调的 stage9 入口包括：
+  - `res://scripts/configs/ground_charger_enemy_config.tres`
+  - `res://assets/configs/rooms/stage9_zone_*.tres`
+- 当前 stage10 尚未新增：
+  - 空中攻击参数资源
+  - 第 `3` 类敌人配置资源
+  - 收集物 / 恢复点快照读值
 
 ## Exit Criteria
 
-- 已完成一个 `4-6` 房间的线性主线小区域
-- 第 `2` 类敌人“地面冲锋敌”已接入并稳定工作
-- 首个正式 checkpoint 与开关门门控已接入主流程
-- 现有配置资源、HUD 接口和敌人模板已被真正用于内容生产
-- 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 自动化验证全部通过
-- 当前结果足以承接 `阶段 10：战斗变化与轻量成长循环`
+- 玩家新增 `空中攻击`，且在至少一个房间 / 遭遇中有明确玩法价值
+- 第 `3` 类普通敌人已接入，且其节奏与现有两类敌人明显不同
+- 区域内存在 `1` 条可选支路与 `1` 个挑战房
+- `恢复点 + 收集物` 的轻量成长反馈闭环成立
+- HUD 通过现有稳定接口读取本轮新增最小信息，不回退到分散探测
+- Stage 1-10 自动化验证通过
+- 已完成最终人工复核，并能作为进入 `阶段 11` 的稳定前置基线
 
-当前状态：以上退出条件尚未开始验证，当前仅完成设计与 preflight。
+当前状态：以上退出条件尚未开始实现验证，当前仅完成 stage10 的目标锁定与 preflight 启动。
 
 ## Asset Status
 
-- 当前仍以占位资源与简易几何可视化为主
-- 当前阶段允许继续在不阻塞玩法验证的前提下，混合使用占位资源、免费替代资源与少量临时美术探索
-- 本轮重点是“先让小区域真正成立”，而不是在阶段 9 前半段就推进 demo 级视觉 polish
+- 当前仍以占位资源、简单几何可视化与少量临时视觉探索为主
+- 本轮重点不是 demo 级 polish，而是让“战斗变化 + 轻量成长反馈”先可看、可玩、可调
+- 只有在玩法反馈已验证成立后，才进入更正式的视觉替换
 
 ## Next Stage
 
-`阶段 10：战斗变化与轻量成长循环`
+`阶段 11：可交付试玩 Demo 切片`
 
 ## Current Goal
 
-当前 `codex/stage-9-first-content-zone-production` worktree 的目标是先完成 stage9 preflight：补齐设计文档、正式计划、状态页、时间线与当日日志启动记录，并把“小区域线性主线、第 2 类敌人、checkpoint、开关门”的边界写成明确起点，再进入正式实现。
+当前 `codex/stage-10-combat-variation-and-light-progression` worktree 的目标是先完成 stage10 preflight：
+
+- 补齐设计文档
+- 补齐实现计划
+- 更新状态页、时间线与当日日志
+- 明确本轮范围与不做项
+- 完成 fresh 基线验证
+
+然后再进入正式实现。
 
 ## Current Defaults
 
@@ -120,96 +103,40 @@ Last Updated: 2026-04-24
 
 ## In Progress
 
-- `阶段 9：首个小区域内容生产` 当前处于设计与 preflight 中
+- `阶段 10：战斗变化与轻量成长循环` 当前处于设计与 preflight 中
 - 本轮继续采用 `分支 + worktree`
-- 当前 preflight 只补计划、设计与进度启动记录，不混入任何玩法实现
-- 本轮已明确固定：
-  - 第 `2` 类敌人：`地面冲锋敌`
-  - checkpoint：`房间入口存档点`
-  - 门控：`开关门`
-  - 区域结构：`线性主线区`
+- 本轮已固定关键选择：
+  - 新动作：`空中攻击`
+  - 敌人变化：`第 3 类普通敌人`
+  - 成长反馈：`恢复点 + 收集物`
+  - 区域变化：`1` 条可选支路 + `1` 个挑战房
+- 当前 preflight 只补设计、计划与进度启动记录，不混入玩法实现
 
 ## Recently Completed
 
-- 阶段 8 的“系统稳固与内容生产前准备”已完成并收口为当前稳定基线
-- 玩家参数、房间流程参数与基础敌人关键参数已收口到只读资源
-- `TutorialHUD` 已改为统一消费稳定只读接口
-- `BasicMeleeEnemy` 已整理成基于 `base_enemy.gd` 的最小模板入口
-- 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 自动化验证已在主线上全部通过
-- 已基于干净 `main` 建立 `codex/stage-9-first-content-zone-production` 与 `.worktrees/stage-9-first-content-zone-production`
-- 已补齐 stage9 的正式计划与执行清单
+- 阶段 9 的首个小区域内容生产已完成并收口为当前稳定基线
+- `Main` 已支持 stage9 的 checkpoint 恢复
+- `GroundChargerEnemy` 已稳定接入
+- 阶段 1-9 自动化验证已在主线上全部通过
+- `main` 已补录 stage10 的正式阶段计划：
+  - `plan/2026-04-24-stage-10-combat-variation-and-light-progression.md`
 
 ## Risks And Blockers
 
-- `godot --headless --path . --import` 退出时仍会输出 `ObjectDB instances leaked at exit` 历史警告，但当前不作为阶段阻塞项
-- 阶段 9 最容易失控的方向是：直接把小区域做成带支路的小地图
-- 若地面冲锋敌一上来就做得过重，会把本轮拖成敌人系统扩张
-- 若 checkpoint 和门控继续写死在房间脚本里，会削弱阶段 8 配置化成果的验证价值
-- 当前 worktree 内 `git` 命令需要显式处理 `safe.directory`
+- 当前最容易失控的方向是：把 stage10 直接做成“第二个大区域”或“半个 stage11”
+- 若把空中攻击、第三类敌人、支路、挑战房与成长反馈同时做得过深，容易把本轮拖成系统堆积
+- 若恢复点和收集物直接扩成正式经济 / 存档系统，会提前越过本轮边界
+- 当前 worktree 内 `git` 命令仍需要显式处理 `safe.directory`
 
 ## Recommended Roadmap
 
-- `阶段 9：首个小区域内容生产`
-- 目标：用阶段 8 建立的配置资源、HUD 接口和敌人模板，真正产出第一段“像游戏区域”的内容，而不是继续只做系统收口
-- 范围：`4-6` 个连续房间、第 `2` 类敌人、`2-3` 组遭遇组合、第一个正式 checkpoint / 区域重置点与更正式的门控类型
 - `阶段 10：战斗变化与轻量成长循环`
-- 目标：让玩法不再只是“过门 + 打一种敌人”，而开始出现战斗变化、路线变化和轻量成长反馈
-- 范围：第 `3` 类敌人或精英变体、`1` 个战斗扩展动作、可选支路、挑战房、恢复点 / 收集物等轻量成长反馈
+  - 目标：在 stage9 已成立的小区域基线上，引入更明确的战斗变化、可选支路与轻量成长反馈
 - `阶段 11：可交付试玩 Demo 切片`
-- 目标：把前面的系统和内容收成一个可以对外试玩、可连续体验、完成度明显更高的 demo 版本
-- 范围：`8-12` 个房间的完整 demo 区域、阶段性终点、HUD / 文案 / 节奏 polish、关键视觉替换与 demo 级 QA
+  - 目标：把前面验证成立的系统与内容收成更完整的 demo 级体验
 
 ## Next Recommended Steps
 
-1. 在当前 stage9 worktree 中完成 preflight 收口后，正式进入小区域线性主线内容生产。
-2. 实现开始前，先按“小区域房间 / 地面冲锋敌 / Stage 9 GUT 与文档留痕”三块拆分代理协作。
-3. 保持范围稳定，不提前混入阶段 10 的玩家新动作、支路或成长循环。
-## Update - 2026-04-24 Stage 9 Implementation Completion
-
-### Current Stage
-
-`阶段 9：首个小区域内容生产（已实现并完成自动化验证）`
-
-### Current Playable Content
-
-- 新增 5 个连续房间的线性主线小区域：
-  - `stage9_zone_entry_room`
-  - `stage9_zone_combat_room`
-  - `stage9_zone_charger_room`
-  - `stage9_zone_switch_room`
-  - `stage9_zone_final_room`
-- 新增第 2 类敌人 `GroundChargerEnemy`，行为为“短巡逻 -> 触发后横向冲锋 -> 恢复”
-- `Main` 现已支持运行期 checkpoint 恢复；stage9 中会记录最近一次房间入口恢复点
-- stage9 已接入首个正式开关门；`stage9_zone_switch_room` 可通过开关解除门控
-- 最终房 `stage9_zone_final_room` 使用 `BasicMeleeEnemy + GroundChargerEnemy` 的混合遭遇收口
-
-### Current Adjustable Entries
-
-- `res://scripts/configs/ground_charger_enemy_config.tres`
-  - `patrol_distance`
-  - `patrol_speed`
-  - `touch_damage`
-  - `trigger_distance`
-  - `charge_speed`
-  - `charge_duration`
-  - `recovery_duration`
-- `res://assets/configs/rooms/stage9_zone_*.tres`
-  - 房间标题
-  - HUD 提示
-  - 房间入口 spawn
-
-### Verification Snapshot
-
-- `godot --headless --path . --import`：通过
-- Stage 1-9 GUT：全部通过
-- `git diff --check`：通过
-- `godot_mcp` 当前会话连通性：已恢复；`get_open_scripts` 返回 `count = 0`
-
-### Residual Notes
-
-- `godot --headless --path . --import` 退出时仍会输出历史性的 `ObjectDB instances leaked at exit`
-- Stage 9 GUT 当前有 1 条 `unfreed children` warning，测试结果仍为 `4/4 passed`
-
-### Next Stage
-
-`阶段 10：战斗变化与轻量成长循环`
+1. 在当前 stage10 worktree 中先完成 preflight 文档与 fresh 验证
+2. 然后进入“空中攻击 / 第 3 类敌人 / 区域成长反馈”三块实现拆分
+3. 在阶段收口前，明确补做一次完整人工复核，而不是只依赖自动化
