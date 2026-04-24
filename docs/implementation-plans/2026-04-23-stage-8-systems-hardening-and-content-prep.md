@@ -1,11 +1,15 @@
-﻿# Stage 8 Systems Hardening And Content Prep Implementation Plan
+# Stage 8 Systems Hardening And Content Prep Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development when姝ｅ紡瀹炵幇寮€濮嬶紝骞跺湪婊¤冻鏉′欢鏃跺疄闄呭惎鐢?`subagent / multi-agent`锛涙湰杞噸鐐规槸绋冲浐鎺ュ彛涓庨厤缃敹鍙ｏ紝涓嶆帴鍙楃户缁互鑴氭湰绾т复鏃堕€昏緫鎵╁唴瀹广€?
-**Goal:** 鍦ㄩ樁娈?7 绋冲畾鍩虹嚎涓婏紝浼樺厛瀹屾垚鍙傛暟鏁版嵁鍖栵紝鍏舵鏀跺彛 HUD 绗簩杞帴鍙ｏ紝鏈€鍚庢妸 `BasicMeleeEnemy` 鏁寸悊鎴愬彲澶嶇敤鏁屼汉妯℃澘锛屼负鍚庣画鎵╁唴瀹瑰缓绔嬫洿绋崇殑宸ョ▼鍩虹嚎銆?**Architecture:** 淇濈暀褰撳墠 `Main -> TutorialRoom -> CombatTrialRoom -> GoalTrialRoom` 鐨勪笁娈电煭閾捐矾涓嶅彉锛屼笉鏂板鑳藉姏銆佷笉鏂板鎴块棿銆佷笉鏂板鏁屼汉绉嶇被銆傞€氳繃鍙閰嶇疆璧勬簮銆佺粺涓€ HUD 涓婁笅鏂囨帴鍙ｄ笌鍩虹鏁屼汉妯℃澘锛屾妸褰撳墠鍘熷瀷涓殑鍏抽敭涓存椂閫昏緫鏀跺彛鎴愭洿鍙鐢ㄧ殑绋冲畾缁撴瀯銆?**Tech Stack:** Godot 4.6銆丟DScript銆乣.tscn` 鏂囨湰鍦烘櫙銆丟UT銆丳owerShell
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development when正式实现开始，并在满足条件时实际启用 `subagent / multi-agent`；本轮重点是稳固接口与配置收口，不接受继续以脚本级临时逻辑扩内容。
+
+**Goal:** 在阶段 7 稳定基线上，优先完成参数数据化，其次收口 HUD 第二轮接口，最后把 `BasicMeleeEnemy` 整理成可复用敌人模板，为后续扩内容建立更稳的工程基线。
+**Architecture:** 保留当前 `Main -> TutorialRoom -> CombatTrialRoom -> GoalTrialRoom` 的三段短链路不变，不新增能力、不新增房间、不新增敌人种类。通过只读配置资源、统一 HUD 上下文接口与基础敌人模板，把当前原型中的关键临时逻辑收口成更可复用的稳定结构。
+**Tech Stack:** Godot 4.6、GDScript、`.tscn` 文本场景、GUT、PowerShell
 
 ---
 
-## Task 1: 鏀跺彛 stage8 preflight 鏂囨。涓庡紑鍙戠幇鍦?
+## Task 1: 收口 stage8 preflight 文档与开发现场
+
 **Files:**
 - Create: `spec-design/2026-04-23-stage-8-systems-hardening-and-content-prep-design.md`
 - Create: `docs/implementation-plans/2026-04-23-stage-8-systems-hardening-and-content-prep.md`
@@ -13,9 +17,13 @@
 - Modify: `docs/progress/timeline.md`
 - Modify: `docs/progress/2026-04-23.md`
 
-- [ ] 鍦?`codex/stage-8-systems-hardening-and-content-prep` 涓庡搴?`.worktrees/` 涓惎鍔ㄦ湰杞?preflight
-- [ ] 璁板綍鏈疆閲囩敤 `鍒嗘敮 + worktree` 鐨勫師鍥犮€佺洰鏍囪寖鍥翠笌涓嶅仛椤?- [ ] 鏄庣‘鏈疆涓荤洰鏍囨槸鈥滅ǔ鍥烘帴鍙ｂ€濓紝涓嶆槸鈥滅户缁墿 stage7 鍐呭鈥?- [ ] 鏄庣‘鍙傛暟鏁版嵁鍖栧彧鍋氬埌鍙閰嶇疆璧勪骇锛屾ā鏉垮寲鍙厛钀藉湪鏁屼汉渚?
-## Task 2: 鐜╁銆佹晫浜轰笌鎴块棿鍏抽敭鍙傛暟鏁版嵁鍖?
+- [ ] 在 `codex/stage-8-systems-hardening-and-content-prep` 与对应 `.worktrees/` 中启动本轮 preflight
+- [ ] 记录本轮采用 `分支 + worktree` 的原因、目标范围与不做项
+- [ ] 明确本轮主目标是“稳固接口”，不是“继续扩 stage7 内容”
+- [ ] 明确参数数据化只做到只读配置资产，模板化只先落在敌人侧
+
+## Task 2: 玩家、敌人与房间关键参数数据化
+
 **Files:**
 - Create: `scripts/configs/player_config.gd` or equivalent `Resource`
 - Create: `scripts/configs/basic_enemy_config.gd` or equivalent `Resource`
@@ -25,11 +33,14 @@
 - Modify: current room scripts as needed
 - Test: `tests/stage8/test_stage_8_systems_hardening_and_content_prep.gd`
 
-- [ ] 鍏堣ˉ绾㈡祴锛屾毚闇插綋鍓嶅叧閿弬鏁颁粛鏁ｈ惤鍦ㄨ剼鏈鍑哄瓧娈典腑
-- [ ] 鎶婄帺瀹跺叧閿弬鏁版敹鍙ｅ埌鍙閰嶇疆璧勬簮
-- [ ] 鎶?`BasicMeleeEnemy` 鍏抽敭鍙傛暟鏀跺彛鍒板彧璇婚厤缃祫婧?- [ ] 鎶婂綋鍓嶄笁娈典富娴佺▼涓殑鍏抽敭闂ㄦ帶鏂囨鎴栭槇鍊兼敹鍙ｅ埌鏈€灏忔埧闂撮厤缃祫婧?- [ ] 淇濇寔鍒濆鍖栬矾寰勭畝鍗曪細鍦烘櫙瀹炰緥鎸佹湁閰嶇疆璧勬簮骞跺湪鍥哄畾鍏ュ彛璇诲彇搴旂敤
+- [ ] 先补红测，暴露当前关键参数仍散落在脚本导出字段中
+- [ ] 把玩家关键参数收口到只读配置资源
+- [ ] 把 `BasicMeleeEnemy` 关键参数收口到只读配置资源
+- [ ] 把当前三段主流程中的关键门控文案或阈值收口到最小房间配置资源
+- [ ] 保持初始化路径简单：场景实例持有配置资源并在固定入口读取应用
 
-## Task 3: HUD 绗簩杞帴鍙ｆ敹鍙?
+## Task 3: HUD 第二轮接口收口
+
 **Files:**
 - Modify: `scripts/ui/tutorial_hud.gd`
 - Possibly Modify: `scenes/ui/tutorial_hud.tscn`
@@ -37,19 +48,27 @@
 - Modify: room scripts as needed
 - Test: `tests/stage8/test_stage_8_systems_hardening_and_content_prep.gd`
 
-- [ ] 鍏堣ˉ绾㈡祴锛屾毚闇插綋鍓?HUD 杩囧害渚濊禆闆舵暎 `has_method()` 鎺㈡祴
-- [ ] 鍥哄畾鎴块棿渚?HUD 涓婁笅鏂囨帴鍙?- [ ] 鍥哄畾鐜╁渚ф垬鏂楃姸鎬佸彧璇绘帴鍙?- [ ] 璁?HUD 缁熶竴閫氳繃绋冲畾鎺ュ彛璇诲彇姝ラ鏍囬銆佹彁绀烘枃鏈€佺敓鍛藉€间笌 `dash` 鐘舵€?- [ ] 淇濇寔 HUD 浠嶆槸褰撳墠鍞竴鍓嶅彴鍏ュ彛锛屼笉鎵╃粨绠?UI銆佽彍鍗曟垨鑳屽寘
+- [ ] 先补红测，暴露当前 HUD 过度依赖零散 `has_method()` 探测
+- [ ] 固定房间侧 HUD 上下文接口
+- [ ] 固定玩家侧战斗状态只读接口
+- [ ] 让 HUD 统一通过稳定接口读取步骤标题、提示文本、生命值与 `dash` 状态
+- [ ] 保持 HUD 仍是当前唯一前台入口，不扩结算 UI、菜单或背包
 
-## Task 4: 鍩虹鏁屼汉妯℃澘鍖?
+## Task 4: 基础敌人模板化
+
 **Files:**
 - Modify: `scripts/combat/basic_melee_enemy.gd`
 - Possibly Create: `scripts/combat/base_enemy.gd` or equivalent
 - Possibly Create: shared enemy config or helper layer
 - Test: `tests/stage8/test_stage_8_systems_hardening_and_content_prep.gd`
 
-- [ ] 鍏堣ˉ绾㈡祴锛屾毚闇插綋鍓?`BasicMeleeEnemy` 浠嶆槸鍗曚綋鍘熷瀷瀹炵幇
-- [ ] 鎶藉嚭鍩虹鏁屼汉鍏辩敤濂戠害涓庢渶灏忛鏋?- [ ] 淇濇寔 `receive_attack(...)` 涓?`defeated` 淇″彿涓嶅洖褰?- [ ] 璁╁綋鍓嶈繎鎴樻晫浜虹户缁綔涓虹涓€绉嶅叿浣撴ā鏉垮疄渚嬭繍琛?- [ ] 涓嶅湪鏈疆鏂板绗簩绫绘晫浜?
-## Task 5: Stage 8 鑷姩鍖栭獙璇佷笌鏂囨。鏀跺彛
+- [ ] 先补红测，暴露当前 `BasicMeleeEnemy` 仍是单体原型实现
+- [ ] 抽出基础敌人共用契约与最小骨架
+- [ ] 保持 `receive_attack(...)` 与 `defeated` 信号不回归
+- [ ] 让当前近战敌人继续作为第一种具体模板实例运行
+- [ ] 不在本轮新增第二类敌人
+
+## Task 5: Stage 8 自动化验证与文档收口
 
 **Files:**
 - Create: `tests/stage8/test_stage_8_systems_hardening_and_content_prep.gd`
@@ -57,36 +76,53 @@
 - Modify: `docs/progress/timeline.md`
 - Modify: `docs/progress/2026-04-23.md`
 
-- [ ] 瑕嗙洊鐜╁鍏抽敭鍙傛暟宸蹭粠閰嶇疆璧勬簮璇诲彇骞舵垚鍔熷簲鐢?- [ ] 瑕嗙洊鍩虹杩戞垬鏁屼汉鍏抽敭鍙傛暟宸蹭粠閰嶇疆璧勬簮璇诲彇骞舵垚鍔熷簲鐢?- [ ] 瑕嗙洊鎴块棿/HUD 涓婁笅鏂囪兘閫氳繃缁熶竴鎺ュ彛绋冲畾璇诲彇
-- [ ] 瑕嗙洊鍩虹鏁屼汉妯℃澘濂戠害涓嶅洖褰?- [ ] 瑕嗙洊鏃㈡湁 Stage 1-7 娴嬭瘯缁х画閫氳繃
-- [ ] 鑻ュ惎鐢ㄤ簡閲嶈鐨?`subagent` / `multi-agent`锛岃ˉ鍐?`Delegation Log`
+- [ ] 覆盖玩家关键参数已从配置资源读取并成功应用
+- [ ] 覆盖基础近战敌人关键参数已从配置资源读取并成功应用
+- [ ] 覆盖房间/HUD 上下文能通过统一接口稳定读取
+- [ ] 覆盖基础敌人模板契约不回归
+- [ ] 覆盖既有 Stage 1-7 测试继续通过
+- [ ] 若启用了重要的 `subagent` / `multi-agent`，补写 `Delegation Log`
 
 ## Delegation Requirement
 
 ### Mandatory Gate
 
-鏈疆鍦ㄦ寮忓疄鐜板墠蹇呴』鍏堝仛浠诲姟鎷嗗垎銆傚彧瑕佸悓鏃舵弧瓒充互涓嬫潯浠讹紝灏卞繀椤诲惎鐢ㄤ唬鐞嗗崗浣滐細
+本轮在正式实现前必须先做任务拆分。只要同时满足以下条件，就必须启用代理协作：
 
-- 瀛樺湪 2 涓互涓婂瓙浠诲姟
-- 鍐欏叆鑼冨洿鍙殧绂?- 楠岃瘉鍙嫭绔?- 涓嬩竴姝ヤ笉寮轰緷璧栧崟涓€闃诲缁撴灉
+- 存在 2 个以上子任务
+- 写入范围可隔离
+- 验证可独立
+- 下一步不强依赖单一阻塞结果
 
 ### Default Split
 
-闃舵 8 榛樿鎸変互涓嬫柟寮忓惎鐢?`multi-agent`锛?
-- 浠ｇ悊 A锛氬弬鏁版暟鎹寲涓庨厤缃祫婧愭帴鍏?- 浠ｇ悊 B锛欻UD 绗簩杞帴鍙ｆ敹鍙?- 浠ｇ悊 C锛氬熀纭€鏁屼汉妯℃澘鍖栥€丼tage 8 GUT 涓庢枃妗ｇ暀鐥?
+阶段 8 默认按以下方式启用 `multi-agent`：
+
+- 代理 A：参数数据化与配置资源接入
+- 代理 B：HUD 第二轮接口收口
+- 代理 C：基础敌人模板化、Stage 8 GUT 与文档留痕
+
 ### Allowed Fallback
 
-鑻ュ疄鐜版椂鍙戠幇涓や釜浠ヤ笂浠诲姟浼氭寔缁悓鏃舵敼鍚屼竴鎵规牳蹇冩枃浠讹紝鍒欏厑璁搁檷绾т负锛?
-- 鑷冲皯 1 涓?`subagent` 璐熻矗闈為樆濉炰晶浠诲姟
-- 涓讳唬鐞嗚礋璐ｉ樆濉炰富绾挎暣鍚?
+若实现时发现两个以上任务会持续同时改同一批核心文件，则允许降级为：
+
+- 至少 1 个 `subagent` 负责非阻塞侧任务
+- 主代理负责阻塞主线整合
+
 ### Only Valid Exceptions
 
-鍙湁鍦ㄤ互涓嬫儏鍐垫垚绔嬫椂锛屾墠鍏佽涓嶅惎鐢?`multi-agent`锛?
-- 闇€姹備粛鏈敹鏁?- 鍗曠偣璋冭瘯灏氭湭瀹氫綅
-- 鍐欏叆鑼冨洿鏃犳硶闅旂
-- 褰撳墠浼氳瘽宸ュ叿鎺堟潈杈圭晫涓嶅厑璁稿疄闄呭惎鐢?
-鑻ヨЕ鍙戜緥澶栵紝蹇呴』鍦?`docs/progress/2026-04-23.md` 鎴栧綋鏃ュ悗缁棩蹇椾腑鍐欐槑锛?
-- 涓轰粈涔堜笉鑳藉惎鐢?- 鍝釜鏉′欢涓嶆弧瓒?- 浣曟椂閲嶆柊璇勪及
+只有在以下情况成立时，才允许不启用 `multi-agent`：
+
+- 需求仍未收敛
+- 单点调试尚未定位
+- 写入范围无法隔离
+- 当前会话工具授权边界不允许实际启用
+
+若触发例外，必须在 `docs/progress/2026-04-23.md` 或当日后续日志中写明：
+
+- 为什么不能启用
+- 哪个条件不满足
+- 何时重新评估
 
 ## Verification
 
@@ -103,8 +139,9 @@
 
 ## Completion Criteria
 
-- 鐜╁銆佸熀纭€杩戞垬鏁屼汉涓庡綋鍓嶄富娴佺▼鍏抽敭鍙傛暟宸蹭粠鍙閰嶇疆璧勬簮绋冲畾璇诲彇
-- HUD 宸叉敼涓虹粺涓€娑堣垂绋冲畾鍙鎺ュ彛锛岃€屼笉鏄户缁緷璧栭浂鏁ｆ帰娴?- `BasicMeleeEnemy` 宸叉暣鐞嗘垚鍙鐢ㄧ殑鍩虹鏁屼汉妯℃澘鍏ュ彛
-- `Main`銆佷笁娈垫埧闂翠富娴佺▼涓庡綋鍓嶇帺娉曢棴鐜繚鎸佺ǔ瀹氾紝涓嶅洜绯荤粺鏀跺彛鑰屽洖褰?- 闃舵 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 鑷姩鍖栭獙璇佸叏閮ㄩ€氳繃
-- 褰撳墠缁撴灉瓒充互浣滀负鍚庣画缁х画鎵╁唴瀹圭殑绋冲畾鍓嶇疆鍩虹嚎
-
+- 玩家、基础近战敌人与当前主流程关键参数已从只读配置资源稳定读取
+- HUD 已改为统一消费稳定只读接口，而不是继续依赖零散探测
+- `BasicMeleeEnemy` 已整理成可复用的基础敌人模板入口
+- `Main`、三段房间主流程与当前玩法闭环保持稳定，不因系统收口而回归
+- 阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 自动化验证全部通过
+- 当前结果足以作为后续继续扩内容的稳定前置基线

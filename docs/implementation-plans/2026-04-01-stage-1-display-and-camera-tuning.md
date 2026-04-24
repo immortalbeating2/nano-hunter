@@ -1,4 +1,4 @@
-﻿# Stage 1 Display And Camera Tuning Implementation Plan
+# Stage 1 Display And Camera Tuning Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -173,7 +173,7 @@ Expected:
 
 ```bash
 git add project.godot scripts/main/main.gd tests/stage1/test_stage_1_startup_skeleton.gd
-git commit -m "閰嶇疆闃舵 1 鏄剧ず缂╂斁绛栫暐 / Configure stage 1 display scaling"
+git commit -m "配置阶段 1 显示缩放策略 / Configure stage 1 display scaling"
 ```
 
 ### Task 2: Add Room Camera Bounds And Apply Them To The Placeholder Camera
@@ -347,7 +347,7 @@ Expected:
 
 ```bash
 git add scripts/rooms/test_room.gd scenes/rooms/test_room.tscn scripts/main/main.gd tests/stage1/test_stage_1_startup_skeleton.gd
-git commit -m "鏂板娴嬭瘯鎴块棿鐩告満杈圭晫 / Add test room camera bounds"
+git commit -m "新增测试房间相机边界 / Add test room camera bounds"
 ```
 
 ### Task 3: Verify The Tuned Stage 1 Checkpoint And Update Progress Docs
@@ -373,9 +373,10 @@ Replace `## Playable Now` with:
 ```markdown
 ## Playable Now
 
-- `godot --path .` 鍙洿鎺ヨ繘鍏?`Main.tscn`
-- 褰撳墠鍩哄噯鍒嗚鲸鐜囦负 `640x360`锛屽垵濮嬬獥鍙ｄ负 `1280x720`
-- 褰撳墠绐楀彛鏀惧ぇ鏃朵細鎸夋暣鏁板€嶇瓑姣旂缉鏀撅紝闈?`16:9` 鏃舵樉绀虹暀杈?- 褰撳墠娴嬭瘯鎴块棿宸茬粡绾︽潫鐩告満杈圭晫锛岃瘯鐜╂椂涓嶅啀闇插嚭榛樿鐏拌壊绌哄尯
+- `godot --path .` 可直接进入 `Main.tscn`
+- 当前基准分辨率为 `640x360`，初始窗口为 `1280x720`
+- 当前窗口放大时会按整数倍等比缩放，非 `16:9` 时显示留边
+- 当前测试房间已经约束相机边界，试玩时不再露出默认灰色空区
 ```
 
 Replace `## Adjustable Now` with:
@@ -383,25 +384,29 @@ Replace `## Adjustable Now` with:
 ```markdown
 ## Adjustable Now
 
-- 娴嬭瘯鎴块棿灏哄銆佸湴闈㈤珮搴︿笌杈圭晫瀹藉害
-- 鐜╁鍑虹敓浣嶇疆涓庡綋鍓嶆瀯鍥剧殑鍏崇郴
-- 鐩告満杈圭晫銆佹埧闂寸暀鐧藉拰鐜╁鍗犵敾闈㈡瘮渚?- 闃舵 2 鍓嶆槸鍚﹁璋冩暣 `PlayerSpawn` 涓?`TestRoom` 鐨勫満鏅綊灞?```
+- 测试房间尺寸、地面高度与边界宽度
+- 玩家出生位置与当前构图的关系
+- 相机边界、房间留白和玩家占画面比例
+- 阶段 2 前是否要调整 `PlayerSpawn` 与 `TestRoom` 的场景归属
+```
 
 Append under `## Recently Completed`:
 
 ```markdown
-- 缂栧啓骞舵彁浜?`spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`
-- 缂栧啓骞舵墽琛?`docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md`
-- 涓洪樁娈?1 閰嶇疆 `640x360` 鍩哄噯鍒嗚鲸鐜囥€乣viewport/keep/integer` 缂╂斁绛栫暐涓庢洿绋冲畾鐨勬竻灞忚儗鏅?- 涓烘祴璇曟埧闂磋ˉ鍏呯浉鏈鸿竟鐣岋紝骞惰鍗犱綅鐜╁鐨?`Camera2D` 鍙楁埧闂磋竟鐣岄檺鍒?```
+- 编写并提交 `spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`
+- 编写并执行 `docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md`
+- 为阶段 1 配置 `640x360` 基准分辨率、`viewport/keep/integer` 缩放策略与更稳定的清屏背景
+- 为测试房间补充相机边界，并让占位玩家的 `Camera2D` 受房间边界限制
+```
 
 Replace `## Next Recommended Steps` with:
 
 ```markdown
 ## Next Recommended Steps
 
-1. 璇曠帺褰撳墠鐢婚潰涓庣浉鏈烘瀯鍥撅紝璁板綍鎴块棿灏哄銆佺帺瀹跺崰姣斾笌杈圭晫鏋勫浘鍙嶉
-2. 涓?`闃舵 2锛氬熀纭€绉诲姩鎵嬫劅` 缂栧啓瀹炵幇璁″垝
-3. 鍦ㄩ樁娈?2 涓姞鍏ユ渶灏忕Щ鍔ㄣ€佽烦璺冧笌钀藉湴鍙嶉
+1. 试玩当前画面与相机构图，记录房间尺寸、玩家占比与边界构图反馈
+2. 为 `阶段 2：基础移动手感` 编写实现计划
+3. 在阶段 2 中加入最小移动、跳跃与落地反馈
 ```
 ```
 
@@ -412,7 +417,12 @@ Append to `docs/progress/timeline.md`:
 ```markdown
 ## 2026-04-01
 
-- 缂栧啓骞舵彁浜ら樁娈?1 鐢婚潰涓庣浉鏈鸿皟浼樿璁?`spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`锛屾彁浜?`3a5f4da`銆?- 缂栧啓骞舵墽琛?`闃舵 1` 鐢婚潰涓庣浉鏈鸿皟浼樿鍒?`docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md`銆?- 涓洪」鐩厤缃?`640x360` 鍩哄噯鍒嗚鲸鐜囥€乣viewport/keep/integer` 缂╂斁绛栫暐涓庢洿绋冲畾鐨勬竻灞忚儗鏅€?- 涓烘祴璇曟埧闂磋ˉ鍏呯浉鏈鸿竟鐣岋紝骞跺皢杈圭晫搴旂敤鍒板崰浣嶇帺瀹剁殑 `Camera2D`銆?- 褰撳墠 worktree 璇曠帺绐楀彛宸插叿澶囧浐瀹氭瀯鍥俱€佺暀杈圭瓥鐣ヤ笌鎴块棿杈圭晫闄愬埗锛涢樁娈?2 浠嶉渶缁х画鏀堕泦鎴块棿灏哄銆佺帺瀹跺崰姣斾笌鍑虹敓鐐瑰弽棣堛€?```
+- 编写并提交阶段 1 画面与相机调优设计 `spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`，提交 `3a5f4da`。
+- 编写并执行 `阶段 1` 画面与相机调优计划 `docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md`。
+- 为项目配置 `640x360` 基准分辨率、`viewport/keep/integer` 缩放策略与更稳定的清屏背景。
+- 为测试房间补充相机边界，并将边界应用到占位玩家的 `Camera2D`。
+- 当前 worktree 试玩窗口已具备固定构图、留边策略与房间边界限制；阶段 2 仍需继续收集房间尺寸、玩家占比与出生点反馈。
+```
 
 Create `docs/progress/2026-04-01.md` with:
 
@@ -421,25 +431,37 @@ Create `docs/progress/2026-04-01.md` with:
 
 ## Background
 
-浠婂ぉ鐨勭洰鏍囨槸瀵?`闃舵 1锛氬彲鍚姩楠ㄦ灦` 鍋氫竴娆″皬鍨嬬敾闈笌鐩告満璋冧紭锛岃褰撳墠璇曠帺鐗堟湰鍏峰鍥哄畾鍩哄噯鍒嗚鲸鐜囥€佹暣鏁板€嶇缉鏀惧拰鎴块棿杈圭晫闄愬埗锛屽啀鎶婅繖浜涘彉鍖栬褰曡繘杩涘害鏂囨。锛屼负闃舵 2 鐨勭Щ鍔ㄦ墜鎰熷紑鍙戝仛鍑嗗銆?
+今天的目标是对 `阶段 1：可启动骨架` 做一次小型画面与相机调优，让当前试玩版本具备固定基准分辨率、整数倍缩放和房间边界限制，再把这些变化记录进进度文档，为阶段 2 的移动手感开发做准备。
+
 ## Work Completed
 
-- 鏍规嵁璇曠帺鍙嶉锛岀‘璁ゅ綋鍓嶄富瑕侀棶棰樻槸榛樿鐏拌壊绌哄尯銆佺獥鍙ｆ斁澶у悗鏋勫浘涓嶇ǔ瀹氫互鍙婄己灏戞埧闂磋竟鐣岀浉鏈洪檺鍒躲€?- 缂栧啓骞舵彁浜?`spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`锛屾槑纭湰娆″彧鍋氶樁娈?1 璇曠帺浼樺寲锛屼笉鎵╁睍鍒版寮忓叧鍗＄郴缁熴€?- 缂栧啓骞舵墽琛?`docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md`銆?- 涓洪」鐩厤缃?`640x360` 鍩哄噯鍒嗚鲸鐜囥€乣viewport` 鎷変几妯″紡銆乣keep` 姣斾緥绛栫暐涓?`integer` 缂╂斁绛栫暐銆?- 灏嗗垵濮嬬獥鍙ｈ皟鏁翠负 `1280x720`锛屽苟鍦ㄨ繍琛屾椂灏嗘渶灏忕獥鍙ｅ昂瀵搁檺鍒朵负 `640x360`銆?- 涓烘祴璇曟埧闂磋ˉ鍏?`Rect2i` 鐩告満杈圭晫濂戠害锛屽苟鎶婅竟鐣屽簲鐢ㄥ埌鍗犱綅鐜╁鐨?`Camera2D`銆?- 淇濈暀 `PlayerSpawn` 涓?`TestRoom` 鐨勫綋鍓嶅厔寮熻妭鐐圭粨鏋勶紝鎶婂綊灞炶璁烘槑纭欢鍚庡埌闃舵 2銆?
+- 根据试玩反馈，确认当前主要问题是默认灰色空区、窗口放大后构图不稳定以及缺少房间边界相机限制。
+- 编写并提交 `spec-design/2026-04-01-stage-1-display-and-camera-tuning-design.md`，明确本次只做阶段 1 试玩优化，不扩展到正式关卡系统。
+- 编写并执行 `docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md`。
+- 为项目配置 `640x360` 基准分辨率、`viewport` 拉伸模式、`keep` 比例策略与 `integer` 缩放策略。
+- 将初始窗口调整为 `1280x720`，并在运行时将最小窗口尺寸限制为 `640x360`。
+- 为测试房间补充 `Rect2i` 相机边界契约，并把边界应用到占位玩家的 `Camera2D`。
+- 保留 `PlayerSpawn` 与 `TestRoom` 的当前兄弟节点结构，把归属讨论明确延后到阶段 2。
+
 ## Validation Already Observed
 
 - `godot --headless --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/stage1/test_stage_1_startup_skeleton.gd -gexit`
-  缁撴灉锛氬綋鍓?`9/9 passed`锛岄樁娈?1 鐨勫惎鍔ㄥ叆鍙ｃ€佸崰浣嶇帺瀹躲€佹祴璇曟埧闂淬€佹樉绀鸿缃笌鎴块棿杈圭晫娴嬭瘯鍏ㄩ儴涓虹豢鑹?- `godot --headless --path . --import`
-  缁撴灉锛氬鍏ラ€氳繃锛涢€€鍑烘椂浠嶆湁 `ObjectDB instances leaked at exit` 璀﹀憡
+  结果：当前 `9/9 passed`，阶段 1 的启动入口、占位玩家、测试房间、显示设置与房间边界测试全部为绿色
+- `godot --headless --path . --import`
+  结果：导入通过；退出时仍有 `ObjectDB instances leaked at exit` 警告
 - `godot --path .`
-  缁撴灉锛氬綋鍓嶈瘯鐜╃獥鍙ｅ彲鐩存帴鍚姩锛岀獥鍙ｆ斁澶ф椂鏁翠綋鎸夋瘮渚嬬缉鏀撅紝娴嬭瘯鎴块棿杈圭晫涓嶅啀闇插嚭榛樿鐏拌壊绌哄尯
+  结果：当前试玩窗口可直接启动，窗口放大时整体按比例缩放，测试房间边界不再露出默认灰色空区
 
 ## Open Items
 
-- `ObjectDB instances leaked at exit` 浠嶉渶鍚庣画鍗曠嫭杩借釜
-- 褰撳墠璋冧紭杩樻病鏈夋柊鐨勭敤鎴疯瘯鐜╁弽棣堢粨璁猴紝鍚庣画浠嶉渶璁板綍鎴块棿灏哄銆佺帺瀹跺崰姣斻€佸嚭鐢熺偣涓庣浉鏈鸿鎰?- `PlayerSpawn` 涓?`TestRoom` 鐨勫綊灞炲叧绯讳繚鐣欎负闃舵 2 娉ㄦ剰椤?
+- `ObjectDB instances leaked at exit` 仍需后续单独追踪
+- 当前调优还没有新的用户试玩反馈结论，后续仍需记录房间尺寸、玩家占比、出生点与相机观感
+- `PlayerSpawn` 与 `TestRoom` 的归属关系保留为阶段 2 注意项
+
 ## Next Step
 
-璇曠帺褰撳墠鐢婚潰涓庣浉鏈烘瀯鍥撅紝鏀堕泦鎴块棿灏哄銆佺帺瀹跺崰姣斻€佸嚭鐢熺偣涓庤竟鐣屾瀯鍥惧弽棣堬紝鐒跺悗涓?`闃舵 2锛氬熀纭€绉诲姩鎵嬫劅` 缂栧啓瀹炵幇璁″垝銆?```
+试玩当前画面与相机构图，收集房间尺寸、玩家占比、出生点与边界构图反馈，然后为 `阶段 2：基础移动手感` 编写实现计划。
+```
 
 - [ ] **Step 3: Run the final verification commands**
 
@@ -461,12 +483,11 @@ Expected:
 
 ```bash
 git add project.godot scripts/main/main.gd scripts/rooms/test_room.gd scenes/rooms/test_room.tscn tests/stage1/test_stage_1_startup_skeleton.gd docs/progress/status.md docs/progress/timeline.md docs/progress/2026-04-01.md
-git commit -m "瀹屾垚闃舵 1 鐢婚潰涓庣浉鏈鸿皟浼?/ Complete stage 1 display and camera tuning"
+git commit -m "完成阶段 1 画面与相机调优 / Complete stage 1 display and camera tuning"
 ```
 
 ## Self-Review
 
 - Spec coverage: The plan implements the approved design's four required outcomes: `640x360` base viewport, keep-aspect scaling, integer scaling, and room-bounded player camera framing. It also keeps `PlayerSpawn`/`TestRoom` ownership unchanged per the design's out-of-scope rule.
-- Placeholder scan: No `TODO`, `TBD`, or 鈥渋mplement later鈥?placeholders remain. Every task contains concrete code or exact markdown content.
+- Placeholder scan: No `TODO`, `TBD`, or “implement later” placeholders remain. Every task contains concrete code or exact markdown content.
 - Type consistency: The plan consistently uses `Rect2i` for room camera bounds, `Camera2D.limit_*` for camera limits, and the existing Stage 1 test file for verification.
-
