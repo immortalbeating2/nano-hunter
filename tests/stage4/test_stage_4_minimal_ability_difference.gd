@@ -1,10 +1,14 @@
 extends GutTest
 
+# 阶段 4 回归测试保护“仅地面 dash”带来的最小能力差异。
+# 它同时验证 dash 状态约束、探索门槛和接敌价值。
+
 
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const TEST_ROOM_SCENE_PATH := "res://scenes/rooms/test_room.tscn"
 
 
+# 输入环境清理：确保 dash、attack 与移动状态不会跨测试串扰。
 func before_each() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")
@@ -204,6 +208,7 @@ func test_dash_improves_combat_entry_timing_against_dash_combat_dummy() -> void:
 	assert_eq(dummy.get("hit_count"), 1)
 
 
+# 测试辅助：统一生成 dash 验证需要的房间、玩家和等待逻辑。
 func _spawn_player_with_floor(spawn_position: Vector2) -> CharacterBody2D:
 	var world := Node2D.new()
 	add_child_autofree(world)

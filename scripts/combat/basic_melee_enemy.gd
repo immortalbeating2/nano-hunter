@@ -1,5 +1,8 @@
 extends "res://scripts/combat/base_enemy.gd"
 
+# BasicMeleeEnemy 是最基础的近战压力模板。
+# 它只做低强度往返巡逻，把触碰伤害与受击契约继续交给 BaseEnemy。
+
 
 const BasicEnemyConfig := preload("res://scripts/configs/basic_enemy_config.gd")
 
@@ -13,6 +16,7 @@ var _spawn_position := Vector2.ZERO
 var _patrol_elapsed := 0.0
 
 
+# 近战模板的运行态只有两层：读配置，然后按固定正弦巡逻。
 func _ready() -> void:
 	_apply_config()
 	_spawn_position = position
@@ -30,6 +34,7 @@ func _physics_process(_delta: float) -> void:
 	_deal_touch_damage(_touch_damage)
 
 
+# 配置入口继续限定为“当前阶段真正用到的最小行为参数”。
 func _apply_config() -> void:
 	if config == null:
 		return

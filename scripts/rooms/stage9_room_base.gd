@@ -1,5 +1,9 @@
 extends Node2D
 
+# Stage9RoomBase 是阶段 9 线性小区域的统一房间基类。
+# 它负责门控、房间出口推进、checkpoint 触发和 HUD 上下文，
+# 具体敌人组合与房间摆设继续交给各自场景。
+
 
 signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 signal hud_context_changed(step_title: String, prompt_text: String)
@@ -24,6 +28,7 @@ var _checkpoint_activated := false
 var _transition_requested := false
 
 
+# 初始化时按房间资源确定默认步骤、门是否默认锁住，以及是否进房即激活 checkpoint。
 func _ready() -> void:
 	_current_step = default_step_id
 	_gate_unlocked = _get_gate_shape() == null
@@ -34,6 +39,7 @@ func _ready() -> void:
 	_emit_hud_context()
 
 
+# 区域房间只在“门已开 + 玩家走到出口区”时触发推进。
 func _process(_delta: float) -> void:
 	if _player == null or _transition_requested:
 		return

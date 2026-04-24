@@ -2,6 +2,7 @@
 
 ## 2026-04-24
 
+- 在 `codex/comment-coverage-hardening` 中补强阶段 1-10 的关键脚本与测试注释，并同步收紧 `AGENTS.md` 的注释规则：保留“少而精”，但新增“文件头职责注释、关键流程分段注释、阶段测试文件头说明”的最低覆盖要求。
 - 从最新 `main` 建立 `codex/stage-10-combat-variation-and-light-progression` 与 `.worktrees/stage-10-combat-variation-and-light-progression`，作为阶段 10 的唯一开发入口。
 - 在 stage10 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-24-stage-10-combat-variation-and-light-progression-design.md` 与实现计划 `docs/implementation-plans/2026-04-24-stage-10-combat-variation-and-light-progression.md`。
 - 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 10：战斗变化与轻量成长循环（设计与 preflight 中）”，并明确本轮固定选择为 `空中攻击`、第 `3` 类普通敌人、`恢复点 + 收集物`、`1` 条可选支路与 `1` 个挑战房。

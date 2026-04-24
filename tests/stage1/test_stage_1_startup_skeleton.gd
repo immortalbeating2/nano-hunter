@@ -1,5 +1,8 @@
 extends GutTest
 
+# 阶段 1 回归测试保护项目启动骨架、主入口、占位玩家与基础房间契约。
+# 后续重构 Main、Room、Camera 或基础场景结构时，至少要继续满足这里的启动基线。
+
 
 func test_project_uses_stage_1_display_scaling_defaults() -> void:
 	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_width", 0), 640)

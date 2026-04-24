@@ -1,5 +1,8 @@
 extends GutTest
 
+# 阶段 3 回归测试保护最小攻击循环。
+# 它验证攻击输入、攻击状态、命中朝向和训练木桩的基础受击契约。
+
 
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const TEST_ROOM_SCENE_PATH := "res://scenes/rooms/test_room.tscn"
@@ -18,6 +21,7 @@ class DummyTarget:
 		last_knockback_force = knockback_force
 
 
+# 输入环境清理：避免上一条测试遗留的攻击或移动输入污染本条结果。
 func before_each() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")
@@ -104,6 +108,7 @@ func test_test_room_contains_training_dummy_with_receive_attack_contract() -> vo
 	assert_true(training_dummy.has_method("receive_attack"))
 
 
+# 测试辅助：统一生成玩家、世界和木桩目标，保持各条攻击测试的铺场一致。
 func _spawn_player_with_floor(spawn_position: Vector2) -> CharacterBody2D:
 	var world := Node2D.new()
 	add_child_autofree(world)

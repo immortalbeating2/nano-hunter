@@ -1,5 +1,9 @@
 extends Node2D
 
+# Main 负责把当前阶段的房间链路串成实际可玩的主入口。
+# 它只管理房间切换、出生点解析、checkpoint 恢复，以及 Room / Player / HUD 的绑定，
+# 不负责单个房间内部的教学、战斗或门控细节。
+
 const BASE_VIEWPORT_SIZE := Vector2i(640, 360)
 const PLAYER_PLACEHOLDER_SCENE: PackedScene = preload("res://scenes/player/player_placeholder.tscn")
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
@@ -26,6 +30,7 @@ var _checkpoint_spawn_id: StringName = &""
 var _is_short_chain_completed := false
 
 
+# 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
 func _ready() -> void:
 	_configure_window_defaults()
 	_ensure_default_input_bindings()
@@ -52,6 +57,7 @@ func _ensure_default_input_bindings() -> void:
 			InputMap.action_add_event(action_name, event)
 
 
+# 运行时实例装配：每次换房后都重新生成玩家，并把房间和 HUD 绑定到同一份运行时对象上。
 func _spawn_placeholder_player(spawn_id: StringName) -> void:
 	_clear_runtime()
 
@@ -102,10 +108,12 @@ func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 		tutorial_hud.call("bind_player", player)
 
 
+# 公开给测试与房间脚本使用的最小切房入口。
 func transition_to_room(room_path: String, spawn_id: StringName) -> void:
 	_change_room(room_path, spawn_id)
 
 
+# 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
 func _change_room(room_path: String, spawn_id: StringName) -> void:
 	var room_scene: PackedScene = load(room_path) as PackedScene
 
@@ -139,6 +147,7 @@ func _change_room(room_path: String, spawn_id: StringName) -> void:
 	_spawn_placeholder_player(spawn_id)
 
 
+# Main 只消费房间约定好的统一信号，不在这里写分房间的硬编码推进逻辑。
 func _bind_room_signals() -> void:
 	_ensure_room_signal_binding()
 
@@ -176,6 +185,7 @@ func _clear_runtime() -> void:
 		child.queue_free()
 
 
+# 失败与 checkpoint 恢复仍保持“最小原型规则”：优先回最近 checkpoint，否则按当前房间的重置策略处理。
 func _on_room_transition_requested(target_room_path: String, spawn_id: StringName) -> void:
 	transition_to_room(target_room_path, spawn_id)
 
@@ -197,11 +207,13 @@ func _get_runtime_player() -> CharacterBody2D:
 
 
 func _on_goal_completed() -> void:
-	# 闃舵 7 鍙褰曠煭閾捐矾宸茬粡瀹屾垚锛屽叿浣撳畬鎴愯〃鐜扮户缁敱鐩爣鎴夸笌 HUD 璐熻矗銆?
+	# 阶段 7 只在 Main 层记录“短链路已经完成”这个事实，
+	# 更具体的完成表现继续交给目标房与 HUD 负责。
 	_is_short_chain_completed = true
 
 
 func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
-	# Stage 9 鐨?checkpoint 鍙褰曡繍琛屾湡鏈€杩戠殑鍖哄煙鎭㈠鐐癸紝涓嶆墿灞曟垚姝ｅ紡瀛樻。绯荤粺銆?
+	# Stage 9 之后的 checkpoint 只记录运行期最近的区域恢复点，
+	# 这里故意不扩展成正式存档系统。
 	_checkpoint_room_path = room_path
 	_checkpoint_spawn_id = spawn_id

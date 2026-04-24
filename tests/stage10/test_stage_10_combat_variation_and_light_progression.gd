@@ -1,5 +1,8 @@
 extends GutTest
 
+# 阶段 10 回归测试保护战斗变化与轻量成长循环。
+# 它覆盖空中攻击、第三类普通敌人、支路 / 挑战房，以及恢复点与收集物快照。
+
 
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
@@ -12,6 +15,7 @@ const STAGE10_BRANCH_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_branch_
 const STAGE10_CHALLENGE_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
 
 
+# 输入环境清理：确保空中攻击、支路触发与 HUD 读值测试都从干净状态开始。
 func before_each() -> void:
 	_reset_input_actions()
 
@@ -190,6 +194,7 @@ func test_hud_displays_stage10_collectible_and_recovery_feedback() -> void:
 	assert_string_contains(progress_label.text, "恢复：已激活")
 
 
+# 测试辅助：统一生成玩家、房间与等待逻辑，避免 stage10 测试主体混入过多铺场细节。
 func _spawn_player(spawn_position: Vector2) -> CharacterBody2D:
 	var player_scene: PackedScene = load(PLAYER_SCENE_PATH) as PackedScene
 

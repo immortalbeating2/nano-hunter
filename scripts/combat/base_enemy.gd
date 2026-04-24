@@ -1,6 +1,10 @@
 extends StaticBody2D
 class_name BaseEnemy
 
+# BaseEnemy 定义当前原型期敌人的最小公共契约。
+# 它只负责“受击后失效”和“碰撞到玩家时转发 receive_damage”，
+# 更具体的移动、冲锋、悬浮节奏交给子类。
+
 
 signal defeated
 
@@ -12,6 +16,7 @@ signal defeated
 var _is_defeated := false
 
 
+# 玩家攻击统一通过 receive_attack 进入敌人契约，敌人被击败后同时关闭实体碰撞与 hurtbox。
 func receive_attack(_hit_direction: Vector2, _knockback_force: float) -> void:
 	if _is_defeated:
 		return
@@ -30,6 +35,7 @@ func is_defeated() -> bool:
 	return _is_defeated
 
 
+# 触碰伤害统一由基类发起，这样子类只需要决定“何时应当能碰到玩家”。
 func _deal_touch_damage(touch_damage: int) -> void:
 	if _is_defeated or _hurtbox == null:
 		return

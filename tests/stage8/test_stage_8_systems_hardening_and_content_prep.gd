@@ -1,5 +1,8 @@
 extends GutTest
 
+# 阶段 8 回归测试保护系统收口层。
+# 它验证玩家配置、房间 HUD 上下文与基础敌人模板契约已经稳定可复用。
+
 
 const BASIC_ENEMY_CONFIG_SCRIPT_PATH := "res://scripts/configs/basic_enemy_config.gd"
 const BASE_ENEMY_SCRIPT_PATH := "res://scripts/combat/base_enemy.gd"

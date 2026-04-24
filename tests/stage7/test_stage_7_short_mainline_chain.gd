@@ -1,5 +1,8 @@
 extends GutTest
 
+# 阶段 7 回归测试保护 Tutorial -> Combat -> Goal 的短链路主流程。
+# 它验证三段房间串联、目标房完成态和战斗房失败只做局部重置。
+
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
@@ -9,6 +12,7 @@ const GOAL_ROOM_SCENE_PATH := "res://scenes/rooms/goal_trial_room.tscn"
 var _goal_completed_count := 0
 
 
+# 输入环境清理：保持短链路测试在同一套初始输入条件下运行。
 func before_each() -> void:
 	_reset_input_actions()
 	_goal_completed_count = 0
@@ -130,6 +134,7 @@ func test_main_keeps_combat_retry_local_in_short_chain() -> void:
 	assert_eq(reset_player.get("current_health"), 3)
 
 
+# 测试辅助：统一生成目标房、玩家和失败流程，避免链路测试写重复铺场。
 func _spawn_goal_room() -> Node2D:
 	var packed_scene: PackedScene = load(GOAL_ROOM_SCENE_PATH) as PackedScene
 

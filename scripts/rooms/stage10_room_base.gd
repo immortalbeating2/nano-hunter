@@ -1,5 +1,8 @@
 extends "res://scripts/rooms/stage9_room_base.gd"
 
+# Stage10RoomBase 在 stage9 线性房间基类之上追加“支路 / 挑战房 / 轻量成长反馈”。
+# 它只记录本区域内的收集与恢复读值，不把这些数据扩成正式经济或存档系统。
+
 
 @export var optional_branch_room_path := ""
 @export var challenge_room_path := ""
@@ -12,6 +15,7 @@ var _recovery_point_activated := false
 var _branch_transition_requested := false
 
 
+# 对外暴露的都是“当前房间是否具备某类 stage10 价值”的稳定读值。
 func get_optional_branch_room_path() -> String:
 	return optional_branch_room_path
 
@@ -47,6 +51,7 @@ func activate_recovery_point() -> void:
 	_emit_hud_context()
 
 
+# 成长快照是 HUD、测试和人工复核的统一读取入口。
 func get_stage10_progress_snapshot() -> Dictionary:
 	return {
 		"collectible_count": _collected_pickup_ids.size(),
@@ -62,6 +67,7 @@ func get_hud_context() -> Dictionary:
 	return context
 
 
+# 位置触发层统一处理：支路入口、收集物和恢复点都在这里判定。
 func _process(delta: float) -> void:
 	_update_stage10_triggers()
 	super._process(delta)
@@ -92,6 +98,7 @@ func _try_request_optional_branch() -> void:
 	room_transition_requested.emit(optional_branch_room_path, &"stage10_branch_start")
 
 
+# 收集物一旦触发就立刻隐藏，避免房间脚本与 HUD 出现重复计数。
 func _try_collect_pickup(node_name: String, pickup_id: StringName) -> void:
 	if _collected_pickup_ids.has(pickup_id):
 		return
