@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"clear": "区域 10 · 挑战房奖励已解锁",
+&"room": "区域 10 · 挑战房"
+}
+step_prompts = {
+&"clear": "挑战房已完成，收集物奖励用于验证更高风险的支路价值。",
+&"room": "混合敌人与悬浮敌人形成挑战房压力，完成后获得收集收益。"
+}
+step_dash_visibility = {
+&"clear": true,
+&"room": true
+}
+spawn_positions = {
+&"stage10_challenge_start": Vector2(-128, 96)
+}
+thresholds = {}

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AerialSentinelEnemyConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/aerial_sentinel_enemy_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+hover_amplitude = 18.0
+hover_speed = 2.4
+touch_damage = 1
+air_attack_lane_height = 88.0

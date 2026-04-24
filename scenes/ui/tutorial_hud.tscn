@@ -39,7 +39,7 @@ autowrap_mode = 3
 offset_left = 438.0
 offset_top = 16.0
 offset_right = 624.0
-offset_bottom = 88.0
+offset_bottom = 116.0
 
 [node name="StatusLabel" type="Label" parent="BattlePanel"]
 offset_left = 12.0
@@ -56,3 +56,11 @@ offset_right = 160.0
 offset_bottom = 56.0
 theme_override_font_sizes/font_size = 18
 text = "冲刺：未开放"
+
+[node name="ProgressLabel" type="Label" parent="BattlePanel"]
+offset_left = 12.0
+offset_top = 66.0
+offset_right = 174.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 16
+text = "成长：未发现"

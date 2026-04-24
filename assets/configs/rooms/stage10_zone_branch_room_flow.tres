@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"clear": "区域 10 · 支路收益已获得",
+&"room": "区域 10 · 可选支路"
+}
+step_prompts = {
+&"clear": "支路收集物已获得，并可用恢复点稳定继续推进。",
+&"room": "这是可选支路，用收集物与恢复点表达轻量成长收益。"
+}
+step_dash_visibility = {
+&"clear": true,
+&"room": true
+}
+spawn_positions = {
+&"stage10_branch_start": Vector2(-128, 96)
+}
+thresholds = {}
