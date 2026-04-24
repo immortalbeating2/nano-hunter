@@ -1,5 +1,9 @@
 extends "res://scripts/combat/base_enemy.gd"
 
+# GroundChargerEnemy 是阶段 9 的第二类普通敌人。
+# 它通过“巡逻 -> 发现玩家 -> 直线冲锋 -> 恢复”这条固定节奏，
+# 给线性小区域提供比基础近战更强的进场压力。
+
 
 const GroundChargerEnemyConfig := preload("res://scripts/configs/ground_charger_enemy_config.gd")
 
@@ -22,6 +26,7 @@ var _charge_direction := 1.0
 var _charge_active := false
 
 
+# 冲锋敌人的主循环要么处在冲锋 / 恢复中，要么回到巡逻并等待下一次触发。
 func _ready() -> void:
 	_apply_config()
 	_spawn_position = position
@@ -72,7 +77,8 @@ func _apply_config() -> void:
 	if config == null:
 		return
 
-	# Stage 9 鎶婄 2 绫绘晫浜虹殑鍏抽敭琛屼负鍙傛暟缁х画鏀跺彛鍒板彧璇?Resource锛岄伩鍏嶅洖閫€鍒拌剼鏈骇纭紪鐮併€?
+	# Stage 9 把第 2 类敌人的关键行为参数继续收口到只读 Resource，
+	# 避免回退到脚本级硬编码。
 	_patrol_distance = config.patrol_distance
 	_patrol_speed = config.patrol_speed
 	_touch_damage = config.touch_damage
@@ -93,6 +99,7 @@ func _can_start_charge() -> bool:
 	return absf(offset.x) <= _trigger_distance
 
 
+# 冲锋方向只取玩家相对位置的水平符号，不在阶段 9 引入更复杂的预判或转向系统。
 func _start_charge() -> void:
 	_charge_active = true
 	_charge_elapsed = 0.0

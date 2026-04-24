@@ -1,5 +1,8 @@
 extends GutTest
 
+# 阶段 9 回归测试保护首个小区域内容生产。
+# 它覆盖五房间主线链路、第二类敌人、开关门门控与 checkpoint 恢复。
+
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
@@ -12,6 +15,7 @@ const CHARGER_ENEMY_SCENE_PATH := "res://scenes/combat/ground_charger_enemy.tscn
 const CHARGER_ENEMY_CONFIG_SCRIPT_PATH := "res://scripts/configs/ground_charger_enemy_config.gd"
 
 
+# 输入环境清理：保证区域推进和 checkpoint 测试不受前一条输入影响。
 func before_each() -> void:
 	_reset_input_actions()
 
@@ -120,6 +124,7 @@ func test_main_resets_stage9_progress_to_last_checkpoint_room() -> void:
 	assert_eq(reset_room.scene_file_path, ZONE_CHARGER_ROOM_SCENE_PATH)
 
 
+# 测试辅助：统一生成房间、玩家和失败流程，减少区域测试里的重复样板。
 func _spawn_room(scene_path: String) -> Node2D:
 	var packed_scene: PackedScene = load(scene_path) as PackedScene
 

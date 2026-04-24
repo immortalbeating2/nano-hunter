@@ -1,5 +1,9 @@
 extends "res://scripts/combat/base_enemy.gd"
 
+# AerialSentinelEnemy 是阶段 10 的第三类普通敌人。
+# 它只验证“悬浮高度 + 空中攻击价值”这组最小战斗变化，
+# 不在本阶段扩成完整飞行 AI。
+
 
 const AerialSentinelEnemyConfig := preload("res://scripts/configs/aerial_sentinel_enemy_config.gd")
 
@@ -14,6 +18,7 @@ var _spawn_position := Vector2.ZERO
 var _hover_elapsed := 0.0
 
 
+# 运行态保持单一节奏：围绕出生点做悬浮摆动，并持续转发触碰伤害。
 func _ready() -> void:
 	_apply_config()
 	_spawn_position = position

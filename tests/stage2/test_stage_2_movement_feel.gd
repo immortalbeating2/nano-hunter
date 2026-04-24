@@ -1,10 +1,14 @@
 extends GutTest
 
+# 阶段 2 回归测试保护基础移动手感。
+# 它重点覆盖输入契约、跑停、跳跃、可变跳高、coyote time 与 jump buffer。
+
 
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const SETTLED_PLAYER_Y := 123.0
 
 
+# 输入环境清理：每条测试都从同一组按键状态开始。
 func before_each() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")
@@ -141,6 +145,7 @@ func test_player_uses_jump_buffer_when_landing() -> void:
 	assert_lt(player.velocity.y, 0.0)
 
 
+# 测试辅助：统一生成玩家、地板和等待逻辑，避免测试主体里重复铺场。
 func _spawn_player_with_floor(
 	spawn_position: Vector2,
 	floor_size: Vector2 = Vector2(1024, 32)

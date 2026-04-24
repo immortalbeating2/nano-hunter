@@ -1,5 +1,9 @@
 extends Node2D
 
+# TutorialRoom 负责阶段 5 的单场景教学链路。
+# 它只管理教程步骤、提示更新、dash 门槛和离开教程区的最小门控，
+# 不负责真实战斗循环或 checkpoint。
+
 
 signal tutorial_step_changed(step_id: StringName, prompt_text: String)
 signal hud_context_changed(step_title: String, prompt_text: String)
@@ -52,6 +56,7 @@ var _transition_requested := false
 @export var flow_config: RoomFlowConfig
 
 
+# 房间初始化会先把训练目标和出口锁状态接好，再把当前步骤广播给 HUD。
 func _ready() -> void:
 	if tutorial_dummy != null and tutorial_dummy.has_signal("hit_registered"):
 		tutorial_dummy.connect("hit_registered", Callable(self, "_on_tutorial_dummy_hit_registered"))
@@ -60,6 +65,7 @@ func _ready() -> void:
 	_emit_step_changed()
 
 
+# 教程推进统一走运行时位置和事件判断，这样自动化测试与手动试玩都能读到同一条规则。
 func _process(_delta: float) -> void:
 	if _player == null:
 		return
@@ -118,6 +124,7 @@ func is_dash_available_in_hud() -> bool:
 	return STEP_ORDER.get(_current_step, 0) >= STEP_ORDER[STEP_DASH]
 
 
+# 对外只暴露房间契约：出生点、步骤标题 / 提示和 HUD 上下文。
 func get_spawn_position(spawn_id: StringName = &"tutorial_start") -> Vector2:
 	if flow_config != null:
 		return flow_config.get_spawn_position(spawn_id, Vector2(-320, 96))
@@ -137,6 +144,7 @@ func get_hud_context() -> Dictionary:
 	}
 
 
+# 内部状态切换层：任何步骤推进都必须先改 step，再统一广播给 HUD。
 func _set_current_step(step_id: StringName) -> void:
 	if _current_step == step_id:
 		return

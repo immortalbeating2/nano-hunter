@@ -1,11 +1,15 @@
 extends GutTest
 
+# 阶段 5 回归测试保护教程区垂直切片。
+# 它验证 Main 默认入口、TutorialRoom 教学顺序、最小 HUD 与出口解锁闭环。
+
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const TUTORIAL_ROOM_SCENE_PATH := "res://scenes/rooms/tutorial_room.tscn"
 
 
+# 输入环境清理：教程测试需要稳定的初始按键状态。
 func before_each() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")
@@ -147,6 +151,7 @@ func test_dash_gate_requires_dash_to_cross_stably_in_tutorial_room() -> void:
 	assert_true(player.is_on_floor())
 
 
+# 测试辅助：统一生成教程房和玩家，减少流程测试里的铺场噪音。
 func _spawn_tutorial_room_world() -> Node2D:
 	var room_scene: PackedScene = load(TUTORIAL_ROOM_SCENE_PATH) as PackedScene
 	var room: Node2D = room_scene.instantiate() as Node2D

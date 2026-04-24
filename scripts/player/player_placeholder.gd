@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# PlayerPlaceholder 是当前原型期唯一的玩家运行时实现。
+# 它统一承载移动、跳跃、地面攻击、空中攻击、dash、受击与 HUD 快照读值，
+# 但不负责房间推进、敌人管理或正式存档。
+
 
 signal health_changed(current_health: int, max_health: int)
 signal defeated
@@ -70,6 +74,7 @@ var _is_defeated := false
 var _dash_feedback_active := false
 
 
+# 启动时只把只读配置复制到运行时字段，后续状态更新都基于这些值工作。
 func _ready() -> void:
 	_apply_player_config()
 	current_state = STATE_IDLE
@@ -80,6 +85,7 @@ func _ready() -> void:
 		_body_idle_color = _body_polygon.color
 
 
+# 配置同步层只负责把 Resource 转成运行时数字，不在这里做玩法判断。
 func _apply_player_config() -> void:
 	var resolved_config := _get_resolved_player_config()
 
@@ -121,6 +127,8 @@ func _get_resolved_player_config() -> PlayerConfig:
 	return player_config
 
 
+# 每帧更新顺序固定为：先处理无敌时间，再采样输入，再做状态专属逻辑，最后统一 move_and_slide。
+# 这个顺序保证测试与人工调参时，状态切换来源比较稳定可追。
 func _physics_process(delta: float) -> void:
 	_update_damage_invulnerability(delta)
 
@@ -158,6 +166,7 @@ func _physics_process(delta: float) -> void:
 	_was_on_floor = is_grounded
 
 
+# 基础移动层：只有在不处于攻击 / dash 等专属状态时才接管水平与垂直速度。
 func _update_jump_window_timers(delta: float, was_grounded: bool, jump_pressed: bool) -> void:
 	if jump_pressed:
 		_jump_buffer_timer = jump_buffer_window
@@ -220,6 +229,7 @@ func _can_start_dash(was_grounded: bool, dash_pressed: bool) -> bool:
 	return current_state == STATE_IDLE or current_state == STATE_RUN or current_state == STATE_LAND
 
 
+# 主动动作起手层：jump / attack / dash 都在这里清理与自己冲突的临时状态。
 func _start_jump() -> void:
 	velocity.y = jump_velocity
 	_jump_buffer_timer = 0.0
@@ -252,6 +262,7 @@ func _start_dash() -> void:
 	_set_dash_feedback_active(true)
 
 
+# 攻击与冲刺的持续期逻辑必须独立更新，避免普通移动逻辑把动作感打散。
 func _update_attack_state(delta: float, was_grounded: bool) -> void:
 	_apply_attack_movement(delta, was_grounded)
 
@@ -285,6 +296,7 @@ func _update_dash_state(delta: float, was_grounded: bool) -> void:
 		_finish_dash()
 
 
+# 攻击判定统一走 shape query，并通过 receive_attack 契约把伤害传给敌人或其父节点。
 func _perform_attack_hits() -> void:
 	var space_state := get_world_2d().direct_space_state
 	var hit_shape := RectangleShape2D.new()
@@ -392,6 +404,7 @@ func _is_dashing() -> bool:
 	return _dash_elapsed > 0.0 or current_state == STATE_DASH
 
 
+# 对外读值层：测试、HUD 与房间逻辑都应该优先消费这些稳定接口，而不是直接探测内部字段。
 func _update_dash_cooldown(delta: float) -> void:
 	_dash_cooldown_remaining = maxf(_dash_cooldown_remaining - delta, 0.0)
 
@@ -427,6 +440,7 @@ func is_air_attack_active_or_recovering() -> bool:
 	return current_state == STATE_AIR_ATTACK and _is_attacking()
 
 
+# 受击层负责统一生命、击退、无敌时间与 defeated 信号，不把这些逻辑分散给房间或敌人。
 func receive_damage(amount: int, hit_direction: Vector2 = Vector2.ZERO) -> void:
 	if amount <= 0 or _is_defeated or _damage_invulnerability_remaining > 0.0:
 		return

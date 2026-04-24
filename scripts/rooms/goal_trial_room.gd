@@ -1,5 +1,9 @@
 extends Node2D
 
+# GoalTrialRoom 是阶段 7 的第三段短链路目标房。
+# 它负责“解除门控 -> 抵达目标点 -> 发出完成信号”的最小终点闭环，
+# 不再把失败后重置权交给自己，而是交回 Main 与上游房间链路决定。
+
 
 signal hud_context_changed(step_title: String, prompt_text: String)
 signal goal_completed
@@ -40,6 +44,7 @@ var _goal_finished := false
 @export var flow_config: RoomFlowConfig
 
 
+# 初始化先接守门敌人的 defeated 信号，再把当前门控状态同步给 HUD。
 func _ready() -> void:
 	if basic_melee_enemy != null and basic_melee_enemy.has_signal("defeated"):
 		basic_melee_enemy.connect("defeated", Callable(self, "_on_basic_melee_enemy_defeated"))
@@ -48,6 +53,7 @@ func _ready() -> void:
 	_emit_hud_context()
 
 
+# 目标房只关心“门是否已开”和“玩家是否真正到达终点区”。
 func _process(_delta: float) -> void:
 	if _player == null or not _goal_unlocked or _goal_finished:
 		return
@@ -113,6 +119,7 @@ func get_hud_context() -> Dictionary:
 	}
 
 
+# 清掉守门敌人后，目标房从“解除门控”切到“抵达终点”。
 func _on_basic_melee_enemy_defeated() -> void:
 	_goal_unlocked = true
 	_current_step = STEP_GOAL_REACH

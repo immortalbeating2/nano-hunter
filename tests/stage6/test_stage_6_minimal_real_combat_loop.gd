@@ -1,5 +1,8 @@
 extends GutTest
 
+# 阶段 6 回归测试保护最小真实战斗循环。
+# 它聚焦教程后第一段实战压力、玩家生命 / 受击 / defeated，以及战斗房局部重置。
+
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
@@ -10,6 +13,7 @@ var _health_signal_values: Array[int] = []
 var _defeated_signal_count := 0
 
 
+# 输入与信号缓存清理：每条测试都从空输入、空信号记录开始。
 func before_each() -> void:
 	_reset_input_actions()
 	_health_signal_values.clear()
@@ -175,6 +179,7 @@ func test_main_resets_current_combat_room_after_player_is_defeated() -> void:
 	assert_lt(reset_player.global_position.distance_to(spawn_position), 8.0)
 
 
+# 测试辅助：统一生成战斗房、玩家和失败流程，避免各条测试自行拼接主线推进。
 func _complete_tutorial_and_enter_combat(main_scene: Node2D) -> void:
 	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
 

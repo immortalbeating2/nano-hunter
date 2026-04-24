@@ -1,5 +1,9 @@
 extends Node2D
 
+# CombatTrialRoom 是阶段 6 的最小真实战斗房。
+# 它负责“敌人未清 -> 门锁住；敌人清掉 -> 门打开并推进到目标房”的局部闭环，
+# 不负责主线总进度或 checkpoint 记录。
+
 
 signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 signal hud_context_changed(step_title: String, prompt_text: String)
@@ -37,6 +41,7 @@ var _transition_requested := false
 @export var flow_config: RoomFlowConfig
 
 
+# 初始化时先把唯一敌人与出口门控接起来，再同步第一条 HUD 提示。
 func _ready() -> void:
 	if basic_melee_enemy != null and basic_melee_enemy.has_signal("defeated"):
 		basic_melee_enemy.connect("defeated", Callable(self, "_on_basic_melee_enemy_defeated"))
@@ -49,6 +54,7 @@ func bind_player(player: CharacterBody2D) -> void:
 	_player = player
 
 
+# 战斗房的运行态逻辑非常单一：只有清房后才允许进入下一个房间。
 func _process(_delta: float) -> void:
 	if _player == null or not _exit_unlocked or _transition_requested:
 		return
@@ -111,6 +117,7 @@ func should_reset_on_player_defeat() -> bool:
 	return true
 
 
+# 清房事件是这个房间唯一的门控解锁来源。
 func _on_basic_melee_enemy_defeated() -> void:
 	_exit_unlocked = true
 	_current_step = STEP_CLEAR

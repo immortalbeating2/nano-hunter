@@ -1,5 +1,9 @@
 extends Control
 
+# TutorialHUD 是当前原型期统一的运行时 HUD。
+# 它只负责把房间和玩家暴露出来的稳定快照翻译成文本，
+# 不直接驱动房间推进，也不反向写入玩家或房间状态。
+
 
 @onready var step_label: Label = $PromptPanel/StepLabel
 @onready var prompt_label: Label = $PromptPanel/PromptLabel
@@ -11,6 +15,7 @@ var _room: Node
 var _player: CharacterBody2D
 
 
+# 初始化只放默认占位文案，真正内容以后续 bind_room / bind_player 为准。
 func _ready() -> void:
 	status_label.text = "生命：■■■"
 	step_label.text = "教程 1/4 · 移动与跳跃"
@@ -23,6 +28,7 @@ func _process(_delta: float) -> void:
 	_update_dash_status()
 
 
+# HUD 的绑定顺序允许房间和玩家分别到位，因此每次绑定后都要主动同步一次显示。
 func bind_room(room: Node) -> void:
 	if _room != null:
 		_disconnect_room_signals(_room)
@@ -50,6 +56,7 @@ func bind_player(player: CharacterBody2D) -> void:
 	_update_stage10_progress_status()
 
 
+# 房间上下文负责教程标题、提示词和成长读值；玩家快照负责生命与 dash 冷却。
 func _sync_from_room() -> void:
 	_apply_room_context(_get_room_hud_context())
 	_update_health_status()
@@ -79,6 +86,7 @@ func _on_player_health_changed(_current_health: int, _max_health: int) -> void:
 	_update_health_status()
 
 
+# dash 状态显示保持最小规则：未开放 / 等待玩家 / 冷却中 / 就绪。
 func _update_dash_status() -> void:
 	if dash_label == null:
 		return
@@ -110,6 +118,7 @@ func _update_health_status() -> void:
 	status_label.text = "生命：%s" % _build_health_icons(current_health, max_health)
 
 
+# Stage 10 起的成长反馈继续走房间快照，不让 HUD 去探测房间里的节点或临时字段。
 func _update_stage10_progress_status() -> void:
 	if progress_label == null:
 		return
