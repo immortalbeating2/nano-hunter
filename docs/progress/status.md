@@ -8,9 +8,9 @@ Last Updated: 2026-04-25
 
 ## Current Stage
 
-`阶段 11：可交付试玩 Demo 切片（已完成，待收口合并）`
+`阶段 11：可交付试玩 Demo 切片（已完成并收口）`
 
-> Update: 2026-04-25 `stage11` 当前已形成可收口结果：主线已从 `Main.tscn` 稳定推进到 `stage11_demo_end_room`，Stage 11 专项 GUT `5/5 passed`，Stage 1-11 全量 GUT `69/69 passed`，并且本轮新增的 `godot-mcp-pro` 联通脚本与排障文档已经落在当前 worktree 中。
+> Update: 2026-04-25 `stage11` 已完成并收口进 `main`：主线已从 `Main.tscn` 稳定推进到 `stage11_demo_end_room`，Stage 11 专项 GUT `5/5 passed`，Stage 1-11 全量 GUT `69/69 passed`，并且本轮新增的 `godot-mcp-pro` 联通脚本与排障文档已随阶段结果进入主线。
 
 ## Stage Goal
 
@@ -65,7 +65,7 @@ Last Updated: 2026-04-25
 - Stage 1-11 自动化验证通过
 - 人工复核与运行态证据已留痕，可支持本轮收口判断
 
-当前状态：以上条件已满足，当前 worktree 正处于“待收口合并”阶段。
+当前状态：以上条件已满足，阶段 11 已成为当前新的稳定主线基线。
 
 ## Asset Status
 
@@ -79,12 +79,10 @@ Last Updated: 2026-04-25
 
 ## Current Goal
 
-当前 `codex/stage-11-playable-demo-slice` worktree 的下一步固定为：
+当前 `main` 的下一步固定为：
 
-- 整理最终验证与文档结论
-- 合并回 `main`
-- 同步 `origin/main`
-- 清理分支与 worktree
+- 基于已收口的 demo 基线决定后续方向
+- 如继续新阶段，先从当前 `main` 开新分支 / worktree
 
 ## Current Defaults
 
@@ -96,7 +94,7 @@ Last Updated: 2026-04-25
 
 ## In Progress
 
-- `阶段 11：可交付试玩 Demo 切片` 当前实现已完成，正在准备收口
+- `阶段 11：可交付试玩 Demo 切片` 当前已完成并合并进主线
 - 本轮继续采用 `分支 + worktree`
 - 本轮已固定并完成的关键选择：
   - demo 形态：`扩成完整 Demo`
@@ -125,12 +123,10 @@ Last Updated: 2026-04-25
 
 ## Recommended Roadmap
 
-- `阶段 11：可交付试玩 Demo 切片`
-  - 当前目标已经完成，可进入收口
+- 当前已形成一条可交付试玩 demo 的稳定主线
+- 后续路线待下一轮设计确认后再定
 
 ## Next Recommended Steps
 
-1. 在当前 stage11 worktree 上做一次 fresh 收口验证
-2. 合并回 `main`
-3. 同步 `origin/main`
-4. 清理分支与 worktree
+1. 以当前 `main` 作为新的稳定基线
+2. 再决定是否进入下一阶段的设计与 preflight
