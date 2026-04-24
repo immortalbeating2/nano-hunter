@@ -1,4 +1,4 @@
-﻿# Nano Hunter Timeline
+# Nano Hunter Timeline
 
 ## 2026-04-24
 
@@ -33,7 +33,7 @@
 - 基于阶段 1 与阶段 2 的执行差异，补充“默认开发节奏”治理规则，明确它是对 `AGENTS.md` 现有“大功能 / 小改动”分流的执行层细化，而不是替代规则。
 - 在 `AGENTS.md` 中新增“大功能默认节奏”“小改动默认节奏”与对应决策规则，统一 `brainstorming`、`subagent`、`worktree` 与提交次数的默认用法。
 - 新建设计留痕 `spec-design/2026-04-10-development-cadence-standardization.md`，说明为什么要把阶段型开发节奏从聊天约定提升为项目内显式规范。
-- 新增实现计划 `docs/superpowers/plans/2026-04-10-development-cadence-standardization.md`，把本次治理修订限定为文档与规则收口，不混入额外玩法实现。
+- 新增实现计划 `docs/implementation-plans/2026-04-10-development-cadence-standardization.md`，把本次治理修订限定为文档与规则收口，不混入额外玩法实现。
 - 更新 `docs/progress/status.md`、`docs/progress/timeline.md` 与当日日志，明确后续阶段 3、4、5 默认沿用大功能节奏，文档修订、配置调整与单点 bugfix 则沿用小改动节奏。
 - 重新建立本地 `codex/stage-2-movement-feel` 分支与 `.worktrees/stage-2-movement-feel` 隔离工作区，避免在带未提交改动的主工作区上直接推进阶段 2。
 - 新增阶段 2 设计留痕，锁定本轮只做基础移动手感，不做冲刺、攻击、HUD 与房间系统重构。
@@ -72,7 +72,7 @@
 - 从收口后的 `main` 建立 `codex/stage-3-combat-feel` 与 `.worktrees/stage-3-combat-feel`，作为阶段 3 的隔离开发现场。
 - 在阶段 3 worktree 中启动设计文档、实现计划、状态页、时间线与当日日志，锁定第一轮范围为“攻击 + 木桩目标”，暂不写入实际战斗实现。
 - 新建设计文档 `spec-design/2026-04-20-stage-3-combat-feel-design.md`，明确本轮只做玩家普通攻击、固定木桩目标、命中反馈与基础受击反馈。
-- 新增实现计划 `docs/superpowers/plans/2026-04-20-stage-3-combat-feel.md`，把阶段 3 拆为输入契约、玩家攻击、木桩目标、阶段 3 GUT 与文档收口五个实施项。
+- 新增实现计划 `docs/implementation-plans/2026-04-20-stage-3-combat-feel.md`，把阶段 3 拆为输入契约、玩家攻击、木桩目标、阶段 3 GUT 与文档收口五个实施项。
 - 将 worktree 内 `docs/progress/status.md` 从“阶段 2 已完成”推进到“阶段 3 设计准备中”，让后续 session 进入时能直接读到当前战斗阶段目标。
 
 ## 2026-04-21
@@ -104,7 +104,7 @@
 
 - 从当前 `main` 建立 `codex/stage-4-minimal-ability-difference` 与 `.worktrees/stage-4-minimal-ability-difference`，作为阶段 4 的唯一开发入口。
 - 新建设计文档 `spec-design/2026-04-22-stage-4-minimal-ability-difference-design.md`，固定本轮能力形式为“仅地面冲刺”，验证形式为“TestRoom 混合验证”。
-- 新增实现计划 `docs/superpowers/plans/2026-04-22-stage-4-minimal-ability-difference.md`，把阶段 4 拆为 preflight、冲刺状态、TestRoom 门槛、轻量反馈、自动化验证与文档收口五个实施项。
+- 新增实现计划 `docs/implementation-plans/2026-04-22-stage-4-minimal-ability-difference.md`，把阶段 4 拆为 preflight、冲刺状态、TestRoom 门槛、轻量反馈、自动化验证与文档收口五个实施项。
 - 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 4 已启动，设计与 preflight 已完成”，并明确延后项归属：哪些留在阶段 4、哪些明确留给阶段 5、哪些继续后延。
 - 将修正后的 `subagent` / `multi-agent` 规则同步到当前 worktree 的 `AGENTS.md`，使阶段 4 后续实现默认主动评估代理协作，而不是默认主代理单线推进。
 - 完成 fresh preflight 的首轮验证：`.worktrees` 忽略检查通过，`godot --headless --path . --import` 通过，Stage 1 GUT 与 Stage 2 GUT 通过。
@@ -123,7 +123,7 @@
 - 将 `codex/stage-4-minimal-ability-difference` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 GUT 与 `git diff --check` 全部通过。
 - 从当前 `main` 建立 `codex/stage-5-tutorial-vertical-slice` 与 `.worktrees/stage-5-tutorial-vertical-slice`，作为阶段 5 的唯一开发入口。
 - 新建设计文档 `spec-design/2026-04-22-stage-5-tutorial-vertical-slice-design.md`，固定本轮采用“单场景线性教程区 + 低压教学 + 能力教学优先”的方案。
-- 新增实现计划 `docs/superpowers/plans/2026-04-22-stage-5-tutorial-vertical-slice.md`，将阶段 5 拆为主房间契约迁移、`TutorialRoom`、最小 HUD、阶段 5 自动化与文档收口。
+- 新增实现计划 `docs/implementation-plans/2026-04-22-stage-5-tutorial-vertical-slice.md`，将阶段 5 拆为主房间契约迁移、`TutorialRoom`、最小 HUD、阶段 5 自动化与文档收口。
 - 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 5：教程区垂直切片（设计与开发准备中）”，并明确本轮的主流程目标、历史耦合风险与下一步实现入口。
 - 明确阶段 5 的代理协作建议：若写入范围可分离，优先按“`Main` 契约迁移 / `TutorialRoom` + HUD / 测试与文档”三块主动评估 `multi-agent` 并行。
 
@@ -155,17 +155,17 @@
   - `阶段 7：短链路主流程串联`
   - `阶段 8：系统稳固与内容生产前准备`
 - 当前推荐顺序是先补“真实战斗压力”，再补“短主流程串联”，最后再做偏长期的系统稳固与内容生产前准备。
-- 新建设计留痕 `spec-design/2026-04-23-post-stage5-roadmap.md`，把阶段 5 完成后的推荐路线、顺序理由与阶段 6-8 边界正式写回仓库。
-- 将上述路线收口提交到 `main`：提交 `AGENTS.md`、`status.md`、`timeline.md`、当日日志与 `spec-design/2026-04-23-post-stage5-roadmap.md`，形成“阶段 5 完成后的 stage6-8 路线确认”稳定基线。
+- 新建设计留痕 `spec-design/2026-04-23-stage-6-to-stage-8-roadmap.md`，把阶段 5 完成后的推荐路线、顺序理由与阶段 6-8 边界正式写回仓库。
+- 将上述路线收口提交到 `main`：提交 `AGENTS.md`、`status.md`、`timeline.md`、当日日志与 `spec-design/2026-04-23-stage-6-to-stage-8-roadmap.md`，形成“阶段 5 完成后的 stage6-8 路线确认”稳定基线。
 - 从干净 `main` 建立 `codex/stage-6-minimal-real-combat-loop` 与 `.worktrees/stage-6-minimal-real-combat-loop`，作为阶段 6 的唯一开发入口。
-- 在 stage6 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-6-minimal-real-combat-loop-design.md` 与实现计划 `docs/superpowers/plans/2026-04-23-stage-6-minimal-real-combat-loop.md`。
+- 在 stage6 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-6-minimal-real-combat-loop-design.md` 与实现计划 `docs/implementation-plans/2026-04-23-stage-6-minimal-real-combat-loop.md`。
 - 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 6：最小真实战斗循环（设计与 preflight 中）”，并明确本轮目标为“独立战斗房 + 基础近战敌人 + 玩家受击 / 生命 / 即时重置”。
 - 明确阶段 6 的代理协作建议：若写入范围可分离，优先按“`Main` 与房间切换 / 玩家生命与战斗房 / HUD + 测试 + 文档”三块主动评估 `multi-agent` 并行。
 - 完成阶段 6 的首轮 TDD 实现：新增 `CombatTrialRoom`、`BasicMeleeEnemy` 与 `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`，并将 `Main`、玩家、HUD 补齐到“教程后实战压力 + 生命 / 受击 / 即时重置”的最小真实战斗闭环。
 - 在收口验证中重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 GUT 与 `git diff --check` 全部通过，确认阶段 6 已形成阶段 7 的稳定前置基线。
 - 在随后的手感收敛中，继续按 TDD 补上“首接敌距离”和“受击后脱离感”的阶段 6 回归约束；仅通过前移 `BasicMeleeEnemy` 初始站位与增强玩家受击击退参数完成最小调参，并再次确认 `--import`、阶段 1 / 2 / 3 / 4 / 5 / 6 GUT 与 `git diff --check` 全部通过。
 - 从干净 `main` 建立 `codex/stage-7-short-mainline-chain` 与 `.worktrees/stage-7-short-mainline-chain`，作为阶段 7 的唯一开发入口。
-- 在 stage7 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-7-short-mainline-chain-design.md` 与实现计划 `docs/superpowers/plans/2026-04-23-stage-7-short-mainline-chain.md`。
+- 在 stage7 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-7-short-mainline-chain-design.md` 与实现计划 `docs/implementation-plans/2026-04-23-stage-7-short-mainline-chain.md`。
 - 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 7：短链路主流程串联（设计与 preflight 中）”，并明确本轮只做三段顺序链路：`TutorialRoom -> CombatTrialRoom -> GoalTrialRoom`。
 - 明确阶段 7 的代理协作从“建议”升级为“满足条件即必须启用”的实现约束：
   - 代理 A：`Main` 与三段房间流转契约
@@ -181,7 +181,7 @@
 - 将 `codex/stage-7-short-mainline-chain` 以“分支 + worktree”模式本地合并回 `main`，并在主线上重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 GUT 与 `git diff --check` 全部通过。
 - 阶段 7 收口时，先检查直接指向该 worktree 的进程；Git 侧 worktree 元数据在第一次删除时已移除，但物理目录因 WindowsTerminal 占用未能立即删除。
 - 关闭对应的 `WindowsTerminal` 进程后，使用长路径方式成功清理 `.worktrees/stage-7-short-mainline-chain` 物理目录，并删除本地分支 `codex/stage-7-short-mainline-chain`。
-- 将 `stage8` 执行版计划写回主线：新增 `docs/superpowers/plans/2026-04-23-stage-8-systems-hardening-and-content-prep.md`，固定本轮优先级为“参数数据化 -> HUD 第二轮 -> 敌人模板化”。
+- 将 `stage8` 执行版计划写回主线：新增 `docs/implementation-plans/2026-04-23-stage-8-systems-hardening-and-content-prep.md`，固定本轮优先级为“参数数据化 -> HUD 第二轮 -> 敌人模板化”。
 - 从干净 `main` 建立 `codex/stage-8-systems-hardening-and-content-prep` 与 `.worktrees/stage-8-systems-hardening-and-content-prep`，作为阶段 8 的唯一开发入口。
 - 在 stage8 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-23-stage-8-systems-hardening-and-content-prep-design.md`。
 - 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 8：系统稳固与内容生产前准备（设计与 preflight 中）”，并明确本轮不新增能力、不新增敌人种类、不扩主流程长度。

@@ -1,58 +1,53 @@
-# 阶段 2：基础移动手感最终计划记录
-
-> 说明：本文档用于留存 `stage2` 的最终确认版计划。  
-> 原始执行用计划仍保留在 [2026-04-10-stage-2-movement-feel.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/superpowers/plans/2026-04-10-stage-2-movement-feel.md)。
-
+# 闃舵 2锛氬熀纭€绉诲姩鎵嬫劅鏈€缁堣鍒掕褰?
+> 璇存槑锛氭湰鏂囨。鐢ㄤ簬鐣欏瓨 `stage2` 鐨勬渶缁堢‘璁ょ増璁″垝銆?
+> 鍘熷鎵ц鐢ㄨ鍒掍粛淇濈暀鍦?[2026-04-10-stage-2-movement-feel.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/implementation-plans/2026-04-10-stage-2-movement-feel.md)銆?
 ## Summary
 
-`stage2` 的目标是在 `stage1` 启动骨架之上，做出第一版可调整的基础移动手感，包括：
+`stage2` 鐨勭洰鏍囨槸鍦?`stage1` 鍚姩楠ㄦ灦涔嬩笂锛屽仛鍑虹涓€鐗堝彲璋冩暣鐨勫熀纭€绉诲姩鎵嬫劅锛屽寘鎷細
 
-- 跑停
-- 跳跃
-- 落地
-- 高级手感窗口
+- 璺戝仠
+- 璺宠穬
+- 钀藉湴
+- 楂樼骇鎵嬫劅绐楀彛
 
-本轮保持 `Main + Runtime + TestRoom + PlayerPlaceholder` 的既有骨架不变，只在现有占位玩家上增量加入命名输入动作、导出调参字段与最小显式状态流转。
-
+鏈疆淇濇寔 `Main + Runtime + TestRoom + PlayerPlaceholder` 鐨勬棦鏈夐鏋朵笉鍙橈紝鍙湪鐜版湁鍗犱綅鐜╁涓婂閲忓姞鍏ュ懡鍚嶈緭鍏ュ姩浣溿€佸鍑鸿皟鍙傚瓧娈典笌鏈€灏忔樉寮忕姸鎬佹祦杞€?
 ## Key Changes
 
-### 工程基线
+### 宸ョ▼鍩虹嚎
 
-- 在 `project.godot` 中新增命名输入动作：
+- 鍦?`project.godot` 涓柊澧炲懡鍚嶈緭鍏ュ姩浣滐細
   - `move_left`
   - `move_right`
   - `jump`
-- 明确当前阶段继续禁用 `better-terrain`
+- 鏄庣‘褰撳墠闃舵缁х画绂佺敤 `better-terrain`
 
-### 玩家移动原型
+### 鐜╁绉诲姩鍘熷瀷
 
-- 在 `PlayerPlaceholder` 上实现基础移动输入
-- 新增最小状态流转：
+- 鍦?`PlayerPlaceholder` 涓婂疄鐜板熀纭€绉诲姩杈撳叆
+- 鏂板鏈€灏忕姸鎬佹祦杞細
   - `idle`
   - `run`
   - `jump_rise`
   - `jump_fall`
   - `land`
-- 暴露核心调参字段：
-  - 最大速度
-  - 地面加速度 / 减速度
-  - 空中加速度
-  - 跳跃速度
-  - 落地时长
+- 鏆撮湶鏍稿績璋冨弬瀛楁锛?  - 鏈€澶ч€熷害
+  - 鍦伴潰鍔犻€熷害 / 鍑忛€熷害
+  - 绌轰腑鍔犻€熷害
+  - 璺宠穬閫熷害
+  - 钀藉湴鏃堕暱
 
-### 高级手感窗口
+### 楂樼骇鎵嬫劅绐楀彛
 
 - `coyote time`
 - `jump buffer`
-- `可变跳高`
+- `鍙彉璺抽珮`
 
-### 阶段边界
+### 闃舵杈圭晫
 
-- 本轮明确不做：
-  - 攻击
-  - 冲刺
+- 鏈疆鏄庣‘涓嶅仛锛?  - 鏀诲嚮
+  - 鍐插埡
   - HUD
-  - 房间系统重构
+  - 鎴块棿绯荤粺閲嶆瀯
 
 ## Test Plan
 
@@ -63,5 +58,5 @@
 
 ## Assumptions
 
-- `stage2` 固定只验证基础移动与跳跃手感，不提前混入战斗与能力差异
-- 阶段 2 结束时，项目应能稳定承接 `stage3` 的攻击接入
+- `stage2` 鍥哄畾鍙獙璇佸熀纭€绉诲姩涓庤烦璺冩墜鎰燂紝涓嶆彁鍓嶆贩鍏ユ垬鏂椾笌鑳藉姏宸紓
+- 闃舵 2 缁撴潫鏃讹紝椤圭洰搴旇兘绋冲畾鎵挎帴 `stage3` 鐨勬敾鍑绘帴鍏?
