@@ -21,6 +21,8 @@ size = Vector2(96, 128)
 [node name="Stage10ZoneChallengeRoom" type="Node2D"]
 script = ExtResource("1")
 flow_config = ExtResource("2")
+next_room_path = "res://scenes/rooms/stage11_demo_end_room.tscn"
+next_spawn_id = &"stage11_demo_end_start"
 checkpoint_spawn_id = &"stage10_challenge_start"
 challenge_reward_room = true
 

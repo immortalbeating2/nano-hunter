@@ -1,6 +1,6 @@
 extends Node2D
 
-# Main 负责把当前阶段的房间链路串成实际可玩的主入口。
+# Main 负责把当前阶段的房间链路串成真正可玩的主入口。
 # 它只管理房间切换、出生点解析、checkpoint 恢复，以及 Room / Player / HUD 的绑定，
 # 不负责单个房间内部的教学、战斗或门控细节。
 
@@ -9,6 +9,9 @@ const PLAYER_PLACEHOLDER_SCENE: PackedScene = preload("res://scenes/player/playe
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
 const COMBAT_TRIAL_ROOM_PATH := "res://scenes/rooms/combat_trial_room.tscn"
 const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
+const STAGE10_BRANCH_ROOM_PATH := "res://scenes/rooms/stage10_zone_branch_room.tscn"
+const STAGE10_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
+const STAGE11_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 
 const INPUT_BINDINGS := {
 	"move_left": [KEY_A, KEY_LEFT],
@@ -28,6 +31,7 @@ var _current_spawn_id: StringName = &"tutorial_start"
 var _checkpoint_room_path := ""
 var _checkpoint_spawn_id: StringName = &""
 var _is_short_chain_completed := false
+var _is_demo_completed := false
 
 
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
@@ -62,7 +66,6 @@ func _spawn_placeholder_player(spawn_id: StringName) -> void:
 	_clear_runtime()
 
 	var player: CharacterBody2D = PLAYER_PLACEHOLDER_SCENE.instantiate() as CharacterBody2D
-
 	if player == null:
 		return
 
@@ -76,7 +79,6 @@ func _spawn_placeholder_player(spawn_id: StringName) -> void:
 
 func _apply_room_camera_limits(player: CharacterBody2D) -> void:
 	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
-
 	if camera == null:
 		return
 
@@ -107,16 +109,34 @@ func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 	if tutorial_hud.has_method("bind_player"):
 		tutorial_hud.call("bind_player", player)
 
+	if tutorial_hud.has_method("bind_main"):
+		tutorial_hud.call("bind_main", self)
+
 
 # 公开给测试与房间脚本使用的最小切房入口。
 func transition_to_room(room_path: String, spawn_id: StringName) -> void:
 	_change_room(room_path, spawn_id)
 
 
+func restart_demo() -> void:
+	_is_demo_completed = false
+	_checkpoint_room_path = ""
+	_checkpoint_spawn_id = &""
+	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
+
+
+func get_demo_progress_snapshot() -> Dictionary:
+	return {
+		"demo_completed": _is_demo_completed,
+		"goal_text": _get_demo_goal_text(),
+		"goal_hint_text": _get_demo_goal_hint_text(),
+		"replay_available": _is_demo_completed,
+	}
+
+
 # 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
 func _change_room(room_path: String, spawn_id: StringName) -> void:
 	var room_scene: PackedScene = load(room_path) as PackedScene
-
 	if room_scene == null:
 		return
 
@@ -187,6 +207,10 @@ func _clear_runtime() -> void:
 
 # 失败与 checkpoint 恢复仍保持“最小原型规则”：优先回最近 checkpoint，否则按当前房间的重置策略处理。
 func _on_room_transition_requested(target_room_path: String, spawn_id: StringName) -> void:
+	if _is_demo_completed and target_room_path == TUTORIAL_ROOM_PATH:
+		restart_demo()
+		return
+
 	transition_to_room(target_room_path, spawn_id)
 
 
@@ -206,14 +230,53 @@ func _get_runtime_player() -> CharacterBody2D:
 	return runtime.get_node_or_null("PlayerPlaceholder") as CharacterBody2D
 
 
+# Main 同时记录旧的短链路完成态与新的 demo 完成态，
+# 但只有真正进入 stage11 终点房时，才把本轮试玩标记为已完成。
 func _on_goal_completed() -> void:
-	# 阶段 7 只在 Main 层记录“短链路已经完成”这个事实，
-	# 更具体的完成表现继续交给目标房与 HUD 负责。
 	_is_short_chain_completed = true
+	if room != null and room.scene_file_path == STAGE11_DEMO_END_ROOM_PATH:
+		_is_demo_completed = true
 
 
 func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
-	# Stage 9 之后的 checkpoint 只记录运行期最近的区域恢复点，
-	# 这里故意不扩展成正式存档系统。
+	# checkpoint 仍然只记录运行期最近的恢复点，不扩展成正式存档系统。
 	_checkpoint_room_path = room_path
 	_checkpoint_spawn_id = spawn_id
+
+
+# Demo 主链路的目标文案只做“当前处于哪个关键节点”的最小收束，
+# 不把它扩成另一层配置系统。
+func _get_demo_goal_text() -> String:
+	if _is_demo_completed:
+		return "Demo 已完成：可向左返回并重开试玩"
+
+	if room == null:
+		return "主目标：正在加载 Demo"
+
+	match room.scene_file_path:
+		STAGE10_BRANCH_ROOM_PATH:
+			return "主目标：带着支路收益返回主线"
+		STAGE10_CHALLENGE_ROOM_PATH:
+			return "主目标：完成挑战并前往 Demo 终点"
+		STAGE11_DEMO_END_ROOM_PATH:
+			return "主目标：抵达终点并完成 Demo"
+		_:
+			return "主目标：继续向右推进并完成 Demo"
+
+
+func _get_demo_goal_hint_text() -> String:
+	if _is_demo_completed:
+		return "提示：向左回到重开入口后，可从教程重新开始"
+
+	if room == null:
+		return ""
+
+	match room.scene_file_path:
+		STAGE10_BRANCH_ROOM_PATH:
+			return "提示：支路会给出恢复点与收集收益"
+		STAGE10_CHALLENGE_ROOM_PATH:
+			return "提示：通过挑战房后，右侧出口会接入终点"
+		STAGE11_DEMO_END_ROOM_PATH:
+			return "提示：向右抵达终点，完成后可向左返回重开"
+		_:
+			return ""

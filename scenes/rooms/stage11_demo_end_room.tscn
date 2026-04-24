@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage11_demo_end_room.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(512, 32)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(96, 128)
+
+[node name="Stage11DemoEndRoom" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.109804, 0.145098, 0.145098, 1)
+polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-304, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("1")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(624, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(96, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("2")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+color = Color(0.223529, 0.305882, 0.301961, 1)
+polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
+
+[node name="ReplayZone" type="Area2D" parent="."]
+position = Vector2(-176, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReplayZone"]
+shape = SubResource("3")
+
+[node name="ReplayVisual" type="Polygon2D" parent="ReplayZone"]
+color = Color(0.929412, 0.854902, 0.486275, 0.25)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+
+[node name="GoalZone" type="Area2D" parent="."]
+position = Vector2(448, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalZone"]
+shape = SubResource("3")
+
+[node name="GoalVisual" type="Polygon2D" parent="GoalZone"]
+color = Color(0.258824, 0.694118, 0.478431, 0.35)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)

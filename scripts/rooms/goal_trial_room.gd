@@ -7,12 +7,15 @@ extends Node2D
 
 signal hud_context_changed(step_title: String, prompt_text: String)
 signal goal_completed
+signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 
 const STEP_GOAL_GATE: StringName = &"goal_gate"
 const STEP_GOAL_REACH: StringName = &"goal_reach"
 const STEP_COMPLETE: StringName = &"complete"
 const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
 const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
+const STAGE9_ENTRY_ROOM_PATH := "res://scenes/rooms/stage9_zone_entry_room.tscn"
+const STAGE9_ENTRY_SPAWN_ID: StringName = &"zone_entry_start"
 
 const STEP_TITLES := {
 	STEP_GOAL_GATE: "目标 1/2 · 解除门控",
@@ -135,6 +138,7 @@ func _complete_goal() -> void:
 	_current_step = STEP_COMPLETE
 	_emit_hud_context()
 	goal_completed.emit()
+	room_transition_requested.emit(STAGE9_ENTRY_ROOM_PATH, STAGE9_ENTRY_SPAWN_ID)
 
 
 func _emit_hud_context() -> void:
