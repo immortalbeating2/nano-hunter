@@ -1,9 +1,8 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage9_zone_final_room.gd" id="1"]
-[ext_resource type="Resource" path="res://assets/configs/rooms/stage9_zone_final_room_flow.tres" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/combat/basic_melee_enemy.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/combat/ground_charger_enemy.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/rooms/stage10_zone_branch_room.gd" id="1"]
+[ext_resource type="Resource" path="res://assets/configs/rooms/stage10_zone_branch_room_flow.tres" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/combat/aerial_sentinel_enemy.tscn" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -17,15 +16,16 @@ size = Vector2(24, 128)
 [sub_resource type="RectangleShape2D" id="4"]
 size = Vector2(96, 128)
 
-[node name="Stage9ZoneFinalRoom" type="Node2D"]
+[node name="Stage10ZoneBranchRoom" type="Node2D"]
 script = ExtResource("1")
 flow_config = ExtResource("2")
 next_room_path = "res://scenes/rooms/stage10_zone_aerial_room.tscn"
 next_spawn_id = &"stage10_aerial_start"
-checkpoint_spawn_id = &"zone_final_start"
+checkpoint_spawn_id = &"stage10_branch_start"
+optional_reward_room = true
 
 [node name="Backdrop" type="Polygon2D" parent="."]
-color = Color(0.101961, 0.109804, 0.172549, 1)
+color = Color(0.101961, 0.0823529, 0.141176, 1)
 polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
@@ -47,14 +47,17 @@ position = Vector2(96, 160)
 shape = SubResource("2")
 
 [node name="FloorVisual" type="Polygon2D" parent="Floor"]
-color = Color(0.207843, 0.266667, 0.219608, 1)
+color = Color(0.25098, 0.223529, 0.317647, 1)
 polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
 
-[node name="BasicMeleeEnemy" parent="." instance=ExtResource("3")]
-position = Vector2(48, 136)
+[node name="AerialSentinelEnemy" parent="." instance=ExtResource("3")]
+position = Vector2(96, 136)
 
-[node name="GroundChargerEnemy" parent="." instance=ExtResource("4")]
-position = Vector2(224, 136)
+[node name="RecoveryPoint" type="Marker2D" parent="."]
+position = Vector2(240, 128)
+
+[node name="BranchCollectible" type="Marker2D" parent="."]
+position = Vector2(320, 112)
 
 [node name="GateBarrier" type="StaticBody2D" parent="."]
 position = Vector2(432, 96)

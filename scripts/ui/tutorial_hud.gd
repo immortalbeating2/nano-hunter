@@ -5,6 +5,7 @@ extends Control
 @onready var prompt_label: Label = $PromptPanel/PromptLabel
 @onready var status_label: Label = $BattlePanel/StatusLabel
 @onready var dash_label: Label = $BattlePanel/DashLabel
+@onready var progress_label: Label = $BattlePanel/ProgressLabel
 
 var _room: Node
 var _player: CharacterBody2D
@@ -46,12 +47,14 @@ func bind_player(player: CharacterBody2D) -> void:
 
 	_update_health_status()
 	_update_dash_status()
+	_update_stage10_progress_status()
 
 
 func _sync_from_room() -> void:
 	_apply_room_context(_get_room_hud_context())
 	_update_health_status()
 	_update_dash_status()
+	_update_stage10_progress_status()
 
 
 func _on_tutorial_step_changed(step_id: StringName, prompt_text: String) -> void:
@@ -59,6 +62,7 @@ func _on_tutorial_step_changed(step_id: StringName, prompt_text: String) -> void
 	step_label.text = str(room_context.get("step_title", str(step_id)))
 	prompt_label.text = str(room_context.get("prompt_text", prompt_text))
 	_update_dash_status()
+	_update_stage10_progress_status()
 
 
 func _on_hud_context_changed(step_title: String, prompt_text: String) -> void:
@@ -68,6 +72,7 @@ func _on_hud_context_changed(step_title: String, prompt_text: String) -> void:
 		"dash_available": _get_room_hud_context().get("dash_available", true),
 	})
 	_update_dash_status()
+	_update_stage10_progress_status()
 
 
 func _on_player_health_changed(_current_health: int, _max_health: int) -> void:
@@ -103,6 +108,20 @@ func _update_health_status() -> void:
 	var max_health := int(player_status.get("max_health", 3))
 
 	status_label.text = "生命：%s" % _build_health_icons(current_health, max_health)
+
+
+func _update_stage10_progress_status() -> void:
+	if progress_label == null:
+		return
+
+	var room_context := _get_room_hud_context()
+	if not room_context.has("collectible_count") and not room_context.has("recovery_point_activated"):
+		progress_label.text = "成长：未发现"
+		return
+
+	var collectible_count := int(room_context.get("collectible_count", 0))
+	var recovery_text := "已激活" if bool(room_context.get("recovery_point_activated", false)) else "未激活"
+	progress_label.text = "收集：%d  恢复：%s" % [collectible_count, recovery_text]
 
 
 func _build_health_icons(current_health: int, max_health: int) -> String:

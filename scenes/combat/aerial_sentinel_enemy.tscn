@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/aerial_sentinel_enemy.gd" id="1"]
+[ext_resource type="Resource" path="res://scripts/configs/aerial_sentinel_enemy_config.tres" id="2"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(26, 30)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(38, 40)
+
+[node name="AerialSentinelEnemy" type="StaticBody2D"]
+script = ExtResource("1")
+config = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -88)
+shape = SubResource("1")
+
+[node name="Body" type="Polygon2D" parent="."]
+position = Vector2(0, -88)
+color = Color(0.552941, 0.713725, 0.929412, 1)
+polygon = PackedVector2Array(-13, 0, 0, -18, 13, 0, 0, 18)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -88)
+monitoring = true
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("2")

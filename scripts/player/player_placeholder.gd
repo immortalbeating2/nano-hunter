@@ -11,6 +11,7 @@ const STATE_JUMP_RISE: StringName = &"jump_rise"
 const STATE_JUMP_FALL: StringName = &"jump_fall"
 const STATE_LAND: StringName = &"land"
 const STATE_ATTACK: StringName = &"attack"
+const STATE_AIR_ATTACK: StringName = &"air_attack"
 const STATE_DASH: StringName = &"dash"
 
 const FLOOR_VELOCITY_TOLERANCE := 0.5
@@ -206,7 +207,7 @@ func _can_start_jump(was_grounded: bool) -> bool:
 
 
 func _can_start_attack(was_grounded: bool, attack_pressed: bool) -> bool:
-	return was_grounded and attack_pressed and not _is_attacking() and not _is_dashing()
+	return attack_pressed and not _is_attacking() and not _is_dashing()
 
 
 func _can_start_dash(was_grounded: bool, dash_pressed: bool) -> bool:
@@ -233,8 +234,9 @@ func _start_attack() -> void:
 	_attack_hit_ids.clear()
 	_landing_state_timer = 0.0
 	_jump_buffer_timer = 0.0
-	current_state = STATE_ATTACK
-	velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
+	current_state = STATE_ATTACK if is_on_floor() else STATE_AIR_ATTACK
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
 
 
 func _start_dash() -> void:
@@ -356,7 +358,8 @@ func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) 
 
 func _update_current_state(is_grounded: bool) -> void:
 	if _is_attacking():
-		current_state = STATE_ATTACK
+		if current_state != STATE_AIR_ATTACK:
+			current_state = STATE_ATTACK
 		return
 
 	if _is_dashing():
@@ -382,7 +385,7 @@ func _update_current_state(is_grounded: bool) -> void:
 
 
 func _is_attacking() -> bool:
-	return _attack_elapsed > 0.0 or current_state == STATE_ATTACK
+	return _attack_elapsed > 0.0 or current_state == STATE_ATTACK or current_state == STATE_AIR_ATTACK
 
 
 func _is_dashing() -> bool:
@@ -404,10 +407,24 @@ func _get_attack_total_duration() -> float:
 
 
 func get_attack_hitbox_center() -> Vector2:
+	if current_state == STATE_AIR_ATTACK:
+		return global_position + Vector2(
+			attack_hitbox_offset.x * _facing_direction,
+			attack_hitbox_offset.y - 14.0
+		)
+
 	return global_position + Vector2(
 		attack_hitbox_offset.x * _facing_direction,
 		attack_hitbox_offset.y
 	)
+
+
+func get_current_state_id() -> StringName:
+	return current_state
+
+
+func is_air_attack_active_or_recovering() -> bool:
+	return current_state == STATE_AIR_ATTACK and _is_attacking()
 
 
 func receive_damage(amount: int, hit_direction: Vector2 = Vector2.ZERO) -> void:

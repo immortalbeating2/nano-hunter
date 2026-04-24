@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RoomFlowConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/room_flow_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+step_titles = {
+&"clear": "区域 10 · 空中攻击路线已清空",
+&"room": "区域 10 · 空中攻击验证"
+}
+step_prompts = {
+&"clear": "空中威胁已处理，可继续主线或回看支路价值。",
+&"room": "跳起后按 J 处理悬浮敌人，验证空中攻击的真实价值。"
+}
+step_dash_visibility = {
+&"clear": true,
+&"room": true
+}
+spawn_positions = {
+&"stage10_aerial_start": Vector2(-128, 96)
+}
+thresholds = {}
