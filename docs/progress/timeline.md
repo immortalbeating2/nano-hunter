@@ -2,6 +2,10 @@
 
 ## 2026-04-24
 
+- 从已完成注释补强并同步到 `main` 的稳定基线建立 `codex/stage-11-playable-demo-slice` 与 `.worktrees/stage-11-playable-demo-slice`，作为阶段 11 的唯一开发入口。
+- 在 stage11 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-24-stage-11-playable-demo-slice-design.md` 与实现计划 `docs/implementation-plans/2026-04-24-stage-11-playable-demo-slice.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 11：可交付试玩 Demo 切片（设计与 preflight 中）”，并明确本轮固定采用“扩成完整 Demo、复用 stage9-10、不新增新机制、显式要求注释补强”的方案。
+- 完成 stage11 preflight fresh 基线验证：`godot --headless --path . --import` 通过，Stage 1-10 GUT `64/64 passed`，`git diff --check` 通过。
 - 在 `codex/comment-coverage-hardening` 中补强阶段 1-10 的关键脚本与测试注释，并同步收紧 `AGENTS.md` 的注释规则：保留“少而精”，但新增“文件头职责注释、关键流程分段注释、阶段测试文件头说明”的最低覆盖要求。
 - 从最新 `main` 建立 `codex/stage-10-combat-variation-and-light-progression` 与 `.worktrees/stage-10-combat-variation-and-light-progression`，作为阶段 10 的唯一开发入口。
 - 在 stage10 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-24-stage-10-combat-variation-and-light-progression-design.md` 与实现计划 `docs/implementation-plans/2026-04-24-stage-10-combat-variation-and-light-progression.md`。
