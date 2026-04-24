@@ -213,3 +213,37 @@
 - 扩展 `scripts/main/main.gd`，让 `Main` 支持运行期 checkpoint 恢复；stage9 中玩家失败后会从最近一次激活的房间入口恢复，而不是只重置当前房间。
 - 重新确认 `godot --headless --path . --import`、阶段 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 GUT 与 `git diff --check` 全部通过，确认阶段 9 已达到阶段 10 的稳定前置基线。
 - 在同一轮收口中复测当前线程的 `godot_mcp` 连通性：重新打开当前 worktree 的 Godot 编辑器后，`mcp__godot_mcp_pro__.get_open_scripts` 成功返回 `count = 0`，说明本会话直连已恢复。
+## 2026-04-24 - Stage 10 首轮实现通过自动化验证
+
+- 分支：`codex/stage-10-combat-variation-and-light-progression`
+- 模式：`分支 + worktree`
+- 范围：按 stage10 文档完成 `空中攻击`、第 `3` 类普通敌人、`恢复点 + 收集物`、`1` 条可选支路与 `1` 个挑战房的最小实现。
+- Godot MCP：当前会话内未稳定连通；旧 bridge 清理后，`godot --headless --path . --import` 可启动插件但 headless 结束会断开，MCP 工具仍报告 `Godot editor is not connected`。若后续需要编辑器 MCP，应重开 AI 会话并重新打开当前 worktree 的 Godot 编辑器。
+- 验证：`godot --headless --path . --import` 通过；`Stage 1-10 GUT` 通过 `58/58`；`git diff --check` 通过。
+
+## 2026-04-24 - Stage 10 第二轮可玩化接入通过自动化验证
+
+- 分支：`codex/stage-10-combat-variation-and-light-progression`
+- 模式：`分支 + worktree`
+- 范围：把 stage10 首轮 API / 场景进一步接成可玩链路：`stage9_zone_final_room` 串到 `stage10_zone_aerial_room`，主房间新增 `BranchZone` 可进入支路，恢复点 / 收集物改为玩家位置触发，HUD 新增最小成长反馈行。
+- MCP：当前已联通，`get_project_info` 可返回项目路径、主场景与 Godot 版本。
+- 验证：`Stage 1-10 GUT` 通过 `62/62`；`git diff --check` 通过。
+
+## 2026-04-24 - Stage 10 MCP 复核发现并修复出生点掉落
+
+- 分支：`codex/stage-10-combat-variation-and-light-progression`
+- 范围：用 Godot MCP 直达 `stage10_zone_aerial_room`、支路房与挑战房做运行态复核。
+- 发现：`stage10_*_start` 初始 x 坐标落在房间地板外侧，玩家进入 Stage10 后会持续下落。
+- 修复：将 Stage10 三个房间 flow config 的出生点从 `Vector2(-224, 96)` 调整到 `Vector2(-128, 96)`，并新增 `test_stage10_spawn_points_land_on_room_floor` 回归测试。
+- 复核：MCP 确认主房间出生点稳定落地、`BranchZone` 可切到支路、支路收集物 / 恢复点可触发并更新 HUD。
+- 验证：Stage10 GUT `9/9 passed`；Stage 1-10 GUT `63/63 passed`。
+
+## 2026-04-24 - Stage 10 最终人工手操复核通过并补收口修复
+
+- 分支：`codex/stage-10-combat-variation-and-light-progression`
+- 模式：`分支 + worktree`
+- 范围：补做 stage10 剩余的最终人工手操复核，重点确认主房空中攻击价值、支路入口是否误触、挑战房混合压力。
+- 发现：在直进 `stage10_zone_aerial_room` 的真实手操里，玩家出生后会立即误触 `BranchZone`，导致主房空中攻击验证被支路切换提前打断。
+- 修复：先补红测 `test_stage10_main_room_spawn_does_not_auto_request_optional_branch`，再将主房 `BranchZone` 从 `Vector2(-96, 96)` 上移到 `Vector2(-96, 24)`，让支路入口从“出生即命中”改回“需要玩家主动跳入”。
+- 人工复核：修复后主房不再自动切支路，真实 `jump / attack` 输入可在主房稳定触发；挑战房也已确认真实 `jump / attack / dash` 输入可进场。
+- 验证：`godot --headless --path . --import` 通过；Stage 1-10 GUT `64/64 passed`；`git diff --check` 通过。

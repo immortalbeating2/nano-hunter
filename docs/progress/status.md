@@ -8,9 +8,9 @@ Last Updated: 2026-04-24
 
 ## Current Stage
 
-`阶段 10：战斗变化与轻量成长循环（设计与 preflight 中）`
+`阶段 10：战斗变化与轻量成长循环（自动化与最终人工复核已通过）`
 
-> Update: 2026-04-24 已从已收口的 `stage9` 稳定基线建立 `codex/stage-10-combat-variation-and-light-progression` 与对应 worktree。当前已锁定本轮关键选择为“`空中攻击` + `第 3 类普通敌人` + `恢复点 + 收集物` + `1` 条可选支路 + `1` 个挑战房”，并正在补齐 stage10 的设计、实现计划与进度启动记录。
+> Update: 2026-04-24 已在 `codex/stage-10-combat-variation-and-light-progression` worktree 完成 stage10 最终人工手操复核并收口：手操复核先复现了 `stage10_zone_aerial_room` 出生后立刻误触 `BranchZone` 的真实问题，随后通过上移支路入口并补回归测试修复；修复后主房间可稳定停留并吃到真实 `jump / attack` 输入，挑战房也已确认真实 `jump / attack / dash` 输入可以进场。Stage 1-10 GUT 已通过 `64/64`。
 
 ## Stage Goal
 
@@ -33,6 +33,9 @@ Last Updated: 2026-04-24
   - `stage9_zone_charger_room`
   - `stage9_zone_switch_room`
   - `stage9_zone_final_room`
+  - `stage10_zone_aerial_room`
+  - `stage10_zone_branch_room`
+  - `stage10_zone_challenge_room`
 - 玩家当前稳定具备：
   - 基础移动 / 跳跃
   - 地面 `dash`
@@ -41,11 +44,13 @@ Last Updated: 2026-04-24
 - 当前稳定敌人类型为：
   - `BasicMeleeEnemy`
   - `GroundChargerEnemy`
+  - `AerialSentinelEnemy`
 - 当前已成立的轻量区域基线为：
   - checkpoint 恢复
   - 开关门门控
   - 主线清房推进
   - HUD 稳定读取房间与玩家快照
+  - stage10 可选支路 / 挑战房的收集物与恢复点快照
 
 ## Adjustable Now
 
@@ -54,10 +59,10 @@ Last Updated: 2026-04-24
 - 当前可直接调的 stage9 入口包括：
   - `res://scripts/configs/ground_charger_enemy_config.tres`
   - `res://assets/configs/rooms/stage9_zone_*.tres`
-- 当前 stage10 尚未新增：
-  - 空中攻击参数资源
-  - 第 `3` 类敌人配置资源
-  - 收集物 / 恢复点快照读值
+- 当前 stage10 已新增：
+  - `res://scripts/configs/aerial_sentinel_enemy_config.tres`
+  - `res://assets/configs/rooms/stage10_zone_*.tres`
+  - `Stage10RoomBase.get_stage10_progress_snapshot()`
 
 ## Exit Criteria
 
@@ -69,7 +74,7 @@ Last Updated: 2026-04-24
 - Stage 1-10 自动化验证通过
 - 已完成最终人工复核，并能作为进入 `阶段 11` 的稳定前置基线
 
-当前状态：以上退出条件尚未开始实现验证，当前仅完成 stage10 的目标锁定与 preflight 启动。
+当前状态：第二轮可玩化接入已通过自动化验证、MCP 复核与最终人工手操复核。已确认 stage10 主房间不再出生即误切支路，空中攻击可在主房间内被真实输入触发，支路收益读值与挑战房三类敌人组合仍成立，当前结果可作为进入 `阶段 11` 前的稳定前置基线。
 
 ## Asset Status
 
@@ -83,15 +88,11 @@ Last Updated: 2026-04-24
 
 ## Current Goal
 
-当前 `codex/stage-10-combat-variation-and-light-progression` worktree 的目标是先完成 stage10 preflight：
+当前 `codex/stage-10-combat-variation-and-light-progression` worktree 的下一步是阶段收口与提交拆分：
 
-- 补齐设计文档
-- 补齐实现计划
-- 更新状态页、时间线与当日日志
-- 明确本轮范围与不做项
-- 完成 fresh 基线验证
-
-然后再进入正式实现。
+- 整理 stage10 最终验证与文档结论
+- 评估提交拆分：`玩法修复 / 验证与文档收口`
+- 作为稳定基线准备进入 `阶段 11`
 
 ## Current Defaults
 
@@ -103,14 +104,14 @@ Last Updated: 2026-04-24
 
 ## In Progress
 
-- `阶段 10：战斗变化与轻量成长循环` 当前处于设计与 preflight 中
+- `阶段 10：战斗变化与轻量成长循环` 当前已完成自动化验证、MCP 复核与最终人工手操复核
 - 本轮继续采用 `分支 + worktree`
 - 本轮已固定关键选择：
   - 新动作：`空中攻击`
   - 敌人变化：`第 3 类普通敌人`
   - 成长反馈：`恢复点 + 收集物`
   - 区域变化：`1` 条可选支路 + `1` 个挑战房
-- 当前 preflight 只补设计、计划与进度启动记录，不混入玩法实现
+- 当前已完成第二轮可玩化接入、最终人工试玩复核与回归验证，已可进入阶段收口
 
 ## Recently Completed
 
@@ -120,6 +121,7 @@ Last Updated: 2026-04-24
 - 阶段 1-9 自动化验证已在主线上全部通过
 - `main` 已补录 stage10 的正式阶段计划：
   - `plan/2026-04-24-stage-10-combat-variation-and-light-progression.md`
+- `stage10_zone_aerial_room` 的支路入口误触已在人工手操复核中被复现、修复并补回归测试
 
 ## Risks And Blockers
 
