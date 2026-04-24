@@ -1,37 +1,49 @@
-# 闃舵 1锛氬彲鍚姩楠ㄦ灦鏈€缁堣鍒掕褰?
-> 璇存槑锛氭湰鏂囨。鐢ㄤ簬鐣欏瓨 `stage1` 鐨勬渶缁堢‘璁ょ増璁″垝銆?
-> 鍘熷鎵ц鐢ㄨ鍒掍粛淇濈暀鍦?[2026-03-31-stage-1-startup-skeleton.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/implementation-plans/2026-03-31-stage-1-startup-skeleton.md) 鍜?[2026-04-01-stage-1-display-and-camera-tuning.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md)銆?
+# 阶段 1：可启动骨架最终计划记录
+
+> 说明：本文档用于留存 `stage1` 的最终确认版计划。
+> 原始执行用计划仍保留在 [2026-03-31-stage-1-startup-skeleton.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/implementation-plans/2026-03-31-stage-1-startup-skeleton.md) 和 [2026-04-01-stage-1-display-and-camera-tuning.md](/Users/peng8/Desktop/Project/Game/nano-hunter/docs/implementation-plans/2026-04-01-stage-1-display-and-camera-tuning.md)。
+
 ## Summary
 
-`stage1` 鐨勬渶缁堢洰鏍囨槸寤虹珛椤圭洰绗竴鐗堚€滃彲鍚姩銆佸彲鐪嬨€佸彲璋冣€濈殑璇曠帺妫€鏌ョ偣锛岃€屼笉鏄彁鍓嶈繘鍏ョЩ鍔ㄣ€佹垬鏂椼€丠UD 鎴栧叧鍗＄郴缁熷紑鍙戙€?
-杩欎竴闃舵鏈€缁堢敱涓ら儴鍒嗙粍鎴愶細
+`stage1` 的最终目标是建立项目第一版“可启动、可看、可调”的试玩检查点，而不是提前进入移动、战斗、HUD 或关卡系统开发。
+这一阶段最终由两部分组成：
 
-- 鍚姩楠ㄦ灦
-- 鐢婚潰涓庣浉鏈鸿皟浼?
-瀹屾垚鍚庯紝椤圭洰搴旇兘鐩存帴浠?`Main.tscn` 鍚姩锛岃繘鍏?`TestRoom`锛岀湅鍒板崰浣嶇帺瀹躲€佸熀纭€纰版挒銆佸浐瀹氬熀鍑嗗垎杈ㄧ巼涓庡彈鎴块棿杈圭晫绾︽潫鐨勭浉鏈恒€?
+- 启动骨架
+- 画面与相机调优
+
+完成后，项目应能直接从 `Main.tscn` 启动，进入 `TestRoom`，看到占位玩家、基础碰撞、固定基准分辨率与受房间边界约束的相机。
+
 ## Key Changes
 
-### 鍚姩楠ㄦ灦
+### 启动骨架
 
-- 鏂板缓 `Main.tscn` 浣滀负闃舵 1 鐨勫惎鍔ㄥ満鏅?- 鍦?`project.godot` 涓缃?`run/main_scene`
-- 鏂板缓 `PlayerPlaceholder` 鍗犱綅鐜╁鍦烘櫙涓庢渶灏忚剼鏈?- 鏂板缓 `TestRoom` 浣滀负绗竴鐗堟祴璇曟埧闂村３浣?- 閫氳繃 `Main` 鍦ㄨ繍琛屾椂鎶婄帺瀹剁敓鎴愬埌 `Runtime` 瀹瑰櫒锛岃€屼笉鏄洿鎺ョ‖鍐欏湪鍦烘櫙鏍戦噷
+- 新建 `Main.tscn` 作为阶段 1 的启动场景
+- 在 `project.godot` 中设置 `run/main_scene`
+- 新建 `PlayerPlaceholder` 占位玩家场景与最小脚本
+- 新建 `TestRoom` 作为第一版测试房间壳体
+- 通过 `Main` 在运行时把玩家生成到 `Runtime` 容器，而不是直接硬写在场景树里
 
-### 鐢婚潰涓庣浉鏈鸿皟浼?
-- 鍥哄畾鍩哄噯鍒嗚鲸鐜囦负 `640x360`
-- 鍒濆绐楀彛灏哄鍥哄畾涓?`1280x720`
-- 浣跨敤锛?  - `viewport`
+### 画面与相机调优
+
+- 固定基准分辨率为 `640x360`
+- 初始窗口尺寸固定为 `1280x720`
+- 使用：
+  - `viewport`
   - `keep`
   - `integer`
-  鐨勭缉鏀剧瓥鐣?- 涓?`TestRoom` 鏆撮湶鏈€灏忕浉鏈鸿竟鐣屽绾?- 璁╃帺瀹剁殑 `Camera2D` 璇诲彇骞跺簲鐢ㄨ鎴块棿杈圭晫
+  的缩放策略
+- 为 `TestRoom` 暴露最小相机边界契约
+- 让玩家的 `Camera2D` 读取并应用该房间边界
 
-### 闃舵杈圭晫
+### 阶段边界
 
-- 鏈疆鏄庣‘涓嶅仛锛?  - 绉诲姩杈撳叆
-  - 璺宠穬
-  - 鏀诲嚮
+- 本轮明确不做：
+  - 移动输入
+  - 跳跃
+  - 攻击
   - HUD
-  - 鎴块棿鍒囨崲
-  - 姝ｅ紡鍏冲崱绯荤粺
+  - 房间切换
+  - 正式关卡系统
 
 ## Test Plan
 
@@ -41,4 +53,5 @@
 
 ## Assumptions
 
-- `stage1` 鍥哄畾浠モ€滃惎鍔ㄩ鏋?+ 鏋勫浘绋冲畾鈥濅綔涓虹洰鏍囷紝涓嶆壙鎺ョЩ鍔ㄣ€佹垬鏂楁垨 HUD 寮€鍙?- `Main`銆乣Runtime`銆乣PlayerSpawn` 涓?`TestRoom` 鐨勫熀纭€缁撴瀯浼氬湪鍚庣画闃舵缁х画澶嶇敤
+- `stage1` 固定以“启动骨架 + 构图稳定”作为目标，不承接移动、战斗或 HUD 开发
+- `Main`、`Runtime`、`PlayerSpawn` 与 `TestRoom` 的基础结构会在后续阶段继续复用

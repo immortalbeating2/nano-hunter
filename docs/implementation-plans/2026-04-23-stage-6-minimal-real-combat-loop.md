@@ -1,12 +1,15 @@
-﻿# Stage 6 Minimal Real Combat Loop Implementation Plan
+# Stage 6 Minimal Real Combat Loop Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 鍦ㄩ樁娈?5 绋冲畾鍩虹嚎涓婏紝鍋氬嚭鈥滄暀绋嬪悗鐙珛鎴樻枟鎴?+ 1 涓熀纭€杩戞垬鏁屼汉 + 鐜╁鐢熷懡 / 鍙楀嚮 / 鏈鍗虫椂閲嶇疆鈥濈殑鏈€灏忕湡瀹炴垬鏂楅棴鐜€?**Architecture:** 淇濈暀 `TutorialRoom` 浣滀负鏁欏鍏ュ彛锛屾柊澧?`CombatTrialRoom` 鎵胯浇鐪熷疄鎴樻枟鍘嬪姏锛沗Main` 鍙ˉ鏈€灏忔埧闂磋繃娓′笌褰撳墠鎴块棿閲嶇疆锛涚帺瀹舵柊澧炵敓鍛?/ 鍙楀嚮 / defeated 淇″彿锛汬UD 鍗囩骇涓虹湡瀹炴垬鏂楃姸鎬佽鍙栥€?**Tech Stack:** Godot 4.6銆丟DScript銆乣.tscn` 鏂囨湰鍦烘櫙銆丟UT銆丳owerShell
+**Goal:** 在阶段 5 稳定基线上，做出“教程后独立战斗房 + 1 个基础近战敌人 + 玩家生命 / 受击 / 本段即时重置”的最小真实战斗闭环。
+**Architecture:** 保留 `TutorialRoom` 作为教学入口，新增 `CombatTrialRoom` 承载真实战斗压力；`Main` 只补最小房间过渡与当前房间重置；玩家新增生命 / 受击 / defeated 信号；HUD 升级为真实战斗状态读取。
+**Tech Stack:** Godot 4.6、GDScript、`.tscn` 文本场景、GUT、PowerShell
 
 ---
 
-## Task 1: 鏀跺彛 stage6 preflight 鏂囨。涓庡紑鍙戠幇鍦?
+## Task 1: 收口 stage6 preflight 文档与开发现场
+
 **Files:**
 - Create: `spec-design/2026-04-23-stage-6-minimal-real-combat-loop-design.md`
 - Create: `docs/implementation-plans/2026-04-23-stage-6-minimal-real-combat-loop.md`
@@ -14,32 +17,36 @@
 - Modify: `docs/progress/timeline.md`
 - Modify: `docs/progress/2026-04-23.md`
 
-- [ ] 鍦?`codex/stage-6-minimal-real-combat-loop` 涓庡搴?`.worktrees/` 涓惎鍔ㄦ湰杞?preflight
-- [ ] 璁板綍鏈疆閲囩敤 `鍒嗘敮 + worktree` 鐨勫師鍥犮€佺洰鏍囪寖鍥翠笌涓嶅仛椤?- [ ] 鏄庣‘鏈疆閲囩敤 `multi-agent` 浼樺厛璇勪及绛栫暐锛屽苟棰勭暀 `Delegation Log`
+- [ ] 在 `codex/stage-6-minimal-real-combat-loop` 与对应 `.worktrees/` 中启动本轮 preflight
+- [ ] 记录本轮采用 `分支 + worktree` 的原因、目标范围与不做项
+- [ ] 明确本轮采用 `multi-agent` 优先评估策略，并预留 `Delegation Log`
 
-## Task 2: 涓?Main 澧炲姞鏈€灏忔埧闂磋繃娓′笌閲嶇疆鑳藉姏
+## Task 2: 为 Main 增加最小房间过渡与重置能力
 
 **Files:**
 - Modify: `scenes/main/main.tscn`
 - Modify: `scripts/main/main.gd`
 - Test: `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`
 
-- [ ] 鍏堣ˉ绾㈡祴锛屾毚闇插綋鍓?`Main` 杩樹笉鏀寔鏁欑▼鍚庡垏鍏ョ嫭绔嬫垬鏂楁埧涓庢垬鏂楁埧閲嶇疆
-- [ ] 璁?`Main` 鑳藉搷搴旀埧闂村彂鍑虹殑杩囨浮璇锋眰锛屽苟鍒囧埌鐩爣鎴块棿涓庣洰鏍囧嚭鐢熺偣
-- [ ] 璁?`Main` 鑳藉湪鐜╁ defeated 鍚庨噸缃綋鍓嶆垬鏂楁埧涓庣帺瀹剁姸鎬?- [ ] 淇濇寔杩欏鑳藉姏鍙湇鍔?`TutorialRoom -> CombatTrialRoom` 涓庢垬鏂楁埧鏈閲嶇疆锛屼笉鎵╂垚姝ｅ紡鎴块棿绯荤粺
+- [ ] 先补红测，暴露当前 `Main` 还不支持教程后切入独立战斗房与战斗房重置
+- [ ] 让 `Main` 能响应房间发出的过渡请求，并切到目标房间与目标出生点
+- [ ] 让 `Main` 能在玩家 defeated 后重置当前战斗房与玩家状态
+- [ ] 保持这套能力只服务 `TutorialRoom -> CombatTrialRoom` 与战斗房本段重置，不扩成正式房间系统
 
-## Task 3: 鐜╁鐢熷懡銆佸彈鍑讳笌 defeated 闂幆
+## Task 3: 玩家生命、受击与 defeated 闭环
 
 **Files:**
 - Modify: `scripts/player/player_placeholder.gd`
 - Possibly Modify: `scenes/player/player_placeholder.tscn`
 - Test: `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`
 
-- [ ] 鍏堣ˉ绾㈡祴锛屾毚闇插綋鍓嶇帺瀹剁己灏戠敓鍛姐€佸彈鍑汇€佹棤鏁屾椂闂翠笌 defeated 淇″彿
-- [ ] 鏂板鏈€灏忕敓鍛界郴缁燂紝榛樿 `max_health = 3`
-- [ ] 鏂板 `receive_damage(...)`銆乣health_changed(...)` 涓?`defeated()`
-- [ ] 鎺ュ叆鏈€灏忓彈鍑诲嚮閫€銆佺煭鏆傛棤鏁屼笌鍙鎬у弽棣?- [ ] 淇濇寔褰撳墠绉诲姩銆佹敾鍑汇€佸湴闈?`dash` 鐨勬棦鏈夊绾︿笉琚洖褰掔牬鍧?
-## Task 4: 鏂板缓 CombatTrialRoom 涓庡熀纭€杩戞垬鏁屼汉
+- [ ] 先补红测，暴露当前玩家缺少生命、受击、无敌时间与 defeated 信号
+- [ ] 新增最小生命系统，默认 `max_health = 3`
+- [ ] 新增 `receive_damage(...)`、`health_changed(...)` 与 `defeated()`
+- [ ] 接入最小受击击退、短暂无敌与可读性反馈
+- [ ] 保持当前移动、攻击、地面 `dash` 的既有契约不被回归破坏
+
+## Task 4: 新建 CombatTrialRoom 与基础近战敌人
 
 **Files:**
 - Create: `scenes/rooms/combat_trial_room.tscn`
@@ -48,19 +55,25 @@
 - Create: `scripts/combat/basic_melee_enemy.gd`
 - Test: `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`
 
-- [ ] 鏂板缓鐙珛鎴樻枟鎴匡紝浣滀负鏁欑▼鍚庣殑绗竴娈电湡瀹炴垬鏂?- [ ] 鏂板缓 1 涓熀纭€杩戞垬鏁屼汉锛岄噰鐢ㄢ€滃皬鑼冨洿宸￠€?+ 鎺ヨЕ浼ゅ + 1 娆¤鍛戒腑鍗冲け鏁堚€濈殑鏈€灏忔ā鍨?- [ ] 鎴樻枟鎴块粯璁ゅ嚭鍙ｉ攣瀹氾紝鏁屼汉琚嚮璐ュ悗鍑哄彛瑙ｉ攣
-- [ ] 鎴块棿鏆撮湶鏈€灏忓绾︼細閲嶇疆銆佹彁绀烘枃鏈€佸嚭鐢熺偣涓庤繃娓¤姹?- [ ] 涓嶅紩鍏ュ鏁屼汉銆佽繙绋嬫晫浜恒€佸鏉?AI 鎴栧畬鏁存暟鍊肩郴缁?
-## Task 5: HUD 鍗囩骇涓虹湡瀹炴垬鏂楃姸鎬佽鍙?
+- [ ] 新建独立战斗房，作为教程后的第一段真实战斗
+- [ ] 新建 1 个基础近战敌人，采用“小范围巡逻 + 接触伤害 + 1 次被命中即失效”的最小模型
+- [ ] 战斗房默认出口锁定，敌人被击败后出口解锁
+- [ ] 房间暴露最小契约：重置、提示文本、出生点与过渡请求
+- [ ] 不引入多敌人、远程敌人、复杂 AI 或完整数值系统
+
+## Task 5: HUD 升级为真实战斗状态读取
+
 **Files:**
 - Modify: `scenes/ui/tutorial_hud.tscn`
 - Modify: `scripts/ui/tutorial_hud.gd`
 - Test: `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`
 
-- [ ] 璁╂垬鏂楅潰鏉跨湡瀹炲弽鏄犵帺瀹剁敓鍛藉€硷紝鑰屼笉鍐嶅彧鏄剧ず鍥哄畾鏂囨湰
-- [ ] 淇濇寔 `dash` 鐘舵€佹樉绀虹户缁彲鐢?- [ ] 璁╂彁绀哄尯鑳藉鍦?`TutorialRoom` 鍜?`CombatTrialRoom` 涔嬮棿鍒囨崲瀵瑰簲鏂囨
-- [ ] 淇濇寔 HUD 浠嶇劧鏄渶灏忚繍琛屾椂闈㈡澘锛屼笉鎵╀负瀹屾暣鍓嶅彴绯荤粺
+- [ ] 让战斗面板真实反映玩家生命值，而不再只显示固定文本
+- [ ] 保持 `dash` 状态显示继续可用
+- [ ] 让提示区能够在 `TutorialRoom` 和 `CombatTrialRoom` 之间切换对应文案
+- [ ] 保持 HUD 仍然是最小运行时面板，不扩为完整前台系统
 
-## Task 6: Stage 6 鑷姩鍖栭獙璇佷笌鏂囨。鏀跺彛
+## Task 6: Stage 6 自动化验证与文档收口
 
 **Files:**
 - Create: `tests/stage6/test_stage_6_minimal_real_combat_loop.gd`
@@ -68,20 +81,25 @@
 - Modify: `docs/progress/timeline.md`
 - Modify: `docs/progress/2026-04-23.md`
 
-- [ ] 瑕嗙洊鐜╁鍒濆鐢熷懡銆佸彈鍑绘帀琛€銆佹棤鏁岀獥鍙ｄ笌 defeated 淇″彿
-- [ ] 瑕嗙洊 `TutorialRoom` 瀹屾垚鍚庤姹傚垏鍒?`CombatTrialRoom`
-- [ ] 瑕嗙洊鎴樻枟鎴垮嚭鍙ｅ垵濮嬮攣瀹氥€佹晫浜鸿鍑昏触鍚庤В閿?- [ ] 瑕嗙洊鐜╁鍦ㄦ垬鏂楁埧姝讳骸鍚庝細琚湰娈靛嵆鏃堕噸缃笖鐢熷懡鍥炴弧
-- [ ] 瑕嗙洊 HUD 鐢熷懡鏄剧ず涓庡綋鍓嶆彁绀哄悓姝ユ洿鏂?- [ ] 鑻ヤ娇鐢ㄤ簡閲嶈鐨?`subagent` / `multi-agent`锛岃ˉ鍐?`Delegation Log`
+- [ ] 覆盖玩家初始生命、受击掉血、无敌窗口与 defeated 信号
+- [ ] 覆盖 `TutorialRoom` 完成后请求切到 `CombatTrialRoom`
+- [ ] 覆盖战斗房出口初始锁定、敌人被击败后解锁
+- [ ] 覆盖玩家在战斗房死亡后会被本段即时重置且生命回满
+- [ ] 覆盖 HUD 生命显示与当前提示同步更新
+- [ ] 若使用了重要的 `subagent` / `multi-agent`，补写 `Delegation Log`
 
 ## Recommended Delegation
 
-- `multi-agent` 鎺ㄨ崘鎷嗗垎锛?- 浠ｇ悊 A锛歚Main` 鐨勬埧闂磋繃娓′笌鏈閲嶇疆
-- 浠ｇ悊 B锛氱帺瀹剁敓鍛?/ 鍙楀嚮 / 鍩虹杩戞垬鏁屼汉 / `CombatTrialRoom`
-- 浠ｇ悊 C锛欻UD 鐪熷疄鐘舵€佽鍙栥€丼tage 6 GUT 涓庢枃妗ｇ暀鐥?- 涓讳唬鐞嗚礋璐ｏ細
-- 杈圭晫绾︽潫
-- 缁撴灉鏁村悎
-- 鏈€缁堥獙璇?- 鍚堝苟鏀跺彛
-- 鑻ュ涓瓙浠诲姟闇€瑕佸悓鏃舵敼鍚屼竴鎵规牳蹇冩枃浠讹紝鍏堥檷绾т负 `subagent` 鎴栦富浠ｇ悊涓茶澶勭悊
+- `multi-agent` 推荐拆分：
+- 代理 A：`Main` 的房间过渡与本段重置
+- 代理 B：玩家生命 / 受击 / 基础近战敌人 / `CombatTrialRoom`
+- 代理 C：HUD 真实状态读取、Stage 6 GUT 与文档留痕
+- 主代理负责：
+- 边界约束
+- 结果整合
+- 最终验证
+- 合并收口
+- 若多个子任务需要同时改同一批核心文件，先降级为 `subagent` 或主代理串行处理
 
 ## Verification
 
@@ -96,8 +114,10 @@
 
 ## Completion Criteria
 
-- 鏁欑▼瀹屾垚鍚庤兘绋冲畾杩涘叆 `CombatTrialRoom`
-- 鐜╁鎷ユ湁鏈€灏忕敓鍛姐€佸彈鍑汇€佹棤鏁屼笌 defeated 闂幆
-- 鎴樻枟鎴跨殑鍩虹杩戞垬鏁屼汉鑳界ǔ瀹氬埗閫犵涓€娆＄湡瀹炲帇鍔?- 鐜╁姝讳骸鍚庝細琚綆鎽╂摝鍦伴噸缃埌鎴樻枟鎴挎湰娈佃捣鐐?- HUD 鑳界湡瀹炲弽鏄犵敓鍛藉€间笌褰撳墠鎴樻枟鎻愮ず
-- 闃舵 1 / 2 / 3 / 4 / 5 / 6 鑷姩鍖栭獙璇佸叏閮ㄩ€氳繃
-- 褰撳墠缁撴灉瓒充互浣滀负闃舵 7 鐨勭ǔ瀹氬墠缃熀绾?
+- 教程完成后能稳定进入 `CombatTrialRoom`
+- 玩家拥有最小生命、受击、无敌与 defeated 闭环
+- 战斗房的基础近战敌人能稳定制造第一次真实压力
+- 玩家死亡后会被低摩擦地重置到战斗房本段起点
+- HUD 能真实反映生命值与当前战斗提示
+- 阶段 1 / 2 / 3 / 4 / 5 / 6 自动化验证全部通过
+- 当前结果足以作为阶段 7 的稳定前置基线
