@@ -1,6 +1,6 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-24
+Last Updated: 2026-04-25
 
 ## Current Phase
 
@@ -8,18 +8,18 @@ Last Updated: 2026-04-24
 
 ## Current Stage
 
-`阶段 10：战斗变化与轻量成长循环（自动化与最终人工复核已通过）`
+`阶段 11：可交付试玩 Demo 切片（已完成，待收口合并）`
 
-> Update: 2026-04-24 已在 `codex/stage-10-combat-variation-and-light-progression` worktree 完成 stage10 最终人工手操复核并收口：手操复核先复现了 `stage10_zone_aerial_room` 出生后立刻误触 `BranchZone` 的真实问题，随后通过上移支路入口并补回归测试修复；修复后主房间可稳定停留并吃到真实 `jump / attack` 输入，挑战房也已确认真实 `jump / attack / dash` 输入可以进场。Stage 1-10 GUT 已通过 `64/64`。
+> Update: 2026-04-25 `stage11` 当前已形成可收口结果：主线已从 `Main.tscn` 稳定推进到 `stage11_demo_end_room`，Stage 11 专项 GUT `5/5 passed`，Stage 1-11 全量 GUT `69/69 passed`，并且本轮新增的 `godot-mcp-pro` 联通脚本与排障文档已经落在当前 worktree 中。
 
 ## Stage Goal
 
-在阶段 9 已建立的首个小区域内容基线上，把当前玩法从“通过主线房间并处理两类基础敌人”推进到“存在战斗变化、可选支路、挑战房与轻量成长反馈”的下一版内容型切片。本轮固定不引入正式经济、装备、技能树或第二个大区域，优先验证：
+把当前 `stage1-10` 已验证成立的内容收成一个可连续试玩、可失败重来、可到达终点并给出明确完成反馈的 demo 级切片。本轮固定不新增新的核心动作、敌人类别、第二个大区域、正式经济系统或完整剧情系统，重点收束：
 
-- 新战斗动作 `空中攻击` 是否真的带来可读且有价值的战斗决策
-- 第 `3` 类普通敌人是否能把现有遭遇节奏拉开
-- `恢复点 + 收集物` 是否足以形成最小成长反馈
-- `1` 条可选支路与 `1` 个挑战房` 是否能在不失控扩范围的前提下成立
+- 主线推进到 demo 终点
+- 支路与挑战房的保留价值
+- HUD / 门控 / 终点反馈的可读性
+- `stage11` 触达代码的注释可维护性
 
 ## Playable Now
 
@@ -36,63 +36,55 @@ Last Updated: 2026-04-24
   - `stage10_zone_aerial_room`
   - `stage10_zone_branch_room`
   - `stage10_zone_challenge_room`
-- 玩家当前稳定具备：
-  - 基础移动 / 跳跃
-  - 地面 `dash`
-  - 地面普通攻击
-  - 基础生命 / 受击 / 无敌 / defeated 闭环
-- 当前稳定敌人类型为：
-  - `BasicMeleeEnemy`
-  - `GroundChargerEnemy`
-  - `AerialSentinelEnemy`
-- 当前已成立的轻量区域基线为：
-  - checkpoint 恢复
-  - 开关门门控
-  - 主线清房推进
-  - HUD 稳定读取房间与玩家快照
-  - stage10 可选支路 / 挑战房的收集物与恢复点快照
+  - `stage11_demo_end_room`
+- 当前 demo 已具备：
+  - 明确终点房
+  - 最小完成反馈
+  - 重开试玩入口
+  - 支路 / 挑战房保留
+  - 失败 / 重来继续成立
 
 ## Adjustable Now
 
 - 玩家关键参数继续统一由 `res://scenes/player/player_placeholder_config.tres` 驱动
-- 基础敌人与房间关键参数继续由只读配置资源驱动
-- 当前可直接调的 stage9 入口包括：
-  - `res://scripts/configs/ground_charger_enemy_config.tres`
-  - `res://assets/configs/rooms/stage9_zone_*.tres`
-- 当前 stage10 已新增：
-  - `res://scripts/configs/aerial_sentinel_enemy_config.tres`
-  - `res://assets/configs/rooms/stage10_zone_*.tres`
-  - `Stage10RoomBase.get_stage10_progress_snapshot()`
+- 房间与敌人关键参数继续由只读配置资源驱动
+- 当前 demo 收束仍主要通过以下入口调整：
+  - `scripts/main/main.gd`
+  - `scripts/ui/tutorial_hud.gd`
+  - `scripts/rooms/stage11_demo_end_room.gd`
+  - `assets/configs/rooms/stage9_zone_*.tres`
+  - `assets/configs/rooms/stage10_zone_*.tres`
 
 ## Exit Criteria
 
-- 玩家新增 `空中攻击`，且在至少一个房间 / 遭遇中有明确玩法价值
-- 第 `3` 类普通敌人已接入，且其节奏与现有两类敌人明显不同
-- 区域内存在 `1` 条可选支路与 `1` 个挑战房
-- `恢复点 + 收集物` 的轻量成长反馈闭环成立
-- HUD 通过现有稳定接口读取本轮新增最小信息，不回退到分散探测
-- Stage 1-10 自动化验证通过
-- 已完成最终人工复核，并能作为进入 `阶段 11` 的稳定前置基线
+- demo 主链路可从开始稳定推进到终点
+- 支路与挑战房仍可进入且不破坏主线
+- 失败 / 重来仍能回到正确推进点
+- HUD / 门控 / 终点反馈足以支撑试玩理解
+- `stage11` 触达的核心脚本满足新的注释最低覆盖标准
+- Stage 1-11 自动化验证通过
+- 人工复核与运行态证据已留痕，可支持本轮收口判断
 
-当前状态：第二轮可玩化接入已通过自动化验证、MCP 复核与最终人工手操复核。已确认 stage10 主房间不再出生即误切支路，空中攻击可在主房间内被真实输入触发，支路收益读值与挑战房三类敌人组合仍成立，当前结果可作为进入 `阶段 11` 前的稳定前置基线。
+当前状态：以上条件已满足，当前 worktree 正处于“待收口合并”阶段。
 
 ## Asset Status
 
 - 当前仍以占位资源、简单几何可视化与少量临时视觉探索为主
-- 本轮重点不是 demo 级 polish，而是让“战斗变化 + 轻量成长反馈”先可看、可玩、可调
-- 只有在玩法反馈已验证成立后，才进入更正式的视觉替换
+- 本轮重点不是正式美术替换，而是把现有内容收成 demo 级体验
+- 只有在当前 demo 反馈稳定后，才继续进入更正式的视觉替换
 
 ## Next Stage
 
-`阶段 11：可交付试玩 Demo 切片`
+`待阶段 11 收口后再定`
 
 ## Current Goal
 
-当前 `codex/stage-10-combat-variation-and-light-progression` worktree 的下一步是阶段收口与提交拆分：
+当前 `codex/stage-11-playable-demo-slice` worktree 的下一步固定为：
 
-- 整理 stage10 最终验证与文档结论
-- 评估提交拆分：`玩法修复 / 验证与文档收口`
-- 作为稳定基线准备进入 `阶段 11`
+- 整理最终验证与文档结论
+- 合并回 `main`
+- 同步 `origin/main`
+- 清理分支与 worktree
 
 ## Current Defaults
 
@@ -104,41 +96,41 @@ Last Updated: 2026-04-24
 
 ## In Progress
 
-- `阶段 10：战斗变化与轻量成长循环` 当前已完成自动化验证、MCP 复核与最终人工手操复核
+- `阶段 11：可交付试玩 Demo 切片` 当前实现已完成，正在准备收口
 - 本轮继续采用 `分支 + worktree`
-- 本轮已固定关键选择：
-  - 新动作：`空中攻击`
-  - 敌人变化：`第 3 类普通敌人`
-  - 成长反馈：`恢复点 + 收集物`
-  - 区域变化：`1` 条可选支路 + `1` 个挑战房
-- 当前已完成第二轮可玩化接入、最终人工试玩复核与回归验证，已可进入阶段收口
+- 本轮已固定并完成的关键选择：
+  - demo 形态：`扩成完整 Demo`
+  - 内容策略：`复用 stage9-10 内容 + 新增最小终点表达`
+  - 注释要求：`文件头职责注释 + 关键流程分段注释`
+  - 工程补充：`godot-mcp-pro` 联通脚本与排障文档`
 
 ## Recently Completed
 
-- 阶段 9 的首个小区域内容生产已完成并收口为当前稳定基线
-- `Main` 已支持 stage9 的 checkpoint 恢复
-- `GroundChargerEnemy` 已稳定接入
-- 阶段 1-9 自动化验证已在主线上全部通过
-- `main` 已补录 stage10 的正式阶段计划：
-  - `plan/2026-04-24-stage-10-combat-variation-and-light-progression.md`
-- `stage10_zone_aerial_room` 的支路入口误触已在人工手操复核中被复现、修复并补回归测试
+- 阶段 10 已完成并作为当前稳定前置基线
+- `main` 已补录 stage11 的正式阶段计划：
+  - `plan/2026-04-24-stage-11-playable-demo-slice.md`
+- 阶段 1-10 的关键脚本与测试文件已补做一轮注释补强
+- stage11 已新增：
+  - `stage11_demo_end_room`
+  - `tests/stage11/test_stage_11_playable_demo_slice.gd`
+  - Stage 11 灰盒主线自动化驾驶器
+  - `docs/dev/godot-mcp-pro-connectivity-guide.md`
+  - `scripts/dev/check / safe-repair / force-repair / open / enter-worktree`
 
 ## Risks And Blockers
 
-- 当前最容易失控的方向是：把 stage10 直接做成“第二个大区域”或“半个 stage11”
-- 若把空中攻击、第三类敌人、支路、挑战房与成长反馈同时做得过深，容易把本轮拖成系统堆积
-- 若恢复点和收集物直接扩成正式经济 / 存档系统，会提前越过本轮边界
+- 当前最主要的剩余风险不是玩法，而是文档是否完整、收口是否干净
+- `godot_mcp` 当前已被工程化留痕，但后续新会话仍需按文档顺序进场，不能把脚本误当成“永远自动恢复”
 - 当前 worktree 内 `git` 命令仍需要显式处理 `safe.directory`
 
 ## Recommended Roadmap
 
-- `阶段 10：战斗变化与轻量成长循环`
-  - 目标：在 stage9 已成立的小区域基线上，引入更明确的战斗变化、可选支路与轻量成长反馈
 - `阶段 11：可交付试玩 Demo 切片`
-  - 目标：把前面验证成立的系统与内容收成更完整的 demo 级体验
+  - 当前目标已经完成，可进入收口
 
 ## Next Recommended Steps
 
-1. 在当前 stage10 worktree 中先完成 preflight 文档与 fresh 验证
-2. 然后进入“空中攻击 / 第 3 类敌人 / 区域成长反馈”三块实现拆分
-3. 在阶段收口前，明确补做一次完整人工复核，而不是只依赖自动化
+1. 在当前 stage11 worktree 上做一次 fresh 收口验证
+2. 合并回 `main`
+3. 同步 `origin/main`
+4. 清理分支与 worktree

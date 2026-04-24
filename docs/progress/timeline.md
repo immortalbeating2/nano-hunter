@@ -1,7 +1,22 @@
 # Nano Hunter Timeline
 
+## 2026-04-25
+
+- 在 `codex/stage-11-playable-demo-slice` worktree 中补写 Stage 11 灰盒主线自动化设计与实现计划，目标从“真人手操补最终复核”扩展为“先形成一条可重复自动化主线基线”。
+- 新增 `tests/stage11/support/stage11_graybox_mainline_driver.gd` 与新的 Stage 11 灰盒主线测试入口，让测试从“驾驶器未实现”的红灯推进到当前 `5/5 passed` 的绿灯状态。
+- 本轮同时确认并补平了一个生产主线缺口：`GoalTrialRoom` 完成后现在会真实接入 `stage9_zone_entry_room`，灰盒主线自动化不再需要测试侧过桥。
+- 在补平该缺口后，重新确认 `stage7`、`stage11`、`Stage 1-11 全量 GUT`、`godot --headless --path . --import` 与 `git diff --check` 全部通过；当前 worktree 已达到 Stage 11 可收口的自动化基线。
+- 新增 `scripts/dev/check-godot-mcp.ps1`、`scripts/dev/repair-godot-mcp.ps1`、`scripts/dev/open-worktree-godot.ps1` 与公共函数文件 `scripts/dev/godot-mcp-common.ps1`，把新 worktree 进场时的 Godot MCP 检查 / 修复 / 打开流程工程化。
+- 在上述基础上继续新增 `scripts/dev/enter-worktree-godot-mcp.ps1`，把 `check -> repair -> open` 收敛成单命令入口，并通过 `-DryRun` 验证串联流程正常。
+- 针对“清掉旧 bridge 也可能把当前会话自己的 bridge 一起清掉”的约束，再新增 `scripts/dev/safe-repair-godot-mcp.ps1`，并把一键入口默认切换到安全模式；默认只关闭当前 worktree Godot 编辑器，不默认杀 bridge，只有显式 `-ForceKillBridge` 才会清 bridge。
+- 新增 `docs/dev/godot-mcp-pro-connectivity-guide.md`，并在 `AGENTS.md` 中显式要求后续 session 遇到 Godot MCP 联通问题时优先阅读该文档。
+
 ## 2026-04-24
 
+- 从已完成注释补强并同步到 `main` 的稳定基线建立 `codex/stage-11-playable-demo-slice` 与 `.worktrees/stage-11-playable-demo-slice`，作为阶段 11 的唯一开发入口。
+- 在 stage11 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-24-stage-11-playable-demo-slice-design.md` 与实现计划 `docs/implementation-plans/2026-04-24-stage-11-playable-demo-slice.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 11：可交付试玩 Demo 切片（设计与 preflight 中）”，并明确本轮固定采用“扩成完整 Demo、复用 stage9-10、不新增新机制、显式要求注释补强”的方案。
+- 完成 stage11 preflight fresh 基线验证：`godot --headless --path . --import` 通过，Stage 1-10 GUT `64/64 passed`，`git diff --check` 通过。
 - 在 `codex/comment-coverage-hardening` 中补强阶段 1-10 的关键脚本与测试注释，并同步收紧 `AGENTS.md` 的注释规则：保留“少而精”，但新增“文件头职责注释、关键流程分段注释、阶段测试文件头说明”的最低覆盖要求。
 - 从最新 `main` 建立 `codex/stage-10-combat-variation-and-light-progression` 与 `.worktrees/stage-10-combat-variation-and-light-progression`，作为阶段 10 的唯一开发入口。
 - 在 stage10 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-24-stage-10-combat-variation-and-light-progression-design.md` 与实现计划 `docs/implementation-plans/2026-04-24-stage-10-combat-variation-and-light-progression.md`。

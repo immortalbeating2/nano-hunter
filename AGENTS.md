@@ -276,6 +276,17 @@
 
 `godot_mcp` 会在编辑器启动时动态注入它需要的 MCP autoload，退出时再清理，不应把这些临时注入行为当作仓库里永久手写的 `project.godot` 配置。
 
+若后续 session 在新 worktree / 新会话进场时遇到 `godot_mcp` 联通异常、旧 bridge 端口残留、Godot 编辑器误连旧会话等问题，不要只依赖聊天上下文排障；应优先阅读：
+
+- `docs/dev/godot-mcp-pro-connectivity-guide.md`
+
+该文档集中说明：
+
+- `godot-mcp-pro` 的会话 / bridge / Godot 编辑器生命周期
+- `check / safe-repair / force-repair / open / enter-worktree` 五类脚本的适用场景
+- `RecommendedAction` 的判断含义
+- 何时只做安全重开，何时必须“重开会话后再 `-ForceKillBridge`”
+
 `better-terrain` 当前保留在仓库中，但在当前阶段不启用。之前的基线验证已经证明它在当前 Godot 4.6 环境下会引入解析和兼容性问题，后续如果重新启用，必须先重新验证。
 
 若后续新增或重新启用插件，必须记录：

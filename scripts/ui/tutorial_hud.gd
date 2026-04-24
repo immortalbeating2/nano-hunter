@@ -1,9 +1,8 @@
 extends Control
 
 # TutorialHUD 是当前原型期统一的运行时 HUD。
-# 它只负责把房间和玩家暴露出来的稳定快照翻译成文本，
-# 不直接驱动房间推进，也不反向写入玩家或房间状态。
-
+# 它只负责把主流程、房间和玩家暴露出来的稳定快照翻译成文本，
+# 不直接驱动房间推进，也不反向写入玩家或主流程状态。
 
 @onready var step_label: Label = $PromptPanel/StepLabel
 @onready var prompt_label: Label = $PromptPanel/PromptLabel
@@ -11,24 +10,32 @@ extends Control
 @onready var dash_label: Label = $BattlePanel/DashLabel
 @onready var progress_label: Label = $BattlePanel/ProgressLabel
 
+var _main: Node
 var _room: Node
 var _player: CharacterBody2D
 
 
-# 初始化只放默认占位文案，真正内容以后续 bind_room / bind_player 为准。
+# 初始化只放默认占位文案，真正内容以后续 bind_main / bind_room / bind_player 为准。
 func _ready() -> void:
-	status_label.text = "生命：■■■"
+	status_label.text = "生命：■□■"
 	step_label.text = "教程 1/4 · 移动与跳跃"
 	if prompt_label.text.is_empty():
 		prompt_label.text = "正在等待教程房间..."
 	_update_dash_status()
+	_update_progress_status()
 
 
 func _process(_delta: float) -> void:
 	_update_dash_status()
+	_update_progress_status()
 
 
-# HUD 的绑定顺序允许房间和玩家分别到位，因此每次绑定后都要主动同步一次显示。
+# HUD 的绑定顺序允许主流程、房间和玩家分别到位，因此每次绑定后都要主动同步一次显示。
+func bind_main(main: Node) -> void:
+	_main = main
+	_update_progress_status()
+
+
 func bind_room(room: Node) -> void:
 	if _room != null:
 		_disconnect_room_signals(_room)
@@ -38,7 +45,7 @@ func bind_room(room: Node) -> void:
 	if _room != null:
 		_connect_room_signals(_room)
 
-	_sync_from_room()
+	_sync_from_sources()
 
 
 func bind_player(player: CharacterBody2D) -> void:
@@ -51,17 +58,16 @@ func bind_player(player: CharacterBody2D) -> void:
 	if _player != null and _player.has_signal("health_changed"):
 		_player.connect("health_changed", Callable(self, "_on_player_health_changed"))
 
-	_update_health_status()
-	_update_dash_status()
-	_update_stage10_progress_status()
+	_sync_from_sources()
 
 
-# 房间上下文负责教程标题、提示词和成长读值；玩家快照负责生命与 dash 冷却。
-func _sync_from_room() -> void:
+# 房间上下文负责教程标题、提示词和成长读值；玩家快照负责生命与 dash 冷却；
+# 主流程快照负责 stage11 的 demo 目标与完成反馈。
+func _sync_from_sources() -> void:
 	_apply_room_context(_get_room_hud_context())
 	_update_health_status()
 	_update_dash_status()
-	_update_stage10_progress_status()
+	_update_progress_status()
 
 
 func _on_tutorial_step_changed(step_id: StringName, prompt_text: String) -> void:
@@ -69,7 +75,7 @@ func _on_tutorial_step_changed(step_id: StringName, prompt_text: String) -> void
 	step_label.text = str(room_context.get("step_title", str(step_id)))
 	prompt_label.text = str(room_context.get("prompt_text", prompt_text))
 	_update_dash_status()
-	_update_stage10_progress_status()
+	_update_progress_status()
 
 
 func _on_hud_context_changed(step_title: String, prompt_text: String) -> void:
@@ -79,7 +85,7 @@ func _on_hud_context_changed(step_title: String, prompt_text: String) -> void:
 		"dash_available": _get_room_hud_context().get("dash_available", true),
 	})
 	_update_dash_status()
-	_update_stage10_progress_status()
+	_update_progress_status()
 
 
 func _on_player_health_changed(_current_health: int, _max_health: int) -> void:
@@ -118,19 +124,29 @@ func _update_health_status() -> void:
 	status_label.text = "生命：%s" % _build_health_icons(current_health, max_health)
 
 
-# Stage 10 起的成长反馈继续走房间快照，不让 HUD 去探测房间里的节点或临时字段。
-func _update_stage10_progress_status() -> void:
+# Demo 进度和 stage10 成长反馈都通过稳定快照组装成最小可读文案，
+# HUD 只做翻译与拼接，不反向控制任何房间或主流程状态。
+func _update_progress_status() -> void:
 	if progress_label == null:
 		return
 
-	var room_context := _get_room_hud_context()
-	if not room_context.has("collectible_count") and not room_context.has("recovery_point_activated"):
-		progress_label.text = "成长：未发现"
-		return
+	var lines: Array[String] = []
+	var demo_snapshot := _get_main_demo_snapshot()
+	if not demo_snapshot.is_empty():
+		lines.append(str(demo_snapshot.get("goal_text", "")))
+		var goal_hint := str(demo_snapshot.get("goal_hint_text", ""))
+		if not goal_hint.is_empty():
+			lines.append(goal_hint)
 
-	var collectible_count := int(room_context.get("collectible_count", 0))
-	var recovery_text := "已激活" if bool(room_context.get("recovery_point_activated", false)) else "未激活"
-	progress_label.text = "收集：%d  恢复：%s" % [collectible_count, recovery_text]
+	var room_context := _get_room_hud_context()
+	if room_context.has("collectible_count") or room_context.has("recovery_point_activated"):
+		var collectible_count := int(room_context.get("collectible_count", 0))
+		var recovery_text := "已激活" if bool(room_context.get("recovery_point_activated", false)) else "未激活"
+		lines.append("收集：%d  恢复：%s" % [collectible_count, recovery_text])
+	elif lines.is_empty():
+		lines.append("成长：未发现")
+
+	progress_label.text = "\n".join(lines)
 
 
 func _build_health_icons(current_health: int, max_health: int) -> String:
@@ -176,6 +192,14 @@ func _get_player_hud_status() -> Dictionary:
 
 	var status: Variant = _player.call("get_hud_status_snapshot")
 	return status if status is Dictionary else {}
+
+
+func _get_main_demo_snapshot() -> Dictionary:
+	if _main == null or not _main.has_method("get_demo_progress_snapshot"):
+		return {}
+
+	var snapshot: Variant = _main.call("get_demo_progress_snapshot")
+	return snapshot if snapshot is Dictionary else {}
 
 
 func _apply_room_context(context: Dictionary) -> void:
