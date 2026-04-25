@@ -75,14 +75,15 @@ Last Updated: 2026-04-25
 
 ## Next Stage
 
-`待阶段 11 收口后再定`
+`阶段 12：资产管线与第一轮 Demo 表现升级（待正式 preflight）`
 
 ## Current Goal
 
 当前 `main` 的下一步固定为：
 
-- 基于已收口的 demo 基线决定后续方向
-- 如继续新阶段，先从当前 `main` 开新分支 / worktree
+- 基于已收口的 Stage 11 demo 基线进入 Stage 12-16 后续路线
+- Stage 12 正式启动前，先补独立设计文档与实现计划
+- 新阶段默认从当前 `main` 开新分支 / worktree
 
 ## Current Defaults
 
@@ -124,9 +125,17 @@ Last Updated: 2026-04-25
 ## Recommended Roadmap
 
 - 当前已形成一条可交付试玩 demo 的稳定主线
-- 后续路线待下一轮设计确认后再定
+- 后续路线已正式补为 Stage 12-16：
+  - `阶段 12：资产管线与第一轮 Demo 表现升级`
+  - `阶段 13：第二小区域内容生产`
+  - `阶段 14：回溯与能力门控成型`
+  - `阶段 15：战斗高潮与首个精英 / Boss 原型`
+  - `阶段 16：Alpha Demo 打包候选`
+- 路线总入口：
+  - `spec-design/2026-04-25-stage-12-to-stage-16-roadmap.md`
 
 ## Next Recommended Steps
 
 1. 以当前 `main` 作为新的稳定基线
-2. 再决定是否进入下一阶段的设计与 preflight
+2. 按 Stage 12-16 路线启动 Stage 12 的设计与 preflight
+3. Stage 12 优先补资产目录规范、资产清单与第一批关键视觉替换计划

@@ -10,6 +10,11 @@
 - 在上述基础上继续新增 `scripts/dev/enter-worktree-godot-mcp.ps1`，把 `check -> repair -> open` 收敛成单命令入口，并通过 `-DryRun` 验证串联流程正常。
 - 针对“清掉旧 bridge 也可能把当前会话自己的 bridge 一起清掉”的约束，再新增 `scripts/dev/safe-repair-godot-mcp.ps1`，并把一键入口默认切换到安全模式；默认只关闭当前 worktree Godot 编辑器，不默认杀 bridge，只有显式 `-ForceKillBridge` 才会清 bridge。
 - 新增 `docs/dev/godot-mcp-pro-connectivity-guide.md`，并在 `AGENTS.md` 中显式要求后续 session 遇到 Godot MCP 联通问题时优先阅读该文档。
+- 在 Stage 11 已收口到 `main` 后，新建 `codex/stage-12-16-roadmap` 分支，以“仅分支”模式补写后续路线设计，不额外创建 worktree；本轮只修改路线与进度文档，不进入 Stage 12 实现。
+- 新增 `spec-design/2026-04-25-stage-12-to-stage-16-roadmap.md`，正式固定 Stage 12-16 的大颗粒度路线：Demo 反馈与资产管线、第二小区域、回溯与能力门控、精英 / Boss 原型、Alpha Demo 打包候选。
+- 同步更新 `docs/progress/status.md` 与当日日志，明确 Stage 12 下一步应先做独立设计与 preflight，并把资产清单 / 资产目录规范作为 Stage 12 的优先入口。
+- 根据用户确认，将 Stage 12-16 路线升级为“加厚版”：每个阶段增加内容、资产、验证与 polish 量，同时新增阶段容量上限，避免因扩大范围重新回到频繁开 worktree 或阶段失控。
+- 根据用户复核反馈，继续将 Stage 12-16 路线同步到项目级 `AGENTS.md`，补齐当前默认目标、阶段 12-16 检查点、阶段容量上限、资产策略和 subagents 默认许可，避免后续 session 只读 `AGENTS.md` 时仍停留在 Stage 9-11 视角。
 
 ## 2026-04-24
 
