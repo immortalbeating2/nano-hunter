@@ -56,6 +56,7 @@ var current_state: StringName = STATE_IDLE
 var current_health: int = 3
 
 @onready var _body_polygon: Polygon2D = $Body
+@onready var _stage12_slash_visual: Sprite2D = get_node_or_null("Stage12SlashPreview") as Sprite2D
 
 var _coyote_timer := 0.0
 var _jump_buffer_timer := 0.0
@@ -245,6 +246,7 @@ func _start_attack() -> void:
 	_landing_state_timer = 0.0
 	_jump_buffer_timer = 0.0
 	current_state = STATE_ATTACK if is_on_floor() else STATE_AIR_ATTACK
+	_show_stage12_slash_visual()
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
 
@@ -346,6 +348,7 @@ func _finish_attack() -> void:
 	_attack_elapsed = 0.0
 	_attack_was_active = false
 	_attack_hit_ids.clear()
+	_hide_stage12_slash_visual()
 	current_state = STATE_IDLE
 
 
@@ -355,6 +358,22 @@ func _finish_dash() -> void:
 	velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
 	current_state = STATE_IDLE
 	_set_dash_feedback_active(false)
+
+
+func _show_stage12_slash_visual() -> void:
+	if _stage12_slash_visual == null:
+		return
+
+	# Stage 12 的 slash 只做轻量可读性，不参与攻击判定或伤害结算。
+	_stage12_slash_visual.visible = true
+	_stage12_slash_visual.position.x = absf(attack_hitbox_offset.x) * _facing_direction + 6.0 * _facing_direction
+	_stage12_slash_visual.position.y = attack_hitbox_offset.y
+	_stage12_slash_visual.flip_h = _facing_direction < 0.0
+
+
+func _hide_stage12_slash_visual() -> void:
+	if _stage12_slash_visual != null:
+		_stage12_slash_visual.visible = false
 
 
 func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) -> void:

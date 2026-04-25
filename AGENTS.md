@@ -294,6 +294,10 @@
 
 `godot_mcp` 会在编辑器启动时动态注入它需要的 MCP autoload，退出时再清理，不应把这些临时注入行为当作仓库里永久手写的 `project.godot` 配置。
 
+使用 Godot MCP 做运行态人工复核时，复核期间保留动态注入的临时 autoload；等所有 MCP 截图、输入、场景树和运行态脚本检查结束后，再清理 `project.godot` 中的 MCP autoload diff。
+
+清理临时 autoload 后若还需要继续使用 MCP 运行态能力，应重新打开当前 worktree 的 Godot 编辑器并确认 MCP 已重新注入和连通。
+
 若后续 session 在新 worktree / 新会话进场时遇到 `godot_mcp` 联通异常、旧 bridge 端口残留、Godot 编辑器误连旧会话等问题，不要只依赖聊天上下文排障；应优先阅读：
 
 - `docs/dev/godot-mcp-pro-connectivity-guide.md`

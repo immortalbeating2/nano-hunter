@@ -1,7 +1,31 @@
 # Nano Hunter Timeline
 
+## 2026-04-26
+
+- 复查 Stage 12 正式计划、实现计划、资产清单、人工复核记录与当前 diff 后，补齐 slash / hit spark 的运行时轻量接入，确认 Stage 12 已满足退出条件；`docs/progress/status.md` 已更新为“阶段 12 已完成，待合并回 main”，实现计划 checkbox 已标记完成。
+- 使用恢复后的 Godot MCP 完成 Stage 12 完整运行态人工复核：从 `Main.tscn` 起点灰盒驱动到 `stage11_demo_end_room`，覆盖教程、战斗、目标房、Stage9 五房间、Stage10 主房、Stage10 挑战房与 Demo 终点。
+- 补充复核 Stage10 支线、挑战房、失败重试、Demo 完成与 replay 重开：支线恢复点 / 收集反馈成立，挑战房奖励反馈成立，终点房失败后回到终点 checkpoint，完成后可返回教程房重新开始。
+- 视觉复核发现 HUD 目标图标把三联 SVG 整张压入单图标位，并且长目标文本在 640x360 下有压字风险；已将 HUD 战斗面板加宽加高，并将 `ObjectiveIcon` 改为 `AtlasTexture` 截取单个目标图标区域。
+- Stage 12 完整复核后的 fresh 验证通过：`godot --headless --path . --import` 通过，Stage 12 专项 GUT `9/9 passed`，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过；`project.godot` 已清理 MCP 临时 autoload 注入且无 diff。
+- 将 Godot MCP 临时 autoload 的清理节奏写回 `AGENTS.md`，并按复核反馈压缩为短规则：复核期间保留临时注入，全部 MCP 运行态检查结束后再清理 `project.godot` diff；清理后若继续使用 MCP，需重新注入并确认连通。
+
+- 用户重开会话后，继续按 `docs/dev/godot-mcp-pro-connectivity-guide.md` 排查 Stage 12 worktree 的 Godot MCP 联通问题。
+- 执行 `scripts/dev/enter-worktree-godot-mcp.ps1 -ForceKillBridge` 后，旧 `6505-6509` bridge 监听已释放；随后当前会话的 `godot-mcp-pro` bridge 延迟监听到 `6505`。
+- 运行 `scripts/dev/open-worktree-godot.ps1` 打开当前 Stage 12 worktree 的 Godot 编辑器后，脚本层复测达到 `RecommendedAction: AlreadyConnected`，编辑器进程已连接到 `127.0.0.1:6505`。
+- 第二次重开会话后，脚本层仍为 `AlreadyConnected`，本轮对话内 `mcp__godot_mcp_pro__.detect_circular_dependencies` 成功返回 `has_circular=false`；Godot MCP 工具层已恢复，可继续 Stage 12 运行态人工复核。
+- 使用恢复后的 MCP 工具启动 `Main.tscn` 并成功截取 `640x360` 首屏截图；人工目视确认 Stage 12 首屏 HUD 图标与玩家轮廓可见。临时截图文件已删除，完整 demo 人工复核仍待继续。
+
 ## 2026-04-25
 
+- 在 `codex/stage-12-asset-pipeline-and-demo-polish` worktree 中完成 Stage 12 首轮实现：新增 `docs/assets/asset-manifest.md`、`docs/assets/asset-ingestion-checklist.md`、资产目录结构、第一批占位 SVG、玩家 / 三类敌人轻量轮廓标记、HUD 图标槽、Stage9 门控 / checkpoint 提示与终点房方向提示。
+- 新增 `tests/stage12/test_stage_12_asset_pipeline_and_demo_polish.gd`，按 TDD 先确认资产目录 / 清单 / 视觉节点 / HUD 图标缺失的红灯，再推进到 Stage 12 专项 GUT `8/8 passed`。
+- 重新确认 Stage 12 自动化基线：`godot --headless --path . --import` 通过，Stage 1-12 全量 GUT `77/77 passed`，`git diff --check` 通过。
+- 复测 Godot MCP 联通性：脚本仍输出 `RecommendedAction: ReopenSessionThenForceKillBridge`，MCP 工具仍报告 `Godot editor is not connected`；本轮记录为“运行态人工复核待重开会话 / bridge 恢复后补做”，不在当前会话强杀旧 bridge。
+- 从已合并 Stage 12-16 路线的最新 `main` 创建 `codex/stage-12-asset-pipeline-and-demo-polish` 与 `.worktrees/stage-12-asset-pipeline-and-demo-polish`，作为阶段 12 的隔离开发现场。
+- 在 stage12 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-25-stage-12-asset-pipeline-and-demo-polish-design.md`、正式计划 `plan/2026-04-25-stage-12-asset-pipeline-and-demo-polish.md` 与实现计划 `docs/implementation-plans/2026-04-25-stage-12-asset-pipeline-and-demo-polish.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 12：资产管线与第一轮 Demo 表现升级（preflight 已启动）”，并明确本轮固定采用 `规范 + 轻替换`，阶段收口前必须包含人工复核。
+- 运行 `scripts/dev/enter-worktree-godot-mcp.ps1 -DryRun` 进行 Godot MCP 进场检查；当前 RecommendedAction 为 `ReopenSessionThenForceKillBridge`，本轮 preflight 先记录该状态并使用 headless 自动化验证作为 fresh 基线。
+- 完成 Stage 12 preflight fresh baseline：`git diff --check` 通过，`godot --headless --path . --import` 通过，Stage 1-11 全量 GUT `69/69 passed`。
 - 在 `codex/stage-11-playable-demo-slice` worktree 中补写 Stage 11 灰盒主线自动化设计与实现计划，目标从“真人手操补最终复核”扩展为“先形成一条可重复自动化主线基线”。
 - 新增 `tests/stage11/support/stage11_graybox_mainline_driver.gd` 与新的 Stage 11 灰盒主线测试入口，让测试从“驾驶器未实现”的红灯推进到当前 `5/5 passed` 的绿灯状态。
 - 本轮同时确认并补平了一个生产主线缺口：`GoalTrialRoom` 完成后现在会真实接入 `stage9_zone_entry_room`，灰盒主线自动化不再需要测试侧过桥。

@@ -1,0 +1,6 @@
+# Goal: verify project-level .codex/config.toml loading and avoid global Godot bridge startup.
+
+[mcp_servers.godot-mcp-pro]
+type = "stdio"
+command = "cmd"
+args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]

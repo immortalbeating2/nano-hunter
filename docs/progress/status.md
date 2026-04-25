@@ -1,6 +1,32 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-25
+Last Updated: 2026-04-26
+
+## Latest Update - 2026-04-26 Stage 12 Full Runtime Review
+
+- Godot MCP 在用户重开会话后已恢复可用，并已用 `mcp__godot_mcp_pro__` 完成 Stage 12 完整运行态人工复核。
+- 主线灰盒复核已从 `Main.tscn` 起点覆盖到 `stage11_demo_end_room`，确认序列为：教程房 -> 战斗房 -> 目标房 -> Stage9 五房间 -> Stage10 主房 -> Stage10 挑战房 -> Demo 终点房。
+- Stage10 支线复核已覆盖：主房进入支线、支线恢复点 / 收集反馈、支线返回主线、挑战房收集反馈与挑战房进入 Demo 终点。
+- 失败与完成复核已覆盖：Demo 终点房 checkpoint 重试、`demo_completed=true`、`replay_available=true`、完成后 `ReplayZone` 返回教程房。
+- 视觉复核发现并修复 HUD 目标图标 / 长目标文本的挤压风险：`BattlePanel` 已加宽加高，`ObjectiveIcon` 改为 `AtlasTexture` 截取目标图标区域，避免把三联 SVG 整张压入单个图标位。
+- 当前状态：Stage 12 已完成完整运行态人工复核；最终 fresh 验证已通过：`godot --headless --path . --import` 通过，Stage 12 专项 GUT `9/9 passed`，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过；`project.godot` 中 Godot MCP 临时 autoload 注入已清理且当前无 `project.godot` diff。
+- 收口判断：Stage 12 已满足退出条件，可作为 Stage 13 的稳定前置基线合并回 `main`。
+
+## Latest Update - 2026-04-26 Godot MCP Reopen Attempt
+
+- 用户重开会话后，已按 `docs/dev/godot-mcp-pro-connectivity-guide.md` 执行 Stage 12 worktree 的 Godot MCP 恢复尝试。
+- `enter-worktree-godot-mcp.ps1 -ForceKillBridge` 已释放旧 `6505-6509` 监听；随后当前会话的 `godot-mcp-pro` bridge 延迟监听到 `6505`，当前 worktree 的 Godot 编辑器也已连接到该 bridge。
+- 第二次重开会话后，脚本层复测结果：`check-godot-mcp.ps1` 输出 `RecommendedAction: AlreadyConnected`。
+- 第二次重开会话后，工具层复测结果：`mcp__godot_mcp_pro__.detect_circular_dependencies` 成功返回，`has_circular=false`，检查 `20` 个场景。
+- 当前判断：Godot MCP 已恢复可调用；Stage 12 自动化实现仍有效；首屏运行态烟测已确认 HUD 与玩家轮廓可见，但完整人工复核清单仍待补。
+
+## Latest Update - Stage 12 First Implementation Pass
+
+- Stage 12 首轮实现已落地：资产目录规范、`docs/assets/asset-manifest.md`、`docs/assets/asset-ingestion-checklist.md`、第一批占位 SVG、玩家 / 三类敌人轻量可读性节点、HUD 图标槽、Stage9 门控 / checkpoint 提示与终点房方向提示均已接入。
+- 当前实现仍遵守 `规范 + 轻替换`：不新增新区域、不新增新核心玩法、不改变玩家碰撞、敌人 Hurtbox、敌人 AI、房间流转或 checkpoint 契约。
+- 自动化验证已通过：`godot --headless --path . --import` 通过，Stage 12 专项 GUT `8/8 passed`，Stage 1-12 全量 GUT `77/77 passed`，`git diff --check` 通过。
+- Godot MCP 当前未联通：`check-godot-mcp.ps1` 输出 `RecommendedAction: ReopenSessionThenForceKillBridge`，MCP 工具仍报告 `Godot editor is not connected`。本轮未在当前会话强杀 bridge，运行态人工复核仍需在重开会话并恢复当前 worktree Godot 编辑器连接后补做。
+- 当前状态判断：Stage 12 已达到“自动化首轮实现完成”，但尚未达到“阶段收口”，因为完整人工复核还未完成。
 
 ## Current Phase
 
@@ -8,18 +34,19 @@ Last Updated: 2026-04-25
 
 ## Current Stage
 
-`阶段 11：可交付试玩 Demo 切片（已完成并收口）`
+`阶段 12：资产管线与第一轮 Demo 表现升级（已完成，待合并回 main）`
 
-> Update: 2026-04-25 `stage11` 已完成并收口进 `main`：主线已从 `Main.tscn` 稳定推进到 `stage11_demo_end_room`，Stage 11 专项 GUT `5/5 passed`，Stage 1-11 全量 GUT `69/69 passed`，并且本轮新增的 `godot-mcp-pro` 联通脚本与排障文档已随阶段结果进入主线。
+> Update: 2026-04-26 `stage12` 已完成资产管线、第一批占位资产、玩家 / 敌人 / HUD / 门控 / checkpoint / 终点反馈、slash / hit spark 的首轮轻量可读性接入；不新增新区域、新核心玩法或大规模正式美术替换。完整运行态人工复核已覆盖主线、支线、挑战房、失败 / 重来、Demo 完成与重开入口；最终验证通过：`godot --headless --path . --import` 通过，Stage 12 专项 GUT `9/9 passed`，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过。
 
 ## Stage Goal
 
-把当前 `stage1-10` 已验证成立的内容收成一个可连续试玩、可失败重来、可到达终点并给出明确完成反馈的 demo 级切片。本轮固定不新增新的核心动作、敌人类别、第二个大区域、正式经济系统或完整剧情系统，重点收束：
+在 Stage 11 已收口的可交付试玩 demo 基线上，建立后续资产生产与接入的稳定管线，并完成第一轮轻量 Demo 表现升级。本轮固定不新增新区域、新核心玩法、新敌人类型、正式存档、经济系统或完整剧情系统，重点收束：
 
-- 主线推进到 demo 终点
-- 支路与挑战房的保留价值
-- HUD / 门控 / 终点反馈的可读性
-- `stage11` 触达代码的注释可维护性
+- 资产目录规范
+- `docs/assets/asset-manifest.md`
+- `docs/assets/asset-ingestion-checklist.md`
+- 玩家 / 敌人 / HUD / 门控 / checkpoint / 终点反馈的轻量可读性接入
+- 自动化验证与人工复核收口
 
 ## Playable Now
 
@@ -62,10 +89,10 @@ Last Updated: 2026-04-25
 - 失败 / 重来仍能回到正确推进点
 - HUD / 门控 / 终点反馈足以支撑试玩理解
 - `stage11` 触达的核心脚本满足新的注释最低覆盖标准
-- Stage 1-11 自动化验证通过
-- 人工复核与运行态证据已留痕，可支持本轮收口判断
+- Stage 1-12 自动化验证通过
+- 人工复核与运行态证据已留痕，可支持 Stage 12 收口判断
 
-当前状态：以上条件已满足，阶段 11 已成为当前新的稳定主线基线。
+当前状态：以上条件已满足，Stage 12 已成为当前新的稳定阶段基线，待合并回 `main`。
 
 ## Asset Status
 
@@ -75,15 +102,15 @@ Last Updated: 2026-04-25
 
 ## Next Stage
 
-`阶段 12：资产管线与第一轮 Demo 表现升级（待正式 preflight）`
+`阶段 13：第二小区域内容生产（待正式 preflight）`
 
 ## Current Goal
 
 当前 `main` 的下一步固定为：
 
-- 基于已收口的 Stage 11 demo 基线进入 Stage 12-16 后续路线
-- Stage 12 正式启动前，先补独立设计文档与实现计划
-- 新阶段默认从当前 `main` 开新分支 / worktree
+- 将 Stage 12 合并为新的稳定主线基线
+- 清理 Stage 12 worktree / 分支现场，避免后续误用过期开发环境
+- 按 Stage 12 建立的资产 manifest 与目录规范启动 Stage 13 preflight
 
 ## Current Defaults
 
@@ -95,16 +122,22 @@ Last Updated: 2026-04-25
 
 ## In Progress
 
-- `阶段 11：可交付试玩 Demo 切片` 当前已完成并合并进主线
-- 本轮继续采用 `分支 + worktree`
-- 本轮已固定并完成的关键选择：
-  - demo 形态：`扩成完整 Demo`
-  - 内容策略：`复用 stage9-10 内容 + 新增最小终点表达`
-  - 注释要求：`文件头职责注释 + 关键流程分段注释`
-  - 工程补充：`godot-mcp-pro` 联通脚本与排障文档`
+- `阶段 12：资产管线与第一轮 Demo 表现升级` 已完成，当前进入合并与 worktree 清理收口
+- 本轮采用 `分支 + worktree`
+- 本轮已固定的关键选择：
+  - 资产强度：`规范 + 轻替换`
+  - 阶段目标：`资产管线定型 + 第一轮 Demo 表现升级`
+  - 开发现场：`codex/stage-12-asset-pipeline-and-demo-polish` + `.worktrees/stage-12-asset-pipeline-and-demo-polish`
+  - 人工复核：阶段收口前必须完整跑 demo、支路、挑战房、失败 / 重来、完成反馈与重开入口
 
 ## Recently Completed
 
+- 阶段 12-16 路线已正式补入主线并同步到 `AGENTS.md`
+- Stage 12 正式开发计划已补入：
+  - `plan/2026-04-25-stage-12-asset-pipeline-and-demo-polish.md`
+- Stage 12 独立设计文档与实现计划已启动：
+  - `spec-design/2026-04-25-stage-12-asset-pipeline-and-demo-polish-design.md`
+  - `docs/implementation-plans/2026-04-25-stage-12-asset-pipeline-and-demo-polish.md`
 - 阶段 10 已完成并作为当前稳定前置基线
 - `main` 已补录 stage11 的正式阶段计划：
   - `plan/2026-04-24-stage-11-playable-demo-slice.md`
@@ -136,6 +169,7 @@ Last Updated: 2026-04-25
 
 ## Next Recommended Steps
 
-1. 以当前 `main` 作为新的稳定基线
-2. 按 Stage 12-16 路线启动 Stage 12 的设计与 preflight
-3. Stage 12 优先补资产目录规范、资产清单与第一批关键视觉替换计划
+1. 将 `codex/stage-12-asset-pipeline-and-demo-polish` 合并回 `main`
+2. 在 `main` 上复跑 import、Stage 1-12 全量 GUT 与 `git diff --check`
+3. 清理 Stage 12 worktree 与本地阶段分支
+4. 进入 Stage 13 正式 preflight

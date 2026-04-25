@@ -17,7 +17,7 @@ var _player: CharacterBody2D
 
 # 初始化只放默认占位文案，真正内容以后续 bind_main / bind_room / bind_player 为准。
 func _ready() -> void:
-	status_label.text = "生命：■□■"
+	status_label.text = "生命：■■■"
 	step_label.text = "教程 1/4 · 移动与跳跃"
 	if prompt_label.text.is_empty():
 		prompt_label.text = "正在等待教程房间..."
@@ -144,7 +144,7 @@ func _update_progress_status() -> void:
 		var recovery_text := "已激活" if bool(room_context.get("recovery_point_activated", false)) else "未激活"
 		lines.append("收集：%d  恢复：%s" % [collectible_count, recovery_text])
 	elif lines.is_empty():
-		lines.append("成长：未发现")
+		lines.append("目标：继续推进 Demo")
 
 	progress_label.text = "\n".join(lines)
 

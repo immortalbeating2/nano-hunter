@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage9_zone_switch_room.gd" id="1"]
 [ext_resource type="Resource" path="res://assets/configs/rooms/stage9_zone_switch_room_flow.tres" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage12_checkpoint_gate_goal_icons.svg" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -61,6 +62,12 @@ shape = SubResource("3")
 color = Color(0.776471, 0.321569, 0.262745, 1)
 polygon = PackedVector2Array(-12, -64, 12, -64, 12, 64, -12, 64)
 
+[node name="Stage12GateHint" type="Sprite2D" parent="GateBarrier"]
+modulate = Color(1, 0.92, 0.52, 0.55)
+position = Vector2(0, -76)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("3")
+
 [node name="GateSwitch" type="Area2D" parent="."]
 position = Vector2(128, 120)
 
@@ -70,6 +77,12 @@ shape = SubResource("4")
 [node name="SwitchVisual" type="Polygon2D" parent="GateSwitch"]
 color = Color(0.92549, 0.752941, 0.298039, 1)
 polygon = PackedVector2Array(-32, -16, 32, -16, 32, 16, -32, 16)
+
+[node name="Stage12CheckpointMarker" type="Sprite2D" parent="GateSwitch"]
+modulate = Color(0.6, 1, 0.76, 0.55)
+position = Vector2(0, -34)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3")
 
 [node name="ExitZone" type="Area2D" parent="."]
 position = Vector2(544, 96)

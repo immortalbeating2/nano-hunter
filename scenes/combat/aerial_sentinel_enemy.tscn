@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/combat/aerial_sentinel_enemy.gd" id="1"]
 [ext_resource type="Resource" path="res://scripts/configs/aerial_sentinel_enemy_config.tres" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage12_aerial_sentinel_silhouette.svg" id="3"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage12_hit_spark_vfx.svg" id="4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(26, 30)
@@ -21,6 +23,29 @@ shape = SubResource("1")
 position = Vector2(0, -88)
 color = Color(0.552941, 0.713725, 0.929412, 1)
 polygon = PackedVector2Array(-13, 0, 0, -18, 13, 0, 0, 18)
+
+[node name="Stage12Silhouette" type="Polygon2D" parent="."]
+position = Vector2(0, -88)
+color = Color(0.780392, 0.87451, 1, 0.42)
+polygon = PackedVector2Array(-18, 0, 0, -24, 18, 0, 0, 24)
+
+[node name="Stage12AirMark" type="Polygon2D" parent="."]
+position = Vector2(0, -88)
+color = Color(0.92549, 0.964706, 1, 0.9)
+polygon = PackedVector2Array(-26, -4, -42, -14, -34, 6, 26, -4, 42, -14, 34, 6)
+
+[node name="Stage12AssetSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.18)
+position = Vector2(0, -88)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("3")
+
+[node name="Stage12HitSpark" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0.952941, 0.552941, 0.9)
+position = Vector2(0, -88)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -88)
