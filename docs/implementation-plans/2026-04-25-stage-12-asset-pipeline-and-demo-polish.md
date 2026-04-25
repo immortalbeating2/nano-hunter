@@ -20,12 +20,12 @@
 - Modify: `docs/progress/timeline.md`
 - Modify: `docs/progress/2026-04-25.md`
 
-- [ ] 从最新 `main` 创建 `codex/stage-12-asset-pipeline-and-demo-polish`
-- [ ] 创建对应 worktree，记录本轮采用 `分支 + worktree`
-- [ ] 运行 Godot MCP 进场 dry-run，必要时按联通指南排障
-- [ ] 明确本轮固定选择：`规范 + 轻替换`
-- [ ] 明确不做项：不新增新区域、不新增新核心玩法、不重做存档、不做大规模正式美术替换
-- [ ] 完成 fresh 基线验证：
+- [x] 从最新 `main` 创建 `codex/stage-12-asset-pipeline-and-demo-polish`
+- [x] 创建对应 worktree，记录本轮采用 `分支 + worktree`
+- [x] 运行 Godot MCP 进场 dry-run，必要时按联通指南排障
+- [x] 明确本轮固定选择：`规范 + 轻替换`
+- [x] 明确不做项：不新增新区域、不新增新核心玩法、不重做存档、不做大规模正式美术替换
+- [x] 完成 fresh 基线验证：
   - `godot --headless --path . --import`
   - Stage 1-11 全量 GUT
   - `git diff --check`
@@ -46,11 +46,11 @@
 - Create: `assets/source/ai_generated/`
 - Create: `assets/source/editable/`
 
-- [ ] 固定 asset manifest 字段：资产 ID、用途、目标路径、规格、来源、授权状态、接入状态、阶段、优先级、备注
-- [ ] 预置 Stage 12 第一批资产条目
-- [ ] 固定状态值：`needed`、`placeholder_ready`、`integrated`、`deferred`
-- [ ] 建立资产接入检查清单：导入、路径、显示、碰撞、HUD、测试、授权记录
-- [ ] 不把资产清单扩成正式资源数据库
+- [x] 固定 asset manifest 字段：资产 ID、用途、目标路径、规格、来源、授权状态、接入状态、阶段、优先级、备注
+- [x] 预置 Stage 12 第一批资产条目
+- [x] 固定状态值：`needed`、`placeholder_ready`、`integrated`、`deferred`
+- [x] 建立资产接入检查清单：导入、路径、显示、碰撞、HUD、测试、授权记录
+- [x] 不把资产清单扩成正式资源数据库
 
 ## Task 3: 接入第一批轻量可读性资产
 
@@ -61,11 +61,11 @@
 - Modify: `scenes/combat/aerial_sentinel_enemy.tscn`
 - Modify/Create: minimal VFX/UI assets under `assets/art/`
 
-- [ ] 为玩家和 3 类敌人接入更清晰的轮廓表现
-- [ ] 保留现有 collision shape、攻击判定、敌人 AI 和配置资源契约
-- [ ] 接入最小攻击 slash 与命中 spark 表达
-- [ ] 接入 checkpoint、门控、终点提示图形
-- [ ] 资产不可用时保留几何占位 fallback
+- [x] 为玩家和 3 类敌人接入更清晰的轮廓表现
+- [x] 保留现有 collision shape、攻击判定、敌人 AI 和配置资源契约
+- [x] 接入最小攻击 slash 与命中 spark 表达
+- [x] 接入 checkpoint、门控、终点提示图形
+- [x] 资产不可用时保留几何占位 fallback
 
 ## Task 4: 完成 HUD、门控、checkpoint 与终点反馈 polish
 
@@ -75,22 +75,22 @@
 - Modify: `scripts/rooms/stage11_demo_end_room.gd`
 - Modify: relevant room scenes/configs only as needed
 
-- [ ] 优化 HUD 文案与提示节奏
-- [ ] 让生命、冲刺、成长、demo 目标和完成反馈更容易读懂
-- [ ] 强化 checkpoint、门控、终点方向提示
-- [ ] 不把本轮 HUD 修改扩成正式 UI 系统重构
-- [ ] 不改变主流程房间切换契约
+- [x] 优化 HUD 文案与提示节奏
+- [x] 让生命、冲刺、成长、demo 目标和完成反馈更容易读懂
+- [x] 强化 checkpoint、门控、终点方向提示
+- [x] 不把本轮 HUD 修改扩成正式 UI 系统重构
+- [x] 不改变主流程房间切换契约
 
 ## Task 5: Stage 12 自动化验证
 
 **Files:**
 - Create: `tests/stage12/test_stage_12_asset_pipeline_and_demo_polish.gd`
 
-- [ ] 覆盖资产目录存在
-- [ ] 覆盖 `asset-manifest.md` 和 `asset-ingestion-checklist.md` 存在且包含 Stage 12 必要字段
-- [ ] 覆盖玩家和 3 类敌人的可视节点仍存在
-- [ ] 覆盖 HUD 关键文本和 demo 完成反馈不回归
-- [ ] 覆盖 Stage 11 灰盒主线仍可完成
+- [x] 覆盖资产目录存在
+- [x] 覆盖 `asset-manifest.md` 和 `asset-ingestion-checklist.md` 存在且包含 Stage 12 必要字段
+- [x] 覆盖玩家和 3 类敌人的可视节点仍存在
+- [x] 覆盖 HUD 关键文本和 demo 完成反馈不回归
+- [x] 覆盖 Stage 11 灰盒主线仍可完成
 
 ## Task 6: 人工复核与阶段收口
 
@@ -99,13 +99,13 @@
 - Modify: `docs/progress/timeline.md`
 - Modify: `docs/progress/2026-04-25.md`
 
-- [ ] 手动从 `Main.tscn` 完整跑到 `stage11_demo_end_room`
-- [ ] 至少进入一次 Stage 10 支路
-- [ ] 至少进入一次挑战房
-- [ ] 至少触发一次失败 / 重来
-- [ ] 至少触发一次 demo 完成和重开入口
-- [ ] 记录人工复核结论：可读性、资产遮挡、碰撞误导、HUD 理解、卡点、下一步建议
-- [ ] 若启用 subagents，补写 Delegation Log
+- [x] 手动从 `Main.tscn` 完整跑到 `stage11_demo_end_room`
+- [x] 至少进入一次 Stage 10 支路
+- [x] 至少进入一次挑战房
+- [x] 至少触发一次失败 / 重来
+- [x] 至少触发一次 demo 完成和重开入口
+- [x] 记录人工复核结论：可读性、资产遮挡、碰撞误导、HUD 理解、卡点、下一步建议
+- [x] 本轮未启用 subagents；无需补写 Delegation Log
 
 ## Delegation Requirement
 
@@ -127,10 +127,10 @@
 
 ## Completion Criteria
 
-- [ ] Stage 12 资产目录规范已落地
-- [ ] `docs/assets/asset-manifest.md` 已建立并预置第一批资产条目
-- [ ] `docs/assets/asset-ingestion-checklist.md` 已建立
-- [ ] 玩家、3 类敌人、HUD、门控、checkpoint、终点反馈完成第一轮轻量可读性接入
-- [ ] Stage 12 专项 GUT 通过
-- [ ] Stage 1-12 全量 GUT 通过
-- [ ] 完整人工复核完成并写回进度文档
+- [x] Stage 12 资产目录规范已落地
+- [x] `docs/assets/asset-manifest.md` 已建立并预置第一批资产条目
+- [x] `docs/assets/asset-ingestion-checklist.md` 已建立
+- [x] 玩家、3 类敌人、HUD、门控、checkpoint、终点反馈完成第一轮轻量可读性接入
+- [x] Stage 12 专项 GUT 通过
+- [x] Stage 1-12 全量 GUT 通过
+- [x] 完整人工复核完成并写回进度文档

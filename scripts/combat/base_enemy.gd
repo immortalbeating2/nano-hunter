@@ -28,11 +28,19 @@ func receive_attack(_hit_direction: Vector2, _knockback_force: float) -> void:
 		_hurtbox_shape.disabled = true
 	if _body_polygon != null:
 		_body_polygon.color = Color(0.572549, 0.294118, 0.294118, 0.45)
+	_show_stage12_hit_spark()
 	defeated.emit()
 
 
 func is_defeated() -> bool:
 	return _is_defeated
+
+
+func _show_stage12_hit_spark() -> void:
+	var hit_spark := get_node_or_null("Stage12HitSpark") as CanvasItem
+	if hit_spark != null:
+		# Stage 12 的 hit spark 只作为受击读秒的轻量可视反馈，不改变敌人失效契约。
+		hit_spark.visible = true
 
 
 # 触碰伤害统一由基类发起，这样子类只需要决定“何时应当能碰到玩家”。
