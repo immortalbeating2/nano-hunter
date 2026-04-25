@@ -2,6 +2,11 @@
 
 ## 2026-04-25
 
+- 从已合并 Stage 12-16 路线的最新 `main` 创建 `codex/stage-12-asset-pipeline-and-demo-polish` 与 `.worktrees/stage-12-asset-pipeline-and-demo-polish`，作为阶段 12 的隔离开发现场。
+- 在 stage12 worktree 中启动 preflight：新建设计文档 `spec-design/2026-04-25-stage-12-asset-pipeline-and-demo-polish-design.md`、正式计划 `plan/2026-04-25-stage-12-asset-pipeline-and-demo-polish.md` 与实现计划 `docs/implementation-plans/2026-04-25-stage-12-asset-pipeline-and-demo-polish.md`。
+- 将当前 worktree 的 `docs/progress/status.md` 推进到“阶段 12：资产管线与第一轮 Demo 表现升级（preflight 已启动）”，并明确本轮固定采用 `规范 + 轻替换`，阶段收口前必须包含人工复核。
+- 运行 `scripts/dev/enter-worktree-godot-mcp.ps1 -DryRun` 进行 Godot MCP 进场检查；当前 RecommendedAction 为 `ReopenSessionThenForceKillBridge`，本轮 preflight 先记录该状态并使用 headless 自动化验证作为 fresh 基线。
+- 完成 Stage 12 preflight fresh baseline：`git diff --check` 通过，`godot --headless --path . --import` 通过，Stage 1-11 全量 GUT `69/69 passed`。
 - 在 `codex/stage-11-playable-demo-slice` worktree 中补写 Stage 11 灰盒主线自动化设计与实现计划，目标从“真人手操补最终复核”扩展为“先形成一条可重复自动化主线基线”。
 - 新增 `tests/stage11/support/stage11_graybox_mainline_driver.gd` 与新的 Stage 11 灰盒主线测试入口，让测试从“驾驶器未实现”的红灯推进到当前 `5/5 passed` 的绿灯状态。
 - 本轮同时确认并补平了一个生产主线缺口：`GoalTrialRoom` 完成后现在会真实接入 `stage9_zone_entry_room`，灰盒主线自动化不再需要测试侧过桥。
