@@ -9,6 +9,7 @@
 - 根据收口复核反馈，同步修正 `AGENTS.md` 当前默认目标：当前 `main` 已完成并收口阶段 12，下一阶段默认进入 `阶段 13：第二小区域内容生产`。
 - 根据 review 反馈恢复 `AGENTS.md` 中 Stage 12-16 roadmap 的历史起点表述，并新增阶段收口规则：阶段完成并合并回 `main` 后必须同步更新“当前默认目标”。
 - 收敛 Godot MCP Pro 项目约定：项目级 `.codex/config.toml` 作为 MCP 注册入口；`scripts/dev/check / safe-repair / force-repair / open / enter-worktree` 保留为 bridge、编辑器与 worktree 排障工具。
+- 收紧 Godot MCP bridge 收口规则：阶段收口优先定位并释放当前阶段 / 当前 worktree 对应旧 bridge；无法归属且可能存在其他活跃会话时，不默认释放所有 `6505-6509` bridge。
 - 使用恢复后的 Godot MCP 完成 Stage 12 完整运行态人工复核：从 `Main.tscn` 起点灰盒驱动到 `stage11_demo_end_room`，覆盖教程、战斗、目标房、Stage9 五房间、Stage10 主房、Stage10 挑战房与 Demo 终点。
 - 补充复核 Stage10 支线、挑战房、失败重试、Demo 完成与 replay 重开：支线恢复点 / 收集反馈成立，挑战房奖励反馈成立，终点房失败后回到终点 checkpoint，完成后可返回教程房重新开始。
 - 视觉复核发现 HUD 目标图标把三联 SVG 整张压入单图标位，并且长目标文本在 640x360 下有压字风险；已将 HUD 战斗面板加宽加高，并将 `ObjectiveIcon` 改为 `AtlasTexture` 截取单个目标图标区域。

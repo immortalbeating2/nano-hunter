@@ -92,6 +92,9 @@ args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
 - 当前会话已经明显坏掉
 - `check` 明确建议 `ReopenSessionThenForceKillBridge`
 - 你准备重开 Codex 会话
+- 你已经确认没有其他活跃 Godot MCP 会话依赖这些 bridge
+
+如果只是阶段收口或 worktree 清理，优先关闭当前 worktree 的 Godot 编辑器，并释放能明确归属当前 worktree / 旧会话的 bridge。无法归属的监听不要默认全清，因为它可能属于另一个正在正常使用 Godot MCP 的会话。
 
 ## 排障脚本总览
 
@@ -167,11 +170,13 @@ args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
 
 - 危险工具
 - 不作为默认入口
+- 会影响其他正在使用 Godot MCP 的会话
 
 只适合：
 
 - 当前会话已坏
 - 或你明确准备重开会话
+- 或用户明确授权释放全部 bridge
 
 示例：
 
@@ -300,6 +305,7 @@ args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
 
 - 不建议在当前仍活着的会话里直接强清 bridge
 - 因为这可能顺手把“当前会话自己的 bridge”也一起清掉
+- 如果机器上还有其他 Godot MCP 会话正在使用 `6505-6509`，强清也会中断它们
 
 ### `InspectManually`
 
@@ -379,6 +385,12 @@ args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
 危险工具，仅在明确场景下使用：
 
 - `force-repair-godot-mcp.ps1`
+
+阶段收口时的推荐判断：
+
+- 能定位到当前 worktree 的 Godot 编辑器连接：只清理该 worktree 相关进程与对应旧 bridge
+- 只能看到 bridge 监听但无法判断归属：记录状态并询问，不默认释放全部 bridge
+- 确认旧会话已废弃、当前会话已坏或用户授权：才允许 `-ForceKillBridge` / `force-repair`
 
 ## 维护建议
 
