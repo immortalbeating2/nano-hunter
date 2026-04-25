@@ -1,4 +1,5 @@
-# Goal: verify project-level .codex/config.toml loading and avoid global Godot bridge startup.
+# Project-level Codex MCP registration for Nano Hunter only.
+# Keep godot-mcp-pro out of the global Codex config so non-Godot sessions do not start a bridge.
 
 [mcp_servers.godot-mcp-pro]
 type = "stdio"

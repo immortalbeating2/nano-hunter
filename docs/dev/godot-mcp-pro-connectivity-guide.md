@@ -4,12 +4,36 @@
 
 这份文档用于解决 `nano-hunter` 在新 worktree / 新会话进场时，经常出现的 `godot_mcp` 联通问题，包括：
 
+- 项目级 `.codex/config.toml` 已加载，但 bridge / 编辑器仍未正确连通
 - 旧 `godot-mcp-pro` bridge 残留
 - `6505-6509` 端口被旧会话占用
 - 当前 worktree 的 Godot 编辑器连错 bridge
 - 当前 AI 会话的 bridge 已坏，但 Godot 仍连着旧桥
 
-本指南的目标不是改变 `godot-mcp-pro` 的底层固定端口机制，而是把“检查 / 修复 / 打开当前 worktree Godot 编辑器”的流程工程化。
+本指南的目标不是改变 `godot-mcp-pro` 的底层固定端口机制，也不是重新说明 MCP 如何安装；它只把“检查 / 修复 / 打开当前 worktree Godot 编辑器”的流程工程化。
+
+## 项目级配置边界
+
+当前仓库通过项目级 `.codex/config.toml` 注册 `godot-mcp-pro`：
+
+```toml
+[mcp_servers.godot-mcp-pro]
+type = "stdio"
+command = "cmd"
+args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
+```
+
+这解决的是“Godot MCP 只在本项目 / worktree 会话中加载”，避免普通 Codex 会话全局启动 Godot bridge。
+
+它不解决：
+
+- 旧 bridge 进程仍占用 `6505-6509`
+- 当前会话的 bridge 启动后没有抢到可用端口
+- Godot 编辑器连到了旧会话 bridge
+- worktree 切换后 Godot 编辑器仍打开旧路径
+- `project.godot` 中临时 MCP autoload 的清理节奏
+
+因此，下面这些脚本仍然保留为“排障工具”，不是“配置工具”。
 
 ## 先理解机制
 
@@ -69,7 +93,7 @@
 - `check` 明确建议 `ReopenSessionThenForceKillBridge`
 - 你准备重开 Codex 会话
 
-## 脚本总览
+## 排障脚本总览
 
 ### 1. `check-godot-mcp.ps1`
 
@@ -192,7 +216,8 @@
 
 定位：
 
-- 新 worktree / 新 stage 的默认进场入口
+- 新 worktree / 新 stage 需要 Godot MCP 运行态复核时的诊断入口
+- 它不负责注册 MCP；注册入口是项目级 `.codex/config.toml`
 
 示例：
 

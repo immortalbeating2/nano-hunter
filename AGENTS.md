@@ -292,20 +292,23 @@
 - `godot_mcp`
 - `gut`
 
+`godot-mcp-pro` 默认通过项目级 `.codex/config.toml` 注册，不再要求写入用户级全局 Codex 配置。这样普通非 Godot 会话不会默认启动 Godot bridge；进入本仓库或对应 worktree 的 Codex 会话时，才按项目级配置加载该 MCP。
+
 `godot_mcp` 会在编辑器启动时动态注入它需要的 MCP autoload，退出时再清理，不应把这些临时注入行为当作仓库里永久手写的 `project.godot` 配置。
 
 使用 Godot MCP 做运行态人工复核时，复核期间保留动态注入的临时 autoload；等所有 MCP 截图、输入、场景树和运行态脚本检查结束后，再清理 `project.godot` 中的 MCP autoload diff。
 
 清理临时 autoload 后若还需要继续使用 MCP 运行态能力，应重新打开当前 worktree 的 Godot 编辑器并确认 MCP 已重新注入和连通。
 
-若后续 session 在新 worktree / 新会话进场时遇到 `godot_mcp` 联通异常、旧 bridge 端口残留、Godot 编辑器误连旧会话等问题，不要只依赖聊天上下文排障；应优先阅读：
+项目级配置只负责限制 MCP 的注册范围，不负责清理旧 bridge、关闭旧 Godot 编辑器、释放 `6505-6509` 端口或修复误连旧会话的问题。若后续 session 在新 worktree / 新会话进场时遇到 `godot_mcp` 联通异常、旧 bridge 端口残留、Godot 编辑器误连旧会话等问题，不要只依赖聊天上下文排障；应优先阅读：
 
 - `docs/dev/godot-mcp-pro-connectivity-guide.md`
 
 该文档集中说明：
 
+- 项目级 `.codex/config.toml` 与 bridge 生命周期的边界
 - `godot-mcp-pro` 的会话 / bridge / Godot 编辑器生命周期
-- `check / safe-repair / force-repair / open / enter-worktree` 五类脚本的适用场景
+- `check / safe-repair / force-repair / open / enter-worktree` 五类排障脚本的适用场景
 - `RecommendedAction` 的判断含义
 - 何时只做安全重开，何时必须“重开会话后再 `-ForceKillBridge`”
 
