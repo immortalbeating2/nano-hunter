@@ -10,7 +10,7 @@ Last Updated: 2026-04-26
 - 失败与完成复核已覆盖：Demo 终点房 checkpoint 重试、`demo_completed=true`、`replay_available=true`、完成后 `ReplayZone` 返回教程房。
 - 视觉复核发现并修复 HUD 目标图标 / 长目标文本的挤压风险：`BattlePanel` 已加宽加高，`ObjectiveIcon` 改为 `AtlasTexture` 截取目标图标区域，避免把三联 SVG 整张压入单个图标位。
 - 当前状态：Stage 12 已完成完整运行态人工复核；最终 fresh 验证已通过：`godot --headless --path . --import` 通过，Stage 12 专项 GUT `9/9 passed`，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过；`project.godot` 中 Godot MCP 临时 autoload 注入已清理且当前无 `project.godot` diff。
-- 收口判断：Stage 12 已满足退出条件，可作为 Stage 13 的稳定前置基线合并回 `main`。
+- 收口判断：Stage 12 已满足退出条件，并已通过本地 merge commit `f00ab48` 合并回 `main`；主线最终验证通过，Stage 12 worktree / 本地阶段分支 / 旧 bridge 监听已清理，可作为 Stage 13 的稳定前置基线。
 
 ## Latest Update - 2026-04-26 Godot MCP Reopen Attempt
 
@@ -34,7 +34,7 @@ Last Updated: 2026-04-26
 
 ## Current Stage
 
-`阶段 12：资产管线与第一轮 Demo 表现升级（已完成，待合并回 main）`
+`阶段 12：资产管线与第一轮 Demo 表现升级（已完成并合并回 main）`
 
 > Update: 2026-04-26 `stage12` 已完成资产管线、第一批占位资产、玩家 / 敌人 / HUD / 门控 / checkpoint / 终点反馈、slash / hit spark 的首轮轻量可读性接入；不新增新区域、新核心玩法或大规模正式美术替换。完整运行态人工复核已覆盖主线、支线、挑战房、失败 / 重来、Demo 完成与重开入口；最终验证通过：`godot --headless --path . --import` 通过，Stage 12 专项 GUT `9/9 passed`，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过。
 
@@ -92,7 +92,7 @@ Last Updated: 2026-04-26
 - Stage 1-12 自动化验证通过
 - 人工复核与运行态证据已留痕，可支持 Stage 12 收口判断
 
-当前状态：以上条件已满足，Stage 12 已成为当前新的稳定阶段基线，待合并回 `main`。
+当前状态：以上条件已满足，Stage 12 已成为当前新的稳定主线基线。
 
 ## Asset Status
 
@@ -108,9 +108,8 @@ Last Updated: 2026-04-26
 
 当前 `main` 的下一步固定为：
 
-- 将 Stage 12 合并为新的稳定主线基线
-- 清理 Stage 12 worktree / 分支现场，避免后续误用过期开发环境
 - 按 Stage 12 建立的资产 manifest 与目录规范启动 Stage 13 preflight
+- Stage 13 若新增第二小区域资产，默认追加到 `docs/assets/asset-manifest.md`，不重建整套资产规划
 
 ## Current Defaults
 
@@ -122,7 +121,7 @@ Last Updated: 2026-04-26
 
 ## In Progress
 
-- `阶段 12：资产管线与第一轮 Demo 表现升级` 已完成，当前进入合并与 worktree 清理收口
+- `阶段 12：资产管线与第一轮 Demo 表现升级` 已完成、验证、合并并清理开发现场
 - 本轮采用 `分支 + worktree`
 - 本轮已固定的关键选择：
   - 资产强度：`规范 + 轻替换`
@@ -169,7 +168,6 @@ Last Updated: 2026-04-26
 
 ## Next Recommended Steps
 
-1. 将 `codex/stage-12-asset-pipeline-and-demo-polish` 合并回 `main`
-2. 在 `main` 上复跑 import、Stage 1-12 全量 GUT 与 `git diff --check`
-3. 清理 Stage 12 worktree 与本地阶段分支
-4. 进入 Stage 13 正式 preflight
+1. 进入 Stage 13 正式 preflight
+2. 继续沿用 `docs/assets/asset-manifest.md` 和 `docs/assets/asset-ingestion-checklist.md`
+3. 为第二小区域资产、房间和敌人需求追加条目，而不是重新规划资产体系

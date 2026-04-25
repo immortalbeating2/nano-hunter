@@ -3,6 +3,9 @@
 ## 2026-04-26
 
 - 复查 Stage 12 正式计划、实现计划、资产清单、人工复核记录与当前 diff 后，补齐 slash / hit spark 的运行时轻量接入，确认 Stage 12 已满足退出条件；`docs/progress/status.md` 已更新为“阶段 12 已完成，待合并回 main”，实现计划 checkbox 已标记完成。
+- 将 `codex/stage-12-asset-pipeline-and-demo-polish` 以“分支 + worktree”模式本地合并回 `main`，merge commit 为 `f00ab48`；本轮合并范围包含资产管线、轻量视觉资产、Stage 12 专项测试、项目级 `.codex/config.toml` 与进度文档。
+- 在 `main` 上完成 Stage 12 合并后最终验证：`godot --headless --path . --import` 通过，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过。
+- 清理 Stage 12 开发现场：`git worktree list` 仅剩主工作区，本地分支 `codex/stage-12-asset-pipeline-and-demo-polish` 已删除，`.worktrees/stage-12-asset-pipeline-and-demo-polish` 物理目录已删除，`6505-6509` 旧 bridge 监听已释放。
 - 使用恢复后的 Godot MCP 完成 Stage 12 完整运行态人工复核：从 `Main.tscn` 起点灰盒驱动到 `stage11_demo_end_room`，覆盖教程、战斗、目标房、Stage9 五房间、Stage10 主房、Stage10 挑战房与 Demo 终点。
 - 补充复核 Stage10 支线、挑战房、失败重试、Demo 完成与 replay 重开：支线恢复点 / 收集反馈成立，挑战房奖励反馈成立，终点房失败后回到终点 checkpoint，完成后可返回教程房重新开始。
 - 视觉复核发现 HUD 目标图标把三联 SVG 整张压入单图标位，并且长目标文本在 640x360 下有压字风险；已将 HUD 战斗面板加宽加高，并将 `ObjectiveIcon` 改为 `AtlasTexture` 截取单个目标图标区域。
