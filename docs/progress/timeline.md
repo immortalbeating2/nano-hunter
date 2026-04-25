@@ -13,6 +13,7 @@
 - 在 Stage 11 已收口到 `main` 后，新建 `codex/stage-12-16-roadmap` 分支，以“仅分支”模式补写后续路线设计，不额外创建 worktree；本轮只修改路线与进度文档，不进入 Stage 12 实现。
 - 新增 `spec-design/2026-04-25-stage-12-to-stage-16-roadmap.md`，正式固定 Stage 12-16 的大颗粒度路线：Demo 反馈与资产管线、第二小区域、回溯与能力门控、精英 / Boss 原型、Alpha Demo 打包候选。
 - 同步更新 `docs/progress/status.md` 与当日日志，明确 Stage 12 下一步应先做独立设计与 preflight，并把资产清单 / 资产目录规范作为 Stage 12 的优先入口。
+- 根据用户确认，将 Stage 12-16 路线升级为“加厚版”：每个阶段增加内容、资产、验证与 polish 量，同时新增阶段容量上限，避免因扩大范围重新回到频繁开 worktree 或阶段失控。
 
 ## 2026-04-24
 

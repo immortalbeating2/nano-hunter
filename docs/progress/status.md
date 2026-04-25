@@ -75,7 +75,7 @@ Last Updated: 2026-04-25
 
 ## Next Stage
 
-`阶段 12：Demo 反馈吸收与资产管线定型（待正式 preflight）`
+`阶段 12：资产管线与第一轮 Demo 表现升级（待正式 preflight）`
 
 ## Current Goal
 
@@ -126,10 +126,10 @@ Last Updated: 2026-04-25
 
 - 当前已形成一条可交付试玩 demo 的稳定主线
 - 后续路线已正式补为 Stage 12-16：
-  - `阶段 12：Demo 反馈吸收与资产管线定型`
+  - `阶段 12：资产管线与第一轮 Demo 表现升级`
   - `阶段 13：第二小区域内容生产`
   - `阶段 14：回溯与能力门控成型`
-  - `阶段 15：战斗深度与首个精英 / Boss 原型`
+  - `阶段 15：战斗高潮与首个精英 / Boss 原型`
   - `阶段 16：Alpha Demo 打包候选`
 - 路线总入口：
   - `spec-design/2026-04-25-stage-12-to-stage-16-roadmap.md`
