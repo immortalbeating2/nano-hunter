@@ -10,7 +10,10 @@ args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
 GODOT_MCP_PORT = "6505"
 
 [agents]
-max_threads = 4
+# 当前 Codex Desktop 的 multi_agent_v2 与显式 max_threads 存在兼容性冲突时，
+# 先保持 max_threads 注释，让 Codex 使用官方默认并发上限。
+# 项目执行层仍按 AGENTS.md 约束：单轮通常只启用 2-4 个最相关角色。
+# max_threads = 4
 max_depth = 1
 
 [agents.design]
