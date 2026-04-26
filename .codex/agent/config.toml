@@ -1,0 +1,22 @@
+# Nano Hunter project-level agent convention.
+# This file records the intended project policy even when the active runner
+# does not automatically enforce these keys.
+
+max_threads = 4
+max_depth = 1
+default_active_agents = 2
+recommended_active_agents = "2-4"
+
+roles = [
+  "design",
+  "architecture",
+  "gameplay",
+  "content",
+  "qa",
+  "production"
+]
+
+[limits]
+no_nested_subagents = true
+coordinator_owns_final_integration = true
+avoid_shared_core_file_edits = true

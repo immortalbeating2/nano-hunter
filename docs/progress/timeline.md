@@ -317,3 +317,12 @@
 - 修复：先补红测 `test_stage10_main_room_spawn_does_not_auto_request_optional_branch`，再将主房 `BranchZone` 从 `Vector2(-96, 96)` 上移到 `Vector2(-96, 24)`，让支路入口从“出生即命中”改回“需要玩家主动跳入”。
 - 人工复核：修复后主房不再自动切支路，真实 `jump / attack` 输入可在主房稳定触发；挑战房也已确认真实 `jump / attack / dash` 输入可进场。
 - 验证：`godot --headless --path . --import` 通过；Stage 1-10 GUT `64/64 passed`；`git diff --check` 通过。
+
+## 2026-04-26 - 项目级 agent 角色池配置
+
+- 分支：`codex/game-agent-role-config`
+- 模式：`仅分支`
+- 范围：新增 `.codex/agent/` 项目级角色池配置，并把 `AGENTS.md`、Stage 12-16 roadmap 与早期 agent / 节奏设计文档中的当前执行口径同步为 6 角色方案。
+- 当前默认参数：`max_threads = 4`、`max_depth = 1`；角色池为 `design`、`architecture`、`gameplay`、`content`、`qa`、`production`。
+- 影响：替代旧的“代理 A / B / C”默认拆分；历史阶段计划中的旧 Delegation Log 保留为历史记录，不回写重写。
+- 验证：本次只改项目治理配置和文档；最终以 `git diff --check` 收口。
