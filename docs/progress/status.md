@@ -5,10 +5,12 @@ Last Updated: 2026-04-27
 ## Latest Update - 2026-04-27 Governance, Plugin, Agent, Asset Cleanup
 
 - 当前项目级 agent 配置已从临时 `.codex/agent/` 迁入官方加载路径 `.codex/agents/`，并通过 `.codex/config.toml` 的 `[agents]` 注册。
+- 当前因 `multi_agent_v2` 与显式 `max_threads` 的本地兼容性冲突，`.codex/config.toml` 暂时注释 `max_threads = 4`，保留 `max_depth = 1`；项目执行层仍限制单轮通常只启用 `2-4` 个最相关角色。
 - 核心角色保留 `design`、`architecture`、`gameplay`、`content`、`qa`、`production`；基于本项目历史痛点新增按需专项角色 `godot_runtime` 与 `asset_direction`。
 - `AGENTS.md` 的注释约束已提升为“文档可阅读性”标准：重要代码段必须能通过文件头、分段注释与关键流程注释理解职责、原因和协作对象。
 - 插件策略已收紧：当前默认只启用 `godot_mcp` 与 `gut`；`DialogueManager` 与 `ControllerIcons` 不再作为项目 autoload 默认加载，其他已安装插件继续作为候选保留。
-- 新增资产生成与一致性规划文档，作为用户寻找 / 生成 / 替换资产的入口。
+- `spec-design/2026-03-23-nano-hunter-design.md` 已明确为总设计北极星；Stage 12-13 中的“实验室 / 生物废液区”视为灰盒偏移，后续资产和命名必须回归南北朝、镇妖卫、佛门符印、山海经妖物与东方水墨 / 工笔方向。
+- 新增资产生成与一致性规划文档，作为用户寻找 / 生成 / 替换资产的入口，并已按总设计方向重写。
 
 ## Latest Update - 2026-04-26 Project Agent Role Configuration
 

@@ -334,3 +334,11 @@
 - 范围：将项目级 agent 配置从 `.codex/agent/` 迁入官方加载路径 `.codex/agents/`，并在 `.codex/config.toml` 注册 `[agents]`；补充 `godot_runtime` 与 `asset_direction` 两个本项目专项角色。
 - 插件：从 `project.godot` 移除当前代码未引用的 `DialogueManager` 与 `ControllerIcons` autoload，降低进入 Godot 项目时的默认插件加载面。
 - 文档：提升 `AGENTS.md` 注释约束，新增插件盘点、Codex multi-agent 设置参考与资产生成规划入口。
+
+## 2026-04-27 - 总设计北极星与 multi-agent 配置口径纠偏
+
+- 分支：`codex/realign-design-agent-settings`
+- 模式：`仅分支`
+- 范围：根据用户反馈，将 `spec-design/2026-03-23-nano-hunter-design.md` 明确为总设计北极星，并修正资产 brief 中偏向现代生物实验室的方向。
+- Agent：区分 Codex `multi_agent_v2` 客户端功能开关与 `.codex/agents/` / `[agents]` subagent 配置；因当前本地冲突，暂时注释显式 `max_threads = 4`，保留 `max_depth = 1` 与项目执行层 `2-4` 并行约束。
+- 插件：补充已安装插件是否值得使用、当前不启用原因、后续可评估插件方向和历史报错原因。
