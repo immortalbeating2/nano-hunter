@@ -67,3 +67,17 @@ polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
 [node name="Stage12GoalArrow" type="Polygon2D" parent="GoalZone"]
 color = Color(0.517647, 0.941176, 0.670588, 0.85)
 polygon = PackedVector2Array(-20, -18, 20, 0, -20, 18, -8, 0)
+
+[node name="ContinueZone" type="Area2D" parent="."]
+position = Vector2(560, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContinueZone"]
+shape = SubResource("3")
+
+[node name="ContinueVisual" type="Polygon2D" parent="ContinueZone"]
+color = Color(0.564706, 0.784314, 0.737255, 0.35)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+
+[node name="Stage13ContinueArrow" type="Polygon2D" parent="ContinueZone"]
+color = Color(0.690196, 0.941176, 0.870588, 0.85)
+polygon = PackedVector2Array(-20, -18, 20, 0, -20, 18, -8, 0)

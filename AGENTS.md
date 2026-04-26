@@ -102,7 +102,7 @@
    - 正式阶段计划每次生成时，都必须同步写入根目录 `plan/`，不需要用户重复提醒
    - 若同一阶段曾生成过多份“正式开发计划”版本，则 `plan/` 中只保留最后确认的那一版
 4. 判定分支策略
-   - 阶段型开发默认 `分支 + worktree`
+   - 阶段型开发默认 `固定永久工作树 + 阶段分支`
    - 非阶段型但范围较大的任务默认 `仅分支`
 5. 实现
 6. 验证
@@ -136,8 +136,9 @@
   - 明确且低风险的小改动、纯工程整理、单点 bugfix 可以不专门使用
 - `worktree`
   - 小任务优先 `仅分支`
-  - 阶段型开发优先 `分支 + worktree`
-  - 需要长期保留 `main` 现场、隔离 Godot 编辑器现场或让 review / 子代理独立协作时必须用
+  - 阶段型开发优先复用固定永久工作树，并在该永久工作树内创建或切换对应 `codex/stage-*` 阶段分支
+  - 需要长期保留 `main` 现场、隔离 Godot 编辑器现场、保留 Godot 导入缓存 / MCP 连接现场，或让 review / 子代理独立协作时必须用固定永久工作树
+  - Codex 托管的临时 worktree 适合短任务、并行试验或一次性探索；若临时 worktree 里的工作需要长期保留、提交、push 或 PR，应先在该 worktree 中创建分支
 - 提交次数
   - 大功能默认不少于 2 次提交，除非整个任务极小且当天已完整收口
   - 小改动默认 1 次提交；一旦混入第二个目标，就拆提交或拆分支
@@ -216,12 +217,11 @@
 
 当前默认目标：
 
-- 当前 `main` 已完成并收口阶段 12，形成带资产管线与第一轮表现升级的可交付试玩 demo 基线
-- 下一阶段默认进入 `阶段 13：第二小区域内容生产`
-- 后续 Stage 12-16 采用更大颗粒度阶段，每个阶段默认一个 `codex/` 分支与一个 worktree
+- 当前 `main` 已完成并收口阶段 13，形成包含第二小区域 `生物废液区` 的 Alpha Demo 候选前置基线
+- 下一阶段默认进入 `阶段 14：回溯与能力门控成型`
+- 后续 Stage 12-16 采用更大颗粒度阶段；阶段型开发默认使用固定永久工作树，并在其中创建或切换一个对应的 `codex/` 阶段分支
 - Stage 12-16 的路线总入口为 `spec-design/2026-04-25-stage-12-to-stage-16-roadmap.md`
 - 后续实现不再默认扩散到完整商业版体量，而是围绕 Alpha Demo 候选逐步加厚：
-  - 第二小区域内容生产
   - 回溯与能力门控成型
   - 战斗高潮与首个精英 / Boss 原型
   - Alpha Demo 打包候选
@@ -300,17 +300,25 @@
 
 清理临时 autoload 后若还需要继续使用 MCP 运行态能力，应重新打开当前 worktree 的 Godot 编辑器并确认 MCP 已重新注入和连通。
 
-项目级配置只负责限制 MCP 的注册范围，不负责清理旧 bridge、关闭旧 Godot 编辑器、释放 `6505-6509` 端口或修复误连旧会话的问题。若后续 session 在新 worktree / 新会话进场时遇到 `godot_mcp` 联通异常、旧 bridge 端口残留、Godot 编辑器误连旧会话等问题，不要只依赖聊天上下文排障；应优先阅读：
+Godot MCP 人工复核默认在固定永久工作树中完成。Codex 会话必须从目标固定工作树启动，不能先在其他目录启动会话再 `cd` 过来并期待工具列表热更新；如果会话工具列表里没有 `mcp__godot_mcp_pro__`，需要从目标固定工作树新开会话。
 
-- `docs/dev/godot-mcp-pro-connectivity-guide.md`
+日常联通入口统一使用：
 
-该文档集中说明：
+```powershell
+.\scripts\dev\enter-worktree-godot-mcp.ps1
+```
 
-- 项目级 `.codex/config.toml` 与 bridge 生命周期的边界
-- `godot-mcp-pro` 的会话 / bridge / Godot 编辑器生命周期
-- `check / safe-repair / force-repair / open / enter-worktree` 五类排障脚本的适用场景
-- `RecommendedAction` 的判断含义
-- 何时只做安全重开，何时必须“重开会话后再 `-ForceKillBridge`”
+该脚本会根据 `RecommendedAction` 自动选择：已连接则不动现场；缺编辑器则打开当前固定工作树 Godot；编辑器断连则只重开当前固定工作树 Godot；旧 bridge 独占端口则停止并给出重开前清理提示。
+
+若脚本报告 `ReopenSessionThenForceKillBridge` 或 `Only stale bridge listeners were found`，并且已经明确准备重开 Codex，先确认本机没有其他正在使用 Godot MCP 的项目会话；当前 bridge 清理是全局停止 `godot-mcp-pro` bridge，不是按项目精确清理。确认后，会话重开前执行：
+
+```powershell
+.\scripts\dev\enter-worktree-godot-mcp.ps1 -ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions
+```
+
+然后从同一个固定工作树重新打开 Codex，再运行一次默认入口。不要采用“先重开 Codex、再清 bridge、再重开 Codex”的两跳流程。
+
+完整排障说明保留在 `docs/dev/godot-mcp-pro-connectivity-guide.md`。除非默认入口无法给出明确结论，否则不要把 `check / safe-repair / open / force-repair` 五类脚本当作日常手动流程。
 
 `better-terrain` 当前保留在仓库中，但在当前阶段不启用。之前的基线验证已经证明它在当前 Godot 4.6 环境下会引入解析和兼容性问题，后续如果重新启用，必须先重新验证。
 
@@ -363,10 +371,15 @@
 ## 分支与合并约定
 
 - `main` 只承载当前稳定、已验证、可试玩的主线结果，不直接作为默认开发分支使用
-- 任何会修改玩法、场景、脚本、测试、项目规范、核心配置，或预期超过一次小提交的工作，都应从最新 `main` 先开新分支再开发
-- 默认优先使用“仅分支”而不是额外创建 worktree；只要当前任务可以在单一工作目录中安全完成，就不额外增加 worktree
+- 本地稳定主工作区应尽量长期保持在 `main`，用于合并后验证和可试玩基线；不要把阶段分支长期 checkout 在主工作区上
+- 阶段型开发默认采用 `固定永久工作树 + 阶段分支`：固定永久工作树作为阶段开发现场，`main` 主工作区作为稳定现场
+- 固定永久工作树建议使用稳定、易识别的物理目录，例如与主工作区并列的 `nano-hunter-stage`；不要每个阶段都新建一个新的长期 worktree
+- 每个阶段开始时，在固定永久工作树中同步最新 `main`，再创建或切换对应的 `codex/stage-*` 分支；同一固定永久工作树同一时间只 checkout 一个阶段分支
+- 任何会修改玩法、场景、脚本、测试、项目规范、核心配置，或预期超过一次小提交的工作，都应从最新 `main` 先开新分支再开发；阶段型工作应在固定永久工作树中开该分支
+- 默认优先使用“仅分支”而不是额外创建临时 worktree；只要当前任务可以在单一工作目录中安全完成，就不额外增加 Codex 托管临时 worktree
 - 以下情况适合只开分支：文档修订、小范围 bugfix、单一目标的短任务、不会长时间占用 `main` 现场的实现
-- 以下情况应额外创建 worktree：阶段型开发、需要长期保留 `main` 的可试玩现场、需要并行推进多个独立任务、需要隔离 Godot 导入缓存或编辑器现场、需要让 review 或子代理在独立目录中协作
+- 以下情况应使用固定永久工作树：阶段型开发、需要长期保留 `main` 的可试玩现场、需要隔离 Godot 导入缓存或编辑器现场、需要稳定 Godot MCP 人工复核现场
+- 以下情况可额外创建 Codex 托管临时 worktree：短期并行探索、一次性 review、不会长期保留的试验、需要多个代理同时尝试互不相关方案
 - 只有极小、低风险、纯整理性质的改动才允许直接在 `main` 上处理；若存在任何范围扩张风险，仍应开分支
 - 新分支默认使用 `codex/` 前缀，并尽量让分支名直接对应当前阶段或目标，例如 `codex/stage-2-movement-feel`
 - 分支开发期间，`main` 继续保持可验证基线；不应把“尚未稳定的实验中间态”直接写到 `main`
@@ -378,40 +391,30 @@
   - 合并后 `main` 仍能直接试玩，或至少能稳定通过当前阶段验证
 - 不需要等 5 个阶段全部完成才合并；每当形成一个稳定、已验证、已留痕的阶段性检查点，就应考虑合并回 `main`
 - 阶段收口并合并回 `main` 后，若主线验证通过且用户没有明确要求暂缓远端同步，应默认 push 到 `origin/main`，并在当日日志记录远端同步结果；若 push 因网络或权限失败，也必须记录失败原因与下一步建议
-- 合并完成后，如无保留需求，应清理对应分支和 worktree，避免长期堆积过期开发环境
-- 阶段收口时，`6505-6509` 的旧 `godot-mcp-pro` bridge 监听检查是必须执行的检查项，不是可选经验项；清理目标应优先限定为当前阶段 / 当前 worktree 对应的旧 bridge 或其 Godot 编辑器连接，不默认释放所有 bridge
-- worktree 物理目录清理按以下顺序执行，不要跳步：
-  - 先检查 `6505-6509` 是否仍被 `godot-mcp-pro` bridge 监听，并结合当前 worktree 的 Godot 编辑器连接判断对应关系
-  - 若能确认某个 bridge 只服务当前待清理 worktree 或旧会话，先释放该 bridge；若无法归属且可能存在其他活跃 Godot MCP 会话，不要全量释放，必须先询问或等待明确授权
-  - 先定位所有直接指向该 worktree 路径的 Godot 编辑器 / 运行实例、VS Code、终端、资源管理器窗口及其他将其作为当前工作目录的进程
-  - 再关闭这些进程；若用户已明确授权，可直接代为关闭，不必重复确认
-  - 然后再删除 worktree 物理目录；Windows 下若路径较长，优先使用长路径方式删除
-  - 删除后必须同时复核 `git worktree list`、磁盘目录状态以及 `6505-6509` 监听状态；若仍有 bridge 监听，记录其是否属于其他活跃会话，而不是一律视为当前阶段清理失败
-- 阶段收口、关闭旧 worktree 或切换到新 session 后，还应确认当前阶段 / 当前 worktree 遗留的 `godot-mcp-pro` bridge 进程已退出；高置信度经验表明，若旧 bridge 持续占用 `6505-6509`，新开的 Godot 编辑器可能会连到旧会话，导致当前会话里的 `godot_mcp` 工具报 `Godot editor is not connected`
-- 若出现“Godot 已启动、`godot_mcp` 插件已注入临时 autoload，但当前会话 MCP 工具仍未连接”的组合现象，优先检查 `6505-6509` 的监听进程、启动时间与是否存在旧 `node.exe` bridge 残留，而不要先假设是当前 worktree 配置错误
-- 若已确认当前阶段 / 当前 worktree 对应的旧监听已释放，但 `godot_mcp` 仍未恢复，不要继续把问题只归因为“旧会话占端口”；下一步应按顺序执行：
-  - 先重开当前 AI 会话，让新的 `godot-mcp-pro` bridge 重新建立监听
-  - 再确认 `6505-6509` 是否出现新启动时间的 `node.exe`
-  - 然后重新打开当前 worktree 的 Godot 编辑器
-  - 最后立刻复测 `godot_mcp` 工具
-- 高置信度经验表明，只有“旧监听已释放 + 新会话 bridge 已监听 + 当前 Godot 编辑器已重开”三者同时满足时，`godot_mcp` 才会稳定恢复直连；缺任何一环都可能继续报 `Godot editor is not connected`
+- 合并完成后，如无保留需求，应删除对应阶段分支；固定永久工作树本身默认保留并同步回最新 `main`，不要像临时 worktree 一样删除
+- 若使用 Codex 托管临时 worktree 完成一次性任务，合并完成后应清理对应分支和临时 worktree，避免长期堆积过期开发环境
+- 阶段收口时，固定永久工作树默认保留；只清理阶段分支和不再需要的临时运行态现场，不像 Codex 托管临时 worktree 那样删除物理目录
+- 阶段收口时仍要检查 `6505-6509` 的 `godot-mcp-pro` bridge 状态，但默认只记录或关闭明确属于当前固定工作树的 Godot 编辑器；不要为了“收口干净”全量释放可能属于其他活跃会话的 bridge
+- 如果 `enter-worktree-godot-mcp.ps1` 报告 stale-only，且下一步本来就要重开 Codex，则先确认没有其他活跃 Godot MCP 项目会话；确认后运行 `.\scripts\dev\enter-worktree-godot-mcp.ps1 -ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions`，再从同一固定工作树重开 Codex
+- 如果使用 Codex 托管临时 worktree 完成一次性任务，清理前才需要执行物理目录删除流程：先关闭指向该临时 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，再删除临时 worktree，并复核 `git worktree list`、磁盘目录和 `6505-6509` 状态
+- 如果 Godot 编辑器和 bridge 已连通，但当前 Codex 会话没有 `mcp__godot_mcp_pro__` 工具入口，说明会话启动时没有加载项目级 MCP；应从目标固定工作树新开 Codex 会话，而不是继续在当前会话里反复重开 Godot
 
 ## 分支操作留痕约定
 
-- 任何重要分支操作都必须留痕，包括：从 `main` 开新分支、创建或清理 worktree、合并回 `main`、放弃分支
-- 每次留痕都应明确本次采用的是“仅分支”还是“分支 + worktree”，以及为什么这样选，避免后续 session 误判流程是否走偏
+- 任何重要分支操作都必须留痕，包括：从 `main` 开新分支、创建或同步固定永久工作树、创建或清理 Codex 托管临时 worktree、合并回 `main`、放弃分支
+- 每次留痕都应明确本次采用的是“仅分支”“固定永久工作树 + 阶段分支”还是“Codex 托管临时 worktree”，以及为什么这样选，避免后续 session 误判流程是否走偏
 - `docs/progress/timeline.md` 记录关键分支事件，至少写明：
   - 分支名
-  - 采用模式：`仅分支` 或 `分支 + worktree`
+  - 采用模式：`仅分支`、`固定永久工作树 + 阶段分支` 或 `Codex 托管临时 worktree`
   - 目标范围
   - 开始或合并日期
   - 关键提交或验证结果
 - `docs/progress/YYYY-MM-DD.md` 记录当天更细的分支操作，包括：
   - 为什么开分支或合并
-  - 为什么本次需要或不需要 worktree
+  - 为什么本次使用固定永久工作树、Codex 托管临时 worktree 或仅分支
   - 关联的设计文档与实现计划
   - 合并前后的验证结果
-  - worktree / 分支是否已经清理
+  - 固定永久工作树是否已同步回最新 `main`，或临时 worktree / 分支是否已经清理
 - 若当天涉及 worktree 清理，还应记录删除前是否已关闭对应 Godot / 终端 / 资源管理器窗口，以及若删除失败，最终确认的占用来源
 - 若某次开发未新开分支，而是直接在 `main` 上处理，也必须在当日日志里说明理由，避免后续 session 误判为漏走流程
 

@@ -12,6 +12,7 @@ const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
 const STEP_FINISH: StringName = &"finish"
 const STEP_COMPLETE: StringName = &"complete"
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
+const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_entry_room.tscn"
 const DEMO_END_SPAWN_ID: StringName = &"stage11_demo_end_start"
 
 const STEP_TITLES := {
@@ -26,11 +27,13 @@ const STEP_PROMPTS := {
 
 @onready var replay_zone: Area2D = $ReplayZone
 @onready var goal_zone: Area2D = $GoalZone
+@onready var continue_zone: Area2D = $ContinueZone
 
 var _player: CharacterBody2D
 var _current_step: StringName = STEP_FINISH
 var _goal_finished := false
 var _replay_requested := false
+var _continue_requested := false
 var _checkpoint_activated := false
 
 
@@ -56,6 +59,14 @@ func _process(_delta: float) -> void:
 	if _player.global_position.x <= replay_zone.global_position.x + 24.0:
 		_replay_requested = true
 		room_transition_requested.emit(TUTORIAL_ROOM_PATH, &"tutorial_start")
+		return
+
+	if _continue_requested:
+		return
+
+	if _player.global_position.x >= continue_zone.global_position.x - 24.0:
+		_continue_requested = true
+		room_transition_requested.emit(STAGE13_ENTRY_ROOM_PATH, &"stage13_entry_start")
 
 
 func bind_player(player: CharacterBody2D) -> void:
@@ -84,6 +95,10 @@ func get_hud_context() -> Dictionary:
 
 func should_reset_on_player_defeat() -> bool:
 	return true
+
+
+func is_demo_goal_finished() -> bool:
+	return _goal_finished
 
 
 func _activate_checkpoint() -> void:

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SporeShooterEnemyConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/configs/spore_shooter_enemy_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+touch_damage = 1
+projectile_range = 184.0
+spore_pressure_radius = 56.0
+pulse_interval = 1.4

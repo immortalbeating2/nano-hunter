@@ -35,7 +35,8 @@ func _ready() -> void:
 	_bind_enemy_signals()
 	_apply_gate_lock_state()
 	if checkpoint_on_ready and checkpoint_spawn_id != StringName():
-		activate_checkpoint()
+		# 动态换房时 Main 会在 add_child 之后立刻绑定信号；延后一帧可避免 ready 阶段的 checkpoint 信号被错过。
+		call_deferred("activate_checkpoint")
 	_emit_hud_context()
 
 

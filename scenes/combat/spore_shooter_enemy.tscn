@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/spore_shooter_enemy.gd" id="1"]
+[ext_resource type="Resource" path="res://scripts/configs/spore_shooter_enemy_config.tres" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage13_spore_shooter_silhouette.svg" id="3"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(28, 36)
+
+[sub_resource type="CircleShape2D" id="2"]
+radius = 30.0
+
+[node name="SporeShooterEnemy" type="StaticBody2D"]
+script = ExtResource("1")
+config = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("1")
+
+[node name="Body" type="Polygon2D" parent="."]
+position = Vector2(0, -18)
+color = Color(0.552941, 0.780392, 0.447059, 1)
+polygon = PackedVector2Array(-14, 14, -18, -6, 0, -26, 18, -6, 14, 14, 0, 24)
+
+[node name="Stage13Silhouette" type="Polygon2D" parent="."]
+position = Vector2(0, -18)
+color = Color(0.756863, 0.92549, 0.631373, 0.44)
+polygon = PackedVector2Array(-24, 10, -28, -12, -10, -30, 0, -18, 10, -30, 28, -12, 24, 10, 0, 30)
+
+[node name="Stage13AssetSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.22)
+position = Vector2(0, -18)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("3")
+
+[node name="SporePressureVisual" type="Polygon2D" parent="."]
+position = Vector2(0, -18)
+color = Color(0.694118, 0.929412, 0.560784, 0.18)
+polygon = PackedVector2Array(-56, 0, -40, -40, 0, -56, 40, -40, 56, 0, 40, 40, 0, 56, -40, 40)
+
+[node name="Stage12HitSpark" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(0, -18)
+color = Color(0.964706, 0.92549, 0.552941, 0.85)
+polygon = PackedVector2Array(-18, 0, -4, -4, 0, -18, 4, -4, 18, 0, 4, 4, 0, 18, -4, 4)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -18)
+monitoring = true
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("2")
