@@ -68,9 +68,9 @@ Last Updated: 2026-04-26
 
 ## Current Stage
 
-`阶段 13：第二小区域内容生产（已完成，待合并回 main）`
+`阶段 13：第二小区域内容生产（已完成并合并回 main）`
 
-> Update: 2026-04-26 `stage13` 已完成首轮实现与收口复核：第二小区域 `生物废液区` 已从 Stage 11/12 demo 终点后接入，覆盖 `10` 个主线房间、`2` 条小支路、`孢子投射敌`、废液 / 酸液危险、净化门控、区域 checkpoint、区域终点与 Stage 13 资产 manifest。最终验证记录为：`godot --headless --path . --import` 通过，Stage 13 GUT `9/9 passed`，Stage 1-13 全量 GUT `87/87 passed`，`git diff --check` 通过。本轮实际采用 `仅分支`，未额外创建阶段 worktree，并同时完成 Godot MCP 固定工作树流程相关脚本与文档调整。
+> Update: 2026-04-26 `stage13` 已完成首轮实现、收口复核并通过 merge commit 合并回 `main`：第二小区域 `生物废液区` 已从 Stage 11/12 demo 终点后接入，覆盖 `10` 个主线房间、`2` 条小支路、`孢子投射敌`、废液 / 酸液危险、净化门控、区域 checkpoint、区域终点与 Stage 13 资产 manifest。最终验证记录为：`godot --headless --path . --import` 通过，Stage 13 GUT `9/9 passed`，Stage 1-13 全量 GUT `87/87 passed`，`git diff --check` 通过。本轮实际采用 `仅分支`，未额外创建阶段 worktree，并同时完成 Godot MCP 固定工作树流程相关脚本与文档调整。
 
 ## Stage Goal
 
@@ -160,12 +160,12 @@ Last Updated: 2026-04-26
 
 ## Current Goal
 
-当前 `codex/stage-13-second-content-zone-production` 分支的目标是完成 Stage 13 收口并合并回 `main`：
+当前 `main` 的下一步固定为 Stage 14 preflight：
 
 - 本轮实际采用 `仅分支`，未额外创建阶段 worktree
 - 已完成 Stage 13 正式计划、设计文档、执行清单、资产 manifest、脚本与文档治理调整
 - 已完成最终验证：`godot --headless --path . --import`、Stage 13 GUT、Stage 1-13 全量 GUT 与 `git diff --check`
-- 下一步是提交 Stage 13 分支、合并回 `main`、在主线复验、更新默认目标并按规则同步远端
+- 下一步进入 `阶段 14：回溯与能力门控成型` 的正式 preflight，并按新规则使用固定永久工作树
 
 ## Current Defaults
 
@@ -177,7 +177,7 @@ Last Updated: 2026-04-26
 
 ## In Progress
 
-- `阶段 13：第二小区域内容生产` 当前已完成，待合并回 `main`
+- `阶段 13：第二小区域内容生产` 当前已完成并合并回 `main`
 - 本轮实际采用 `仅分支`，未额外创建阶段 worktree；这是本轮流程事实，后续 Stage 14 起按 `固定永久工作树 + 阶段分支` 新规则执行
 - 本轮已固定的关键选择：
   - 第二小区域主题：`生物废液区`
@@ -213,7 +213,7 @@ Last Updated: 2026-04-26
 
 ## Risks And Blockers
 
-- 当前主要剩余风险是 Stage 13 合并回 `main` 后的主线复验、远端同步，以及用户后续真人手感复核可能提出的节奏 / 可读性微调
+- 当前主要剩余风险是远端同步、Stage 14 preflight 前的固定永久工作树现场恢复，以及用户后续真人手感复核可能提出的节奏 / 可读性微调
 - `godot_mcp` 当前已被工程化留痕；后续人工复核应从目标固定永久工作树启动 Codex，并默认运行 `scripts/dev/enter-worktree-godot-mcp.ps1`
 - 当前主路径处于 Stage 13 阶段分支；收口合并后应恢复到 `main`，后续 Stage 14 起按固定永久工作树策略执行
 
@@ -231,6 +231,6 @@ Last Updated: 2026-04-26
 
 ## Next Recommended Steps
 
-1. 将 Stage 13 分支提交并合并回 `main`
-2. 在 `main` 上复跑 Stage 13 专项 GUT、Stage 1-13 全量 GUT、`godot --headless --path . --import` 与 `git diff --check`
-3. 合并验证通过后，推进默认目标到 `阶段 14：回溯与能力门控成型`，并按远端同步规则 push 到 `origin/main`
+1. 进入 Stage 14 正式 preflight
+2. 为回溯能力、能力门控、回溯收益点和导航提示补独立设计文档与正式阶段计划
+3. 按固定永久工作树策略准备 Stage 14 开发现场，并继续沿用 `docs/assets/asset-manifest.md`

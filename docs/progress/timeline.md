@@ -7,6 +7,7 @@
 - Stage 13 最终收口复核完成：新增 `tests/stage13/test_stage_13_manual_review_closure.gd`，用 headless Godot fallback 从 `Main.tscn` 驱动到 Stage 13，并覆盖主路径、两条支路、酸液反馈、checkpoint 恢复和净化门控。
 - Stage 13 收口复核发现并修复 checkpoint 时序问题：`checkpoint_on_ready` 在动态换房时可能早于 `Main` 绑定信号发出，导致 Stage13 压力房失败恢复回 Stage11 终点；现改为 `call_deferred("activate_checkpoint")`，复测通过。
 - Stage 13 收口 fresh 验证通过：`godot --headless --path . --import` 通过；Stage 13 GUT `9/9 passed`；Stage 1-13 全量 GUT `87/87 passed`；`git diff --check` 通过。
+- 将 `codex/stage-13-second-content-zone-production` 以“仅分支”模式本地合并回 `main`，merge commit 为 Stage 13 第二小区域收口点；本轮无阶段 worktree 需要清理，后续 Stage14 起恢复固定永久工作树策略。
 - Godot MCP 固定工作树流程精简：`enter-worktree-godot-mcp.ps1` 改为日常唯一入口，stale-only 场景改为重开 Codex 前先确认没有其他活跃 Godot MCP 会话，再执行 `-ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions` 清旧 bridge；`AGENTS.md` 与 `docs/dev/godot-mcp-pro-connectivity-guide.md` 已同步为固定永久工作树规则。
 - Stage 13 正式开发首轮实现落地：新增 `生物废液区` 10 个主线房间、2 条小支路、`SporeShooterEnemy`、废液 / 酸液危险、净化门控、Stage11 终点后的继续入口、Stage13 灰盒主路径测试与轻量占位资产。
 - Stage 13 首轮自动化验证通过：先以专项红测锁定 `生物废液区 + 10 房 + 2 支路` 契约，再推进到 Stage 13 专项 GUT `8/8 passed`；补 SVG 占位资产后全量 Stage 1-13 GUT `86/86 passed`。
