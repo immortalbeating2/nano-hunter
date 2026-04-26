@@ -2,6 +2,13 @@
 
 Last Updated: 2026-04-26
 
+## Latest Update - 2026-04-26 Project Agent Role Configuration
+
+- 项目级 agent 配置已落地到 `.codex/agent/`：新增 `config.toml`、角色池 README 与 6 个通用游戏项目角色说明。
+- 当前默认并行参数记录为 `max_threads = 4`、`max_depth = 1`；角色池包含 `design`、`architecture`、`gameplay`、`content`、`qa`、`production`，但单次任务默认只启用 `2-4` 个最相关角色。
+- `AGENTS.md` 已移除旧的“代理 A / B / C”默认拆分，并改为引用项目级角色池；Stage 12-16 roadmap 与早期 agent / 节奏设计文档已同步修订当前执行口径。
+- 本次只修改项目治理配置和文档，不改动玩法、场景、脚本、测试或 Godot 工程配置。
+
 ## Latest Update - 2026-04-26 Permanent Worktree Policy
 
 - 项目阶段型开发默认流程已修正为 `固定永久工作树 + 阶段分支`：本地稳定主工作区尽量保持在 `main`，阶段开发复用一个固定永久工作树，并在其中创建或切换 `codex/stage-*` 分支。
