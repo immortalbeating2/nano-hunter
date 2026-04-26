@@ -5,3 +5,6 @@
 type = "stdio"
 command = "cmd"
 args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
+
+[mcp_servers.godot-mcp-pro.env]
+GODOT_MCP_PORT = "6505"

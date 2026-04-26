@@ -2,19 +2,19 @@
 
 ## 目的
 
-这份文档用于解决 `nano-hunter` 在新 worktree / 新会话进场时，经常出现的 `godot_mcp` 联通问题，包括：
+本指南用于让 `nano-hunter` 的 Godot MCP 人工复核流程保持简单、可重复，尤其适配当前采用的“固定永久工作树 + 阶段分支”开发方式。
 
-- 项目级 `.codex/config.toml` 已加载，但 bridge / 编辑器仍未正确连通
-- 旧 `godot-mcp-pro` bridge 残留
-- `6505-6509` 端口被旧会话占用
-- 当前 worktree 的 Godot 编辑器连错 bridge
-- 当前 AI 会话的 bridge 已坏，但 Godot 仍连着旧桥
+它解决的是日常进场与少量排障问题：
 
-本指南的目标不是改变 `godot-mcp-pro` 的底层固定端口机制，也不是重新说明 MCP 如何安装；它只把“检查 / 修复 / 打开当前 worktree Godot 编辑器”的流程工程化。
+- Codex 会话是否从目标固定工作树启动
+- 项目级 `.codex/config.toml` 是否让本会话加载了 `godot-mcp-pro`
+- `godot-mcp-pro` bridge 是否监听 `6505-6509`
+- 当前固定工作树的 Godot 编辑器是否连到当前会话 bridge
+- 旧 bridge 占满端口时，如何避免“两次重开 Codex”
 
 ## 项目级配置边界
 
-当前仓库通过项目级 `.codex/config.toml` 注册 `godot-mcp-pro`：
+仓库通过项目级 `.codex/config.toml` 注册 `godot-mcp-pro`：
 
 ```toml
 [mcp_servers.godot-mcp-pro]
@@ -23,378 +23,107 @@ command = "cmd"
 args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
 ```
 
-这解决的是“Godot MCP 只在本项目 / worktree 会话中加载”，避免普通 Codex 会话全局启动 Godot bridge。
+这只决定“Codex 会话启动时是否挂载 Godot MCP 工具”。它不会在会话中途热更新工具列表，也不会自动清理旧 bridge 或重开 Godot 编辑器。
 
-它不解决：
+因此，Godot MCP 复核会话必须从目标固定工作树启动。不要先从别的目录启动 Codex，再 `cd` 到本项目并期待 `mcp__godot_mcp_pro__` 工具自动出现。
 
-- 旧 bridge 进程仍占用 `6505-6509`
-- 当前会话的 bridge 启动后没有抢到可用端口
-- Godot 编辑器连到了旧会话 bridge
-- worktree 切换后 Godot 编辑器仍打开旧路径
-- `project.godot` 中临时 MCP autoload 的清理节奏
+## 日常唯一入口
 
-因此，下面这些脚本仍然保留为“排障工具”，不是“配置工具”。
-
-## 先理解机制
-
-`godot_mcp` 的链路分成两层：
-
-1. AI 会话侧 `node.exe bridge`
-- 常见命令行：`godot-mcp-pro/server/build/index.js`
-- 负责监听 `6505-6509` 这组端口中的若干项
-- 这是“占端口”的那一侧
-
-2. Godot 编辑器侧
-- 插件启动后，会主动去连接这些 bridge 端口
-- Godot 通常不是监听端口的一方，而是连接 bridge 的客户端
-
-这意味着：
-
-- “只开 AI 会话，不开 Godot 编辑器”，也可能已经有 bridge 在监听端口
-- “Godot 已打开”不代表它一定连到了当前会话的 bridge
-- “清掉旧桥”也不自动意味着“新桥一定已经起来并被 Godot 消费”
-
-## 核心原则
-
-### 原则 1：先看状态，不要先猜
-
-默认先执行：
-
-```powershell
-.\scripts\dev\check-godot-mcp.ps1
-```
-
-它会输出：
-
-- 当前 worktree 路径
-- bridge 进程
-- `6505-6509` 监听
-- Godot 编辑器进程
-- 当前 worktree Godot 编辑器到 bridge 的已建立连接
-- `RecommendedAction`
-- `Reason`
-
-### 原则 2：默认不要清 bridge
-
-如果当前会话的 `godot_mcp` 可能还活着，默认不要直接清 bridge。
-
-因为一旦把“当前会话自己的 bridge”也一起清掉，当前会话里的 `godot_mcp` 很可能会进一步退化成：
-
-- `editor is not connected`
-- 或 `Transport closed`
-
-后者通常意味着当前会话很难自愈。
-
-### 原则 3：只有在会话已坏或准备重开时，才强制清 bridge
-
-适合使用强制桥接清理的场景：
-
-- 当前会话已经明显坏掉
-- `check` 明确建议 `ReopenSessionThenForceKillBridge`
-- 你准备重开 Codex 会话
-- 你已经确认没有其他活跃 Godot MCP 会话依赖这些 bridge
-
-如果只是阶段收口或 worktree 清理，优先关闭当前 worktree 的 Godot 编辑器，并释放能明确归属当前 worktree / 旧会话的 bridge。无法归属的监听不要默认全清，因为它可能属于另一个正在正常使用 Godot MCP 的会话。
-
-## 排障脚本总览
-
-### 1. `check-godot-mcp.ps1`
-
-路径：
-
-`scripts/dev/check-godot-mcp.ps1`
-
-用途：
-
-- 单纯检查当前 `godot_mcp` 状态
-- 给出推荐动作
-
-推荐场景：
-
-- 每次新 worktree 进场前先跑一次
-- `godot_mcp` 突然不通时先判断
-
-示例：
-
-```powershell
-.\scripts\dev\check-godot-mcp.ps1
-```
-
-### 2. `safe-repair-godot-mcp.ps1`
-
-路径：
-
-`scripts/dev/safe-repair-godot-mcp.ps1`
-
-用途：
-
-- 默认只关闭“当前 worktree”的 Godot 编辑器
-- 默认只报告 bridge，不会杀 bridge
-- 只有显式 `-ForceKillBridge` 才会清 bridge
-
-推荐场景：
-
-- 当前会话可能还活着
-- 想先保守修复编辑器现场
-
-示例：
-
-```powershell
-.\scripts\dev\safe-repair-godot-mcp.ps1
-```
-
-预演：
-
-```powershell
-.\scripts\dev\safe-repair-godot-mcp.ps1 -DryRun
-```
-
-仅在明确需要时强制清 bridge：
-
-```powershell
-.\scripts\dev\safe-repair-godot-mcp.ps1 -ForceKillBridge
-```
-
-### 3. `force-repair-godot-mcp.ps1`
-
-路径：
-
-`scripts/dev/force-repair-godot-mcp.ps1`
-
-用途：
-
-- 强制关闭当前 worktree Godot 编辑器
-- 强制清掉全部 `godot-mcp-pro` bridge
-
-定位：
-
-- 危险工具
-- 不作为默认入口
-- 会影响其他正在使用 Godot MCP 的会话
-
-只适合：
-
-- 当前会话已坏
-- 或你明确准备重开会话
-- 或用户明确授权释放全部 bridge
-
-示例：
-
-```powershell
-.\scripts\dev\force-repair-godot-mcp.ps1
-```
-
-### 4. `open-worktree-godot.ps1`
-
-路径：
-
-`scripts/dev/open-worktree-godot.ps1`
-
-用途：
-
-- 在当前 worktree 路径上用 `-e --path` 打开 Godot 编辑器
-- 打开后输出当前 bridge / editor / established connections 状态
-
-推荐场景：
-
-- 你已经确认 bridge 状态正常
-- 只想重开当前 worktree 的 Godot 编辑器
-
-示例：
-
-```powershell
-.\scripts\dev\open-worktree-godot.ps1
-```
-
-### 5. `enter-worktree-godot-mcp.ps1`
-
-路径：
-
-`scripts/dev/enter-worktree-godot-mcp.ps1`
-
-用途：
-
-- 串起：
-  1. `check`
-  2. `safe-repair`
-  3. `open`
-
-定位：
-
-- 新 worktree / 新 stage 需要 Godot MCP 运行态复核时的诊断入口
-- 它不负责注册 MCP；注册入口是项目级 `.codex/config.toml`
-
-示例：
+日常只运行：
 
 ```powershell
 .\scripts\dev\enter-worktree-godot-mcp.ps1
 ```
 
-预演：
+该脚本会读取当前状态并自动选择动作：
+
+- `AlreadyConnected`：已连通，不动现场，直接继续 MCP 复核
+- `SafeOpenEditor`：当前会话 bridge 存在，打开当前固定工作树 Godot 编辑器
+- `SafeReopenEditor`：当前会话 bridge 存在，只重开当前固定工作树 Godot 编辑器
+- `ReopenSessionThenForceKillBridge`：只有旧 bridge 占端口，停止自动动作并提示重开前清理
+- `InspectManually`：状态混杂，不自动修复，转入诊断
+
+只想观察而不打开 / 关闭编辑器时：
 
 ```powershell
 .\scripts\dev\enter-worktree-godot-mcp.ps1 -DryRun
 ```
 
-仅在当前会话已坏、且你准备重开会话时：
+## stale-only 的正确处理
+
+如果脚本报告 `ReopenSessionThenForceKillBridge`、`Only stale bridge listeners were found` 或等价 stale-only 状态，并且你已经准备重开 Codex，先确认本机没有其他正在使用 Godot MCP 的项目会话。
+
+`godot-mcp-pro` bridge 使用固定端口组，当前脚本无法可靠地把无编辑器连接的旧 bridge 精确归属到某个项目；真正清理 bridge 时会停止本机全部 `godot-mcp-pro/server/build/index.js` bridge 进程。因此，如果还有其他项目 / worktree 的 Godot MCP 会话正在使用，清理会中断它们。
+
+确认没有其他活跃 Godot MCP 会话后，再执行：
 
 ```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1 -ForceKillBridge
+.\scripts\dev\enter-worktree-godot-mcp.ps1 -ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions
 ```
 
-## 推荐动作说明
-
-`check-godot-mcp.ps1` 会给出 `RecommendedAction`。
-
-### `AlreadyConnected`
-
-含义：
-
-- 当前 worktree Godot 编辑器已经连上 bridge
-- 而且存在疑似当前会话的 bridge 批次
-
-动作：
-
-- 不必修复，直接继续工作
-
-### `SafeOpenEditor`
-
-含义：
-
-- 当前会话 bridge 看起来已经存在
-- 但当前 worktree 还没有打开 Godot 编辑器
-
-动作：
+然后从同一个固定工作树重开 Codex 会话，再执行一次默认入口：
 
 ```powershell
 .\scripts\dev\enter-worktree-godot-mcp.ps1
 ```
 
-### `SafeReopenEditor`
+这样可以避免错误顺序：
 
-含义：
+1. 先重开 Codex
+2. 再清旧 bridge
+3. 清桥导致当前会话 transport 关闭
+4. 被迫再重开 Codex
 
-- 当前 worktree 的 Godot 编辑器已经开了
-- 但没有建立 bridge 连接
-- 同时看起来存在当前会话 bridge
+正确顺序是：
 
-动作：
+1. stale-only 且准备重开时，确认没有其他活跃 Godot MCP 会话
+2. 执行 `-ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions`
+3. 重开 Codex
+4. 默认入口打开 / 重开 Godot 编辑器
+5. 立刻用 MCP 工具复测
 
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1
-```
+## 工具入口缺失
 
-### `ReopenSessionThenForceKillBridge`
+如果本机 bridge 和 Godot 编辑器已经连上，但当前 Codex 对话没有 `mcp__godot_mcp_pro__` 工具入口，这不是 Godot 编辑器问题，而是会话启动时没有挂载项目级 MCP。
 
-含义：
+处理方式：
 
-- 当前 worktree Godot 编辑器只连到了“疑似旧桥”
-- 或当前系统里只剩旧桥，没有当前桥
+1. 确认当前物理目录是目标固定工作树
+2. 从该固定工作树新开 Codex 会话
+3. 新会话中先运行默认入口脚本
 
-动作：
+普通脚本无法让已经启动的 Codex 会话热加载新的 MCP 工具。
 
-1. 结束当前坏会话
-2. 重开 Codex 会话
-3. 再执行：
+## 辅助脚本定位
 
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1 -ForceKillBridge
-```
+日常入口：
 
-注意：
+- `enter-worktree-godot-mcp.ps1`
 
-- 不建议在当前仍活着的会话里直接强清 bridge
-- 因为这可能顺手把“当前会话自己的 bridge”也一起清掉
-- 如果机器上还有其他 Godot MCP 会话正在使用 `6505-6509`，强清也会中断它们
-
-### `InspectManually`
-
-含义：
-
-- 当前 bridge / editor / connections 状态混杂
-- 脚本不想替你做过度自信的决策
-
-动作：
-
-- 先看 `check` 输出的几张表
-- 再决定用安全模式还是重开会话后强清
-
-## 新 worktree 进场推荐顺序
-
-### 正常场景
-
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1
-```
-
-### 先观察，不动现场
-
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1 -DryRun
-```
-
-### 当前会话已坏，准备彻底重置桥接
-
-先重开 Codex 会话，再执行：
-
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1 -ForceKillBridge
-```
-
-## 常见误区
-
-### 误区 1：只要打开会话就一定会占满 5 个端口
-
-不是。
-
-更准确地说：
-
-- 会话启动后，可能会拉起一批 bridge
-- 它们会尝试占用 `6505-6509` 中的若干端口
-- 不保证每次都 5 个全占满
-
-### 误区 2：Godot 编辑器才是占端口的一方
-
-不是。
-
-更常见的是：
-
-- `node.exe bridge` 在监听端口
-- Godot 编辑器去连接这些端口
-
-### 误区 3：清掉旧桥就一定恢复
-
-不是。
-
-恢复联通通常至少要同时满足：
-
-1. 旧桥已经释放
-2. 当前会话的新桥已经起来
-3. Godot 编辑器是在新桥起来之后重新打开的
-
-## 当前工具集建议
-
-日常保留并使用：
+只读诊断：
 
 - `check-godot-mcp.ps1`
-- `enter-worktree-godot-mcp.ps1`
+
+高级排障，非日常默认流程：
+
 - `safe-repair-godot-mcp.ps1`
 - `open-worktree-godot.ps1`
-- `godot-mcp-common.ps1`
-
-危险工具，仅在明确场景下使用：
-
 - `force-repair-godot-mcp.ps1`
 
-阶段收口时的推荐判断：
+共用函数：
 
-- 能定位到当前 worktree 的 Godot 编辑器连接：只清理该 worktree 相关进程与对应旧 bridge
-- 只能看到 bridge 监听但无法判断归属：记录状态并询问，不默认释放全部 bridge
-- 确认旧会话已废弃、当前会话已坏或用户授权：才允许 `-ForceKillBridge` / `force-repair`
+- `godot-mcp-common.ps1`
 
-## 维护建议
+除非默认入口无法给出明确动作，否则不要把这些辅助脚本串成手动五段流程。
 
-如果后续这套流程还会继续扩展，建议优先继续做：
+## 阶段收口注意
 
-- 让 `enter-worktree-godot-mcp.ps1` 在 `RecommendedAction = ReopenSessionThenForceKillBridge` 时直接停止并给出提醒
-- 在后续新阶段文档里统一引用本指南，而不是重复写一遍桥接排障经验
+固定永久工作树本身默认保留，不按临时 worktree 删除。阶段收口时只需要：
+
+- 确认当前阶段验证完成
+- 记录 Godot MCP 连接状态
+- 关闭不再需要的运行中游戏实例
+- 必要时关闭当前固定工作树 Godot 编辑器
+- 不默认全量释放 `6505-6509`，除非能确认它们属于废弃会话，或用户明确要求清理
+
+Codex 托管临时 worktree 才需要额外执行物理目录删除、`git worktree list` 复核和进程占用清理。

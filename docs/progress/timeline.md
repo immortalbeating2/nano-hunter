@@ -2,6 +2,21 @@
 
 ## 2026-04-26
 
+- 修正阶段型开发默认工作树策略：后续默认采用 `固定永久工作树 + 阶段分支`，主工作区保持 `main` 稳定现场，固定永久工作树复用为阶段开发与 Godot MCP 人工复核现场；Codex 托管临时 worktree 仅用于短期并行探索或一次性任务。
+- 记录 Stage13 流程偏差：本轮实际在主路径上切到 `codex/stage-13-second-content-zone-production` 分支开发，而不是独立固定永久工作树；后续 Stage14 起应恢复规范结构。
+- Stage 13 最终收口复核完成：新增 `tests/stage13/test_stage_13_manual_review_closure.gd`，用 headless Godot fallback 从 `Main.tscn` 驱动到 Stage 13，并覆盖主路径、两条支路、酸液反馈、checkpoint 恢复和净化门控。
+- Stage 13 收口复核发现并修复 checkpoint 时序问题：`checkpoint_on_ready` 在动态换房时可能早于 `Main` 绑定信号发出，导致 Stage13 压力房失败恢复回 Stage11 终点；现改为 `call_deferred("activate_checkpoint")`，复测通过。
+- Stage 13 收口 fresh 验证通过：`godot --headless --path . --import` 通过；Stage 13 GUT `9/9 passed`；Stage 1-13 全量 GUT `87/87 passed`；`git diff --check` 通过。
+- Godot MCP 固定工作树流程精简：`enter-worktree-godot-mcp.ps1` 改为日常唯一入口，stale-only 场景改为重开 Codex 前先确认没有其他活跃 Godot MCP 会话，再执行 `-ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions` 清旧 bridge；`AGENTS.md` 与 `docs/dev/godot-mcp-pro-connectivity-guide.md` 已同步为固定永久工作树规则。
+- Stage 13 正式开发首轮实现落地：新增 `生物废液区` 10 个主线房间、2 条小支路、`SporeShooterEnemy`、废液 / 酸液危险、净化门控、Stage11 终点后的继续入口、Stage13 灰盒主路径测试与轻量占位资产。
+- Stage 13 首轮自动化验证通过：先以专项红测锁定 `生物废液区 + 10 房 + 2 支路` 契约，再推进到 Stage 13 专项 GUT `8/8 passed`；补 SVG 占位资产后全量 Stage 1-13 GUT `86/86 passed`。
+- Stage 13 排障记录：首轮全量 GUT 曾因新 SVG 资产尚未执行 Godot import 导致 `spore_shooter_enemy.tscn` 的 Texture2D 资源加载失败；运行 `godot --headless --path . --import` 生成 `.import` 后复测全绿。
+
+- 从最新 `main` fast-forward 当前 `codex/stage-13-second-content-zone-production` 分支，确认 Stage 13 preflight 以 Stage 12 已合并的稳定 demo 基线为前置；本轮实际采用 `仅分支`，未额外创建阶段 worktree。
+- 启动 `阶段 13：第二小区域内容生产` 正式文档设计：新增 `spec-design/2026-04-26-stage-13-second-content-zone-production-design.md`、`docs/implementation-plans/2026-04-26-stage-13-second-content-zone-production.md` 与 `plan/2026-04-26-stage-13-second-content-zone-production.md`。
+- Stage 13 范围固定为 `生物废液区 + 10 个主线房间 + 2 条小支路`，新增第 4 类敌人 `孢子投射敌`、区域危险 `废液池 / 酸液地形` 与区域门控 `净化门控`；本轮为 preflight 文档落地，不进入玩法实现。
+- 追加 Stage 13 资产需求到 `docs/assets/asset-manifest.md`：`biome_02_bio_waste`、废液平台 / 背景、净化门 / 节点、孢子投射敌轮廓、废液危险提示与区域终点装置。
+- 完成 Stage 13 preflight fresh baseline：Godot MCP dry-run 输出 `SafeOpenEditor`，`godot --headless --path . --import` 通过，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过。
 - 复查 Stage 12 正式计划、实现计划、资产清单、人工复核记录与当前 diff 后，补齐 slash / hit spark 的运行时轻量接入，确认 Stage 12 已满足退出条件；`docs/progress/status.md` 已更新为“阶段 12 已完成，待合并回 main”，实现计划 checkbox 已标记完成。
 - 将 `codex/stage-12-asset-pipeline-and-demo-polish` 以“分支 + worktree”模式本地合并回 `main`，merge commit 为 `f00ab48`；本轮合并范围包含资产管线、轻量视觉资产、Stage 12 专项测试、项目级 `.codex/config.toml` 与进度文档。
 - 在 `main` 上完成 Stage 12 合并后最终验证：`godot --headless --path . --import` 通过，Stage 1-12 全量 GUT `78/78 passed`，`git diff --check` 通过。
