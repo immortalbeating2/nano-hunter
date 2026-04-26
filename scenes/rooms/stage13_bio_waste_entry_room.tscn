@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(512, 32)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(96, 128)
+
+[node name="Stage13BioWasteEntryRoom" type="Node2D"]
+script = ExtResource("1")
+next_room_path = "res://scenes/rooms/stage13_bio_waste_spore_room.tscn"
+next_spawn_id = &"stage13_spore_start"
+checkpoint_spawn_id = &"stage13_entry_start"
+checkpoint_on_ready = true
+default_step_id = &"stage13_entry"
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.0705882, 0.121569, 0.0941176, 1)
+polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-304, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(96, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("2")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+color = Color(0.188235, 0.317647, 0.231373, 1)
+polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(544, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("3")
+
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
+color = Color(0.564706, 0.784314, 0.737255, 0.25)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)

@@ -12,6 +12,7 @@ const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
 const STAGE10_BRANCH_ROOM_PATH := "res://scenes/rooms/stage10_zone_branch_room.tscn"
 const STAGE10_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
 const STAGE11_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
+const STAGE13_ROOM_PREFIX := "res://scenes/rooms/stage13_"
 
 const INPUT_BINDINGS := {
 	"move_left": [KEY_A, KEY_LEFT],
@@ -247,6 +248,9 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 # Demo 主链路的目标文案只做“当前处于哪个关键节点”的最小收束，
 # 不把它扩成另一层配置系统。
 func _get_demo_goal_text() -> String:
+	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
+		return "主目标：探索生物废液区并抵达第二小区域终点"
+
 	if _is_demo_completed:
 		return "Demo 已完成：可向左返回并重开试玩"
 
@@ -265,6 +269,9 @@ func _get_demo_goal_text() -> String:
 
 
 func _get_demo_goal_hint_text() -> String:
+	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
+		return "提示：留意酸液、孢子投射敌和净化门控"
+
 	if _is_demo_completed:
 		return "提示：向左回到重开入口后，可从教程重新开始"
 

@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(512, 32)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(24, 128)
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(96, 128)
+
+[node name="Stage13BioWasteGateRoom" type="Node2D"]
+script = ExtResource("1")
+next_room_path = "res://scenes/rooms/stage13_bio_waste_crossfire_room.tscn"
+next_spawn_id = &"stage13_crossfire_start"
+default_step_id = &"stage13_gate"
+cleared_step_id = &"stage13_purified"
+purification_gate = true
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.0901961, 0.121569, 0.109804, 1)
+polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-304, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(96, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("2")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+color = Color(0.203922, 0.286275, 0.247059, 1)
+polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
+
+[node name="PurificationNode" type="Marker2D" parent="."]
+position = Vector2(144, 112)
+
+[node name="GateBarrier" type="StaticBody2D" parent="."]
+position = Vector2(392, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier"]
+shape = SubResource("3")
+
+[node name="BarrierVisual" type="Polygon2D" parent="GateBarrier"]
+color = Color(0.776471, 0.321569, 0.262745, 1)
+polygon = PackedVector2Array(-12, -64, 12, -64, 12, 64, -12, 64)
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(544, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("4")
+
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
+color = Color(0.564706, 0.784314, 0.737255, 0.25)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
