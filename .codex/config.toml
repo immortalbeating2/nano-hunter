@@ -8,3 +8,39 @@ args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
 
 [mcp_servers.godot-mcp-pro.env]
 GODOT_MCP_PORT = "6505"
+
+[agents]
+max_threads = 4
+max_depth = 1
+
+[agents.design]
+config_file = "agents/design.toml"
+description = "玩法设计、阶段边界、正式阶段计划与设计文档。"
+
+[agents.architecture]
+config_file = "agents/architecture.toml"
+description = "核心结构、共享契约、工程目录和跨系统接口。"
+
+[agents.gameplay]
+config_file = "agents/gameplay.toml"
+description = "玩家、战斗、敌人、能力、门控等可玩逻辑。"
+
+[agents.content]
+config_file = "agents/content.toml"
+description = "房间、区域、遭遇、资产接入与内容配置。"
+
+[agents.qa]
+config_file = "agents/qa.toml"
+description = "GUT、验证清单、运行态复核与回归风险。"
+
+[agents.production]
+config_file = "agents/production.toml"
+description = "AGENTS、进度文档、流程治理、收口、发布和远端同步记录。"
+
+[agents.godot_runtime]
+config_file = "agents/godot_runtime.toml"
+description = "Godot 编辑器、MCP、插件、导入缓存、运行态复核与启动报错排查。"
+
+[agents.asset_direction]
+config_file = "agents/asset_direction.toml"
+description = "资产风格一致性、提示词、资产清单、替换优先级与授权记录。"

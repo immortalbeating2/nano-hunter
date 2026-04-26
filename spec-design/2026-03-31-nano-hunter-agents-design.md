@@ -203,10 +203,11 @@
 - 适合 `multi-agent` 的工作包括：按文件或目录明确分工的并行实现，例如场景、玩家脚本、HUD、验证文档分别推进
 - 以下情况不应委派或不应并行：需求未收敛、核心设计仍在变化、多个任务会改同一批文件、当前下一步强依赖单个结果、单点调试尚未定位
 - 主代理始终负责设计确认、任务拆分、结果整合、最终验证和对用户交付；子代理只负责被分配的局部任务
-- 2026-04-26 起，项目已将可复用 agent 角色池写入 `.codex/agent/`，并在 `AGENTS.md` 中固定当前生效规则
-- 当前角色池采用 6 类通用游戏项目角色：`design`、`architecture`、`gameplay`、`content`、`qa`、`production`
+- 2026-04-27 起，项目已将可复用 agent 角色池迁入官方加载路径 `.codex/agents/`，并通过 `.codex/config.toml` 的 `[agents]` 注册
+- 当前核心角色采用 6 类通用游戏项目角色：`design`、`architecture`、`gameplay`、`content`、`qa`、`production`
+- 当前额外保留 2 个本项目专项角色：`godot_runtime`、`asset_direction`
 - 并行上限默认 `max_threads = 4`、层级上限默认 `max_depth = 1`；角色池固定不等于每个任务都要全量启用
-- 本文档保留早期“暂不固定 roster”的设计背景；当前执行口径以 `AGENTS.md` 与 `.codex/agent/` 为准
+- 本文档保留早期“暂不固定 roster”的设计背景；当前执行口径以 `AGENTS.md`、`.codex/config.toml` 与 `.codex/agents/` 为准
 
 为了确保追溯性，不单独新建复杂的委派文档体系，而是在 `docs/progress/YYYY-MM-DD.md` 中按需增加 `Delegation Log` 小节。
 
