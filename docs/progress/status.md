@@ -1,10 +1,18 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-26
+Last Updated: 2026-04-27
+
+## Latest Update - 2026-04-27 Governance, Plugin, Agent, Asset Cleanup
+
+- 当前项目级 agent 配置已从临时 `.codex/agent/` 迁入官方加载路径 `.codex/agents/`，并通过 `.codex/config.toml` 的 `[agents]` 注册。
+- 核心角色保留 `design`、`architecture`、`gameplay`、`content`、`qa`、`production`；基于本项目历史痛点新增按需专项角色 `godot_runtime` 与 `asset_direction`。
+- `AGENTS.md` 的注释约束已提升为“文档可阅读性”标准：重要代码段必须能通过文件头、分段注释与关键流程注释理解职责、原因和协作对象。
+- 插件策略已收紧：当前默认只启用 `godot_mcp` 与 `gut`；`DialogueManager` 与 `ControllerIcons` 不再作为项目 autoload 默认加载，其他已安装插件继续作为候选保留。
+- 新增资产生成与一致性规划文档，作为用户寻找 / 生成 / 替换资产的入口。
 
 ## Latest Update - 2026-04-26 Project Agent Role Configuration
 
-- 项目级 agent 配置已落地到 `.codex/agent/`：新增 `config.toml`、角色池 README 与 6 个通用游戏项目角色说明。
+- 项目级 agent 配置曾落地到 `.codex/agent/`；2026-04-27 已迁入官方 `.codex/agents/` 路径。
 - 当前默认并行参数记录为 `max_threads = 4`、`max_depth = 1`；角色池包含 `design`、`architecture`、`gameplay`、`content`、`qa`、`production`，但单次任务默认只启用 `2-4` 个最相关角色。
 - `AGENTS.md` 已移除旧的“代理 A / B / C”默认拆分，并改为引用项目级角色池；Stage 12-16 roadmap 与早期 agent / 节奏设计文档已同步修订当前执行口径。
 - 本次只修改项目治理配置和文档，不改动玩法、场景、脚本、测试或 Godot 工程配置。

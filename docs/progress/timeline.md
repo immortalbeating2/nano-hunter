@@ -326,3 +326,11 @@
 - 当前默认参数：`max_threads = 4`、`max_depth = 1`；角色池为 `design`、`architecture`、`gameplay`、`content`、`qa`、`production`。
 - 影响：替代旧的“代理 A / B / C”默认拆分；历史阶段计划中的旧 Delegation Log 保留为历史记录，不回写重写。
 - 验证：本次只改项目治理配置和文档；最终以 `git diff --check` 收口。
+
+## 2026-04-27 - 项目治理、插件、资产与 agent 配置修正
+
+- 分支：`codex/project-governance-plugin-assets`
+- 模式：`仅分支`
+- 范围：将项目级 agent 配置从 `.codex/agent/` 迁入官方加载路径 `.codex/agents/`，并在 `.codex/config.toml` 注册 `[agents]`；补充 `godot_runtime` 与 `asset_direction` 两个本项目专项角色。
+- 插件：从 `project.godot` 移除当前代码未引用的 `DialogueManager` 与 `ControllerIcons` autoload，降低进入 Godot 项目时的默认插件加载面。
+- 文档：提升 `AGENTS.md` 注释约束，新增插件盘点、Codex multi-agent 设置参考与资产生成规划入口。
