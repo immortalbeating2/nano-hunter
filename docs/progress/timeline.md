@@ -366,3 +366,5 @@
 - 玩法：空中冲刺默认锁定，获得能力后空中可使用一次 dash，落地恢复；`Main` 持有解锁状态并在房间切换后注入玩家。
 - 内容：新增 `stage14_air_dash_shrine_room`、`stage14_air_dash_gate_room`、`stage14_backtrack_hub_room`、`stage14_loop_return_room`，并记录 `3` 个回溯收益点。
 - 文档：新增 Stage14 设计、实现计划、执行清单，并追加 Stage14 资产 manifest 需求。
+- 收口：Stage14 分支已提交并合并回 `main`；主线基线推进到“阶段 14 已完成，下一阶段 Stage 15 preflight”。
+- 验证：`git diff --check` 通过；`godot --headless --path . --import` 通过；Stage14 GUT `9/9 passed`、Stage 1-14 全量 GUT `96/96 passed`。

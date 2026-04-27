@@ -11,6 +11,7 @@ Last Updated: 2026-04-27
 - HUD 增加 Stage 14 能力 / 回溯收益状态行，资产 manifest 追加 Air Dash 图标、能力装置、能力门和回溯收益点需求。
 - 新增 Stage14 专项 GUT，覆盖能力默认锁定、空中一次性 dash、落地恢复、房间切换保留、能力门、3 个收益点、Stage13 接入与灰盒主线回环。
 - 已补做 Godot MCP 运行态复核，并按复核结果修正 Stage14 出生地板覆盖与 HUD Stage14 显示优先级。
+- Stage 14 已合并回 `main` 并完成主线收口，下一阶段默认进入 Stage 15 精英 / Boss 原型 preflight。
 
 ## Latest Update - 2026-04-27 Developed Stage Comment Readability Pass
 
@@ -110,9 +111,9 @@ Last Updated: 2026-04-27
 
 ## Current Stage
 
-`阶段 14：回溯与能力门控成型（首轮实现中）`
+`阶段 14：回溯与能力门控成型（已完成并合并回 main）`
 
-> Update: 2026-04-27 Stage 14 已从 Stage 13 终点接入首轮灰盒实现：获得 `Air Dash / 空中二段冲刺` 后，可打开第一道能力门，回访并收集 `3` 个回溯收益点，再进入主线回环房。当前阶段在固定永久工作树 `C:\Users\peng8\.codex\worktrees\ffc3\nano-hunter` 的 `codex/stage-14-backtracking-ability-gating` 分支上开发。
+> Update: 2026-04-27 Stage 14 已完成收口并合并回 `main`：获得 `Air Dash / 空中二段冲刺` 后，可打开第一道能力门，回访并收集 `3` 个回溯收益点，再进入主线回环房。阶段分支为 `codex/stage-14-backtracking-ability-gating`，开发现场采用固定永久工作树。
 
 ## Stage Goal
 
@@ -160,6 +161,11 @@ Last Updated: 2026-04-27
   - `stage13_bio_waste_goal_room`
   - `stage13_bio_waste_resource_branch_room`
   - `stage13_bio_waste_challenge_branch_room`
+- Stage 14 已从 Stage 13 终点接入第一条回溯链路：
+  - `stage14_air_dash_shrine_room`
+  - `stage14_air_dash_gate_room`
+  - `stage14_backtrack_hub_room`
+  - `stage14_loop_return_room`
 
 ## Adjustable Now
 
@@ -175,38 +181,44 @@ Last Updated: 2026-04-27
   - `scripts/rooms/stage13_bio_waste_room_base.gd`
   - `scripts/configs/spore_shooter_enemy_config.tres`
   - `docs/assets/asset-manifest.md` 中的 Stage 13 资产条目
+- Stage 14 新增可调入口包括：
+  - `scripts/player/player_placeholder.gd` 中的空中冲刺解锁与恢复规则
+  - `scripts/main/main.gd` 中的能力持久化与回溯收益快照
+  - `scripts/rooms/stage14_backtracking_room_base.gd`
+  - `docs/assets/asset-manifest.md` 中的 Stage 14 资产条目
 
 ## Exit Criteria
 
-- 第二小区域可以从 Stage 11/12 demo 终点后进入
-- `10` 个主线房间可稳定推进到区域终点房
-- `2` 条小支路均可进入、完成、返回主线或给出明确结束反馈
-- `孢子投射敌`、`废液池 / 酸液地形`、`净化门控` 均有自动化或最小运行态证据覆盖
-- 区域 checkpoint 与失败重来不破坏前一区域
-- Stage 13 资产需求与接入状态已记录到 `docs/assets/asset-manifest.md`
-- Stage 13 专项 GUT 通过，Stage 1-13 全量 GUT 通过
-- 人工复核覆盖主路径、2 条支路、废液危险、checkpoint 恢复、净化门控与区域终点反馈
+- Stage 13 终点可以稳定进入 Stage 14 空中冲刺获得房
+- `Air Dash / 空中二段冲刺` 默认锁定，解锁后空中可使用一次，落地后恢复
+- 能力状态由 `Main` 持有并在跨房间后重新注入玩家
+- Stage 14 空中冲刺能力门默认关闭，获得能力后可打开
+- 至少 `3` 个回溯收益点可收集并进入 `stage14_backtrack_reward_count`
+- 主线可从能力获得房推进到能力门、回溯 hub 与主线回环房
+- HUD 可显示 Stage 14 空中冲刺与回溯收益状态
+- Stage 14 资产需求已追加到 `docs/assets/asset-manifest.md`
+- Stage 14 专项 GUT 与 Stage 1-14 全量 GUT 通过
 
-当前状态：以上退出条件已通过自动化和 headless manual-review fallback 覆盖；Stage 13 可作为 Stage 14 的稳定前置候选，仍可由用户继续补真人手感复核。
+当前状态：以上退出条件已通过自动化、Godot import 与运行态复核覆盖；Stage 14 可作为 Stage 15 的稳定前置基线。
 
 ## Asset Status
 
 - 当前仍以占位资源、简单几何可视化与少量临时视觉探索为主。
 - Stage 13 已追加 `biome_02_bio_waste`、孢子投射敌、废液危险、净化门控和区域终点相关资产条目。
-- 第一轮接入的 Stage 13 资产仍是轻量占位，不代表最终美术；后续 Stage 14+ 继续在同一份 manifest 中追加或替换，不重建资产体系。
+- Stage 14 已追加 `stage14_air_dash_icon`、`stage14_air_dash_shrine`、`stage14_air_dash_gate`、`stage14_backtrack_reward_marker` 等空中冲刺与回溯门控资产需求。
+- 第一轮接入的 Stage 13-14 资产仍是轻量占位，不代表最终美术；后续 Stage 15+ 继续在同一份 manifest 中追加或替换，不重建资产体系。
 
 ## Next Stage
 
-`阶段 14：回溯与能力门控成型`
+`阶段 15：战斗高潮与首个精英 / Boss 原型`
 
 ## Current Goal
 
-当前 `main` 的下一步固定为 Stage 14 preflight：
+当前 `main` 的下一步固定为 Stage 15 preflight：
 
-- 本轮实际采用 `仅分支`，未额外创建阶段 worktree
-- 已完成 Stage 13 正式计划、设计文档、执行清单、资产 manifest、脚本与文档治理调整
-- 已完成最终验证：`godot --headless --path . --import`、Stage 13 GUT、Stage 1-13 全量 GUT 与 `git diff --check`
-- 下一步进入 `阶段 14：回溯与能力门控成型` 的正式 preflight，并按新规则使用固定永久工作树
+- Stage 14 已完成正式计划、设计文档、执行清单、资产 manifest、脚本、场景、HUD 与专项 GUT
+- 已完成最终验证：`git diff --check`、`godot --headless --path . --import`、Stage 14 GUT `9/9 passed`、Stage 1-14 全量 GUT `96/96 passed`
+- 下一步进入 `阶段 15：战斗高潮与首个精英 / Boss 原型` 的正式 preflight，并继续复用固定永久工作树策略
 
 ## Current Defaults
 
@@ -218,19 +230,14 @@ Last Updated: 2026-04-27
 
 ## In Progress
 
-- `阶段 13：第二小区域内容生产` 当前已完成并合并回 `main`
-- 本轮实际采用 `仅分支`，未额外创建阶段 worktree；这是本轮流程事实，后续 Stage 14 起按 `固定永久工作树 + 阶段分支` 新规则执行
-- 本轮已固定的关键选择：
-  - 第二小区域主题：`生物废液区`
-  - 主线密度：`10` 个房间
-  - 支路密度：`2` 条小支路
-  - 第 `4` 类敌人：`孢子投射敌`
-  - 区域危险：`废液池 / 酸液地形`
-  - 区域门控：`净化门控`
-  - 资产策略：沿用 Stage 12 manifest，不重建资产体系
+- 当前没有未收口的玩法阶段正在 `main` 上开发。
+- 下一步应从最新 `main` 进入 `阶段 15：战斗高潮与首个精英 / Boss 原型` preflight。
+- Stage 15 默认继续采用 `固定永久工作树 + 阶段分支`，并沿用 Stage 12 建立的资产 manifest 与 Stage 14 已形成的回溯链路基线。
 
 ## Recently Completed
 
+- 阶段 14 已完成并合并回 `main`：`Air Dash / 空中二段冲刺`、第一道能力门、`3` 个回溯收益点、回溯 hub、主线回环房、HUD 状态行与 Stage14 资产 manifest 条目均已落地
+- Stage 14 最终验证已记录：Stage 14 GUT `9/9 passed`，Stage 1-14 全量 GUT `96/96 passed`，`godot --headless --path . --import` 通过，`git diff --check` 通过
 - 阶段 13 已完成首轮实现与收口复核：`生物废液区`、`10` 个主线房间、`2` 条小支路、`孢子投射敌`、废液 / 酸液危险、净化门控、区域 checkpoint、区域终点与 Stage 13 资产 manifest 均已落地
 - Stage 13 最终验证已记录：Stage 13 GUT `9/9 passed`，Stage 1-13 全量 GUT `87/87 passed`，`godot --headless --path . --import` 通过，`git diff --check` 通过
 - 本轮同时完成 Godot MCP 固定工作树流程脚本和文档调整：`scripts/dev/enter-worktree-godot-mcp.ps1`、`docs/dev/godot-mcp-pro-connectivity-guide.md` 与 `AGENTS.md`
@@ -254,9 +261,9 @@ Last Updated: 2026-04-27
 
 ## Risks And Blockers
 
-- 当前主要剩余风险是远端同步、Stage 14 preflight 前的固定永久工作树现场恢复，以及用户后续真人手感复核可能提出的节奏 / 可读性微调
+- 当前主要剩余风险是远端同步、Stage 15 preflight 前的固定永久工作树现场恢复，以及用户后续真人手感复核可能提出的空中冲刺节奏 / 回溯可读性微调
 - `godot_mcp` 当前已被工程化留痕；后续人工复核应从目标固定永久工作树启动 Codex，并默认运行 `scripts/dev/enter-worktree-godot-mcp.ps1`
-- 当前主路径处于 Stage 13 阶段分支；收口合并后应恢复到 `main`，后续 Stage 14 起按固定永久工作树策略执行
+- 当前主路径已恢复到 `main`；后续 Stage 15 起继续按固定永久工作树策略执行
 
 ## Recommended Roadmap
 
@@ -272,6 +279,6 @@ Last Updated: 2026-04-27
 
 ## Next Recommended Steps
 
-1. 进入 Stage 14 正式 preflight
-2. 为回溯能力、能力门控、回溯收益点和导航提示补独立设计文档与正式阶段计划
-3. 按固定永久工作树策略准备 Stage 14 开发现场，并继续沿用 `docs/assets/asset-manifest.md`
+1. 进入 Stage 15 正式 preflight
+2. 为首个精英 / Boss 原型、战斗高潮房、失败重试反馈和战斗 HUD 升级补独立设计文档与正式阶段计划
+3. 继续复用固定永久工作树策略，并在 `docs/assets/asset-manifest.md` 中追加 Stage 15 精英 / Boss 与战斗高潮资产需求
