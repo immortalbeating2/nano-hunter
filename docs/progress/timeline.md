@@ -357,3 +357,12 @@
 - 模式：`仅分支`
 - 范围：确认 `max_depth/max_threads` 等通用 agent 行为适合放在用户级全局 `~/.codex/config.toml`，项目级 `.codex/config.toml` 只保留 Godot MCP 注册与 Nano Hunter 专属 agent 角色注册。
 - 验证：项目级 `.codex/config.toml`、项目 `.codex/agents/*.toml` 与用户级全局 `~/.codex/config.toml` 均通过 Python `tomllib` 解析；`git diff --check` 通过。
+
+## 2026-04-27 - Stage 14 回溯与能力门控首轮实现
+
+- 分支：`codex/stage-14-backtracking-ability-gating`
+- 模式：`固定永久工作树 + 阶段分支`
+- 范围：新增唯一核心能力 `Air Dash / 空中二段冲刺`，从 Stage 13 终点接入能力获得房、能力门、回溯 hub 与主线回环房。
+- 玩法：空中冲刺默认锁定，获得能力后空中可使用一次 dash，落地恢复；`Main` 持有解锁状态并在房间切换后注入玩家。
+- 内容：新增 `stage14_air_dash_shrine_room`、`stage14_air_dash_gate_room`、`stage14_backtrack_hub_room`、`stage14_loop_return_room`，并记录 `3` 个回溯收益点。
+- 文档：新增 Stage14 设计、实现计划、执行清单，并追加 Stage14 资产 manifest 需求。

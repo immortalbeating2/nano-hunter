@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage14_backtracking_room_base.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(960, 32)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(96, 128)
+
+[node name="Stage14BacktrackHubRoom" type="Node2D"]
+script = ExtResource("1")
+next_room_path = "res://scenes/rooms/stage14_loop_return_room.tscn"
+next_spawn_id = &"stage14_loop_return_start"
+checkpoint_spawn_id = &"stage14_backtrack_hub_start"
+default_step_id = &"stage14_backtrack_hub"
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.0862745, 0.129412, 0.141176, 1)
+polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-304, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(128, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("2")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+color = Color(0.180392, 0.301961, 0.321569, 1)
+polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
+
+[node name="BacktrackRewardOne" type="Marker2D" parent="."]
+position = Vector2(-48, 112)
+
+[node name="RewardVisual" type="Polygon2D" parent="BacktrackRewardOne"]
+color = Color(0.933333, 0.843137, 0.431373, 0.9)
+polygon = PackedVector2Array(0, -20, 18, 0, 0, 20, -18, 0)
+
+[node name="BacktrackRewardTwo" type="Marker2D" parent="."]
+position = Vector2(128, 88)
+
+[node name="RewardVisual" type="Polygon2D" parent="BacktrackRewardTwo"]
+color = Color(0.933333, 0.843137, 0.431373, 0.9)
+polygon = PackedVector2Array(0, -20, 18, 0, 0, 20, -18, 0)
+
+[node name="BacktrackRewardThree" type="Marker2D" parent="."]
+position = Vector2(304, 112)
+
+[node name="RewardVisual" type="Polygon2D" parent="BacktrackRewardThree"]
+color = Color(0.933333, 0.843137, 0.431373, 0.9)
+polygon = PackedVector2Array(0, -20, 18, 0, 0, 20, -18, 0)
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(544, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("3")
+
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
+color = Color(0.933333, 0.843137, 0.431373, 0.25)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)

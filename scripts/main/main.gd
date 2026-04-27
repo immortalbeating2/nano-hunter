@@ -13,6 +13,7 @@ const STAGE10_BRANCH_ROOM_PATH := "res://scenes/rooms/stage10_zone_branch_room.t
 const STAGE10_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
 const STAGE11_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 const STAGE13_ROOM_PREFIX := "res://scenes/rooms/stage13_"
+const STAGE14_ROOM_PREFIX := "res://scenes/rooms/stage14_"
 
 const INPUT_BINDINGS := {
 	"move_left": [KEY_A, KEY_LEFT],
@@ -33,6 +34,8 @@ var _checkpoint_room_path := ""
 var _checkpoint_spawn_id: StringName = &""
 var _is_short_chain_completed := false
 var _is_demo_completed := false
+var _air_dash_unlocked := false
+var _stage14_backtrack_reward_ids: Dictionary = {}
 
 
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
@@ -98,8 +101,14 @@ func _apply_room_camera_limits(player: CharacterBody2D) -> void:
 
 
 func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
+	if player.has_method("set_air_dash_unlocked"):
+		player.call("set_air_dash_unlocked", _air_dash_unlocked)
+
 	if room != null and room.has_method("bind_player"):
 		room.call("bind_player", player)
+
+	if room != null and room.has_method("bind_main"):
+		room.call("bind_main", self)
 
 	if tutorial_hud == null:
 		return
@@ -132,7 +141,31 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"goal_text": _get_demo_goal_text(),
 		"goal_hint_text": _get_demo_goal_hint_text(),
 		"replay_available": _is_demo_completed,
+		"air_dash_unlocked": _air_dash_unlocked,
+		"stage14_backtrack_reward_count": get_stage14_backtrack_reward_count(),
 	}
+
+
+func unlock_air_dash() -> void:
+	_air_dash_unlocked = true
+	var player := _get_runtime_player()
+	if player != null and player.has_method("set_air_dash_unlocked"):
+		player.call("set_air_dash_unlocked", true)
+
+
+func is_air_dash_unlocked() -> bool:
+	return _air_dash_unlocked
+
+
+func collect_stage14_backtrack_reward(reward_id: StringName) -> void:
+	if reward_id == StringName() or _stage14_backtrack_reward_ids.has(reward_id):
+		return
+
+	_stage14_backtrack_reward_ids[reward_id] = true
+
+
+func get_stage14_backtrack_reward_count() -> int:
+	return _stage14_backtrack_reward_ids.size()
 
 
 # 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
@@ -250,6 +283,9 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 func _get_demo_goal_text() -> String:
 	# Stage 13 仍沿用早期灰盒命名；这里先保证玩家目标可读，
 	# 后续资产和命名会按总设计北极星逐步回到南北朝镇妖语境。
+	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
+		return "主目标：取得空中二段冲刺并回头打开能力门"
+
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
 		return "主目标：探索生物废液区并抵达第二小区域终点"
 
@@ -272,6 +308,9 @@ func _get_demo_goal_text() -> String:
 
 func _get_demo_goal_hint_text() -> String:
 	# 提示文案只标注当前房间最可能卡住玩家的点，不在 HUD 里写完整教程。
+	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
+		return "提示：空中按冲刺可越过能力门，落地后恢复一次空中冲刺"
+
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
 		return "提示：留意酸液、孢子投射敌和净化门控"
 
