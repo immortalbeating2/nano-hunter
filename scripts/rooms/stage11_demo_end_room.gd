@@ -49,6 +49,7 @@ func _process(_delta: float) -> void:
 		return
 
 	if not _goal_finished:
+		# 未完成前只允许向右完成 demo，避免玩家提前从左侧重开导致状态含混。
 		if _player.global_position.x >= goal_zone.global_position.x - 24.0:
 			_complete_demo()
 		return
@@ -57,6 +58,7 @@ func _process(_delta: float) -> void:
 		return
 
 	if _player.global_position.x <= replay_zone.global_position.x + 24.0:
+		# replay 入口仍通过 Main 的普通切房契约重回教程房，不直接重置 Main 内部字段。
 		_replay_requested = true
 		room_transition_requested.emit(TUTORIAL_ROOM_PATH, &"tutorial_start")
 		return
@@ -65,6 +67,7 @@ func _process(_delta: float) -> void:
 		return
 
 	if _player.global_position.x >= continue_zone.global_position.x - 24.0:
+		# continue 入口用于 Stage13 之后的内容扩展，不影响 Stage11 “已完成 demo”的语义。
 		_continue_requested = true
 		room_transition_requested.emit(STAGE13_ENTRY_ROOM_PATH, &"stage13_entry_start")
 
@@ -110,6 +113,7 @@ func _activate_checkpoint() -> void:
 
 
 func _complete_demo() -> void:
+	# 完成态只发一次，避免玩家停在 GoalZone 内时重复改 HUD 和重复发 goal_completed。
 	if _goal_finished:
 		return
 

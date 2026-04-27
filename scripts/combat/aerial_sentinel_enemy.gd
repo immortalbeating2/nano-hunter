@@ -28,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	if is_defeated():
 		return
 
+	# 悬浮只改变 y 轴，让玩家能明确理解它是“空中威胁”，而不是横向追踪敌。
 	_hover_elapsed += delta
 	position.y = _spawn_position.y + sin(_hover_elapsed * _hover_speed) * _hover_amplitude
 	_deal_touch_damage(_touch_damage)

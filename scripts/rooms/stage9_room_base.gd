@@ -58,6 +58,7 @@ func _process(_delta: float) -> void:
 
 
 func bind_player(player: CharacterBody2D) -> void:
+	# 房间基类把玩家继续传给子节点，敌人和机关就不需要依赖 Main 的内部结构。
 	_player = player
 	for child in get_children():
 		if child.has_method("bind_player"):
@@ -94,6 +95,8 @@ func get_spawn_position(spawn_id: StringName) -> Vector2:
 
 
 func get_hud_context() -> Dictionary:
+	# HUD 上下文保持最小字段集：步骤、标题、提示和 dash 可用性。
+	# Stage10/13 会在此基础上 merge 自己的区域读值。
 	return {
 		"step_id": _current_step,
 		"step_title": get_current_step_title(),
@@ -111,6 +114,7 @@ func is_gate_unlocked() -> bool:
 
 
 func activate_checkpoint() -> void:
+	# checkpoint 只向 Main 汇报“下一次失败回到哪里”，不在房间里保存玩家状态。
 	if _checkpoint_activated or checkpoint_spawn_id == StringName():
 		return
 
@@ -119,6 +123,7 @@ func activate_checkpoint() -> void:
 
 
 func unlock_gate(next_step_id: StringName = StringName()) -> void:
+	# 门控解锁和 HUD 步骤推进绑在一起，避免玩家看到门已开但提示仍停在清房前。
 	_gate_unlocked = true
 	if next_step_id != StringName():
 		_current_step = next_step_id
@@ -131,6 +136,7 @@ func _handle_enemy_defeated() -> void:
 
 
 func _handle_exit_reached() -> void:
+	# 有 next_room_path 的房间推进到下一房；没有下一房的房间视为区域目标完成。
 	if not next_room_path.is_empty():
 		room_transition_requested.emit(next_room_path, next_spawn_id)
 		return
@@ -139,6 +145,8 @@ func _handle_exit_reached() -> void:
 
 
 func _bind_enemy_signals() -> void:
+	# 当前小区域只需要“一只或多只敌人被击败后开门”的最小规则；
+	# 如果后续需要全清计数，应在这里扩展，而不是散落到各房间。
 	for child in get_children():
 		if child.has_signal("defeated"):
 			var callback := Callable(self, "_on_enemy_defeated")
@@ -155,6 +163,7 @@ func _emit_hud_context() -> void:
 
 
 func _apply_gate_lock_state() -> void:
+	# 碰撞与颜色一起更新，确保自动化和人工复核读到同一个门控状态。
 	var gate_shape := _get_gate_shape()
 	if gate_shape != null:
 		gate_shape.disabled = _gate_unlocked

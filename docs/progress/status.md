@@ -2,6 +2,14 @@
 
 Last Updated: 2026-04-27
 
+## Latest Update - 2026-04-27 Developed Stage Comment Readability Pass
+
+- 已按 `AGENTS.md` 新注释约束，对 Stage 1-13 已开发核心代码补强注释可读性。
+- 本轮只增加说明性注释，不改变玩法逻辑、数值、场景结构或测试断言。
+- 覆盖重点：玩家控制 / 战斗判定、Main 房间推进、敌人基类与敌人变体、Stage 9/10/13 房间基类、Stage 11 终点房、配置资源、Stage 11 灰盒 driver 与 Stage 13 收口测试 helper。
+- 验证结果：`git diff --check` 通过；`godot --headless --path . --import` 通过；Stage 1-13 全量 GUT `87/87 passed`，`619` 个断言通过。
+- 注意：当前工作区仍保留用户先前对 `.codex/config.toml` 的未提交改动，本轮注释补强不纳入该文件。
+
 ## Latest Update - 2026-04-27 Governance, Plugin, Agent, Asset Cleanup
 
 - 当前项目级 agent 配置已从临时 `.codex/agent/` 迁入官方加载路径 `.codex/agents/`，并通过 `.codex/config.toml` 的 `[agents]` 注册。

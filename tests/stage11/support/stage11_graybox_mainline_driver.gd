@@ -21,6 +21,7 @@ const STAGE9_ENTRY_SPAWN_ID: StringName = &"zone_entry_start"
 
 
 static func drive_mainline(test: GutTest) -> Dictionary:
+	# 驱动入口只加载生产 Main.tscn，不拼装测试专用主流程，确保覆盖真实房间切换契约。
 	var result := _make_result()
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 	if packed_scene == null:
@@ -59,6 +60,8 @@ static func _drive_from_tutorial_to_goal_trial(test: GutTest, main_scene: Node2D
 
 
 static func _drive_stage9_to_stage11_demo_end(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
+	# Stage9 之后房间数量变多，因此使用 scene_file_path 分派每个房间的最小通关策略。
+	# 这里不是模拟真实手操，而是证明灰盒主链路可自动到达终点。
 	while true:
 		var room: Node2D = _get_room(main_scene)
 		if room == null:
@@ -97,6 +100,7 @@ static func _drive_stage9_to_stage11_demo_end(test: GutTest, main_scene: Node2D,
 
 
 static func _drive_tutorial_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
+	# 教程房直接把玩家放到关键阈值位置，用来验证房间步骤和 Main 切房，而不是验证输入手感。
 	var room: Node2D = _get_room(main_scene)
 	if room == null or room.scene_file_path != TUTORIAL_ROOM_SCENE_PATH:
 		result.failure_reason = "教程房起点异常"
@@ -174,6 +178,7 @@ static func _clear_linear_exit_room(test: GutTest, main_scene: Node2D, result: D
 
 
 static func _clear_enemy_gate_room(test: GutTest, main_scene: Node2D, result: Dictionary, strategy_name: String) -> bool:
+	# 敌人门控房统一调用 receive_attack，避免 driver 依赖具体敌人 AI 或移动时机。
 	result.last_strategy_step = strategy_name + "_clear_enemies"
 	var room: Node2D = _get_room(main_scene)
 	if room == null:
@@ -243,6 +248,7 @@ static func _defeat_enemy_node(test: GutTest, main_scene: Node2D, node_name: Str
 
 
 static func _move_player_to_exit_zone(test: GutTest, main_scene: Node2D, expected_room_path: String, fail_message: String) -> bool:
+	# 出口推进仍通过房间自己的 _process 判定触发，所以这里移动玩家后等待若干帧。
 	var room: Node2D = _get_room(main_scene)
 	var player := _get_player(main_scene)
 	if room == null or player == null:
@@ -283,6 +289,7 @@ static func _get_label_text(main_scene: Node2D, node_path: NodePath) -> String:
 
 
 static func _make_result() -> Dictionary:
+	# 失败结果保留最后房间、HUD 文案和玩家位置，便于阶段收口时快速定位卡在哪个灰盒节点。
 	return {
 		"success": false,
 		"failure_reason": "未知失败",
@@ -297,6 +304,7 @@ static func _make_result() -> Dictionary:
 
 
 static func _finalize_result(main_scene: Node2D, result: Dictionary) -> Dictionary:
+	# 无论成功失败都在结束前补齐上下文，调用方可以直接把结果写入断言信息。
 	if main_scene == null:
 		return result
 

@@ -47,6 +47,7 @@ func is_purification_node_activated() -> bool:
 
 
 func activate_purification_node() -> void:
+	# 净化节点是 Stage13 的局部门控钥匙：触发后只解当前房间门，不创建全局钥匙系统。
 	if _purification_node_activated:
 		return
 
@@ -56,6 +57,7 @@ func activate_purification_node() -> void:
 
 
 func collect_stage13_reward(reward_id: StringName) -> void:
+	# 支路奖励按 ID 去重，保证资源支路和挑战支路能分别计数而不会重复刷收益。
 	if reward_id == StringName() or _stage13_collected_reward_ids.has(reward_id):
 		return
 
@@ -64,6 +66,7 @@ func collect_stage13_reward(reward_id: StringName) -> void:
 
 
 func get_stage13_progress_snapshot() -> Dictionary:
+	# Stage13 快照服务 HUD、测试和人工复核；它描述区域状态，不直接驱动流程。
 	return {
 		"branch_reward_count": _stage13_collected_reward_ids.size(),
 		"purification_node_activated": _purification_node_activated,
@@ -80,6 +83,7 @@ func get_hud_context() -> Dictionary:
 
 
 func _process(delta: float) -> void:
+	# Stage13 先处理本区域独有触发，再交回父类处理通用出口推进。
 	_update_stage13_triggers()
 	super._process(delta)
 
@@ -87,6 +91,7 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	super._ready()
 	if has_purification_gate() and not _purification_node_activated:
+		# 带净化门的房间必须覆盖父类默认门状态，确保玩家先看见“被封住”的目标。
 		_gate_unlocked = false
 		_apply_gate_lock_state()
 
@@ -95,6 +100,7 @@ func _update_stage13_triggers() -> void:
 	if _player == null:
 		return
 
+	# 本阶段所有交互仍用位置触发，便于灰盒快速调房间，不提前引入复杂交互组件。
 	_try_apply_acid_hazard()
 	_try_activate_purification_node()
 	_try_request_resource_branch()
@@ -103,6 +109,7 @@ func _update_stage13_triggers() -> void:
 
 
 func _try_apply_acid_hazard() -> void:
+	# 酸液只在当前房间第一次造成伤害，用于验证危险反馈和 checkpoint 恢复，不做持续 DOT。
 	if _acid_damage_dealt:
 		return
 
@@ -119,6 +126,7 @@ func _try_apply_acid_hazard() -> void:
 
 
 func _try_activate_purification_node() -> void:
+	# 玩家接近符印节点后立即解门，保持门控验证短小清楚。
 	if _purification_node_activated:
 		return
 
@@ -133,6 +141,7 @@ func _try_activate_purification_node() -> void:
 
 
 func _try_request_resource_branch() -> void:
+	# 两条支路分别使用独立防重复开关，避免玩家站在入口时连续发出切房信号。
 	if _resource_branch_requested or resource_branch_room_path.is_empty():
 		return
 
@@ -148,6 +157,7 @@ func _try_request_resource_branch() -> void:
 
 
 func _try_request_challenge_branch() -> void:
+	# 挑战支路与资源支路共享返回主线契约，但入口和收益类型保持分离。
 	if _challenge_branch_requested or challenge_branch_room_path.is_empty():
 		return
 
@@ -163,6 +173,7 @@ func _try_request_challenge_branch() -> void:
 
 
 func _try_collect_stage13_reward(node_name: String, reward_id: StringName) -> void:
+	# 奖励节点隐藏只是最小视觉反馈；真正的获得状态保存在快照字典中。
 	if _stage13_collected_reward_ids.has(reward_id):
 		return
 

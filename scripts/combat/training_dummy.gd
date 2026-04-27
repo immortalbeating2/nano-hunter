@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+# TrainingDummy 是阶段 3-5 用来验证攻击命中反馈的静态目标。
+# 它记录最近一次命中方向和力度，并用短暂位移 / 变色让玩家和测试都能确认攻击生效。
 
 signal hit_registered(hit_count: int)
 
@@ -19,6 +21,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	# 命中反馈只持续极短时间，结束后必须回到原位，避免后续测试读到残留视觉状态。
 	if _hit_feedback_timer <= 0.0:
 		return
 
@@ -28,6 +31,7 @@ func _process(delta: float) -> void:
 
 
 func receive_attack(hit_direction: Vector2, knockback_force: float) -> void:
+	# 训练目标不参与生命系统，只记录命中次数和最近一次攻击参数。
 	hit_count += 1
 	last_hit_direction = hit_direction
 	last_knockback_force = knockback_force
@@ -41,6 +45,7 @@ func receive_attack(hit_direction: Vector2, knockback_force: float) -> void:
 
 
 func _reset_feedback_visuals() -> void:
+	# 复位逻辑集中在这里，确保 ready 和命中反馈结束走同一套视觉基线。
 	$Body.position = Vector2.ZERO
 	$Body.color = Color(0.654902, 0.498039, 0.298039, 1.0)
 	$Body.scale = Vector2.ONE

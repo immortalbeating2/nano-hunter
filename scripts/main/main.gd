@@ -248,6 +248,8 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 # Demo 主链路的目标文案只做“当前处于哪个关键节点”的最小收束，
 # 不把它扩成另一层配置系统。
 func _get_demo_goal_text() -> String:
+	# Stage 13 仍沿用早期灰盒命名；这里先保证玩家目标可读，
+	# 后续资产和命名会按总设计北极星逐步回到南北朝镇妖语境。
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
 		return "主目标：探索生物废液区并抵达第二小区域终点"
 
@@ -269,6 +271,7 @@ func _get_demo_goal_text() -> String:
 
 
 func _get_demo_goal_hint_text() -> String:
+	# 提示文案只标注当前房间最可能卡住玩家的点，不在 HUD 里写完整教程。
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
 		return "提示：留意酸液、孢子投射敌和净化门控"
 

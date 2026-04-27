@@ -23,6 +23,7 @@ func _physics_process(delta: float) -> void:
 	if is_defeated():
 		return
 
+	# 当前阶段先用脉冲视觉表达远程压制范围，不生成真实弹体，避免把普通敌人扩成弹幕系统。
 	_pulse_elapsed = fmod(_pulse_elapsed + delta, _pulse_interval)
 	_update_pressure_visual()
 	_deal_touch_damage(_touch_damage)
@@ -55,5 +56,6 @@ func _update_pressure_visual() -> void:
 	if pressure_visual == null:
 		return
 
+	# alpha 轻微呼吸即可提示危险半径；实际伤害仍走 BaseEnemy 的触碰伤害契约。
 	var t := _pulse_elapsed / maxf(_pulse_interval, 0.01)
 	pressure_visual.color = Color(0.619608, 0.858824, 0.321569, 0.22 + 0.18 * sin(t * TAU))

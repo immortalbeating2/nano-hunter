@@ -333,6 +333,8 @@ func _perform_attack_hits() -> void:
 
 
 func _resolve_attack_receiver(collider: Object) -> Object:
+	# 攻击查询可能命中敌人的 StaticBody，也可能命中其子节点；
+	# 这里向上找一层 receive_attack，保持场景结构可微调。
 	if collider.has_method("receive_attack"):
 		return collider
 
@@ -345,6 +347,7 @@ func _resolve_attack_receiver(collider: Object) -> Object:
 
 
 func _finish_attack() -> void:
+	# 收尾时必须同时清空命中表和视觉预览，否则下一次攻击会漏判或残留 slash 图形。
 	_attack_elapsed = 0.0
 	_attack_was_active = false
 	_attack_hit_ids.clear()
@@ -353,6 +356,7 @@ func _finish_attack() -> void:
 
 
 func _finish_dash() -> void:
+	# dash 结束后立即进入冷却，并把速度往普通地面移动收束，避免能力门控后仍残留高速。
 	_dash_elapsed = 0.0
 	_dash_cooldown_remaining = dash_cooldown
 	velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
@@ -377,6 +381,7 @@ func _hide_stage12_slash_visual() -> void:
 
 
 func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) -> void:
+	# 落地态只是一小段可读反馈；攻击落地不显示 landing，避免覆盖攻击状态。
 	if _is_attacking():
 		_landing_state_timer = 0.0
 		return
@@ -388,6 +393,8 @@ func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) 
 
 
 func _update_current_state(is_grounded: bool) -> void:
+	# 状态优先级从高到低是攻击、dash、地面、空中；
+	# 这样 HUD 和测试读到的 current_state 与玩家实际控制锁定一致。
 	if _is_attacking():
 		if current_state != STATE_AIR_ATTACK:
 			current_state = STATE_ATTACK
@@ -439,6 +446,7 @@ func _get_attack_total_duration() -> float:
 
 
 func get_attack_hitbox_center() -> Vector2:
+	# 空中攻击的判定中心略微上移，用来体现 Stage 10 “空中攻击打空中威胁”的价值。
 	if current_state == STATE_AIR_ATTACK:
 		return global_position + Vector2(
 			attack_hitbox_offset.x * _facing_direction,
@@ -496,6 +504,7 @@ func is_dash_ready() -> bool:
 
 
 func get_hud_status_snapshot() -> Dictionary:
+	# HUD 只消费快照，不直接读取玩家内部字段；这样后续替换玩家实现时可保留显示契约。
 	return {
 		"current_health": current_health,
 		"max_health": max_health,
@@ -512,12 +521,14 @@ func _set_dash_feedback_active(is_active: bool) -> void:
 
 
 func _update_damage_invulnerability(delta: float) -> void:
+	# 无敌计时结束后刷新颜色，确保受击闪烁不会永久盖住 dash 高亮。
 	_damage_invulnerability_remaining = maxf(_damage_invulnerability_remaining - delta, 0.0)
 	if _damage_invulnerability_remaining <= 0.0:
 		_refresh_body_color()
 
 
 func _apply_damage_knockback(hit_direction: Vector2) -> void:
+	# 如果敌人没有给出明确方向，就按玩家当前朝向反推击退，保证反馈始终可见。
 	var direction := hit_direction.normalized()
 	var horizontal_direction := signf(direction.x)
 
