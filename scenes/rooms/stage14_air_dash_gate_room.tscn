@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage14_backtracking_room_base.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(960, 32)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(24, 144)
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(96, 128)
+
+[node name="Stage14AirDashGateRoom" type="Node2D"]
+script = ExtResource("1")
+next_room_path = "res://scenes/rooms/stage14_backtrack_hub_room.tscn"
+next_spawn_id = &"stage14_backtrack_hub_start"
+checkpoint_spawn_id = &"stage14_air_dash_gate_start"
+default_step_id = &"stage14_air_dash_gate"
+air_dash_gate_room = true
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.109804, 0.0980392, 0.152941, 1)
+polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-304, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(128, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("2")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+color = Color(0.270588, 0.231373, 0.345098, 1)
+polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
+
+[node name="AirDashGateSensor" type="Marker2D" parent="."]
+position = Vector2(152, 96)
+
+[node name="GateBarrier" type="StaticBody2D" parent="."]
+position = Vector2(392, 88)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier"]
+shape = SubResource("3")
+
+[node name="BarrierVisual" type="Polygon2D" parent="GateBarrier"]
+color = Color(0.776471, 0.321569, 0.262745, 1)
+polygon = PackedVector2Array(-12, -72, 12, -72, 12, 72, -12, 72)
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(544, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("4")
+
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
+color = Color(0.470588, 0.811765, 0.941176, 0.25)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)

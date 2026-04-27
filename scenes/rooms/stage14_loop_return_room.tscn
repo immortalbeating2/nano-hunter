@@ -1,25 +1,23 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/stage14_backtracking_room_base.gd" id="1"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(512, 32)
+size = Vector2(960, 32)
 
 [sub_resource type="RectangleShape2D" id="3"]
-size = Vector2(112, 128)
+size = Vector2(96, 128)
 
-[node name="Stage13BioWasteGoalRoom" type="Node2D"]
+[node name="Stage14LoopReturnRoom" type="Node2D"]
 script = ExtResource("1")
-next_room_path = "res://scenes/rooms/stage14_air_dash_shrine_room.tscn"
-next_spawn_id = &"stage14_air_dash_shrine_start"
-checkpoint_spawn_id = &"stage13_goal_start"
-default_step_id = &"stage13_goal"
+checkpoint_spawn_id = &"stage14_loop_return_start"
+default_step_id = &"stage14_loop_return"
 
 [node name="Backdrop" type="Polygon2D" parent="."]
-color = Color(0.0823529, 0.109804, 0.121569, 1)
+color = Color(0.121569, 0.109804, 0.0784314, 1)
 polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
@@ -29,19 +27,14 @@ position = Vector2(-304, 0)
 shape = SubResource("1")
 
 [node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(96, 160)
+position = Vector2(128, 160)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("2")
 
 [node name="FloorVisual" type="Polygon2D" parent="Floor"]
-color = Color(0.176471, 0.258824, 0.301961, 1)
-polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
-
-[node name="GoalDevice" type="Polygon2D" parent="."]
-position = Vector2(352, 104)
-color = Color(0.690196, 0.941176, 0.870588, 0.88)
-polygon = PackedVector2Array(-24, 44, -32, -16, 0, -48, 32, -16, 24, 44)
+color = Color(0.329412, 0.282353, 0.180392, 1)
+polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
 
 [node name="GoalZone" type="Area2D" parent="."]
 position = Vector2(448, 96)
@@ -50,5 +43,5 @@ position = Vector2(448, 96)
 shape = SubResource("3")
 
 [node name="GoalVisual" type="Polygon2D" parent="GoalZone"]
-color = Color(0.258824, 0.694118, 0.478431, 0.35)
-polygon = PackedVector2Array(-56, -64, 56, -64, 56, 64, -56, 64)
+color = Color(0.933333, 0.843137, 0.431373, 0.3)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)

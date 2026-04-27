@@ -69,6 +69,9 @@ var _attack_hit_ids: Dictionary = {}
 var _dash_elapsed := 0.0
 var _dash_cooldown_remaining := 0.0
 var _dash_direction := 1.0
+var _air_dash_unlocked := false
+var _air_dash_available := false
+var _current_dash_started_in_air := false
 var _body_idle_color := Color(1.0, 1.0, 1.0, 1.0)
 var _damage_invulnerability_remaining := 0.0
 var _is_defeated := false
@@ -221,13 +224,19 @@ func _can_start_attack(was_grounded: bool, attack_pressed: bool) -> bool:
 
 
 func _can_start_dash(was_grounded: bool, dash_pressed: bool) -> bool:
-	if not dash_pressed or not was_grounded:
+	if not dash_pressed:
 		return false
 
-	if _dash_cooldown_remaining > 0.0 or _is_attacking() or _is_dashing():
+	if _is_attacking() or _is_dashing():
 		return false
 
-	return current_state == STATE_IDLE or current_state == STATE_RUN or current_state == STATE_LAND
+	if was_grounded:
+		if _dash_cooldown_remaining > 0.0:
+			return false
+
+		return current_state == STATE_IDLE or current_state == STATE_RUN or current_state == STATE_LAND
+
+	return _air_dash_unlocked and _air_dash_available
 
 
 # 主动动作起手层：jump / attack / dash 都在这里清理与自己冲突的临时状态。
@@ -256,6 +265,9 @@ func _start_dash() -> void:
 	_dash_direction = _facing_direction if absf(input_axis) <= 0.01 else signf(input_axis)
 	_facing_direction = _dash_direction
 	_dash_elapsed = 0.0001
+	_current_dash_started_in_air = not is_on_floor()
+	if _current_dash_started_in_air:
+		_air_dash_available = false
 	_landing_state_timer = 0.0
 	_jump_buffer_timer = 0.0
 	current_state = STATE_DASH
@@ -361,6 +373,7 @@ func _finish_dash() -> void:
 	_dash_cooldown_remaining = dash_cooldown
 	velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
 	current_state = STATE_IDLE
+	_current_dash_started_in_air = false
 	_set_dash_feedback_active(false)
 
 
@@ -381,6 +394,9 @@ func _hide_stage12_slash_visual() -> void:
 
 
 func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) -> void:
+	if _air_dash_unlocked and is_grounded and not _is_dashing():
+		_air_dash_available = true
+
 	# 落地态只是一小段可读反馈；攻击落地不显示 landing，避免覆盖攻击状态。
 	if _is_attacking():
 		_landing_state_timer = 0.0
@@ -503,6 +519,19 @@ func is_dash_ready() -> bool:
 	return _dash_cooldown_remaining <= 0.0 and not _is_dashing() and not _is_defeated
 
 
+func set_air_dash_unlocked(is_unlocked: bool) -> void:
+	_air_dash_unlocked = is_unlocked
+	_air_dash_available = is_unlocked
+
+
+func is_air_dash_unlocked() -> bool:
+	return _air_dash_unlocked
+
+
+func is_air_dash_available() -> bool:
+	return _air_dash_unlocked and _air_dash_available and not _is_dashing() and not _is_defeated
+
+
 func get_hud_status_snapshot() -> Dictionary:
 	# HUD 只消费快照，不直接读取玩家内部字段；这样后续替换玩家实现时可保留显示契约。
 	return {
@@ -510,6 +539,8 @@ func get_hud_status_snapshot() -> Dictionary:
 		"max_health": max_health,
 		"dash_ready": is_dash_ready(),
 		"dash_cooldown_remaining": _dash_cooldown_remaining,
+		"air_dash_unlocked": _air_dash_unlocked,
+		"air_dash_available": is_air_dash_available(),
 		"current_state": String(current_state),
 		"is_defeated": _is_defeated
 	}

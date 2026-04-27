@@ -106,6 +106,7 @@ func _update_stage13_triggers() -> void:
 	_try_request_resource_branch()
 	_try_request_challenge_branch()
 	_try_collect_stage13_reward("Stage13Reward", &"stage13_reward")
+	_try_request_stage14_from_goal_zone()
 
 
 func _try_apply_acid_hazard() -> void:
@@ -186,3 +187,18 @@ func _try_collect_stage13_reward(node_name: String, reward_id: StringName) -> vo
 
 	collect_stage13_reward(reward_id)
 	reward.visible = false
+
+
+func _try_request_stage14_from_goal_zone() -> void:
+	if _transition_requested or next_room_path.is_empty():
+		return
+
+	var goal_zone := get_node_or_null("GoalZone") as Node2D
+	if goal_zone == null:
+		return
+
+	if _player.global_position.distance_to(goal_zone.global_position) > 64.0:
+		return
+
+	_transition_requested = true
+	room_transition_requested.emit(next_room_path, next_spawn_id)

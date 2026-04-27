@@ -31,6 +31,10 @@
 | stage13_spore_shooter_silhouette | 孢子投射敌轮廓 | `assets/art/characters/enemies/stage13_spore_shooter_silhouette.svg` | 64x64 SVG，占位剪影 | 项目内临时绘制 | 项目自有占位 | integrated | Stage 13 | P0 | 第 4 类敌人，需与近战、冲锋、空中敌轮廓明显区分 |
 | stage13_acid_hazard_warning | 废液 / 酸液危险提示 | `assets/art/vfx/stage13_acid_hazard_warning_01.svg` | SVG 占位警示，不改变碰撞边界 | 项目内临时绘制 | 项目自有占位 | integrated | Stage 13 | P0 | 用于废液池 / 酸液地形的危险可读性 |
 | stage13_bio_waste_goal_device | 第二小区域终点装置 | `assets/art/props/stage13_bio_waste_goal_device_01.svg` | SVG 占位终点装置，表达区域完成和 Stage 14 前置诱因 | 项目内临时绘制 | 项目自有占位 | integrated | Stage 13 | P1 | 终点房承接 Stage 14 回溯能力前置，但 Stage 13 不发放新能力 |
+| stage14_air_dash_icon | 空中二段冲刺 HUD 图标 | `assets/art/ui/stage14_air_dash_icon.svg` | 32x32 SVG，占位能力图标 | 项目内临时绘制 | 项目自有占位 | needed | Stage 14 | P0 | HUD 需要表达空中冲刺已解锁与本次空中是否可用 |
+| stage14_air_dash_shrine | 空中冲刺能力获得装置 | `assets/art/props/stage14_air_dash_shrine_01.svg` | SVG 占位装置，表达能力获取点 | 项目内临时绘制 | 项目自有占位 | needed | Stage 14 | P0 | 能力获得房的第一眼视觉焦点，后续需回归符印 / 佛门机关方向 |
+| stage14_air_dash_gate | 空中冲刺门控提示 | `assets/art/props/stage14_air_dash_gate_01.svg` | SVG 占位门控，表达锁定 / 可通过状态 | 项目内临时绘制 | 项目自有占位 | needed | Stage 14 | P0 | 用于第一条能力门控，不扩展为通用钥匙系统 |
+| stage14_backtrack_reward_marker | 回溯收益点标记 | `assets/art/props/stage14_backtrack_reward_marker_01.svg` | SVG 占位奖励标记 | 项目内临时绘制 | 项目自有占位 | needed | Stage 14 | P0 | 至少 3 个旧区回溯收益点共享同一临时视觉语义 |
 | stage12_demo_sfx_pack | Demo 最小音效包 | `assets/audio/sfx/.gitkeep` | 待定 | 待补 | 待确认 | deferred | Stage 16 | P2 | 不进入 Stage 12 实现 |
 | stage12_demo_music_loop | Demo 最小 BGM 循环 | `assets/audio/music/.gitkeep` | 待定 | 待补 | 待确认 | deferred | Stage 16 | P3 | 不进入 Stage 12 实现 |
 

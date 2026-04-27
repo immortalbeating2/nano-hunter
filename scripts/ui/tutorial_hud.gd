@@ -139,7 +139,11 @@ func _update_progress_status() -> void:
 			lines.append(goal_hint)
 
 	var room_context := _get_room_hud_context()
-	if room_context.has("collectible_count") or room_context.has("recovery_point_activated"):
+	if room_context.has("stage14_backtrack_reward_count"):
+		var air_dash_text := "已获得" if bool(demo_snapshot.get("air_dash_unlocked", false)) else "未获得"
+		var reward_count := int(room_context.get("stage14_backtrack_reward_count", demo_snapshot.get("stage14_backtrack_reward_count", 0)))
+		lines.append("空中冲刺：%s  回溯收益：%d/3" % [air_dash_text, reward_count])
+	elif room_context.has("collectible_count") or room_context.has("recovery_point_activated"):
 		var collectible_count := int(room_context.get("collectible_count", 0))
 		var recovery_text := "已激活" if bool(room_context.get("recovery_point_activated", false)) else "未激活"
 		lines.append("收集：%d  恢复：%s" % [collectible_count, recovery_text])

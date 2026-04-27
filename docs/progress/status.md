@@ -2,6 +2,16 @@
 
 Last Updated: 2026-04-27
 
+## Latest Update - 2026-04-27 Stage 14 Backtracking And Ability Gating
+
+- Stage 14 已在固定永久工作树 `C:\Users\peng8\.codex\worktrees\ffc3\nano-hunter` 的 `codex/stage-14-backtracking-ability-gating` 分支启动并完成首轮实现。
+- 新增唯一核心能力 `Air Dash / 空中二段冲刺`：保留原地面 dash，解锁后空中可使用一次 dash，落地恢复，房间切换后由 `Main` 重新注入能力状态。
+- Stage 13 区域终点已接入 Stage 14：能力获得房、空中冲刺门、回溯 hub、主线回环房构成第一条类银河恶魔城回溯链路。
+- 新增至少 `3` 个 Stage 14 回溯收益点，`Main.get_demo_progress_snapshot()` 记录 `air_dash_unlocked` 与 `stage14_backtrack_reward_count`。
+- HUD 增加 Stage 14 能力 / 回溯收益状态行，资产 manifest 追加 Air Dash 图标、能力装置、能力门和回溯收益点需求。
+- 新增 Stage14 专项 GUT，覆盖能力默认锁定、空中一次性 dash、落地恢复、房间切换保留、能力门、3 个收益点、Stage13 接入与灰盒主线回环。
+- 已补做 Godot MCP 运行态复核，并按复核结果修正 Stage14 出生地板覆盖与 HUD Stage14 显示优先级。
+
 ## Latest Update - 2026-04-27 Developed Stage Comment Readability Pass
 
 - 已按 `AGENTS.md` 新注释约束，对 Stage 1-13 已开发核心代码补强注释可读性。
@@ -100,21 +110,20 @@ Last Updated: 2026-04-27
 
 ## Current Stage
 
-`阶段 13：第二小区域内容生产（已完成并合并回 main）`
+`阶段 14：回溯与能力门控成型（首轮实现中）`
 
-> Update: 2026-04-26 `stage13` 已完成首轮实现、收口复核并通过 merge commit 合并回 `main`：第二小区域 `生物废液区` 已从 Stage 11/12 demo 终点后接入，覆盖 `10` 个主线房间、`2` 条小支路、`孢子投射敌`、废液 / 酸液危险、净化门控、区域 checkpoint、区域终点与 Stage 13 资产 manifest。最终验证记录为：`godot --headless --path . --import` 通过，Stage 13 GUT `9/9 passed`，Stage 1-13 全量 GUT `87/87 passed`，`git diff --check` 通过。本轮实际采用 `仅分支`，未额外创建阶段 worktree，并同时完成 Godot MCP 固定工作树流程相关脚本与文档调整。
+> Update: 2026-04-27 Stage 14 已从 Stage 13 终点接入首轮灰盒实现：获得 `Air Dash / 空中二段冲刺` 后，可打开第一道能力门，回访并收集 `3` 个回溯收益点，再进入主线回环房。当前阶段在固定永久工作树 `C:\Users\peng8\.codex\worktrees\ffc3\nano-hunter` 的 `codex/stage-14-backtracking-ability-gating` 分支上开发。
 
 ## Stage Goal
 
-在 Stage 12 已收口的可交付试玩 demo 与资产管线基线上，新增一个真正不同于 Stage 9 区域的 `生物废液区` 第二小区域，验证内容生产能否持续扩展。本阶段固定目标为：
+在 Stage 13 已完成的第二小区域末端，加入第一条真正的回溯与能力门控链路。本阶段固定目标为：
 
-- `10` 个主线房间
-- `2` 条小支路，分别服务资源 / 恢复收益与风险挑战收益
-- 第 `4` 类普通敌人：`孢子投射敌`
-- 区域危险：`废液池 / 酸液地形`
-- 区域门控：`净化门控`
-- 区域终点房：承接 Stage 14 回溯能力前置，但 Stage 13 不发放新能力
-- 第二小区域资产需求继续追加到 Stage 12 建立的资产 manifest
+- 唯一新核心能力：`Air Dash / 空中二段冲刺`
+- 1 类能力门控：空中冲刺门
+- 至少 `3` 个回溯收益点
+- 1 条主线回环
+- 1 条可选回访支路
+- 不引入完整地图、任务日志、多能力并行或正式存档
 
 ## Playable Now
 
