@@ -368,3 +368,4 @@
 - 文档：新增 Stage14 设计、实现计划、执行清单，并追加 Stage14 资产 manifest 需求。
 - 收口：Stage14 分支已提交并合并回 `main`；主线基线推进到“阶段 14 已完成，下一阶段 Stage 15 preflight”。
 - 验证：`git diff --check` 通过；`godot --headless --path . --import` 通过；Stage14 GUT `9/9 passed`、Stage 1-14 全量 GUT `96/96 passed`。
+- 远端与现场：`main` 已 push 到 `origin/main`；本地阶段分支已删除，固定工作树保留为最新 `main` 的 detached 状态；`6505` bridge 监听仅记录未强制释放。
