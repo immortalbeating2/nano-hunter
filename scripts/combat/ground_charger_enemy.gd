@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if _charge_active:
+		# 冲锋期不重新追踪玩家，保留“看准时机躲开”的可学习性。
 		_charge_elapsed += delta
 		position.x += _charge_direction * _charge_speed * delta
 		if _charge_elapsed >= _charge_duration:
@@ -45,6 +46,7 @@ func _physics_process(delta: float) -> void:
 	elif _recovery_remaining > 0.0:
 		_recovery_remaining = maxf(_recovery_remaining - delta, 0.0)
 	else:
+		# 巡逻段围绕出生点轻微摆动，既能表现活物，也不改变房间布局读值。
 		_patrol_elapsed += delta
 		position.x = _spawn_position.x + sin(_patrol_elapsed * _patrol_speed) * _patrol_distance
 		if _can_start_charge():
@@ -93,6 +95,7 @@ func _can_start_charge() -> bool:
 		return false
 
 	var offset := _player.global_position - global_position
+	# 只在同一高度带触发，避免玩家在上层平台时被地面敌人无意义追击。
 	if absf(offset.y) > 40.0:
 		return false
 

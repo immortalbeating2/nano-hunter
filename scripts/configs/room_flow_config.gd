@@ -1,6 +1,8 @@
 extends Resource
 class_name RoomFlowConfig
 
+# RoomFlowConfig 把房间文案、出生点和灰盒阈值从脚本里抽出来。
+# 它不负责流程推进，只给房间脚本提供可调数据和默认值回退。
 
 @export var step_titles: Dictionary = {}
 @export var step_prompts: Dictionary = {}
@@ -22,6 +24,7 @@ func is_dash_visible(step_id: StringName, default_value: bool = true) -> bool:
 
 
 func get_spawn_position(spawn_id: StringName, fallback: Vector2 = Vector2.ZERO) -> Vector2:
+	# 出生点允许继续用字典配置；如果配置被误填成非 Vector2，就回退到脚本默认点。
 	var value: Variant = spawn_positions.get(spawn_id, fallback)
 	if value is Vector2:
 		return value

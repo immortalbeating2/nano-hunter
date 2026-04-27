@@ -18,6 +18,8 @@ const STAGE13_GOAL_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_goal_room.
 
 
 func test_stage13_manual_review_checklist_runtime_closure() -> void:
+	# 这条用例把人工复核 checklist 固定成一条运行时路径：
+	# 先完成 Stage11 demo，再进入 Stage13，逐项确认危险、门控、支路和 checkpoint。
 	var stage11_result := await Stage11GrayboxMainlineDriver.drive_mainline(self)
 	var main_scene: Node2D = _find_main_scene()
 
@@ -94,6 +96,7 @@ func _continue_from_demo_end_to_stage13(main_scene: Node2D) -> void:
 
 
 func _trigger_acid_feedback(main_scene: Node2D) -> bool:
+	# 酸液复核只判断生命是否下降，不要求具体扣血动画或持续伤害次数。
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
 	var acid_hazard := room.get_node_or_null("AcidHazard") as Node2D
@@ -107,6 +110,7 @@ func _trigger_acid_feedback(main_scene: Node2D) -> bool:
 
 
 func _verify_purification_gate(main_scene: Node2D) -> bool:
+	# 净化门复核要同时确认“之前锁住”和“触发后打开”，避免只测最终状态。
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
 	if room == null or player == null:
@@ -123,6 +127,7 @@ func _verify_purification_gate(main_scene: Node2D) -> bool:
 
 
 func _verify_checkpoint_recovery(main_scene: Node2D) -> bool:
+	# checkpoint 复核直接触发 Main 的失败入口，保护最近 checkpoint 房间恢复契约。
 	main_scene.call("_on_player_defeated")
 	await _advance_process_frames(4)
 	if _get_room_path(main_scene) != STAGE13_CHECKPOINT_ROOM_PATH:
@@ -176,6 +181,7 @@ func _collect_branch_reward_and_exit(main_scene: Node2D) -> void:
 
 
 func _clear_current_room_to_next(main_scene: Node2D) -> void:
+	# 通用清房 helper 尽量走生产接口：receive_attack、unlock_gate、移动到 Goal/ExitZone。
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
 	if room == null or player == null:

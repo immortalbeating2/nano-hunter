@@ -11,6 +11,7 @@ const TEST_ROOM_SCENE_PATH := "res://scenes/rooms/test_room.tscn"
 class DummyTarget:
 	extends StaticBody2D
 
+	# 测试替身只记录 receive_attack 的输入，不引入 BaseEnemy，避免阶段 3 过早依赖后续敌人基类。
 	var hit_count: int = 0
 	var last_hit_direction := Vector2.ZERO
 	var last_knockback_force := 0.0
@@ -116,6 +117,7 @@ func _spawn_player_with_floor(spawn_position: Vector2) -> CharacterBody2D:
 
 
 func _spawn_player_into_world(world: Node2D, spawn_position: Vector2) -> CharacterBody2D:
+	# 这里临时搭一个地板，是为了把攻击测试固定在稳定地面状态下。
 	var floor := StaticBody2D.new()
 	floor.position = Vector2(0, 160)
 	world.add_child(floor)
@@ -135,6 +137,7 @@ func _spawn_player_into_world(world: Node2D, spawn_position: Vector2) -> Charact
 
 
 func _create_dummy_target(target_position: Vector2) -> DummyTarget:
+	# 目标碰撞盒尺寸贴近早期训练木桩，保证攻击判定中心和朝向测试有实际碰撞对象。
 	var target := DummyTarget.new()
 	target.position = target_position
 
@@ -162,6 +165,7 @@ func _wait_for_state(player: CharacterBody2D, expected_state: StringName, max_fr
 
 
 func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> void:
+	# 等玩家稳定落地后再测攻击，否则跳跃 / 重力状态会干扰攻击恢复断言。
 	for _i in range(max_frames):
 		if (
 			player.is_on_floor()

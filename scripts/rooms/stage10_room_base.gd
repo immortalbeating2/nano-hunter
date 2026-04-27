@@ -45,6 +45,7 @@ func collect_stage10_pickup(pickup_id: StringName) -> void:
 
 
 func activate_recovery_point() -> void:
+	# 恢复点在 Stage10 只做“支路收益”反馈，触发后立即补满生命但不写入正式存档。
 	_recovery_point_activated = true
 	if _player != null and _player.has_method("restore_full_health"):
 		_player.call("restore_full_health")
@@ -84,6 +85,7 @@ func _update_stage10_triggers() -> void:
 
 
 func _try_request_optional_branch() -> void:
+	# 支路入口用距离判断而不是 Area 信号，方便测试直接移动玩家到入口点复现。
 	if _branch_transition_requested or optional_branch_room_path.is_empty():
 		return
 
@@ -115,6 +117,7 @@ func _try_collect_pickup(node_name: String, pickup_id: StringName) -> void:
 
 
 func _try_activate_recovery_point() -> void:
+	# 恢复点只允许激活一次，避免 HUD 反复播放同一份收益反馈。
 	if _recovery_point_activated:
 		return
 

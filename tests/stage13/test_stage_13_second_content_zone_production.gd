@@ -28,6 +28,7 @@ const STAGE13_CHALLENGE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_bio_wast
 
 
 func test_stage13_area_declares_ten_main_rooms_and_two_branches() -> void:
+	# 先锁资产和场景数量边界，避免后续改房间时悄悄丢掉主线或支路。
 	for room_path in STAGE13_MAIN_ROOM_PATHS:
 		assert_not_null(load(room_path), "缺少 Stage 13 主线房间：%s" % room_path)
 
@@ -150,6 +151,7 @@ func test_stage13_asset_manifest_contains_bio_waste_requirements() -> void:
 
 
 func test_stage13_graybox_driver_can_reach_second_zone_goal_from_main_scene() -> void:
+	# 这条测试从 Main.tscn 出发，保护 Stage11 终点继续进入 Stage13 的真实主线契约。
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
 	assert_not_null(packed_scene)
@@ -167,6 +169,8 @@ func test_stage13_graybox_driver_can_reach_second_zone_goal_from_main_scene() ->
 
 
 func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
+	# Stage13 driver 按当前房间状态选择最小推进动作：清敌、解门、走出口。
+	# 它不评估真人手感，只保护灰盒链路不会断。
 	var safety := 0
 	while safety < 40:
 		safety += 1
@@ -212,6 +216,7 @@ func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 
 
 func _spawn_room(scene_path: String) -> Node2D:
+	# 统一房间实例化入口，保证每个房间都至少跑过一帧 _ready 初始化。
 	var packed_scene: PackedScene = load(scene_path) as PackedScene
 
 	assert_not_null(packed_scene)
@@ -223,6 +228,7 @@ func _spawn_room(scene_path: String) -> Node2D:
 
 
 func _spawn_player(spawn_position: Vector2) -> CharacterBody2D:
+	# 玩家 helper 用真实 PlayerPlaceholder，避免测试绕过生命、伤害和 HUD 快照契约。
 	var player_scene: PackedScene = load("res://scenes/player/player_placeholder.tscn") as PackedScene
 
 	assert_not_null(player_scene)

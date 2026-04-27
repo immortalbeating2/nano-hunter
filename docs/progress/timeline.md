@@ -342,3 +342,11 @@
 - 范围：根据用户反馈，将 `spec-design/2026-03-23-nano-hunter-design.md` 明确为总设计北极星，并修正资产 brief 中偏向现代生物实验室的方向。
 - Agent：区分 Codex `multi_agent_v2` 客户端功能开关与 `.codex/agents/` / `[agents]` subagent 配置；因当前本地冲突，暂时注释显式 `max_threads = 4`，保留 `max_depth = 1` 与项目执行层 `2-4` 并行约束。
 - 插件：补充已安装插件是否值得使用、当前不启用原因、后续可评估插件方向和历史报错原因。
+
+## 2026-04-27 - 已开发阶段注释可读性补强
+
+- 分支：`codex/comment-readability-pass`
+- 模式：`仅分支`
+- 范围：按 `AGENTS.md` 新注释约束，为 Stage 1-13 已开发核心脚本和关键测试 helper 补充文件职责、分段意图、状态切换、信号 / 门控 / checkpoint、灰盒 driver 与配置资源说明。
+- 影响：只增加注释，不改动玩法逻辑、数值、场景结构或测试断言。
+- 验证：`git diff --check` 通过；`godot --headless --path . --import` 通过；Stage 1-13 全量 GUT `87/87 passed`，`619` 个断言通过。

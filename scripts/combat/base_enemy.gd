@@ -62,6 +62,8 @@ func _deal_touch_damage(touch_damage: int) -> void:
 
 
 func _resolve_damage_receiver(candidate: Object) -> Node:
+	# Hurtbox 命中的节点可能是玩家本体，也可能是玩家碰撞子节点；
+	# 统一解析为 receive_damage 持有者，避免每个敌人重复写父节点判断。
 	if candidate == null:
 		return null
 
