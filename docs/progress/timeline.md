@@ -350,3 +350,10 @@
 - 范围：按 `AGENTS.md` 新注释约束，为 Stage 1-13 已开发核心脚本和关键测试 helper 补充文件职责、分段意图、状态切换、信号 / 门控 / checkpoint、灰盒 driver 与配置资源说明。
 - 影响：只增加注释，不改动玩法逻辑、数值、场景结构或测试断言。
 - 验证：`git diff --check` 通过；`godot --headless --path . --import` 通过；Stage 1-13 全量 GUT `87/87 passed`，`619` 个断言通过。
+
+## 2026-04-27 - agent 通用设置迁至全局配置
+
+- 分支：`codex/global-agent-settings-doc-sync`
+- 模式：`仅分支`
+- 范围：确认 `max_depth/max_threads` 等通用 agent 行为适合放在用户级全局 `~/.codex/config.toml`，项目级 `.codex/config.toml` 只保留 Godot MCP 注册与 Nano Hunter 专属 agent 角色注册。
+- 验证：项目级 `.codex/config.toml`、项目 `.codex/agents/*.toml` 与用户级全局 `~/.codex/config.toml` 均通过 Python `tomllib` 解析；`git diff --check` 通过。

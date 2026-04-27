@@ -2,7 +2,9 @@
 
 ## 结论
 
-本项目当前采用：
+当前采用“全局行为设置 + 项目角色注册”的拆分：
+
+用户级全局 `~/.codex/config.toml`：
 
 ```toml
 [agents]
@@ -10,11 +12,19 @@
 max_depth = 1
 ```
 
-自定义 agent 放在官方项目级路径 `.codex/agents/`，并在 `.codex/config.toml` 中注册。旧的 `.codex/agent/` 不是官方加载路径，已在 2026-04-27 迁移。
+项目级 `.codex/config.toml`：
+
+```toml
+[agents.design]
+config_file = "agents/design.toml"
+description = "玩法设计、阶段边界、正式阶段计划与设计文档。"
+```
+
+自定义 agent 文件放在官方项目级路径 `.codex/agents/`，并在项目级 `.codex/config.toml` 中注册各角色。`max_depth`、`max_threads` 这类通用行为放到用户级全局配置，避免仓库强制所有机器使用同一并发偏好。旧的 `.codex/agent/` 不是官方加载路径，已在 2026-04-27 迁移。
 
 当前显式 `max_threads = 4` 暂时注释，是因为用户在当前 Codex Desktop / `multi_agent_v2` 环境下观察到冲突。处理方式不是关闭 `multi_agent_v2`，而是：
 
-- 保留 `.codex/agents/` 自定义 agent。
+- 保留项目级 `.codex/agents/` 自定义 agent 与 `.codex/config.toml` 的角色注册。
 - 保留 `max_depth = 1`，防止递归委派。
 - 暂时让 `max_threads` 回落到 Codex 官方默认值。
 - 在 `AGENTS.md` 和任务执行层继续限制单轮通常只启用 `2-4` 个最相关角色。
@@ -25,7 +35,7 @@ max_depth = 1
 - Codex 官方文档说明：subagent workflow 默认可用，但 Codex 只有在用户明确要求时才会生成子代理。
 - 官方项目级自定义 agent 路径是 `.codex/agents/`；个人级路径是 `~/.codex/agents/`。
 - 每个自定义 agent TOML 必须包含 `name`、`description`、`developer_instructions`。
-- 全局 subagent 设置位于 `.codex/config.toml` 的 `[agents]` 下。
+- 全局 subagent 行为设置位于 `~/.codex/config.toml` 或项目 `.codex/config.toml` 的 `[agents]` 下；本项目优先把 `max_depth/max_threads` 放在用户级全局配置。
 - `agents.max_threads` 是并发打开 agent 线程上限，未设置时默认 `6`。
 - `agents.max_depth` 是生成 agent 的嵌套深度；未设置时默认 `1`。官方建议除非确实需要递归委派，否则保持默认，避免重复 fan-out 带来的 token、延迟和资源风险。
 - `multi_agent` / `multi_agent_v2` 是 Codex 客户端功能开关；`.codex/agents/` 与 `[agents]` 是 subagent / custom agent 配置。两者相关但不是同一层配置。
@@ -93,9 +103,9 @@ max_depth = 1
 如果当前 Codex Desktop 出现 `multi_agent_v2` 与显式 `max_threads` 的兼容性问题：
 
 1. 不关闭 `multi_agent_v2`，因为它是当前多代理能力的客户端特性开关。
-2. 暂时注释 `.codex/config.toml` 中的 `max_threads = 4`。
-3. 保留 `max_depth = 1`。
-4. 保留 `.codex/agents/*.toml`。
+2. 暂时注释 `~/.codex/config.toml` 中的 `max_threads = 4`。
+3. 保留全局 `max_depth = 1`。
+4. 保留项目级 `.codex/agents/*.toml` 与 `.codex/config.toml` 的角色注册。
 5. 在任务描述中显式限制并行角色数量，例如“本轮最多启用 3 个 agents：gameplay / content / qa”。
 6. 如果后续版本不再冲突，再恢复 `max_threads = 4`。
 
