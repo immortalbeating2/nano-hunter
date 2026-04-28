@@ -15,8 +15,8 @@ Last Updated: 2026-04-28
 ## Current Development Site
 
 - 当前主工作区：`C:\Users\peng8\Desktop\Project\Game\nano-hunter`，分支 `main`，已合并 Stage15。
-- 固定永久工作树：`C:\Users\peng8\.codex\worktrees\ffc3\nano-hunter`，待同步回最新 `main` 后保留给下一阶段使用。
-- 当前阶段：Stage15 已完成实现、自动化验证、Godot MCP 运行态人工复核和主线合并；下一阶段默认进入 Stage16。
+- 固定永久工作树：`C:\Users\peng8\.codex\worktrees\ffc3\nano-hunter`，已同步到 `main` 最新提交的 detached 状态，保留给下一阶段使用。
+- 当前阶段：Stage15 已完成实现、自动化验证、Godot MCP 运行态人工复核、主线合并、远端同步和阶段分支清理；下一阶段默认进入 Stage16。
 
 ## Latest Implemented Scope
 
@@ -42,13 +42,10 @@ Last Updated: 2026-04-28
 
 - `enter-worktree-godot-mcp.ps1` 在本次复核中曾报告 `ReopenSessionThenForceKillBridge`，但 MCP 工具实测可用；后续可继续改进脚本对“当前会话可用但 bridge 状态被判 stale”的识别。
 - MCP 运行态截图现已改为本地证据产物，默认保留在 `tests/artifacts/local/`，不进入提交。
-- Stage15 收口提交尚待远端同步和固定永久工作树同步回最新 `main`。
+- Godot MCP 端口 `6505` 在收口检查时仍有本机监听；按当前约定仅记录，不全局释放可能属于其他活跃会话的 bridge。
 
 ## Next Steps
 
-- 提交 Stage15 收口文档。
-- 推送 `main` 到 `origin/main`，记录远端同步结果。
-- 同步固定永久工作树回最新 `main`，清理 Stage15 阶段分支。
 - 进入 Stage16 前执行 Preflight，并以 Stage15 作为新的稳定可试玩基线。
 
 ## References
