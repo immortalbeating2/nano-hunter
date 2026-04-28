@@ -87,18 +87,22 @@ func _process(_delta: float) -> void:
 				_request_combat_trial_transition()
 
 
+# 接收 Main 注入的当前玩家实例，教程推进只读取这个运行时位置。
 func bind_player(player: CharacterBody2D) -> void:
 	_player = player
 
 
+# 返回教程房相机边界，保护首段教学构图。
 func get_camera_limits() -> Rect2i:
 	return CAMERA_LIMITS
 
 
+# 公开当前教程步骤，供测试和 HUD 快照确认教学推进。
 func get_current_step_id() -> StringName:
 	return _current_step
 
 
+# 返回当前步骤提示文本，优先读取配置资源，缺失时使用脚本内默认文案。
 func get_current_prompt_text() -> String:
 	if flow_config != null:
 		return flow_config.get_step_prompt(_current_step, STEP_PROMPTS.get(_current_step, ""))
@@ -106,6 +110,7 @@ func get_current_prompt_text() -> String:
 	return STEP_PROMPTS.get(_current_step, "")
 
 
+# 返回当前步骤标题，配置缺失时回退到内置标题。
 func get_current_step_title() -> String:
 	if flow_config != null:
 		return flow_config.get_step_title(_current_step, STEP_TITLES.get(_current_step, "教程进行中"))
@@ -113,10 +118,12 @@ func get_current_step_title() -> String:
 	return STEP_TITLES.get(_current_step, "教程进行中")
 
 
+# 公开教程出口是否已解锁，测试用它确认攻击教学门控。
 func is_exit_unlocked() -> bool:
 	return _exit_unlocked
 
 
+# 查询 HUD 是否应显示 dash；教程前段会隐藏冲刺能力避免过早提示。
 func is_dash_available_in_hud() -> bool:
 	if flow_config != null:
 		return flow_config.is_dash_visible(_current_step, STEP_ORDER.get(_current_step, 0) >= STEP_ORDER[STEP_DASH])
@@ -135,6 +142,7 @@ func get_spawn_position(spawn_id: StringName = &"tutorial_start") -> Vector2:
 	return Vector2(-320, 96)
 
 
+# 汇总教程房 HUD 上下文，统一提供步骤、标题、提示和 dash 可见性。
 func get_hud_context() -> Dictionary:
 	return {
 		"step_id": _current_step,
@@ -153,11 +161,13 @@ func _set_current_step(step_id: StringName) -> void:
 	_emit_step_changed()
 
 
+# 广播教程步骤变化，同时兼容旧教程信号和通用 HUD 上下文信号。
 func _emit_step_changed() -> void:
 	tutorial_step_changed.emit(_current_step, get_current_prompt_text())
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
+# 按当前解锁状态同步出口碰撞和占位颜色。
 func _apply_exit_lock_state() -> void:
 	if exit_barrier_shape != null:
 		exit_barrier_shape.disabled = _exit_unlocked
@@ -166,6 +176,7 @@ func _apply_exit_lock_state() -> void:
 		exit_barrier_visual.color = Color(0.258824, 0.694118, 0.478431, 1.0) if _exit_unlocked else Color(0.776471, 0.321569, 0.262745, 1.0)
 
 
+# 请求离开教程房进入实战房，使用标记防止同一区域重复触发。
 func _request_combat_trial_transition() -> void:
 	if _transition_requested:
 		return
@@ -174,6 +185,7 @@ func _request_combat_trial_transition() -> void:
 	room_transition_requested.emit(COMBAT_TRIAL_ROOM_PATH, &"combat_entry")
 
 
+# 训练假人命中信号只在攻击教学步骤内解锁出口。
 func _on_tutorial_dummy_hit_registered(_hit_count: int) -> void:
 	if _current_step != STEP_ATTACK:
 		return
@@ -181,12 +193,14 @@ func _on_tutorial_dummy_hit_registered(_hit_count: int) -> void:
 	_unlock_exit_after_attack()
 
 
+# 攻击教学完成后打开出口并推进到离开教程步骤。
 func _unlock_exit_after_attack() -> void:
 	_exit_unlocked = true
 	_apply_exit_lock_state()
 	_set_current_step(STEP_EXIT)
 
 
+# 从房间流程配置读取阈值；缺失时使用脚本默认值保持旧测试稳定。
 func _get_threshold_float(key: StringName, fallback: float) -> float:
 	if flow_config == null:
 		return fallback

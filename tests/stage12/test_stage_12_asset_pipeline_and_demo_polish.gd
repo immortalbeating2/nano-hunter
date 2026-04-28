@@ -23,6 +23,7 @@ const SLASH_VFX_ASSET_PATH := "res://assets/art/vfx/stage12_slash_vfx.svg"
 const HIT_SPARK_VFX_ASSET_PATH := "res://assets/art/vfx/stage12_hit_spark_vfx.svg"
 
 
+# 保护资产管线目录：Stage12 必须建立角色、敌人、环境、VFX、UI、音频和源文件目录。
 func test_stage12_asset_pipeline_docs_and_directories_exist() -> void:
 	var required_directories := [
 		"res://assets/art/characters/player",
@@ -44,6 +45,7 @@ func test_stage12_asset_pipeline_docs_and_directories_exist() -> void:
 	assert_true(FileAccess.file_exists(ASSET_INGESTION_CHECKLIST_PATH))
 
 
+# 保护资产 manifest 结构：清单字段和第一批关键占位资产 ID 必须可追踪。
 func test_stage12_manifest_contains_required_fields_and_first_batch_entries() -> void:
 	var manifest := _read_text_file(ASSET_MANIFEST_PATH)
 	var required_terms := [
@@ -70,6 +72,7 @@ func test_stage12_manifest_contains_required_fields_and_first_batch_entries() ->
 		assert_string_contains(manifest, term)
 
 
+# 保护资产接入 checklist：导入、碰撞、HUD、授权和人工复核等检查项必须保留。
 func test_stage12_ingestion_checklist_covers_required_review_points() -> void:
 	var checklist := _read_text_file(ASSET_INGESTION_CHECKLIST_PATH)
 	var required_terms := [
@@ -87,6 +90,7 @@ func test_stage12_ingestion_checklist_covers_required_review_points() -> void:
 		assert_string_contains(checklist, term)
 
 
+# 保护表现升级不破坏碰撞契约：玩家和三类敌人必须保留碰撞节点并新增可读标记。
 func test_stage12_player_and_enemy_scenes_keep_collision_contract_and_gain_visual_markers() -> void:
 	await _assert_scene_has_nodes(PLAYER_SCENE_PATH, [
 		"CollisionShape2D",
@@ -122,6 +126,7 @@ func test_stage12_player_and_enemy_scenes_keep_collision_contract_and_gain_visua
 	])
 
 
+# 保护 HUD polish：生命、dash、目标图标存在，同时基础状态文本仍可读。
 func test_stage12_hud_contains_polish_icons_and_keeps_demo_completion_feedback() -> void:
 	var packed_scene: PackedScene = load(HUD_SCENE_PATH) as PackedScene
 	assert_not_null(packed_scene)
@@ -137,6 +142,7 @@ func test_stage12_hud_contains_polish_icons_and_keeps_demo_completion_feedback()
 	assert_string_contains((hud.get_node("BattlePanel/DashLabel") as Label).text, "冲刺")
 
 
+# 保护 SVG 资产接入：第一批占位资源必须能加载，并被对应场景引用。
 func test_stage12_registered_svg_assets_are_loadable_and_referenced_by_scenes() -> void:
 	var asset_paths := [
 		PLAYER_SILHOUETTE_ASSET_PATH,
@@ -163,6 +169,7 @@ func test_stage12_registered_svg_assets_are_loadable_and_referenced_by_scenes() 
 	_assert_file_contains(STAGE9_SWITCH_ROOM_SCENE_PATH, CHECKPOINT_GATE_GOAL_ASSET_PATH)
 
 
+# 保护轻量 VFX：攻击和受击视觉可切换，但不改变玩家攻击或敌人 defeated 契约。
 func test_stage12_lightweight_vfx_toggle_without_changing_combat_contract() -> void:
 	var player_scene: PackedScene = load(PLAYER_SCENE_PATH) as PackedScene
 	var player := player_scene.instantiate()
@@ -188,6 +195,7 @@ func test_stage12_lightweight_vfx_toggle_without_changing_combat_contract() -> v
 	assert_true(hit_spark.visible)
 
 
+# 保护门控 / checkpoint polish：新增提示节点不能移除原有 GateBarrier 和 GateSwitch 碰撞。
 func test_stage12_gate_and_checkpoint_polish_nodes_exist_without_changing_gate_collision() -> void:
 	await _assert_scene_has_nodes(STAGE9_SWITCH_ROOM_SCENE_PATH, [
 		"GateBarrier",
@@ -199,6 +207,7 @@ func test_stage12_gate_and_checkpoint_polish_nodes_exist_without_changing_gate_c
 	])
 
 
+# 保护回归基线：Stage12 表现升级后，Stage11 灰盒主线仍必须可完成。
 func test_stage12_keeps_stage11_graybox_mainline_finishable() -> void:
 	var result: Dictionary = await Stage11GrayboxMainlineDriver.drive_mainline(self)
 
@@ -213,12 +222,14 @@ func test_stage12_keeps_stage11_graybox_mainline_finishable() -> void:
 
 
 # 测试辅助：集中处理文件读取和场景节点断言，让每个测试只表达 Stage 12 的行为目标。
+# 读取项目文本文件，用于 manifest、checklist 和场景引用断言。
 func _read_text_file(path: String) -> String:
 	var file := FileAccess.open(path, FileAccess.READ)
 	assert_not_null(file, "无法读取文件：%s" % path)
 	return file.get_as_text() if file != null else ""
 
 
+# 加载场景并断言一组节点存在，集中处理场景实例化和错误信息。
 func _assert_scene_has_nodes(scene_path: String, node_paths: Array[String]) -> void:
 	var packed_scene: PackedScene = load(scene_path) as PackedScene
 	assert_not_null(packed_scene, "无法加载场景：%s" % scene_path)
@@ -231,6 +242,7 @@ func _assert_scene_has_nodes(scene_path: String, node_paths: Array[String]) -> v
 		assert_not_null(scene.get_node_or_null(node_path), "%s 缺少节点：%s" % [scene_path, node_path])
 
 
+# 断言指定文件包含某段文本，用于确认资源路径已经写入场景或文档。
 func _assert_file_contains(file_path: String, expected_text: String) -> void:
 	var text := _read_text_file(file_path)
 	assert_string_contains(text, expected_text)

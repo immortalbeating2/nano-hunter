@@ -20,6 +20,7 @@ const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_r
 const STAGE9_ENTRY_SPAWN_ID: StringName = &"zone_entry_start"
 
 
+# 公开 driver 入口：加载真实 Main 场景并依次驾驶教程、战斗、Stage9/10 和 Demo 终点。
 static func drive_mainline(test: GutTest) -> Dictionary:
 	# 驱动入口只加载生产 Main.tscn，不拼装测试专用主流程，确保覆盖真实房间切换契约。
 	var result := _make_result()
@@ -49,6 +50,7 @@ static func drive_mainline(test: GutTest) -> Dictionary:
 	return _finalize_result(main_scene, result)
 
 
+# 驾驶早期三房间链路，保留为独立函数方便失败时判断卡在 Stage5-7 哪一段。
 static func _drive_from_tutorial_to_goal_trial(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	if not await _drive_tutorial_room(test, main_scene, result):
 		return false
@@ -59,6 +61,7 @@ static func _drive_from_tutorial_to_goal_trial(test: GutTest, main_scene: Node2D
 	return true
 
 
+# 驾驶 Stage9 到 Stage11 的内容链路，通过房间路径选择最小清房策略。
 static func _drive_stage9_to_stage11_demo_end(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	# Stage9 之后房间数量变多，因此使用 scene_file_path 分派每个房间的最小通关策略。
 	# 这里不是模拟真实手操，而是证明灰盒主链路可自动到达终点。
@@ -99,6 +102,7 @@ static func _drive_stage9_to_stage11_demo_end(test: GutTest, main_scene: Node2D,
 	return false
 
 
+# 驾驶教程房：用位置和木桩命中触发教程步骤，验证房间流程而不重复测试输入手感。
 static func _drive_tutorial_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	# 教程房直接把玩家放到关键阈值位置，用来验证房间步骤和 Main 切房，而不是验证输入手感。
 	var room: Node2D = _get_room(main_scene)
@@ -138,6 +142,7 @@ static func _drive_tutorial_room(test: GutTest, main_scene: Node2D, result: Dict
 	return true
 
 
+# 驾驶战斗试炼房：击败基础敌人后移动到出口，验证清敌开门和切到目标房。
 static func _drive_combat_trial_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	result.last_strategy_step = "combat_trial_clear"
 	if not await _defeat_enemy_node(test, main_scene, "BasicMeleeEnemy"):
@@ -148,6 +153,7 @@ static func _drive_combat_trial_room(test: GutTest, main_scene: Node2D, result: 
 	return await _move_player_to_exit_zone(test, main_scene, GOAL_TRIAL_ROOM_SCENE_PATH, "CombatTrialRoom 未推进到 GoalTrialRoom")
 
 
+# 驾驶目标房：击败敌人解锁目标区，然后进入目标区完成短链路。
 static func _drive_goal_trial_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	result.last_strategy_step = "goal_trial_clear"
 	if not await _defeat_enemy_node(test, main_scene, "BasicMeleeEnemy"):
@@ -172,11 +178,13 @@ static func _drive_goal_trial_room(test: GutTest, main_scene: Node2D, result: Di
 	return true
 
 
+# 清理无额外门控的线性出口房，主要用于 Stage9 入口房。
 static func _clear_linear_exit_room(test: GutTest, main_scene: Node2D, result: Dictionary, strategy_name: String) -> bool:
 	result.last_strategy_step = strategy_name + "_exit"
 	return await _move_player_to_exit_zone(test, main_scene, "", "")
 
 
+# 清理敌人门控房：统一击败可攻击子节点，再通过出口区触发下一房。
 static func _clear_enemy_gate_room(test: GutTest, main_scene: Node2D, result: Dictionary, strategy_name: String) -> bool:
 	# 敌人门控房统一调用 receive_attack，避免 driver 依赖具体敌人 AI 或移动时机。
 	result.last_strategy_step = strategy_name + "_clear_enemies"
@@ -194,6 +202,7 @@ static func _clear_enemy_gate_room(test: GutTest, main_scene: Node2D, result: Di
 	return await _move_player_to_exit_zone(test, main_scene, "", "")
 
 
+# 清理开关门房：把玩家移动到 GateSwitch，再走出口推进。
 static func _clear_switch_gate_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	result.last_strategy_step = "stage9_switch_activate"
 	var room: Node2D = _get_room(main_scene)
@@ -214,6 +223,7 @@ static func _clear_switch_gate_room(test: GutTest, main_scene: Node2D, result: D
 	return await _move_player_to_exit_zone(test, main_scene, "", "")
 
 
+# 完成 Demo 终点房：移动到 GoalZone，让房间自己的完成逻辑发出 goal_completed。
 static func _finish_demo_end_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	result.last_strategy_step = "stage11_finish_demo"
 	var room: Node2D = _get_room(main_scene)
@@ -233,6 +243,7 @@ static func _finish_demo_end_room(test: GutTest, main_scene: Node2D, result: Dic
 	return true
 
 
+# 击败当前房间中的指定敌人节点，保护早期固定命名敌人的清房流程。
 static func _defeat_enemy_node(test: GutTest, main_scene: Node2D, node_name: String) -> bool:
 	var room: Node2D = _get_room(main_scene)
 	if room == null:
@@ -247,6 +258,7 @@ static func _defeat_enemy_node(test: GutTest, main_scene: Node2D, node_name: Str
 	return true
 
 
+# 将玩家移动到当前房间 ExitZone，并在需要时校验切房结果。
 static func _move_player_to_exit_zone(test: GutTest, main_scene: Node2D, expected_room_path: String, fail_message: String) -> bool:
 	# 出口推进仍通过房间自己的 _process 判定触发，所以这里移动玩家后等待若干帧。
 	var room: Node2D = _get_room(main_scene)
@@ -270,24 +282,29 @@ static func _move_player_to_exit_zone(test: GutTest, main_scene: Node2D, expecte
 	return true
 
 
+# process 帧推进 helper 用于等待房间 _process、信号切房和 HUD 更新。
 static func _advance_process_frames(test: GutTest, frame_count: int) -> void:
 	for _i in range(frame_count):
 		await test.get_tree().process_frame
 
 
+# 读取当前 Main 下的 Room 节点，集中处理路径，方便以后 Main 结构调整。
 static func _get_room(main_scene: Node2D) -> Node2D:
 	return main_scene.get_node_or_null("Room") as Node2D
 
 
+# 读取当前运行时玩家，driver 不直接持久缓存玩家引用以适配切房重生。
 static func _get_player(main_scene: Node2D) -> CharacterBody2D:
 	return main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
 
 
+# 读取 HUD 文本，用于失败结果中保留当前玩家看到的步骤和提示。
 static func _get_label_text(main_scene: Node2D, node_path: NodePath) -> String:
 	var label: Label = main_scene.get_node_or_null(node_path) as Label
 	return label.text if label != null else ""
 
 
+# 创建统一结果字典，成功和失败都使用同一组字段，方便断言输出。
 static func _make_result() -> Dictionary:
 	# 失败结果保留最后房间、HUD 文案和玩家位置，便于阶段收口时快速定位卡在哪个灰盒节点。
 	return {
@@ -303,6 +320,7 @@ static func _make_result() -> Dictionary:
 	}
 
 
+# 补齐最终运行态上下文，确保失败信息包含房间、HUD 和玩家位置。
 static func _finalize_result(main_scene: Node2D, result: Dictionary) -> Dictionary:
 	# 无论成功失败都在结束前补齐上下文，调用方可以直接把结果写入断言信息。
 	if main_scene == null:

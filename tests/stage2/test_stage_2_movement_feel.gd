@@ -15,12 +15,14 @@ func before_each() -> void:
 	Input.action_release("jump")
 
 
+# 每条测试结束释放移动输入，避免 Input 单例跨测试保留按键状态。
 func after_each() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")
 	Input.action_release("jump")
 
 
+# 保护 Stage2 输入契约：移动和跳跃 action 必须存在且有默认事件，better-terrain 仍保持禁用。
 func test_project_stage_2_uses_named_input_actions_and_disables_better_terrain() -> void:
 	assert_true(InputMap.has_action("move_left"))
 	assert_true(InputMap.has_action("move_right"))
@@ -37,6 +39,7 @@ func test_project_stage_2_uses_named_input_actions_and_disables_better_terrain()
 	assert_false(enabled_plugins.has("res://addons/better-terrain/plugin.cfg"))
 
 
+# 保护玩家初始状态和调参入口：Main 生成的玩家必须暴露基础移动参数。
 func test_main_scene_spawns_one_stage_2_player_with_readable_state_and_tuning() -> void:
 	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
 
@@ -68,6 +71,7 @@ func test_main_scene_spawns_one_stage_2_player_with_readable_state_and_tuning() 
 	assert_true(_has_property(player, "landing_state_duration"))
 
 
+# 保护水平移动状态机：按右进入 run，释放后回到 idle，速度也应收敛到 0。
 func test_player_enters_run_and_idle_states_from_horizontal_input() -> void:
 	var player: CharacterBody2D = await _spawn_player_with_floor(Vector2(0, 96))
 
@@ -87,6 +91,7 @@ func test_player_enters_run_and_idle_states_from_horizontal_input() -> void:
 	assert_almost_eq(player.velocity.x, 0.0, 0.5)
 
 
+# 保护跳跃基础流程：按下跳跃后进入上升，随后自然转入下落。
 func test_player_jumps_then_transitions_to_fall() -> void:
 	var player: CharacterBody2D = await _spawn_player_with_floor(Vector2(0, 96))
 
@@ -105,6 +110,7 @@ func test_player_jumps_then_transitions_to_fall() -> void:
 	assert_gt(player.velocity.y, 0.0)
 
 
+# 保护可变跳高：提前松开跳跃应产生更低的跳跃顶点。
 func test_early_jump_release_reduces_jump_height() -> void:
 	var full_jump_apex: float = await _measure_jump_apex(-1)
 	var short_jump_apex: float = await _measure_jump_apex(2)
@@ -112,6 +118,7 @@ func test_early_jump_release_reduces_jump_height() -> void:
 	assert_lt(full_jump_apex, short_jump_apex)
 
 
+# 保护 coyote time：玩家刚离开平台后仍允许在短窗口内起跳。
 func test_player_can_jump_within_coyote_time_window() -> void:
 	var player: CharacterBody2D = await _spawn_player_with_floor(
 		Vector2(56, 96),
@@ -131,6 +138,7 @@ func test_player_can_jump_within_coyote_time_window() -> void:
 	assert_lt(player.velocity.y, 0.0)
 
 
+# 保护 jump buffer：落地前预输入跳跃应在接触地面后立即起跳。
 func test_player_uses_jump_buffer_when_landing() -> void:
 	var player: CharacterBody2D = await _spawn_player_with_floor(Vector2(0, 88))
 
@@ -146,6 +154,7 @@ func test_player_uses_jump_buffer_when_landing() -> void:
 
 
 # 测试辅助：统一生成玩家、地板和等待逻辑，避免测试主体里重复铺场。
+# 这里创建独立小世界而非加载 Main，是为了只验证玩家移动手感，不受房间流程干扰。
 func _spawn_player_with_floor(
 	spawn_position: Vector2,
 	floor_size: Vector2 = Vector2(1024, 32)
@@ -171,6 +180,7 @@ func _spawn_player_with_floor(
 	return player
 
 
+# 测量一次跳跃的最高点，用同一套物理推进比较完整跳和短跳。
 func _measure_jump_apex(release_after_frames: int) -> float:
 	var player: CharacterBody2D = await _spawn_player_with_floor(Vector2(0, 96))
 	var world: Node = player.get_parent()
@@ -193,11 +203,13 @@ func _measure_jump_apex(release_after_frames: int) -> float:
 	return apex
 
 
+# 物理帧推进 helper 用于移动、跳跃和落地状态机测试。
 func _advance_physics_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().physics_frame
 
 
+# 等待指定状态出现，失败时输出当前状态帮助定位状态机卡点。
 func _wait_for_state(player: CharacterBody2D, expected_state: StringName, max_frames: int) -> void:
 	for _i in range(max_frames):
 		if player.get("current_state") == expected_state:
@@ -207,6 +219,7 @@ func _wait_for_state(player: CharacterBody2D, expected_state: StringName, max_fr
 	fail_test("等待状态 %s 超时，当前为 %s" % [expected_state, player.get("current_state")])
 
 
+# 等待玩家离开地面，用于 coyote time 测试确认已经进入离地窗口。
 func _wait_until_not_on_floor(player: CharacterBody2D, max_frames: int) -> void:
 	for _i in range(max_frames):
 		if not player.is_on_floor():
@@ -216,6 +229,7 @@ func _wait_until_not_on_floor(player: CharacterBody2D, max_frames: int) -> void:
 	fail_test("玩家在预期帧数内没有离开地面")
 
 
+# 等待玩家稳定落地，避免出生下落阶段污染移动和跳跃断言。
 func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> void:
 	for _i in range(max_frames):
 		if (
@@ -231,6 +245,7 @@ func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> 
 	fail_test("玩家在预期帧数内没有稳定落地")
 
 
+# 通过属性列表确认玩家导出了调参字段，不直接依赖具体脚本实现位置。
 func _has_property(target: Object, property_name: String) -> bool:
 	for property_info in target.get_property_list():
 		if property_info.name == property_name:
@@ -238,6 +253,7 @@ func _has_property(target: Object, property_name: String) -> bool:
 	return false
 
 
+# 读取 ProjectSettings 中 action 的默认事件，保护输入配置不是空壳 action。
 func _project_action_has_default_events(action_name: String) -> bool:
 	var action_config: Dictionary = ProjectSettings.get_setting("input/%s" % action_name, {})
 	var action_events: Array = action_config.get("events", [])

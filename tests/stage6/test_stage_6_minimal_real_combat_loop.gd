@@ -9,6 +9,7 @@ const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const TUTORIAL_ROOM_SCENE_PATH := "res://scenes/rooms/tutorial_room.tscn"
 const COMBAT_ROOM_SCENE_PATH := "res://scenes/rooms/combat_trial_room.tscn"
 
+# 信号缓存用于确认玩家生命变化和 defeated 只按预期次数发出。
 var _health_signal_values: Array[int] = []
 var _defeated_signal_count := 0
 
@@ -20,10 +21,12 @@ func before_each() -> void:
 	_defeated_signal_count = 0
 
 
+# 每条测试结束都释放输入，避免上一条测试残留按键影响玩家状态机。
 func after_each() -> void:
 	_reset_input_actions()
 
 
+# 保护 Stage6 主链路入口：教程房完成后 Main 必须能切到第一段真实战斗房，并刷新 HUD 文案。
 func test_main_transitions_from_tutorial_room_to_combat_trial_room() -> void:
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
@@ -54,6 +57,7 @@ func test_main_transitions_from_tutorial_room_to_combat_trial_room() -> void:
 	assert_string_contains(prompt_label.text, "敌人")
 
 
+# 保护玩家受击闭环：生命扣减、无敌帧拦截重复伤害、死亡信号都必须稳定。
 func test_player_health_damage_invulnerability_and_defeated_signal() -> void:
 	var player: CharacterBody2D = await _spawn_player_with_floor(Vector2(0, 96))
 
@@ -89,6 +93,7 @@ func test_player_health_damage_invulnerability_and_defeated_signal() -> void:
 	assert_eq(_health_signal_values, [2, 1, 0])
 
 
+# 保护战斗房最小门控：敌人未败时出口锁住，击败基础敌人后出口与提示同步更新。
 func test_combat_trial_room_unlocks_exit_after_enemy_is_defeated() -> void:
 	var packed_scene: PackedScene = load(COMBAT_ROOM_SCENE_PATH) as PackedScene
 
@@ -111,6 +116,7 @@ func test_combat_trial_room_unlocks_exit_after_enemy_is_defeated() -> void:
 	assert_string_contains(str(room.call("get_current_prompt_text")), "出口")
 
 
+# 保护运行态复核后的接敌距离：首个敌人不能离出生点过远导致实战压力偏弱。
 func test_combat_trial_room_keeps_first_enemy_pressure_within_reaction_range() -> void:
 	var room: Node2D = await _spawn_combat_room()
 	var enemy: Node2D = room.get_node_or_null("BasicMeleeEnemy") as Node2D
@@ -120,6 +126,7 @@ func test_combat_trial_room_keeps_first_enemy_pressure_within_reaction_range() -
 	assert_lte(spawn_position.distance_to(enemy.global_position), 224.0)
 
 
+# 保护受击手感收敛：玩家被打后短时间内必须产生清晰水平脱离和上抬反馈。
 func test_player_damage_knockback_creates_clear_short_escape_window() -> void:
 	var player: CharacterBody2D = await _spawn_player_with_floor(Vector2(0, 96))
 	var start_position := player.global_position
@@ -132,6 +139,7 @@ func test_player_damage_knockback_creates_clear_short_escape_window() -> void:
 	assert_eq(player.get("current_health"), 2)
 
 
+# 保护失败重试闭环：战斗房内死亡后 Main 应重载当前战斗房、满血重生并重新锁门。
 func test_main_resets_current_combat_room_after_player_is_defeated() -> void:
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
@@ -180,6 +188,7 @@ func test_main_resets_current_combat_room_after_player_is_defeated() -> void:
 
 
 # 测试辅助：统一生成战斗房、玩家和失败流程，避免各条测试自行拼接主线推进。
+# 这里直接调用 Main 的切房接口，跳过教程真人操作，只保护 Stage6 入口契约。
 func _complete_tutorial_and_enter_combat(main_scene: Node2D) -> void:
 	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
 
@@ -189,6 +198,7 @@ func _complete_tutorial_and_enter_combat(main_scene: Node2D) -> void:
 	await _advance_process_frames(2)
 
 
+# 构造独立战斗房实例，用于只验证房间门控和敌人距离，不启动完整 Main。
 func _spawn_combat_room() -> Node2D:
 	var packed_scene: PackedScene = load(COMBAT_ROOM_SCENE_PATH) as PackedScene
 
@@ -200,6 +210,7 @@ func _spawn_combat_room() -> Node2D:
 	return room
 
 
+# 构造带地板的玩家测试世界，确保生命、受击、击退和落地状态都可在物理帧中验证。
 func _spawn_player_with_floor(spawn_position: Vector2) -> CharacterBody2D:
 	var world := Node2D.new()
 	add_child_autofree(world)
@@ -222,6 +233,7 @@ func _spawn_player_with_floor(spawn_position: Vector2) -> CharacterBody2D:
 	return player
 
 
+# 通过多次 receive_damage 主动打空玩家生命，保护 Main 对 defeated 信号的重置响应。
 func _defeat_player(player: CharacterBody2D) -> void:
 	for _i in range(2):
 		await _advance_physics_frames(24)
@@ -229,16 +241,19 @@ func _defeat_player(player: CharacterBody2D) -> void:
 		await _advance_physics_frames(2)
 
 
+# 物理帧推进 helper 用于玩家控制、受击无敌帧和落地判定。
 func _advance_physics_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().physics_frame
 
 
+# process 帧推进 helper 用于等待 Main 切房、HUD 刷新和 deferred checkpoint。
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
 
 
+# 等待玩家稳定落地，避免测试在出生后尚未完成物理落地时读取状态。
 func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> void:
 	for _i in range(max_frames):
 		if (
@@ -255,6 +270,7 @@ func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> 
 	fail_test("玩家在预期帧数内没有稳定落地")
 
 
+# 输入清理覆盖移动、跳跃、攻击和冲刺，防止 Input 单例在 GUT 测试之间泄漏状态。
 func _reset_input_actions() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")
@@ -265,9 +281,11 @@ func _reset_input_actions() -> void:
 		Input.action_release("dash")
 
 
+# 生命信号回调只记录当前生命值序列，用于断言无敌帧没有重复扣血。
 func _on_player_health_changed(current_health: int, _max_health: int) -> void:
 	_health_signal_values.append(current_health)
 
 
+# defeated 信号回调只计数，保护死亡事件不会重复发出。
 func _on_player_defeated() -> void:
 	_defeated_signal_count += 1

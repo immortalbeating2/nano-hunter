@@ -27,6 +27,7 @@ const STAGE13_RESOURCE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste
 const STAGE13_CHALLENGE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_challenge_branch_room.tscn"
 
 
+# 保护 Stage13 内容范围：10 个主线房和 2 条支路必须全部存在并完成入口配置。
 func test_stage13_area_declares_ten_main_rooms_and_two_branches() -> void:
 	# 先锁资产和场景数量边界，避免后续改房间时悄悄丢掉主线或支路。
 	for room_path in STAGE13_MAIN_ROOM_PATHS:
@@ -43,6 +44,7 @@ func test_stage13_area_declares_ten_main_rooms_and_two_branches() -> void:
 	assert_eq(hub_room.call("get_challenge_branch_room_path"), STAGE13_CHALLENGE_BRANCH_ROOM_PATH)
 
 
+# 保护 Stage11 到 Stage13 的接入：Demo 完成后 ContinueZone 必须进入第二小区域入口。
 func test_stage11_demo_end_continue_zone_links_into_stage13_entry_room_after_demo_completion() -> void:
 	var room := await _spawn_room(STAGE11_DEMO_END_ROOM_SCENE_PATH)
 	var player := await _spawn_player(Vector2.ZERO)
@@ -66,6 +68,7 @@ func test_stage11_demo_end_continue_zone_links_into_stage13_entry_room_after_dem
 	assert_eq(transitions[0].get("spawn"), &"stage13_entry_start")
 
 
+# 保护孢子投射敌契约：敌人必须读取配置并暴露远程压制相关读值。
 func test_spore_shooter_enemy_uses_config_and_exposes_ranged_pressure_contract() -> void:
 	var packed_scene: PackedScene = load(SPORE_SHOOTER_SCENE_PATH) as PackedScene
 
@@ -85,6 +88,7 @@ func test_spore_shooter_enemy_uses_config_and_exposes_ranged_pressure_contract()
 	assert_eq(enemy.call("get_touch_damage"), config.get("touch_damage"))
 
 
+# 保护酸液危险：触发酸液应造成伤害，同时房间仍保留失败重试契约。
 func test_acid_hazard_damages_player_without_breaking_checkpoint_recovery() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[2])
 	var player := await _spawn_player(Vector2.ZERO)
@@ -98,6 +102,7 @@ func test_acid_hazard_damages_player_without_breaking_checkpoint_recovery() -> v
 	assert_true(room.call("should_reset_on_player_defeat"))
 
 
+# 保护净化门控：带净化节点的房间默认锁门，触发节点后解锁。
 func test_purification_gate_starts_locked_and_unlocks_after_node_activation() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[3])
 	var player := await _spawn_player(Vector2.ZERO)
@@ -114,6 +119,7 @@ func test_purification_gate_starts_locked_and_unlocks_after_node_activation() ->
 	assert_true(room.call("is_purification_node_activated"))
 
 
+# 保护两条支路的收益角色：资源支路与挑战支路都能计数奖励并回到主线。
 func test_stage13_branches_provide_distinct_reward_roles_and_return_to_mainline() -> void:
 	var resource_room := await _spawn_room(STAGE13_RESOURCE_BRANCH_ROOM_PATH)
 	var challenge_room := await _spawn_room(STAGE13_CHALLENGE_BRANCH_ROOM_PATH)
@@ -134,6 +140,7 @@ func test_stage13_branches_provide_distinct_reward_roles_and_return_to_mainline(
 	assert_eq(challenge_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[8])
 
 
+# 保护资产规划：Stage13 生物废液区关键视觉需求必须写入 manifest。
 func test_stage13_asset_manifest_contains_bio_waste_requirements() -> void:
 	var manifest := _read_text_file(ASSET_MANIFEST_PATH)
 	var required_terms := [
@@ -150,6 +157,7 @@ func test_stage13_asset_manifest_contains_bio_waste_requirements() -> void:
 		assert_string_contains(manifest, term)
 
 
+# 保护灰盒主路径：从 Main 进入 Stage11 终点后应能自动推进到 Stage13 目标房。
 func test_stage13_graybox_driver_can_reach_second_zone_goal_from_main_scene() -> void:
 	# 这条测试从 Main.tscn 出发，保护 Stage11 终点继续进入 Stage13 的真实主线契约。
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
@@ -168,6 +176,7 @@ func test_stage13_graybox_driver_can_reach_second_zone_goal_from_main_scene() ->
 	assert_eq((main_scene.get_node("Room") as Node2D).scene_file_path, STAGE13_MAIN_ROOM_PATHS[9])
 
 
+# 灰盒 driver 按当前房间状态选择最小推进动作，保护 Stage13 主线不会断链。
 func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 	# Stage13 driver 按当前房间状态选择最小推进动作：清敌、解门、走出口。
 	# 它不评估真人手感，只保护灰盒链路不会断。
@@ -215,8 +224,8 @@ func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 	return false
 
 
+# 统一房间实例化入口，保证每个房间都至少跑过一帧 _ready 初始化。
 func _spawn_room(scene_path: String) -> Node2D:
-	# 统一房间实例化入口，保证每个房间都至少跑过一帧 _ready 初始化。
 	var packed_scene: PackedScene = load(scene_path) as PackedScene
 
 	assert_not_null(packed_scene)
@@ -227,8 +236,8 @@ func _spawn_room(scene_path: String) -> Node2D:
 	return room
 
 
+# 玩家 helper 用真实 PlayerPlaceholder，避免测试绕过生命、伤害和 HUD 快照契约。
 func _spawn_player(spawn_position: Vector2) -> CharacterBody2D:
-	# 玩家 helper 用真实 PlayerPlaceholder，避免测试绕过生命、伤害和 HUD 快照契约。
 	var player_scene: PackedScene = load("res://scenes/player/player_placeholder.tscn") as PackedScene
 
 	assert_not_null(player_scene)
@@ -240,11 +249,13 @@ func _spawn_player(spawn_position: Vector2) -> CharacterBody2D:
 	return player
 
 
+# process 帧推进 helper 用于等待房间位置触发、信号切房和 HUD 更新。
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
 
 
+# 读取文本文件用于 manifest 断言，失败时给出明确路径。
 func _read_text_file(path: String) -> String:
 	var file := FileAccess.open(path, FileAccess.READ)
 	assert_not_null(file, "无法读取文件：%s" % path)

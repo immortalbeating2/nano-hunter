@@ -20,10 +20,12 @@ func before_each() -> void:
 	_reset_input_actions()
 
 
+# 每条 Stage9 测试结束释放输入，避免区域推进和失败重试被残留动作影响。
 func after_each() -> void:
 	_reset_input_actions()
 
 
+# 保护 Stage9 区域骨架：五个主线房间场景必须都能加载。
 func test_stage9_zone_forms_a_five_room_linear_chain() -> void:
 	var room_paths := [
 		ZONE_ENTRY_ROOM_SCENE_PATH,
@@ -38,6 +40,7 @@ func test_stage9_zone_forms_a_five_room_linear_chain() -> void:
 		assert_not_null(packed_scene, "缺少房间场景: %s" % room_path)
 
 
+# 保护第二类敌人契约：冲锋敌必须使用配置资源，并在玩家进入触发距离后进入冲锋状态。
 func test_ground_charger_enemy_uses_config_resource_and_exposes_charge_state() -> void:
 	var packed_scene: PackedScene = load(CHARGER_ENEMY_SCENE_PATH) as PackedScene
 
@@ -60,6 +63,7 @@ func test_ground_charger_enemy_uses_config_resource_and_exposes_charge_state() -
 	assert_true(enemy.call("is_charge_active"))
 
 
+# 保护开关门门控：激活开关后房间 gate 状态和碰撞形状必须同步解锁。
 func test_switch_room_unlocks_gate_after_switch_activation() -> void:
 	var room := await _spawn_room(ZONE_SWITCH_ROOM_SCENE_PATH)
 	var gate_shape: CollisionShape2D = room.get_node_or_null("GateBarrier/CollisionShape2D") as CollisionShape2D
@@ -75,6 +79,7 @@ func test_switch_room_unlocks_gate_after_switch_activation() -> void:
 	assert_true(gate_shape.disabled)
 
 
+# 保护 Stage9 checkpoint：进入后续房间死亡时应回到最近的 charger checkpoint 房。
 func test_main_resets_stage9_progress_to_last_checkpoint_room() -> void:
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
@@ -125,6 +130,7 @@ func test_main_resets_stage9_progress_to_last_checkpoint_room() -> void:
 
 
 # 测试辅助：统一生成房间、玩家和失败流程，减少区域测试里的重复样板。
+# 独立加载指定房间，供开关、敌人和房间链路测试复用。
 func _spawn_room(scene_path: String) -> Node2D:
 	var packed_scene: PackedScene = load(scene_path) as PackedScene
 
@@ -136,6 +142,7 @@ func _spawn_room(scene_path: String) -> Node2D:
 	return room
 
 
+# 在指定父节点下生成玩家，用于给敌人或房间触发逻辑提供目标。
 func _spawn_player(parent: Node, spawn_position: Vector2) -> CharacterBody2D:
 	var player_scene: PackedScene = load(PLAYER_SCENE_PATH) as PackedScene
 
@@ -149,6 +156,7 @@ func _spawn_player(parent: Node, spawn_position: Vector2) -> CharacterBody2D:
 	return player
 
 
+# 主动击败玩家，验证 Main 在 Stage9 checkpoint 下的恢复路径。
 func _defeat_player(player: CharacterBody2D) -> void:
 	for _i in range(3):
 		await _advance_physics_frames(24)
@@ -156,16 +164,19 @@ func _defeat_player(player: CharacterBody2D) -> void:
 		await _advance_physics_frames(2)
 
 
+# 物理帧推进 helper 用于冲锋敌触发、玩家受击和死亡流程。
 func _advance_physics_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().physics_frame
 
 
+# process 帧推进 helper 用于等待 Main 切房、房间 ready 和 checkpoint 绑定。
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
 
 
+# 输入清理覆盖当前已定义动作，保证 Stage9 区域测试之间互不串扰。
 func _reset_input_actions() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")

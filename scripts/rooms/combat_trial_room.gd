@@ -50,6 +50,7 @@ func _ready() -> void:
 	_emit_hud_context()
 
 
+# 接收 Main 注入的玩家实例，清房后用其位置判断是否进入出口区。
 func bind_player(player: CharacterBody2D) -> void:
 	_player = player
 
@@ -64,14 +65,17 @@ func _process(_delta: float) -> void:
 		room_transition_requested.emit(GOAL_TRIAL_ROOM_PATH, &"goal_entry")
 
 
+# 返回战斗房相机边界，保证实战区不会暴露灰盒外部。
 func get_camera_limits() -> Rect2i:
 	return CAMERA_LIMITS
 
 
+# 公开当前步骤，供测试确认战斗房从清敌切换到通行。
 func get_current_step_id() -> StringName:
 	return _current_step
 
 
+# 返回当前 HUD 标题，优先读取流程配置。
 func get_current_step_title() -> String:
 	if flow_config != null:
 		return flow_config.get_step_title(_current_step, STEP_TITLES.get(_current_step, "实战进行中"))
@@ -79,6 +83,7 @@ func get_current_step_title() -> String:
 	return STEP_TITLES.get(_current_step, "实战进行中")
 
 
+# 返回当前 HUD 提示，优先读取流程配置。
 func get_current_prompt_text() -> String:
 	if flow_config != null:
 		return flow_config.get_step_prompt(_current_step, STEP_PROMPTS.get(_current_step, ""))
@@ -86,10 +91,12 @@ func get_current_prompt_text() -> String:
 	return STEP_PROMPTS.get(_current_step, "")
 
 
+# 公开出口门控状态，供测试验证击败敌人后门打开。
 func is_exit_unlocked() -> bool:
 	return _exit_unlocked
 
 
+# 战斗房默认始终显示 dash；配置可覆盖该 HUD 可见性。
 func is_dash_available_in_hud() -> bool:
 	if flow_config != null:
 		return flow_config.is_dash_visible(_current_step, true)
@@ -97,6 +104,7 @@ func is_dash_available_in_hud() -> bool:
 	return true
 
 
+# 返回战斗房出生点，支持首次进入和失败重试复用同一默认点。
 func get_spawn_position(spawn_id: StringName = &"combat_entry") -> Vector2:
 	if flow_config != null:
 		return flow_config.get_spawn_position(spawn_id, SPAWN_POSITIONS[&"combat_entry"])
@@ -104,6 +112,7 @@ func get_spawn_position(spawn_id: StringName = &"combat_entry") -> Vector2:
 	return SPAWN_POSITIONS.get(spawn_id, SPAWN_POSITIONS[&"combat_entry"])
 
 
+# 汇总战斗房 HUD 上下文，供 TutorialHUD 统一翻译显示。
 func get_hud_context() -> Dictionary:
 	return {
 		"step_id": _current_step,
@@ -113,6 +122,7 @@ func get_hud_context() -> Dictionary:
 	}
 
 
+# 战斗房失败后允许 Main 重载当前房间，形成最小重试闭环。
 func should_reset_on_player_defeat() -> bool:
 	return true
 
@@ -125,10 +135,12 @@ func _on_basic_melee_enemy_defeated() -> void:
 	_emit_hud_context()
 
 
+# 广播当前标题和提示，驱动 HUD 在清房时立即刷新。
 func _emit_hud_context() -> void:
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
+# 按出口解锁状态同步碰撞和占位颜色。
 func _apply_exit_lock_state() -> void:
 	if exit_barrier_shape != null:
 		exit_barrier_shape.disabled = _exit_unlocked

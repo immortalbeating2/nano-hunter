@@ -72,14 +72,17 @@ func _process(_delta: float) -> void:
 		room_transition_requested.emit(STAGE13_ENTRY_ROOM_PATH, &"stage13_entry_start")
 
 
+# 接收 Main 注入的玩家实例，用于终点、重开和继续入口的位置判定。
 func bind_player(player: CharacterBody2D) -> void:
 	_player = player
 
 
+# 返回终点房相机边界，保证完成反馈和重开入口都在可见范围。
 func get_camera_limits() -> Rect2i:
 	return CAMERA_LIMITS
 
 
+# 返回终点房出生点；当前只有一个稳定起点。
 func get_spawn_position(spawn_id: StringName = DEMO_END_SPAWN_ID) -> Vector2:
 	if spawn_id == DEMO_END_SPAWN_ID:
 		return Vector2(-128, 96)
@@ -87,6 +90,7 @@ func get_spawn_position(spawn_id: StringName = DEMO_END_SPAWN_ID) -> Vector2:
 	return Vector2(-128, 96)
 
 
+# 汇总终点房 HUD 上下文，展示完成前后不同目标文案。
 func get_hud_context() -> Dictionary:
 	return {
 		"step_id": _current_step,
@@ -96,14 +100,17 @@ func get_hud_context() -> Dictionary:
 	}
 
 
+# 终点房失败允许 Main 回到最近 checkpoint，保证 demo 终点可重试。
 func should_reset_on_player_defeat() -> bool:
 	return true
 
 
+# 公开 demo 目标是否完成，供测试和 Main 快照核对。
 func is_demo_goal_finished() -> bool:
 	return _goal_finished
 
 
+# 激活终点房 checkpoint，只触发一次，避免重复覆盖 Main 恢复点。
 func _activate_checkpoint() -> void:
 	if _checkpoint_activated:
 		return
@@ -112,6 +119,7 @@ func _activate_checkpoint() -> void:
 	checkpoint_requested.emit(scene_file_path, DEMO_END_SPAWN_ID)
 
 
+# 完成 demo 终点，只触发一次 HUD 更新和 goal_completed 信号。
 func _complete_demo() -> void:
 	# 完成态只发一次，避免玩家停在 GoalZone 内时重复改 HUD 和重复发 goal_completed。
 	if _goal_finished:
@@ -123,6 +131,7 @@ func _complete_demo() -> void:
 	goal_completed.emit()
 
 
+# 广播终点房当前 HUD 文案，供完成状态切换后立即刷新。
 func _emit_hud_context() -> void:
 	hud_context_changed.emit(
 		STEP_TITLES.get(_current_step, "Demo 终点"),

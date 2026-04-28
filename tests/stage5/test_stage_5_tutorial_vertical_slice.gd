@@ -20,6 +20,7 @@ func before_each() -> void:
 		Input.action_release("dash")
 
 
+# 每条教程测试结束释放输入，避免 dash / attack 状态影响下一条教程流程。
 func after_each() -> void:
 	Input.action_release("move_left")
 	Input.action_release("move_right")
@@ -30,6 +31,7 @@ func after_each() -> void:
 		Input.action_release("dash")
 
 
+# 保护默认入口：Main 必须从教程房启动，并展示第一步教程 HUD。
 func test_main_scene_defaults_to_tutorial_room_and_hud() -> void:
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
@@ -55,6 +57,7 @@ func test_main_scene_defaults_to_tutorial_room_and_hud() -> void:
 	assert_string_contains(prompt_label.text, "Space")
 
 
+# 保护 HUD 基础排版：生命 / dash 两行不能重叠，后续 HUD 扩展要保留可读间距。
 func test_battle_panel_labels_render_on_separate_rows() -> void:
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
@@ -75,6 +78,7 @@ func test_battle_panel_labels_render_on_separate_rows() -> void:
 	assert_gt(dash_label.global_position.y - status_label.global_position.y, 12.0)
 
 
+# 保护教程房灰盒节点：跳跃引导、dash 门、木桩、出口阻挡和出口区都必须存在。
 func test_tutorial_room_exposes_stage_5_gate_and_exit_nodes() -> void:
 	var packed_scene: PackedScene = load(TUTORIAL_ROOM_SCENE_PATH) as PackedScene
 
@@ -97,6 +101,7 @@ func test_tutorial_room_exposes_stage_5_gate_and_exit_nodes() -> void:
 	assert_eq(jump_platform.position, Vector2(-144, 88))
 
 
+# 保护教程顺序：移动跳跃、dash、攻击、出口、完成必须按位置和命中事件推进。
 func test_tutorial_flow_progresses_in_order_and_unlocks_exit() -> void:
 	var room: Node2D = await _spawn_tutorial_room_world()
 	var player: CharacterBody2D = await _spawn_player_into_room(room, Vector2(-320, 96))
@@ -123,6 +128,7 @@ func test_tutorial_flow_progresses_in_order_and_unlocks_exit() -> void:
 	assert_eq(room.call("get_current_step_id"), &"complete")
 
 
+# 保护教程 dash 门价值：普通奔跑不能稳定穿过，dash 可以通过并保持落地。
 func test_dash_gate_requires_dash_to_cross_stably_in_tutorial_room() -> void:
 	var room: Node2D = await _spawn_tutorial_room_world()
 	var player: CharacterBody2D = await _spawn_player_into_room(room, Vector2(84, 96))
@@ -152,6 +158,7 @@ func test_dash_gate_requires_dash_to_cross_stably_in_tutorial_room() -> void:
 
 
 # 测试辅助：统一生成教程房和玩家，减少流程测试里的铺场噪音。
+# 直接实例化教程房，用于验证房间自身流程，不启动完整 Main。
 func _spawn_tutorial_room_world() -> Node2D:
 	var room_scene: PackedScene = load(TUTORIAL_ROOM_SCENE_PATH) as PackedScene
 	var room: Node2D = room_scene.instantiate() as Node2D
@@ -160,6 +167,7 @@ func _spawn_tutorial_room_world() -> Node2D:
 	return room
 
 
+# 在教程房中生成玩家并绑定房间，让位置触发和 HUD 上下文能正常工作。
 func _spawn_player_into_room(room: Node2D, spawn_position: Vector2) -> CharacterBody2D:
 	var player_scene: PackedScene = load(PLAYER_SCENE_PATH) as PackedScene
 	var player: CharacterBody2D = player_scene.instantiate() as CharacterBody2D
@@ -171,16 +179,19 @@ func _spawn_player_into_room(room: Node2D, spawn_position: Vector2) -> Character
 	return player
 
 
+# 物理帧推进 helper 用于 dash 门、落地和玩家移动状态。
 func _advance_physics_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().physics_frame
 
 
+# process 帧推进 helper 用于等待房间位置触发和 HUD 文案更新。
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
 
 
+# 等待玩家稳定落地，避免教程位置触发在出生下落阶段误判。
 func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> void:
 	for _i in range(max_frames):
 		if (
