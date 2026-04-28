@@ -60,5 +60,7 @@
 
 - 完成 Stage15 Godot MCP 运行态人工复核，覆盖 Stage14 回环入口、Stage15 前置段、混合遭遇、Boss 房、失败重试、Boss 击败和完成房反馈。
 - 修复 MCP 复核发现的 Stage15 completion room HUD 问题，并新增回归测试保护完成房不再显示旧主目标、恢复充能或旧收集行。
+- 提交前 QA 发现 Stage15 混合遭遇和挑战支线可被绕过；已补全清门控、挑战支线出口门和回归测试。
+- Stage15 已拆为 3 个阶段分支提交并合并回 `main`，合并后主线验证通过：Godot import、Stage15 专项 GUT `11/11`、全量 GUT `107/107`、`git diff --check HEAD` 和乱码扫描。
 - 完成全仓自有 GDScript 函数入口注释审计清零和乱码扫描，确认 Stage15 专项 GUT、全量 GUT、Godot import 与 `git diff --check` 通过。
 - 调整进度文档治理：日日志迁入 `docs/progress/logs/`，MCP 截图改为 `tests/artifacts/local/` 本地证据产物，`status.md` 与 `timeline.md` 改为低重复格式。详情见 `docs/progress/logs/2026-04-28.md`。
