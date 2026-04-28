@@ -2,3 +2,6 @@
 .godot/
 /android/
 .worktrees/
+
+# 本地运行态复核、截图和测试证据产物只服务当前机器，不进入提交。
+tests/artifacts/local/

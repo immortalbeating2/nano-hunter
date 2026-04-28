@@ -11,12 +11,13 @@ const STAGE10_CHALLENGE_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_chal
 const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 
 
+# 保护灰盒主线 driver：从 Main 起点自动推进必须能抵达 Demo 终点。
 func test_stage11_graybox_driver_can_finish_mainline_from_main_scene() -> void:
 	var result: Dictionary = await Stage11GrayboxMainlineDriver.drive_mainline(self)
 
 	assert_true(
 		result.get("success", false),
-		"鐏拌〃涓荤嚎鑷姩鍖栨湭瀹屾垚锛?failure_reason=%s last_room=%s strategy=%s position=%s velocity=%s" % [
+		"灰盒主线自动化未完成：failure_reason=%s last_room=%s strategy=%s position=%s velocity=%s" % [
 			result.get("failure_reason", ""),
 			result.get("last_room_path", ""),
 			result.get("last_strategy_step", ""),
@@ -26,6 +27,7 @@ func test_stage11_graybox_driver_can_finish_mainline_from_main_scene() -> void:
 	)
 
 
+# 保护 Stage10 主线出口：挑战房完成后必须能进入 Stage11 Demo 终点房。
 func test_stage11_mainline_can_progress_from_stage10_into_demo_end_room() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -50,6 +52,7 @@ func test_stage11_mainline_can_progress_from_stage10_into_demo_end_room() -> voi
 	assert_eq(demo_end_room.scene_file_path, STAGE11_DEMO_END_ROOM_SCENE_PATH)
 
 
+# 保护支路回主线：从 Stage10 支路返回主房后仍能继续到挑战房和 Demo 终点。
 func test_stage11_branch_room_can_return_to_mainline_and_still_reach_demo_end() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -78,6 +81,7 @@ func test_stage11_branch_room_can_return_to_mainline_and_still_reach_demo_end() 
 	assert_eq((main_scene.get_node_or_null("Room") as Node2D).scene_file_path, STAGE11_DEMO_END_ROOM_SCENE_PATH)
 
 
+# 保护 Demo 完成反馈：终点房完成后 Main 快照和 HUD 都要显示完成状态。
 func test_stage11_demo_completion_updates_main_snapshot_and_hud_feedback() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -99,6 +103,7 @@ func test_stage11_demo_completion_updates_main_snapshot_and_hud_feedback() -> vo
 	assert_string_contains(progress_label.text, "完成")
 
 
+# 保护终点房 checkpoint：玩家在 Demo 终点死亡后应重生在同一终点房。
 func test_stage11_player_defeat_in_demo_end_room_respawns_at_demo_end_checkpoint() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -118,6 +123,7 @@ func test_stage11_player_defeat_in_demo_end_room_respawns_at_demo_end_checkpoint
 
 
 # 测试辅助：统一生成 Main、推进帧与触发失败，避免每个用例重复拼装主流程入口。
+# 创建 Main 场景并等待一帧，让默认房间、HUD 和玩家完成初始化。
 func _spawn_main_scene() -> Node2D:
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
@@ -129,6 +135,7 @@ func _spawn_main_scene() -> Node2D:
 	return main_scene
 
 
+# 主动打空玩家生命，用于验证 Demo 终点房的 checkpoint 恢复。
 func _defeat_player(player: CharacterBody2D) -> void:
 	for _i in range(3):
 		await _advance_physics_frames(24)
@@ -136,11 +143,13 @@ func _defeat_player(player: CharacterBody2D) -> void:
 		await _advance_physics_frames(2)
 
 
+# 物理帧推进 helper 用于玩家受击、死亡和重生后的落地等待。
 func _advance_physics_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().physics_frame
 
 
+# process 帧推进 helper 用于等待 Main 切房、HUD 刷新和 goal_completed 处理。
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame

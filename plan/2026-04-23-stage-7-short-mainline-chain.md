@@ -19,7 +19,7 @@
   - `docs/implementation-plans/2026-04-23-stage-7-short-mainline-chain.md`
   - `docs/progress/status.md`
   - `docs/progress/timeline.md`
-  - `docs/progress/2026-04-23.md`
+  - `docs/progress/logs/2026-04-23.md`
 - preflight 文档里必须显式写明：
   - 本轮只做“三段顺序链路”
   - `GoalTrialRoom` 是混合门控目标房

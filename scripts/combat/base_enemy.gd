@@ -5,14 +5,16 @@ class_name BaseEnemy
 # 它只负责“受击后失效”和“碰撞到玩家时转发 receive_damage”，
 # 更具体的移动、冲锋、悬浮节奏交给子类。
 
-
+# defeated 是房间门控和 Main 流程唯一依赖的敌人清除信号。
 signal defeated
 
+# 节点缓存只用于关闭碰撞、隐藏 hurtbox 和显示轻量受击反馈，不作为外部读取入口。
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var _hurtbox: Area2D = $Hurtbox
 @onready var _hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
 @onready var _body_polygon: Polygon2D = $Body
 
+# 基类只记录是否已经失效；生命、护印和复杂状态由更高阶敌人自行实现。
 var _is_defeated := false
 
 
@@ -32,10 +34,13 @@ func receive_attack(_hit_direction: Vector2, _knockback_force: float) -> void:
 	defeated.emit()
 
 
+# 公开敌人是否已经失效，供房间门控和测试读取。
 func is_defeated() -> bool:
+	# 房间和测试通过该读值判断敌人是否已被清除，避免直接读取私有状态。
 	return _is_defeated
 
 
+# Stage12 轻量命中特效通过可选节点接入，缺节点时不影响早期敌人场景。
 func _show_stage12_hit_spark() -> void:
 	var hit_spark := get_node_or_null("Stage12HitSpark") as CanvasItem
 	if hit_spark != null:
@@ -48,6 +53,7 @@ func _deal_touch_damage(touch_damage: int) -> void:
 	if _is_defeated or _hurtbox == null:
 		return
 
+	# 每个物理帧扫描 hurtbox 重叠体，当前原型依赖玩家无敌帧限制重复受击。
 	for body in _hurtbox.get_overlapping_bodies():
 		var receiver := _resolve_damage_receiver(body)
 		if receiver == null:
@@ -61,6 +67,7 @@ func _deal_touch_damage(touch_damage: int) -> void:
 		receiver.call("receive_damage", touch_damage, hit_direction)
 
 
+# 将碰撞节点、玩家本体和玩家子节点统一解析为 receive_damage 持有者。
 func _resolve_damage_receiver(candidate: Object) -> Node:
 	# Hurtbox 命中的节点可能是玩家本体，也可能是玩家碰撞子节点；
 	# 统一解析为 receive_damage 持有者，避免每个敌人重复写父节点判断。

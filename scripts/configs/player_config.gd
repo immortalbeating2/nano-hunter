@@ -5,15 +5,20 @@ class_name PlayerConfig
 # 运行时代码只从这里复制数值，不反向写入，方便阶段回归测试比较配置是否稳定。
 
 @export_group("移动")
+# 水平移动参数共同决定地面加减速和空中修正，不直接负责冲刺或受击位移。
 @export var max_run_speed: float = 180.0
 @export var ground_acceleration: float = 900.0
 @export var ground_deceleration: float = 1200.0
 @export var air_acceleration: float = 700.0
+
+# 跳跃参数覆盖起跳、短跳、上升 / 下落重力和最大下落速度。
 @export var jump_velocity: float = -340.0
 @export_range(0.1, 1.0, 0.05) var jump_cut_ratio: float = 0.25
 @export var rise_gravity: float = 950.0
 @export var fall_gravity: float = 1350.0
 @export var max_fall_speed: float = 520.0
+
+# 容错窗口服务手感验证，数值过大容易掩盖平台跳跃边界。
 @export var coyote_time_window: float = 0.12
 @export var jump_buffer_window: float = 0.12
 @export var landing_state_duration: float = 0.08
@@ -37,6 +42,8 @@ class_name PlayerConfig
 @export_group("生命")
 # 生命与受击反馈仍是原型期最小闭环，不在这里承载正式成长系统。
 @export var max_health: int = 3
+
+# 受击无敌帧和击退参数决定失败重试前的容错感。
 @export var damage_invulnerability_duration: float = 0.35
 @export var damage_knockback_speed: float = 260.0
 @export var damage_knockback_lift: float = -150.0

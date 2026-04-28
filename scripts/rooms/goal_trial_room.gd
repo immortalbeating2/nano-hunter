@@ -65,18 +65,22 @@ func _process(_delta: float) -> void:
 		_complete_goal()
 
 
+# 接收 Main 注入的玩家实例，目标完成判定只读取其位置。
 func bind_player(player: CharacterBody2D) -> void:
 	_player = player
 
 
+# 返回目标房相机边界，保护短链路终点构图。
 func get_camera_limits() -> Rect2i:
 	return CAMERA_LIMITS
 
 
+# 公开当前目标步骤，供自动化确认门控与终点推进。
 func get_current_step_id() -> StringName:
 	return _current_step
 
 
+# 返回目标房 HUD 标题，优先读取配置资源。
 func get_current_step_title() -> String:
 	if flow_config != null:
 		return flow_config.get_step_title(_current_step, STEP_TITLES.get(_current_step, "目标推进中"))
@@ -84,6 +88,7 @@ func get_current_step_title() -> String:
 	return STEP_TITLES.get(_current_step, "目标推进中")
 
 
+# 返回目标房 HUD 提示，优先读取配置资源。
 func get_current_prompt_text() -> String:
 	if flow_config != null:
 		return flow_config.get_step_prompt(_current_step, STEP_PROMPTS.get(_current_step, ""))
@@ -91,6 +96,7 @@ func get_current_prompt_text() -> String:
 	return STEP_PROMPTS.get(_current_step, "")
 
 
+# 返回目标房出生点，支持首次进入和失败后回到上游时的稳定读值。
 func get_spawn_position(spawn_id: StringName = &"goal_entry") -> Vector2:
 	if flow_config != null:
 		return flow_config.get_spawn_position(spawn_id, SPAWN_POSITIONS[&"goal_entry"])
@@ -98,10 +104,12 @@ func get_spawn_position(spawn_id: StringName = &"goal_entry") -> Vector2:
 	return SPAWN_POSITIONS.get(spawn_id, SPAWN_POSITIONS[&"goal_entry"])
 
 
+# 目标房失败不自重置，交由 Main 和上游 checkpoint 策略处理。
 func should_reset_on_player_defeat() -> bool:
 	return false
 
 
+# 目标房默认显示 dash，配置资源可按步骤覆盖。
 func is_dash_available_in_hud() -> bool:
 	if flow_config != null:
 		return flow_config.is_dash_visible(_current_step, true)
@@ -109,10 +117,12 @@ func is_dash_available_in_hud() -> bool:
 	return true
 
 
+# 公开目标门控是否已解除，供测试保护守门敌清除逻辑。
 func is_goal_unlocked() -> bool:
 	return _goal_unlocked
 
 
+# 汇总目标房 HUD 上下文，统一暴露步骤、标题、提示和 dash 状态。
 func get_hud_context() -> Dictionary:
 	return {
 		"step_id": _current_step,
@@ -130,6 +140,7 @@ func _on_basic_melee_enemy_defeated() -> void:
 	_emit_hud_context()
 
 
+# 完成短链路目标，并把主线推进到 Stage9 入口房。
 func _complete_goal() -> void:
 	if _goal_finished:
 		return
@@ -141,10 +152,12 @@ func _complete_goal() -> void:
 	room_transition_requested.emit(STAGE9_ENTRY_ROOM_PATH, STAGE9_ENTRY_SPAWN_ID)
 
 
+# 广播当前目标房 HUD 文案，供 TutorialHUD 立即刷新。
 func _emit_hud_context() -> void:
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
+# 按当前目标解锁状态同步终点门控碰撞和占位颜色。
 func _apply_goal_lock_state() -> void:
 	if goal_barrier_shape != null:
 		goal_barrier_shape.disabled = _goal_unlocked

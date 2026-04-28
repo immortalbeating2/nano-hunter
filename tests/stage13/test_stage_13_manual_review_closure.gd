@@ -17,6 +17,7 @@ const STAGE13_RETURN_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_return_r
 const STAGE13_GOAL_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_goal_room.tscn"
 
 
+# 保护 Stage13 人工复核清单：从 Main 运行态串起入口、主路、两支路、酸液、checkpoint 和净化门。
 func test_stage13_manual_review_checklist_runtime_closure() -> void:
 	# 这条用例把人工复核 checklist 固定成一条运行时路径：
 	# 先完成 Stage11 demo，再进入 Stage13，逐项确认危险、门控、支路和 checkpoint。
@@ -79,6 +80,7 @@ func test_stage13_manual_review_checklist_runtime_closure() -> void:
 	assert_true(review.purification_gate_verified)
 
 
+# 从当前测试节点中找回 driver 创建的 Main 场景，避免重复实例化第二个主流程。
 func _find_main_scene() -> Node2D:
 	for child in get_children():
 		if child.name == "Main":
@@ -87,6 +89,7 @@ func _find_main_scene() -> Node2D:
 	return null
 
 
+# 从 Stage11 终点房继续进入 Stage13，模拟玩家站到 ContinueZone。
 func _continue_from_demo_end_to_stage13(main_scene: Node2D) -> void:
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
@@ -95,6 +98,7 @@ func _continue_from_demo_end_to_stage13(main_scene: Node2D) -> void:
 		player.global_position = continue_zone.global_position
 
 
+# 触发酸液反馈并确认玩家生命下降，用于覆盖运行态危险区域复核。
 func _trigger_acid_feedback(main_scene: Node2D) -> bool:
 	# 酸液复核只判断生命是否下降，不要求具体扣血动画或持续伤害次数。
 	var room := _get_room(main_scene)
@@ -109,6 +113,7 @@ func _trigger_acid_feedback(main_scene: Node2D) -> bool:
 	return player.call("get_current_health") < health_before
 
 
+# 验证净化门从锁住到打开的完整过程。
 func _verify_purification_gate(main_scene: Node2D) -> bool:
 	# 净化门复核要同时确认“之前锁住”和“触发后打开”，避免只测最终状态。
 	var room := _get_room(main_scene)
@@ -126,6 +131,7 @@ func _verify_purification_gate(main_scene: Node2D) -> bool:
 	return locked_before and room.call("is_gate_unlocked") and room.call("is_purification_node_activated")
 
 
+# 验证 checkpoint 恢复：触发失败后应回到 checkpoint 房，再能继续进入压力房。
 func _verify_checkpoint_recovery(main_scene: Node2D) -> bool:
 	# checkpoint 复核直接触发 Main 的失败入口，保护最近 checkpoint 房间恢复契约。
 	main_scene.call("_on_player_defeated")
@@ -137,6 +143,7 @@ func _verify_checkpoint_recovery(main_scene: Node2D) -> bool:
 	return _get_room_path(main_scene) == STAGE13_PRESSURE_ROOM_PATH
 
 
+# 完成资源支路：进入支路、收集奖励、回到返回房。
 func _complete_resource_branch(main_scene: Node2D) -> bool:
 	var hub_room := _get_room(main_scene)
 	var player := _get_player(main_scene)
@@ -153,6 +160,7 @@ func _complete_resource_branch(main_scene: Node2D) -> bool:
 	return _get_room_path(main_scene) == STAGE13_RETURN_ROOM_PATH
 
 
+# 完成挑战支路：进入挑战支路、收集奖励、回到返回房。
 func _complete_challenge_branch(main_scene: Node2D) -> bool:
 	var hub_room := _get_room(main_scene)
 	var player := _get_player(main_scene)
@@ -169,6 +177,7 @@ func _complete_challenge_branch(main_scene: Node2D) -> bool:
 	return _get_room_path(main_scene) == STAGE13_RETURN_ROOM_PATH
 
 
+# 支路共用收集和出口逻辑，避免资源 / 挑战支路重复写同一段流程。
 func _collect_branch_reward_and_exit(main_scene: Node2D) -> void:
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
@@ -180,6 +189,7 @@ func _collect_branch_reward_and_exit(main_scene: Node2D) -> void:
 	await _clear_current_room_to_next(main_scene)
 
 
+# 清理当前房间到下一房，优先走生产接口而不是直接调用 Main 切房。
 func _clear_current_room_to_next(main_scene: Node2D) -> void:
 	# 通用清房 helper 尽量走生产接口：receive_attack、unlock_gate、移动到 Goal/ExitZone。
 	var room := _get_room(main_scene)
@@ -205,19 +215,23 @@ func _clear_current_room_to_next(main_scene: Node2D) -> void:
 	await _advance_process_frames(4)
 
 
+# process 帧推进 helper 用于等待房间触发、切房和 checkpoint 恢复。
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
 
 
+# 读取当前 Main 下的 Room 节点，集中处理节点路径。
 func _get_room(main_scene: Node2D) -> Node2D:
 	return main_scene.get_node_or_null("Room") as Node2D
 
 
+# 读取当前运行时玩家，切房后每次重新获取以适配玩家重生。
 func _get_player(main_scene: Node2D) -> CharacterBody2D:
 	return main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
 
 
+# 读取当前房间路径，用于 driver 分支和断言输出。
 func _get_room_path(main_scene: Node2D) -> String:
 	var room := _get_room(main_scene)
 	return room.scene_file_path if room != null else ""

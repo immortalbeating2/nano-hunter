@@ -22,7 +22,7 @@
   - `docs/implementation-plans/2026-04-24-stage-9-first-content-zone-production.md`
   - `docs/progress/status.md`
   - `docs/progress/timeline.md`
-  - `docs/progress/2026-04-24.md`
+  - `docs/progress/logs/2026-04-24.md`
 
 ## Key Changes
 

@@ -7,6 +7,9 @@ param(
     [switch]$DryRun
 )
 
+# 当前固定工作树进入 Godot MCP 人工复核的统一入口。
+# 它根据诊断状态选择“直接继续 / 打开编辑器 / 安全重开编辑器 / 提醒实测 MCP / 提醒重开 Codex”。
+# 默认不全局清 bridge，避免误伤其他活跃 Godot MCP 项目会话。
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
@@ -28,6 +31,7 @@ if ($GodotExe) {
 $recommendation = Get-GodotMcpRecommendedAction -WorkspacePath $workspace
 $snapshot = Get-GodotMcpBridgeDiagnosticSnapshot -WorkspacePath $workspace
 
+# 先打印关键状态，让用户能在执行修复前看到本次判断依据。
 Write-Host "Workspace: $workspace"
 Write-Host ("RecommendedAction: {0}" -f $recommendation.RecommendedAction)
 Write-Host ("Reason: {0}" -f $recommendation.Reason)
@@ -44,12 +48,30 @@ if ($ForceKillBridge) {
 
 switch ($action) {
     "AlreadyConnected" {
+        # 已连通时不做任何清理或重启，这是固定工作树日常复核的理想状态。
         Write-Host ""
         Write-Host "Godot MCP is already connected for this workspace. Continue with MCP review."
         break
     }
 
+    "ConnectedBridgeAgeUnknown" {
+        # 当前工作树编辑器已经连到 bridge，但 bridge 年龄不像当前会话。
+        # 这种状态可能是“旧但仍可通信”，不能直接清理；下一步应调用 MCP 工具实测。
+        if ($shouldResetBeforeReopen) {
+            Write-Host ""
+            Write-Host "Workspace editor is already connected to a bridge. Ignoring bridge reset request until MCP tool calls fail."
+        }
+
+        Write-Host ""
+        Write-Host "Workspace editor is connected to an existing Godot MCP bridge, but the bridge age is unknown."
+        Write-Host "Do not clean bridges yet. First verify MCP tools in the current Codex session."
+        Write-Host "If MCP tools can call get_scene_tree or another read-only tool, continue review."
+        Write-Host "If MCP tools return Transport closed or are missing, reopen Codex from this fixed workspace."
+        break
+    }
+
     "SafeOpenEditor" {
+        # 当前会话 bridge 已可用，只缺指向本工作树的 Godot 编辑器连接。
         if ($shouldResetBeforeReopen) {
             Write-Host ""
             Write-Host "Current-session bridge exists. Ignoring bridge reset request to avoid breaking this Codex session."
@@ -62,6 +84,7 @@ switch ($action) {
     }
 
     "SafeReopenEditor" {
+        # 工作树编辑器可能是旧进程或断连进程，先关当前工作树编辑器，再打开同一工作树。
         if ($shouldResetBeforeReopen) {
             Write-Host ""
             Write-Host "Current-session bridge exists. Ignoring bridge reset request to avoid breaking this Codex session."
@@ -75,6 +98,7 @@ switch ($action) {
     }
 
     "ReopenSessionThenForceKillBridge" {
+        # stale-only 状态通常表示当前 Codex 会话没有自己的 bridge；清理前必须确认没有其他项目会话。
         Write-Host ""
         if ($shouldResetBeforeReopen) {
             if (-not $ConfirmNoOtherGodotMcpSessions) {
@@ -99,6 +123,7 @@ switch ($action) {
     }
 
     default {
+        # 模糊状态不自动修复，避免脚本在归属不明时关闭他人的 Godot / bridge。
         Write-Host ""
         Write-Host "State is ambiguous. No automatic repair was performed."
         Write-Host "Use check-godot-mcp.ps1 for full diagnostics, or close unrelated Godot/Codex sessions before retrying."

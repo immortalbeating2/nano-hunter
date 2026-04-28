@@ -20,10 +20,12 @@ func before_each() -> void:
 	_reset_input_actions()
 
 
+# 每条 Stage10 测试结束释放输入，避免空中攻击或 dash 状态跨用例残留。
 func after_each() -> void:
 	_reset_input_actions()
 
 
+# 保护空中攻击扩展：玩家离地时可以攻击，攻击恢复后应回到非 air_attack 状态。
 func test_player_can_start_air_attack_while_airborne_and_return_to_fall() -> void:
 	var player := await _spawn_player(Vector2.ZERO)
 
@@ -41,6 +43,7 @@ func test_player_can_start_air_attack_while_airborne_and_return_to_fall() -> voi
 	assert_false(player.call("is_air_attack_active_or_recovering"))
 
 
+# 保护第三类敌人契约：空中哨兵必须读取配置并暴露空中攻击 lane。
 func test_aerial_sentinel_uses_config_and_requires_air_attack_lane() -> void:
 	var packed_scene: PackedScene = load(AERIAL_SENTINEL_SCENE_PATH) as PackedScene
 
@@ -60,6 +63,7 @@ func test_aerial_sentinel_uses_config_and_requires_air_attack_lane() -> void:
 	assert_eq(enemy.call("get_touch_damage"), config.get("touch_damage"))
 
 
+# 保护 Stage10 房间集合：主房、支路房、挑战房必须存在并声明各自收益角色。
 func test_stage10_zone_adds_main_branch_and_challenge_rooms() -> void:
 	for room_path in [STAGE10_MAIN_ROOM_SCENE_PATH, STAGE10_BRANCH_ROOM_SCENE_PATH, STAGE10_CHALLENGE_ROOM_SCENE_PATH]:
 		var packed_scene: PackedScene = load(room_path) as PackedScene
@@ -76,6 +80,7 @@ func test_stage10_zone_adds_main_branch_and_challenge_rooms() -> void:
 	assert_true(challenge_room.call("is_challenge_reward_room"))
 
 
+# 保护轻量成长反馈：收集物和恢复点必须进入房间快照与 HUD 上下文。
 func test_recovery_point_and_collectibles_feed_hud_snapshot() -> void:
 	var room := await _spawn_room(STAGE10_BRANCH_ROOM_SCENE_PATH)
 	var player := await _spawn_player(Vector2.ZERO)
@@ -95,6 +100,7 @@ func test_recovery_point_and_collectibles_feed_hud_snapshot() -> void:
 	assert_true(hud_context.get("recovery_point_activated"))
 
 
+# 保护 Stage9 到 Stage10 的接入：Stage9 终点房必须把下一房指向 Stage10 主房。
 func test_stage9_final_room_links_into_stage10_main_room() -> void:
 	var room := await _spawn_room(STAGE9_FINAL_ROOM_SCENE_PATH)
 
@@ -102,6 +108,7 @@ func test_stage9_final_room_links_into_stage10_main_room() -> void:
 	assert_eq(room.get("next_spawn_id"), &"stage10_aerial_start")
 
 
+# 保护 Stage10 出生点：主房、支路房和挑战房的出生点都应落在可玩地板范围内。
 func test_stage10_spawn_points_land_on_room_floor() -> void:
 	var spawn_cases := {
 		STAGE10_MAIN_ROOM_SCENE_PATH: &"stage10_aerial_start",
@@ -118,6 +125,7 @@ func test_stage10_spawn_points_land_on_room_floor() -> void:
 		assert_lt(spawn_position.y, 160.0)
 
 
+# 保护可选支路入口：玩家进入 BranchZone 后应请求切到可选支路房。
 func test_stage10_main_room_branch_zone_requests_optional_branch() -> void:
 	var room := await _spawn_room(STAGE10_MAIN_ROOM_SCENE_PATH)
 	var player := await _spawn_player(Vector2(-224.0, 96.0))
@@ -136,6 +144,7 @@ func test_stage10_main_room_branch_zone_requests_optional_branch() -> void:
 	assert_eq(transitions[0].get("spawn"), &"stage10_branch_start")
 
 
+# 保护主房出生安全：玩家刚从主入口出生时不应自动触发支路切房。
 func test_stage10_main_room_spawn_does_not_auto_request_optional_branch() -> void:
 	var room := await _spawn_room(STAGE10_MAIN_ROOM_SCENE_PATH)
 	var spawn_position: Vector2 = room.call("get_spawn_position", &"stage10_aerial_start")
@@ -152,6 +161,7 @@ func test_stage10_main_room_spawn_does_not_auto_request_optional_branch() -> voi
 	assert_eq(transitions.size(), 0)
 
 
+# 保护位置触发收益：玩家接近收集物和恢复点时应分别更新快照和恢复生命。
 func test_stage10_pickup_and_recovery_point_trigger_from_player_position() -> void:
 	var room := await _spawn_room(STAGE10_BRANCH_ROOM_SCENE_PATH)
 	var player := await _spawn_player(Vector2.ZERO)
@@ -172,6 +182,7 @@ func test_stage10_pickup_and_recovery_point_trigger_from_player_position() -> vo
 	assert_eq(player.call("get_current_health"), player.call("get_max_health"))
 
 
+# 保护 HUD 文本：Stage10 收集和恢复点状态必须显示在 ProgressLabel 中。
 func test_hud_displays_stage10_collectible_and_recovery_feedback() -> void:
 	var room := await _spawn_room(STAGE10_BRANCH_ROOM_SCENE_PATH)
 	var hud_scene: PackedScene = load(HUD_SCENE_PATH) as PackedScene
@@ -195,6 +206,7 @@ func test_hud_displays_stage10_collectible_and_recovery_feedback() -> void:
 
 
 # 测试辅助：统一生成玩家、房间与等待逻辑，避免 stage10 测试主体混入过多铺场细节。
+# 创建独立玩家实例，用于空中攻击和房间位置触发测试。
 func _spawn_player(spawn_position: Vector2) -> CharacterBody2D:
 	var player_scene: PackedScene = load(PLAYER_SCENE_PATH) as PackedScene
 
@@ -207,6 +219,7 @@ func _spawn_player(spawn_position: Vector2) -> CharacterBody2D:
 	return player
 
 
+# 加载指定 Stage10/Stage9 房间，用于链路、支路和 HUD 快照验证。
 func _spawn_room(scene_path: String) -> Node2D:
 	var packed_scene: PackedScene = load(scene_path) as PackedScene
 
@@ -218,16 +231,19 @@ func _spawn_room(scene_path: String) -> Node2D:
 	return room
 
 
+# 物理帧推进 helper 用于空中攻击状态恢复和玩家动作推进。
 func _advance_physics_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().physics_frame
 
 
+# process 帧推进 helper 用于等待房间位置触发、HUD 刷新和信号回调。
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
 
 
+# 输入清理确保 attack action 存在，并释放当前测试涉及的全部输入。
 func _reset_input_actions() -> void:
 	if not InputMap.has_action("attack"):
 		InputMap.add_action("attack")

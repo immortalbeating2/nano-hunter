@@ -14,19 +14,25 @@ const STAGE10_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage10_zone_challenge_
 const STAGE11_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 const STAGE13_ROOM_PREFIX := "res://scenes/rooms/stage13_"
 const STAGE14_ROOM_PREFIX := "res://scenes/rooms/stage14_"
+const STAGE15_ROOM_PREFIX := "res://scenes/rooms/stage15_"
+const STAGE15_COMPLETION_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
 
+# 默认输入绑定由 Main 兜底创建，保证独立运行测试或新机器启动时输入契约完整。
 const INPUT_BINDINGS := {
 	"move_left": [KEY_A, KEY_LEFT],
 	"move_right": [KEY_D, KEY_RIGHT],
 	"jump": [KEY_SPACE, KEY_W, KEY_UP],
 	"attack": [KEY_J],
 	"dash": [KEY_K],
+	"recover": [KEY_L],
 }
 
+# 主场景固定节点缓存：Runtime 承载当前玩家，Room 承载当前房间，HUD 只消费快照。
 @onready var runtime: Node2D = $Runtime
 @onready var fallback_player_spawn: Marker2D = $PlayerSpawn
 @onready var tutorial_hud: Control = $HUD/TutorialHUD
 
+# Main 持有跨房间运行期状态；单房间内部状态仍由各房间脚本自己维护。
 var room: Node2D
 var _current_room_path := TUTORIAL_ROOM_PATH
 var _current_spawn_id: StringName = &"tutorial_start"
@@ -36,6 +42,7 @@ var _is_short_chain_completed := false
 var _is_demo_completed := false
 var _air_dash_unlocked := false
 var _stage14_backtrack_reward_ids: Dictionary = {}
+var _stage15_boss_defeated := false
 
 
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
@@ -46,10 +53,12 @@ func _ready() -> void:
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
 
 
+# 固定窗口最小尺寸，保证灰盒 HUD 与房间构图在桌面运行时不被压得不可读。
 func _configure_window_defaults() -> void:
 	get_window().min_size = BASE_VIEWPORT_SIZE
 
 
+# 创建缺失的默认输入动作，保护新机器、测试入口和导入缓存清理后的启动体验。
 func _ensure_default_input_bindings() -> void:
 	for action_name in INPUT_BINDINGS.keys():
 		if not InputMap.has_action(action_name):
@@ -81,6 +90,7 @@ func _spawn_placeholder_player(spawn_id: StringName) -> void:
 	_bind_runtime_dependencies(player)
 
 
+# 根据当前房间声明的相机边界限制玩家相机，避免换房后看见灰盒外部空间。
 func _apply_room_camera_limits(player: CharacterBody2D) -> void:
 	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
 	if camera == null:
@@ -100,6 +110,7 @@ func _apply_room_camera_limits(player: CharacterBody2D) -> void:
 	camera.limit_bottom = world_camera_limits.end.y
 
 
+# 把跨房间状态注入新玩家，并把当前 Room / Player / Main 三方重新挂到 HUD。
 func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 	if player.has_method("set_air_dash_unlocked"):
 		player.call("set_air_dash_unlocked", _air_dash_unlocked)
@@ -128,14 +139,18 @@ func transition_to_room(room_path: String, spawn_id: StringName) -> void:
 	_change_room(room_path, spawn_id)
 
 
+# Demo 重开只清理本轮推进状态，保留全局输入和场景结构，方便终点房反复试玩。
 func restart_demo() -> void:
 	_is_demo_completed = false
+	_stage15_boss_defeated = false
 	_checkpoint_room_path = ""
 	_checkpoint_spawn_id = &""
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
 
 
+# 输出主流程稳定快照，供 HUD、GUT 和 MCP 复核读取，不暴露 Main 私有字段。
 func get_demo_progress_snapshot() -> Dictionary:
+	# 快照是 HUD、测试和 MCP 复核的统一读值入口，不让外部直接依赖 Main 私有字段名。
 	return {
 		"demo_completed": _is_demo_completed,
 		"goal_text": _get_demo_goal_text(),
@@ -143,9 +158,12 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"replay_available": _is_demo_completed,
 		"air_dash_unlocked": _air_dash_unlocked,
 		"stage14_backtrack_reward_count": get_stage14_backtrack_reward_count(),
+		"stage15_boss_defeated": _stage15_boss_defeated,
+		"stage15_recovery_charge_ready": _is_stage15_recovery_charge_ready(),
 	}
 
 
+# 解锁 Stage14 空中冲刺，并立即同步到当前房间里已经生成的玩家实例。
 func unlock_air_dash() -> void:
 	_air_dash_unlocked = true
 	var player := _get_runtime_player()
@@ -153,10 +171,12 @@ func unlock_air_dash() -> void:
 		player.call("set_air_dash_unlocked", true)
 
 
+# 公开查询空中冲刺是否已进入跨房间主流程状态。
 func is_air_dash_unlocked() -> bool:
 	return _air_dash_unlocked
 
 
+# 记录 Stage14 回溯收益，使用 reward_id 去重，防止换房或重复触发刷计数。
 func collect_stage14_backtrack_reward(reward_id: StringName) -> void:
 	if reward_id == StringName() or _stage14_backtrack_reward_ids.has(reward_id):
 		return
@@ -164,8 +184,20 @@ func collect_stage14_backtrack_reward(reward_id: StringName) -> void:
 	_stage14_backtrack_reward_ids[reward_id] = true
 
 
+# 返回已确认的 Stage14 回溯收益数量，HUD 和主线测试都依赖这个读值。
 func get_stage14_backtrack_reward_count() -> int:
 	return _stage14_backtrack_reward_ids.size()
+
+
+# 标记 Stage15 Boss 已击败；实际胜利房间跳转仍由房间脚本发起。
+func mark_stage15_boss_defeated() -> void:
+	# Boss 房只报告胜利事件；Main 把它转成 demo 进度快照，供完成房和 HUD 继续读取。
+	_stage15_boss_defeated = true
+
+
+# 公开查询 Stage15 Boss 结果，避免完成房直接读取 Main 私有变量。
+func is_stage15_boss_defeated() -> bool:
+	return _stage15_boss_defeated
 
 
 # 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
@@ -206,6 +238,7 @@ func _bind_room_signals() -> void:
 	_ensure_room_signal_binding()
 
 
+# 按房间统一契约安全连接信号，支持同一房间重生时重复调用。
 func _ensure_room_signal_binding() -> void:
 	if room == null:
 		return
@@ -223,6 +256,7 @@ func _ensure_room_signal_binding() -> void:
 		room.connect("checkpoint_requested", checkpoint_callback)
 
 
+# 解析房间出生点；房间未实现契约时回落到主场景默认出生点。
 func _resolve_spawn_position(spawn_id: StringName) -> Vector2:
 	if room != null and room.has_method("get_spawn_position"):
 		return room.call("get_spawn_position", spawn_id)
@@ -233,6 +267,7 @@ func _resolve_spawn_position(spawn_id: StringName) -> Vector2:
 	return Vector2.ZERO
 
 
+# 清空当前运行时子节点，确保换房时不会留下旧玩家、旧 hitbox 或旧信号来源。
 func _clear_runtime() -> void:
 	for child in runtime.get_children():
 		runtime.remove_child(child)
@@ -248,6 +283,7 @@ func _on_room_transition_requested(target_room_path: String, spawn_id: StringNam
 	transition_to_room(target_room_path, spawn_id)
 
 
+# 玩家失败后优先回 checkpoint，没有 checkpoint 时按当前房间的失败规则决定是否重置。
 func _on_player_defeated() -> void:
 	if not _checkpoint_room_path.is_empty():
 		_change_room(_checkpoint_room_path, _checkpoint_spawn_id)
@@ -260,8 +296,19 @@ func _on_player_defeated() -> void:
 		_change_room(_current_room_path, _current_spawn_id)
 
 
+# 从 Runtime 容器取当前玩家实例；每次换房都会生成新实例，因此不能长期缓存。
 func _get_runtime_player() -> CharacterBody2D:
 	return runtime.get_node_or_null("PlayerPlaceholder") as CharacterBody2D
+
+
+# 把玩家恢复充能 ready 状态转成 Main 快照字段，供 HUD 展示 stage15 战斗容错。
+func _is_stage15_recovery_charge_ready() -> bool:
+	# Recovery Charge 不由 Main 持久化；快照只转述当前玩家是否已经满充能。
+	var player := _get_runtime_player()
+	if player == null or not player.has_method("can_spend_recovery_charge"):
+		return false
+
+	return bool(player.call("can_spend_recovery_charge"))
 
 
 # Main 同时记录旧的短链路完成态与新的 demo 完成态，
@@ -272,6 +319,7 @@ func _on_goal_completed() -> void:
 		_is_demo_completed = true
 
 
+# 房间请求 checkpoint 时只记录房间路径与出生点，不在 Main 内保存更多房间状态。
 func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 	# checkpoint 仍然只记录运行期最近的恢复点，不扩展成正式存档系统。
 	_checkpoint_room_path = room_path
@@ -283,6 +331,12 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 func _get_demo_goal_text() -> String:
 	# Stage 13 仍沿用早期灰盒命名；这里先保证玩家目标可读，
 	# 后续资产和命名会按总设计北极星逐步回到南北朝镇妖语境。
+	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
+		return "Stage15 已完成：封印守卫已击败，战斗高潮闭环成立"
+
+	if room != null and room.scene_file_path.begins_with(STAGE15_ROOM_PREFIX):
+		return "主目标：击败封印守卫并稳定完成战斗高潮"
+
 	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
 		return "主目标：取得空中二段冲刺并回头打开能力门"
 
@@ -306,8 +360,15 @@ func _get_demo_goal_text() -> String:
 			return "主目标：继续向右推进并完成 Demo"
 
 
+# 按当前阶段和房间给 HUD 生成一条短提示，帮助玩家理解当下最关键的操作。
 func _get_demo_goal_hint_text() -> String:
 	# 提示文案只标注当前房间最可能卡住玩家的点，不在 HUD 里写完整教程。
+	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
+		return "提示：阶段完成反馈已触发，后续可进入 Alpha Demo 打包候选复核"
+
+	if room != null and room.scene_file_path.begins_with(STAGE15_ROOM_PREFIX):
+		return "提示：攻击积累恢复充能，满后按 L 恢复 1 点生命"
+
 	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
 		return "提示：空中按冲刺可越过能力门，落地后恢复一次空中冲刺"
 
