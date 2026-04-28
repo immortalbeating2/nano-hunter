@@ -4,6 +4,8 @@ param(
     [switch]$DryRun
 )
 
+# 打开指定工作树的 Godot 编辑器，并要求当前 Codex 会话已经有 bridge 监听。
+# 该脚本只负责启动编辑器，不负责修复 bridge，避免把“打开项目”和“清理全局连接”混在一起。
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
@@ -17,12 +19,14 @@ Write-Host "Workspace: $workspace"
 Write-Host "Godot: $godotExecutable"
 
 if (-not $bridgeListeners) {
+    # 没有 bridge 时直接打开 Godot 也无法让当前 Codex 工具连通，所以要求先重开会话建立 bridge。
     throw "No godot-mcp bridge listeners were detected on 6505-6509. Reopen the current Codex session first."
 }
 
 if ($DryRun) {
     Write-Host ('[DryRun] Would start: "{0}" -e --path "{1}"' -f $godotExecutable, $workspace)
 } else {
+    # 使用编辑器模式 -e 保持 MCP 插件和运行态复核所需的 editor-side 服务可用。
     Start-Process -FilePath $godotExecutable -ArgumentList "-e", "--path", $workspace | Out-Null
     Start-Sleep -Seconds 6
 }

@@ -3,6 +3,8 @@ param(
     [switch]$DryRun
 )
 
+# 强制修复工具会关闭所有 godot-mcp-pro bridge，并关闭当前工作树的 Godot 编辑器。
+# 这会影响同机其他 Codex / Godot MCP 会话，只应在当前会话已不可用且人工确认安全时使用。
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
@@ -20,6 +22,7 @@ if ($DryRun) {
 }
 
 foreach ($editor in $workspaceEditors) {
+    # 编辑器只关闭当前 workspace 命中的实例，避免顺手杀掉主工作区或其他项目的 Godot。
     if ($DryRun) {
         Write-Host ("[DryRun] Would stop Godot editor PID={0} Title={1}" -f $editor.ProcessId, $editor.MainWindowTitle)
     } else {
@@ -28,6 +31,7 @@ foreach ($editor in $workspaceEditors) {
 }
 
 foreach ($bridge in $bridgeProcesses) {
+    # bridge 本身无法可靠按项目归属区分，因此 force 模式必须被视作全局破坏性操作。
     if ($DryRun) {
         Write-Host ("[DryRun] Would stop bridge PID={0}" -f $bridge.ProcessId)
     } else {

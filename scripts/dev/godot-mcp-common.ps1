@@ -1,6 +1,8 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+# Godot MCP 公共函数库集中封装 workspace 解析、bridge 诊断、编辑器归属判断和推荐动作。
+# 上层 check / enter / repair 脚本都应调用这里的只读判断，避免每个入口各写一套端口清理逻辑。
 function Resolve-NanoHunterWorkspacePath {
     param(
         [string]$WorkspacePath
@@ -15,6 +17,7 @@ function Resolve-NanoHunterWorkspacePath {
 }
 
 function Get-GodotMcpBridgeProcessInfos {
+    # bridge 由 Codex MCP server 启动为 node.exe；当前用命令行匹配定位 godot-mcp-pro server。
     $bridgePattern = "*godot-mcp-pro/server/build/index.js*"
     $nodeProcesses = Get-CimInstance Win32_Process -Filter "name = 'node.exe'" |
         Where-Object { $_.CommandLine -like $bridgePattern }
@@ -35,6 +38,7 @@ function Get-GodotMcpBridgeListeners {
         [int[]]$Ports = @(6505, 6506, 6507, 6508, 6509)
     )
 
+    # 只关注 Godot MCP 默认端口段，减少误把其他本机 TCP 服务当作 bridge。
     $listeners = Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue |
         Where-Object { $_.LocalPort -in $Ports }
 
@@ -54,6 +58,7 @@ function Get-GodotEditorProcessInfos {
         [string]$WorkspacePath
     )
 
+    # 通过 Godot 进程命令行判断它是否打开当前工作树，这是避免误关其他项目编辑器的关键。
     $workspace = Resolve-NanoHunterWorkspacePath -WorkspacePath $WorkspacePath
     $godotProcesses = Get-CimInstance Win32_Process |
         Where-Object { $_.Name -in @("Godot_v4.6.2-stable_win64.exe", "godot.exe") }
@@ -77,6 +82,7 @@ function Get-GodotEstablishedBridgeConnections {
         [int[]]$Ports = @(6505, 6506, 6507, 6508, 6509, 6510, 6511, 6512, 6513, 6514)
     )
 
+    # 连接归属只统计当前工作树编辑器到 MCP 端口的 Established 连接。
     $workspaceEditors = @(Get-GodotEditorProcessInfos -WorkspacePath $WorkspacePath |
         Where-Object { $_.MatchesWorkspace })
 
@@ -104,11 +110,13 @@ function Get-GodotMcpBridgeDiagnosticSnapshot {
         [string]$WorkspacePath
     )
 
+    # 快照合并 bridge 进程、监听端口和编辑器连接，供推荐动作做一致判断。
     $bridgeProcesses = @(Get-GodotMcpBridgeProcessInfos)
     $bridgeListeners = @(Get-GodotMcpBridgeListeners)
     $editorConnections = @(Get-GodotEstablishedBridgeConnections -WorkspacePath $WorkspacePath)
     $connectedPorts = @($editorConnections | Select-Object -ExpandProperty RemotePort -Unique)
 
+    # 当前会话 bridge 通常是最近启动的监听；旧监听只作 stale 候选，不直接清理。
     $latestBridgeStart = $null
     $bridgeStarts = @($bridgeProcesses | Where-Object { $_.StartTime } | Select-Object -ExpandProperty StartTime)
     if ($bridgeStarts.Count -gt 0) {
@@ -168,6 +176,8 @@ function Get-GodotMcpRecommendedAction {
         [string]$WorkspacePath
     )
 
+    # 推荐动作偏保守：只要当前工作树编辑器已经连到 bridge，就不把 bridge 年龄当作清理依据。
+    # PowerShell 无法直接验证当前 Codex stdio transport 是否仍活着，所以“旧但已连接”的 bridge 只能提示实测 MCP 工具。
     $workspaceEditors = @(Get-GodotEditorProcessInfos -WorkspacePath $WorkspacePath |
         Where-Object { $_.MatchesWorkspace })
     $snapshot = Get-GodotMcpBridgeDiagnosticSnapshot -WorkspacePath $WorkspacePath
@@ -189,10 +199,10 @@ function Get-GodotMcpRecommendedAction {
         }
     }
 
-    if ($workspaceEditors.Count -gt 0 -and $workspaceConnections.Count -gt 0 -and $likelyStaleListeners.Count -gt 0 -and $likelyCurrentListeners.Count -eq 0) {
+    if ($workspaceEditors.Count -gt 0 -and $workspaceConnections.Count -gt 0 -and $likelyCurrentListeners.Count -eq 0) {
         return [pscustomobject]@{
-            RecommendedAction = "ReopenSessionThenForceKillBridge"
-            Reason = "This workspace editor is connected only to bridges that look stale. Reopen the Codex session, then use -ForceKillBridge."
+            RecommendedAction = "ConnectedBridgeAgeUnknown"
+            Reason = "This workspace editor has established bridge connections, but the bridge does not look newly started. Keep it and verify MCP tools before considering repairs."
         }
     }
 
@@ -221,6 +231,7 @@ function Resolve-GodotExecutablePath {
         [string]$GodotExe
     )
 
+    # 可从参数、环境变量或本机默认安装路径解析 Godot；可移植性不足时由调用方显式传入。
     $candidates = @()
     if ($GodotExe) {
         $candidates += $GodotExe
@@ -245,6 +256,7 @@ function Write-GodotMcpSection {
         [object[]]$Rows
     )
 
+    # 统一表格输出，保证排障日志在聊天和终端里都能直接阅读。
     Write-Host ""
     Write-Host "=== $Title ==="
     if (-not $Rows -or $Rows.Count -eq 0) {
