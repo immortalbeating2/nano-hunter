@@ -13,6 +13,8 @@ size = Vector2(96, 128)
 
 [node name="Stage14LoopReturnRoom" type="Node2D"]
 script = ExtResource("1")
+next_room_path = "res://scenes/rooms/stage15_seal_pressure_room.tscn"
+next_spawn_id = &"stage15_seal_pressure_start"
 checkpoint_spawn_id = &"stage14_loop_return_start"
 default_step_id = &"stage14_loop_return"
 

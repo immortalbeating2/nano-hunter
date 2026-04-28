@@ -43,3 +43,12 @@
 - 新区域、新敌人、新能力、新 UI 或 Boss 需求默认追加到本清单，不重新创建另一套资产规划。
 - 使用外部免费、购买、AI 生成或正式项目资产前，必须补齐来源与授权状态。
 - 如果资产会改变碰撞、判定或玩家误读边界，必须先进入 `asset-ingestion-checklist.md` 做接入复核。
+## Stage 15 placeholder requests
+
+| Asset ID | Purpose | Target path | Size / spec | Source | License | Status | Stage | Priority | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| stage15_seal_guardian_silhouette | Seal Guardian Boss silhouette | `assets/art/characters/bosses/stage15_seal_guardian_silhouette.svg` | 128x128 SVG placeholder, readable large-body boss shape | Project placeholder | Project-owned placeholder | needed | Stage 15 | P0 | First elite boss prototype; later repaint toward sealed Buddhist guardian / corrupted ward style |
+| stage15_boss_attack_warning | Boss attack warning VFX | `assets/art/vfx/stage15_boss_attack_warning.svg` | SVG warning arcs and floor shock marks | Project placeholder | Project-owned placeholder | needed | Stage 15 | P0 | Supports melee pressure, ground impact, and anti-air punishment readability |
+| stage15_boss_hud_status | Boss HUD status strip | `assets/art/ui/stage15_boss_hud_status.svg` | HUD frame / status glyph placeholder | Project placeholder | Project-owned placeholder | needed | Stage 15 | P0 | Must coexist with Stage14 Air Dash and backtracking reward HUD lines |
+| stage15_recovery_charge_icon | Recovery Charge HUD icon | `assets/art/ui/stage15_recovery_charge_icon.svg` | 32x32 SVG icon placeholder | Project placeholder | Project-owned placeholder | needed | Stage 15 | P0 | Communicates hit-earned heal charge readiness without becoming a formal resource economy |
+| stage15_seal_gate_room_props | Boss room seal mechanism props | `assets/art/props/stage15_seal_gate_room_props.svg` | SVG room prop pack placeholder | Project placeholder | Project-owned placeholder | needed | Stage 15 | P1 | Boss room seal pillars, locked exit hint, and victory-release visual pass |

@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage14_backtracking_room_base.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/combat/ground_charger_enemy.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/combat/spore_shooter_enemy.tscn" id="3"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(768, 32)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(96, 128)
+
+[node name="Stage15SealPressureRoom" type="Node2D"]
+script = ExtResource("1")
+next_room_path = "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn"
+next_spawn_id = &"stage15_mixed_gauntlet_start"
+checkpoint_spawn_id = &"stage15_seal_pressure_start"
+default_step_id = &"stage15_seal_pressure"
+checkpoint_on_ready = true
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.129412, 0.0862745, 0.0823529, 1)
+polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-304, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(64, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("2")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+color = Color(0.345098, 0.215686, 0.188235, 1)
+polygon = PackedVector2Array(-384, -16, 384, -16, 384, 16, -384, 16)
+
+[node name="PressureSigil" type="Polygon2D" parent="."]
+position = Vector2(120, 108)
+color = Color(0.909804, 0.643137, 0.313725, 0.32)
+polygon = PackedVector2Array(-48, 0, 0, -48, 48, 0, 0, 48)
+
+[node name="GroundChargerEnemy" parent="." instance=ExtResource("2")]
+position = Vector2(88, 136)
+
+[node name="SporeShooterEnemy" parent="." instance=ExtResource("3")]
+position = Vector2(304, 136)
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(544, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("3")
+
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
+color = Color(0.933333, 0.772549, 0.360784, 0.26)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
