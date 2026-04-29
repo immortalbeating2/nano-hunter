@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -11,7 +11,7 @@ size = Vector2(512, 32)
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(112, 128)
 
-[node name="Stage13BioWasteGoalRoom" type="Node2D"]
+[node name="Stage13MiasmaMarshGoalRoom" type="Node2D"]
 script = ExtResource("1")
 next_room_path = "res://scenes/rooms/stage14_air_dash_shrine_room.tscn"
 next_spawn_id = &"stage14_air_dash_shrine_start"

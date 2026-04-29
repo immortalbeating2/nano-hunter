@@ -12,7 +12,7 @@ const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
 const STEP_FINISH: StringName = &"finish"
 const STEP_COMPLETE: StringName = &"complete"
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
-const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_entry_room.tscn"
+const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn"
 const DEMO_END_SPAWN_ID: StringName = &"stage11_demo_end_start"
 
 const STEP_TITLES := {

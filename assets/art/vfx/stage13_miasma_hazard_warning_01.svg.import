@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cc62kh5pjp08u"
-path="res://.godot/imported/stage13_spore_shooter_silhouette.svg-98a3a2ddb3565cb5c493ed987d0ebac0.ctex"
+uid="uid://ujhyyt8c2wxj"
+path="res://.godot/imported/stage13_miasma_hazard_warning_01.svg-72b6fb91b9daded40223d2306c7053b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/characters/enemies/stage13_spore_shooter_silhouette.svg"
-dest_files=["res://.godot/imported/stage13_spore_shooter_silhouette.svg-98a3a2ddb3565cb5c493ed987d0ebac0.ctex"]
+source_file="res://assets/art/vfx/stage13_miasma_hazard_warning_01.svg"
+dest_files=["res://.godot/imported/stage13_miasma_hazard_warning_01.svg-72b6fb91b9daded40223d2306c7053b5.ctex"]
 
 [params]
 

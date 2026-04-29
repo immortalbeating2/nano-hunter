@@ -28,7 +28,7 @@ func test_stage12_asset_pipeline_docs_and_directories_exist() -> void:
 	var required_directories := [
 		"res://assets/art/characters/player",
 		"res://assets/art/characters/enemies",
-		"res://assets/art/environment/biome_01_lab",
+		"res://assets/art/environment/biome_01_shrine_trial",
 		"res://assets/art/vfx",
 		"res://assets/art/ui",
 		"res://assets/audio/sfx",

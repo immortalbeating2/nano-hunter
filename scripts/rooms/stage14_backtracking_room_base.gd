@@ -1,4 +1,4 @@
-extends "res://scripts/rooms/stage13_bio_waste_room_base.gd"
+extends "res://scripts/rooms/stage13_miasma_marsh_room_base.gd"
 
 # Stage14BacktrackingRoomBase 负责阶段 14 第一条回溯链路的共同契约：
 # 空中冲刺获得点、空中冲刺能力门，以及 3 个明确可数的回溯收益点。

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqa687lg5d3tp"
-path="res://.godot/imported/stage13_bio_waste_goal_device_01.svg-6053339f6fb71f7a2bee6e49409f954b.ctex"
+uid="uid://bnbdhr5s24q72"
+path="res://.godot/imported/stage13_miasma_marsh_tiles_01.svg-2a862978db6344dedf61c512b7e6f8b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/props/stage13_bio_waste_goal_device_01.svg"
-dest_files=["res://.godot/imported/stage13_bio_waste_goal_device_01.svg-6053339f6fb71f7a2bee6e49409f954b.ctex"]
+source_file="res://assets/art/environment/biome_02_miasma_marsh/stage13_miasma_marsh_tiles_01.svg"
+dest_files=["res://.godot/imported/stage13_miasma_marsh_tiles_01.svg-2a862978db6344dedf61c512b7e6f8b3.ctex"]
 
 [params]
 

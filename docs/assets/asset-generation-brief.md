@@ -23,17 +23,17 @@ Last Updated: 2026-04-27
 - Stage 12 已建立资产目录、资产清单和接入检查清单。
 - Stage 12-13 已接入一批项目内 SVG 占位资产，用于玩家轮廓、敌人轮廓、攻击 / 命中 VFX、HUD 图标、第二小区域环境、危险提示、门控与区域终点装置。
 - 这些资产主要是 `占位资产` 和 `可替换结构样例`，不是最终美术。
-- Stage 12-13 中出现的“实验室 / 生物废液区”属于灰盒阶段方向偏移；后续资产寻找和生成不应继续扩大现代生物实验室设定，而应改回南北朝东方奇幻语境。
+- Stage 12-13 中出现的“镇妖试炼场 / 瘴泽妖域”属于灰盒阶段方向偏移；后续资产寻找和生成不应继续扩大现代生物镇妖试炼场设定，而应改回南北朝东方奇幻语境。
 
 ## 灰盒命名回归方案
 
 | 旧灰盒 / 偏移称呼 | 后续建议称呼 | 资产解释方向 |
 | --- | --- | --- |
-| 实验室区 | 山门古刹 / 镇妖试炼场 / 佛门封妖禁地 | 古刹、石碑、符印机关、镇妖卫试炼设施 |
-| 生物废液区 | 瘴泽妖域 / 腐瘴荒泽 / 妖血瘴沼 | 瘴气、妖血、腐化水泽、山海经异兽污染 |
-| 净化门 | 符印封门 / 镇妖印门 | 佛门符印或镇妖卫机关门 |
-| 净化节点 | 镇妖符桩 / 佛印石灯 / 法阵锚点 | 触发符印机关，解除封门 |
-| 酸液危险 | 腐瘴水 / 妖毒沼 / 魇蚀池 | 妖气腐化地形，不使用科幻酸池语义 |
+| 镇妖试炼场区 | 山门古刹 / 镇妖试炼场 / 佛门封妖禁地 | 古刹、石碑、符印机关、镇妖卫试炼设施 |
+| 瘴泽妖域 | 瘴泽妖域 / 腐瘴荒泽 / 妖血瘴沼 | 瘴气、妖血、腐化水泽、山海经异兽污染 |
+| 封印门 | 符印封门 / 镇妖印门 | 佛门符印或镇妖卫机关门 |
+| 镇妖印节点 | 镇妖符桩 / 佛印石灯 / 法阵锚点 | 触发符印机关，解除封门 |
+| 瘴气危险 | 腐瘴水 / 妖毒沼 / 魇蚀池 | 妖气腐化地形，不使用科幻酸池语义 |
 | 终点装置 | 悬赏榜封印 / 镇妖石龛 / 佛门石碑 | 区域完成、剧情碎片或能力前置 |
 
 ## 风格锚点
@@ -73,8 +73,8 @@ Last Updated: 2026-04-27
 - 玩家：`assets/art/characters/player/`
 - 敌人 / 妖物：`assets/art/characters/enemies/`
 - 环境：当前仍沿用既有目录，但后续命名应逐步向古代东方区域回归
-  - `assets/art/environment/biome_01_lab/`：后续解释为山门古刹 / 镇妖试炼场方向
-  - `assets/art/environment/biome_02_bio_waste/`：后续解释为瘴泽妖域 / 妖毒沼方向
+  - `assets/art/environment/biome_01_shrine_trial/`：后续解释为山门古刹 / 镇妖试炼场方向
+  - `assets/art/environment/biome_02_miasma_marsh/`：后续解释为瘴泽妖域 / 妖毒沼方向
 - 道具 / 符印门控 / 石碑 / 驿站设施：`assets/art/props/`
 - UI / 法阵 / 悬赏榜 / 卷轴图标：`assets/art/ui/`
 - VFX / 符印 / 元素 / 妖气：`assets/art/vfx/`
@@ -116,7 +116,7 @@ photorealistic, cinematic screenshot, noisy background, excessive details, low c
 | Stage 14 | 回溯收益点标识 | `assets/art/props/stage14_backtrack_reward_marker_01.svg` | 48x48 或 64x64 | P1 | 圣物、念珠、铜铃、佛门石碑碎片 |
 | Stage 14 | 新能力 VFX | `assets/art/vfx/stage14_ability_trail_01.svg` | 64x32 或 sprite strip | P1 | 元素灵力轨迹、符印残影、妖性异色边缘 |
 | Stage 15 | 精英 / Boss 轮廓 | `assets/art/characters/enemies/stage15_elite_boss_silhouette_01.svg` | 128x128 或 160x128 | P0 | 山海经异兽 / 腐化官妖 / 军阀妖化候选 |
-| Stage 15 | Boss 房背景锚点 | `assets/art/environment/biome_02_bio_waste/stage15_boss_room_backdrop_01.svg` | 320x180 或分层背景 | P1 | 腐瘴荒泽、破败古庙、妖气祭坛 |
+| Stage 15 | Boss 房背景锚点 | `assets/art/environment/biome_02_miasma_marsh/stage15_boss_room_backdrop_01.svg` | 320x180 或分层背景 | P1 | 腐瘴荒泽、破败古庙、妖气祭坛 |
 | Stage 15 | Boss 攻击预警 | `assets/art/vfx/stage15_boss_warning_01.svg` | 64x64 或 96x32 | P0 | 符印警示、妖气裂纹、朱砂阵线 |
 | Stage 15 | 战斗资源 / 扩展动作 UI | `assets/art/ui/stage15_combat_resource_icon_01.svg` | 32x32 | P1 | 符印姿态、元素序列、妖性觉醒资源 |
 | Stage 16 | 主菜单背景 | `assets/art/ui/stage16_title_background_01.png` | 1280x720 或 640x360 | P1 | Luna 立于古刹 / 悬赏榜 / 妖域入口前 |
@@ -172,7 +172,7 @@ short talisman cast, bronze bell chime, ink slash, ancient stone gate open, pape
 
 1. 先生成或寻找同一资产主题的 `3-6` 张候选。
 2. 只选轮廓最清楚、颜色最接近风格锚点的候选。
-3. 若候选带有现代实验室、生物科技、科幻装甲或现代 UI 语义，默认淘汰或只作为构图参考。
+3. 若候选带有现代镇妖试炼场、生物科技、科幻装甲或现代 UI 语义，默认淘汰或只作为构图参考。
 4. 原图放入 `assets/source/ai_generated/` 或 `assets/source/references/`。
 5. 可接入版本导出到对应 `assets/art/` 或 `assets/audio/` 目录。
 6. 回填 `asset-manifest.md`，标记来源、授权、状态和替换优先级。

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="Script" path="res://scripts/combat/spore_shooter_enemy.gd" id="1"]
-[ext_resource type="Resource" path="res://scripts/configs/spore_shooter_enemy_config.tres" id="2"]
-[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage13_spore_shooter_silhouette.svg" id="3"]
+[ext_resource type="Script" path="res://scripts/combat/miasma_caster_enemy.gd" id="1"]
+[ext_resource type="Resource" path="res://scripts/configs/miasma_caster_enemy_config.tres" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage13_miasma_caster_silhouette.svg" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(28, 36)
@@ -10,7 +10,7 @@ size = Vector2(28, 36)
 [sub_resource type="CircleShape2D" id="2"]
 radius = 30.0
 
-[node name="SporeShooterEnemy" type="StaticBody2D"]
+[node name="MiasmaCasterEnemy" type="StaticBody2D"]
 script = ExtResource("1")
 config = ExtResource("2")
 
@@ -34,7 +34,7 @@ position = Vector2(0, -18)
 scale = Vector2(0.72, 0.72)
 texture = ExtResource("3")
 
-[node name="SporePressureVisual" type="Polygon2D" parent="."]
+[node name="MiasmaPressureVisual" type="Polygon2D" parent="."]
 position = Vector2(0, -18)
 color = Color(0.694118, 0.929412, 0.560784, 0.18)
 polygon = PackedVector2Array(-56, 0, -40, -40, 0, -56, 40, -40, 56, 0, 40, 40, 0, 56, -40, 40)

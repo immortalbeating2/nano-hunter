@@ -64,7 +64,7 @@ Stage16 继续遵循 Stage12 建立的资产清单规则。新增资产需求默
 - `stage16_demo_sfx_pack`：封印破裂、符印激活、门开启、完成反馈。
 - `stage16_demo_music_loop`：最小 BGM 循环。
 
-Stage13 既有 `bio_waste` / 废液命名短期可作为灰盒路径保留，但 Stage16 文案、HUD、资产备注和 release notes 应使用“妖瘴、封印渗漏、符印节点、镇妖印、封妖禁地”等语境。
+Stage13 既有 `bio_waste` / 废液命名已通过北极星回收修正迁移到 `miasma_marsh` / 瘴泽妖域语境；Stage16 文案、HUD、资产备注和 release notes 继续使用“妖瘴、封印渗漏、符印节点、镇妖印、封妖禁地”等表达，不再扩大现代实验室设定。
 
 ## Goals
 
@@ -144,4 +144,3 @@ Stage16 默认启用 `4` 个核心 subagent，由主代理统筹整合：
 - Godot MCP 运行态人工复核完成并记录结果。
 - Demo 级 QA checklist 和 Alpha Demo release notes 完成。
 - 资产清单能区分“已接入、临时占位、待替换、可延后”。
-

@@ -427,8 +427,7 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 # Demo 主链路的目标文案只做“当前处于哪个关键节点”的最小收束，
 # 不把它扩成另一层配置系统。
 func _get_demo_goal_text() -> String:
-	# Stage 13 仍沿用早期灰盒命名；这里先保证玩家目标可读，
-	# 后续资产和命名会按总设计北极星逐步回到南北朝镇妖语境。
+	# Stage 13 已回收到瘴泽妖域语境；这里保持玩家目标可读，不额外引入剧情系统。
 	if _stage16_alpha_demo_completed:
 		return "Alpha Demo 已完成：终局封印链已闭合，可重开试玩或查看发布说明"
 
@@ -445,7 +444,7 @@ func _get_demo_goal_text() -> String:
 		return "主目标：取得空中二段冲刺并回头打开能力门"
 
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
-		return "主目标：探索生物废液区并抵达第二小区域终点"
+		return "主目标：探索瘴泽妖域并抵达第二小区域终点"
 
 	if _is_demo_completed:
 		return "Demo 已完成：可向左返回并重开试玩"
@@ -483,7 +482,7 @@ func _get_demo_goal_hint_text() -> String:
 		return "提示：空中按冲刺可越过能力门，落地后恢复一次空中冲刺"
 
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
-		return "提示：留意酸液、孢子投射敌和净化门控"
+		return "提示：留意瘴气、瘴气妖术投射者和封印门控"
 
 	if _is_demo_completed:
 		return "提示：向左回到重开入口后，可从教程重新开始"

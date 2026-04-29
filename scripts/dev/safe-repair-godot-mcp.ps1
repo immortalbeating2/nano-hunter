@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$WorkspacePath,
     [switch]$ForceKillBridge,
     [switch]$DryRun

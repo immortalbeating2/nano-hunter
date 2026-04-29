@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hr42e4dhni8u"
-path="res://.godot/imported/stage13_purification_gate_01.svg-0a9e1376111ac17fdd0c92fbd9e50a49.ctex"
+uid="uid://kaand56hjgak"
+path="res://.godot/imported/stage13_miasma_caster_silhouette.svg-713f9d1405c13fe89883888fe6a6f752.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/props/stage13_purification_gate_01.svg"
-dest_files=["res://.godot/imported/stage13_purification_gate_01.svg-0a9e1376111ac17fdd0c92fbd9e50a49.ctex"]
+source_file="res://assets/art/characters/enemies/stage13_miasma_caster_silhouette.svg"
+dest_files=["res://.godot/imported/stage13_miasma_caster_silhouette.svg-713f9d1405c13fe89883888fe6a6f752.ctex"]
 
 [params]
 

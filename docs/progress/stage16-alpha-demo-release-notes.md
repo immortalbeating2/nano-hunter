@@ -30,7 +30,7 @@
 
 - Stage16 视觉和音频仍为灰盒 / 占位状态。
 - `stage16_demo_sfx_pack` 与 `stage16_minimal_bgm` 只记录需求，尚未接入正式音频。
-- Stage13 旧命名仍存在 `bio_waste` 路径，Stage16 文案和资产备注已开始向妖瘴、封印渗漏、符印机关方向回收。
+- Stage13 旧 `bio_waste` 路径已通过北极星回收修正迁移到 `miasma_marsh`，Stage16 文案和资产备注继续使用妖瘴、封印渗漏、符印机关方向。
 - Demo shell 是最小 Alpha Demo 外壳，不包含正式设置页、存档槽、成就或完整键位配置。
 
 ## 下一步
