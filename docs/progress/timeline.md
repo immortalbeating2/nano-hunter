@@ -71,3 +71,4 @@
 - 在当前会话工作树创建 `codex/north-star-realign-stage12-13`，采用“当前工作树 + 阶段修正分支”模式启动 Stage12-13 北极星回收修正。
 - 新增 Stage12-13 北极星回收设计文档、执行清单与正式修正计划；修正方向为将现代实验室 / 生物废液表达回收到山门古刹、镇妖试炼场、瘴泽妖域、符印封印机关和瘴气妖术投射者。
 - 同步迁移 Stage12/13 资产路径、Stage13 场景 / 脚本 / 配置 / 测试引用，以及 Stage14/15 对 Stage13 内容的引用；详情见 `docs/progress/logs/2026-04-29.md`。
+- 完成 Stage12-13 北极星回收 Godot MCP 人工复核，合并 `codex/north-star-realign-stage12-13` 到 `main` 并推送 `origin/main`；修正分支已删除，Git worktree 注册已移除，空物理目录因 Windows 锁暂留。
