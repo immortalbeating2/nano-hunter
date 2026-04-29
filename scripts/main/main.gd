@@ -16,6 +16,8 @@ const STAGE13_ROOM_PREFIX := "res://scenes/rooms/stage13_"
 const STAGE14_ROOM_PREFIX := "res://scenes/rooms/stage14_"
 const STAGE15_ROOM_PREFIX := "res://scenes/rooms/stage15_"
 const STAGE15_COMPLETION_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
+const STAGE16_ROOM_PREFIX := "res://scenes/rooms/stage16_"
+const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
 
 # 默认输入绑定由 Main 兜底创建，保证独立运行测试或新机器启动时输入契约完整。
 const INPUT_BINDINGS := {
@@ -25,12 +27,14 @@ const INPUT_BINDINGS := {
 	"attack": [KEY_J],
 	"dash": [KEY_K],
 	"recover": [KEY_L],
+	"pause": [KEY_ESCAPE],
 }
 
 # 主场景固定节点缓存：Runtime 承载当前玩家，Room 承载当前房间，HUD 只消费快照。
 @onready var runtime: Node2D = $Runtime
 @onready var fallback_player_spawn: Marker2D = $PlayerSpawn
 @onready var tutorial_hud: Control = $HUD/TutorialHUD
+@onready var demo_shell: Control = $HUD/DemoShell
 
 # Main 持有跨房间运行期状态；单房间内部状态仍由各房间脚本自己维护。
 var room: Node2D
@@ -43,6 +47,9 @@ var _is_demo_completed := false
 var _air_dash_unlocked := false
 var _stage14_backtrack_reward_ids: Dictionary = {}
 var _stage15_boss_defeated := false
+var _stage16_alpha_demo_completed := false
+var _stage16_release_notes_ready := false
+var _stage16_qa_checklist_ready := false
 
 
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
@@ -50,6 +57,8 @@ func _ready() -> void:
 	_configure_window_defaults()
 	_ensure_default_input_bindings()
 	room = get_node_or_null("Room") as Node2D
+	if demo_shell != null and demo_shell.has_method("bind_main"):
+		demo_shell.call("bind_main", self)
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
 
 
@@ -141,11 +150,53 @@ func transition_to_room(room_path: String, spawn_id: StringName) -> void:
 
 # Demo 重开只清理本轮推进状态，保留全局输入和场景结构，方便终点房反复试玩。
 func restart_demo() -> void:
+	_is_short_chain_completed = false
 	_is_demo_completed = false
+	_air_dash_unlocked = false
+	_stage14_backtrack_reward_ids.clear()
 	_stage15_boss_defeated = false
+	_stage16_alpha_demo_completed = false
+	_stage16_release_notes_ready = false
+	_stage16_qa_checklist_ready = false
 	_checkpoint_room_path = ""
 	_checkpoint_spawn_id = &""
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
+
+
+# 从 Demo 壳或测试入口开始试玩；Main 只负责转发并保留无 UI 时的回退路径。
+func start_demo() -> void:
+	if demo_shell != null and demo_shell.has_method("start_demo"):
+		demo_shell.call("start_demo")
+		return
+
+	restart_demo()
+	get_tree().paused = false
+
+
+# 暂停状态由 Demo 壳负责显示；Main 暴露统一入口给测试和后续外层 UI。
+func pause_demo() -> void:
+	if demo_shell != null and demo_shell.has_method("pause_demo"):
+		demo_shell.call("pause_demo")
+		return
+
+	get_tree().paused = true
+
+
+# 继续试玩只恢复暂停，不写入任何 Demo 进度。
+func resume_demo() -> void:
+	if demo_shell != null and demo_shell.has_method("resume_demo"):
+		demo_shell.call("resume_demo")
+		return
+
+	get_tree().paused = false
+
+
+# 查询当前 Demo 是否处于暂停态；正式进度仍通过 get_demo_progress_snapshot 读取。
+func is_demo_paused() -> bool:
+	if demo_shell != null and demo_shell.has_method("is_demo_paused"):
+		return bool(demo_shell.call("is_demo_paused"))
+
+	return get_tree().paused
 
 
 # 输出主流程稳定快照，供 HUD、GUT 和 MCP 复核读取，不暴露 Main 私有字段。
@@ -160,6 +211,9 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"stage14_backtrack_reward_count": get_stage14_backtrack_reward_count(),
 		"stage15_boss_defeated": _stage15_boss_defeated,
 		"stage15_recovery_charge_ready": _is_stage15_recovery_charge_ready(),
+		"stage16_alpha_demo_completed": _stage16_alpha_demo_completed,
+		"stage16_release_notes_ready": _stage16_release_notes_ready,
+		"stage16_qa_checklist_ready": _stage16_qa_checklist_ready,
 	}
 
 
@@ -198,6 +252,40 @@ func mark_stage15_boss_defeated() -> void:
 # 公开查询 Stage15 Boss 结果，避免完成房直接读取 Main 私有变量。
 func is_stage15_boss_defeated() -> bool:
 	return _stage15_boss_defeated
+
+
+# 标记 Stage16 Alpha Demo 已完成；终点房或专项测试通过这个接口写入 Main 快照。
+func mark_stage16_alpha_demo_completed() -> void:
+	_stage16_alpha_demo_completed = true
+	_is_demo_completed = true
+	_refresh_hud_progress()
+
+
+# 查询 Stage16 Alpha Demo 完成态，避免 Demo 壳、房间或测试读取 Main 私有变量。
+func is_stage16_alpha_demo_completed() -> bool:
+	return _stage16_alpha_demo_completed
+
+
+# 标记 Alpha Demo release notes 已准备好；运行时只保存可读状态，不负责文档生成。
+func mark_stage16_release_notes_ready() -> void:
+	_stage16_release_notes_ready = true
+	_refresh_hud_progress()
+
+
+# 查询 release notes 状态，供 HUD、Demo 壳和测试读取。
+func is_stage16_release_notes_ready() -> bool:
+	return _stage16_release_notes_ready
+
+
+# 标记 Demo 级 QA checklist 已准备好；Main 只作为跨系统快照出口。
+func mark_stage16_qa_checklist_ready() -> void:
+	_stage16_qa_checklist_ready = true
+	_refresh_hud_progress()
+
+
+# 查询 QA checklist 状态，供 HUD、Demo 壳和测试读取。
+func is_stage16_qa_checklist_ready() -> bool:
+	return _stage16_qa_checklist_ready
 
 
 # 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
@@ -301,6 +389,12 @@ func _get_runtime_player() -> CharacterBody2D:
 	return runtime.get_node_or_null("PlayerPlaceholder") as CharacterBody2D
 
 
+# Main 在关键快照变化后主动刷新 HUD，保证暂停菜单或测试暂停状态下也能看到最新完成反馈。
+func _refresh_hud_progress() -> void:
+	if tutorial_hud != null and tutorial_hud.has_method("_update_progress_status"):
+		tutorial_hud.call("_update_progress_status")
+
+
 # 把玩家恢复充能 ready 状态转成 Main 快照字段，供 HUD 展示 stage15 战斗容错。
 func _is_stage15_recovery_charge_ready() -> bool:
 	# Recovery Charge 不由 Main 持久化；快照只转述当前玩家是否已经满充能。
@@ -315,6 +409,10 @@ func _is_stage15_recovery_charge_ready() -> bool:
 # 但只有真正进入 stage11 终点房时，才把本轮试玩标记为已完成。
 func _on_goal_completed() -> void:
 	_is_short_chain_completed = true
+	if room != null and room.scene_file_path == STAGE16_ALPHA_DEMO_END_ROOM_PATH:
+		mark_stage16_alpha_demo_completed()
+		return
+
 	if room != null and room.scene_file_path == STAGE11_DEMO_END_ROOM_PATH:
 		_is_demo_completed = true
 
@@ -331,6 +429,12 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 func _get_demo_goal_text() -> String:
 	# Stage 13 仍沿用早期灰盒命名；这里先保证玩家目标可读，
 	# 后续资产和命名会按总设计北极星逐步回到南北朝镇妖语境。
+	if _stage16_alpha_demo_completed:
+		return "Alpha Demo 已完成：终局封印链已闭合，可重开试玩或查看发布说明"
+
+	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
+		return "主目标：完成终局封印链并形成 Alpha Demo 候选"
+
 	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
 		return "Stage15 已完成：封印守卫已击败，战斗高潮闭环成立"
 
@@ -363,6 +467,12 @@ func _get_demo_goal_text() -> String:
 # 按当前阶段和房间给 HUD 生成一条短提示，帮助玩家理解当下最关键的操作。
 func _get_demo_goal_hint_text() -> String:
 	# 提示文案只标注当前房间最可能卡住玩家的点，不在 HUD 里写完整教程。
+	if _stage16_alpha_demo_completed:
+		return "提示：暂停菜单可重开 Demo；QA checklist 与 release notes 状态会在 HUD 中同步"
+
+	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
+		return "提示：确认符印节点、回溯收益和封印净化反馈"
+
 	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
 		return "提示：阶段完成反馈已触发，后续可进入 Alpha Demo 打包候选复核"
 

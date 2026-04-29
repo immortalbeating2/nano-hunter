@@ -65,3 +65,9 @@
 - Stage15 收口记录已推送到 `origin/main`；固定永久工作树保留并同步到最新 `main` 的 detached 状态，Stage15 本地阶段分支已删除。
 - 完成全仓自有 GDScript 函数入口注释审计清零和乱码扫描，确认 Stage15 专项 GUT、全量 GUT、Godot import 与 `git diff --check` 通过。
 - 调整进度文档治理：日日志迁入 `docs/progress/logs/`，MCP 截图改为 `tests/artifacts/local/` 本地证据产物，`status.md` 与 `timeline.md` 改为低重复格式。详情见 `docs/progress/logs/2026-04-28.md`。
+
+## 2026-04-29
+
+- 从固定永久工作树创建 Stage16 阶段分支 `codex/stage-16-alpha-demo-candidate`，采用固定永久工作树 + 阶段分支模式。
+- 完成 Stage16 Alpha Demo 打包候选阶段文档设计，新增设计文档、实现计划和正式阶段计划；计划明确采用 subagent / multiagent 模型，并把新增内容锁定为 `5` 个终局封印链房间。详情见 `docs/progress/logs/2026-04-29.md`。
+- 实现 Stage16 Alpha Demo 候选主体：五房终局封印链、Stage15 completion 接入、最小 Demo 壳、Main / HUD Stage16 完成态、Stage16 专项 GUT、Alpha Demo 灰盒 driver、QA checklist、release notes 与资产 / 音频 manifest 条目；自动化验证通过，Godot MCP 运行态复核待执行。

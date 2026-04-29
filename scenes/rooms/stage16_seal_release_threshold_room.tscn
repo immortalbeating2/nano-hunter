@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage16_seal_chain_room_base.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(960, 32)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(24, 144)
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(96, 128)
+
+[node name="Stage16SealReleaseThresholdRoom" type="Node2D"]
+script = ExtResource("1")
+next_room_path = "res://scenes/rooms/stage16_talisman_relay_room.tscn"
+next_spawn_id = &"stage16_talisman_relay_start"
+checkpoint_spawn_id = &"stage16_seal_release_start"
+default_step_id = &"stage16_seal_release_threshold"
+checkpoint_on_ready = true
+stage16_room_role = "seal_release_threshold"
+seal_chain_step = &"stage16_seal_release_threshold"
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.0980392, 0.0823529, 0.121569, 1)
+polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-304, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("1")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(128, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("2")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+color = Color(0.235294, 0.180392, 0.286275, 1)
+polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
+
+[node name="SealReleaseNode" type="Polygon2D" parent="."]
+position = Vector2(96, 104)
+color = Color(0.933333, 0.705882, 0.294118, 0.58)
+polygon = PackedVector2Array(-40, 0, 0, -56, 40, 0, 0, 56)
+
+[node name="GateBarrier" type="StaticBody2D" parent="."]
+position = Vector2(392, 88)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier"]
+shape = SubResource("3")
+
+[node name="BarrierVisual" type="Polygon2D" parent="GateBarrier"]
+color = Color(0.776471, 0.321569, 0.262745, 1)
+polygon = PackedVector2Array(-12, -72, 12, -72, 12, 72, -12, 72)
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(544, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("4")
+
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
+color = Color(0.933333, 0.772549, 0.360784, 0.26)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
