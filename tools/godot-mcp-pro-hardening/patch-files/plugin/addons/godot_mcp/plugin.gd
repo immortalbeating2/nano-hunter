@@ -48,7 +48,8 @@ func _enter_tree() -> void:
 	var ver := "unknown"
 	if cfg.load("res://addons/godot_mcp/plugin.cfg") == OK:
 		ver = cfg.get_value("plugin", "version", "unknown")
-	# 端口规划需和 Node server、PowerShell 脚本、补丁脚本同步：6510-6514 保留给 godot-cli。
+	# 端口规划需和 Node server、PowerShell 诊断脚本、通用补丁脚本同步。
+	# 6510-6514 保留给 godot-cli；stdio bridge 只使用 6505-6509 与 6515-6534。
 	print("[MCP] Godot MCP Pro v%s started (stdio 6505-6509,6515-6534; cli 6510-6514)" % ver)
 
 

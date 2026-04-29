@@ -76,4 +76,4 @@ Last Updated: 2026-04-29
 
 - 当前开发现场新增工具链修复分支 `codex/fix-godot-mcp-bridge-lifecycle`，目标是根治 Godot MCP Pro bridge 残留、端口占用和多 worktree 串线问题。
 - 当前稳定游戏基线仍为 Stage16 Alpha Demo 候选；本次不改玩法、场景、资产或主流程内容。
-- 工具链验证以 `npm test`、`npm run build`、`godot --headless --path . --import`、`check-godot-mcp.ps1`、`enter-worktree-godot-mcp.ps1 -DryRun` 和补丁脚本 dry-run 为准。
+- 工具链验证以 `npm test`、`npm run build`、`godot --headless --path . --import`、`check-godot-mcp.ps1`、`enter-worktree-godot-mcp.ps1 -DryRun` 和通用补丁脚本 dry-run 为准；补丁脚本默认只覆盖全局 Node server 与目标项目 `addons/godot_mcp`。

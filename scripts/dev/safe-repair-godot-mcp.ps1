@@ -1,19 +1,29 @@
-param(
+﻿param(
     [string]$WorkspacePath,
     [switch]$ForceKillBridge,
     [switch]$DryRun
 )
 
-# 安全修复工具。
-# 默认只关闭当前工作树的 Godot 编辑器，并列出 bridge / CLI / lock 状态。
-# 只有显式 -ForceKillBridge 时才会清理“当前 workspace 且 heartbeat stale / 无当前连接”的 stdio bridge。
-# 6510-6514 是 godot-cli reserved 端口，永远不在本脚本默认清理范围内。
+# Godot MCP 安全修复脚本。
+# 适用场景：
+# - enter-worktree-godot-mcp.ps1 判断需要重开当前 worktree Godot。
+# - 用户确认没有其它 Godot MCP 会话依赖 stale stdio bridge 后，执行受限清理。
+# 是否会修改：
+# - 默认会关闭命令行指向当前 workspace 的 Godot editor，不关闭其它 workspace 的 Godot。
+# - 只有 -ForceKillBridge 才会停止 stale stdio bridge 进程。
+# - 不清理 6510-6514 godot-cli reserved 端口进程。
+# 常用命令：
+# - 预览：.\scripts\dev\safe-repair-godot-mcp.ps1 -DryRun
+# - 受限清理 stale bridge：.\scripts\dev\safe-repair-godot-mcp.ps1 -ForceKillBridge
+# 安全边界：
+# - stale 判断必须同时结合 lock/heartbeat、PID、当前 workspace editor 连接和 workspace 归属。
+# - 不能只因为端口年龄旧就杀进程；旧但仍被其它 workspace 使用的 bridge 应保留。
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 . (Join-Path $PSScriptRoot "godot-mcp-common.ps1")
 
-$workspace = Resolve-NanoHunterWorkspacePath -WorkspacePath $WorkspacePath
+$workspace = Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath
 $workspaceComparable = ConvertTo-GodotMcpComparablePath $workspace
 $workspaceEditors = @(Get-GodotEditorProcessInfos -WorkspacePath $workspace | Where-Object { $_.MatchesWorkspace })
 $otherEditors = @(Get-GodotEditorProcessInfos -WorkspacePath $workspace | Where-Object { -not $_.MatchesWorkspace })

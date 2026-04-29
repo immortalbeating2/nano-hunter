@@ -49,6 +49,9 @@ const explicitPort = process.env.GODOT_MCP_PORT;
 const strictPort = process.env.GODOT_MCP_STRICT_PORT === "1";
 const workspace = process.env.GODOT_MCP_WORKSPACE || process.cwd();
 const sessionId = process.env.GODOT_MCP_SESSION_ID || randomUUID();
+// GODOT_MCP_PORT 在普通模式下只是 preferred port，旧 bridge 占用时允许 fallback。
+// 只有 GODOT_MCP_STRICT_PORT=1 时才把该端口视为硬约束并在失败时退出。
+// workspace/sessionId 会写入 lock，并通过 Godot 端 godot_hello 防止跨项目 editor 抢线。
 const godot = new GodotConnection(
   parseInt(explicitPort || "6505"),
   strictPort,
@@ -115,9 +118,9 @@ if (!LITE_MODE) {
   registerAndroidTools(server, godot);
 }
 
-// Start server
+// 启动 MCP server。初始 bridge 监听失败时，非 strict 模式仍保持 stdio MCP 入口可用；
+// 之后第一次 sendCommand 会触发 lazy reconnect，让清理端口后的当前会话可以自救。
 async function main() {
-  // Attempt initial connection to Godot (non-blocking)
   godot.connect().catch((err) => {
     console.error(
       `[MCP] Initial Godot connection failed: ${err.message}. Will retry on first command.`

@@ -19,6 +19,11 @@ const COMMAND_TIMEOUT_MS = 30000;
 const HEARTBEAT_INTERVAL_MS = 10000;
 export const DEFAULT_RESERVED_CLI_PORTS = [6510, 6511, 6512, 6513, 6514];
 
+/**
+ * 解析逗号分隔或短横线范围端口列表，例如 "6510-6514,6530"。
+ * 该函数服务于 GODOT_MCP_RESERVED_PORTS，让本地环境可以扩展保留端口，
+ * 但默认仍必须跳过 godot-cli 使用的 6510-6514。
+ */
 export function parsePortList(value: string | undefined): number[] {
   if (!value) return [];
   const ports = new Set<number>();
@@ -38,6 +43,11 @@ export function parsePortList(value: string | undefined): number[] {
   return [...ports].sort((a, b) => a - b);
 }
 
+/**
+ * 构造 stdio bridge 候选端口。
+ * 默认扫描 6505-6534，但会剔除 reserved CLI 端口；因此 stdio 自动监听
+ * 会覆盖 6505-6509 与 6515-6534，不会抢占 6510-6514。
+ */
 export function buildCandidatePorts(
   basePort: number = parseInt(process.env.GODOT_MCP_BASE_PORT || `${BASE_PORT}`, 10),
   maxPort: number = parseInt(process.env.GODOT_MCP_MAX_PORT || `${MAX_PORT}`, 10),
@@ -53,6 +63,10 @@ export function buildCandidatePorts(
   return ports;
 }
 
+/**
+ * workspace handshake 使用规范化后的路径比较，避免 Windows 反斜杠、
+ * 大小写和末尾斜杠让同一个项目被误判为不同 workspace。
+ */
 export function normalizeWorkspacePath(path: string): string {
   return path.replace(/\\/g, "/").replace(/\/+$/g, "").toLowerCase();
 }
@@ -101,7 +115,11 @@ export class GodotConnection {
     );
   }
 
-  /** Start WebSocket server on first available port in range */
+  /**
+   * 启动 WebSocket bridge。
+   * 非 strict 模式下，GODOT_MCP_PORT 只是 preferred port；被占用时会 fallback
+   * 到候选端口。启动失败会清空 wss，后续 sendCommand/ensureListening 可以重试。
+   */
   async connect(): Promise<void> {
     if (this.wss) return;
 
@@ -250,6 +268,11 @@ export class GodotConnection {
     await this.connect();
   }
 
+  /**
+   * 选择监听端口。
+   * strict 模式用于确实需要固定端口的调试场景；普通 Codex stdio 会话应允许
+   * fallback，否则旧 bridge 占用 6505 时当前会话无法自救。
+   */
   private async choosePort(): Promise<number> {
     if (this.strictPort) {
       if (!(await isPortFree(this.port))) {
@@ -322,6 +345,8 @@ export class GodotConnection {
   }
 
   private handleGodotHello(msg: { params?: Record<string, unknown> }, ws: WebSocket): void {
+    // Godot 插件连接后必须先发 godot_hello。workspace 不匹配时关闭这个连接，
+    // 且不替换当前 client，避免另一个项目的 editor 抢走本会话 bridge。
     const incomingWorkspace = String(msg.params?.workspace || "");
     if (
       incomingWorkspace &&

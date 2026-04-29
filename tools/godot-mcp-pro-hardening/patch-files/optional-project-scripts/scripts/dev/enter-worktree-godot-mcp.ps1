@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$WorkspacePath,
     [string]$GodotExe,
     [switch]$ResetBeforeReopen,
@@ -7,19 +7,26 @@ param(
     [switch]$DryRun
 )
 
-# 当前固定工作树进入 Godot MCP 人工复核的统一入口。
-# 它会读取 stdio bridge、CLI reserved 端口、lock/heartbeat 和 Godot 编辑器归属后选择动作：
-# - 已连通：不动现场
-# - 有 bridge 没编辑器：打开当前工作树 Godot
-# - 有编辑器没连 bridge：只重开当前工作树 Godot
-# - 只有 stale bridge：默认提示重开 Codex；只有用户显式确认后才清理 stale bridge
-# 默认不会清理 6510-6514 godot-cli 进程，也不会误关其它 workspace 的 Godot 编辑器。
+# Godot MCP 日常入口脚本。
+# 适用场景：
+# - 当前 worktree 要进入 Godot MCP 人工复核前，先判断 bridge / editor / lock 状态。
+# - 希望用一个入口完成“只读诊断、打开 Godot、重开当前 worktree Godot、确认后清 stale bridge”的分流。
+# 是否会修改：
+# - 默认只读或打开当前 worktree 的 Godot。
+# - 只有传入 -ResetBeforeReopen 且同时传入 -ConfirmNoOtherGodotMcpSessions 时，才会调用 safe-repair 清理 stale stdio bridge。
+# - 永远不把 6510-6514 godot-cli reserved 端口当作 stale bridge 清理对象。
+# 常用命令：
+# - 预览：.\scripts\dev\enter-worktree-godot-mcp.ps1 -DryRun
+# - 确认无其它会话后清理 stale：.\scripts\dev\enter-worktree-godot-mcp.ps1 -ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions
+# 安全边界：
+# - MCP 工具入口缺失时，本脚本无法让当前 Codex 会话凭空加载工具；仍需从目标 worktree 重开 Codex。
+# - runtime autoload 注入失败不是 bridge 生命周期问题，应按 connectivity guide 分层排查。
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 . (Join-Path $PSScriptRoot "godot-mcp-common.ps1")
 
-$workspace = Resolve-NanoHunterWorkspacePath -WorkspacePath $WorkspacePath
+$workspace = Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath
 $snapshot = Get-GodotMcpBridgeDiagnosticSnapshot -WorkspacePath $workspace
 $recommendation = Get-GodotMcpRecommendedAction -WorkspacePath $workspace
 

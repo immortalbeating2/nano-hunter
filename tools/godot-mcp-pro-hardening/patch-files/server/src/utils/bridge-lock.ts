@@ -18,6 +18,11 @@ export interface BridgeLock {
   kind: "stdio";
 }
 
+/**
+ * 返回 bridge lock 默认目录。
+ * Windows 优先写入 LOCALAPPDATA，缺失时退到系统 temp；这样项目脚本可以在
+ * 不依赖当前仓库路径的情况下读取所有本机会话的 bridge 状态。
+ */
 export function getDefaultBridgeLockRoot(): string {
   const base = process.env.LOCALAPPDATA || tmpdir();
   return join(base, "godot-mcp-pro", "bridges");
@@ -27,11 +32,13 @@ export function getBridgeLockPath(root: string, port: number): string {
   return join(root, `${port}.json`);
 }
 
+/** 写入当前进程 lock。每次 heartbeat 都重写完整 JSON，便于脚本只读诊断。 */
 export function writeBridgeLock(root: string, lock: BridgeLock): void {
   mkdirSync(root, { recursive: true });
   writeFileSync(getBridgeLockPath(root, lock.port), JSON.stringify(lock, null, 2), "utf8");
 }
 
+/** 读取指定端口 lock；损坏或半写入文件返回 null，由诊断脚本结合其它证据判断。 */
 export function readBridgeLock(root: string, port: number): BridgeLock | null {
   const lockPath = getBridgeLockPath(root, port);
   if (!existsSync(lockPath)) return null;
@@ -42,10 +49,12 @@ export function readBridgeLock(root: string, port: number): BridgeLock | null {
   }
 }
 
+/** 退出时尽力删除本进程 lock。删除失败不应阻塞 MCP server 退出。 */
 export function removeBridgeLock(root: string, port: number): void {
   rmSync(getBridgeLockPath(root, port), { force: true });
 }
 
+/** 判断 heartbeat 是否超过阈值；时间戳损坏时按 stale 处理。 */
 export function isHeartbeatStale(
   lock: BridgeLock,
   staleAfterMs: number,

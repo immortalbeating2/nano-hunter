@@ -75,3 +75,12 @@
 - Godot MCP Pro 当前验证版本为 `1.12.0`。
 - heartbeat stale 阈值默认为 `30` 秒。
 - 当前方案优先服务 Windows / Codex Desktop / Nano Hunter 环境。
+
+## Follow-up Generalization
+
+- 补丁脚本升级为可搬移、可跨项目使用的通用工具；`nano-hunter` 只是当前托管和验证位置。
+- 新增 `-Scope ServerOnly|PluginOnly|ServerAndPlugin|All`，默认 `ServerAndPlugin`。
+- 新增 `-PatchRoot` 和自动查找规则，脚本与 `patch-files` 一起搬到独立目录后仍可使用。
+- 项目诊断脚本从默认补丁目标中移出，只有显式 `-IncludeProjectScripts` 时才覆盖目标项目 `scripts/dev`。
+- 补丁源目录语义调整为 `server`、`plugin`、`optional-project-scripts`，避免把插件补丁误解成整项目补丁。
+- `docs/dev/godot-mcp-pro-connectivity-guide.md` 与脚本 README 必须以该通用语义为准。

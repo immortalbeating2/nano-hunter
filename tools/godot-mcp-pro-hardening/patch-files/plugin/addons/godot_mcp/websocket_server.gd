@@ -3,9 +3,11 @@ extends Node
 
 ## Multi-connection WebSocket client.
 ## Connects to Node.js MCP server instances and short-lived CLI servers on ports 6505-6534.
-## Each Claude Code session gets its own port; Godot talks to all of them.
+## Each Codex / Claude Code session gets its own port; Godot talks to all of them.
 ## 端口规划必须与 Node server、PowerShell 诊断脚本和补丁脚本保持同步：
-## 6505-6509: stdio MCP primary，6510-6514: godot-cli reserved，6515-6534: stdio MCP overflow。
+## - 6505-6509: stdio MCP primary，优先给 Codex stdio bridge 使用。
+## - 6510-6514: godot-cli reserved，插件继续扫描，但 Node stdio server 不会自动占用。
+## - 6515-6534: stdio MCP overflow，用于多 worktree / 多会话时降低端口耗尽概率。
 
 signal client_connected()
 signal client_disconnected()
@@ -138,7 +140,9 @@ func _send_to_port(p: int, text: String) -> void:
 
 
 func _send_workspace_hello(p: int) -> void:
-	# Node bridge 用这个握手判断 Godot 编辑器是否属于同一个 worktree，避免多项目互相抢连接。
+	# WebSocket 进入 OPEN 后立即发送 godot_hello。Node bridge 用 workspace 判断
+	# 这个 Godot editor 是否属于同一个 worktree；不匹配时 Node 会关闭该连接，
+	# 并继续保留原 client，避免其它项目的 editor 抢走当前 Codex 会话。
 	# godot-cli 临时 server 会忽略无 id 的 notification，因此插件仍可扫描 6510-6514。
 	var workspace := ProjectSettings.globalize_path("res://")
 	var payload := {

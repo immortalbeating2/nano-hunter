@@ -16,6 +16,10 @@ const MAX_PORT := 6534
 const CLI_RESERVED_START := 6510
 const CLI_RESERVED_END := 6514
 
+# 状态面板只用于人工复核：它显示插件扫描范围和端口角色，方便确认 Godot editor
+# 是否看到了 bridge / CLI 端口。真正 stale 清理必须由 PowerShell 脚本结合
+# lock/heartbeat、PID、TCP 连接和 workspace 归属判断，不能只看面板上的连接年龄。
+
 # Header
 var _status_icon: Label
 var _status_label: Label
@@ -262,7 +266,8 @@ func _update_clients_tab() -> void:
 # --- Activity callbacks ---
 
 func _port_role_suffix(port: int) -> String:
-	# 状态面板只用于人工复核；真正 stale 清理由 PowerShell 结合 lock、PID 和连接状态判断。
+	# 端口角色与 Node server / 诊断脚本 / 补丁脚本保持一致：
+	# 6505-6509 是 stdio primary，6510-6514 是 CLI reserved，6515-6534 是 stdio overflow。
 	if port >= CLI_RESERVED_START and port <= CLI_RESERVED_END:
 		return " (CLI reserved)"
 	if port > CLI_RESERVED_END:

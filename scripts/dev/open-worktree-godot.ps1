@@ -1,18 +1,27 @@
-param(
+﻿param(
     [string]$WorkspacePath,
     [string]$GodotExe,
     [switch]$DryRun
 )
 
-# 打开指定工作树的 Godot 编辑器。
-# 本脚本只负责启动当前 workspace 的 Godot，不清理 bridge；它会确认至少存在一个 stdio bridge
-# 监听端口。6510-6514 是 godot-cli reserved，不可作为“当前 Codex MCP bridge 已就绪”的证据。
+# 打开当前 worktree 的 Godot 编辑器辅助脚本。
+# 适用场景：
+# - 已确认当前 Codex 会话存在 stdio bridge listener，需要启动目标 worktree 的 Godot editor 去连接 bridge。
+# - 通常由 enter-worktree-godot-mcp.ps1 调用，日常不需要直接运行。
+# 是否会修改：
+# - 会启动 Godot editor；不杀进程、不清理 bridge、不修改项目文件。
+# 常用命令：
+# - 预览：.\scripts\dev\open-worktree-godot.ps1 -DryRun
+# - 指定 Godot：.\scripts\dev\open-worktree-godot.ps1 -GodotExe C:\Path\To\Godot.exe
+# 安全边界：
+# - 只有 6505-6509 / 6515-6534 stdio listener 才算 Codex MCP bridge 证据。
+# - 6510-6514 是 godot-cli reserved，不代表当前 Codex MCP bridge 已可用。
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 . (Join-Path $PSScriptRoot "godot-mcp-common.ps1")
 
-$workspace = Resolve-NanoHunterWorkspacePath -WorkspacePath $WorkspacePath
+$workspace = Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath
 $godotExecutable = Resolve-GodotExecutablePath -GodotExe $GodotExe
 $bridgeListeners = @(Get-GodotMcpBridgeListeners)
 

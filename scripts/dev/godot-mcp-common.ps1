@@ -1,15 +1,19 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-# Godot MCP shared diagnostics.
-# This file owns the local port plan and process classification used by all
-# check/enter/repair scripts. Keep it in sync with the Node server, the Godot
-# plugin, the hardening patch script, and docs/dev/godot-mcp-pro-connectivity-guide.md.
-# Port plan:
-# - 6505-6509 and 6515-6534: stdio MCP bridge candidates.
-# - 6510-6514: godot-cli reserved temporary WebSocket servers.
-# A bridge lock is only supporting evidence. Cleanup decisions must also check
-# PID, TCP connections, Godot editor ownership, and workspace identity.
+# Godot MCP 诊断公共库。
+# 适用场景：
+# - 被 check / enter / safe-repair / open-worktree 脚本点源引用，统一端口规划、进程识别、lock 读取和 stale 判断。
+# - 不直接手动运行；如果需要人工诊断，请运行 check-godot-mcp.ps1 或 enter-worktree-godot-mcp.ps1。
+# 是否会修改：
+# - 本文件只定义函数和常量；单独 dot-source 不会杀进程、不启动 Godot、不写文件。
+# 端口规划：
+# - 6505-6509 与 6515-6534 是 stdio MCP bridge 候选端口。
+# - 6510-6514 永远保留给 godot-cli 临时 WebSocket server。
+# 安全边界：
+# - bridge lock/heartbeat 只是辅助证据，不是唯一真相。
+# - stale 清理必须同时结合 PID、TCP 连接、Godot editor 归属、workspace 身份和 heartbeat 年龄。
+# - 本文件的端口规划必须与 Node server、Godot 插件、补丁脚本和 docs/dev/godot-mcp-pro-connectivity-guide.md 同步。
 
 $script:GodotMcpStdioBridgePorts = @((6505..6509) + (6515..6534))
 $script:GodotMcpCliPorts = @(6510..6514)
@@ -17,6 +21,8 @@ $script:GodotMcpPluginScanPorts = @(6505..6534)
 $script:GodotMcpHeartbeatStaleSeconds = 30
 
 function Get-GodotMcpPortPlan {
+    # 返回统一端口规划，供诊断输出和 dry-run 使用。
+    # 输出：stdio bridge 端口、CLI reserved 端口、插件扫描端口的逗号分隔字符串。
     [pscustomobject]@{
         StdioBridgePorts = ($script:GodotMcpStdioBridgePorts -join ",")
         CliPorts         = ($script:GodotMcpCliPorts -join ",")
@@ -24,7 +30,10 @@ function Get-GodotMcpPortPlan {
     }
 }
 
-function Resolve-NanoHunterWorkspacePath {
+function Resolve-GodotMcpWorkspacePath {
+    # 解析目标 Godot 项目根目录。
+    # 输入：可选 -WorkspacePath；未传时从脚本所在 scripts/dev 向上两级推断。
+    # 输出：绝对路径；如果路径不存在会抛错。
     param([string]$WorkspacePath)
 
     if ($WorkspacePath) {
@@ -36,6 +45,9 @@ function Resolve-NanoHunterWorkspacePath {
 }
 
 function ConvertTo-GodotMcpComparablePath {
+    # 将路径规范化为可比较形式，避免 Windows 反斜杠、大小写和末尾斜杠导致 workspace 误判。
+    # 输入：任意路径字符串。
+    # 输出：小写、正斜杠、无末尾斜杠的路径字符串。
     param([string]$Path)
 
     if (-not $Path) {
@@ -45,11 +57,15 @@ function ConvertTo-GodotMcpComparablePath {
 }
 
 function Get-GodotMcpBridgeLockRoot {
+    # 返回 bridge lock 根目录。
+    # 优先使用 LOCALAPPDATA；缺失时退到系统 temp，与 Node server 的 lock 策略保持一致。
     $base = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { [System.IO.Path]::GetTempPath() }
     return Join-Path $base "godot-mcp-pro\bridges"
 }
 
 function Get-GodotMcpBridgeLocks {
+    # 读取所有 bridge lock，并计算 heartbeat age 和 stale 状态。
+    # 输出：lock 对象数组；损坏 JSON 会以 IsValid=false 返回，便于人工诊断。
     $root = Get-GodotMcpBridgeLockRoot
     if (-not (Test-Path -LiteralPath $root)) {
         return @()
@@ -94,6 +110,8 @@ function Get-GodotMcpBridgeLocks {
 }
 
 function Test-GodotMcpProcessAlive {
+    # 检查 PID 是否仍存在。
+    # 输出：布尔值；PID 不存在或为空时返回 false。
     param([int]$ProcessId)
 
     if (-not $ProcessId) {
@@ -103,6 +121,8 @@ function Test-GodotMcpProcessAlive {
 }
 
 function Get-GodotMcpBridgeProcessInfos {
+    # 找出 stdio bridge Node 进程。
+    # 只匹配 server/build/index.js，避免把 godot-cli 的 cli.js 临时进程误判为 bridge。
     $bridgePattern = "*godot-mcp-pro/server/build/index.js*"
     $nodeProcesses = Get-CimInstance Win32_Process -Filter "name = 'node.exe'" |
         Where-Object { $_.CommandLine -like $bridgePattern }
@@ -120,6 +140,8 @@ function Get-GodotMcpBridgeProcessInfos {
 }
 
 function Get-GodotMcpCliProcessInfos {
+    # 找出 godot-cli 临时 Node 进程。
+    # CLI 进程仅用于诊断展示，永远不作为 stale bridge 自动清理目标。
     $cliPattern = "*godot-mcp-pro/server/build/cli.js*"
     $nodeProcesses = Get-CimInstance Win32_Process -Filter "name = 'node.exe'" |
         Where-Object { $_.CommandLine -like $cliPattern }
@@ -137,6 +159,8 @@ function Get-GodotMcpCliProcessInfos {
 }
 
 function Get-GodotMcpBridgeListeners {
+    # 读取 stdio bridge 监听端口。
+    # 默认只看 6505-6509 与 6515-6534，显式跳过 6510-6514 CLI reserved。
     param([int[]]$Ports = $script:GodotMcpStdioBridgePorts)
 
     $listeners = Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue |
@@ -155,6 +179,8 @@ function Get-GodotMcpBridgeListeners {
 }
 
 function Get-GodotMcpCliListeners {
+    # 读取 6510-6514 godot-cli reserved 监听端口。
+    # 这些监听只用于确认 CLI 是否占用，不参与 bridge stale 清理。
     $listeners = Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue |
         Where-Object { $_.LocalPort -in $script:GodotMcpCliPorts }
 
@@ -171,9 +197,11 @@ function Get-GodotMcpCliListeners {
 }
 
 function Get-GodotEditorProcessInfos {
+    # 找出本机 Godot editor 进程，并判断命令行是否指向目标 workspace。
+    # 输出中 MatchesWorkspace=true 的进程才允许被 safe-repair 关闭。
     param([string]$WorkspacePath)
 
-    $workspace = Resolve-NanoHunterWorkspacePath -WorkspacePath $WorkspacePath
+    $workspace = Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath
     $workspaceForwardSlash = $workspace -replace "\\", "/"
     $godotProcesses = Get-CimInstance Win32_Process |
         Where-Object { $_.Name -in @("Godot_v4.6.2-stable_win64.exe", "godot.exe") }
@@ -192,6 +220,8 @@ function Get-GodotEditorProcessInfos {
 }
 
 function Get-GodotEstablishedBridgeConnections {
+    # 查询目标 workspace Godot editor 到 bridge/CLI 端口的 Established TCP 连接。
+    # 输出 PortKind=stdio/cli，避免把 CLI 连接当作 MCP bridge 可用证据。
     param(
         [string]$WorkspacePath,
         [int[]]$Ports = $script:GodotMcpPluginScanPorts
@@ -221,6 +251,8 @@ function Get-GodotEstablishedBridgeConnections {
 }
 
 function Get-GodotMcpBridgeDiagnosticSnapshot {
+    # 汇总进程、监听端口、lock、Godot editor 连接，并计算 stale reason。
+    # 输出：诊断快照对象；本函数只读，不执行修复动作。
     param([string]$WorkspacePath)
 
     $bridgeProcesses = @(Get-GodotMcpBridgeProcessInfos)
@@ -230,7 +262,7 @@ function Get-GodotMcpBridgeDiagnosticSnapshot {
     $locks = @(Get-GodotMcpBridgeLocks)
     $editorConnections = @(Get-GodotEstablishedBridgeConnections -WorkspacePath $WorkspacePath)
     $connectedPorts = @($editorConnections | Where-Object { $_.PortKind -eq "stdio" } | Select-Object -ExpandProperty RemotePort -Unique)
-    $workspaceComparable = ConvertTo-GodotMcpComparablePath (Resolve-NanoHunterWorkspacePath -WorkspacePath $WorkspacePath)
+    $workspaceComparable = ConvertTo-GodotMcpComparablePath (Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath)
 
     $latestBridgeStart = $null
     $bridgeStarts = @($bridgeProcesses | Where-Object { $_.StartTime } | Select-Object -ExpandProperty StartTime)
@@ -311,6 +343,8 @@ function Get-GodotMcpBridgeDiagnosticSnapshot {
 }
 
 function Get-GodotMcpRecommendedAction {
+    # 根据诊断快照给出保守推荐动作。
+    # 输出 RecommendedAction 与 Reason；调用方决定是否真正执行修复。
     param([string]$WorkspacePath)
 
     $workspaceEditors = @(Get-GodotEditorProcessInfos -WorkspacePath $WorkspacePath |
@@ -355,6 +389,8 @@ function Get-GodotMcpRecommendedAction {
 }
 
 function Resolve-GodotExecutablePath {
+    # 解析 Godot 可执行文件路径。
+    # 优先级：显式 -GodotExe、GODOT_EXE 环境变量、项目当前默认安装路径。
     param([string]$GodotExe)
 
     $candidates = @()
@@ -372,6 +408,8 @@ function Resolve-GodotExecutablePath {
 }
 
 function Write-GodotMcpSection {
+    # 以统一格式输出诊断表格。
+    # 输入：标题与行对象数组；空数组输出 (empty)，便于 dry-run 和日志阅读。
     param(
         [string]$Title,
         [object[]]$Rows

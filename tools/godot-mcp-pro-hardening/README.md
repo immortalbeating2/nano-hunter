@@ -1,35 +1,122 @@
 # Godot MCP Pro Hardening Patch
 
-This directory stores the replayable hardening patch for Godot MCP Pro `1.12.0`.
+This directory stores the movable, replayable hardening patch for Godot MCP Pro `1.12.0`.
 
-Why it exists:
+`nano-hunter` currently hosts and verifies this tool, but the patch tool is not tied to this project. It can be used for another Godot project, such as `angel-fallen`, as long as `-ProjectPath` points to that project and the script can find `patch-files`.
+
+## Why This Exists
 
 - The Node MCP server lives outside this repository at `C:/Users/peng8/.mcp/godot-mcp-pro/server`.
-- Plugin upgrades can overwrite local Node server changes.
-- The project needs a traceable way to reapply the bridge lifecycle fixes.
-- The patch files also include the Node Vitest regression tests used to verify port fallback, CLI reservation, workspace normalization and bridge lock behavior.
+- Plugin or server upgrades can overwrite local hardening changes.
+- Each Godot project owns its own `addons/godot_mcp` copy.
+- The project needs a traceable way to reapply bridge lifecycle fixes without manually editing external files.
 
-Port plan:
+## Port Plan
 
 - `6505-6509`: stdio MCP primary bridge ports.
 - `6510-6514`: reserved for `godot-cli`.
 - `6515-6534`: stdio MCP overflow bridge ports.
 - Godot plugin scans `6505-6534`; Node stdio server skips `6510-6514`.
 
-Apply flow:
+## Patch Layout
+
+- `patch-files/server`: global Node MCP Server patch and Vitest regression tests.
+- `patch-files/plugin/addons/godot_mcp`: per-project Godot plugin patch.
+- `patch-files/optional-project-scripts/scripts/dev`: optional diagnostic scripts for projects that adopt the Nano Hunter workflow.
+
+`optional-project-scripts` are not applied by default. They are useful for projects that want the same `check / enter / safe-repair / open-worktree` workflow, but they should not be forced into unrelated projects.
+
+## Common Commands
+
+Preview the default patch for the current project:
 
 ```powershell
 .\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -DryRun
+```
+
+Apply the default patch and rebuild the Node server:
+
+```powershell
 .\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -Build
 ```
 
-Safety and rollback:
+Patch only another project's plugin, for example `angel-fallen`:
 
-- The script checks `package.json` and expects version `1.12.0`.
+```powershell
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 `
+  -ProjectPath C:\Users\peng8\Desktop\Project\Game\angel-fallen `
+  -Scope PluginOnly `
+  -DryRun
+```
+
+Apply global server plus another project's plugin:
+
+```powershell
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 `
+  -ProjectPath C:\Users\peng8\Desktop\Project\Game\angel-fallen `
+  -Scope ServerAndPlugin `
+  -Build
+```
+
+Apply optional project scripts only when the target project accepts this workflow:
+
+```powershell
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 `
+  -ProjectPath C:\Users\peng8\Desktop\Project\Game\angel-fallen `
+  -Scope PluginOnly `
+  -IncludeProjectScripts `
+  -DryRun
+```
+
+## Movable Tool Usage
+
+The script first honors explicit `-PatchRoot`. If omitted, it searches likely nearby locations, including a sibling `patch-files` directory and the target project's `tools/godot-mcp-pro-hardening/patch-files`.
+
+Recommended standalone layout:
+
+```text
+C:\Tools\godot-mcp-pro-hardening\
+  apply-godot-mcp-pro-hardening-patch.ps1
+  patch-files\
+    server\
+    plugin\
+    optional-project-scripts\
+```
+
+Run from that standalone layout:
+
+```powershell
+C:\Tools\godot-mcp-pro-hardening\apply-godot-mcp-pro-hardening-patch.ps1 `
+  -ProjectPath C:\Users\peng8\Desktop\Project\Game\angel-fallen `
+  -Scope ServerAndPlugin `
+  -DryRun
+```
+
+If the script and `patch-files` are separated, pass `-PatchRoot`:
+
+```powershell
+C:\Tools\apply-godot-mcp-pro-hardening-patch.ps1 `
+  -ProjectPath C:\Users\peng8\Desktop\Project\Game\angel-fallen `
+  -PatchRoot C:\Users\peng8\.codex\worktrees\fef5\nano-hunter\tools\godot-mcp-pro-hardening\patch-files `
+  -Scope PluginOnly `
+  -DryRun
+```
+
+## Scope Reference
+
+- `ServerOnly`: update only `C:/Users/peng8/.mcp/godot-mcp-pro/server`.
+- `PluginOnly`: update only `<ProjectPath>/addons/godot_mcp`.
+- `ServerAndPlugin`: default; update global server and target project plugin.
+- `All`: update server and plugin; optional project scripts still require `-IncludeProjectScripts`.
+
+## Safety And Rollback
+
+- The script checks `package.json` and expects Godot MCP Pro version `1.12.0` when the scope includes the server.
 - Unknown versions require `-Force` after manual review.
-- Backups are written to `tests/artifacts/local/godot-mcp-patch-backups/<timestamp>/`.
+- `-DryRun` does not write target files, does not build, and does not create backup directories.
+- Real apply backs up existing targets to `tests/artifacts/local/godot-mcp-patch-backups/<timestamp>/`, or to `-BackupRoot`.
 - To roll back, copy the relevant backup files back to their original paths.
 
-Maintenance rule:
+## Maintenance Rule
 
-Whenever Node server, Godot plugin, or PowerShell MCP scripts are changed for bridge lifecycle behavior, refresh the matching files under `patch-files/` in the same commit.
+Whenever Node server, Godot plugin, or optional project scripts change for bridge lifecycle behavior, refresh the matching files under `patch-files/` in the same commit and run the dry-run matrix documented in `docs/dev/godot-mcp-script-reference.md`.
