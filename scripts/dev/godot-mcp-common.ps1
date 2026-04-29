@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # Godot MCP 公共函数库集中封装 workspace 解析、bridge 诊断、编辑器归属判断和推荐动作。
@@ -9,11 +9,13 @@ function Resolve-NanoHunterWorkspacePath {
     )
 
     if ($WorkspacePath) {
-        return (Resolve-Path -LiteralPath $WorkspacePath).Path
+        $resolvedWorkspace = Resolve-Path -LiteralPath $WorkspacePath
+        return $resolvedWorkspace.Path
     }
 
     $scriptDirectory = Split-Path -Parent $PSCommandPath
-    return (Resolve-Path -LiteralPath (Join-Path $scriptDirectory "..\..")).Path
+    $defaultWorkspace = Resolve-Path -LiteralPath (Join-Path $scriptDirectory "..\..")
+    return $defaultWorkspace.Path
 }
 
 function Get-GodotMcpBridgeProcessInfos {
@@ -24,11 +26,18 @@ function Get-GodotMcpBridgeProcessInfos {
 
     foreach ($processInfo in $nodeProcesses) {
         $runtimeProcess = Get-Process -Id $processInfo.ProcessId -ErrorAction SilentlyContinue
+        $startTime = $null
+        $processName = "node"
+        if ($runtimeProcess) {
+            $startTime = $runtimeProcess.StartTime
+            $processName = $runtimeProcess.ProcessName
+        }
+
         [pscustomobject]@{
             ProcessId   = $processInfo.ProcessId
             CommandLine = $processInfo.CommandLine
-            StartTime   = if ($runtimeProcess) { $runtimeProcess.StartTime } else { $null }
-            ProcessName = if ($runtimeProcess) { $runtimeProcess.ProcessName } else { "node" }
+            StartTime   = $startTime
+            ProcessName = $processName
         }
     }
 }
@@ -44,11 +53,18 @@ function Get-GodotMcpBridgeListeners {
 
     foreach ($listener in $listeners) {
         $runtimeProcess = Get-Process -Id $listener.OwningProcess -ErrorAction SilentlyContinue
+        $processName = ""
+        $startTime = $null
+        if ($runtimeProcess) {
+            $processName = $runtimeProcess.ProcessName
+            $startTime = $runtimeProcess.StartTime
+        }
+
         [pscustomobject]@{
             LocalPort     = $listener.LocalPort
             OwningProcess = $listener.OwningProcess
-            ProcessName   = if ($runtimeProcess) { $runtimeProcess.ProcessName } else { "" }
-            StartTime     = if ($runtimeProcess) { $runtimeProcess.StartTime } else { $null }
+            ProcessName   = $processName
+            StartTime     = $startTime
         }
     }
 }
@@ -60,18 +76,26 @@ function Get-GodotEditorProcessInfos {
 
     # 通过 Godot 进程命令行判断它是否打开当前工作树，这是避免误关其他项目编辑器的关键。
     $workspace = Resolve-NanoHunterWorkspacePath -WorkspacePath $WorkspacePath
+    $workspaceForwardSlash = $workspace -replace "\\", "/"
     $godotProcesses = Get-CimInstance Win32_Process |
         Where-Object { $_.Name -in @("Godot_v4.6.2-stable_win64.exe", "godot.exe") }
 
     foreach ($processInfo in $godotProcesses) {
         $runtimeProcess = Get-Process -Id $processInfo.ProcessId -ErrorAction SilentlyContinue
         $commandLine = if ($processInfo.CommandLine) { $processInfo.CommandLine } else { "" }
+        $mainWindowTitle = ""
+        $startTime = $null
+        if ($runtimeProcess) {
+            $mainWindowTitle = $runtimeProcess.MainWindowTitle
+            $startTime = $runtimeProcess.StartTime
+        }
+
         [pscustomobject]@{
-            ProcessId       = $processInfo.ProcessId
-            CommandLine     = $commandLine
-            MainWindowTitle = if ($runtimeProcess) { $runtimeProcess.MainWindowTitle } else { "" }
-            StartTime       = if ($runtimeProcess) { $runtimeProcess.StartTime } else { $null }
-            MatchesWorkspace = ($commandLine -like "*$workspace*")
+            ProcessId        = $processInfo.ProcessId
+            CommandLine      = $commandLine
+            MainWindowTitle  = $mainWindowTitle
+            StartTime        = $startTime
+            MatchesWorkspace = ($commandLine -like "*$workspace*" -or $commandLine -like "*$workspaceForwardSlash*")
         }
     }
 }

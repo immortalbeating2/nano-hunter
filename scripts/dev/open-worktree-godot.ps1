@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$WorkspacePath,
     [string]$GodotExe,
     [switch]$DryRun
