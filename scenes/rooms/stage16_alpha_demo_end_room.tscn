@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/stage16_seal_chain_room_base.gd" id="1"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -11,16 +11,16 @@ size = Vector2(832, 32)
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(112, 128)
 
-[node name="Stage15CompletionRoom" type="Node2D"]
+[node name="Stage16AlphaDemoEndRoom" type="Node2D"]
 script = ExtResource("1")
-next_room_path = "res://scenes/rooms/stage16_seal_release_threshold_room.tscn"
-next_spawn_id = &"stage16_seal_release_threshold_start"
-checkpoint_spawn_id = &"stage15_completion_start"
-default_step_id = &"stage15_completion"
-checkpoint_on_ready = true
+checkpoint_spawn_id = &"stage16_alpha_demo_end_start"
+default_step_id = &"stage16_alpha_demo_end"
+stage16_room_role = "alpha_demo_end"
+seal_chain_step = &"stage16_alpha_demo_end"
+final_alpha_demo_room = true
 
 [node name="Backdrop" type="Polygon2D" parent="."]
-color = Color(0.0901961, 0.105882, 0.0941176, 1)
+color = Color(0.0862745, 0.105882, 0.0941176, 1)
 polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
@@ -39,10 +39,10 @@ shape = SubResource("2")
 color = Color(0.211765, 0.305882, 0.239216, 1)
 polygon = PackedVector2Array(-416, -16, 416, -16, 416, 16, -416, 16)
 
-[node name="CompletionSeal" type="Polygon2D" parent="."]
+[node name="AlphaDemoSeal" type="Polygon2D" parent="."]
 position = Vector2(256, 96)
 color = Color(0.933333, 0.843137, 0.431373, 0.72)
-polygon = PackedVector2Array(-56, 0, -28, -48, 28, -48, 56, 0, 28, 48, -28, 48)
+polygon = PackedVector2Array(-64, 0, -32, -56, 32, -56, 64, 0, 32, 56, -32, 56)
 
 [node name="ExitZone" type="Area2D" parent="."]
 position = Vector2(544, 96)

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/main/main.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/rooms/tutorial_room.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/tutorial_hud.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/demo_shell.tscn" id="4"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")
@@ -17,3 +18,5 @@ position = Vector2(-320, 96)
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="TutorialHUD" parent="HUD" instance=ExtResource("3")]
+
+[node name="DemoShell" parent="HUD" instance=ExtResource("4")]

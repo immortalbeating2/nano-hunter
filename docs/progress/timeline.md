@@ -72,3 +72,6 @@
 - 新增 Stage12-13 北极星回收设计文档、执行清单与正式修正计划；修正方向为将现代实验室 / 生物废液表达回收到山门古刹、镇妖试炼场、瘴泽妖域、符印封印机关和瘴气妖术投射者。
 - 同步迁移 Stage12/13 资产路径、Stage13 场景 / 脚本 / 配置 / 测试引用，以及 Stage14/15 对 Stage13 内容的引用；详情见 `docs/progress/logs/2026-04-29.md`。
 - 完成 Stage12-13 北极星回收 Godot MCP 人工复核，合并 `codex/north-star-realign-stage12-13` 到 `main` 并推送 `origin/main`；修正分支已删除，Git worktree 注册已移除，空物理目录因 Windows 锁暂留。
+- 从固定永久工作树创建 Stage16 阶段分支 `codex/stage-16-alpha-demo-candidate`，采用固定永久工作树 + 阶段分支模式。
+- 完成 Stage16 Alpha Demo 打包候选主体实现：五房终局封印链、Stage15 completion 接入、最小 Demo 壳、Main / HUD Stage16 完成态、Stage16 专项 GUT、Alpha Demo 灰盒 driver、QA checklist、release notes 与资产 / 音频 manifest 条目；当前正在整合最新 `main` 并补 Godot MCP 运行态复核。
+- 完成 Stage16 Godot MCP 运行态人工复核，覆盖 `Main.tscn` 主菜单、暂停 / 继续 / 重开、Stage15 completion、Stage16 五房运行态节点、导出 next-room 链路与 Alpha Demo 终点；截图保存在本地 `tests/artifacts/local/stage16-mcp/`，不提交。

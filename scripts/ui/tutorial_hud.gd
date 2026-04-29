@@ -152,6 +152,14 @@ func _update_progress_status() -> void:
 		if not goal_hint.is_empty():
 			lines.append(goal_hint)
 
+	if bool(demo_snapshot.get("stage16_alpha_demo_completed", false)):
+		# Alpha Demo 完成态是 Stage16 的最高优先级反馈；这里直接返回，避免旧 Boss、收集或恢复充能行继续混入。
+		var release_text := "已准备" if bool(demo_snapshot.get("stage16_release_notes_ready", false)) else "待补充"
+		var qa_text := "已准备" if bool(demo_snapshot.get("stage16_qa_checklist_ready", false)) else "待补充"
+		lines.append("Release notes：%s  QA checklist：%s" % [release_text, qa_text])
+		progress_label.text = "\n".join(lines)
+		return
+
 	var room_context := _get_room_hud_context()
 	var player_status := _get_player_hud_status()
 	if room_context.has("stage15_boss_room"):
