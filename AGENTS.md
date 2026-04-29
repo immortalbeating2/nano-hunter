@@ -270,12 +270,14 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 
 当前默认目标：
 
-- 当前 `main` 已完成并收口阶段 15，形成包含 `Seal Guardian / 封印守卫`、`Recovery Charge / 恢复充能`、Stage15 战斗高潮链路、挑战支线全清门控、失败重试和完成房反馈的 Alpha Demo 候选前置基线
-- 下一阶段默认进入 `阶段 16：Alpha Demo 打包候选`
-- 后续 Stage 12-16 采用更大颗粒度阶段；阶段型开发默认使用固定永久工作树，并在其中创建或切换一个对应阶段分支
+- 当前 `main` 已完成并收口阶段 16，形成 Alpha Demo 候选基线：包含 `DemoShell` 主菜单 / 暂停 / 重开、Stage16 五房终局封印链、Stage15 completion 到 Stage16 入口、Alpha Demo 完成反馈、QA checklist、release notes 与第二轮资产 / 音频需求记录
+- 下一阶段默认不直接扩商业版体量，而是先进入 `Alpha Demo 试玩反馈、稳定性修正与 Stage17 规划`，具体阶段边界需另写正式阶段计划
+- Stage 12-16 路线已完成；后续若继续阶段型开发，仍默认使用固定永久工作树，并在其中创建或切换一个对应阶段分支
 - Stage 12-16 的路线总入口为 `spec-design/2026-04-25-stage-12-to-stage-16-roadmap.md`
-- 后续实现不再默认扩散到完整商业版体量，而是围绕 Alpha Demo 候选逐步加厚：
-  - Alpha Demo 打包候选
+- 后续实现不再默认扩散到完整商业版体量，而是围绕 Alpha Demo 候选反馈逐步加厚：
+  - Alpha Demo 试玩反馈修正
+  - Alpha Demo 表现、资产与音频替换
+  - Stage17 正式阶段规划
 
 其余中后期设计保留在 `spec-design/`，不默认进入实现。
 

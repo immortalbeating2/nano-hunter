@@ -75,3 +75,4 @@
 - 从固定永久工作树创建 Stage16 阶段分支 `codex/stage-16-alpha-demo-candidate`，采用固定永久工作树 + 阶段分支模式。
 - 完成 Stage16 Alpha Demo 打包候选主体实现：五房终局封印链、Stage15 completion 接入、最小 Demo 壳、Main / HUD Stage16 完成态、Stage16 专项 GUT、Alpha Demo 灰盒 driver、QA checklist、release notes 与资产 / 音频 manifest 条目；当前正在整合最新 `main` 并补 Godot MCP 运行态复核。
 - 完成 Stage16 Godot MCP 运行态人工复核，覆盖 `Main.tscn` 主菜单、暂停 / 继续 / 重开、Stage15 completion、Stage16 五房运行态节点、导出 next-room 链路与 Alpha Demo 终点；截图保存在本地 `tests/artifacts/local/stage16-mcp/`，不提交。
+- Stage16 Alpha Demo 打包候选已合并回 `main`；合并后主线验证通过：Godot import、Stage16 专项 GUT `8/8`、Stage15 专项 GUT `11/11`、全量 GUT `115/115`、`git diff --check HEAD`。
