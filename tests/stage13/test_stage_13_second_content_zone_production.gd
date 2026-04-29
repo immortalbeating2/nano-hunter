@@ -1,30 +1,30 @@
 extends GutTest
 
 # 阶段 13 回归测试保护第二小区域内容生产的完整边界。
-# 本 suite 先锁定“生物废液区 + 10 主线房 + 2 支路”的生产契约，
-# 再覆盖孢子投射敌、废液危险、净化门控、checkpoint、资产清单和灰盒主路径。
+# 本 suite 先锁定“瘴泽妖域 + 10 主线房 + 2 支路”的生产契约，
+# 再覆盖瘴气妖术投射者、腐瘴危险、封印门控、checkpoint、资产清单和灰盒主路径。
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
-const SPORE_SHOOTER_SCENE_PATH := "res://scenes/combat/spore_shooter_enemy.tscn"
-const SPORE_SHOOTER_CONFIG_SCRIPT_PATH := "res://scripts/configs/spore_shooter_enemy_config.gd"
+const MIASMA_CASTER_SCENE_PATH := "res://scenes/combat/miasma_caster_enemy.tscn"
+const MIASMA_CASTER_CONFIG_SCRIPT_PATH := "res://scripts/configs/miasma_caster_enemy_config.gd"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
 
 const STAGE13_MAIN_ROOM_PATHS := [
-	"res://scenes/rooms/stage13_bio_waste_entry_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_spore_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_acid_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_gate_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_crossfire_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_checkpoint_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_pressure_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_branch_hub_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_return_room.tscn",
-	"res://scenes/rooms/stage13_bio_waste_goal_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_return_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn",
 ]
 
-const STAGE13_RESOURCE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_resource_branch_room.tscn"
-const STAGE13_CHALLENGE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_challenge_branch_room.tscn"
+const STAGE13_RESOURCE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"
+const STAGE13_CHALLENGE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn"
 
 
 # 保护 Stage13 内容范围：10 个主线房和 2 条支路必须全部存在并完成入口配置。
@@ -68,9 +68,9 @@ func test_stage11_demo_end_continue_zone_links_into_stage13_entry_room_after_dem
 	assert_eq(transitions[0].get("spawn"), &"stage13_entry_start")
 
 
-# 保护孢子投射敌契约：敌人必须读取配置并暴露远程压制相关读值。
-func test_spore_shooter_enemy_uses_config_and_exposes_ranged_pressure_contract() -> void:
-	var packed_scene: PackedScene = load(SPORE_SHOOTER_SCENE_PATH) as PackedScene
+# 保护瘴气妖术投射者契约：敌人必须读取配置并暴露远程压制相关读值。
+func test_miasma_caster_enemy_uses_config_and_exposes_ranged_pressure_contract() -> void:
+	var packed_scene: PackedScene = load(MIASMA_CASTER_SCENE_PATH) as PackedScene
 
 	assert_not_null(packed_scene)
 
@@ -81,42 +81,42 @@ func test_spore_shooter_enemy_uses_config_and_exposes_ranged_pressure_contract()
 	var config: Resource = enemy.get("config") as Resource
 
 	assert_not_null(config)
-	assert_eq(config.get_script().resource_path, SPORE_SHOOTER_CONFIG_SCRIPT_PATH)
+	assert_eq(config.get_script().resource_path, MIASMA_CASTER_CONFIG_SCRIPT_PATH)
 	assert_true(enemy.has_method("get_projectile_range"))
 	assert_gt(enemy.call("get_projectile_range"), 120.0)
-	assert_gt(enemy.call("get_spore_pressure_radius"), 32.0)
+	assert_gt(enemy.call("get_miasma_pressure_radius"), 32.0)
 	assert_eq(enemy.call("get_touch_damage"), config.get("touch_damage"))
 
 
-# 保护酸液危险：触发酸液应造成伤害，同时房间仍保留失败重试契约。
-func test_acid_hazard_damages_player_without_breaking_checkpoint_recovery() -> void:
+# 保护瘴气危险：触发瘴气应造成伤害，同时房间仍保留失败重试契约。
+func test_miasma_hazard_damages_player_without_breaking_checkpoint_recovery() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[2])
 	var player := await _spawn_player(Vector2.ZERO)
 
 	room.call("bind_player", player)
-	player.global_position = room.get_node("AcidHazard").global_position
+	player.global_position = room.get_node("MiasmaHazard").global_position
 	await _advance_process_frames(2)
 
 	assert_lt(player.call("get_current_health"), player.call("get_max_health"))
-	assert_true(room.call("has_acid_hazard"))
+	assert_true(room.call("has_miasma_hazard"))
 	assert_true(room.call("should_reset_on_player_defeat"))
 
 
-# 保护净化门控：带净化节点的房间默认锁门，触发节点后解锁。
-func test_purification_gate_starts_locked_and_unlocks_after_node_activation() -> void:
+# 保护封印门控：带镇妖印节点的房间默认锁门，触发节点后解锁。
+func test_seal_gate_starts_locked_and_unlocks_after_node_activation() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[3])
 	var player := await _spawn_player(Vector2.ZERO)
 
 	room.call("bind_player", player)
 
 	assert_false(room.call("is_gate_unlocked"))
-	assert_true(room.call("has_purification_gate"))
+	assert_true(room.call("has_seal_gate"))
 
-	player.global_position = room.get_node("PurificationNode").global_position
+	player.global_position = room.get_node("SealNode").global_position
 	await _advance_process_frames(3)
 
 	assert_true(room.call("is_gate_unlocked"))
-	assert_true(room.call("is_purification_node_activated"))
+	assert_true(room.call("is_seal_node_activated"))
 
 
 # 保护两条支路的收益角色：资源支路与挑战支路都能计数奖励并回到主线。
@@ -140,17 +140,17 @@ func test_stage13_branches_provide_distinct_reward_roles_and_return_to_mainline(
 	assert_eq(challenge_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[8])
 
 
-# 保护资产规划：Stage13 生物废液区关键视觉需求必须写入 manifest。
-func test_stage13_asset_manifest_contains_bio_waste_requirements() -> void:
+# 保护资产规划：Stage13 瘴泽妖域关键视觉需求必须写入 manifest。
+func test_stage13_asset_manifest_contains_miasma_marsh_requirements() -> void:
 	var manifest := _read_text_file(ASSET_MANIFEST_PATH)
 	var required_terms := [
-		"stage13_bio_waste_biome_reference",
-		"stage13_bio_waste_tiles",
-		"stage13_purification_gate",
-		"stage13_purification_node",
-		"stage13_spore_shooter_silhouette",
-		"stage13_acid_hazard_warning",
-		"stage13_bio_waste_goal_device",
+		"stage13_miasma_marsh_biome_reference",
+		"stage13_miasma_marsh_tiles",
+		"stage13_seal_gate",
+		"stage13_seal_node",
+		"stage13_miasma_caster_silhouette",
+		"stage13_miasma_hazard_warning",
+		"stage13_miasma_marsh_goal_device",
 	]
 
 	for term in required_terms:
@@ -209,8 +209,8 @@ func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 		if room.has_method("unlock_gate"):
 			room.call("unlock_gate", &"clear")
 
-		if room.has_method("activate_purification_node"):
-			room.call("activate_purification_node")
+		if room.has_method("activate_seal_node"):
+			room.call("activate_seal_node")
 
 		var goal_zone: Node2D = room.get_node_or_null("GoalZone") as Node2D
 		var exit_zone: Node2D = room.get_node_or_null("ExitZone") as Node2D

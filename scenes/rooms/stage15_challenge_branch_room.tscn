@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/combat/spore_shooter_enemy.tscn" id="2"]
+[ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/combat/miasma_caster_enemy.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/combat/aerial_sentinel_enemy.tscn" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -47,17 +47,17 @@ shape = SubResource("2")
 color = Color(0.329412, 0.176471, 0.207843, 1)
 polygon = PackedVector2Array(-368, -16, 368, -16, 368, 16, -368, 16)
 
-[node name="AcidHazard" type="Area2D" parent="."]
+[node name="MiasmaHazard" type="Area2D" parent="."]
 position = Vector2(208, 132)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AcidHazard"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MiasmaHazard"]
 shape = SubResource("3")
 
-[node name="WarningVisual" type="Polygon2D" parent="AcidHazard"]
+[node name="WarningVisual" type="Polygon2D" parent="MiasmaHazard"]
 color = Color(0.933333, 0.772549, 0.360784, 0.28)
 polygon = PackedVector2Array(-80, -16, 80, -16, 80, 16, -80, 16)
 
-[node name="SporeShooterEnemy" parent="." instance=ExtResource("2")]
+[node name="MiasmaCasterEnemy" parent="." instance=ExtResource("2")]
 position = Vector2(96, 136)
 
 [node name="AerialSentinelEnemy" parent="." instance=ExtResource("3")]

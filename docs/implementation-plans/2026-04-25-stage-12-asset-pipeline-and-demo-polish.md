@@ -37,7 +37,7 @@
 - Create: `docs/assets/asset-ingestion-checklist.md`
 - Create: `assets/art/characters/player/`
 - Create: `assets/art/characters/enemies/`
-- Create: `assets/art/environment/biome_01_lab/`
+- Create: `assets/art/environment/biome_01_shrine_trial/`
 - Create: `assets/art/vfx/`
 - Create: `assets/art/ui/`
 - Create: `assets/audio/sfx/`

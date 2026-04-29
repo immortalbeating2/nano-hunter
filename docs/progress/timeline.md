@@ -65,3 +65,9 @@
 - Stage15 收口记录已推送到 `origin/main`；固定永久工作树保留并同步到最新 `main` 的 detached 状态，Stage15 本地阶段分支已删除。
 - 完成全仓自有 GDScript 函数入口注释审计清零和乱码扫描，确认 Stage15 专项 GUT、全量 GUT、Godot import 与 `git diff --check` 通过。
 - 调整进度文档治理：日日志迁入 `docs/progress/logs/`，MCP 截图改为 `tests/artifacts/local/` 本地证据产物，`status.md` 与 `timeline.md` 改为低重复格式。详情见 `docs/progress/logs/2026-04-28.md`。
+
+## 2026-04-29
+
+- 在当前会话工作树创建 `codex/north-star-realign-stage12-13`，采用“当前工作树 + 阶段修正分支”模式启动 Stage12-13 北极星回收修正。
+- 新增 Stage12-13 北极星回收设计文档、执行清单与正式修正计划；修正方向为将现代实验室 / 生物废液表达回收到山门古刹、镇妖试炼场、瘴泽妖域、符印封印机关和瘴气妖术投射者。
+- 同步迁移 Stage12/13 资产路径、Stage13 场景 / 脚本 / 配置 / 测试引用，以及 Stage14/15 对 Stage13 内容的引用；详情见 `docs/progress/logs/2026-04-29.md`。

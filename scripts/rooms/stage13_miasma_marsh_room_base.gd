@@ -1,23 +1,23 @@
 extends "res://scripts/rooms/stage10_room_base.gd"
 
-# Stage13BioWasteRoomBase 负责第二小区域的共同契约：
-# 生物废液区支路、废液危险、净化门控和区域奖励快照。
+# Stage13MiasmaMarshRoomBase 负责第二小区域的共同契约：
+# 瘴泽妖域支路、腐瘴危险、封印门控和区域奖励快照。
 # 它继续复用 Stage9/10 的房间推进、checkpoint 和 HUD 上下文。
 
-# 导出字段描述 Stage13 支路、奖励房角色、酸液伤害和净化门控存在性。
+# 导出字段描述 Stage13 支路、奖励房角色、瘴气伤害和封印门控存在性。
 @export var resource_branch_room_path := ""
 @export var challenge_branch_room_path := ""
 @export var resource_reward_branch := false
 @export var challenge_reward_branch := false
-@export var acid_damage := 1
-@export var purification_gate := false
+@export var miasma_damage := 1
+@export var seal_gate := false
 
-# 运行期状态保存本房间奖励去重、净化节点、支路请求和酸液伤害去重。
+# 运行期状态保存本房间奖励去重、镇妖印节点、支路请求和瘴气伤害去重。
 var _stage13_collected_reward_ids: Dictionary = {}
-var _purification_node_activated := false
+var _seal_node_activated := false
 var _resource_branch_requested := false
 var _challenge_branch_requested := false
-var _acid_damage_dealt := false
+var _miasma_damage_dealt := false
 
 
 # 公开资源支路路径，供区域 hub、测试和流程文档核对支路入口。
@@ -44,32 +44,32 @@ func is_challenge_reward_branch() -> bool:
 	return challenge_reward_branch
 
 
-# 查询房间是否含酸液危险，节点存在即可视为危险已布置。
-func has_acid_hazard() -> bool:
-	# 酸液危险既可由节点存在推断，也可作为 HUD / 测试的区域特征读值。
-	return get_node_or_null("AcidHazard") != null
+# 查询房间是否含瘴气危险，节点存在即可视为危险已布置。
+func has_miasma_hazard() -> bool:
+	# 瘴气危险既可由节点存在推断，也可作为 HUD / 测试的区域特征读值。
+	return get_node_or_null("MiasmaHazard") != null
 
 
-# 查询房间是否存在净化门控，支持导出字段和节点存在两种声明方式。
-func has_purification_gate() -> bool:
-	# 净化门既可由导出字段声明，也可由净化节点存在自动推断。
-	return purification_gate or get_node_or_null("PurificationNode") != null
+# 查询房间是否存在封印门控，支持导出字段和节点存在两种声明方式。
+func has_seal_gate() -> bool:
+	# 封印门既可由导出字段声明，也可由镇妖印节点存在自动推断。
+	return seal_gate or get_node_or_null("SealNode") != null
 
 
-# 公开净化节点是否已激活，供 HUD 和测试确认局部门控状态。
-func is_purification_node_activated() -> bool:
+# 公开镇妖印节点是否已激活，供 HUD 和测试确认局部门控状态。
+func is_seal_node_activated() -> bool:
 	# HUD 和测试通过该读值确认局部门控是否已被解除。
-	return _purification_node_activated
+	return _seal_node_activated
 
 
-# 激活净化节点并解开当前房间门控，不创建跨房间钥匙状态。
-func activate_purification_node() -> void:
-	# 净化节点是 Stage13 的局部门控钥匙：触发后只解当前房间门，不创建全局钥匙系统。
-	if _purification_node_activated:
+# 激活镇妖印节点并解开当前房间门控，不创建跨房间钥匙状态。
+func activate_seal_node() -> void:
+	# 镇妖印节点是 Stage13 的局部门控钥匙：触发后只解当前房间门，不创建全局钥匙系统。
+	if _seal_node_activated:
 		return
 
-	_purification_node_activated = true
-	unlock_gate(&"purified")
+	_seal_node_activated = true
+	unlock_gate(&"seal_released")
 	_emit_hud_context()
 
 
@@ -88,16 +88,16 @@ func get_stage13_progress_snapshot() -> Dictionary:
 	# Stage13 快照服务 HUD、测试和人工复核；它描述区域状态，不直接驱动流程。
 	return {
 		"branch_reward_count": _stage13_collected_reward_ids.size(),
-		"purification_node_activated": _purification_node_activated,
+		"seal_node_activated": _seal_node_activated,
 		"resource_reward_branch": resource_reward_branch,
 		"challenge_reward_branch": challenge_reward_branch,
-		"acid_hazard_present": has_acid_hazard(),
+		"miasma_hazard_present": has_miasma_hazard(),
 	}
 
 
-# 在父类 HUD 上下文基础上追加 Stage13 的支路、危险和净化状态。
+# 在父类 HUD 上下文基础上追加 Stage13 的支路、危险和封印状态。
 func get_hud_context() -> Dictionary:
-	# 在 Stage10 上下文基础上追加 Stage13 支路、危险和净化状态。
+	# 在 Stage10 上下文基础上追加 Stage13 支路、危险和封印状态。
 	var context := super.get_hud_context()
 	context.merge(get_stage13_progress_snapshot(), true)
 	return context
@@ -110,61 +110,61 @@ func _process(delta: float) -> void:
 	super._process(delta)
 
 
-# 初始化 Stage13 房间，并在存在净化门时覆盖父类默认开门状态。
+# 初始化 Stage13 房间，并在存在封印门时覆盖父类默认开门状态。
 func _ready() -> void:
 	super._ready()
-	if has_purification_gate() and not _purification_node_activated:
-		# 带净化门的房间必须覆盖父类默认门状态，确保玩家先看见“被封住”的目标。
+	if has_seal_gate() and not _seal_node_activated:
+		# 带封印门的房间必须覆盖父类默认门状态，确保玩家先看见“被封住”的目标。
 		_gate_unlocked = false
 		_apply_gate_lock_state()
 
 
-# 集中处理酸液、净化节点、支路入口、奖励和 Stage14 入口触发。
+# 集中处理瘴气、镇妖印节点、支路入口、奖励和 Stage14 入口触发。
 func _update_stage13_triggers() -> void:
 	if _player == null:
 		return
 
 	# 本阶段所有交互仍用位置触发，便于灰盒快速调房间，不提前引入复杂交互组件。
-	_try_apply_acid_hazard()
-	_try_activate_purification_node()
+	_try_apply_miasma_hazard()
+	_try_activate_seal_node()
 	_try_request_resource_branch()
 	_try_request_challenge_branch()
 	_try_collect_stage13_reward("Stage13Reward", &"stage13_reward")
 	_try_request_stage14_from_goal_zone()
 
 
-# 检查玩家是否触碰酸液危险；当前房间只造成一次伤害。
-func _try_apply_acid_hazard() -> void:
-	# 酸液只在当前房间第一次造成伤害，用于验证危险反馈和 checkpoint 恢复，不做持续 DOT。
-	if _acid_damage_dealt:
+# 检查玩家是否触碰瘴气危险；当前房间只造成一次伤害。
+func _try_apply_miasma_hazard() -> void:
+	# 瘴气只在当前房间第一次造成伤害，用于验证危险反馈和 checkpoint 恢复，不做持续 DOT。
+	if _miasma_damage_dealt:
 		return
 
-	var acid_hazard := get_node_or_null("AcidHazard") as Node2D
-	if acid_hazard == null:
+	var miasma_hazard := get_node_or_null("MiasmaHazard") as Node2D
+	if miasma_hazard == null:
 		return
 
-	if _player.global_position.distance_to(acid_hazard.global_position) > 44.0:
+	if _player.global_position.distance_to(miasma_hazard.global_position) > 44.0:
 		return
 
-	_acid_damage_dealt = true
+	_miasma_damage_dealt = true
 	if _player.has_method("receive_damage"):
-		_player.call("receive_damage", acid_damage, Vector2.UP)
+		_player.call("receive_damage", miasma_damage, Vector2.UP)
 
 
-# 检查玩家是否接近净化节点，并触发局部门控解除。
-func _try_activate_purification_node() -> void:
+# 检查玩家是否接近镇妖印节点，并触发局部门控解除。
+func _try_activate_seal_node() -> void:
 	# 玩家接近符印节点后立即解门，保持门控验证短小清楚。
-	if _purification_node_activated:
+	if _seal_node_activated:
 		return
 
-	var purification_node := get_node_or_null("PurificationNode") as Node2D
-	if purification_node == null:
+	var seal_node := get_node_or_null("SealNode") as Node2D
+	if seal_node == null:
 		return
 
-	if _player.global_position.distance_to(purification_node.global_position) > 44.0:
+	if _player.global_position.distance_to(seal_node.global_position) > 44.0:
 		return
 
-	activate_purification_node()
+	activate_seal_node()
 
 
 # 检查玩家是否进入资源支路入口，并发出切房请求。

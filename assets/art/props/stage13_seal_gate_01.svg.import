@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hr42e4dhni8u"
-path="res://.godot/imported/stage13_purification_gate_01.svg-0a9e1376111ac17fdd0c92fbd9e50a49.ctex"
+uid="uid://di7uj25pui6w4"
+path="res://.godot/imported/stage13_seal_gate_01.svg-2f2c2fa3ab0acb9a8d04491d06079fef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/props/stage13_purification_gate_01.svg"
-dest_files=["res://.godot/imported/stage13_purification_gate_01.svg-0a9e1376111ac17fdd0c92fbd9e50a49.ctex"]
+source_file="res://assets/art/props/stage13_seal_gate_01.svg"
+dest_files=["res://.godot/imported/stage13_seal_gate_01.svg-2f2c2fa3ab0acb9a8d04491d06079fef.ctex"]
 
 [params]
 

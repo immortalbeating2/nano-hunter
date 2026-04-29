@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/combat/spore_shooter_enemy.tscn" id="2"]
+[ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/combat/miasma_caster_enemy.tscn" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -12,9 +12,9 @@ size = Vector2(512, 32)
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(96, 128)
 
-[node name="Stage13BioWasteCrossfireRoom" type="Node2D"]
+[node name="Stage13MiasmaMarshCrossfireRoom" type="Node2D"]
 script = ExtResource("1")
-next_room_path = "res://scenes/rooms/stage13_bio_waste_checkpoint_room.tscn"
+next_room_path = "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn"
 next_spawn_id = &"stage13_checkpoint_start"
 default_step_id = &"stage13_crossfire"
 
@@ -38,10 +38,10 @@ shape = SubResource("2")
 color = Color(0.2, 0.286275, 0.219608, 1)
 polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
 
-[node name="SporeShooterEnemyA" parent="." instance=ExtResource("2")]
+[node name="MiasmaCasterEnemyA" parent="." instance=ExtResource("2")]
 position = Vector2(80, 136)
 
-[node name="SporeShooterEnemyB" parent="." instance=ExtResource("2")]
+[node name="MiasmaCasterEnemyB" parent="." instance=ExtResource("2")]
 position = Vector2(304, 136)
 
 [node name="ExitZone" type="Area2D" parent="."]

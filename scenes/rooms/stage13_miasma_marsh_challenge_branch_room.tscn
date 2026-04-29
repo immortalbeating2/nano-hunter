@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/combat/spore_shooter_enemy.tscn" id="2"]
+[ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/combat/miasma_caster_enemy.tscn" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -12,9 +12,9 @@ size = Vector2(512, 32)
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(96, 128)
 
-[node name="Stage13BioWasteChallengeBranchRoom" type="Node2D"]
+[node name="Stage13MiasmaMarshChallengeBranchRoom" type="Node2D"]
 script = ExtResource("1")
-next_room_path = "res://scenes/rooms/stage13_bio_waste_return_room.tscn"
+next_room_path = "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn"
 next_spawn_id = &"stage13_return_start"
 default_step_id = &"stage13_challenge_branch"
 challenge_reward_branch = true
@@ -39,7 +39,7 @@ shape = SubResource("2")
 color = Color(0.317647, 0.219608, 0.203922, 1)
 polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
 
-[node name="SporeShooterEnemy" parent="." instance=ExtResource("2")]
+[node name="MiasmaCasterEnemy" parent="." instance=ExtResource("2")]
 position = Vector2(160, 136)
 
 [node name="Stage13Reward" type="Marker2D" parent="."]

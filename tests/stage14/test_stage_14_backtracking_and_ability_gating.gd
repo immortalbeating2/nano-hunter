@@ -5,7 +5,7 @@ extends GutTest
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
-const STAGE13_GOAL_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_goal_room.tscn"
+const STAGE13_GOAL_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
 const STAGE14_SHRINE_ROOM_PATH := "res://scenes/rooms/stage14_air_dash_shrine_room.tscn"
 const STAGE14_GATE_ROOM_PATH := "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
 const STAGE14_HUB_ROOM_PATH := "res://scenes/rooms/stage14_backtrack_hub_room.tscn"
