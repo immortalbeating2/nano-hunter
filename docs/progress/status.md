@@ -1,6 +1,6 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-28
+Last Updated: 2026-04-29
 
 ## Current Phase
 
@@ -15,8 +15,9 @@ Last Updated: 2026-04-28
 ## Current Development Site
 
 - 当前主工作区：`C:\Users\peng8\Desktop\Project\Game\nano-hunter`，分支 `main`，已合并 Stage15。
+- 当前会话工作树：`C:\Users\peng8\.codex\worktrees\efa7\nano-hunter`，分支 `codex/north-star-realign-stage12-13`，用于 Stage12-13 北极星语义回收修正。
 - 固定永久工作树：`C:\Users\peng8\.codex\worktrees\ffc3\nano-hunter`，已同步到 `main` 最新提交的 detached 状态，保留给下一阶段使用。
-- 当前阶段：Stage15 已完成实现、自动化验证、Godot MCP 运行态人工复核、主线合并、远端同步和阶段分支清理；下一阶段默认进入 Stage16。
+- 当前阶段：Stage12-13 北极星修正进行中；下一阶段仍默认进入 Stage16。
 
 ## Latest Implemented Scope
 
@@ -27,9 +28,14 @@ Last Updated: 2026-04-28
 - HUD 已同时显示 Stage14 Air Dash、Stage15 恢复充能、Boss 生命 / 状态和完成房反馈。
 - Godot MCP 复核发现的 Stage15 completion room HUD 遗留目标与旧收集行已修复，并补入 Stage15 回归测试。
 - 全仓自有 GDScript 函数入口注释审计已清零，关键变量组、状态机、房间链路、测试 helper 与 MCP 工具脚本已补中文说明。
+- Stage12-13 修正分支已将第二小区域语义从现代实验室 / 生物废液回收到镇妖试炼场、瘴泽妖域、瘴气危险、符印封门和瘴气妖术投射者。
 
 ## Latest Verification
 
+- Stage12-13 修正分支 `godot --headless --path . --import`：通过。
+- Stage12-13 修正分支 Stage13 / Stage14 / Stage15 专项 GUT：`29/29 passed`，`241` 个断言。
+- Stage12-13 修正分支全量 GUT：`107/107 passed`，`777` 个断言。
+- Stage12-13 修正分支 `git diff --check`：通过；正式 `res://` 旧路径残留扫描无命中。
 - 合并后 `main` 上 `godot --headless --path . --import`：通过。
 - 合并后 `main` 上 Stage15 专项 GUT：`11/11 passed`，`102` 个断言。
 - 合并后 `main` 上全量 GUT：`107/107 passed`，`777` 个断言。
@@ -37,6 +43,7 @@ Last Updated: 2026-04-28
 - 自有脚本、测试和进度文档常见中文乱码扫描：无命中。
 - 合并后 `main` 上 `git diff --check HEAD`：通过。
 - `project.godot`：Godot MCP 临时 autoload 已清理，无 MCP autoload 残留 diff。
+- Stage12-13 修正分支验证结果记录于 `docs/progress/logs/2026-04-29.md`。
 
 ## Current Risks
 
@@ -46,11 +53,13 @@ Last Updated: 2026-04-28
 
 ## Next Steps
 
-- 进入 Stage16 前执行 Preflight，并以 Stage15 作为新的稳定可试玩基线。
+- 完成 Stage12-13 北极星修正的导入、Stage13/14/15 GUT、全量 GUT 与残留扫描后，再进入 Stage16 Preflight。
 
 ## References
 
 - 阶段正式计划：`plan/2026-04-27-stage-15-combat-climax-and-elite-boss.md`
 - 实现清单：`docs/implementation-plans/2026-04-27-stage-15-combat-climax-and-elite-boss.md`
-- 当日日志：`docs/progress/logs/2026-04-28.md`
+- 阶段修正计划：`plan/2026-04-29-stage-12-13-north-star-realignment.md`
+- 修正实现清单：`docs/implementation-plans/2026-04-29-stage-12-13-north-star-realignment.md`
+- 当日日志：`docs/progress/logs/2026-04-29.md`
 - 关键时间线：`docs/progress/timeline.md`

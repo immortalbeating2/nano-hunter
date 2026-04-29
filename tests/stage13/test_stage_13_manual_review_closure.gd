@@ -5,19 +5,19 @@ extends GutTest
 const Stage11GrayboxMainlineDriver := preload("res://tests/stage11/support/stage11_graybox_mainline_driver.gd")
 
 const STAGE11_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
-const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_entry_room.tscn"
-const STAGE13_ACID_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_acid_room.tscn"
-const STAGE13_GATE_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_gate_room.tscn"
-const STAGE13_CHECKPOINT_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_checkpoint_room.tscn"
-const STAGE13_PRESSURE_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_pressure_room.tscn"
-const STAGE13_BRANCH_HUB_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_branch_hub_room.tscn"
-const STAGE13_RESOURCE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_resource_branch_room.tscn"
-const STAGE13_CHALLENGE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_challenge_branch_room.tscn"
-const STAGE13_RETURN_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_return_room.tscn"
-const STAGE13_GOAL_ROOM_PATH := "res://scenes/rooms/stage13_bio_waste_goal_room.tscn"
+const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn"
+const STAGE13_MIASMA_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn"
+const STAGE13_GATE_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn"
+const STAGE13_CHECKPOINT_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn"
+const STAGE13_PRESSURE_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn"
+const STAGE13_BRANCH_HUB_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn"
+const STAGE13_RESOURCE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"
+const STAGE13_CHALLENGE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn"
+const STAGE13_RETURN_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn"
+const STAGE13_GOAL_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
 
 
-# 保护 Stage13 人工复核清单：从 Main 运行态串起入口、主路、两支路、酸液、checkpoint 和净化门。
+# 保护 Stage13 人工复核清单：从 Main 运行态串起入口、主路、两支路、瘴气、checkpoint 和封印门。
 func test_stage13_manual_review_checklist_runtime_closure() -> void:
 	# 这条用例把人工复核 checklist 固定成一条运行时路径：
 	# 先完成 Stage11 demo，再进入 Stage13，逐项确认危险、门控、支路和 checkpoint。
@@ -38,9 +38,9 @@ func test_stage13_manual_review_checklist_runtime_closure() -> void:
 		"reached_goal": false,
 		"resource_branch_completed": false,
 		"challenge_branch_completed": false,
-		"acid_feedback_triggered": false,
+		"miasma_feedback_triggered": false,
 		"checkpoint_recovery_triggered": false,
-		"purification_gate_verified": false,
+		"seal_gate_verified": false,
 	}
 
 	var safety := 0
@@ -49,11 +49,11 @@ func test_stage13_manual_review_checklist_runtime_closure() -> void:
 		var current_path := _get_room_path(main_scene)
 
 		match current_path:
-			STAGE13_ACID_ROOM_PATH:
-				review.acid_feedback_triggered = await _trigger_acid_feedback(main_scene)
+			STAGE13_MIASMA_ROOM_PATH:
+				review.miasma_feedback_triggered = await _trigger_miasma_feedback(main_scene)
 				await _clear_current_room_to_next(main_scene)
 			STAGE13_GATE_ROOM_PATH:
-				review.purification_gate_verified = await _verify_purification_gate(main_scene)
+				review.seal_gate_verified = await _verify_seal_gate(main_scene)
 				await _clear_current_room_to_next(main_scene)
 			STAGE13_PRESSURE_ROOM_PATH:
 				review.checkpoint_recovery_triggered = await _verify_checkpoint_recovery(main_scene)
@@ -75,9 +75,9 @@ func test_stage13_manual_review_checklist_runtime_closure() -> void:
 	assert_true(review.reached_goal)
 	assert_true(review.resource_branch_completed)
 	assert_true(review.challenge_branch_completed)
-	assert_true(review.acid_feedback_triggered)
+	assert_true(review.miasma_feedback_triggered)
 	assert_true(review.checkpoint_recovery_triggered)
-	assert_true(review.purification_gate_verified)
+	assert_true(review.seal_gate_verified)
 
 
 # 从当前测试节点中找回 driver 创建的 Main 场景，避免重复实例化第二个主流程。
@@ -98,37 +98,37 @@ func _continue_from_demo_end_to_stage13(main_scene: Node2D) -> void:
 		player.global_position = continue_zone.global_position
 
 
-# 触发酸液反馈并确认玩家生命下降，用于覆盖运行态危险区域复核。
-func _trigger_acid_feedback(main_scene: Node2D) -> bool:
-	# 酸液复核只判断生命是否下降，不要求具体扣血动画或持续伤害次数。
+# 触发瘴气反馈并确认玩家生命下降，用于覆盖运行态危险区域复核。
+func _trigger_miasma_feedback(main_scene: Node2D) -> bool:
+	# 瘴气复核只判断生命是否下降，不要求具体扣血动画或持续伤害次数。
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
-	var acid_hazard := room.get_node_or_null("AcidHazard") as Node2D
-	if player == null or acid_hazard == null:
+	var miasma_hazard := room.get_node_or_null("MiasmaHazard") as Node2D
+	if player == null or miasma_hazard == null:
 		return false
 
 	var health_before: int = player.call("get_current_health")
-	player.global_position = acid_hazard.global_position
+	player.global_position = miasma_hazard.global_position
 	await _advance_process_frames(3)
 	return player.call("get_current_health") < health_before
 
 
-# 验证净化门从锁住到打开的完整过程。
-func _verify_purification_gate(main_scene: Node2D) -> bool:
-	# 净化门复核要同时确认“之前锁住”和“触发后打开”，避免只测最终状态。
+# 验证封印门从锁住到打开的完整过程。
+func _verify_seal_gate(main_scene: Node2D) -> bool:
+	# 封印门复核要同时确认“之前锁住”和“触发后打开”，避免只测最终状态。
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
 	if room == null or player == null:
 		return false
 
 	var locked_before: bool = not room.call("is_gate_unlocked")
-	var purification_node := room.get_node_or_null("PurificationNode") as Node2D
-	if purification_node == null:
+	var seal_node := room.get_node_or_null("SealNode") as Node2D
+	if seal_node == null:
 		return false
 
-	player.global_position = purification_node.global_position
+	player.global_position = seal_node.global_position
 	await _advance_process_frames(4)
-	return locked_before and room.call("is_gate_unlocked") and room.call("is_purification_node_activated")
+	return locked_before and room.call("is_gate_unlocked") and room.call("is_seal_node_activated")
 
 
 # 验证 checkpoint 恢复：触发失败后应回到 checkpoint 房，再能继续进入压力房。

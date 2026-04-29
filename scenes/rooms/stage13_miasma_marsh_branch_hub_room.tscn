@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/stage13_bio_waste_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -14,13 +14,13 @@ size = Vector2(88, 96)
 [sub_resource type="RectangleShape2D" id="4"]
 size = Vector2(96, 128)
 
-[node name="Stage13BioWasteBranchHubRoom" type="Node2D"]
+[node name="Stage13MiasmaMarshBranchHubRoom" type="Node2D"]
 script = ExtResource("1")
-next_room_path = "res://scenes/rooms/stage13_bio_waste_return_room.tscn"
+next_room_path = "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn"
 next_spawn_id = &"stage13_return_start"
 default_step_id = &"stage13_branch_hub"
-resource_branch_room_path = "res://scenes/rooms/stage13_bio_waste_resource_branch_room.tscn"
-challenge_branch_room_path = "res://scenes/rooms/stage13_bio_waste_challenge_branch_room.tscn"
+resource_branch_room_path = "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"
+challenge_branch_room_path = "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn"
 
 [node name="Backdrop" type="Polygon2D" parent="."]
 color = Color(0.0745098, 0.121569, 0.117647, 1)

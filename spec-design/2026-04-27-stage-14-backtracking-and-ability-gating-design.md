@@ -35,7 +35,7 @@ Public methods:
 
 ## Stage Flow
 
-The flow begins at `stage13_bio_waste_goal_room` and enters:
+The flow begins at `stage13_miasma_marsh_goal_room` and enters:
 
 1. `stage14_air_dash_shrine_room`: grants Air Dash.
 2. `stage14_air_dash_gate_room`: validates the first ability gate.

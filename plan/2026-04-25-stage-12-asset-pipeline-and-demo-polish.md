@@ -48,7 +48,7 @@
 - 建立资产目录结构：
   - `assets/art/characters/player/`
   - `assets/art/characters/enemies/`
-  - `assets/art/environment/biome_01_lab/`
+  - `assets/art/environment/biome_01_shrine_trial/`
   - `assets/art/vfx/`
   - `assets/art/ui/`
   - `assets/audio/sfx/`

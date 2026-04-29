@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djktnmn3k074"
-path="res://.godot/imported/stage13_bio_waste_background_01.svg-eb46c0059db8dce0470df50faa43d35e.ctex"
+uid="uid://clsmbrmlgplts"
+path="res://.godot/imported/stage13_miasma_marsh_background_01.svg-0a476f6a395bbcb4125907b00809e8aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/environment/biome_02_bio_waste/stage13_bio_waste_background_01.svg"
-dest_files=["res://.godot/imported/stage13_bio_waste_background_01.svg-eb46c0059db8dce0470df50faa43d35e.ctex"]
+source_file="res://assets/art/environment/biome_02_miasma_marsh/stage13_miasma_marsh_background_01.svg"
+dest_files=["res://.godot/imported/stage13_miasma_marsh_background_01.svg-0a476f6a395bbcb4125907b00809e8aa.ctex"]
 
 [params]
 

@@ -163,7 +163,7 @@ func test_stage15_challenge_branch_requires_clear_before_return_gate() -> void:
 	assert_false(room.call("is_gate_unlocked"))
 	assert_eq(room.call("get_remaining_required_enemy_count"), 2)
 
-	_defeat_named_enemy(room, "SporeShooterEnemy")
+	_defeat_named_enemy(room, "MiasmaCasterEnemy")
 	assert_false(room.call("is_gate_unlocked"))
 	assert_eq(room.call("get_remaining_required_enemy_count"), 1)
 

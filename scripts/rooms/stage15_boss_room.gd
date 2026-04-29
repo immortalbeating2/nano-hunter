@@ -1,4 +1,4 @@
-extends "res://scripts/rooms/stage13_bio_waste_room_base.gd"
+extends "res://scripts/rooms/stage13_miasma_marsh_room_base.gd"
 
 # Stage15BossRoom 把既有房间契约适配成单个精英 Boss 房。
 # 它负责监听 Boss 击败、同步 Main 进度快照，并向 HUD 暴露 Boss 状态。
