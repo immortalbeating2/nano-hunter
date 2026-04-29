@@ -453,10 +453,7 @@ Godot MCP 的具体联通、stale bridge、`Transport closed`、运行态 autolo
 - 若临时 worktree 完成一次性任务，合并完成后应清理对应分支和临时 worktree，避免长期堆积过期开发环境
 - 阶段收口时，固定永久工作树默认保留；只清理阶段分支和不再需要的临时运行态现场，不像临时 worktree 那样删除物理目录
 - 阶段收口时仍要检查 `6505-6509` 的 `godot-mcp-pro` bridge 状态，但默认只记录或关闭明确属于当前固定工作树的 Godot 编辑器；不要为了“收口干净”全量释放可能属于其他活跃会话的 bridge
-- 如果使用临时 worktree 完成一次性任务，清理前才需要执行物理目录删除流程：先关闭指向该临时 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，再删除临时 worktree，并复核 `git worktree list`、磁盘目录和 `6505-6509` 状态
-- 删除任何 worktree 的物理目录前，无论它是临时 worktree、固定永久工作树、旧固定工作树、客户端自动创建目录还是手工 `git worktree`，都必须先检查该目录里的 untracked / ignored 本地证据产物，重点包括 `tests/artifacts/local/`、MCP / Playwright 截图、一次性测试输出和手工复核记录
-- 需要保留的证据只迁移到主工作区的 `tests/artifacts/local/<topic>/`，保持 ignored、本地留存、不提交也不推送；除非用户明确要求把截图或证据纳入产品文档 / 资产文档。迁移或不迁移的判断必须写入当日日志
-- 不得仅凭 `.codex/worktrees` 路径、detached 状态、clean 状态、旧提交或目录年龄推断一个 worktree 可以删除；删除前必须结合 Codex 客户端标记、项目文档 / 日志、当前任务归属，以及是否仍有活跃 Godot / 终端 / 资源管理器窗口来判断
+- 如果需要删除任何 worktree 的物理目录，清理前必须先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，检查 `tests/artifacts/local/` 等 untracked / ignored 本地证据产物；需保留证据只迁移到主工作区 `tests/artifacts/local/<topic>/`，保持本地 ignored，不提交不推送，再删除目录并复核 `git worktree list`、磁盘目录和 `6505-6509` 状态
 - Godot MCP 工具入口缺失、stale bridge 和 `Transport closed` 的具体处理，不写在本文件；统一参考 `docs/dev/godot-mcp-pro-connectivity-guide.md`
 
 ## 分支操作留痕约定
