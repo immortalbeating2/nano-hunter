@@ -72,3 +72,8 @@ Last Updated: 2026-04-29
 - Stage16 设计文档：`spec-design/2026-04-29-stage-16-alpha-demo-candidate-design.md`
 - 当日日志：`docs/progress/logs/2026-04-29.md`
 - 关键时间线：`docs/progress/timeline.md`
+# 2026-04-30 Toolchain Note
+
+- 当前开发现场新增工具链修复分支 `codex/fix-godot-mcp-bridge-lifecycle`，目标是根治 Godot MCP Pro bridge 残留、端口占用和多 worktree 串线问题。
+- 当前稳定游戏基线仍为 Stage16 Alpha Demo 候选；本次不改玩法、场景、资产或主流程内容。
+- 工具链验证以 `npm test`、`npm run build`、`godot --headless --path . --import`、`check-godot-mcp.ps1`、`enter-worktree-godot-mcp.ps1 -DryRun` 和补丁脚本 dry-run 为准。

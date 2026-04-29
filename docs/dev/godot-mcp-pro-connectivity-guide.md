@@ -206,3 +206,24 @@ Godot MCP 问题必须先分层，不要把运行态问题、工具入口问题�
 - 不默认全量释放 `6505-6509`，除非能确认它们属于废弃会话，或用户明确要求清理
 
 Codex 托管临时 worktree 才需要额外执行物理目录删除、`git worktree list` 复核和进程占用清理。通用 worktree 清理规则以 `AGENTS.md` 为准。
+# 2026-04-30 Godot MCP bridge hardening update
+
+本项目已将 Godot MCP Pro bridge 生命周期改造为可诊断、可清理、可重放的流程。
+
+- stdio MCP bridge 端口：`6505-6509,6515-6534`
+- `godot-cli` 保留端口：`6510-6514`
+- Godot 插件扫描端口：`6505-6534`
+- Node server 会写入 lock/heartbeat：`%LOCALAPPDATA%/godot-mcp-pro/bridges/<port>.json`
+- 新 MCP tool：`get_bridge_status`
+- Godot 插件连接后会发送 `godot_hello`，Node bridge 只接受 workspace 匹配的 Godot editor
+
+无用 bridge 的判断不再只看“端口是否监听”或“启动时间是否旧”。默认判断顺序为：PID 是否仍存在、lock heartbeat 是否超过默认 `30` 秒、lock workspace 是否匹配当前 worktree、当前 worktree Godot editor 是否有到该 stdio 端口的 Established 连接，以及该进程是否为 `server/build/index.js`。`server/build/cli.js` 属于 CLI 临时进程，不按 stale bridge 清理。
+
+补丁重放入口：
+
+```powershell
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -DryRun
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -Build
+```
+
+补丁脚本会备份目标文件到 `tests/artifacts/local/godot-mcp-patch-backups/<timestamp>/`。如果 Godot MCP Pro 上游版本不是已验证的 `1.12.0`，脚本默认拒绝直接应用，需要先 dry-run 审查，再显式 `-Force`。

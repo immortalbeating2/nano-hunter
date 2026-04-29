@@ -76,3 +76,6 @@
 - 完成 Stage16 Alpha Demo 打包候选主体实现：五房终局封印链、Stage15 completion 接入、最小 Demo 壳、Main / HUD Stage16 完成态、Stage16 专项 GUT、Alpha Demo 灰盒 driver、QA checklist、release notes 与资产 / 音频 manifest 条目；当前正在整合最新 `main` 并补 Godot MCP 运行态复核。
 - 完成 Stage16 Godot MCP 运行态人工复核，覆盖 `Main.tscn` 主菜单、暂停 / 继续 / 重开、Stage15 completion、Stage16 五房运行态节点、导出 next-room 链路与 Alpha Demo 终点；截图保存在本地 `tests/artifacts/local/stage16-mcp/`，不提交。
 - Stage16 Alpha Demo 打包候选已合并回 `main`；合并后主线验证通过：Godot import、Stage16 专项 GUT `8/8`、Stage15 专项 GUT `11/11`、全量 GUT `115/115`、`git diff --check HEAD`。
+# 2026-04-30
+
+- 启动 Godot MCP bridge 生命周期根治工具链修复分支 `codex/fix-godot-mcp-bridge-lifecycle`：扩展 stdio bridge 端口规划、保留 `godot-cli` 端口、补 bridge lock/heartbeat、workspace handshake、lazy reconnect、诊断脚本和插件升级后可重放补丁源。详情见 `docs/progress/logs/2026-04-30.md`。
