@@ -24,7 +24,8 @@
 - Stage15 专项 GUT：`11/11 passed`，`102` 个断言。
 - 全量 GUT：`115/115 passed`，`843` 个断言。
 - `git diff --check`：通过。
-- Godot MCP 运行态人工复核：未完成。当前 Codex 会话可见 `mcp__godot_mcp_pro__` 工具，`enter-worktree-godot-mcp.ps1` 可运行并报告 6505 有监听与连接，但 `get_scene_exports("res://scenes/main/main.tscn")` 返回 `Godot editor is not connected`，因此本轮只记录为 MCP 连接阻塞，不视为运行态复核通过。
+- Godot MCP 运行态人工复核：通过。当前会话已连接固定工作树 Godot 编辑器，确认 `Main.tscn` 主菜单、暂停 / 继续 / 重开入口、Stage15 completion room、Stage16 五房链路、导出 next-room 链路和 Alpha Demo 终点节点。
+- MCP 本地截图：`tests/artifacts/local/stage16-mcp/main_menu.png`、`pause_menu.png`、`stage15_completion.png`、`stage16_seal_release_threshold.png`、`stage16_alpha_demo_end.png`；按项目约定不提交。
 
 ## 已知问题
 
@@ -35,5 +36,5 @@
 
 ## 下一步
 
-- 修复或重连 Godot MCP 编辑器会话后，执行主菜单、暂停 / 重开、Stage15 completion 到 Stage16 入口、Stage16 五房链路和 Alpha Demo 完成反馈的运行态人工复核。
-- 若 MCP 复核发现问题，修复后补回归测试，并再次更新本 release notes 的已知问题分级。
+- 合并 Stage16 到 `main` 后，在主工作区重跑 Godot import、Stage16 专项 GUT、Stage15 专项 GUT、全量 GUT 与 `git diff --check HEAD`。
+- 若合并后主线验证通过，将 `main` 推送到 `origin/main`，并记录 Stage16 Alpha Demo 候选收口。

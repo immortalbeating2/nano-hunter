@@ -52,7 +52,7 @@
 - [x] 新增 Demo 级 QA checklist。
 - [x] 新增 Alpha Demo release notes。
 - [x] 运行 Godot import、Stage16 专项 GUT、Stage15 专项 GUT、全量 GUT 与 `git diff --check`。
-- [ ] 使用 Godot MCP 从 `Main.tscn` 做运行态人工复核。
+- [x] 使用 Godot MCP 从 `Main.tscn` 做运行态人工复核。
 - [x] MCP 尝试结束后清理并确认 `project.godot` 无临时 autoload diff。
 - [x] 更新 `docs/progress/status.md`、`docs/progress/timeline.md` 和当日日志。
 
@@ -151,4 +151,5 @@ git diff --check
 - Stage15 专项 GUT：`11/11 passed`，`102` 个断言。
 - 全量 GUT：`115/115 passed`，`843` 个断言。
 - `git diff --check`：通过。
-- Godot MCP 运行态人工复核：未完成。当前工具入口可见，`enter-worktree-godot-mcp.ps1` 可运行并报告 6505 有监听与连接；但 MCP 只读调用 `get_scene_exports("res://scenes/main/main.tscn")` 返回 `Godot editor is not connected`，本轮记录为编辑器连接阻塞。
+- Godot MCP 运行态人工复核：通过。复核覆盖 `Main.tscn` 主菜单、暂停 / 继续 / 重开、Stage15 completion room、Stage16 五房运行态节点、导出 next-room 链路和 Alpha Demo 终点节点。
+- MCP 本地截图：已保存到 `tests/artifacts/local/stage16-mcp/`，默认不提交。

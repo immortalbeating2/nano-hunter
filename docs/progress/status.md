@@ -18,7 +18,7 @@ Last Updated: 2026-04-29
 - Stage12-13 修正分支：`codex/north-star-realign-stage12-13` 已合并回 `main` 并删除；Git worktree 注册已移除。
 - 当前会话残留目录：`C:\Users\peng8\.codex\worktrees\efa7\nano-hunter` 已不是 Git worktree，目录内容为空，但 Windows 仍持有锁，待锁释放后再删除物理目录。
 - 固定永久工作树：`C:\Users\peng8\.codex\worktrees\ffc3\nano-hunter`，当前用于 Stage16 阶段分支 `codex/stage-16-alpha-demo-candidate`。
-- 当前阶段：Stage16 Alpha Demo 打包候选已完成主体实现，并已合入最新 `main` 的 Stage12-13 北极星修正；仍需完成 Godot MCP 运行态人工复核后收口。
+- 当前阶段：Stage16 Alpha Demo 打包候选已完成主体实现、最新 `main` 整合和 Godot MCP 运行态人工复核；下一步进入合并回 `main` 的收口验证。
 
 ## Latest Implemented Scope
 
@@ -51,7 +51,7 @@ Last Updated: 2026-04-29
 
 ## Current Risks
 
-- Stage16 Godot MCP 运行态人工复核尚未完成；当前将先复核 Main / Demo shell / Stage15 completion / Stage16 五房链路，再进入最终收口。
+- Stage16 Godot MCP 运行态人工复核已完成：主菜单、暂停 / 继续 / 重开、Stage15 completion、Stage16 五房运行态节点、导出 next-room 链路和 Alpha Demo 终点节点均已复核；截图保存在 `tests/artifacts/local/stage16-mcp/`，默认不提交。
 - `enter-worktree-godot-mcp.ps1` 在本次复核中曾报告 `ReopenSessionThenForceKillBridge`，但 MCP 工具实测可用；后续可继续改进脚本对“当前会话可用但 bridge 状态被判 stale”的识别。
 - MCP 运行态截图现已改为本地证据产物，默认保留在 `tests/artifacts/local/`，不进入提交。
 - Godot MCP 端口 `6505` 在收口检查时仍有本机监听；按当前约定仅记录，不全局释放可能属于其他活跃会话的 bridge。
@@ -59,7 +59,7 @@ Last Updated: 2026-04-29
 
 ## Next Steps
 
-- 完成 Stage16 Godot MCP 运行态人工复核；如发现问题，先修复并补回归测试，再进行 Stage16 合并、主线验证、远端同步和分支清理。
+- 合并 Stage16 到 `main`，在主工作区重跑验证，通过后推送 `origin/main` 并清理阶段分支。
 
 ## References
 

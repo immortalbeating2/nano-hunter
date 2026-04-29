@@ -74,3 +74,4 @@
 - 完成 Stage12-13 北极星回收 Godot MCP 人工复核，合并 `codex/north-star-realign-stage12-13` 到 `main` 并推送 `origin/main`；修正分支已删除，Git worktree 注册已移除，空物理目录因 Windows 锁暂留。
 - 从固定永久工作树创建 Stage16 阶段分支 `codex/stage-16-alpha-demo-candidate`，采用固定永久工作树 + 阶段分支模式。
 - 完成 Stage16 Alpha Demo 打包候选主体实现：五房终局封印链、Stage15 completion 接入、最小 Demo 壳、Main / HUD Stage16 完成态、Stage16 专项 GUT、Alpha Demo 灰盒 driver、QA checklist、release notes 与资产 / 音频 manifest 条目；当前正在整合最新 `main` 并补 Godot MCP 运行态复核。
+- 完成 Stage16 Godot MCP 运行态人工复核，覆盖 `Main.tscn` 主菜单、暂停 / 继续 / 重开、Stage15 completion、Stage16 五房运行态节点、导出 next-room 链路与 Alpha Demo 终点；截图保存在本地 `tests/artifacts/local/stage16-mcp/`，不提交。
