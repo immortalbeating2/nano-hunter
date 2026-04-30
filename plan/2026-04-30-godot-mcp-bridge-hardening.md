@@ -69,6 +69,7 @@
 - 上游插件大版本重构时，补丁源可能需要人工重审。
 - 端口扩容只能降低耗尽概率，跨项目防串线仍依赖 workspace handshake。
 - 用户目录 Node server 不受仓库直接保护，必须依赖补丁脚本重放。
+- 2026-04-30 人工复核确认：workspace handshake 与端口扩容不能替代 session/port rendezvous；在 rendezvous 完成前，旧低端口 bridge 仍可能被 Godot 插件优先连接。
 
 ## Assumptions
 
@@ -84,3 +85,8 @@
 - 项目诊断脚本从默认补丁目标中移出，只有显式 `-IncludeProjectScripts` 时才覆盖目标项目 `scripts/dev`。
 - 补丁源目录语义调整为 `server`、`plugin`、`optional-project-scripts`，避免把插件补丁误解成整项目补丁。
 - `docs/dev/godot-mcp-pro-connectivity-guide.md` 与脚本 README 必须以该通用语义为准。
+
+## Post-review Correction
+
+- 本正式计划记录的是 Godot MCP bridge lifecycle hardening，不应再被描述为完整根治。
+- 真正根治多 IDE / CLI / worktree 串线，需要另起 session/port rendezvous 计划：当前会话 bridge 写出 `port/sessionId/workspace`，Godot 插件优先连接指定端口，Node server 以 `workspace + sessionId` 验证连接。

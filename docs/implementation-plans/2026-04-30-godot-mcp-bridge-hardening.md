@@ -75,3 +75,10 @@ git diff --check
 - `.\scripts\dev\check-godot-mcp.ps1`: passed.
 - `.\scripts\dev\enter-worktree-godot-mcp.ps1 -DryRun`: passed.
 - Mojibake scan on changed scripts, plugin files, patch source and docs: no matches for common mojibake markers.
+
+## Post-review Correction: 非完整根治
+
+- 2026-04-30 人工复核确认：本计划已完成 bridge lifecycle hardening，但没有完整解决 Godot editor 精准连接当前 IDE / CLI 会话 bridge 的问题。
+- 关键证据：当前会话工具入口存在，但 MCP 只读工具返回 Godot editor 未连接；当前 worktree Godot editor 曾连到旧 `6505` bridge，而不是当前会话候选 bridge。
+- `LikelyCurrentSession` 只是脚本按最新 bridge 启动时间推断，不是 Codex 内部暴露的当前 MCP 子进程 PID。
+- 后续需要新增独立 session/port rendezvous 计划，让 Node server、脚本和 Godot 插件传递当前 `port/sessionId/workspace`，插件优先连接指定端口，并通过 `workspace + sessionId` 完成握手。
