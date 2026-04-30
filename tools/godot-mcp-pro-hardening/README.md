@@ -119,4 +119,4 @@ C:\Tools\apply-godot-mcp-pro-hardening-patch.ps1 `
 
 ## Maintenance Rule
 
-Whenever Node server, Godot plugin, or optional project scripts change for bridge lifecycle behavior, refresh the matching files under `patch-files/` in the same commit and run the dry-run matrix documented in `docs/dev/godot-mcp-script-reference.md`.
+Whenever Node server, Godot plugin, or optional project scripts change for bridge lifecycle behavior, refresh the matching files under `patch-files/` in the same commit and run the dry-run matrix documented in `docs/dev/godot-mcp-pro-connectivity-guide.md`.

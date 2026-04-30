@@ -79,4 +79,4 @@
 # 2026-04-30
 
 - 启动 Godot MCP bridge 生命周期根治工具链修复分支 `codex/fix-godot-mcp-bridge-lifecycle`：扩展 stdio bridge 端口规划、保留 `godot-cli` 端口、补 bridge lock/heartbeat、workspace handshake、lazy reconnect、诊断脚本和插件升级后可重放补丁源。详情见 `docs/progress/logs/2026-04-30.md`。
-- 将 Godot MCP hardening 补丁脚本通用化为可搬移、可跨项目使用的工具：默认只覆盖全局 Node server 与目标项目 `addons/godot_mcp`，项目诊断脚本改为 `-IncludeProjectScripts` 可选项，并新增脚本速查文档。
+- 将 Godot MCP hardening 补丁脚本通用化为可搬移、可跨项目使用的工具：默认只覆盖全局 Node server 与目标项目 `addons/godot_mcp`，项目诊断脚本改为 `-IncludeProjectScripts` 可选项；随后把脚本速查与排障流程合并进 `docs/dev/godot-mcp-pro-connectivity-guide.md`，作为唯一权威入口。

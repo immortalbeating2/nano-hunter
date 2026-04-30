@@ -57,7 +57,7 @@ git diff --check
 - [x] 重排补丁源目录为 `server`、`plugin`、`optional-project-scripts`，删除旧 `project` 语义。
 - [x] PowerShell 脚本补充中文文件头与主要函数说明，明确是否只读、是否杀进程、是否写外部 server 和常用命令。
 - [x] Node TS 与 GDScript 补丁源补充端口规划、workspace handshake、lock/heartbeat、lazy reconnect 和状态面板边界说明。
-- [x] 新增 `docs/dev/godot-mcp-script-reference.md`，更新 README 与 connectivity guide 的通用使用说明。
+- [x] 将脚本速查、通用补丁说明和排障流程合并进 `docs/dev/godot-mcp-pro-connectivity-guide.md`，让该文档成为唯一权威入口。
 
 ## Follow-up Verification Matrix
 

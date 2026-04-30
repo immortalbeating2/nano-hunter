@@ -349,14 +349,16 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 
 人工复核默认使用Godot MCP。
 
-Godot MCP 人工复核默认按四层顺序判断，不把所有问题都归因到 bridge：
+Godot MCP Pro 的联通、端口规划、bridge stale 判断、工具入口缺失、运行态 autoload、补丁重放、跨项目插件补丁和脚本使用，统一参考 `docs/dev/godot-mcp-pro-connectivity-guide.md`。
 
-1. 会话工具入口：当前开发会话必须能看到 `mcp__godot_mcp_pro__` 工具；若入口缺失，应从目标固定工作树重开会话，而不是反复重启 Godot。
-2. 编辑器连接：确认当前固定工作树的 Godot 编辑器已连接到 `godot-mcp-pro` bridge；如果编辑器已连到 bridge，但脚本只因 bridge 年龄提示可疑，先用 MCP 只读工具实测，不主动清理。
-3. 运行态 autoload：若编辑器场景可读但运行态截图、输入或脚本执行不可用，优先视为 Godot MCP 运行态 autoload 没有注入到当前游戏实例；应重新注入 / 重开当前工作树编辑器 / 重启运行场景，而不是清 bridge。
-4. 收口清理：MCP 运行态复核结束后清理 `project.godot` 中的临时 MCP autoload diff；清理后若还要继续运行态复核，必须重新确认运行态 autoload 已注入。
+本文件只保留项目级原则：
 
-Godot MCP 的具体联通、stale bridge、`Transport closed`、运行态 autoload、人工复核节奏与排障流程统一参考 `docs/dev/godot-mcp-pro-connectivity-guide.md`。
+1. 不把所有 MCP 问题都归因到 bridge。
+2. 先判断当前 IDE / CLI 是否已加载 Godot MCP Pro 工具入口；不同客户端的工具命名可能不同，Codex Desktop 当前常见前缀 `mcp__godot_mcp_pro__` 不是跨客户端标准。
+3. stdio bridge 端口为 `6505-6509,6515-6534`；`6510-6514` 保留给 `godot-cli`，不得按 stale bridge 默认清理。
+4. runtime autoload 失败不按 bridge stale 处理。
+5. 清理 bridge 前必须确认不影响其它活跃项目 / worktree 会话。
+6. MCP 运行态复核结束后清理 `project.godot` 中的临时 MCP autoload diff；清理后若还要继续运行态复核，必须重新确认运行态 autoload 已注入。
 
 当前仓库还保留若干已安装但默认不启用的插件目录，用作后续阶段候选或历史资产来源；它们不应通过 `project.godot` 的 `[editor_plugins]` 或 `[autoload]` 默认加载。
 
@@ -452,8 +454,8 @@ Godot MCP 的具体联通、stale bridge、`Transport closed`、运行态 autolo
 - 合并完成后，如无保留需求，应删除对应阶段分支；固定永久工作树本身默认保留并同步回最新 `main`，不要像临时 worktree 一样删除
 - 若临时 worktree 完成一次性任务，合并完成后应清理对应分支和临时 worktree，避免长期堆积过期开发环境
 - 阶段收口时，固定永久工作树默认保留；只清理阶段分支和不再需要的临时运行态现场，不像临时 worktree 那样删除物理目录
-- 阶段收口时仍要检查 `6505-6509` 的 `godot-mcp-pro` bridge 状态，但默认只记录或关闭明确属于当前固定工作树的 Godot 编辑器；不要为了“收口干净”全量释放可能属于其他活跃会话的 bridge
-- 如果需要删除任何 worktree 的物理目录，清理前必须先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，检查 `tests/artifacts/local/` 等 untracked / ignored 本地证据产物；需保留证据只迁移到主工作区 `tests/artifacts/local/<topic>/`，保持本地 ignored，不提交不推送，再删除目录并复核 `git worktree list`、磁盘目录和 `6505-6509` 状态
+- 阶段收口时仍要检查 Godot MCP bridge 状态：stdio bridge 端口为 `6505-6509,6515-6534`，`6510-6514` 保留给 `godot-cli`；默认只记录或关闭明确属于当前固定工作树的 Godot 编辑器，不为了“收口干净”全量释放可能属于其他活跃会话的 bridge
+- 如果需要删除任何 worktree 的物理目录，清理前必须先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，检查 `tests/artifacts/local/` 等 untracked / ignored 本地证据产物；需保留证据只迁移到主工作区 `tests/artifacts/local/<topic>/`，保持本地 ignored，不提交不推送，再删除目录并复核 `git worktree list`、磁盘目录、stdio bridge `6505-6509,6515-6534` 与 CLI reserved `6510-6514` 状态
 - Godot MCP 工具入口缺失、stale bridge 和 `Transport closed` 的具体处理，不写在本文件；统一参考 `docs/dev/godot-mcp-pro-connectivity-guide.md`
 
 ## 分支操作留痕约定

@@ -52,7 +52,7 @@ Last Updated: 2026-04-29
 
 ## Current Risks
 
-- `enter-worktree-godot-mcp.ps1` 在本次复核中曾报告 `ReopenSessionThenForceKillBridge`，但 MCP 工具实测可用；后续可继续改进脚本对“当前会话可用但 bridge 状态被判 stale”的识别。
+- Godot MCP Pro bridge 生命周期已进入 hardening 修复分支；当前以 `docs/dev/godot-mcp-pro-connectivity-guide.md` 为唯一排障入口，旧脚本动作名和旧端口判断语义已被新的端口 / lock / workspace 判断流程取代。
 - MCP 运行态截图现已改为本地证据产物，默认保留在 `tests/artifacts/local/`，不进入提交。
 - Godot MCP 端口 `6505` 在收口检查时仍有本机监听；按当前约定仅记录，不全局释放可能属于其他活跃会话的 bridge。
 - `C:\Users\peng8\.codex\worktrees\efa7\nano-hunter` 为空目录但仍被 Windows 锁定；当前不影响 Git worktree、分支或主线开发，后续若锁释放可手动删除。
