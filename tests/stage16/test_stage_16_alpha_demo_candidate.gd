@@ -14,8 +14,8 @@ const STAGE16_BACKTRACK_CONFIRMATION_ROOM_PATH := "res://scenes/rooms/stage16_ba
 const STAGE16_CORRUPTION_PURGE_ROOM_PATH := "res://scenes/rooms/stage16_corruption_purge_room.tscn"
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
-const QA_CHECKLIST_PATH := "res://docs/progress/stage16-alpha-demo-qa-checklist.md"
-const RELEASE_NOTES_PATH := "res://docs/progress/stage16-alpha-demo-release-notes.md"
+const QA_CHECKLIST_PATH := "res://docs/deliverables/stage16-alpha-demo-candidate/qa-checklist.md"
+const RELEASE_NOTES_PATH := "res://docs/deliverables/stage16-alpha-demo-candidate/release-notes.md"
 
 const STAGE16_ROOM_PATHS := [
 	STAGE16_SEAL_RELEASE_THRESHOLD_ROOM_PATH,

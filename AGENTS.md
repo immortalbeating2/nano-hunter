@@ -230,6 +230,13 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
   - 截图、MCP 复核图、Playwright 图和一次性测试证据默认不放在 `docs/progress/`；本地保留在 `tests/artifacts/local/<topic>/`，并由 `.gitignore` 忽略
   - 只有用户明确要求提交截图，或截图本身是产品文档 / 资产文档的一部分时，才放入合适的可提交文档目录，并说明来源和用途
 
+- `docs/deliverables/<deliverable-id>/`
+  - 存放可试玩 / 可打包 / 可交付候选阶段的成套交付产物，例如 Demo 候选、打包候选、对外试玩包、Alpha / Beta 试玩候选
+  - 普通阶段完成、普通 timeline 里程碑、工具链修复、文档治理、内部玩法实验、单次 bugfix 或 polish 不默认创建 deliverables 目录
+  - 阶段计划若定义为可交付候选，必须明确 `deliverable-id` 和目标文件路径；默认文件为 `qa-checklist.md` 与 `release-notes.md`
+  - `qa-checklist.md` 记录候选包最小验收项；`release-notes.md` 记录试玩入口、内容范围、验证结果、已知问题和下一步
+  - `status.md`、`timeline.md` 和当日日志只链接 deliverables，不复制其正文
+
 ### 记录要求
 
 每次记录至少写明：
@@ -328,6 +335,7 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 - `tests/artifacts/local/`：本地测试、MCP 运行态复核、截图和一次性证据产物；默认不提交
 - `spec-design/`：设计文档
 - `docs/assets/`：资产清单、资产接入测试清单与授权 / 来源记录
+- `docs/deliverables/`：可试玩 / 可打包 / 可交付候选阶段的 QA checklist、release notes 等成套交付产物
 - `docs/progress/`：进度与时间线文档
 - `docs/progress/logs/`：当日详细开发日志
 

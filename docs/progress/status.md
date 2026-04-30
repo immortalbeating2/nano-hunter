@@ -4,7 +4,7 @@ Last Updated: 2026-04-30
 
 ## Current Status
 
-- 当前稳定游戏基线仍是 `main` 上的 Stage16 Alpha Demo 打包候选，包含最小 Demo 壳、Stage15 `Seal Guardian / 封印守卫`、`Recovery Charge / 恢复充能`、Stage16 五房终局封印链、Alpha Demo 完成反馈、QA checklist、release notes 与第二轮资产 / 音频需求记录。
+- 当前稳定游戏基线仍是 `main` 上的 Stage16 Alpha Demo 打包候选，包含最小 Demo 壳、Stage15 `Seal Guardian / 封印守卫`、`Recovery Charge / 恢复充能`、Stage16 五房终局封印链、Alpha Demo 完成反馈、`docs/deliverables/stage16-alpha-demo-candidate/` 交付物与第二轮资产 / 音频需求记录。
 - 当前开发现场为工具链修复分支 `codex/fix-godot-mcp-bridge-lifecycle`，工作目录是 `C:\Users\peng8\.codex\worktrees\fef5\nano-hunter`；本分支只改 Godot MCP Pro、诊断脚本、补丁工具和文档治理，不改玩法、场景、资产或主流程内容。
 - Godot MCP bridge lifecycle hardening 已完成并提交，但 2026-04-30 人工复核确认它还不能称为完整根治：Godot editor 仍可能优先连到旧低端口 bridge，真正解决多 IDE / CLI / worktree 串线还需要 session/port rendezvous。
 - 当前 worktree 存在 `project.godot` 的临时 MCP runtime autoload diff；该 diff 属于运行态复核现场，提交文档或工具链修复前必须单独确认是否清理，不应混入文档治理提交。
@@ -65,6 +65,8 @@ Last Updated: 2026-04-30
 ## References
 
 - Godot MCP 排障入口：`docs/dev/godot-mcp-pro-connectivity-guide.md`
+- Stage16 Alpha Demo QA checklist：`docs/deliverables/stage16-alpha-demo-candidate/qa-checklist.md`
+- Stage16 Alpha Demo release notes：`docs/deliverables/stage16-alpha-demo-candidate/release-notes.md`
 - Godot MCP hardening 实现清单：`docs/implementation-plans/2026-04-30-godot-mcp-bridge-hardening.md`
 - Godot MCP hardening 正式计划：`plan/2026-04-30-godot-mcp-bridge-hardening.md`
 - 当日日志：`docs/progress/logs/2026-04-30.md`

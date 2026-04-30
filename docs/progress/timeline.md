@@ -111,7 +111,7 @@
   详情：`docs/progress/logs/2026-04-29.md`。
 
 - **Stage16 Alpha Demo 候选**：从固定永久工作树创建 `codex/stage-16-alpha-demo-candidate` 并完成主体实现。
-  结果：五房终局封印链、Stage15 completion 接入、最小 Demo 壳、Main / HUD Stage16 完成态、Stage16 专项 GUT、Alpha Demo 灰盒 driver、QA checklist、release notes 与资产 / 音频 manifest 条目完成。
+  结果：五房终局封印链、Stage15 completion 接入、最小 Demo 壳、Main / HUD Stage16 完成态、Stage16 专项 GUT、Alpha Demo 灰盒 driver、`docs/deliverables/stage16-alpha-demo-candidate/` 交付物与资产 / 音频 manifest 条目完成。
   验证：Godot MCP 运行态复核覆盖主菜单、暂停 / 继续 / 重开、Stage15 completion、Stage16 五房运行态节点、导出 next-room 链路与 Alpha Demo 终点。
   详情：`docs/progress/logs/2026-04-29.md`。
 
