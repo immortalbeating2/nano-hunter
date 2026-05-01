@@ -4,10 +4,14 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   getBridgeLockPath,
+  getProjectRendezvousPath,
   isHeartbeatStale,
+  readProjectRendezvous,
   readBridgeLock,
   removeBridgeLock,
+  removeProjectRendezvous,
   writeBridgeLock,
+  writeProjectRendezvous,
 } from "../src/utils/bridge-lock.js";
 
 const tempRoots: string[] = [];
@@ -65,5 +69,37 @@ describe("bridge lock files", () => {
 
     removeBridgeLock(root, 6515);
     expect(readBridgeLock(root, 6515)).toBeNull();
+  });
+
+  it("writes project rendezvous and only removes matching sessions", () => {
+    const workspace = mkdtempSync(join(tmpdir(), "godot-mcp-rendezvous-test-"));
+    tempRoots.push(workspace);
+
+    writeProjectRendezvous(workspace, {
+      pid: 5678,
+      port: 17605,
+      workspace,
+      sessionId: "session-b",
+      startedAt: "2026-05-01T00:00:00.000Z",
+      lastHeartbeat: "2026-05-01T00:00:05.000Z",
+      version: "1.12.0",
+      kind: "stdio",
+      portPlanVersion: "17605-primary",
+    });
+
+    expect(getProjectRendezvousPath(workspace)).toMatch(/current-bridge\.json$/);
+    expect(readProjectRendezvous(workspace)).toMatchObject({
+      pid: 5678,
+      port: 17605,
+      sessionId: "session-b",
+      portPlanVersion: "17605-primary",
+      rendezvousVersion: 1,
+    });
+
+    removeProjectRendezvous(workspace, 9999, "other-session");
+    expect(readProjectRendezvous(workspace)).not.toBeNull();
+
+    removeProjectRendezvous(workspace, 5678, "session-b");
+    expect(readProjectRendezvous(workspace)).toBeNull();
   });
 });

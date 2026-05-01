@@ -5,8 +5,8 @@
 # Godot MCP 只读诊断脚本。
 # 适用场景：
 # - 日常想确认当前 worktree 是否存在可用 bridge、Godot editor 是否连上 bridge。
-# - 排查 6505-6509 / 6515-6534 stdio bridge 与 6510-6514 godot-cli reserved 端口是否混用。
-# - 查看 lock/heartbeat、PID、TCP 连接、workspace 归属和 stale reason。
+# - 排查 17605-17619 stdio bridge、17620-17624 godot-cli、legacy 6505-6509/6510-6514 是否混用。
+# - 查看项目 rendezvous、lock/heartbeat、PID、TCP 连接、workspace 归属和 stale reason。
 # 是否会修改：
 # - 本脚本只读，不杀进程、不启动 Godot、不清理 bridge、不修改 project.godot。
 # 常用命令：
@@ -28,10 +28,12 @@ Write-Host "Workspace: $workspace"
 Write-Host ("RecommendedAction: {0}" -f $recommendation.RecommendedAction)
 Write-Host ("Reason: {0}" -f $recommendation.Reason)
 Write-GodotMcpSection -Title "Port Plan" -Rows @(Get-GodotMcpPortPlan)
+Write-GodotMcpSection -Title "TCP Dynamic Port Range" -Rows @($snapshot.DynamicTcpRange)
+Write-GodotMcpSection -Title "Project Rendezvous" -Rows @($snapshot.ProjectRendezvous)
 Write-GodotMcpSection -Title "Bridge Processes" -Rows @($snapshot.BridgeProcesses | Sort-Object StartTime)
 Write-GodotMcpSection -Title "CLI Processes" -Rows @($snapshot.CliProcesses | Sort-Object StartTime)
-Write-GodotMcpSection -Title "Bridge Listeners (stdio 6505-6509,6515-6534)" -Rows @($snapshot.BridgeListeners | Sort-Object LocalPort)
-Write-GodotMcpSection -Title "CLI Listeners (reserved 6510-6514)" -Rows @($snapshot.CliListeners | Sort-Object LocalPort)
+Write-GodotMcpSection -Title "Bridge Listeners (stdio 17605-17619; legacy 6505-6509)" -Rows @($snapshot.BridgeListeners | Sort-Object LocalPort)
+Write-GodotMcpSection -Title "CLI Listeners (cli 17620-17624; legacy 6510-6514)" -Rows @($snapshot.CliListeners | Sort-Object LocalPort)
 Write-GodotMcpSection -Title "Bridge Locks" -Rows @($snapshot.BridgeLocks | Sort-Object Port)
 Write-GodotMcpSection -Title "Godot Editors" -Rows @(Get-GodotEditorProcessInfos -WorkspacePath $workspace | Sort-Object StartTime)
 Write-GodotMcpSection -Title "Workspace Editor -> Bridge Connections" -Rows @($snapshot.EditorConnections | Sort-Object OwningProcess,RemotePort)

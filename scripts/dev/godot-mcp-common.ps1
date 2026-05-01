@@ -8,25 +8,34 @@ $ErrorActionPreference = "Stop"
 # 是否会修改：
 # - 本文件只定义函数和常量；单独 dot-source 不会杀进程、不启动 Godot、不写文件。
 # 端口规划：
-# - 6505-6509 与 6515-6534 是 stdio MCP bridge 候选端口。
-# - 6510-6514 永远保留给 godot-cli 临时 WebSocket server。
+# - 17605-17619 是 stdio MCP bridge 主端口，共 15 个，避开本机 1024-15000 TCP 动态端口池。
+# - 17620-17624 是 godot-cli 主端口，共 5 个，只给短生命周期 CLI 命令使用。
+# - 6505-6509 是 legacy stdio fallback，仅用于兼容旧插件或旧配置。
+# - 6510-6514 是 legacy CLI fallback，仅用于兼容旧 CLI。
 # 安全边界：
 # - bridge lock/heartbeat 只是辅助证据，不是唯一真相。
+# - 项目本地 .godot/godot-mcp-pro/current-bridge.json 是当前 Godot editor 的优先连接线索。
 # - stale 清理必须同时结合 PID、TCP 连接、Godot editor 归属、workspace 身份和 heartbeat 年龄。
 # - 本文件的端口规划必须与 Node server、Godot 插件、补丁脚本和 docs/dev/godot-mcp-pro-connectivity-guide.md 同步。
 
-$script:GodotMcpStdioBridgePorts = @((6505..6509) + (6515..6534))
-$script:GodotMcpCliPorts = @(6510..6514)
-$script:GodotMcpPluginScanPorts = @(6505..6534)
+$script:GodotMcpStdioBridgePorts = @(17605..17619)
+$script:GodotMcpCliPorts = @(17620..17624)
+$script:GodotMcpLegacyStdioPorts = @(6505..6509)
+$script:GodotMcpLegacyCliPorts = @(6510..6514)
+$script:GodotMcpAllStdioBridgePorts = @($script:GodotMcpStdioBridgePorts + $script:GodotMcpLegacyStdioPorts)
+$script:GodotMcpAllCliPorts = @($script:GodotMcpCliPorts + $script:GodotMcpLegacyCliPorts)
+$script:GodotMcpPluginScanPorts = @($script:GodotMcpAllStdioBridgePorts + $script:GodotMcpAllCliPorts)
 $script:GodotMcpHeartbeatStaleSeconds = 30
 
 function Get-GodotMcpPortPlan {
     # 返回统一端口规划，供诊断输出和 dry-run 使用。
     # 输出：stdio bridge 端口、CLI reserved 端口、插件扫描端口的逗号分隔字符串。
     [pscustomobject]@{
-        StdioBridgePorts = ($script:GodotMcpStdioBridgePorts -join ",")
-        CliPorts         = ($script:GodotMcpCliPorts -join ",")
-        PluginScanPorts  = ($script:GodotMcpPluginScanPorts -join ",")
+        StdioBridgePorts       = ($script:GodotMcpStdioBridgePorts -join ",")
+        CliPorts               = ($script:GodotMcpCliPorts -join ",")
+        LegacyStdioBridgePorts = ($script:GodotMcpLegacyStdioPorts -join ",")
+        LegacyCliPorts         = ($script:GodotMcpLegacyCliPorts -join ",")
+        PluginScanPorts        = ($script:GodotMcpPluginScanPorts -join ",")
     }
 }
 
@@ -61,6 +70,80 @@ function Get-GodotMcpBridgeLockRoot {
     # 优先使用 LOCALAPPDATA；缺失时退到系统 temp，与 Node server 的 lock 策略保持一致。
     $base = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { [System.IO.Path]::GetTempPath() }
     return Join-Path $base "godot-mcp-pro\bridges"
+}
+
+function Get-GodotMcpProjectRendezvousPath {
+    # 返回当前 workspace 的项目本地 rendezvous 文件路径。
+    # 这个文件由 Node MCP Server 写入，Godot 插件优先读取它来连接当前会话端口。
+    param([string]$WorkspacePath)
+
+    $workspace = Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath
+    return Join-Path $workspace ".godot\godot-mcp-pro\current-bridge.json"
+}
+
+function Get-GodotMcpProjectRendezvous {
+    # 读取项目本地 rendezvous，并计算 heartbeat age。
+    # 输出：rendezvous 对象；不存在时返回 Exists=false，损坏时返回 IsValid=false。
+    param([string]$WorkspacePath)
+
+    $path = Get-GodotMcpProjectRendezvousPath -WorkspacePath $WorkspacePath
+    if (-not (Test-Path -LiteralPath $path)) {
+        return [pscustomobject]@{ Exists = $false; IsValid = $false; Path = $path }
+    }
+
+    try {
+        $json = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json
+        $lastHeartbeat = if ($json.lastHeartbeat) { [datetime]$json.lastHeartbeat } else { $null }
+        $age = if ($lastHeartbeat) { [math]::Round(((Get-Date) - $lastHeartbeat).TotalSeconds, 1) } else { $null }
+        return [pscustomobject]@{
+            Exists              = $true
+            IsValid             = $true
+            Path                = $path
+            Port                = [int]$json.port
+            Pid                 = [int]$json.pid
+            Workspace           = [string]$json.workspace
+            SessionId           = [string]$json.sessionId
+            StartedAt           = [string]$json.startedAt
+            LastHeartbeat       = [string]$json.lastHeartbeat
+            HeartbeatAgeSeconds = $age
+            Version             = [string]$json.version
+            Kind                = [string]$json.kind
+            PortPlanVersion     = [string]$json.portPlanVersion
+            IsHeartbeatStale    = ($null -eq $lastHeartbeat -or $age -gt $script:GodotMcpHeartbeatStaleSeconds)
+        }
+    } catch {
+        return [pscustomobject]@{ Exists = $true; IsValid = $false; Path = $path; Error = $_.Exception.Message }
+    }
+}
+
+function Get-GodotMcpTcpDynamicPortRange {
+    # 读取当前 Windows TCP 动态端口池，用于解释为什么 6505-6534 容易被通用网络软件占用。
+    # 输出：StartPort、EndPort、NumberOfPorts；非 Windows 或 netsh 失败时返回空数组。
+    $text = (& netsh int ipv4 show dynamicport tcp) 2>$null | Out-String
+    $startMatch = [regex]::Match($text, "Start Port\s*:\s*(\d+)")
+    $countMatch = [regex]::Match($text, "Number of Ports\s*:\s*(\d+)")
+    if (-not $startMatch.Success -or -not $countMatch.Success) {
+        return @()
+    }
+    $start = [int]$startMatch.Groups[1].Value
+    $count = [int]$countMatch.Groups[1].Value
+    [pscustomobject]@{
+        StartPort     = $start
+        EndPort       = $start + $count - 1
+        NumberOfPorts = $count
+    }
+}
+
+function Test-GodotMcpPortInDynamicRange {
+    # 判断端口是否落入当前 Windows TCP 动态端口池。
+    # 输出：布尔值；无法读取动态端口池时返回 false。
+    param([int]$Port)
+
+    $range = @(Get-GodotMcpTcpDynamicPortRange | Select-Object -First 1)
+    if (-not $range) {
+        return $false
+    }
+    return $Port -ge $range.StartPort -and $Port -le $range.EndPort
 }
 
 function Get-GodotMcpBridgeLocks {
@@ -160,8 +243,8 @@ function Get-GodotMcpCliProcessInfos {
 
 function Get-GodotMcpBridgeListeners {
     # 读取 stdio bridge 监听端口。
-    # 默认只看 6505-6509 与 6515-6534，显式跳过 6510-6514 CLI reserved。
-    param([int[]]$Ports = $script:GodotMcpStdioBridgePorts)
+    # 默认看 17605-17619 与 legacy 6505-6509，显式跳过新旧 CLI 端口。
+    param([int[]]$Ports = $script:GodotMcpAllStdioBridgePorts)
 
     $listeners = Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue |
         Where-Object { $_.LocalPort -in $Ports }
@@ -179,10 +262,10 @@ function Get-GodotMcpBridgeListeners {
 }
 
 function Get-GodotMcpCliListeners {
-    # 读取 6510-6514 godot-cli reserved 监听端口。
+    # 读取 17620-17624 与 legacy 6510-6514 godot-cli reserved 监听端口。
     # 这些监听只用于确认 CLI 是否占用，不参与 bridge stale 清理。
     $listeners = Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue |
-        Where-Object { $_.LocalPort -in $script:GodotMcpCliPorts }
+        Where-Object { $_.LocalPort -in $script:GodotMcpAllCliPorts }
 
     foreach ($listener in $listeners) {
         $runtimeProcess = Get-Process -Id $listener.OwningProcess -ErrorAction SilentlyContinue
@@ -245,7 +328,7 @@ function Get-GodotEstablishedBridgeConnections {
             LocalPort     = $connection.LocalPort
             RemoteAddress = $connection.RemoteAddress
             RemotePort    = $connection.RemotePort
-            PortKind      = if ($connection.RemotePort -in $script:GodotMcpCliPorts) { "cli" } else { "stdio" }
+            PortKind      = if ($connection.RemotePort -in $script:GodotMcpAllCliPorts) { "cli" } else { "stdio" }
         }
     }
 }
@@ -260,6 +343,8 @@ function Get-GodotMcpBridgeDiagnosticSnapshot {
     $bridgeListeners = @(Get-GodotMcpBridgeListeners)
     $cliListeners = @(Get-GodotMcpCliListeners)
     $locks = @(Get-GodotMcpBridgeLocks)
+    $rendezvous = Get-GodotMcpProjectRendezvous -WorkspacePath $WorkspacePath
+    $dynamicRange = @(Get-GodotMcpTcpDynamicPortRange)
     $editorConnections = @(Get-GodotEstablishedBridgeConnections -WorkspacePath $WorkspacePath)
     $connectedPorts = @($editorConnections | Where-Object { $_.PortKind -eq "stdio" } | Select-Object -ExpandProperty RemotePort -Unique)
     $workspaceComparable = ConvertTo-GodotMcpComparablePath (Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath)
@@ -302,6 +387,8 @@ function Get-GodotMcpBridgeDiagnosticSnapshot {
             LastHeartbeat              = if ($lock) { $lock.LastHeartbeat } else { "" }
             HeartbeatAgeSeconds        = if ($lock) { $lock.HeartbeatAgeSeconds } else { $null }
             LockPath                   = if ($lock) { $lock.Path } else { "" }
+            IsLegacyPort               = ($listener.LocalPort -in $script:GodotMcpLegacyStdioPorts)
+            InDynamicTcpRange          = Test-GodotMcpPortInDynamicRange -Port $listener.LocalPort
         }
     }
 
@@ -338,6 +425,8 @@ function Get-GodotMcpBridgeDiagnosticSnapshot {
         BridgeListeners   = $enrichedListeners
         CliListeners      = $cliListeners
         BridgeLocks       = $locks
+        ProjectRendezvous = $rendezvous
+        DynamicTcpRange   = $dynamicRange
         EditorConnections = $editorConnections
     }
 }

@@ -11,18 +11,26 @@ import {
   GodotCommandError,
   TimeoutError,
 } from "./utils/errors.js";
-import { BridgeLockHeartbeat, getDefaultBridgeLockRoot } from "./utils/bridge-lock.js";
+import {
+  BridgeLockHeartbeat,
+  getDefaultBridgeLockRoot,
+  readProjectRendezvous,
+} from "./utils/bridge-lock.js";
 
-const BASE_PORT = 6505;
-const MAX_PORT = 6534;
+const DEFAULT_STDIO_PORT_RANGE = "17605-17619";
+const DEFAULT_LEGACY_STDIO_PORT_RANGE = "6505-6509";
 const COMMAND_TIMEOUT_MS = 30000;
 const HEARTBEAT_INTERVAL_MS = 10000;
-export const DEFAULT_RESERVED_CLI_PORTS = [6510, 6511, 6512, 6513, 6514];
+export const PORT_PLAN_VERSION = "17605-primary";
+export const DEFAULT_STDIO_PORTS = parsePortList(DEFAULT_STDIO_PORT_RANGE);
+export const DEFAULT_LEGACY_STDIO_PORTS = parsePortList(DEFAULT_LEGACY_STDIO_PORT_RANGE);
+export const DEFAULT_RESERVED_CLI_PORTS = parsePortList("17620-17624");
+export const DEFAULT_LEGACY_RESERVED_CLI_PORTS = parsePortList("6510-6514");
 
 /**
- * 解析逗号分隔或短横线范围端口列表，例如 "6510-6514,6530"。
- * 该函数服务于 GODOT_MCP_RESERVED_PORTS，让本地环境可以扩展保留端口，
- * 但默认仍必须跳过 godot-cli 使用的 6510-6514。
+ * 解析逗号分隔或短横线范围端口列表，例如 "17605-17619,6505"。
+ * 该函数服务于端口环境变量，让本地环境可以覆盖 stdio/CLI 端口段；
+ * 默认仍必须跳过 godot-cli 使用的 17620-17624 与 legacy 6510-6514。
  */
 export function parsePortList(value: string | undefined): number[] {
   if (!value) return [];
@@ -45,22 +53,29 @@ export function parsePortList(value: string | undefined): number[] {
 
 /**
  * 构造 stdio bridge 候选端口。
- * 默认扫描 6505-6534，但会剔除 reserved CLI 端口；因此 stdio 自动监听
- * 会覆盖 6505-6509 与 6515-6534，不会抢占 6510-6514。
+ * 默认优先使用 17605-17619，避开本机常见 TCP 动态端口池；6505-6509
+ * 只作为 legacy fallback。stdio 自动监听永远跳过新旧 CLI reserved 端口，
+ * 避免 Codex/Claude/opencode 会话启动时抢占 godot-cli 临时端口。
  */
 export function buildCandidatePorts(
-  basePort: number = parseInt(process.env.GODOT_MCP_BASE_PORT || `${BASE_PORT}`, 10),
-  maxPort: number = parseInt(process.env.GODOT_MCP_MAX_PORT || `${MAX_PORT}`, 10),
-  reservedPorts: number[] = parsePortList(process.env.GODOT_MCP_RESERVED_PORTS).length > 0
-    ? parsePortList(process.env.GODOT_MCP_RESERVED_PORTS)
-    : DEFAULT_RESERVED_CLI_PORTS
+  stdioPorts: number[] = parsePortList(process.env.GODOT_MCP_PORT_RANGE || DEFAULT_STDIO_PORT_RANGE),
+  legacyStdioPorts: number[] = process.env.GODOT_MCP_DISABLE_LEGACY_PORTS === "1"
+    ? []
+    : parsePortList(process.env.GODOT_MCP_LEGACY_STDIO_PORTS || DEFAULT_LEGACY_STDIO_PORT_RANGE),
+  reservedPorts: number[] = [
+    ...DEFAULT_RESERVED_CLI_PORTS,
+    ...DEFAULT_LEGACY_RESERVED_CLI_PORTS,
+    ...parsePortList(process.env.GODOT_MCP_CLI_PORT_RANGE),
+    ...parsePortList(process.env.GODOT_MCP_LEGACY_CLI_PORTS),
+    ...parsePortList(process.env.GODOT_MCP_RESERVED_PORTS),
+  ]
 ): number[] {
   const reserved = new Set(reservedPorts);
-  const ports: number[] = [];
-  for (let p = basePort; p <= maxPort; p++) {
-    if (!reserved.has(p)) ports.push(p);
+  const ports = new Set<number>();
+  for (const p of [...stdioPorts, ...legacyStdioPorts]) {
+    if (!reserved.has(p)) ports.add(p);
   }
-  return ports;
+  return [...ports];
 }
 
 /**
@@ -92,11 +107,12 @@ export class GodotConnection {
   private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
   private candidatePorts: number[];
   private reservedCliPorts: number[];
+  private legacyStdioPorts: number[];
   private lastError: string | null = null;
   private bridgeLock: BridgeLockHeartbeat;
 
   constructor(
-    port: number = BASE_PORT,
+    port: number = DEFAULT_STDIO_PORTS[0],
     strictPort: boolean = false,
     private readonly workspace: string = process.cwd(),
     private readonly sessionId: string = randomUUID(),
@@ -104,14 +120,24 @@ export class GodotConnection {
   ) {
     this.port = port;
     this.strictPort = strictPort;
-    this.reservedCliPorts = parsePortList(process.env.GODOT_MCP_RESERVED_PORTS);
-    if (this.reservedCliPorts.length === 0) this.reservedCliPorts = DEFAULT_RESERVED_CLI_PORTS;
+    this.reservedCliPorts = [
+      ...DEFAULT_RESERVED_CLI_PORTS,
+      ...DEFAULT_LEGACY_RESERVED_CLI_PORTS,
+      ...parsePortList(process.env.GODOT_MCP_CLI_PORT_RANGE),
+      ...parsePortList(process.env.GODOT_MCP_LEGACY_CLI_PORTS),
+      ...parsePortList(process.env.GODOT_MCP_RESERVED_PORTS),
+    ];
+    this.legacyStdioPorts = process.env.GODOT_MCP_DISABLE_LEGACY_PORTS === "1"
+      ? []
+      : parsePortList(process.env.GODOT_MCP_LEGACY_STDIO_PORTS || DEFAULT_LEGACY_STDIO_PORT_RANGE);
     this.candidatePorts = buildCandidatePorts(undefined, undefined, this.reservedCliPorts);
     this.bridgeLock = new BridgeLockHeartbeat(
       getDefaultBridgeLockRoot(),
       this.workspace,
       this.sessionId,
-      this.version
+      this.version,
+      5000,
+      PORT_PLAN_VERSION
     );
   }
 
@@ -205,6 +231,10 @@ export class GodotConnection {
     return [...this.reservedCliPorts];
   }
 
+  getLegacyStdioPorts(): number[] {
+    return [...this.legacyStdioPorts];
+  }
+
   getWorkspace(): string {
     return this.workspace;
   }
@@ -227,6 +257,24 @@ export class GodotConnection {
 
   getLockPath(): string | null {
     return this.bridgeLock.getLockPath();
+  }
+
+  getRendezvousPath(): string {
+    return this.bridgeLock.getRendezvousPath();
+  }
+
+  getRendezvousStatus(): Record<string, unknown> {
+    const rendezvous = readProjectRendezvous(this.workspace);
+    return {
+      path: this.getRendezvousPath(),
+      exists: rendezvous !== null,
+      port: rendezvous?.port ?? null,
+      pid: rendezvous?.pid ?? null,
+      workspace: rendezvous?.workspace ?? null,
+      sessionId: rendezvous?.sessionId ?? null,
+      lastHeartbeat: rendezvous?.lastHeartbeat ?? null,
+      portPlanVersion: rendezvous?.portPlanVersion ?? null,
+    };
   }
 
   async sendCommand(
@@ -270,11 +318,14 @@ export class GodotConnection {
 
   /**
    * 选择监听端口。
-   * strict 模式用于确实需要固定端口的调试场景；普通 Codex stdio 会话应允许
-   * fallback，否则旧 bridge 占用 6505 时当前会话无法自救。
+   * strict 模式用于确实需要固定端口的调试场景；普通 stdio 会话应允许
+   * fallback。新端口段优先使用 17605-17619，legacy 6505-6509 只在必要时兜底。
    */
   private async choosePort(): Promise<number> {
     if (this.strictPort) {
+      if (this.reservedCliPorts.includes(this.port)) {
+        throw new GodotConnectionError(`Configured strict port ${this.port} is reserved for godot-cli.`);
+      }
       if (!(await isPortFree(this.port))) {
         throw new GodotConnectionError(`Configured strict port ${this.port} is already in use.`);
       }
@@ -352,9 +403,20 @@ export class GodotConnection {
       incomingWorkspace &&
       normalizeWorkspacePath(incomingWorkspace) !== normalizeWorkspacePath(this.workspace)
     ) {
+      this.sendHelloAck(ws, false, "Workspace mismatch");
       ws.close(1008, "Workspace mismatch");
       console.error(
         `[MCP] Rejected Godot editor for workspace '${incomingWorkspace}' while bridge expects '${this.workspace}'`
+      );
+      return;
+    }
+
+    const incomingSessionId = String(msg.params?.sessionId || "");
+    if (incomingSessionId && incomingSessionId !== this.sessionId) {
+      this.sendHelloAck(ws, false, "Session mismatch");
+      ws.close(1008, "Session mismatch");
+      console.error(
+        `[MCP] Rejected Godot editor session '${incomingSessionId}' while bridge expects '${this.sessionId}'`
       );
       return;
     }
@@ -364,7 +426,24 @@ export class GodotConnection {
     }
     this.client = ws;
     this.startHeartbeat();
+    this.sendHelloAck(ws, true, "Accepted");
     console.error("[MCP] Godot editor workspace handshake accepted");
+  }
+
+  private sendHelloAck(ws: WebSocket, accepted: boolean, reason: string): void {
+    if (ws.readyState !== WebSocket.OPEN) return;
+    ws.send(JSON.stringify({
+      jsonrpc: "2.0",
+      method: "godot_hello_ack",
+      params: {
+        accepted,
+        reason,
+        port: this.port,
+        workspace: this.workspace,
+        sessionId: this.sessionId,
+        portPlanVersion: PORT_PLAN_VERSION,
+      },
+    }));
   }
 
   private rejectAllPending(error: Error): void {

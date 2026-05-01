@@ -51,9 +51,10 @@ const workspace = process.env.GODOT_MCP_WORKSPACE || process.cwd();
 const sessionId = process.env.GODOT_MCP_SESSION_ID || randomUUID();
 // GODOT_MCP_PORT 在普通模式下只是 preferred port，旧 bridge 占用时允许 fallback。
 // 只有 GODOT_MCP_STRICT_PORT=1 时才把该端口视为硬约束并在失败时退出。
-// workspace/sessionId 会写入 lock，并通过 Godot 端 godot_hello 防止跨项目 editor 抢线。
+// workspace/sessionId 会写入全局 lock 与项目本地 rendezvous，并通过 Godot 端
+// godot_hello / godot_hello_ack 防止跨项目或跨会话 editor 抢线。
 const godot = new GodotConnection(
-  parseInt(explicitPort || "6505"),
+  parseInt(explicitPort || "17605"),
   strictPort,
   workspace,
   sessionId,

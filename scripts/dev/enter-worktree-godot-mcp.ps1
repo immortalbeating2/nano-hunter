@@ -14,7 +14,7 @@
 # 是否会修改：
 # - 默认只读或打开当前 worktree 的 Godot。
 # - 只有传入 -ResetBeforeReopen 且同时传入 -ConfirmNoOtherGodotMcpSessions 时，才会调用 safe-repair 清理 stale stdio bridge。
-# - 永远不把 6510-6514 godot-cli reserved 端口当作 stale bridge 清理对象。
+# - 永远不把 17620-17624 或 legacy 6510-6514 godot-cli 端口当作 stale bridge 清理对象。
 # 常用命令：
 # - 预览：.\scripts\dev\enter-worktree-godot-mcp.ps1 -DryRun
 # - 确认无其它会话后清理 stale：.\scripts\dev\enter-worktree-godot-mcp.ps1 -ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions
@@ -34,8 +34,9 @@ Write-Host "Workspace: $workspace"
 Write-Host ("RecommendedAction: {0}" -f $recommendation.RecommendedAction)
 Write-Host ("Reason: {0}" -f $recommendation.Reason)
 Write-GodotMcpSection -Title "Port Plan" -Rows @(Get-GodotMcpPortPlan)
-Write-GodotMcpSection -Title "Bridge Listeners (stdio 6505-6509,6515-6534)" -Rows @($snapshot.BridgeListeners | Sort-Object LocalPort)
-Write-GodotMcpSection -Title "CLI Listeners (reserved 6510-6514)" -Rows @($snapshot.CliListeners | Sort-Object LocalPort)
+Write-GodotMcpSection -Title "Project Rendezvous" -Rows @($snapshot.ProjectRendezvous)
+Write-GodotMcpSection -Title "Bridge Listeners (stdio 17605-17619; legacy 6505-6509)" -Rows @($snapshot.BridgeListeners | Sort-Object LocalPort)
+Write-GodotMcpSection -Title "CLI Listeners (cli 17620-17624; legacy 6510-6514)" -Rows @($snapshot.CliListeners | Sort-Object LocalPort)
 Write-GodotMcpSection -Title "Bridge Locks" -Rows @($snapshot.BridgeLocks | Sort-Object Port)
 
 if ($ForceKillBridge) {

@@ -16,6 +16,18 @@ export interface BridgeLock {
   lastHeartbeat: string;
   version: string;
   kind: "stdio";
+  portPlanVersion?: string;
+}
+
+/**
+ * 项目本地 rendezvous 文件是本轮根治的关键：
+ * - 全局 lock 负责“本机有哪些 bridge”的诊断。
+ * - 项目 rendezvous 负责“当前 Godot editor 应该先连哪个会话”的精确定位。
+ * 它仍然不是唯一真相；脚本和插件必须结合 PID、heartbeat、workspace/sessionId
+ * 与实际 TCP 连接来判断是否 stale。
+ */
+export interface BridgeRendezvous extends BridgeLock {
+  rendezvousVersion: 1;
 }
 
 /**
@@ -54,6 +66,47 @@ export function removeBridgeLock(root: string, port: number): void {
   rmSync(getBridgeLockPath(root, port), { force: true });
 }
 
+/** 返回当前 workspace 的 rendezvous 文件路径。 */
+export function getProjectRendezvousPath(workspace: string): string {
+  return join(workspace, ".godot", "godot-mcp-pro", "current-bridge.json");
+}
+
+/** 写入项目本地 rendezvous，让 Godot 插件不再盲扫旧端口。 */
+export function writeProjectRendezvous(workspace: string, lock: BridgeLock): void {
+  const rendezvousPath = getProjectRendezvousPath(workspace);
+  mkdirSync(join(workspace, ".godot", "godot-mcp-pro"), { recursive: true });
+  const payload: BridgeRendezvous = {
+    ...lock,
+    rendezvousVersion: 1,
+  };
+  writeFileSync(rendezvousPath, JSON.stringify(payload, null, 2), "utf8");
+}
+
+/** 读取项目本地 rendezvous；损坏或半写入文件返回 null，由调用方 fallback 扫描。 */
+export function readProjectRendezvous(workspace: string): BridgeRendezvous | null {
+  const rendezvousPath = getProjectRendezvousPath(workspace);
+  if (!existsSync(rendezvousPath)) return null;
+  try {
+    return JSON.parse(readFileSync(rendezvousPath, "utf8")) as BridgeRendezvous;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 退出时只删除属于本进程 / 本 session 的 rendezvous。
+ * 这样旧 bridge 延迟退出时不会误删同一 workspace 新会话刚写入的连接文件。
+ */
+export function removeProjectRendezvous(
+  workspace: string,
+  pid: number,
+  sessionId: string
+): void {
+  const rendezvous = readProjectRendezvous(workspace);
+  if (!rendezvous || rendezvous.pid !== pid || rendezvous.sessionId !== sessionId) return;
+  rmSync(getProjectRendezvousPath(workspace), { force: true });
+}
+
 /** 判断 heartbeat 是否超过阈值；时间戳损坏时按 stale 处理。 */
 export function isHeartbeatStale(
   lock: BridgeLock,
@@ -74,7 +127,8 @@ export class BridgeLockHeartbeat {
     private readonly workspace: string,
     private readonly sessionId: string,
     private readonly version: string,
-    private readonly intervalMs: number = 5000
+    private readonly intervalMs: number = 5000,
+    private readonly portPlanVersion: string = "17605-primary"
   ) {}
 
   /** 监听端口成功后启动 heartbeat；每次刷新都重写完整 lock，便于脚本只读诊断。 */
@@ -90,12 +144,15 @@ export class BridgeLockHeartbeat {
       lastHeartbeat: now,
       version: this.version,
       kind: "stdio",
+      portPlanVersion: this.portPlanVersion,
     };
     writeBridgeLock(this.root, this.lock);
+    writeProjectRendezvous(this.workspace, this.lock);
     this.timer = setInterval(() => {
       if (!this.lock) return;
       this.lock.lastHeartbeat = new Date().toISOString();
       writeBridgeLock(this.root, this.lock);
+      writeProjectRendezvous(this.workspace, this.lock);
     }, this.intervalMs);
   }
 
@@ -107,11 +164,16 @@ export class BridgeLockHeartbeat {
     }
     if (this.lock) {
       removeBridgeLock(this.root, this.lock.port);
+      removeProjectRendezvous(this.workspace, this.lock.pid, this.lock.sessionId);
       this.lock = null;
     }
   }
 
   getLockPath(): string | null {
     return this.lock ? getBridgeLockPath(this.root, this.lock.port) : null;
+  }
+
+  getRendezvousPath(): string {
+    return getProjectRendezvousPath(this.workspace);
   }
 }

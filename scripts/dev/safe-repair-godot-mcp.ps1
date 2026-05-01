@@ -11,7 +11,7 @@
 # 是否会修改：
 # - 默认会关闭命令行指向当前 workspace 的 Godot editor，不关闭其它 workspace 的 Godot。
 # - 只有 -ForceKillBridge 才会停止 stale stdio bridge 进程。
-# - 不清理 6510-6514 godot-cli reserved 端口进程。
+# - 不清理 17620-17624 或 legacy 6510-6514 godot-cli reserved 端口进程。
 # 常用命令：
 # - 预览：.\scripts\dev\safe-repair-godot-mcp.ps1 -DryRun
 # - 受限清理 stale bridge：.\scripts\dev\safe-repair-godot-mcp.ps1 -ForceKillBridge
@@ -73,7 +73,8 @@ if (-not $DryRun) {
 }
 
 $after = Get-GodotMcpBridgeDiagnosticSnapshot -WorkspacePath $workspace
-Write-GodotMcpSection -Title "Bridge Listeners (stdio 6505-6509,6515-6534)" -Rows @($after.BridgeListeners | Sort-Object LocalPort)
-Write-GodotMcpSection -Title "CLI Listeners (reserved 6510-6514)" -Rows @($after.CliListeners | Sort-Object LocalPort)
+Write-GodotMcpSection -Title "Project Rendezvous" -Rows @($after.ProjectRendezvous)
+Write-GodotMcpSection -Title "Bridge Listeners (stdio 17605-17619; legacy 6505-6509)" -Rows @($after.BridgeListeners | Sort-Object LocalPort)
+Write-GodotMcpSection -Title "CLI Listeners (cli 17620-17624; legacy 6510-6514)" -Rows @($after.CliListeners | Sort-Object LocalPort)
 Write-GodotMcpSection -Title "Current Workspace Editors" -Rows @(Get-GodotEditorProcessInfos -WorkspacePath $workspace | Where-Object { $_.MatchesWorkspace } | Sort-Object StartTime)
 Write-GodotMcpSection -Title "Other Godot Editors" -Rows @(Get-GodotEditorProcessInfos -WorkspacePath $workspace | Where-Object { -not $_.MatchesWorkspace } | Sort-Object StartTime)

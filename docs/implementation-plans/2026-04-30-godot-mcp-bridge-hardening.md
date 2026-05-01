@@ -82,3 +82,13 @@ git diff --check
 - 关键证据：当前会话工具入口存在，但 MCP 只读工具返回 Godot editor 未连接；当前 worktree Godot editor 曾连到旧 `6505` bridge，而不是当前会话候选 bridge。
 - `LikelyCurrentSession` 只是脚本按最新 bridge 启动时间推断，不是 Codex 内部暴露的当前 MCP 子进程 PID。
 - 后续需要新增独立 session/port rendezvous 计划，让 Node server、脚本和 Godot 插件传递当前 `port/sessionId/workspace`，插件优先连接指定端口，并通过 `workspace + sessionId` 完成握手。
+
+## Follow-up: 17605 端口迁移与 Rendezvous 根治
+
+- [x] 将 stdio 主端口迁移到 `17605-17619`，避开本机已确认的 `1024-15000` TCP 动态端口池。
+- [x] 将 `godot-cli` 主端口迁移到 `17620-17624`；`6505-6509` / `6510-6514` 仅作为 legacy fallback。
+- [x] Node server 写入全局 lock 与项目本地 `.godot/godot-mcp-pro/current-bridge.json` rendezvous。
+- [x] Godot 插件优先读取 rendezvous，再连接 `17605-17619`、`17620-17624` 和 legacy 端口组。
+- [x] `godot_hello` 扩展为携带 `workspace`、`sessionId`、`projectPath` 和 `connectionSource`；Node 返回 `godot_hello_ack`。
+- [x] 脚本诊断增加项目 rendezvous、动态端口范围、新旧端口分组和 legacy 标识。
+- [x] 补丁源同步新增 `cli.ts`、`setup.ts`，避免升级后重放时丢失 CLI 端口迁移。

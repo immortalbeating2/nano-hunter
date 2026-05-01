@@ -49,8 +49,9 @@ func _enter_tree() -> void:
 	if cfg.load("res://addons/godot_mcp/plugin.cfg") == OK:
 		ver = cfg.get_value("plugin", "version", "unknown")
 	# 端口规划需和 Node server、PowerShell 诊断脚本、通用补丁脚本同步。
-	# 6510-6514 保留给 godot-cli；stdio bridge 只使用 6505-6509 与 6515-6534。
-	print("[MCP] Godot MCP Pro v%s started (stdio 6505-6509,6515-6534; cli 6510-6514)" % ver)
+	# 端口规划必须与 Node server、PowerShell 脚本、补丁脚本和连通性指南同步。
+	# 17605-17619 是 stdio primary；17620-17624 是 CLI primary；6505-6509/6510-6514 仅为 legacy。
+	print("[MCP] Godot MCP Pro v%s started (stdio 17605-17619; cli 17620-17624; legacy 6505-6509/6510-6514)" % ver)
 
 
 func _exit_tree() -> void:

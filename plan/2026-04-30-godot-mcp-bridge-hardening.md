@@ -90,3 +90,11 @@
 
 - 本正式计划记录的是 Godot MCP bridge lifecycle hardening，不应再被描述为完整根治。
 - 真正根治多 IDE / CLI / worktree 串线，需要另起 session/port rendezvous 计划：当前会话 bridge 写出 `port/sessionId/workspace`，Godot 插件优先连接指定端口，Node server 以 `workspace + sessionId` 验证连接。
+
+## Final Root-Cause Update: Port Migration And Rendezvous
+
+- stdio 主端口从旧 `6505-6509,6515-6534` 改为 `17605-17619`；旧 `6505-6509` 仅为 legacy fallback。
+- `godot-cli` 主端口从旧 `6510-6514` 改为 `17620-17624`；旧 `6510-6514` 仅为 legacy fallback。
+- 迁移原因：本机 TCP 动态端口池为 `1024-15000`，旧 `6505-6534` 容易被 Foxmail、verge-mihomo 等通用网络软件占用。
+- Node server 写入 `<workspace>/.godot/godot-mcp-pro/current-bridge.json`，Godot 插件优先读取该 rendezvous 文件，再做端口 fallback。
+- `godot_hello` 握手扩展为 `workspace + sessionId + connectionSource`，Node 返回 `godot_hello_ack`；这才是防止跨 IDE / CLI / worktree 串线的根治边界。

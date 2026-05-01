@@ -1,12 +1,12 @@
 # Nano Hunter Status
 
-Last Updated: 2026-04-30
+Last Updated: 2026-05-01
 
 ## Current Status
 
 - 当前稳定游戏基线仍是 `main` 上的 Stage16 Alpha Demo 打包候选，包含最小 Demo 壳、Stage15 `Seal Guardian / 封印守卫`、`Recovery Charge / 恢复充能`、Stage16 五房终局封印链、Alpha Demo 完成反馈、`docs/deliverables/stage16-alpha-demo-candidate/` 交付物与第二轮资产 / 音频需求记录。
 - 当前开发现场为工具链修复分支 `codex/fix-godot-mcp-bridge-lifecycle`，工作目录是 `C:\Users\peng8\.codex\worktrees\fef5\nano-hunter`；本分支只改 Godot MCP Pro、诊断脚本、补丁工具和文档治理，不改玩法、场景、资产或主流程内容。
-- Godot MCP bridge lifecycle hardening 已完成并提交，但 2026-04-30 人工复核确认它还不能称为完整根治：Godot editor 仍可能优先连到旧低端口 bridge，真正解决多 IDE / CLI / worktree 串线还需要 session/port rendezvous。
+- Godot MCP bridge lifecycle hardening 已推进到端口迁移与 session/port rendezvous 根治：stdio 主端口改为 `17605-17619`，CLI 主端口改为 `17620-17624`，Node server 会写入项目本地 `.godot/godot-mcp-pro/current-bridge.json`，Godot 插件优先按 rendezvous 连接当前会话。
 - 当前 worktree 存在 `project.godot` 的临时 MCP runtime autoload diff；该 diff 属于运行态复核现场，提交文档或工具链修复前必须单独确认是否清理，不应混入文档治理提交。
 
 ## Current Stable Baseline
@@ -16,6 +16,13 @@ Last Updated: 2026-04-30
 - 当前设计约束：后续阶段继续向南北朝东方奇幻、封妖禁地、瘴泽、妖域、符印机关等语境回收灰盒命名，不继续扩大现代实验室表达。
 
 ## Recent Status Changes
+
+### 2026-05-01 - Godot MCP 端口迁移与 rendezvous 根治
+
+- 状态：在 `codex/fix-godot-mcp-bridge-lifecycle` 上实现新主端口段、项目本地 rendezvous、`godot_hello_ack`、脚本诊断同步和补丁源重放更新。
+- 原因：本机 TCP 动态端口池为 `1024-15000`，旧 `6505-6534` 已观察到被 Foxmail、verge-mihomo 等网络软件占用。
+- 验证：外部 Node server `npm test` / `npm run build`、Godot import、诊断脚本 dry-run、补丁脚本 dry-run、rendezvous smoke test 和 `git diff --check` 已通过。
+- 详情：`docs/progress/logs/2026-05-01.md`。
 
 ### 2026-04-30 - Godot MCP hardening 复核修正
 
@@ -51,15 +58,14 @@ Last Updated: 2026-04-30
 
 ## Current Risks
 
-- Godot MCP Pro 当前已完成 hardening，但多会话串线真正根因仍缺 session/port rendezvous；在该功能完成前，旧低端口 bridge 仍可能抢先被 Godot 插件连接。
+- Godot MCP Pro 的端口迁移与 rendezvous 根治已通过静态、构建、脚本和 smoke 验证；当前会话若要实测 `mcp__godot_mcp_pro__` 直连新 rendezvous，需要从本 worktree 重开 IDE / CLI 会话加载新 server。
 - Codex / Claude Code / opencode 等客户端的工具入口命名不同；不能把 `mcp__godot_mcp_pro__` 视为跨客户端标准，只能作为 Codex Desktop 当前常见前缀。
 - MCP 运行态截图和一次性复核证据默认保留在 `tests/artifacts/local/`，不进入提交。
 - 若工作树存在 MCP 临时 autoload diff，继续运行态复核前可保留；提交非 MCP 运行态改动前必须明确清理或说明。
 
 ## Next Steps
 
-- 新增独立 session/port rendezvous 计划，明确 Node server、Godot 插件、脚本和补丁源如何传递当前会话 `port/sessionId/workspace`。
-- 在实现 rendezvous 前，Godot MCP 人工复核继续按 `docs/dev/godot-mcp-pro-connectivity-guide.md` 分层判断，不把 hardening 误写成完整根治。
+- 从本 worktree 重开 IDE / CLI 会话后，打开本 worktree Godot editor，实测当前会话工具是否通过 rendezvous 连接到 `17605-17619`。
 - 若只做文档治理提交，避免纳入当前 `project.godot` 临时 MCP autoload diff。
 
 ## References

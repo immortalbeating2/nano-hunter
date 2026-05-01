@@ -11,10 +11,14 @@ const COLOR_SUCCESS := Color(0.6, 1, 0.6)
 const COLOR_ERROR := Color(1, 0.6, 0.6)
 const COLOR_DIM := Color(0.6, 0.6, 0.6)
 
-const BASE_PORT := 6505
-const MAX_PORT := 6534
-const CLI_RESERVED_START := 6510
-const CLI_RESERVED_END := 6514
+const STDIO_PRIMARY_START := 17605
+const STDIO_PRIMARY_END := 17619
+const CLI_PRIMARY_START := 17620
+const CLI_PRIMARY_END := 17624
+const LEGACY_STDIO_START := 6505
+const LEGACY_STDIO_END := 6509
+const LEGACY_CLI_START := 6510
+const LEGACY_CLI_END := 6514
 
 # 状态面板只用于人工复核：它显示插件扫描范围和端口角色，方便确认 Godot editor
 # 是否看到了 bridge / CLI 端口。真正 stale 清理必须由 PowerShell 脚本结合
@@ -55,6 +59,10 @@ func setup(ws_server: Node, cmd_router: Node = null) -> void:
 		websocket_server.client_disconnected.connect(_on_client_disconnected)
 		if websocket_server.has_signal("workspace_handshake_sent"):
 			websocket_server.workspace_handshake_sent.connect(_on_workspace_handshake_sent)
+		if websocket_server.has_signal("workspace_handshake_accepted"):
+			websocket_server.workspace_handshake_accepted.connect(_on_workspace_handshake_accepted)
+		if websocket_server.has_signal("workspace_handshake_rejected"):
+			websocket_server.workspace_handshake_rejected.connect(_on_workspace_handshake_rejected)
 		if websocket_server.has_signal("command_completed"):
 			websocket_server.command_completed.connect(_on_command_completed)
 		else:
@@ -142,7 +150,7 @@ func _build_clients_tab() -> void:
 	vbox.name = "Clients"
 	_tab_container.add_child(vbox)
 
-	for p in range(BASE_PORT, MAX_PORT + 1):
+	for p in _status_ports():
 		var row := HBoxContainer.new()
 		vbox.add_child(row)
 
@@ -267,12 +275,30 @@ func _update_clients_tab() -> void:
 
 func _port_role_suffix(port: int) -> String:
 	# 端口角色与 Node server / 诊断脚本 / 补丁脚本保持一致：
-	# 6505-6509 是 stdio primary，6510-6514 是 CLI reserved，6515-6534 是 stdio overflow。
-	if port >= CLI_RESERVED_START and port <= CLI_RESERVED_END:
-		return " (CLI reserved)"
-	if port > CLI_RESERVED_END:
-		return " (stdio overflow)"
-	return " (stdio)"
+	# 17605-17619 是 stdio primary，17620-17624 是 CLI primary；
+	# 6505-6509 / 6510-6514 只保留 legacy 兼容观察。
+	if port >= STDIO_PRIMARY_START and port <= STDIO_PRIMARY_END:
+		return " (stdio primary)"
+	if port >= CLI_PRIMARY_START and port <= CLI_PRIMARY_END:
+		return " (CLI primary)"
+	if port >= LEGACY_STDIO_START and port <= LEGACY_STDIO_END:
+		return " (legacy stdio)"
+	if port >= LEGACY_CLI_START and port <= LEGACY_CLI_END:
+		return " (legacy CLI)"
+	return " (rendezvous)"
+
+
+func _status_ports() -> Array[int]:
+	var ports: Array[int] = []
+	if websocket_server and websocket_server.has_method("get_tracked_ports"):
+		ports = websocket_server.get_tracked_ports()
+	else:
+		for p in range(STDIO_PRIMARY_START, CLI_PRIMARY_END + 1):
+			ports.append(p)
+		for p in range(LEGACY_STDIO_START, LEGACY_CLI_END + 1):
+			ports.append(p)
+	ports.sort()
+	return ports
 
 
 func _apply_port_role_labels() -> void:
@@ -298,6 +324,14 @@ func _on_client_disconnected() -> void:
 
 func _on_workspace_handshake_sent(port: int, workspace: String) -> void:
 	_add_log("Handshake sent on port %d for %s" % [port, workspace], COLOR_DIM)
+
+
+func _on_workspace_handshake_accepted(port: int, session_id: String) -> void:
+	_add_log("Handshake accepted on port %d (%s)" % [port, session_id], COLOR_CONNECTED)
+
+
+func _on_workspace_handshake_rejected(port: int, reason: String) -> void:
+	_add_log("Handshake rejected on port %d: %s" % [port, reason], COLOR_ERROR)
 
 
 func _on_command_executed(method: String, ok: bool) -> void:

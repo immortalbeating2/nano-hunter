@@ -145,3 +145,10 @@
   结果：文档状态修正为“hardening 已完成，完整根治未完成”；后续需新增独立 rendezvous 计划。
   关键证据：当前会话工具入口存在，但 MCP 只读工具返回 Godot editor 未连接；Godot editor 可被旧 `6505` bridge 抢先连接。
   详情：`docs/progress/logs/2026-04-30.md`。
+
+## 2026-05-01
+
+- **Godot MCP 端口迁移与 rendezvous 根治**：在 `codex/fix-godot-mcp-bridge-lifecycle` 上继续工具链根治。
+  结果：stdio 主端口迁移到 `17605-17619`，CLI 主端口迁移到 `17620-17624`，旧 `6505-6509` / `6510-6514` 降级为 legacy；Node 写项目本地 rendezvous，Godot 插件优先连接当前会话指定端口。
+  关键验证：外部 Node server `npm test` / `npm run build` 通过；完整 Godot 与脚本验证见当日日志。
+  详情：`docs/progress/logs/2026-05-01.md`。

@@ -7,8 +7,9 @@
 - 不把所有 Godot MCP 问题都归因到 bridge。
 - 先判断当前 IDE / CLI 是否已加载 Godot MCP Pro 工具入口，再判断 bridge 和 Godot editor。
 - Codex Desktop 当前常见工具前缀是 `mcp__godot_mcp_pro__`；其它 IDE / CLI 的命名可能不同，不能把该前缀当作跨客户端标准。
-- stdio bridge 端口为 `6505-6509,6515-6534`；`6510-6514` 保留给 `godot-cli`，不得按 stale bridge 默认清理。
-- Godot 插件扫描 `6505-6534`，连接后发送 `godot_hello`；Node bridge 只接受 workspace 匹配的 Godot editor。
+- stdio bridge 主端口为 `17605-17619`；`godot-cli` 主端口为 `17620-17624`，不得按 stale bridge 默认清理。
+- `6505-6509` 与 `6510-6514` 只作为 legacy 兼容识别；旧 `6515-6534` 不再作为新方案主力。
+- Godot 插件优先读取项目本地 `.godot/godot-mcp-pro/current-bridge.json`，再连接新端口组；连接后发送 `godot_hello`，Node bridge 只接受 workspace/session 匹配的 Godot editor。
 - runtime autoload 失败不按 bridge stale 处理。
 - 清理 bridge 前必须确认不会影响其它活跃项目 / worktree 会话。
 
@@ -32,11 +33,22 @@ Godot MCP 复核需要当前客户端已经加载 Godot MCP Pro server 暴露的
 
 | Port Range | Role | Cleanup Rule |
 | --- | --- | --- |
-| `6505-6509` | stdio MCP primary | 可作为 stdio bridge 诊断对象 |
-| `6510-6514` | `godot-cli` reserved | 不按 stale bridge 清理 |
-| `6515-6534` | stdio MCP overflow | 可作为 stdio bridge 诊断对象 |
+| `17605-17619` | stdio MCP primary | 可作为 stdio bridge 诊断对象 |
+| `17620-17624` | `godot-cli` primary | 不按 stale bridge 清理 |
+| `6505-6509` | legacy stdio fallback | 只按 legacy stdio 诊断，不优先使用 |
+| `6510-6514` | legacy `godot-cli` fallback | 不按 stale bridge 清理 |
 
-Node stdio server 会跳过 `6510-6514`。`GODOT_MCP_PORT` 只是 preferred port；只有 `GODOT_MCP_STRICT_PORT=1` 才严格固定。当前 server 支持 lazy reconnect：清出端口后，已加载 MCP 工具入口的会话可在下次命令前重新尝试监听。
+Node stdio server 会跳过 `17620-17624` 和 legacy `6510-6514`。`GODOT_MCP_PORT` 只是 preferred port；只有 `GODOT_MCP_STRICT_PORT=1` 才严格固定。当前 server 支持 lazy reconnect：清出端口后，已加载 MCP 工具入口的会话可在下次命令前重新尝试监听。
+
+本机曾确认 TCP 动态端口池为 `1024-15000`，所以旧 `6505-6534` 容易被 Foxmail、verge-mihomo 等通用网络软件作为本地动态端口占用。新主端口段 `17605-17624` 避开该动态池，但脚本仍会做实时占用诊断。
+
+可配置环境变量：
+
+- `GODOT_MCP_PORT_RANGE=17605-17619`
+- `GODOT_MCP_CLI_PORT_RANGE=17620-17624`
+- `GODOT_MCP_LEGACY_STDIO_PORTS=6505-6509`
+- `GODOT_MCP_LEGACY_CLI_PORTS=6510-6514`
+- `GODOT_MCP_DISABLE_LEGACY_PORTS=1`
 
 Bridge lock 位于：
 
@@ -44,7 +56,13 @@ Bridge lock 位于：
 %LOCALAPPDATA%/godot-mcp-pro/bridges/<port>.json
 ```
 
-lock/heartbeat 是辅助证据，不是唯一真相。stale 判断必须结合 PID、TCP 连接、workspace、heartbeat age 和 Godot editor 归属。
+项目本地 rendezvous 位于：
+
+```text
+<workspace>/.godot/godot-mcp-pro/current-bridge.json
+```
+
+lock/heartbeat 和 rendezvous 都是辅助证据，不是唯一真相。stale 判断必须结合 PID、TCP 连接、workspace、sessionId、heartbeat age 和 Godot editor 归属。
 
 ## Daily Workflow
 
@@ -97,7 +115,8 @@ lock/heartbeat 是辅助证据，不是唯一真相。stale 判断必须结合 P
 
 2. Bridge listener
    - Use `check-godot-mcp.ps1` or `get_bridge_status`.
-   - Stdio bridge candidates are `6505-6509,6515-6534`; CLI reserved ports are `6510-6514`.
+   - Stdio bridge candidates are `17605-17619` plus legacy `6505-6509`; CLI ports are `17620-17624` plus legacy `6510-6514`.
+   - 优先确认项目 rendezvous 是否指向当前会话端口。
    - Do not kill a bridge only because it is old.
 
 3. Godot editor connection
@@ -185,6 +204,6 @@ C:\Tools\apply-godot-mcp-pro-hardening-patch.ps1 `
 - 关闭不再需要的运行中游戏实例。
 - 必要时关闭当前 worktree Godot editor。
 - 不为了“收口干净”全量释放 bridge。
-- 若删除物理 worktree，先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，迁移需要保留的 ignored 本地证据，再复核 `git worktree list`、磁盘目录、stdio bridge `6505-6509,6515-6534` 与 CLI reserved `6510-6514` 状态。
+- 若删除物理 worktree，先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，迁移需要保留的 ignored 本地证据，再复核 `git worktree list`、磁盘目录、项目 rendezvous、stdio bridge `17605-17619` / legacy `6505-6509` 与 CLI `17620-17624` / legacy `6510-6514` 状态。
 
 临时 worktree 删除和证据迁移的通用规则以 `AGENTS.md` 为准。

@@ -25,7 +25,8 @@
 # - 独立目录脚本：C:\Tools\godot-mcp-pro-hardening\apply-godot-mcp-pro-hardening-patch.ps1 -ProjectPath C:\Path\To\Project -PatchRoot C:\Tools\godot-mcp-pro-hardening\patch-files -DryRun
 # 安全边界：
 # - 已验证上游版本为 1.12.0；其它版本默认拒绝真实写入，需人工审查后加 -Force。
-# - 6510-6514 永远保留给 godot-cli，不会作为 stdio bridge 端口。
+# - 17605-17619 是 stdio bridge 主端口，17620-17624 保留给 godot-cli。
+# - 6505-6509 / 6510-6514 仅作为 legacy fallback，不再作为新方案主力。
 # - 应用前会把已有目标文件备份到 tests/artifacts/local/godot-mcp-patch-backups/<timestamp>/，或 -BackupRoot 指定目录。
 
 Set-StrictMode -Version Latest
@@ -187,6 +188,8 @@ function Get-PatchCopyPlan {
         $items += New-PatchCopyItem -Group "server" -Source "server\src\utils\bridge-lock.ts" -Target (Join-Path $ServerRoot "src\utils\bridge-lock.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\tools\diagnostic-tools.ts" -Target (Join-Path $ServerRoot "src\tools\diagnostic-tools.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\index.ts" -Target (Join-Path $ServerRoot "src\index.ts")
+        $items += New-PatchCopyItem -Group "server" -Source "server\src\cli.ts" -Target (Join-Path $ServerRoot "src\cli.ts")
+        $items += New-PatchCopyItem -Group "server" -Source "server\src\setup.ts" -Target (Join-Path $ServerRoot "src\setup.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\tests\godot-connection.test.ts" -Target (Join-Path $ServerRoot "tests\godot-connection.test.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\tests\bridge-lock.test.ts" -Target (Join-Path $ServerRoot "tests\bridge-lock.test.ts")
     }
@@ -203,6 +206,7 @@ function Get-PatchCopyPlan {
         $items += New-PatchCopyItem -Group "optional-project-scripts" -Source "optional-project-scripts\scripts\dev\enter-worktree-godot-mcp.ps1" -Target (Join-Path $ProjectRoot "scripts\dev\enter-worktree-godot-mcp.ps1")
         $items += New-PatchCopyItem -Group "optional-project-scripts" -Source "optional-project-scripts\scripts\dev\safe-repair-godot-mcp.ps1" -Target (Join-Path $ProjectRoot "scripts\dev\safe-repair-godot-mcp.ps1")
         $items += New-PatchCopyItem -Group "optional-project-scripts" -Source "optional-project-scripts\scripts\dev\open-worktree-godot.ps1" -Target (Join-Path $ProjectRoot "scripts\dev\open-worktree-godot.ps1")
+        $items += New-PatchCopyItem -Group "optional-project-scripts" -Source "optional-project-scripts\scripts\dev\force-repair-godot-mcp.ps1" -Target (Join-Path $ProjectRoot "scripts\dev\force-repair-godot-mcp.ps1")
     }
 
     return @($items)
@@ -253,9 +257,11 @@ Write-Host "Project: $projectRoot"
 Write-Host "Server:  $serverRoot"
 Write-Host "Patch:   $resolvedPatchRoot"
 Write-Host "Version: $version"
-Write-Host "Stdio bridge ports: 6505-6509,6515-6534"
-Write-Host "CLI reserved ports: 6510-6514"
-Write-Host "Plugin scan ports:  6505-6534"
+Write-Host "Stdio bridge ports: 17605-17619"
+Write-Host "CLI reserved ports: 17620-17624"
+Write-Host "Legacy stdio ports: 6505-6509"
+Write-Host "Legacy CLI ports:   6510-6514"
+Write-Host "Plugin priority:    rendezvous -> 17605-17619 -> 17620-17624 -> legacy"
 Write-Host "Backup root: $backupRootPath"
 Write-Host ("Included groups: {0}" -f ((@($copyPlan | Select-Object -ExpandProperty Group -Unique)) -join ", "))
 

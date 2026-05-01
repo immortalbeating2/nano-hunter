@@ -13,10 +13,14 @@ This directory stores the movable, replayable hardening patch for Godot MCP Pro 
 
 ## Port Plan
 
-- `6505-6509`: stdio MCP primary bridge ports.
-- `6510-6514`: reserved for `godot-cli`.
-- `6515-6534`: stdio MCP overflow bridge ports.
-- Godot plugin scans `6505-6534`; Node stdio server skips `6510-6514`.
+- `17605-17619`: stdio MCP primary bridge ports.
+- `17620-17624`: primary `godot-cli` ports.
+- `6505-6509`: legacy stdio fallback ports.
+- `6510-6514`: legacy `godot-cli` fallback ports.
+- Godot plugin first reads `<ProjectPath>/.godot/godot-mcp-pro/current-bridge.json`, then falls back to the port groups above.
+- Node stdio server skips all CLI ports and writes both global lock files and project-local rendezvous.
+
+The old `6505-6534` range overlaps this machine's observed TCP dynamic port pool (`1024-15000`), so common network software such as proxy clients or mail clients can bind those ports. The new primary range avoids that pool while keeping legacy compatibility.
 
 ## Patch Layout
 
