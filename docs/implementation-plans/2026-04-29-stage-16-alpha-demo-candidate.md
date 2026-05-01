@@ -12,7 +12,7 @@
 - Alpha Demo 最小主菜单、暂停、重开和完成反馈。
 - Stage16 HUD、Main 快照、灰盒主线 driver 和专项 GUT。
 - 第二轮关键视觉与最小音频需求记录。
-- Demo 级 QA checklist 与 Alpha Demo release notes。
+- Demo 级 QA checklist 与 Alpha Demo release notes，目标路径为 `docs/deliverables/stage16-alpha-demo-candidate/qa-checklist.md` 与 `docs/deliverables/stage16-alpha-demo-candidate/release-notes.md`。
 - Godot MCP 运行态人工复核。
 
 ## Subagent 分工
@@ -49,8 +49,8 @@
 - [x] 从 `stage15_completion_room` 接入 Stage16 入口。
 - [x] 更新 HUD，使 Alpha Demo 完成态优先显示，不再显示旧 Boss 目标、旧收集行或战斗中恢复充能行。
 - [x] 更新 `docs/assets/asset-manifest.md`，追加 Stage16 视觉与音频需求。
-- [x] 新增 Demo 级 QA checklist。
-- [x] 新增 Alpha Demo release notes。
+- [x] 新增 `docs/deliverables/stage16-alpha-demo-candidate/qa-checklist.md`。
+- [x] 新增 `docs/deliverables/stage16-alpha-demo-candidate/release-notes.md`。
 - [x] 运行 Godot import、Stage16 专项 GUT、Stage15 专项 GUT、全量 GUT 与 `git diff --check`。
 - [x] 使用 Godot MCP 从 `Main.tscn` 做运行态人工复核。
 - [x] MCP 尝试结束后清理并确认 `project.godot` 无临时 autoload diff。

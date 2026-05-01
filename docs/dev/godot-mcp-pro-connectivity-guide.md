@@ -1,208 +1,209 @@
-# Godot MCP Pro 联通与排障指南（Codex 客户端）
+# Godot MCP Pro Connectivity Guide
 
-## 目的
+本文件是 Nano Hunter 的 Godot MCP Pro 唯一权威入口，覆盖客户端工具入口、端口规划、bridge / editor / runtime autoload 分层排障、脚本使用、补丁重放、跨项目使用和阶段收口。`AGENTS.md` 只保留原则和指针，具体流程以本文为准。
 
-本指南记录当前 Codex 客户端下的 `godot-mcp-pro` 联通与排障流程，用于让 `nano-hunter` 的 Godot MCP 人工复核保持简单、可重复。
+## Core Rules
 
-如果后续换用其他客户端或 CLI，本文件不能直接当作通用 MCP 标准；应新增对应客户端指南，并复用项目层面的通用要求：固定永久工作树、运行态人工复核、验证留痕和插件启用边界。
+- 不把所有 Godot MCP 问题都归因到 bridge。
+- 先判断当前 IDE / CLI 是否已加载 Godot MCP Pro 工具入口，再判断 bridge 和 Godot editor。
+- Codex Desktop 当前常见工具前缀是 `mcp__godot_mcp_pro__`；其它 IDE / CLI 的命名可能不同，不能把该前缀当作跨客户端标准。
+- stdio bridge 主端口为 `17605-17619`；`godot-cli` 主端口为 `17620-17624`，不得按 stale bridge 默认清理。
+- `6505-6509` 与 `6510-6514` 只作为 legacy 兼容识别；旧 `6515-6534` 不再作为新方案主力。
+- Godot 插件优先读取项目本地 `.godot/godot-mcp-pro/current-bridge.json`，再连接新端口组；连接后发送 `godot_hello`，Node bridge 只接受 workspace/session 匹配的 Godot editor。
+- runtime autoload 失败不按 bridge stale 处理。
+- 清理 bridge 前必须确认不会影响其它活跃项目 / worktree 会话。
 
-它解决的是日常进场与少量排障问题：
+## Client Tool Entry
 
-- Codex 会话是否从目标固定工作树启动
-- 项目级 `.codex/config.toml` 是否让本会话加载了 `godot-mcp-pro`
-- `godot-mcp-pro` bridge 是否监听 `6505-6509`
-- 当前固定工作树的 Godot 编辑器是否连到可用 bridge
-- 运行态 autoload 是否已经注入到当前游戏实例
-- 旧 bridge 占满端口时，如何避免“两次重开 Codex”
-- `godot_mcp` 动态 autoload 和其他插件 autoload / editor plugin 启用项如何区分
+Godot MCP 复核需要当前客户端已经加载 Godot MCP Pro server 暴露的工具。不同客户端展示方式不同：
 
-## 项目级配置边界
+- Codex Desktop 当前配置下通常能看到 `mcp__godot_mcp_pro__` 前缀工具。
+- 其它 IDE / CLI 可能使用不同工具名、不同 namespace，或只在工具面板中显示 server 能力。
+- 判断标准是“当前客户端是否已加载 Godot MCP Pro 工具”，不是固定字符串。
 
-仓库通过项目级 `.codex/config.toml` 注册 `godot-mcp-pro`：
+如果工具入口缺失：
 
-```toml
-[mcp_servers.godot-mcp-pro]
-type = "stdio"
-command = "cmd"
-args = ["/c", "node", "%USERPROFILE%/.mcp/godot-mcp-pro/server/build/index.js"]
+1. 确认当前物理目录是目标 worktree。
+2. 从该 worktree 重新打开客户端会话。
+3. 新会话先运行 `.\scripts\dev\enter-worktree-godot-mcp.ps1 -DryRun`。
+
+普通 PowerShell 脚本无法让已经启动的客户端会话热加载 MCP 工具。
+
+## Port Plan
+
+| Port Range | Role | Cleanup Rule |
+| --- | --- | --- |
+| `17605-17619` | stdio MCP primary | 可作为 stdio bridge 诊断对象 |
+| `17620-17624` | `godot-cli` primary | 不按 stale bridge 清理 |
+| `6505-6509` | legacy stdio fallback | 只按 legacy stdio 诊断，不优先使用 |
+| `6510-6514` | legacy `godot-cli` fallback | 不按 stale bridge 清理 |
+
+Node stdio server 会跳过 `17620-17624` 和 legacy `6510-6514`。`GODOT_MCP_PORT` 只是 preferred port；只有 `GODOT_MCP_STRICT_PORT=1` 才严格固定。当前 server 支持 lazy reconnect：清出端口后，已加载 MCP 工具入口的会话可在下次命令前重新尝试监听。
+
+本机曾确认 TCP 动态端口池为 `1024-15000`，所以旧 `6505-6534` 容易被 Foxmail、verge-mihomo 等通用网络软件作为本地动态端口占用。新主端口段 `17605-17624` 避开该动态池，但脚本仍会做实时占用诊断。
+
+可配置环境变量：
+
+- `GODOT_MCP_PORT_RANGE=17605-17619`
+- `GODOT_MCP_CLI_PORT_RANGE=17620-17624`
+- `GODOT_MCP_LEGACY_STDIO_PORTS=6505-6509`
+- `GODOT_MCP_LEGACY_CLI_PORTS=6510-6514`
+- `GODOT_MCP_DISABLE_LEGACY_PORTS=1`
+
+Bridge lock 位于：
+
+```text
+%LOCALAPPDATA%/godot-mcp-pro/bridges/<port>.json
 ```
 
-这只决定“Codex 会话启动时是否挂载 Godot MCP 工具”。它不会在会话中途热更新工具列表，也不会自动清理旧 bridge 或重开 Godot 编辑器。
+项目本地 rendezvous 位于：
 
-因此，Godot MCP 复核会话必须从目标固定工作树启动。不要先从别的目录启动 Codex，再 `cd` 到本项目并期待 `mcp__godot_mcp_pro__` 工具自动出现。
-
-## 固定永久工作树原则
-
-固定永久工作树的目标是复用同一个 Godot 编辑器、导入缓存和 MCP 运行态现场。阶段切换不等于每个 stage 都必须重连一次 MCP。
-
-如果当前 Codex 会话已经成功调用过 `mcp__godot_mcp_pro__` 工具，并且仍在同一个固定永久工作树继续开发或复核，优先保持现有连接，直接继续 MCP 复核。不要仅因为进入新阶段、脚本启发式显示 stale 字样、或本机存在旧 bridge 进程就主动清理 bridge。
-
-`ReopenSessionThenForceKillBridge` 是故障恢复流程，不是日常 preflight。只有在 MCP 工具不可用、编辑器无法连接、或已经明确准备重开 Codex 时，才进入 stale bridge 清理流程。
-
-如果脚本提示 bridge 年龄可疑，但当前工作树编辑器已经连到 bridge，优先视为“已连接但 bridge 年龄未知”。这不是 stale-only，不应直接清 bridge；先调用一个只读 MCP 工具实测。如果工具可用，就继续人工复核。
-
-## 四层判断流程
-
-Godot MCP 问题必须先分层，不要把运行态问题、工具入口问题和 bridge 问题混在一起处理。
-
-1. 会话工具入口
-   - 当前会话能看到 `mcp__godot_mcp_pro__` 工具，才说明 Codex 启动时加载了项目级 MCP。
-   - 工具入口缺失时，从目标固定工作树重开 Codex；普通脚本不能热加载 MCP 工具。
-2. 编辑器连接
-   - 运行 `.\scripts\dev\enter-worktree-godot-mcp.ps1`。
-   - `AlreadyConnected`、`SafeOpenEditor`、`SafeReopenEditor` 和 `ConnectedBridgeAgeUnknown` 都不应清 bridge。
-   - `ConnectedBridgeAgeUnknown` 表示当前工作树编辑器已连到 bridge，但脚本无法确认它是否属于当前会话；先用 MCP 只读工具实测。
-3. 运行态 autoload
-   - 如果编辑器场景树可读，但运行态截图、输入、场景脚本执行或测试场景控制不可用，优先判断为 Godot MCP 运行态 autoload 未注入当前游戏实例。
-   - 处理顺序是重新注入 / 重开当前工作树编辑器 / 重启运行场景，再复测运行态工具。
-   - 这里不要求记住具体服务名；只要属于 MCP 的运行态截图、输入、脚本执行或 game inspector 能力，都归入这一层。
-4. 收口清理
-   - 运行态人工复核结束后，清理 `project.godot` 中的临时 Godot MCP autoload diff。
-   - 清理后如果还要继续运行态复核，必须重新确认运行态 autoload 已注入，不能沿用清理前的判断。
-
-## 日常唯一入口
-
-日常只运行：
-
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1
+```text
+<workspace>/.godot/godot-mcp-pro/current-bridge.json
 ```
 
-该脚本会读取当前状态并自动选择动作：
+lock/heartbeat 和 rendezvous 都是辅助证据，不是唯一真相。stale 判断必须结合 PID、TCP 连接、workspace、sessionId、heartbeat age 和 Godot editor 归属。
 
-- `AlreadyConnected`：已连通，不动现场，直接继续 MCP 复核
-- `SafeOpenEditor`：当前会话 bridge 存在，打开当前固定工作树 Godot 编辑器
-- `SafeReopenEditor`：当前会话 bridge 存在，只重开当前固定工作树 Godot 编辑器
-- `ConnectedBridgeAgeUnknown`：当前工作树编辑器已连到 bridge，但 bridge 年龄不像当前会话；不清 bridge，先用 MCP 工具实测
-- `ReopenSessionThenForceKillBridge`：只有旧 bridge 占端口，停止自动动作并提示重开前清理
-- `InspectManually`：状态混杂，不自动修复，转入诊断
+## Daily Workflow
 
-只想观察而不打开 / 关闭编辑器时：
+日常优先运行：
 
 ```powershell
 .\scripts\dev\enter-worktree-godot-mcp.ps1 -DryRun
 ```
 
-## stale-only 的正确处理
+它会输出推荐动作：
 
-如果脚本报告 `ReopenSessionThenForceKillBridge`、`Only stale bridge listeners were found` 或等价 stale-only 状态，并且你已经准备重开 Codex，先确认本机没有其他正在使用 Godot MCP 的项目会话。
-
-如果脚本报告 `ConnectedBridgeAgeUnknown`，不要执行 stale-only 清理。该状态说明当前工作树编辑器已经和 bridge 建立连接，只是 PowerShell 侧无法证明这个 bridge 是当前会话新启动的。此时先用 MCP 工具实测；只有工具调用失败、入口缺失或返回 `Transport closed` 时，才进入重开会话或 stale 清理判断。
-
-`godot-mcp-pro` bridge 使用固定端口组，当前脚本无法可靠地把无编辑器连接的旧 bridge 精确归属到某个项目；真正清理 bridge 时会停止本机全部 `godot-mcp-pro/server/build/index.js` bridge 进程。因此，如果还有其他项目 / worktree 的 Godot MCP 会话正在使用，清理会中断它们。
-
-确认没有其他活跃 Godot MCP 会话后，再执行：
-
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1 -ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions
-```
-
-然后从同一个固定工作树重开 Codex 会话，再执行一次默认入口：
-
-```powershell
-.\scripts\dev\enter-worktree-godot-mcp.ps1
-```
-
-这样可以避免错误顺序：
-
-1. 先重开 Codex
-2. 再清旧 bridge
-3. 清桥导致当前会话 transport 关闭
-4. 被迫再重开 Codex
-
-正确顺序是：
-
-1. stale-only 且准备重开时，确认没有其他活跃 Godot MCP 会话
-2. 执行 `-ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions`
-3. 重开 Codex
-4. 默认入口打开 / 重开 Godot 编辑器
-5. 立刻用 MCP 工具复测
-
-## 工具入口缺失
-
-如果本机 bridge 和 Godot 编辑器已经连上，但当前 Codex 对话没有 `mcp__godot_mcp_pro__` 工具入口，这不是 Godot 编辑器问题，而是会话启动时没有挂载项目级 MCP。
-
-处理方式：
-
-1. 确认当前物理目录是目标固定工作树
-2. 从该固定工作树新开 Codex 会话
-3. 新会话中先运行默认入口脚本
-
-普通脚本无法让已经启动的 Codex 会话热加载新的 MCP 工具。
-
-## 辅助脚本定位
-
-日常入口：
-
-- `enter-worktree-godot-mcp.ps1`
+- `AlreadyConnected`：当前 workspace editor 已连接 stdio bridge；先用只读 MCP 工具实测。
+- `SafeOpenEditor`：已有 stdio bridge，但当前 workspace 没开 Godot editor；可打开当前 worktree Godot。
+- `SafeReopenEditor`：当前 workspace editor 已开但没连 stdio bridge；优先重开当前 worktree Godot。
+- `ReopenSessionThenCleanStaleBridge`：只有 stale stdio bridge；确认无其它会话后再清理。
+- `InspectManually`：状态混杂；先看 `check-godot-mcp.ps1` 输出。
 
 只读诊断：
 
-- `check-godot-mcp.ps1`
+```powershell
+.\scripts\dev\check-godot-mcp.ps1
+```
 
-高级排障，非日常默认流程：
-
-- `safe-repair-godot-mcp.ps1`
-- `open-worktree-godot.ps1`
-- `force-repair-godot-mcp.ps1`
-
-共用函数：
-
-- `godot-mcp-common.ps1`
-
-除非默认入口无法给出明确动作，否则不要把这些辅助脚本串成手动五段流程。
-
-## Transport closed
-
-`Transport closed` 通常表示当前 Codex 会话到 `godot-mcp-pro` MCP 子进程的传输已经关闭。常见触发方式是：在当前会话里执行了会停止 bridge 的清理动作，然后继续尝试使用同一个会话的 MCP 工具。
-
-如果已经执行过：
+确认无其它 Godot MCP 会话需要 stale bridge 后，才允许受限清理：
 
 ```powershell
 .\scripts\dev\enter-worktree-godot-mcp.ps1 -ResetBeforeReopen -ConfirmNoOtherGodotMcpSessions
 ```
 
-不要在同一个旧 Codex 会话里继续做 MCP 人工复核。正确下一步是从同一固定永久工作树重开 Codex，再运行默认入口脚本。
+清理后如果当前客户端出现 `Transport closed`，从同一 worktree 重开客户端会话。
 
-## 运行态 autoload 与插件启用项
+## Script Reference
 
-本节只解释 MCP 复核时与 autoload / 插件启用项的关系。更完整的插件盘点、默认启用范围和报错判断，参考 `docs/dev/plugin-inventory.md`。
+| Script | Frequency | Read-only | May Kill Process | Typical Use |
+| --- | --- | --- | --- | --- |
+| `enter-worktree-godot-mcp.ps1` | High | Dry-run only | Only with explicit cleanup flags | Daily entry for MCP review |
+| `check-godot-mcp.ps1` | High | Yes | No | Show bridge, CLI, lock, stale reason and editor connections |
+| `safe-repair-godot-mcp.ps1` | Low | No | Yes | Reopen current workspace Godot or clean confirmed stale bridge |
+| `open-worktree-godot.ps1` | Low | No | No | Open current worktree Godot when stdio bridge exists |
+| `godot-mcp-common.ps1` | Library | N/A | No | Shared port plan, process classification, lock and stale logic |
+| `apply-godot-mcp-pro-hardening-patch.ps1` | Upgrade-time | Dry-run only | No | Replay server/plugin hardening patch |
 
-需要区分三类状态：
+`safe-repair` and `open-worktree-godot` are implementation helpers. Prefer `enter-worktree-godot-mcp.ps1` unless you are doing focused diagnostics.
 
-- 插件目录存在：例如 `addons/dialogue_manager/`、`addons/controller_icons/`。目录存在本身通常不会让 Godot 启动时报错。
-- `[editor_plugins]` 启用：插件会作为编辑器插件加载。当前默认只启用 `res://addons/godot_mcp/plugin.cfg` 和 `res://addons/gut/plugin.cfg`。
-- `[autoload]` 启用：脚本或场景会在项目启动时自动加载。即使插件没有在 `[editor_plugins]` 启用，只要残留在 `[autoload]`，仍可能在进入项目或运行游戏时触发错误。
+## Troubleshooting Layers
 
-`godot_mcp` 在编辑器运行期间可能动态注入它需要的临时 autoload。运行态人工复核期间应保留这类临时注入；等所有 MCP 截图、输入、运行态脚本检查、game inspector 读值和测试场景控制结束后，再清理 `project.godot` 中的 MCP autoload diff。
+1. Tool entry
+   - If the client has no Godot MCP tools, reopen the client from the target worktree.
+   - Do not restart Godot repeatedly for a missing client-side tool entry.
 
-运行态 autoload 问题的通用判断是：编辑器连接可用，但运行中的游戏实例无法响应 MCP 运行态能力。此时不要清 bridge，按以下顺序处理：
+2. Bridge listener
+   - Use `check-godot-mcp.ps1` or `get_bridge_status`.
+   - Stdio bridge candidates are `17605-17619` plus legacy `6505-6509`; CLI ports are `17620-17624` plus legacy `6510-6514`.
+   - 优先确认项目 rendezvous 是否指向当前会话端口。
+   - Do not kill a bridge only because it is old.
 
-1. 确认当前 Godot 编辑器打开的是目标固定工作树。
-2. 重新打开或刷新当前工作树编辑器，让 Godot MCP 插件重新注入运行态 autoload。
-3. 重新启动 `Main.tscn` 或当前复核场景。
-4. 复测运行态工具。
-5. 复核结束后清理 `project.godot` 中的 MCP autoload diff。
+3. Godot editor connection
+   - If bridge exists but editor is not connected, reopen the current worktree Godot editor.
+   - If another workspace has a bridge lock or editor connection, do not steal or clean it.
 
-清理后如果还要继续使用 MCP 运行态能力，应重新打开当前 worktree 的 Godot 编辑器并确认 MCP 已重新注入和连通。
+4. Runtime autoload
+   - If editor tools work but screenshot/input/runtime script tools fail, treat it as runtime autoload injection failure.
+   - Reopen or refresh current worktree editor, restart the review scene, then retest runtime tools.
 
-其他插件的 autoload 不是临时 MCP 注入。当前阶段没有引用的插件不应默认写入 `project.godot` 的 `[autoload]` 或 `[editor_plugins]`。进入 Godot 项目时如果出现多条插件报错，优先按 `docs/dev/plugin-inventory.md` 排查，重点检查：
+5. Closeout cleanup
+   - After runtime MCP review, clean temporary MCP autoload diff from `project.godot`.
+   - If more runtime review is needed after cleanup, confirm autoload injection again.
 
-1. `project.godot` 是否残留非当前默认插件的 `[autoload]`。
-2. `project.godot` 的 `[editor_plugins]` 是否启用了当前阶段不需要的插件。
-3. `.godot` 导入缓存是否来自旧插件状态。
-4. `6505-6509` 是否有旧 `godot-mcp-pro` bridge 占用，导致当前会话错连。
+## Runtime Autoload And Plugins
 
-之前启动 Godot 时的多插件报错，高置信度原因不是“插件目录存在”，而是历史 autoload / editor plugin 启用项、旧 UID 引用和 `.godot` 缓存状态叠加。`DialogueManager` 与 `ControllerIcons` 曾作为 autoload 默认加载，`better-terrain` 也曾有残留引用且在 Godot 4.6 下有兼容性风险；这些才是需要清理或禁用的重点。
+`godot_mcp` may dynamically inject runtime autoloads while the editor is open. Keep those temporary autoloads during MCP screenshot, input, game inspector and runtime script review. Clean them only after the MCP runtime review is finished.
 
-## 阶段收口注意
+Other plugin autoloads are not temporary MCP injection. If Godot reports many plugin errors, first check:
 
-固定永久工作树本身默认保留，不按临时 worktree 删除。阶段收口时只需要：
+1. `project.godot` `[autoload]` entries for plugins not enabled in the current stage.
+2. `project.godot` `[editor_plugins]` entries for plugins not needed now.
+3. `.godot` import cache from older plugin state.
+4. Stale stdio bridge state only after the above layers are ruled out.
 
-- 确认当前阶段验证完成
-- 记录 Godot MCP 连接状态
-- 关闭不再需要的运行中游戏实例
-- 必要时关闭当前固定工作树 Godot 编辑器
-- 不默认全量释放 `6505-6509`，除非能确认它们属于废弃会话，或用户明确要求清理
+Plugin inventory and enablement rules live in `docs/dev/plugin-inventory.md`.
 
-Codex 托管临时 worktree 才需要额外执行物理目录删除、`git worktree list` 复核和进程占用清理。通用 worktree 清理规则以 `AGENTS.md` 为准。
+## Patch Tool Usage
+
+通用补丁工具位于：
+
+```text
+tools/godot-mcp-pro-hardening/
+```
+
+补丁源目录：
+
+```text
+tools/godot-mcp-pro-hardening/patch-files/
+  server/
+  plugin/addons/godot_mcp/
+  optional-project-scripts/scripts/dev/
+```
+
+默认预览：
+
+```powershell
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -DryRun
+```
+
+默认真实应用并构建：
+
+```powershell
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -Build
+```
+
+默认 `Scope=ServerAndPlugin`，只更新全局 Node server 和目标项目 `addons/godot_mcp`，不覆盖目标项目 `scripts/dev`。
+
+给其它项目只补插件端，例如 `angel-fallen`：
+
+```powershell
+.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 `
+  -ProjectPath C:\Users\peng8\Desktop\Project\Game\angel-fallen `
+  -Scope PluginOnly `
+  -DryRun
+```
+
+脚本搬到独立目录时，如果同级存在 `patch-files` 可自动发现；否则传入 `-PatchRoot`：
+
+```powershell
+C:\Tools\apply-godot-mcp-pro-hardening-patch.ps1 `
+  -ProjectPath C:\Users\peng8\Desktop\Project\Game\angel-fallen `
+  -PatchRoot C:\Users\peng8\.codex\worktrees\fef5\nano-hunter\tools\godot-mcp-pro-hardening\patch-files `
+  -Scope PluginOnly `
+  -DryRun
+```
+
+`-IncludeProjectScripts` 是显式风险确认，只适合目标项目也采用本仓库的 `check / enter / safe-repair / open-worktree` 诊断脚本规范时使用。
+
+## Worktree Closeout
+
+固定永久 worktree 默认保留。阶段收口时：
+
+- 记录 Godot MCP 连接状态。
+- 关闭不再需要的运行中游戏实例。
+- 必要时关闭当前 worktree Godot editor。
+- 不为了“收口干净”全量释放 bridge。
+- 若删除物理 worktree，先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，迁移需要保留的 ignored 本地证据，再复核 `git worktree list`、磁盘目录、项目 rendezvous、stdio bridge `17605-17619` / legacy `6505-6509` 与 CLI `17620-17624` / legacy `6510-6514` 状态。
+
+临时 worktree 删除和证据迁移的通用规则以 `AGENTS.md` 为准。

@@ -27,7 +27,7 @@ Stage16 基于已合并的 Stage15 `main`，目标是把 Stage12-15 形成的系
 - 升级 HUD 完成态显示，避免完成房继续显示旧 Boss 目标或旧收集行。
 - 升级灰盒主线自动化，覆盖主线、失败重试、Stage14 回溯链、Stage15 Boss 和 Stage16 终点。
 - 记录第二轮关键视觉与最小音频需求。
-- 建立 Demo 级 QA checklist 与 Alpha Demo release notes。
+- 建立 Demo 级 QA checklist 与 Alpha Demo release notes，目标路径为 `docs/deliverables/stage16-alpha-demo-candidate/qa-checklist.md` 与 `docs/deliverables/stage16-alpha-demo-candidate/release-notes.md`。
 - 完成 Godot MCP 运行态人工复核。
 
 ## Non-Goals
@@ -63,7 +63,7 @@ Stage16 基于已合并的 Stage15 `main`，目标是把 Stage12-15 形成的系
   - 妖瘴净化 VFX
   - Alpha Demo 完成 UI
   - 最小 SFX / BGM
-- 新增 QA checklist 与 release notes。
+- 新增 `docs/deliverables/stage16-alpha-demo-candidate/qa-checklist.md` 与 `docs/deliverables/stage16-alpha-demo-candidate/release-notes.md`。
 
 ## Public Interfaces
 

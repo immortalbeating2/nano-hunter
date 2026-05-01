@@ -56,15 +56,17 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 - 若工具、系统固定 UI、第三方命令输出或官方术语无法稳定中文化，可保留原文，并在必要时补充中文说明
 - 项目规范应优先保证可理解性与一致性，而不是机械追求所有界面元素都中文化
 
-## 客户端 / CLI 映射
+## 客户端 / CLI 专属参考
 
 本文件只写项目通用协作规则。具体开发客户端、CLI、模型或账号的工具入口、任务清单 UI、分支前缀、临时 worktree、subagent 配置等映射，不在各规则段落里反复展开。
 
-当前 Codex 客户端映射统一参考：
+当前仓库已维护的 Codex 客户端专属参考：
 
 - `docs/dev/codex-client-workflow-reference.md`
 
-如果后续换用其他客户端或 CLI，应新增对应参考文档，并保持 `AGENTS.md` 里的项目规则不绑定某个客户端实现。
+该参考只适用于 Codex 客户端。若后续长期改用 Claude Code、opencode 或其它 IDE / CLI，可新增对应的 `docs/dev/<client>-workflow-reference.md`；短期偶尔使用其它工具时，不必为了单次操作新增文档。
+
+无论使用哪个客户端，`AGENTS.md` 中的项目规则仍然优先：文档留痕、分支隔离、验证、Godot MCP 分层排障和阶段收口要求不绑定某个客户端实现。
 
 ## 工作流：混合版 Superpowers
 
@@ -207,22 +209,35 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 
 - `docs/progress/status.md`
   - 当前项目状态摘要入口
-  - 只保留当前状态，不累计长篇历史
-  - 固定写法为：最后更新时间、当前阶段、当前稳定基线、当前开发现场、最新验证、当前风险、下一步、参考文档
-  - 如果一个信息已经是历史事件，不继续堆在 `status.md`，应转入 `timeline.md` 或当日日志
+  - 顶部必须是最新真实状态，后续 session 读完这一段应能判断当前能做什么、不能做什么、有什么风险
+  - 固定写法为：最后更新时间、当前状态、当前稳定基线、最近状态变化、当前风险、下一步、参考文档
+  - `Recent Status Changes` 只保留最近 `3-5` 条关键状态变化，按时间由近到远倒序记录；每条至少写明状态、证据或验证、详情日志链接，重要提交可写 commit hash
+  - 不累计完整历史，不粘贴完整命令输出；完整过程转入当日日志，里程碑转入 `timeline.md`
 
 - `docs/progress/timeline.md`
   - 全项目关键事件时间线
   - 只记录里程碑级事件，不写完整命令输出、截图清单、调试流水或重复的阶段计划内容
-  - 每条事件默认包含日期、阶段或范围、结果、关键验证和详情日志链接
+  - 每个日期使用 `## YYYY-MM-DD`
+  - 每条事件默认使用字段化格式：`范围 / 事件名`、`结果`、`关键验证或结论`、`详情日志链接`
+  - 阶段收口、合并、工具链修复和重要复核修正建议补 `提交`；只有影响下一步判断时才写 `遗留`
   - 同一天多个小修正可合并为一条事件，除非它们改变阶段边界、分支状态或可试玩基线
+  - 如果后续复核推翻旧说法，应新增或修正一条“复核修正”里程碑，不让 timeline 保留误导性的完成口径
 
 - `docs/progress/logs/YYYY-MM-DD.md`
   - 当日详细开发日志
-  - 记录当天的具体背景、操作、验证、风险和下一步
+  - 记录当天的具体背景、操作、验证、风险、下一步和提交 hash
+  - 同一天多轮工作必须按时间或事件块分段；每块默认包含背景、操作、验证、提交、风险 / 遗留 / 修正结论
   - 日志可以比 timeline 详细，但不重复粘贴完整计划文档；若需要引用计划，只链接 `plan/` 或 `docs/implementation-plans/`
+  - 如果当天发现此前判断不完整或错误，必须增加“复核修正”事件块，说明证据、修正后的结论和后续计划入口
   - 截图、MCP 复核图、Playwright 图和一次性测试证据默认不放在 `docs/progress/`；本地保留在 `tests/artifacts/local/<topic>/`，并由 `.gitignore` 忽略
   - 只有用户明确要求提交截图，或截图本身是产品文档 / 资产文档的一部分时，才放入合适的可提交文档目录，并说明来源和用途
+
+- `docs/deliverables/<deliverable-id>/`
+  - 存放可试玩 / 可打包 / 可交付候选阶段的成套交付产物，例如 Demo 候选、打包候选、对外试玩包、Alpha / Beta 试玩候选
+  - 普通阶段完成、普通 timeline 里程碑、工具链修复、文档治理、内部玩法实验、单次 bugfix 或 polish 不默认创建 deliverables 目录
+  - 阶段计划若定义为可交付候选，必须明确 `deliverable-id` 和目标文件路径；默认文件为 `qa-checklist.md` 与 `release-notes.md`
+  - `qa-checklist.md` 记录候选包最小验收项；`release-notes.md` 记录试玩入口、内容范围、验证结果、已知问题和下一步
+  - `status.md`、`timeline.md` 和当日日志只链接 deliverables，不复制其正文
 
 ### 记录要求
 
@@ -322,6 +337,7 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 - `tests/artifacts/local/`：本地测试、MCP 运行态复核、截图和一次性证据产物；默认不提交
 - `spec-design/`：设计文档
 - `docs/assets/`：资产清单、资产接入测试清单与授权 / 来源记录
+- `docs/deliverables/`：可试玩 / 可打包 / 可交付候选阶段的 QA checklist、release notes 等成套交付产物
 - `docs/progress/`：进度与时间线文档
 - `docs/progress/logs/`：当日详细开发日志
 
@@ -349,14 +365,16 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 
 人工复核默认使用Godot MCP。
 
-Godot MCP 人工复核默认按四层顺序判断，不把所有问题都归因到 bridge：
+Godot MCP Pro 的联通、端口规划、bridge stale 判断、工具入口缺失、运行态 autoload、补丁重放、跨项目插件补丁和脚本使用，统一参考 `docs/dev/godot-mcp-pro-connectivity-guide.md`。
 
-1. 会话工具入口：当前开发会话必须能看到 `mcp__godot_mcp_pro__` 工具；若入口缺失，应从目标固定工作树重开会话，而不是反复重启 Godot。
-2. 编辑器连接：确认当前固定工作树的 Godot 编辑器已连接到 `godot-mcp-pro` bridge；如果编辑器已连到 bridge，但脚本只因 bridge 年龄提示可疑，先用 MCP 只读工具实测，不主动清理。
-3. 运行态 autoload：若编辑器场景可读但运行态截图、输入或脚本执行不可用，优先视为 Godot MCP 运行态 autoload 没有注入到当前游戏实例；应重新注入 / 重开当前工作树编辑器 / 重启运行场景，而不是清 bridge。
-4. 收口清理：MCP 运行态复核结束后清理 `project.godot` 中的临时 MCP autoload diff；清理后若还要继续运行态复核，必须重新确认运行态 autoload 已注入。
+本文件只保留项目级原则：
 
-Godot MCP 的具体联通、stale bridge、`Transport closed`、运行态 autoload、人工复核节奏与排障流程统一参考 `docs/dev/godot-mcp-pro-connectivity-guide.md`。
+1. 不把所有 MCP 问题都归因到 bridge。
+2. 先判断当前 IDE / CLI 是否已加载 Godot MCP Pro 工具入口；不同客户端的工具命名可能不同，Codex Desktop 当前常见前缀 `mcp__godot_mcp_pro__` 不是跨客户端标准。
+3. stdio bridge 主端口为 `17605-17619`；`17620-17624` 保留给 `godot-cli`；`6505-6509` / `6510-6514` 仅作为 legacy 兼容诊断，不得按 stale bridge 默认清理 CLI 端口。
+4. runtime autoload 失败不按 bridge stale 处理。
+5. 清理 bridge 前必须确认不影响其它活跃项目 / worktree 会话。
+6. MCP 运行态复核结束后清理 `project.godot` 中的临时 MCP autoload diff；清理后若还要继续运行态复核，必须重新确认运行态 autoload 已注入。
 
 当前仓库还保留若干已安装但默认不启用的插件目录，用作后续阶段候选或历史资产来源；它们不应通过 `project.godot` 的 `[editor_plugins]` 或 `[autoload]` 默认加载。
 
@@ -452,8 +470,8 @@ Godot MCP 的具体联通、stale bridge、`Transport closed`、运行态 autolo
 - 合并完成后，如无保留需求，应删除对应阶段分支；固定永久工作树本身默认保留并同步回最新 `main`，不要像临时 worktree 一样删除
 - 若临时 worktree 完成一次性任务，合并完成后应清理对应分支和临时 worktree，避免长期堆积过期开发环境
 - 阶段收口时，固定永久工作树默认保留；只清理阶段分支和不再需要的临时运行态现场，不像临时 worktree 那样删除物理目录
-- 阶段收口时仍要检查 `6505-6509` 的 `godot-mcp-pro` bridge 状态，但默认只记录或关闭明确属于当前固定工作树的 Godot 编辑器；不要为了“收口干净”全量释放可能属于其他活跃会话的 bridge
-- 如果需要删除任何 worktree 的物理目录，清理前必须先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，检查 `tests/artifacts/local/` 等 untracked / ignored 本地证据产物；需保留证据只迁移到主工作区 `tests/artifacts/local/<topic>/`，保持本地 ignored，不提交不推送，再删除目录并复核 `git worktree list`、磁盘目录和 `6505-6509` 状态
+- 阶段收口时仍要检查 Godot MCP bridge 状态：stdio bridge 主端口为 `17605-17619`，`17620-17624` 保留给 `godot-cli`，`6505-6509` / `6510-6514` 仅作为 legacy 兼容诊断；默认只记录或关闭明确属于当前固定工作树的 Godot 编辑器，不为了“收口干净”全量释放可能属于其他活跃会话的 bridge
+- 如果需要删除任何 worktree 的物理目录，清理前必须先关闭指向该 worktree 的 Godot / 运行实例 / 终端 / 资源管理器窗口，检查 `tests/artifacts/local/` 等 untracked / ignored 本地证据产物；需保留证据只迁移到主工作区 `tests/artifacts/local/<topic>/`，保持本地 ignored，不提交不推送，再删除目录并复核 `git worktree list`、磁盘目录、项目 rendezvous、stdio bridge `17605-17619` / legacy `6505-6509` 与 CLI `17620-17624` / legacy `6510-6514` 状态
 - Godot MCP 工具入口缺失、stale bridge 和 `Transport closed` 的具体处理，不写在本文件；统一参考 `docs/dev/godot-mcp-pro-connectivity-guide.md`
 
 ## 分支操作留痕约定
