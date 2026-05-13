@@ -152,3 +152,10 @@
   结果：stdio 主端口迁移到 `17605-17619`，CLI 主端口迁移到 `17620-17624`，旧 `6505-6509` / `6510-6514` 降级为 legacy；Node 写项目本地 rendezvous，Godot 插件优先连接当前会话指定端口。
   关键验证：外部 Node server `npm test` / `npm run build` 通过；完整 Godot 与脚本验证见当日日志。
   详情：`docs/progress/logs/2026-05-01.md`。
+
+## 2026-05-13
+
+- **Godot MCP Pro 1.13.1 增量合并**：启动 `codex/upgrade-godot-mcp-1-13-1-increments`，审查并吸收 1.13.1 可用增量。
+  结果：保留 `17605-17619` / `17620-17624`、rendezvous、workspace/session 握手和 diagnostic tools，同时合入 ping/pong、heartbeat timeout、idle/stale UI 与输入 `unhandled=false` 修正。
+  关键验证：外部 Node server `npm test` / `npm run build`、补丁脚本 dry-run、MCP 诊断脚本、入口脚本 dry-run、Godot import 和 `git diff --check` 通过。
+  详情：`docs/progress/logs/2026-05-13.md`。
