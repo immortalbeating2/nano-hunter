@@ -1,12 +1,12 @@
 # Nano Hunter Status
 
-Last Updated: 2026-05-01
+Last Updated: 2026-05-13
 
 ## Current Status
 
 - 当前稳定游戏基线仍是 `main` 上的 Stage16 Alpha Demo 打包候选，包含最小 Demo 壳、Stage15 `Seal Guardian / 封印守卫`、`Recovery Charge / 恢复充能`、Stage16 五房终局封印链、Alpha Demo 完成反馈、`docs/deliverables/stage16-alpha-demo-candidate/` 交付物与第二轮资产 / 音频需求记录。
-- 当前开发现场为工具链修复分支 `codex/fix-godot-mcp-bridge-lifecycle`，工作目录是 `C:\Users\peng8\.codex\worktrees\fef5\nano-hunter`；本分支只改 Godot MCP Pro、诊断脚本、补丁工具和文档治理，不改玩法、场景、资产或主流程内容。
-- Godot MCP bridge lifecycle hardening 已推进到端口迁移与 session/port rendezvous 根治：stdio 主端口改为 `17605-17619`，CLI 主端口改为 `17620-17624`，Node server 会写入项目本地 `.godot/godot-mcp-pro/current-bridge.json`，Godot 插件优先按 rendezvous 连接当前会话。
+- 当前开发现场为工具链增量升级分支 `codex/upgrade-godot-mcp-1-13-1-increments`；本分支只吸收 Godot MCP Pro 1.13.1 的连接心跳、idle/stale UI 和输入模拟修正，不改玩法、场景、资产或主流程内容。
+- Godot MCP bridge lifecycle hardening 仍以端口迁移与 session/port rendezvous 根治为主：stdio 主端口为 `17605-17619`，CLI 主端口为 `17620-17624`，Node server 会写入项目本地 `.godot/godot-mcp-pro/current-bridge.json`，Godot 插件优先按 rendezvous 连接当前会话。
 - 当前 worktree 存在 `project.godot` 的临时 MCP runtime autoload diff；该 diff 属于运行态复核现场，提交文档或工具链修复前必须单独确认是否清理，不应混入文档治理提交。
 
 ## Current Stable Baseline
@@ -16,6 +16,12 @@ Last Updated: 2026-05-01
 - 当前设计约束：后续阶段继续向南北朝东方奇幻、封妖禁地、瘴泽、妖域、符印机关等语境回收灰盒命名，不继续扩大现代实验室表达。
 
 ## Recent Status Changes
+
+### 2026-05-13 - Godot MCP Pro 1.13.1 增量合并
+
+- 状态：在 `codex/upgrade-godot-mcp-1-13-1-increments` 上确认 1.13.1 原包会退回旧端口模型并删除本地 rendezvous / handshake，因此只吸收 ping/pong、heartbeat timeout、idle/stale UI 与输入 `unhandled=false` 修正。
+- 验证：外部 Node server `npm test` / `npm run build`、补丁脚本 dry-run、MCP 诊断脚本、入口脚本 dry-run、Godot import 和 `git diff --check` 通过。
+- 详情：`docs/progress/logs/2026-05-13.md`。
 
 ### 2026-05-01 - Godot MCP 端口迁移与 rendezvous 根治
 
@@ -42,19 +48,6 @@ Last Updated: 2026-05-01
 - 状态：提交 `fd7638f` 将 Godot MCP hardening 补丁脚本改为可搬移、可跨项目使用，默认只覆盖全局 Node server 与目标项目 `addons/godot_mcp`。
 - 验证：补丁脚本 dry-run 矩阵、外部 Node server `npm test` / `npm run build`、Godot import、诊断脚本 dry-run 和乱码扫描通过。
 - 详情：`docs/progress/logs/2026-04-30.md`。
-
-### 2026-04-30 - Bridge lifecycle hardening
-
-- 状态：提交 `ddaad7d` 扩展 stdio bridge 端口、保留 `godot-cli` 端口、补 lock/heartbeat、workspace handshake、lazy reconnect、诊断脚本和补丁源。
-- 验证：Node 测试与构建、Godot import、诊断脚本、补丁脚本 dry-run 和 `git diff --check` 通过。
-- 遗留：该阶段仍依赖插件扫描端口；没有建立 editor 到当前会话 bridge 的明确 rendezvous。
-- 详情：`docs/progress/logs/2026-04-30.md`。
-
-### 2026-04-29 - Stage16 Alpha Demo 候选
-
-- 状态：Stage16 Alpha Demo 打包候选已合并回 `main`。
-- 验证：Godot import、Stage16 专项 GUT `8/8`、Stage15 专项 GUT `11/11`、全量 GUT `115/115`、`git diff --check HEAD` 通过。
-- 详情：`docs/progress/logs/2026-04-29.md`。
 
 ## Current Risks
 

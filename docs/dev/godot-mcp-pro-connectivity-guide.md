@@ -175,6 +175,8 @@ tools/godot-mcp-pro-hardening/patch-files/
 
 默认 `Scope=ServerAndPlugin`，只更新全局 Node server 和目标项目 `addons/godot_mcp`，不覆盖目标项目 `scripts/dev`。
 
+当前补丁基线仍以本项目的 `17605-17619` stdio、`17620-17624` CLI、项目本地 rendezvous 与 workspace/session 握手为主。`1.13.1` 上游包中的可吸收增量已按“保留本地 hardening 主机制”的方式合入：server / Godot 双向 `ping` / `pong`、半开连接超时重连、status panel 的 idle / stale 显示，以及输入拖拽 `unhandled=false` 修正。不要用 1.13.1 原包直接覆盖当前补丁文件，否则会退回 `6505-6509` / `6510-6514` 旧端口模型并丢失 rendezvous / handshake。
+
 给其它项目只补插件端，例如 `angel-fallen`：
 
 ```powershell

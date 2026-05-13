@@ -21,6 +21,8 @@ const DEFAULT_STDIO_PORT_RANGE = "17605-17619";
 const DEFAULT_LEGACY_STDIO_PORT_RANGE = "6505-6509";
 const COMMAND_TIMEOUT_MS = 30000;
 const HEARTBEAT_INTERVAL_MS = 10000;
+const HEARTBEAT_TIMEOUT_MS = HEARTBEAT_INTERVAL_MS * 3;
+const TCP_KEEPALIVE_DELAY_MS = 5000;
 export const PORT_PLAN_VERSION = "17605-primary";
 export const DEFAULT_STDIO_PORTS = parsePortList(DEFAULT_STDIO_PORT_RANGE);
 export const DEFAULT_LEGACY_STDIO_PORTS = parsePortList(DEFAULT_LEGACY_STDIO_PORT_RANGE);
@@ -110,6 +112,7 @@ export class GodotConnection {
   private legacyStdioPorts: number[];
   private lastError: string | null = null;
   private bridgeLock: BridgeLockHeartbeat;
+  private lastPongAt: number = 0;
 
   constructor(
     port: number = DEFAULT_STDIO_PORTS[0],
@@ -178,6 +181,10 @@ export class GodotConnection {
 
       this.wss.on("connection", (ws: WebSocket) => {
         console.error("[MCP] Godot editor connected; waiting for workspace handshake");
+
+        // OS 层 keepalive 辅助暴露半开 TCP；应用层 ping/pong 仍负责主要存活判断。
+        const sock = (ws as unknown as { _socket?: { setKeepAlive?: (enable: boolean, initialDelay: number) => void } })._socket;
+        sock?.setKeepAlive?.(true, TCP_KEEPALIVE_DELAY_MS);
 
         ws.on("message", (data: Buffer) => {
           this.handleMessage(data.toString(), ws);
@@ -371,6 +378,19 @@ export class GodotConnection {
     }
 
     if (method === "pong") {
+      if (this.client === ws) {
+        this.lastPongAt = Date.now();
+      }
+      return;
+    }
+
+    if (method === "ping") {
+      if (this.client === ws) {
+        this.lastPongAt = Date.now();
+      }
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ jsonrpc: "2.0", method: "pong", params: {} }));
+      }
       return;
     }
 
@@ -425,6 +445,7 @@ export class GodotConnection {
       this.client.close(1000, "Replaced by new matching workspace connection");
     }
     this.client = ws;
+    this.lastPongAt = Date.now();
     this.startHeartbeat();
     this.sendHelloAck(ws, true, "Accepted");
     console.error("[MCP] Godot editor workspace handshake accepted");
@@ -457,11 +478,25 @@ export class GodotConnection {
   private startHeartbeat(): void {
     this.stopHeartbeat();
     this.heartbeatTimer = setInterval(() => {
-      if (this.isConnected()) {
-        this.client!.send(
-          JSON.stringify({ jsonrpc: "2.0", method: "ping", params: {} })
+      if (!this.isConnected()) return;
+
+      if (Date.now() - this.lastPongAt > HEARTBEAT_TIMEOUT_MS) {
+        console.error(
+          `[MCP] Heartbeat timeout (no pong for ${HEARTBEAT_TIMEOUT_MS}ms); terminating dead connection`
         );
+        const dead = this.client;
+        this.client = null;
+        this.stopHeartbeat();
+        this.rejectAllPending(
+          new GodotConnectionError("Heartbeat timeout; Godot connection lost")
+        );
+        dead?.terminate();
+        return;
       }
+
+      this.client!.send(
+        JSON.stringify({ jsonrpc: "2.0", method: "ping", params: {} })
+      );
     }, HEARTBEAT_INTERVAL_MS);
   }
 

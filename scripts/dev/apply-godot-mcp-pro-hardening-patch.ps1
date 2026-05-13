@@ -24,7 +24,7 @@
 # - 仅补其它项目插件：.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -ProjectPath C:\Path\To\Project -Scope PluginOnly -DryRun
 # - 独立目录脚本：C:\Tools\godot-mcp-pro-hardening\apply-godot-mcp-pro-hardening-patch.ps1 -ProjectPath C:\Path\To\Project -PatchRoot C:\Tools\godot-mcp-pro-hardening\patch-files -DryRun
 # 安全边界：
-# - 已验证上游版本为 1.12.0；其它版本默认拒绝真实写入，需人工审查后加 -Force。
+# - 已验证上游版本为 1.12.0 与 1.13.1；其它版本默认拒绝真实写入，需人工审查后加 -Force。
 # - 17605-17619 是 stdio bridge 主端口，17620-17624 保留给 godot-cli。
 # - 6505-6509 / 6510-6514 仅作为 legacy fallback，不再作为新方案主力。
 # - 应用前会把已有目标文件备份到 tests/artifacts/local/godot-mcp-patch-backups/<timestamp>/，或 -BackupRoot 指定目录。
@@ -198,6 +198,8 @@ function Get-PatchCopyPlan {
         $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\websocket_server.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\websocket_server.gd")
         $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\ui\status_panel.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\ui\status_panel.gd")
         $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\plugin.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\plugin.gd")
+        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\commands\input_commands.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\commands\input_commands.gd")
+        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\mcp_input_service.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\mcp_input_service.gd")
     }
 
     if ($WithProjectScripts) {
@@ -271,7 +273,8 @@ if (-not (Test-IncludesPluginPatch -SelectedScope $Scope)) { $skippedGroups += "
 if (-not $IncludeProjectScripts) { $skippedGroups += "optional-project-scripts" }
 Write-Host ("Skipped groups: {0}" -f ($(if ($skippedGroups.Count -gt 0) { $skippedGroups -join ", " } else { "(none)" })))
 
-if ($includesServer -and $version -ne "1.12.0" -and -not $Force) {
+$verifiedVersions = @("1.12.0", "1.13.1")
+if ($includesServer -and $version -notin $verifiedVersions -and -not $Force) {
     Write-Host "Version is not verified for automatic apply. Re-run with -DryRun for inspection or -Force after review."
     if (-not $DryRun) {
         throw "Refusing to patch unverified Godot MCP Pro version $version without -Force."

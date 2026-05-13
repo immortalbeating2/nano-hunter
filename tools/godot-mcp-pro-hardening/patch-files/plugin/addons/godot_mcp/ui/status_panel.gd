@@ -7,6 +7,7 @@ var command_router: Node = null
 const MAX_LOG_ENTRIES := 200
 const COLOR_CONNECTED := Color(0.2, 0.9, 0.2)
 const COLOR_DISCONNECTED := Color(0.9, 0.2, 0.2)
+const COLOR_STALE := Color(1.0, 0.7, 0.2)
 const COLOR_SUCCESS := Color(0.6, 1, 0.6)
 const COLOR_ERROR := Color(1, 0.6, 0.6)
 const COLOR_DIM := Color(0.6, 0.6, 0.6)
@@ -232,16 +233,25 @@ func _process(_delta: float) -> void:
 	var count: int = websocket_server.get_client_count()
 	_client_count_label.text = "Clients: %d" % count
 
+	var any_stale := false
+	if websocket_server.has_method("is_port_stale"):
+		for p in _status_ports():
+			if websocket_server.is_port_stale(p):
+				any_stale = true
+				break
+
 	if count > 0:
 		_status_icon.add_theme_color_override("font_color", COLOR_CONNECTED)
 		_status_label.text = " MCP Pro: Connected"
+	elif any_stale:
+		_status_icon.add_theme_color_override("font_color", COLOR_STALE)
+		_status_label.text = " MCP Pro: Reconnecting (stale connection detected)..."
 	else:
 		_status_icon.add_theme_color_override("font_color", COLOR_DISCONNECTED)
 		_status_label.text = " MCP Pro: Waiting for connection..."
 
 	# Update clients tab
 	_update_clients_tab()
-	_apply_port_role_labels()
 
 
 func _update_clients_tab() -> void:
@@ -254,6 +264,10 @@ func _update_clients_tab() -> void:
 		var icon: Label = info["icon"]
 		var lbl: Label = info["label"]
 
+		var is_stale := false
+		if websocket_server.has_method("is_port_stale"):
+			is_stale = websocket_server.is_port_stale(p)
+
 		if p in connected_ports:
 			icon.text = "●"
 			icon.add_theme_color_override("font_color", COLOR_CONNECTED)
@@ -264,11 +278,20 @@ func _update_clients_tab() -> void:
 					var mins := int(elapsed) / 60
 					var secs := int(elapsed) % 60
 					time_str = "  (%dm %02ds)" % [mins, secs]
-			lbl.text = "  Port %d  —  Connected%s" % [p, time_str]
+			var idle_str := ""
+			if websocket_server.has_method("get_port_idle_time"):
+				var idle: float = websocket_server.get_port_idle_time(p)
+				if idle >= 2.0:
+					idle_str = "  · idle %.0fs" % idle
+			lbl.text = "  Port %d%s  - Connected%s%s" % [p, _port_role_suffix(p), time_str, idle_str]
+		elif is_stale:
+			icon.text = "◐"
+			icon.add_theme_color_override("font_color", COLOR_STALE)
+			lbl.text = "  Port %d%s  - Stale (reconnecting)" % [p, _port_role_suffix(p)]
 		else:
 			icon.text = "○"
 			icon.add_theme_color_override("font_color", COLOR_DISCONNECTED)
-			lbl.text = "  Port %d  —  Disconnected" % p
+			lbl.text = "  Port %d%s  - Disconnected" % [p, _port_role_suffix(p)]
 
 
 # --- Activity callbacks ---

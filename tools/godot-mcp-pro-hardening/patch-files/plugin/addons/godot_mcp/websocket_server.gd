@@ -32,6 +32,8 @@ const LEGACY_CLI_END := 6514
 const RECONNECT_INTERVAL := 3.0
 const BUFFER_SIZE := 16 * 1024 * 1024  # 16MB
 const RENDEZVOUS_PATH := "res://.godot/godot-mcp-pro/current-bridge.json"
+const PING_INTERVAL := 5.0
+const INACTIVITY_TIMEOUT := 30.0
 
 var _ports: Array[int] = []
 var _port_sources: Dictionary = {}  # port -> source label
@@ -42,6 +44,9 @@ var _accepted: Dictionary = {}  # port -> bool，stdio 必须等 godot_hello_ack
 var _hello_sent: Dictionary = {}  # port -> bool
 var _timers: Dictionary = {}  # port -> float (reconnect countdown)
 var _connect_times: Dictionary = {}  # port -> float (elapsed seconds since connect)
+var _last_activity: Dictionary = {}  # port -> seconds since last received message
+var _ping_timers: Dictionary = {}  # port -> seconds since last ping sent
+var _stale_ports: Dictionary = {}  # port -> heartbeat timeout state for status panel
 var _running: bool = false
 
 
@@ -53,6 +58,9 @@ func start_server() -> void:
 		_accepted[p] = false
 		_hello_sent[p] = false
 		_timers[p] = 0.0
+		_last_activity[p] = 0.0
+		_ping_timers[p] = 0.0
+		_stale_ports[p] = false
 		_try_connect(p)
 	print("[MCP] Connecting via rendezvous, stdio 17605-17619, cli 17620-17624, legacy 6505-6509/6510-6514")
 
@@ -68,6 +76,9 @@ func stop_server() -> void:
 	_accepted.clear()
 	_hello_sent.clear()
 	_timers.clear()
+	_last_activity.clear()
+	_ping_timers.clear()
+	_stale_ports.clear()
 	print("[MCP] WebSocket client stopped")
 
 
@@ -97,6 +108,14 @@ func get_port_source(port: int) -> String:
 
 func get_port_connect_time(port: int) -> float:
 	return _connect_times.get(port, -1.0)
+
+
+func get_port_idle_time(port: int) -> float:
+	return _last_activity.get(port, -1.0)
+
+
+func is_port_stale(port: int) -> bool:
+	return _stale_ports.get(port, false)
 
 
 func _build_candidate_ports() -> void:
@@ -174,17 +193,46 @@ func _process(delta: float) -> void:
 				if not _connected.get(p, false):
 					_connected[p] = true
 					_connect_times[p] = 0.0
+					_last_activity[p] = 0.0
+					_ping_timers[p] = 0.0
+					_stale_ports[p] = false
 					_timers[p] = 0.0
 					print_verbose("[MCP] Connected on port %d (%s)" % [p, get_port_source(p)])
 					_send_workspace_hello(p)
 					client_connected.emit()
 				else:
 					_connect_times[p] = _connect_times.get(p, 0.0) + delta
+					_last_activity[p] = _last_activity.get(p, 0.0) + delta
+					_ping_timers[p] = _ping_timers.get(p, 0.0) + delta
 
+				var received_any := false
 				while ws.get_available_packet_count() > 0:
 					var packet := ws.get_packet()
 					var text := packet.get_string_from_utf8()
+					received_any = true
 					_dispatch_message(text, p)
+
+				if received_any:
+					_last_activity[p] = 0.0
+					if _stale_ports.get(p, false):
+						_stale_ports[p] = false
+						print("[MCP] Port %d recovered from stale state" % p)
+
+				if _last_activity.get(p, 0.0) > INACTIVITY_TIMEOUT:
+					push_warning("[MCP] Port %d silent for %.1fs; forcing reconnect" % [p, _last_activity[p]])
+					_stale_ports[p] = true
+					ws.close(4000, "Heartbeat timeout")
+					_connected[p] = false
+					_accepted[p] = false
+					_hello_sent[p] = false
+					_peers[p] = null
+					_timers[p] = 0.0
+					client_disconnected.emit()
+					continue
+
+				if _ping_timers.get(p, 0.0) >= PING_INTERVAL:
+					_ping_timers[p] = 0.0
+					ws.send_text(JSON.stringify({"jsonrpc": "2.0", "method": "ping", "params": {}}))
 
 			WebSocketPeer.STATE_CLOSING:
 				pass
@@ -198,6 +246,8 @@ func _process(delta: float) -> void:
 					client_disconnected.emit()
 				_peers[p] = null
 				_timers[p] = 0.0
+				_last_activity[p] = 0.0
+				_ping_timers[p] = 0.0
 
 			WebSocketPeer.STATE_CONNECTING:
 				pass
