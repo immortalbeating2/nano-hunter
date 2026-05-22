@@ -152,3 +152,16 @@
   结果：stdio 主端口迁移到 `17605-17619`，CLI 主端口迁移到 `17620-17624`，旧 `6505-6509` / `6510-6514` 降级为 legacy；Node 写项目本地 rendezvous，Godot 插件优先连接当前会话指定端口。
   关键验证：外部 Node server `npm test` / `npm run build` 通过；完整 Godot 与脚本验证见当日日志。
   详情：`docs/progress/logs/2026-05-01.md`。
+
+- **资产生产线治理分支准备**：从 `origin/main` 创建资产治理分支，后续重命名为 `codex/asset-production-track-governance`。
+  模式：`仅分支`。
+  目标范围：资产存储策略、批次路线图、AI 工具分工、manifest / checklist / AGENTS 同步。
+  基线：创建时 HEAD 为 `a1f0845`，分支跟踪 `origin/main`。
+  详情：`docs/progress/logs/2026-05-01.md`。
+
+## 2026-05-14
+
+- **资产生产线治理落地**：建立 Asset Production Track 文档基线。
+  结果：新增 `asset-storage-policy.md` 与 `asset-production-roadmap.md`，补强资产生成 brief、manifest、接入 checklist、`.gitignore` 与 `AGENTS.md`。
+  目标范围：Batch 00-05 的资产生产、存储、工具分工、授权记录和后续 Stage 补充规则。
+  详情：`docs/progress/logs/2026-05-14.md`。

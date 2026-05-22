@@ -1,6 +1,6 @@
 # Asset Generation Brief
 
-Last Updated: 2026-04-27
+Last Updated: 2026-05-14
 
 ## 用途
 
@@ -24,6 +24,7 @@ Last Updated: 2026-04-27
 - Stage 12-13 已接入一批项目内 SVG 占位资产，用于玩家轮廓、敌人轮廓、攻击 / 命中 VFX、HUD 图标、第二小区域环境、危险提示、门控与区域终点装置。
 - 这些资产主要是 `占位资产` 和 `可替换结构样例`，不是最终美术。
 - Stage 12-13 中出现的“镇妖试炼场 / 瘴泽妖域”属于灰盒阶段方向偏移；后续资产寻找和生成不应继续扩大现代生物镇妖试炼场设定，而应改回南北朝东方奇幻语境。
+- Stage 16 Alpha Demo 候选已形成；后续资产生产不单独替代玩法 Stage，而作为 `Asset Production Track / 资产生产线` 并行推进，先服务 Alpha Demo 视觉 / 音频 polish。
 
 ## 灰盒命名回归方案
 
@@ -85,6 +86,50 @@ Last Updated: 2026-04-27
 - 外部参考图：`assets/source/references/`
 
 任何准备进项目的外部或 AI 资产，都要回填 `docs/assets/asset-manifest.md` 的来源、授权状态、当前状态和替换优先级。
+
+## AI 工具分工
+
+| 工具 | 推荐用途 | 注意事项 |
+| --- | --- | --- |
+| Image2 / GPT Image | 角色、Boss、区域背景、大型道具、主视觉方向稿 | 优先生成清晰轮廓和可读构图，不直接承诺最终动画 |
+| Nano Banana / Gemini Image | 小图案、HUD 图标、符印、道具变体、角色一致性延展和局部重绘 | 适合做已选方向的微调与同风格变体 |
+| ElevenLabs | 短 SFX、人声、怪物声、UI 反馈音 | 接入前必须裁剪、统一响度并记录授权状态 |
+| Suno / Lyria 3 | BGM 草案、区域 loop、Boss loop、主菜单音乐 | 接入前必须确认账号计划和商用 / 发布条款 |
+| Seedance 2 / Veo 3.1 | 动作参考、宣传视频、过场氛围和 trailer 草案 | 默认不直接作为游戏内 sprite 动画源 |
+| Aseprite / Krita / Inkscape / Audacity / Reaper | 最终清稿、切片、透明背景、SVG 清理、音频裁剪和 loop | 不由 Godot 插件完全替代 |
+
+## 资产 Batch 工作流
+
+资产生产按批次推进，不等待完整正式美术：
+
+```text
+资产需求登记
+-> 生成 3-6 张候选
+-> 筛选 1-2 张方向稿
+-> 清理透明背景 / 尺寸 / 色板 / 响度
+-> 导出 Godot 可接入版
+-> 更新 asset-manifest.md
+-> godot --headless --path . --import
+-> 接入后按 asset-ingestion-checklist.md 复核
+```
+
+默认批次：
+
+- `Batch 00 - 风格锁定`：Luna、镇妖卫、佛门符印、瘴泽妖域、Seal Guardian 风格板。
+- `Batch 01 - P0 玩法可读资产`：Luna、Air Dash、Seal Guardian、Boss 预警、Recovery Charge。
+- `Batch 02 - Stage16 UI 与终局反馈`：主菜单、暂停 / 重开、终局封印链、完成反馈。
+- `Batch 03 - 区域表现资产`：`biome_01_shrine_trial` 与 `biome_02_miasma_marsh` 的地形、背景和 props。
+- `Batch 04 - 音频资产`：最小 SFX、人声候选、怪物声和 BGM loop。
+- `Batch 05 - 动画参考与宣传素材`：动作参考、Boss 入场和 Alpha Demo trailer 草案。
+
+## 存储与命名
+
+- 原始候选：`assets/source/ai_generated/batch_XX/<asset_id>_candidate_01.png`
+- 可接入图像：`assets/art/<category>/<asset_id>_ai01.png`
+- 可接入音效：`assets/audio/sfx/<pack>/<asset_id>_ai01.ogg`
+- BGM：`assets/audio/music/<asset_id>_ai01.ogg`
+- 原始候选、失败稿、参考图、PSD/KRA/ASE/BLEND、授权截图和购买资产原包默认不普通提交。
+- 小体积可运行资产、`.import`、场景引用和资产文档可以提交。
 
 ## 全局提示词模板
 
@@ -166,6 +211,24 @@ Boss 攻击预警：
 
 ```text
 short talisman cast, bronze bell chime, ink slash, ancient stone gate open, paper charm flutter, demon miasma hiss, Chinese drum warning stinger, soft guqin dark loop
+```
+
+SFX 生成提示词模板：
+
+```text
+Short dry talisman cast sound effect, paper charm ignition, soft bronze bell shimmer, cyan spiritual energy pulse, ancient Chinese dark fantasy, clean game UI feedback, under 1 second, no music, no voice, no long reverb tail.
+```
+
+BGM 生成提示词模板：
+
+```text
+Seamless instrumental loop for a 2D metroidvania dark fantasy game, Northern and Southern Dynasties Chinese atmosphere, guqin, xiao flute, low ritual drum, distant bronze bell, soft miasma ambience, mysterious but not horror, 70 BPM, 60 seconds, no vocals, no modern EDM, loopable ending.
+```
+
+动画参考提示词模板：
+
+```text
+Image-to-video animation reference, side-view 2D metroidvania protagonist performing a short air dash, cyan-white talisman trail, compact readable motion, ancient Chinese dark fantasy, stable character silhouette, no camera movement, no scene cut, no text, no UI.
 ```
 
 ## 一致性工作流

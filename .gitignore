@@ -5,3 +5,14 @@
 
 # 本地运行态复核、截图和测试证据产物只服务当前机器，不进入提交。
 tests/artifacts/local/
+
+# AI 候选图、可编辑源文件和外部参考默认只作为本地 / 外部资产库内容，不进入普通 Git。
+assets/source/ai_generated/**
+!assets/source/ai_generated/
+!assets/source/ai_generated/.gitkeep
+assets/source/editable/**
+!assets/source/editable/
+!assets/source/editable/.gitkeep
+assets/source/references/**
+!assets/source/references/
+!assets/source/references/.gitkeep
