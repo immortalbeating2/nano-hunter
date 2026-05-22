@@ -339,7 +339,7 @@ Stage 12-13 中出现的“实验室 / 生物废液区”等命名和资产方�
 - `tests/`：GUT 测试
 - `tests/artifacts/local/`：本地测试、MCP 运行态复核、截图和一次性证据产物；默认不提交
 - `spec-design/`：设计文档
-- `docs/assets/`：资产清单、资产接入测试清单与授权 / 来源记录
+- `docs/assets/`：资产清单、资产接入测试清单、资产存储策略、资产生产路线图与授权 / 来源记录
 - `docs/deliverables/`：可试玩 / 可打包 / 可交付候选阶段的 QA checklist、release notes 等成套交付产物
 - `docs/progress/`：进度与时间线文档
 - `docs/progress/logs/`：当日详细开发日志
@@ -407,6 +407,20 @@ Godot MCP Pro 的联通、端口规划、bridge stale 判断、工具入口缺�
 - 用户寻找、生成、购买或替换资产时，优先参考 `docs/assets/asset-generation-brief.md` 的风格锚点、目标路径、Stage 14-16 初步需求和提示词模板
 - 只有当美术方向、渲染方式、动画规格或资源类型发生结构性变化时，才重新修订资产规划
 - 只有当玩法模块已经验证成立且短期内不会频繁推翻时，才开始将临时资源替换为更正式资产
+
+### Asset Production Track / 资产生产线
+
+- Stage 16 之后，资产生产线作为长期并行工作流运行，不单独替代玩法 Stage；每个玩法 Stage 仍先用灰盒或占位资产验证玩法。
+- 新区域、新敌人、新能力、新 Boss、新 UI、SFX、BGM 或宣传素材需求，默认先登记到 `docs/assets/asset-manifest.md`，再按 `docs/assets/asset-production-roadmap.md` 追加 Batch。
+- 资产 Batch 默认服务对应 Stage 的 polish / 补充收口；只有当资产接入改变可试玩表现、HUD、音频或完成反馈时，才纳入对应 Stage 的验证范围。
+- 当前默认批次为 `Batch 00` 风格锁定、`Batch 01` P0 玩法可读资产、`Batch 02` Stage16 UI 与终局反馈、`Batch 03` 区域表现资产、`Batch 04` 音频资产、`Batch 05` 动画参考与宣传素材。
+- 每个资产 Batch 至少需要一份轻量实施计划，默认写入 `docs/implementation-plans/YYYY-MM-DD-asset-batch-XX-<topic>.md`，包含目标、范围、资产列表、生成方式、存储位置、是否接入游戏、验证和退出条件。
+- 只生成候选或风格板的 Batch 不需要根目录 `plan/` 正式阶段计划；生成并整理可接入版但暂不替换场景引用的 Batch，也只需要轻量实施计划和当日日志。
+- 当资产 Batch 会替换 HUD、场景、Boss、SFX、BGM、完成反馈或其他可试玩表现时，必须挂到对应 Stage 的 polish / 补充实施计划，并执行 Godot import、对应 GUT 或人工复核。
+- 当资产 Batch 同时新增玩法目标、新区域、新 Boss、新能力、大规模 Demo polish 或改变后续阶段方向时，必须升级为正式 Stage 流程，补 `spec-design/`、`docs/implementation-plans/` 和根目录 `plan/`。
+- 原始 AI 候选、失败稿、参考图、PSD/KRA/ASE/BLEND、授权截图和购买资产原包默认不进入普通 Git；具体边界遵循 `docs/assets/asset-storage-policy.md`。
+- 可运行的小体积 PNG、SVG、OGG、Godot `.import` 和资产文档可以提交；大文件确需随项目版本走时再评估 Git LFS 或外部资产库链接。
+- Godot 插件只负责导入、预览、测试和接入效率，不承担完整资产生产；短期默认仍只启用 `godot_mcp` 与 `gut`，`AsepriteWizard` 只在正式采用 Aseprite 动画源时再评估启用。
 
 ## 代码约定
 

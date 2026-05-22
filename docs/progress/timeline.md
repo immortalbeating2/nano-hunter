@@ -159,3 +159,16 @@
   结果：保留 `17605-17619` / `17620-17624`、rendezvous、workspace/session 握手和 diagnostic tools，同时合入 ping/pong、heartbeat timeout、idle/stale UI 与输入 `unhandled=false` 修正。
   关键验证：外部 Node server `npm test` / `npm run build`、补丁脚本 dry-run、MCP 诊断脚本、入口脚本 dry-run、Godot import 和 `git diff --check` 通过。
   详情：`docs/progress/logs/2026-05-13.md`。
+
+## 2026-05-14
+
+- **资产生产线治理落地**：建立 Asset Production Track 文档基线。
+  结果：新增 `asset-storage-policy.md` 与 `asset-production-roadmap.md`，补强资产生成 brief、manifest、接入 checklist、`.gitignore` 与 `AGENTS.md`。
+  目标范围：Batch 00-05 的资产生产、存储、工具分工、授权记录和后续 Stage 补充规则。
+  详情：`docs/progress/logs/2026-05-14.md`。
+
+## 2026-05-22
+
+- **资产生产线治理合并**：按用户要求合并并推送除 Luna 行走关键帧生成内容外的其它主线内容。
+  结果：`codex/asset-production-track-governance` 合并到 `main`；Luna 行走关键帧目录、5 月 5 日日志和对应 manifest 行保留为本地未提交内容。
+  详情：`docs/progress/logs/2026-05-22.md`。
