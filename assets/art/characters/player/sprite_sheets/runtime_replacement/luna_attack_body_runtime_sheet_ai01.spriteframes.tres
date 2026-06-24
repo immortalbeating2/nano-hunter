@@ -1,0 +1,51 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai01.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_001"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_002"]
+atlas = ExtResource("1")
+region = Rect2(384, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_003"]
+atlas = ExtResource("1")
+region = Rect2(576, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_004"]
+atlas = ExtResource("1")
+region = Rect2(768, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_005"]
+atlas = ExtResource("1")
+region = Rect2(960, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_006"]
+atlas = ExtResource("1")
+region = Rect2(1152, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_007"]
+atlas = ExtResource("1")
+region = Rect2(1344, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_008"]
+atlas = ExtResource("1")
+region = Rect2(0, 160, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_attack_body_runtime_sheet_ai01_009"]
+atlas = ExtResource("1")
+region = Rect2(192, 160, 192, 160)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_002")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_003")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_004")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_005")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_006")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_007")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_attack_body_runtime_sheet_ai01_009")}],
+"loop": false,
+"name": &"attack_body",
+"speed": 18.0
+}]

@@ -1,0 +1,19 @@
+{
+  "asset_id": "seal_guardian_attack_vfx_atlas_ai01",
+  "source_asset_id": "seal_guardian_attack_runtime_sheet_ai01",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_runtime_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_runtime_sheet_ai01.frames.json",
+  "process": "semantic_runtime_clip_split_from_normalized_candidate",
+  "boundary": "Extracted Seal Guardian cyan ground slash / impact VFX candidate. This is a VFX atlas candidate, not a character runtime replacement candidate.",
+  "source_frame_indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "filter": "keep_low_cyan_vfx"
+}

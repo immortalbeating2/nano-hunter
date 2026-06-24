@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "asset_id": "menu_ninepatch_ui_ai01",
+  "kind": "ninepatch_sheet",
+  "batch": "Batch 08",
+  "source_metadata": "assets/art/ui/menu_ninepatch_ui_ai01.regions.json",
+  "output": "assets/art/ui/menu_ninepatch_ui_ai01.png",
+  "entry_count": 8,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "pause_panel",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        192,
+        96
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "completion_panel",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_002_c01.png",
+      "region": [
+        192,
+        0,
+        192,
+        96
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "dialog_panel",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_003_c01.png",
+      "region": [
+        384,
+        0,
+        192,
+        96
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "hud_panel",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_004_c01.png",
+      "region": [
+        576,
+        0,
+        192,
+        96
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "button_normal",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_005_c01.png",
+      "region": [
+        0,
+        96,
+        192,
+        96
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "button_focus",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_006_c01.png",
+      "region": [
+        192,
+        96,
+        192,
+        96
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "button_disabled",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_007_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_007_c02.png",
+      "region": [
+        384,
+        96,
+        192,
+        96
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "tooltip_panel",
+      "category": "ninepatch_sheet",
+      "group": "ui_panel",
+      "role": "ninepatch_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "menu_ninepatch_ui_ai01_auto_008_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items/menu_ninepatch_ui_ai01_auto_008_c02.png",
+      "region": [
+        576,
+        96,
+        192,
+        96
+      ]
+    }
+  ]
+}

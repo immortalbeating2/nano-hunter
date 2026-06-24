@@ -1,0 +1,588 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "status": "runtime_sources_confirmed",
+  "boundary": "Runtime source safety audit for P0 image_gen assets. It checks whether assets already referenced by Godot scenes, or planned for immediate replacement, are backed by selected project-session-confirmed sources. It does not judge visual quality, animation polish, license terms or final approval.",
+  "sources": {
+    "runtime_plan": "docs/assets/p0-runtime-replacement-plan.json",
+    "source_safety": "docs/assets/imagegen-source-safety-report.json",
+    "provenance": "docs/assets/asset-provenance-records.json"
+  },
+  "summary": {
+    "runtime_asset_count": 30,
+    "runtime_source_gate_counts": {
+      "runtime_reference_source_confirmed": 30
+    },
+    "source_status_counts": {
+      "selected_source_confirmed": 21,
+      "single_candidate_confirmed": 9
+    },
+    "runtime_review_required_count": 0,
+    "runtime_review_required_items": [],
+    "unsafe_item_count": 0,
+    "unsafe_items": [],
+    "errors": []
+  },
+  "items": [
+    {
+      "asset_id": "style_board_global_ai01",
+      "resource_path": "res://assets/art/promo/style_board_global_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/dev/imagegen_asset_gallery.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage16_luna_player_readability_ai01",
+      "resource_path": "res://assets/art/characters/player/stage16_luna_player_readability_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_icon_ai01",
+      "resource_path": "res://assets/art/ui/stage14_air_dash_icon_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/tutorial_hud.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_trail_ai01",
+      "resource_path": "res://assets/art/vfx/stage14_air_dash_trail_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn",
+        "scenes/rooms/stage14_air_dash_shrine_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_shrine_ai01",
+      "resource_path": "res://assets/art/props/stage14_air_dash_shrine_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/rooms/stage14_air_dash_shrine_room.tscn",
+        "scenes/rooms/stage14_air_dash_gate_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_gate_ai01",
+      "resource_path": "res://assets/art/props/stage14_air_dash_gate_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/rooms/stage14_air_dash_shrine_room.tscn",
+        "scenes/rooms/stage14_air_dash_gate_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage15_seal_guardian_ai01",
+      "resource_path": "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/enemies/seal_guardian_boss.tscn",
+        "scenes/rooms/stage15_seal_guardian_boss_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage15_boss_attack_warning_ai01",
+      "resource_path": "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/enemies/seal_guardian_boss.tscn",
+        "scenes/rooms/stage15_seal_guardian_boss_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage15_recovery_charge_icon_ai01",
+      "resource_path": "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/ui/tutorial_hud.tscn"
+      ]
+    },
+    {
+      "asset_id": "luna_run_sheet_ai01",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn"
+      ]
+    },
+    {
+      "asset_id": "luna_air_dash_sheet_ai01",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn"
+      ]
+    },
+    {
+      "asset_id": "luna_attack_01_sheet_ai01",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn"
+      ]
+    },
+    {
+      "asset_id": "luna_idle_sheet_ai01",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn"
+      ]
+    },
+    {
+      "asset_id": "seal_guardian_boss_sheet_ai01",
+      "resource_path": "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/enemies/seal_guardian_boss.tscn"
+      ]
+    },
+    {
+      "asset_id": "miasma_marsh_tileset_ai01",
+      "resource_path": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "single_candidate_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "single available candidate is project-session confirmed",
+      "target_scenes": [
+        "scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
+        "scenes/rooms/stage14_air_dash_gate_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "hud_core_ui_atlas_ai01",
+      "resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/tutorial_hud.tscn"
+      ]
+    },
+    {
+      "asset_id": "icon_sheet_core_ai01",
+      "resource_path": "res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/tutorial_hud.tscn"
+      ]
+    },
+    {
+      "asset_id": "menu_ninepatch_ui_ai01",
+      "resource_path": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/demo_shell.tscn"
+      ]
+    },
+    {
+      "asset_id": "vfx_seal_magic_atlas_ai01",
+      "resource_path": "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn",
+        "scenes/enemies/seal_guardian_boss.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage16_demo_menu_icons_ai01",
+      "resource_path": "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        4
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/demo_shell.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage16_seal_release_threshold_ai01",
+      "resource_path": "res://assets/art/props/stage16_seal_release_threshold_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        2
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/rooms/stage16_seal_release_threshold_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage16_talisman_relay_ai01",
+      "resource_path": "res://assets/art/vfx/stage16_talisman_relay_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 2,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/rooms/stage16_talisman_relay_room.tscn",
+        "scenes/rooms/stage16_corruption_purge_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage16_alpha_demo_completion_ai01",
+      "resource_path": "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/rooms/stage16_alpha_demo_end_room.tscn"
+      ]
+    },
+    {
+      "asset_id": "luna_jump_fall_sheet_ai01",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        4
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn"
+      ]
+    },
+    {
+      "asset_id": "luna_hit_death_sheet_ai01",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        4
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/player/player_placeholder.tscn"
+      ]
+    },
+    {
+      "asset_id": "enemies_core_sheet_ai01",
+      "resource_path": "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/combat/basic_melee_enemy.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage16_pause_panel_ui_ai01",
+      "resource_path": "res://assets/art/ui/stage16_pause_panel_ui_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/demo_shell.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage16_completion_panel_ui_ai01",
+      "resource_path": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/demo_shell.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage15_boss_hud_frame_ai01",
+      "resource_path": "res://assets/art/ui/stage15_boss_hud_frame_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/tutorial_hud.tscn"
+      ]
+    },
+    {
+      "asset_id": "stage14_ability_status_hud_ai01",
+      "resource_path": "res://assets/art/ui/stage14_ability_status_hud_ai01.png",
+      "runtime_replacement_status": "already_referenced",
+      "current_scene_reference_count": 1,
+      "source_status": "selected_source_confirmed",
+      "runtime_source_gate": "runtime_reference_source_confirmed",
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_statuses": [
+        "project_session_confirmed"
+      ],
+      "project_session_candidate_count": 1,
+      "reason": "selected candidate indices are recorded in provenance",
+      "target_scenes": [
+        "scenes/ui/tutorial_hud.tscn"
+      ]
+    }
+  ]
+}

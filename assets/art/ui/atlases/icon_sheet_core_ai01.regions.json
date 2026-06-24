@@ -1,0 +1,189 @@
+{
+  "id": "icon_sheet_core_ai01",
+  "kind": "atlas",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/ui/atlases/icon_sheet_core_ai01.png",
+  "cell": [
+    64,
+    64
+  ],
+  "columns": 8,
+  "rows": 2,
+  "frames": [
+    {
+      "index": 0,
+      "name": "icon_sheet_core_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 1,
+      "name": "icon_sheet_core_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_002_c01.png",
+      "region": [
+        64,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 2,
+      "name": "icon_sheet_core_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_003_c01.png",
+      "region": [
+        128,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 3,
+      "name": "icon_sheet_core_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_004_c01.png",
+      "region": [
+        192,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 4,
+      "name": "icon_sheet_core_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_005_c01.png",
+      "region": [
+        256,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 5,
+      "name": "icon_sheet_core_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_006_c01.png",
+      "region": [
+        320,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 6,
+      "name": "icon_sheet_core_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_007_c01.png",
+      "region": [
+        384,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 7,
+      "name": "icon_sheet_core_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_008_c01.png",
+      "region": [
+        448,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 8,
+      "name": "icon_sheet_core_ai01_auto_009_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_009_c02.png",
+      "region": [
+        0,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 9,
+      "name": "icon_sheet_core_ai01_auto_010_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_010_c02.png",
+      "region": [
+        64,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 10,
+      "name": "icon_sheet_core_ai01_auto_011_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_011_c02.png",
+      "region": [
+        128,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 11,
+      "name": "icon_sheet_core_ai01_auto_012_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_012_c02.png",
+      "region": [
+        192,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 12,
+      "name": "icon_sheet_core_ai01_auto_013_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_013_c02.png",
+      "region": [
+        256,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 13,
+      "name": "icon_sheet_core_ai01_auto_014_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_014_c02.png",
+      "region": [
+        320,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 14,
+      "name": "icon_sheet_core_ai01_auto_015_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_015_c02.png",
+      "region": [
+        384,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 15,
+      "name": "icon_sheet_core_ai01_auto_016_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_016_c02.png",
+      "region": [
+        448,
+        64,
+        64,
+        64
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "status": "placeholder_ready",
+  "asset_count": 7,
+  "frame_rule_count": 86,
+  "manual_review_required": true,
+  "assets": [
+    {
+      "asset_id": "stage14_air_dash_trail_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage14_air_dash_trail_ai01.vfx_rules.json",
+      "frame_count": 1,
+      "target_kind": "vfx_direction"
+    },
+    {
+      "asset_id": "stage15_boss_attack_warning_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage15_boss_attack_warning_ai01.vfx_rules.json",
+      "frame_count": 1,
+      "target_kind": "vfx_warning"
+    },
+    {
+      "asset_id": "vfx_seal_magic_atlas_ai01",
+      "path": "assets/art/vfx/vfx_rules/vfx_seal_magic_atlas_ai01.vfx_rules.json",
+      "frame_count": 32,
+      "target_kind": "vfx_atlas"
+    },
+    {
+      "asset_id": "vfx_combat_atlas_ai01",
+      "path": "assets/art/vfx/vfx_rules/vfx_combat_atlas_ai01.vfx_rules.json",
+      "frame_count": 32,
+      "target_kind": "vfx_atlas"
+    },
+    {
+      "asset_id": "stage16_talisman_relay_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage16_talisman_relay_ai01.vfx_rules.json",
+      "frame_count": 6,
+      "target_kind": "vfx_sheet"
+    },
+    {
+      "asset_id": "stage16_corruption_purge_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage16_corruption_purge_ai01.vfx_rules.json",
+      "frame_count": 6,
+      "target_kind": "vfx_sheet"
+    },
+    {
+      "asset_id": "seal_guardian_attack_vfx_atlas_ai01",
+      "path": "assets/art/vfx/vfx_rules/seal_guardian_attack_vfx_atlas_ai01.vfx_rules.json",
+      "frame_count": 8,
+      "target_kind": "vfx_atlas"
+    }
+  ],
+  "boundary": "First-pass VFX rule index. All rules explicitly disable gameplay collision and damage; runtime damage/hit logic must be authored separately in gameplay code or scenes."
+}

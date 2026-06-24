@@ -1,6 +1,6 @@
 # Nano Hunter Asset Production Roadmap
 
-Last Updated: 2026-05-14
+Last Updated: 2026-06-19
 
 ## 定位
 
@@ -30,7 +30,15 @@ Stage 设计目标
 | Batch 03 | 区域表现资产 | 补山门古刹 / 镇妖试炼场与瘴泽妖域区域表现 | 是 | Stage13-16 visual pass |
 | Batch 04 | 音频资产 | 补最小 SFX、人声、怪物声与 BGM loop | 是 | Stage16 audio pass |
 | Batch 05 | 动画参考与宣传素材 | 生成动作参考、Boss 入场、trailer 草案 | 默认否 | 后续动画 / 宣传 |
-| Batch 06+ | 后续 Stage 资产 | 随新区域、新敌人、新能力、Boss、支线和 UI 追加 | 视 Stage 而定 | Stage17+ |
+| Batch 06 | 角色与敌人动画帧 | 补 Luna 高帧数动作帧、敌人 / Seal Guardian 动作帧和 sprite sheets | 是，接入前需复核 | Stage14-17 animation pass |
+| Batch 07 | TileSet 与贴图 | 补地形 tile、材质贴图、危险池和平台边缘 | 是 | Stage13-17 environment pass |
+| Batch 08 | UI / Icon Atlas | 补 HUD、菜单、图标、九宫格与 UI 图集 | 是 | Stage16+ UI polish |
+| Batch 09 | Prop / Equipment Atlas | 补 shrine、gate、符桩、石碑、武器、奖励物 | 是 | Stage14-17 content polish |
+| Batch 10 | VFX Atlas | 补 slash、hit、dash、seal、warning、purge 序列帧 | 是 | Stage12-17 VFX pass |
+| Batch 11 | Spine 拆件图集 | 为 Luna 与 Boss 准备后续骨骼动画拆件候选 | 默认否 | Future animation pipeline |
+| Batch 12 | Promo / LOGO / CG | 补 LOGO、key art、封面、运营图、CG | 默认否 | Demo presentation / marketing |
+| Batch 13 | Narrative Storyboard | 补剧情分镜、过场氛围和叙事插图 | 默认否 | Future narrative pass |
+| Batch 14+ | 后续 Stage 资产 | 随新区域、新敌人、新能力、Boss、支线和 UI 追加 | 视 Stage 而定 | Stage17+ |
 
 ## Batch 00 - 风格锁定
 
@@ -151,3 +159,120 @@ Stage 设计目标
 - 新区域默认拆为“区域表现 Batch + 敌人 / VFX Batch + 音频 Batch”。
 - 新 Boss 默认拆为“Boss 概念 / 轮廓 Batch + Boss 房 / 预警 / 音频 Batch”。
 - 不让资产生产阻塞灰盒玩法验证；不让未验证玩法提前消耗正式资产制作成本。
+
+## Batch 06 - 角色与敌人动画帧
+
+目标：把角色与敌人从单张方向稿推进到可用于 Godot 动画的动作帧和 sprite sheet；其中 Luna 作为主角必须按高帧数标准推进。
+
+资产需求：
+
+- Luna：idle、walk、run、jump start、jump rise、fall、land、attack、aerial attack、hit、death、air dash；核心动作遵循 `docs/assets/animation-frame-spec.md`，run 推荐 `16-24` 帧，air dash / attack 推荐 `12-16` 帧，death 推荐 `16-24` 帧。
+- 敌人：基础近战、冲锋、空中哨兵、瘴气妖术投射者的 idle / move / attack / hit / defeat。
+- Seal Guardian：idle、attack warning、attack、hit、defeat。
+
+输出：
+
+- `assets/art/characters/player/sprite_sheets/`
+- `assets/art/characters/enemies/sprite_sheets/`
+
+约束：
+
+- 直接 image gen 的高帧 sheet 可作为候选，不直接视为正式接入资产。
+- Luna P0 动作允许先生成 `8-12` 帧候选，再由 Aseprite / Krita 清稿补到正式帧数。
+- 每张 sheet 必须固定帧格、脚底基线、朝向和缩放。
+
+## Batch 07 - TileSet 与贴图
+
+目标：把山门古刹 / 镇妖试炼场与瘴泽妖域的灰盒环境推进到可切 tile 的生产状态。
+
+资产需求：
+
+- 平台、地面、墙面、边缘、危险池、装饰 tile。
+- 石材、木构、符纸、瘴气地表、腐化水面、布料和金属边饰贴图。
+
+输出：
+
+- `assets/art/tilesets/`
+- `assets/art/textures/`
+
+## Batch 08 - UI / Icon Atlas
+
+目标：把 HUD、菜单、图标和九宫格面板整理成统一 UI 图集。
+
+资产需求：
+
+- 主菜单、暂停、重开、完成反馈面板。
+- HUD 血量、能力状态、Boss 状态、Recovery Charge。
+- Air Dash、checkpoint、门控、终点、奖励图标。
+- 九宫格面板和按钮背景。
+
+输出：
+
+- `assets/art/ui/`
+- `assets/art/ui/atlases/`
+
+## Batch 09 - Prop / Equipment Atlas
+
+目标：把交互道具、关卡装饰、装备和奖励物整理成 props / equipment 图集。
+
+资产需求：
+
+- Air Dash shrine、封印门、符桩、石碑、石龛、悬赏榜、佛印石灯。
+- Luna 武器、符纸、念珠、铜铃、镇妖令牌、奖励物。
+
+输出：
+
+- `assets/art/props/`
+- `assets/art/atlases/`
+
+## Batch 10 - VFX Atlas
+
+目标：把当前可玩读值需要的 VFX 统一为序列帧和图集。
+
+资产需求：
+
+- Slash、hit spark、Air Dash trail、Boss warning、talisman relay、corruption purge。
+
+输出：
+
+- `assets/art/vfx/`
+- `assets/art/vfx/atlases/`
+
+## Batch 11 - Spine 拆件图集
+
+目标：为后续骨骼动画预留 Luna 与 Boss 拆件图集，但当前不默认启用 Spine 插件。
+
+资产需求：
+
+- Luna：头、躯干、上臂、前臂、手、腿、披带、武器、符纸。
+- Seal Guardian：头 / 面具、躯干、前肢、后肢、尾部或封印链、弱点核心。
+
+输出：
+
+- `assets/art/spine_parts/`
+
+## Batch 12 - Promo / LOGO / CG
+
+目标：补宣传与运营图，不阻塞 playable demo。
+
+资产需求：
+
+- 项目 LOGO / 标题字方向。
+- Key Art、Steam capsule、社媒图、Demo 封面。
+- CG 图。
+
+输出：
+
+- `assets/art/promo/`
+
+## Batch 13 - Narrative Storyboard
+
+目标：补剧情分镜、过场氛围和叙事插图，作为后续剧情阶段参考。
+
+资产需求：
+
+- Luna 接悬赏、山门古刹入口、瘴泽妖域异变、Seal Guardian 封印破裂、Alpha Demo 完成反馈。
+
+输出：
+
+- `assets/art/storyboards/`

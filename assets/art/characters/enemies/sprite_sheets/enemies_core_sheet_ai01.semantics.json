@@ -1,0 +1,653 @@
+{
+  "version": 1,
+  "asset_id": "enemies_core_sheet_ai01",
+  "kind": "sprite_sheet",
+  "batch": "Batch 06",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.frames.json",
+  "output": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png",
+  "entry_count": 32,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "basic_melee_idle_frame_01",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_001_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_001_c06.png",
+      "region": [
+        0,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "basic_melee_idle_frame_02",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_002_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_002_c06.png",
+      "region": [
+        160,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "basic_melee_move_frame_03",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_003_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_003_c06.png",
+      "region": [
+        320,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "basic_melee_move_frame_04",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_004_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_004_c06.png",
+      "region": [
+        480,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "basic_melee_move_frame_05",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_005_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_005_c06.png",
+      "region": [
+        640,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "basic_melee_attack_frame_06",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_006_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_006_c06.png",
+      "region": [
+        800,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "basic_melee_attack_frame_07",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_007_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_007_c06.png",
+      "region": [
+        960,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "basic_melee_attack_frame_08",
+      "category": "sprite_sheet",
+      "group": "basic_melee",
+      "role": "animation_frame",
+      "tags": [
+        "basic_melee",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_008_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_008_c06.png",
+      "region": [
+        1120,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "ground_charger_idle_frame_01",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_009_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_009_c06.png",
+      "region": [
+        0,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "ground_charger_idle_frame_02",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_010_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_010_c06.png",
+      "region": [
+        160,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "ground_charger_move_frame_03",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_011_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_011_c06.png",
+      "region": [
+        320,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "ground_charger_move_frame_04",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_012_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_012_c06.png",
+      "region": [
+        480,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "ground_charger_move_frame_05",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_013_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_013_c06.png",
+      "region": [
+        640,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "ground_charger_attack_frame_06",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_014_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_014_c06.png",
+      "region": [
+        800,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "ground_charger_attack_frame_07",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_015_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_015_c06.png",
+      "region": [
+        960,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "ground_charger_attack_frame_08",
+      "category": "sprite_sheet",
+      "group": "ground_charger",
+      "role": "animation_frame",
+      "tags": [
+        "ground_charger",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_016_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_016_c06.png",
+      "region": [
+        1120,
+        160,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 16,
+      "semantic_name": "aerial_sentinel_idle_frame_01",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_017_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_017_c06.png",
+      "region": [
+        0,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 17,
+      "semantic_name": "aerial_sentinel_idle_frame_02",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_018_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_018_c06.png",
+      "region": [
+        160,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 18,
+      "semantic_name": "aerial_sentinel_move_frame_03",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_019_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_019_c06.png",
+      "region": [
+        320,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 19,
+      "semantic_name": "aerial_sentinel_move_frame_04",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_020_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_020_c06.png",
+      "region": [
+        480,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 20,
+      "semantic_name": "aerial_sentinel_move_frame_05",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_021_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_021_c06.png",
+      "region": [
+        640,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 21,
+      "semantic_name": "aerial_sentinel_attack_frame_06",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_022_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_022_c06.png",
+      "region": [
+        800,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 22,
+      "semantic_name": "aerial_sentinel_attack_frame_07",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_023_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_023_c06.png",
+      "region": [
+        960,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 23,
+      "semantic_name": "aerial_sentinel_attack_frame_08",
+      "category": "sprite_sheet",
+      "group": "aerial_sentinel",
+      "role": "animation_frame",
+      "tags": [
+        "aerial_sentinel",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_024_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_024_c06.png",
+      "region": [
+        1120,
+        320,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 24,
+      "semantic_name": "miasma_caster_idle_frame_01",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_025_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_025_c06.png",
+      "region": [
+        0,
+        480,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 25,
+      "semantic_name": "miasma_caster_idle_frame_02",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_026_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_026_c06.png",
+      "region": [
+        160,
+        480,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 26,
+      "semantic_name": "miasma_caster_move_frame_03",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_027_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_027_c06.png",
+      "region": [
+        320,
+        480,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 27,
+      "semantic_name": "miasma_caster_move_frame_04",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_028_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_028_c06.png",
+      "region": [
+        480,
+        480,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 28,
+      "semantic_name": "miasma_caster_move_frame_05",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "move"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_029_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_029_c06.png",
+      "region": [
+        640,
+        480,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 29,
+      "semantic_name": "miasma_caster_attack_frame_06",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_030_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_030_c06.png",
+      "region": [
+        800,
+        480,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 30,
+      "semantic_name": "miasma_caster_attack_frame_07",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_031_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_031_c06.png",
+      "region": [
+        960,
+        480,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 31,
+      "semantic_name": "miasma_caster_attack_frame_08",
+      "category": "sprite_sheet",
+      "group": "miasma_caster",
+      "role": "animation_frame",
+      "tags": [
+        "miasma_caster",
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "enemies_core_sheet_ai01_auto_032_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames/enemies_core_sheet_ai01_auto_032_c06.png",
+      "region": [
+        1120,
+        480,
+        160,
+        160
+      ]
+    }
+  ]
+}

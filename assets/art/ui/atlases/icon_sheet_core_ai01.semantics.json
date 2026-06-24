@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "asset_id": "icon_sheet_core_ai01",
+  "kind": "atlas",
+  "batch": "Batch 08",
+  "source_metadata": "assets/art/ui/atlases/icon_sheet_core_ai01.regions.json",
+  "output": "assets/art/ui/atlases/icon_sheet_core_ai01.png",
+  "entry_count": 16,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "air_dash",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "recovery_charge",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_002_c01.png",
+      "region": [
+        64,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "checkpoint",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_003_c01.png",
+      "region": [
+        128,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "sealed_gate",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_004_c01.png",
+      "region": [
+        192,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "reward_marker",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_005_c01.png",
+      "region": [
+        256,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "completion_seal",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_006_c01.png",
+      "region": [
+        320,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "boss_warning",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_007_c01.png",
+      "region": [
+        384,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "talisman_relay",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_008_c01.png",
+      "region": [
+        448,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "corruption_purge",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_009_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_009_c02.png",
+      "region": [
+        0,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "health",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_010_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_010_c02.png",
+      "region": [
+        64,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "ability_ready",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_011_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_011_c02.png",
+      "region": [
+        128,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "ability_cooldown",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_012_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_012_c02.png",
+      "region": [
+        192,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "pause",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_013_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_013_c02.png",
+      "region": [
+        256,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "restart",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_014_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_014_c02.png",
+      "region": [
+        320,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "continue",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_015_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_015_c02.png",
+      "region": [
+        384,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "back",
+      "category": "atlas",
+      "group": "icons",
+      "role": "icon_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "icon_sheet_core_ai01_auto_016_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items/icon_sheet_core_ai01_auto_016_c02.png",
+      "region": [
+        448,
+        64,
+        64,
+        64
+      ]
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "asset_id": "luna_attack_01_sheet_ai01",
+  "kind": "sprite_sheet",
+  "batch": "Batch 06",
+  "source_metadata": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.frames.json",
+  "output": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png",
+  "entry_count": 16,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "attack_01_frame_001",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_001_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_001_c06.png",
+      "region": [
+        0,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "attack_01_frame_002",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_002_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_002_c06.png",
+      "region": [
+        192,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "attack_01_frame_003",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_003_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_003_c06.png",
+      "region": [
+        384,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "attack_01_frame_004",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_004_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_004_c06.png",
+      "region": [
+        576,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "attack_01_frame_005",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_005_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_005_c06.png",
+      "region": [
+        768,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "attack_01_frame_006",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_006_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_006_c06.png",
+      "region": [
+        960,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "attack_01_frame_007",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_007_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_007_c06.png",
+      "region": [
+        1152,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "attack_01_frame_008",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_008_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_008_c06.png",
+      "region": [
+        1344,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "attack_01_frame_009",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_009_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_009_c06.png",
+      "region": [
+        0,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "attack_01_frame_010",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_010_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_010_c06.png",
+      "region": [
+        192,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "attack_01_frame_011",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_011_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_011_c06.png",
+      "region": [
+        384,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "attack_01_frame_012",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_012_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_012_c06.png",
+      "region": [
+        576,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "attack_01_frame_013",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_013_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_013_c06.png",
+      "region": [
+        768,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "attack_01_frame_014",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_014_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_014_c06.png",
+      "region": [
+        960,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "attack_01_frame_015",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_015_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_015_c06.png",
+      "region": [
+        1152,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "attack_01_frame_016",
+      "category": "sprite_sheet",
+      "group": "attack_01",
+      "role": "animation_frame",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "luna_attack_01_sheet_ai01_auto_016_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames/luna_attack_01_sheet_ai01_auto_016_c06.png",
+      "region": [
+        1344,
+        160,
+        192,
+        160
+      ]
+    }
+  ]
+}

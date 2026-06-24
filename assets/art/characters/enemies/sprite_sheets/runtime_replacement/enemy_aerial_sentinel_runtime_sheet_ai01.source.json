@@ -1,0 +1,19 @@
+{
+  "asset_id": "enemy_aerial_sentinel_runtime_sheet_ai01",
+  "source_asset_id": "enemies_core_runtime_sheet_ai01",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.frames.json",
+  "process": "semantic_runtime_clip_split_from_normalized_candidate",
+  "boundary": "Single aerial sentinel enemy runtime candidate split from the enemy roster sheet.",
+  "source_frame_indexes": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "filter": "none"
+}

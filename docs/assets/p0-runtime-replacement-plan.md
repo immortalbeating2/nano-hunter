@@ -1,0 +1,197 @@
+# P0 Runtime Replacement Plan / P0 运行时替换计划
+
+本计划只覆盖 runtime map 中 priority 为 `P0` 的资产条目，用于关闭 `runtime_replacement` gate 前的执行排程。
+它不直接替换场景引用，也不代表 final art 已批准。
+
+## Summary
+
+- P0 runtime entries：`30`
+- 仍需手动替换：`0`
+- 当前已被目标场景引用：`30`
+- 缺失资源：`0`
+- 缺失目标场景：`0`
+
+## Entries
+
+- [ ] `style_board_global_ai01` (art_direction / style_board / CompressedTexture2D)
+  - Target system: style lock reference
+  - Resource: `res://assets/art/promo/style_board_global_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/dev/imagegen_asset_gallery.tscn`
+- [ ] `stage16_luna_player_readability_ai01` (runtime_gameplay / character_direction / CompressedTexture2D)
+  - Target system: player visual readability direction
+  - Resource: `res://assets/art/characters/player/stage16_luna_player_readability_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`
+- [ ] `stage14_air_dash_icon_ai01` (runtime_ui / icon / CompressedTexture2D)
+  - Target system: ability/status HUD icon replacement
+  - Resource: `res://assets/art/ui/stage14_air_dash_icon_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/tutorial_hud.tscn`
+- [ ] `stage14_air_dash_trail_ai01` (runtime_vfx / vfx_direction / CompressedTexture2D)
+  - Target system: Air Dash VFX direction replacement
+  - Resource: `res://assets/art/vfx/stage14_air_dash_trail_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/rooms/stage14_air_dash_shrine_room.tscn`
+- [ ] `stage14_air_dash_shrine_ai01` (runtime_gameplay / prop / CompressedTexture2D)
+  - Target system: room prop visual replacement
+  - Resource: `res://assets/art/props/stage14_air_dash_shrine_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/rooms/stage14_air_dash_shrine_room.tscn`, `scenes/rooms/stage14_air_dash_gate_room.tscn`
+- [ ] `stage14_air_dash_gate_ai01` (runtime_gameplay / prop / CompressedTexture2D)
+  - Target system: room prop visual replacement
+  - Resource: `res://assets/art/props/stage14_air_dash_gate_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/rooms/stage14_air_dash_shrine_room.tscn`, `scenes/rooms/stage14_air_dash_gate_room.tscn`
+- [ ] `stage15_seal_guardian_ai01` (runtime_gameplay / boss_direction / CompressedTexture2D)
+  - Target system: Seal Guardian boss readability direction
+  - Resource: `res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/enemies/seal_guardian_boss.tscn`, `scenes/rooms/stage15_seal_guardian_boss_room.tscn`
+- [ ] `stage15_boss_attack_warning_ai01` (runtime_vfx / vfx_warning / CompressedTexture2D)
+  - Target system: boss warning VFX replacement
+  - Resource: `res://assets/art/vfx/stage15_boss_attack_warning_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/enemies/seal_guardian_boss.tscn`, `scenes/rooms/stage15_seal_guardian_boss_room.tscn`
+- [ ] `stage15_recovery_charge_icon_ai01` (runtime_ui / icon / CompressedTexture2D)
+  - Target system: ability/status HUD icon replacement
+  - Resource: `res://assets/art/ui/stage15_recovery_charge_icon_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/tutorial_hud.tscn`
+- [ ] `luna_run_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+- [ ] `luna_air_dash_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+- [ ] `luna_attack_01_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+- [ ] `luna_idle_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+- [ ] `seal_guardian_boss_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+- [ ] `miasma_marsh_tileset_ai01` (runtime_environment / tileset_sheet / TileSet)
+  - Target system: TileMapLayer visual/collision replacement
+  - Resource: `res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres`
+  - Mode: Assign to TileMapLayer.tile_set after collision, terrain and hazard boundary review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/rooms/stage13_miasma_marsh_entry_room.tscn`, `scenes/rooms/stage14_air_dash_gate_room.tscn`
+  - Polish blockers: collision_and_terrain_manual_review, hazard_safe_boundary_manual_review, alpha_padding_policy_manual_review, semantic_labels_manual_review
+- [ ] `hud_core_ui_atlas_ai01` (runtime_ui / ui_atlas / AtlasTexture)
+  - Target system: HUD/menu atlas replacement
+  - Resource: `res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres`
+  - Mode: Use the selected AtlasTexture region for TextureRect/Sprite2D after semantic region review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/demo_shell.tscn`, `scenes/ui/tutorial_hud.tscn`
+- [ ] `icon_sheet_core_ai01` (runtime_ui / icon_sheet / AtlasTexture)
+  - Target system: menu/HUD icon atlas replacement
+  - Resource: `res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres`
+  - Mode: Use the selected AtlasTexture region for TextureRect/Sprite2D after semantic region review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/demo_shell.tscn`, `scenes/ui/tutorial_hud.tscn`
+- [ ] `menu_ninepatch_ui_ai01` (runtime_ui / ninepatch_sheet / StyleBoxTexture)
+  - Target system: menu/panel NinePatch theme replacement
+  - Resource: `res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres`
+  - Mode: Apply through Theme or add_theme_stylebox_override after NinePatch margin and stretch review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/demo_shell.tscn`
+- [ ] `vfx_seal_magic_atlas_ai01` (runtime_vfx / vfx_atlas / SpriteFrames)
+  - Target system: VFX atlas animation replacement
+  - Resource: `res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`
+- [ ] `stage16_demo_menu_icons_ai01` (runtime_ui / icon_sheet / CompressedTexture2D)
+  - Target system: menu/HUD icon atlas replacement
+  - Resource: `res://assets/art/ui/stage16_demo_menu_icons_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/demo_shell.tscn`, `scenes/ui/tutorial_hud.tscn`
+- [ ] `stage16_seal_release_threshold_ai01` (runtime_gameplay / prop / CompressedTexture2D)
+  - Target system: room prop visual replacement
+  - Resource: `res://assets/art/props/stage16_seal_release_threshold_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/rooms/stage16_seal_release_threshold_room.tscn`
+- [ ] `stage16_talisman_relay_ai01` (runtime_vfx / vfx_sheet / CompressedTexture2D)
+  - Target system: room progression VFX replacement
+  - Resource: `res://assets/art/vfx/stage16_talisman_relay_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/rooms/stage16_talisman_relay_room.tscn`, `scenes/rooms/stage16_corruption_purge_room.tscn`
+- [ ] `stage16_alpha_demo_completion_ai01` (runtime_ui / completion_ui / CompressedTexture2D)
+  - Target system: Alpha Demo completion feedback
+  - Resource: `res://assets/art/ui/stage16_alpha_demo_completion_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/demo_shell.tscn`, `scenes/rooms/stage16_alpha_demo_end_room.tscn`
+- [ ] `luna_jump_fall_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+- [ ] `luna_hit_death_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+- [ ] `enemies_core_sheet_ai01` (runtime_animation / sprite_sheet / SpriteFrames)
+  - Target system: player/enemy/boss animation replacement
+  - Resource: `res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres`
+  - Mode: Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/player/player_placeholder.tscn`, `scenes/enemies/seal_guardian_boss.tscn`, `scenes/combat/basic_melee_enemy.tscn`
+  - Polish blockers: frame_order_manual_review, foot_baseline_and_anchor_manual_review, animation_timing_manual_review
+- [ ] `stage16_pause_panel_ui_ai01` (runtime_ui / ui_panel / CompressedTexture2D)
+  - Target system: pause/completion panel replacement
+  - Resource: `res://assets/art/ui/stage16_pause_panel_ui_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/demo_shell.tscn`
+- [ ] `stage16_completion_panel_ui_ai01` (runtime_ui / ui_panel / CompressedTexture2D)
+  - Target system: pause/completion panel replacement
+  - Resource: `res://assets/art/ui/stage16_completion_panel_ui_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/demo_shell.tscn`
+- [ ] `stage15_boss_hud_frame_ai01` (runtime_ui / hud_frame / CompressedTexture2D)
+  - Target system: HUD frame or status panel visual replacement
+  - Resource: `res://assets/art/ui/stage15_boss_hud_frame_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/tutorial_hud.tscn`, `scenes/ui/demo_shell.tscn`
+- [ ] `stage14_ability_status_hud_ai01` (runtime_ui / hud_frame / CompressedTexture2D)
+  - Target system: HUD frame or status panel visual replacement
+  - Resource: `res://assets/art/ui/stage14_ability_status_hud_ai01.png`
+  - Mode: Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.
+  - Status: `already_referenced`
+  - Target scenes: `scenes/ui/tutorial_hud.tscn`, `scenes/ui/demo_shell.tscn`

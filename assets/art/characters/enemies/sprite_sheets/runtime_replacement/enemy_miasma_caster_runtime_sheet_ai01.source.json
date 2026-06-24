@@ -1,0 +1,19 @@
+{
+  "asset_id": "enemy_miasma_caster_runtime_sheet_ai01",
+  "source_asset_id": "enemies_core_runtime_sheet_ai01",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.frames.json",
+  "process": "semantic_runtime_clip_split_from_normalized_candidate",
+  "boundary": "Single miasma caster enemy runtime candidate split from the enemy roster sheet.",
+  "source_frame_indexes": [
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "filter": "none"
+}

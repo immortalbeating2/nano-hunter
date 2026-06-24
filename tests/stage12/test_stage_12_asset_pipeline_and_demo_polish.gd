@@ -21,6 +21,12 @@ const AERIAL_SENTINEL_SILHOUETTE_ASSET_PATH := "res://assets/art/characters/enem
 const CHECKPOINT_GATE_GOAL_ASSET_PATH := "res://assets/art/ui/stage12_checkpoint_gate_goal_icons.svg"
 const SLASH_VFX_ASSET_PATH := "res://assets/art/vfx/stage12_slash_vfx.svg"
 const HIT_SPARK_VFX_ASSET_PATH := "res://assets/art/vfx/stage12_hit_spark_vfx.svg"
+const AIR_DASH_ICON_ASSET_PATH := "res://assets/art/ui/stage14_air_dash_icon_ai01.png"
+const RECOVERY_CHARGE_ICON_ASSET_PATH := "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png"
+const ABILITY_STATUS_HUD_ASSET_PATH := "res://assets/art/ui/stage14_ability_status_hud_ai01.png"
+const BOSS_HUD_FRAME_ASSET_PATH := "res://assets/art/ui/stage15_boss_hud_frame_ai01.png"
+const HUD_CORE_ATLAS_RESOURCE_PATH := "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres"
+const ICON_SHEET_CORE_RESOURCE_PATH := "res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres"
 
 
 # 保护资产管线目录：Stage12 必须建立角色、敌人、环境、VFX、UI、音频和源文件目录。
@@ -107,6 +113,7 @@ func test_stage12_player_and_enemy_scenes_keep_collision_contract_and_gain_visua
 		"Stage12ThreatMark",
 		"Stage12AssetSprite",
 		"Stage12HitSpark",
+		"EnemyHitSparkVfxVisual",
 	])
 	await _assert_scene_has_nodes(GROUND_CHARGER_SCENE_PATH, [
 		"CollisionShape2D",
@@ -115,6 +122,7 @@ func test_stage12_player_and_enemy_scenes_keep_collision_contract_and_gain_visua
 		"Stage12ChargeMark",
 		"Stage12AssetSprite",
 		"Stage12HitSpark",
+		"EnemyHitSparkVfxVisual",
 	])
 	await _assert_scene_has_nodes(AERIAL_SENTINEL_SCENE_PATH, [
 		"CollisionShape2D",
@@ -123,6 +131,7 @@ func test_stage12_player_and_enemy_scenes_keep_collision_contract_and_gain_visua
 		"Stage12AirMark",
 		"Stage12AssetSprite",
 		"Stage12HitSpark",
+		"EnemyHitSparkVfxVisual",
 	])
 
 
@@ -137,9 +146,37 @@ func test_stage12_hud_contains_polish_icons_and_keeps_demo_completion_feedback()
 
 	assert_not_null(hud.get_node_or_null("BattlePanel/HealthIcon"))
 	assert_not_null(hud.get_node_or_null("BattlePanel/DashIcon"))
+	assert_not_null(hud.get_node_or_null("BattlePanel/RecoveryChargeIcon"))
+	assert_not_null(hud.get_node_or_null("BattlePanel/AbilityStatusFrameArt"))
+	assert_not_null(hud.get_node_or_null("BattlePanel/BossHudFrameArt"))
+	assert_not_null(hud.get_node_or_null("BattlePanel/HudCoreAtlasPreview"))
+	assert_not_null(hud.get_node_or_null("BattlePanel/IconSheetCorePreview"))
 	assert_not_null(hud.get_node_or_null("BattlePanel/ObjectiveIcon"))
 	assert_string_contains((hud.get_node("BattlePanel/StatusLabel") as Label).text, "生命")
 	assert_string_contains((hud.get_node("BattlePanel/DashLabel") as Label).text, "冲刺")
+
+	var dash_icon := hud.get_node("BattlePanel/DashIcon") as TextureRect
+	var recovery_icon := hud.get_node("BattlePanel/RecoveryChargeIcon") as TextureRect
+	var ability_frame := hud.get_node("BattlePanel/AbilityStatusFrameArt") as TextureRect
+	var boss_frame := hud.get_node("BattlePanel/BossHudFrameArt") as TextureRect
+	var hud_core_preview := hud.get_node("BattlePanel/HudCoreAtlasPreview") as TextureRect
+	var icon_sheet_preview := hud.get_node("BattlePanel/IconSheetCorePreview") as TextureRect
+	assert_eq(dash_icon.texture.resource_path, AIR_DASH_ICON_ASSET_PATH)
+	assert_eq(dash_icon.get_meta("asset_id", ""), "stage14_air_dash_icon_ai01")
+	assert_eq(recovery_icon.texture.resource_path, RECOVERY_CHARGE_ICON_ASSET_PATH)
+	assert_eq(recovery_icon.get_meta("asset_id", ""), "stage15_recovery_charge_icon_ai01")
+	assert_false(ability_frame.visible, "Ability status frame 当前只做资源绑定，正式布局前保持隐藏。")
+	assert_eq(ability_frame.texture.resource_path, ABILITY_STATUS_HUD_ASSET_PATH)
+	assert_eq(ability_frame.get_meta("asset_id", ""), "stage14_ability_status_hud_ai01")
+	assert_false(boss_frame.visible, "Boss HUD frame 当前只做资源绑定，正式布局前保持隐藏。")
+	assert_eq(boss_frame.texture.resource_path, BOSS_HUD_FRAME_ASSET_PATH)
+	assert_eq(boss_frame.get_meta("asset_id", ""), "stage15_boss_hud_frame_ai01")
+	assert_false(hud_core_preview.visible, "HUD core atlas 当前只做资源绑定，正式布局前保持隐藏。")
+	assert_eq(hud_core_preview.texture.resource_path, HUD_CORE_ATLAS_RESOURCE_PATH)
+	assert_eq(hud_core_preview.get_meta("asset_id", ""), "hud_core_ui_atlas_ai01")
+	assert_false(icon_sheet_preview.visible, "Icon sheet core 当前只做资源绑定，正式图标替换前保持隐藏。")
+	assert_eq(icon_sheet_preview.texture.resource_path, ICON_SHEET_CORE_RESOURCE_PATH)
+	assert_eq(icon_sheet_preview.get_meta("asset_id", ""), "icon_sheet_core_ai01")
 
 
 # 保护 SVG 资产接入：第一批占位资源必须能加载，并被对应场景引用。
@@ -176,23 +213,40 @@ func test_stage12_lightweight_vfx_toggle_without_changing_combat_contract() -> v
 	add_child_autofree(player)
 	await get_tree().process_frame
 
-	var slash := player.get_node("Stage12SlashPreview") as Sprite2D
-	assert_false(slash.visible)
+	var attack_slash_vfx := player.get_node("AttackSlashVfxVisual") as AnimatedSprite2D
+	var attack_seal_arc_vfx := player.get_node("AttackSealArcVfxVisual") as AnimatedSprite2D
+	var legacy_slash := player.get_node("Stage12SlashPreview") as Sprite2D
+	assert_false(attack_slash_vfx.visible)
+	assert_false(attack_seal_arc_vfx.visible)
+	assert_false(legacy_slash.visible)
 	player.call("_start_attack")
-	assert_true(slash.visible)
+	assert_true(attack_slash_vfx.visible)
+	assert_true(attack_seal_arc_vfx.visible)
+	assert_false(legacy_slash.visible)
+	assert_false(attack_slash_vfx.get_meta("gameplay_collision", true))
+	assert_false(attack_slash_vfx.get_meta("damage_source", true))
+	assert_false(attack_seal_arc_vfx.get_meta("gameplay_collision", true))
+	assert_false(attack_seal_arc_vfx.get_meta("damage_source", true))
 	player.call("_finish_attack")
-	assert_false(slash.visible)
+	assert_false(attack_slash_vfx.visible)
+	assert_false(attack_seal_arc_vfx.visible)
+	assert_false(legacy_slash.visible)
 
 	var enemy_scene: PackedScene = load(BASIC_ENEMY_SCENE_PATH) as PackedScene
 	var enemy := enemy_scene.instantiate()
 	add_child_autofree(enemy)
 	await get_tree().process_frame
 
-	var hit_spark := enemy.get_node("Stage12HitSpark") as Sprite2D
+	var hit_spark := enemy.get_node("EnemyHitSparkVfxVisual") as AnimatedSprite2D
+	var legacy_hit_spark := enemy.get_node("Stage12HitSpark") as Sprite2D
 	assert_false(hit_spark.visible)
+	assert_false(legacy_hit_spark.visible)
 	enemy.call("receive_attack", Vector2.RIGHT, 120.0)
 	assert_true(enemy.call("is_defeated"))
 	assert_true(hit_spark.visible)
+	assert_false(legacy_hit_spark.visible)
+	assert_false(hit_spark.get_meta("gameplay_collision", true))
+	assert_false(hit_spark.get_meta("damage_source", true))
 
 
 # 保护门控 / checkpoint polish：新增提示节点不能移除原有 GateBarrier 和 GateSwitch 碰撞。

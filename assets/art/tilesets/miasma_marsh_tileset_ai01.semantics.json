@@ -1,0 +1,925 @@
+{
+  "version": 1,
+  "asset_id": "miasma_marsh_tileset_ai01",
+  "kind": "tileset_sheet",
+  "batch": "Batch 07",
+  "source_metadata": "assets/art/tilesets/miasma_marsh_tileset_ai01.regions.json",
+  "output": "assets/art/tilesets/miasma_marsh_tileset_ai01.png",
+  "entry_count": 48,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "miasma_marsh_ground_01_01",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_001",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_001.png",
+      "region": [
+        0,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "miasma_marsh_ground_01_02",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_002",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_002.png",
+      "region": [
+        64,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "miasma_marsh_ground_01_03",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_003",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_003.png",
+      "region": [
+        128,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "miasma_marsh_ground_01_04",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_004",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_004.png",
+      "region": [
+        192,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "miasma_marsh_ground_01_05",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_005",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_005.png",
+      "region": [
+        256,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "miasma_marsh_ground_01_06",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_006",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_006.png",
+      "region": [
+        320,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "miasma_marsh_ground_01_07",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_007",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_007.png",
+      "region": [
+        384,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "miasma_marsh_ground_01_08",
+      "category": "ground",
+      "group": "ground",
+      "role": "tile",
+      "tags": [
+        "ground"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_008",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_008.png",
+      "region": [
+        448,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "miasma_marsh_platform_edge_02_01",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_009",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_009.png",
+      "region": [
+        0,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "miasma_marsh_platform_edge_02_02",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_010",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_010.png",
+      "region": [
+        64,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "miasma_marsh_platform_edge_02_03",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_011",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_011.png",
+      "region": [
+        128,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "miasma_marsh_platform_edge_02_04",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_012",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_012.png",
+      "region": [
+        192,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "miasma_marsh_platform_edge_02_05",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_013",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_013.png",
+      "region": [
+        256,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "miasma_marsh_platform_edge_02_06",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_014",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_014.png",
+      "region": [
+        320,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "miasma_marsh_platform_edge_02_07",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_015",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_015.png",
+      "region": [
+        384,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "miasma_marsh_platform_edge_02_08",
+      "category": "platform_edge",
+      "group": "platform_edge",
+      "role": "tile",
+      "tags": [
+        "platform_edge"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_016",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_016.png",
+      "region": [
+        448,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 16,
+      "semantic_name": "miasma_marsh_wall_03_01",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_017",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_017.png",
+      "region": [
+        0,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 17,
+      "semantic_name": "miasma_marsh_wall_03_02",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_018",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_018.png",
+      "region": [
+        64,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 18,
+      "semantic_name": "miasma_marsh_wall_03_03",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_019",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_019.png",
+      "region": [
+        128,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 19,
+      "semantic_name": "miasma_marsh_wall_03_04",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_020",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_020.png",
+      "region": [
+        192,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 20,
+      "semantic_name": "miasma_marsh_wall_03_05",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_021",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_021.png",
+      "region": [
+        256,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 21,
+      "semantic_name": "miasma_marsh_wall_03_06",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_022",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_022.png",
+      "region": [
+        320,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 22,
+      "semantic_name": "miasma_marsh_wall_03_07",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_023",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_023.png",
+      "region": [
+        384,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 23,
+      "semantic_name": "miasma_marsh_wall_03_08",
+      "category": "wall",
+      "group": "wall",
+      "role": "tile",
+      "tags": [
+        "wall"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_024",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_024.png",
+      "region": [
+        448,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 24,
+      "semantic_name": "miasma_marsh_decor_04_01",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_025",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_025.png",
+      "region": [
+        0,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 25,
+      "semantic_name": "miasma_marsh_decor_04_02",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_026",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_026.png",
+      "region": [
+        64,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 26,
+      "semantic_name": "miasma_marsh_decor_04_03",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_027",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_027.png",
+      "region": [
+        128,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 27,
+      "semantic_name": "miasma_marsh_decor_04_04",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_028",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_028.png",
+      "region": [
+        192,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 28,
+      "semantic_name": "miasma_marsh_decor_04_05",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_029",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_029.png",
+      "region": [
+        256,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 29,
+      "semantic_name": "miasma_marsh_decor_04_06",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_030",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_030.png",
+      "region": [
+        320,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 30,
+      "semantic_name": "miasma_marsh_decor_04_07",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_031",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_031.png",
+      "region": [
+        384,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 31,
+      "semantic_name": "miasma_marsh_decor_04_08",
+      "category": "decor",
+      "group": "decor",
+      "role": "tile",
+      "tags": [
+        "decor"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_032",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_032.png",
+      "region": [
+        448,
+        192,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 32,
+      "semantic_name": "miasma_marsh_hazard_05_01",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_033",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_033.png",
+      "region": [
+        0,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 33,
+      "semantic_name": "miasma_marsh_hazard_05_02",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_034",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_034.png",
+      "region": [
+        64,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 34,
+      "semantic_name": "miasma_marsh_hazard_05_03",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_035",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_035.png",
+      "region": [
+        128,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 35,
+      "semantic_name": "miasma_marsh_hazard_05_04",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_036",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_036.png",
+      "region": [
+        192,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 36,
+      "semantic_name": "miasma_marsh_hazard_05_05",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_037",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_037.png",
+      "region": [
+        256,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 37,
+      "semantic_name": "miasma_marsh_hazard_05_06",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_038",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_038.png",
+      "region": [
+        320,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 38,
+      "semantic_name": "miasma_marsh_hazard_05_07",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_039",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_039.png",
+      "region": [
+        384,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 39,
+      "semantic_name": "miasma_marsh_hazard_05_08",
+      "category": "hazard",
+      "group": "hazard",
+      "role": "tile",
+      "tags": [
+        "hazard"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_040",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_040.png",
+      "region": [
+        448,
+        256,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 40,
+      "semantic_name": "miasma_marsh_transition_06_01",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_041",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_041.png",
+      "region": [
+        0,
+        320,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 41,
+      "semantic_name": "miasma_marsh_transition_06_02",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_042",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_042.png",
+      "region": [
+        64,
+        320,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 42,
+      "semantic_name": "miasma_marsh_transition_06_03",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_043",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_043.png",
+      "region": [
+        128,
+        320,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 43,
+      "semantic_name": "miasma_marsh_transition_06_04",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_044",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_044.png",
+      "region": [
+        192,
+        320,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 44,
+      "semantic_name": "miasma_marsh_transition_06_05",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_045",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_045.png",
+      "region": [
+        256,
+        320,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 45,
+      "semantic_name": "miasma_marsh_transition_06_06",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_046",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_046.png",
+      "region": [
+        320,
+        320,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 46,
+      "semantic_name": "miasma_marsh_transition_06_07",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_047",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_047.png",
+      "region": [
+        384,
+        320,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 47,
+      "semantic_name": "miasma_marsh_transition_06_08",
+      "category": "transition",
+      "group": "transition",
+      "role": "tile",
+      "tags": [
+        "transition"
+      ],
+      "manual_review_required": true,
+      "source_name": "miasma_marsh_tileset_ai01_auto_048",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles/miasma_marsh_tileset_ai01_auto_048.png",
+      "region": [
+        448,
+        320,
+        64,
+        64
+      ]
+    }
+  ]
+}

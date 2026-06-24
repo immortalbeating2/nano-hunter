@@ -1,0 +1,217 @@
+{
+  "version": 1,
+  "asset_id": "storyboard_narrative_sheet_ai01",
+  "kind": "atlas",
+  "batch": "Batch 13",
+  "source_metadata": "assets/art/storyboards/storyboard_narrative_sheet_ai01.regions.json",
+  "output": "assets/art/storyboards/storyboard_narrative_sheet_ai01.png",
+  "entry_count": 12,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_01",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_001",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_001.png",
+      "region": [
+        0,
+        0,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_02",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_002",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_002.png",
+      "region": [
+        320,
+        0,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_03",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_003",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_003.png",
+      "region": [
+        640,
+        0,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_04",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_004",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_004.png",
+      "region": [
+        0,
+        180,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_05",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_005",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_005.png",
+      "region": [
+        320,
+        180,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_06",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_006",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_006.png",
+      "region": [
+        640,
+        180,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_07",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_007",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_007.png",
+      "region": [
+        0,
+        360,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_08",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_008",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_008.png",
+      "region": [
+        320,
+        360,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_09",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_009",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_009.png",
+      "region": [
+        640,
+        360,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_10",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_010",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_010.png",
+      "region": [
+        0,
+        540,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_11",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_011",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_011.png",
+      "region": [
+        320,
+        540,
+        320,
+        180
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "storyboard_narrative_sheet_ai01_panel_12",
+      "category": "atlas",
+      "group": "storyboard",
+      "role": "storyboard_panel",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "storyboard_narrative_sheet_ai01_auto_012",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels/storyboard_narrative_sheet_ai01_auto_012.png",
+      "region": [
+        640,
+        540,
+        320,
+        180
+      ]
+    }
+  ]
+}

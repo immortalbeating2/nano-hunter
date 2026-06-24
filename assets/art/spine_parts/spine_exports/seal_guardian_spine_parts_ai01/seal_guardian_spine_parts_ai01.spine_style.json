@@ -1,0 +1,387 @@
+{
+  "skeleton": {
+    "spine": "spine-style-cutout-descriptor",
+    "hash": "seal_guardian_spine_parts_ai01",
+    "images": "./",
+    "audio": "",
+    "width": 1920,
+    "height": 1280,
+    "source_texture": "seal_guardian_spine_parts_ai01.png",
+    "note": "Descriptor only; pivots, bones, mesh weights and animation must be authored manually."
+  },
+  "bones": [
+    {
+      "name": "root"
+    }
+  ],
+  "slots": [
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_001",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_001"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_002",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_002"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_003",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_003"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_004",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_004"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_005",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_005"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_006",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_006"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_007",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_007"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_008",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_008"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_009",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_009"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_010",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_010"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_011",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_011"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_012",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_012"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_013",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_013"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_014",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_014"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_015",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_015"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_016",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_016"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_017",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_017"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_018",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_018"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_019",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_019"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_020",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_020"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_021",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_021"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_022",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_022"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_023",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_023"
+    },
+    {
+      "name": "seal_guardian_spine_parts_ai01_auto_024",
+      "bone": "root",
+      "attachment": "seal_guardian_spine_parts_ai01_auto_024"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "seal_guardian_spine_parts_ai01_auto_001": {
+          "seal_guardian_spine_parts_ai01_auto_001": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_001",
+            "x": 160.0,
+            "y": 1120.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_002": {
+          "seal_guardian_spine_parts_ai01_auto_002": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_002",
+            "x": 480.0,
+            "y": 1120.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_003": {
+          "seal_guardian_spine_parts_ai01_auto_003": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_003",
+            "x": 800.0,
+            "y": 1120.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_004": {
+          "seal_guardian_spine_parts_ai01_auto_004": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_004",
+            "x": 1120.0,
+            "y": 1120.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_005": {
+          "seal_guardian_spine_parts_ai01_auto_005": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_005",
+            "x": 1440.0,
+            "y": 1120.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_006": {
+          "seal_guardian_spine_parts_ai01_auto_006": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_006",
+            "x": 1760.0,
+            "y": 1120.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_007": {
+          "seal_guardian_spine_parts_ai01_auto_007": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_007",
+            "x": 160.0,
+            "y": 800.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_008": {
+          "seal_guardian_spine_parts_ai01_auto_008": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_008",
+            "x": 480.0,
+            "y": 800.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_009": {
+          "seal_guardian_spine_parts_ai01_auto_009": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_009",
+            "x": 800.0,
+            "y": 800.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_010": {
+          "seal_guardian_spine_parts_ai01_auto_010": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_010",
+            "x": 1120.0,
+            "y": 800.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_011": {
+          "seal_guardian_spine_parts_ai01_auto_011": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_011",
+            "x": 1440.0,
+            "y": 800.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_012": {
+          "seal_guardian_spine_parts_ai01_auto_012": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_012",
+            "x": 1760.0,
+            "y": 800.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_013": {
+          "seal_guardian_spine_parts_ai01_auto_013": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_013",
+            "x": 160.0,
+            "y": 480.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_014": {
+          "seal_guardian_spine_parts_ai01_auto_014": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_014",
+            "x": 480.0,
+            "y": 480.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_015": {
+          "seal_guardian_spine_parts_ai01_auto_015": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_015",
+            "x": 800.0,
+            "y": 480.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_016": {
+          "seal_guardian_spine_parts_ai01_auto_016": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_016",
+            "x": 1120.0,
+            "y": 480.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_017": {
+          "seal_guardian_spine_parts_ai01_auto_017": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_017",
+            "x": 1440.0,
+            "y": 480.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_018": {
+          "seal_guardian_spine_parts_ai01_auto_018": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_018",
+            "x": 1760.0,
+            "y": 480.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_019": {
+          "seal_guardian_spine_parts_ai01_auto_019": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_019",
+            "x": 160.0,
+            "y": 160.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_020": {
+          "seal_guardian_spine_parts_ai01_auto_020": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_020",
+            "x": 480.0,
+            "y": 160.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_021": {
+          "seal_guardian_spine_parts_ai01_auto_021": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_021",
+            "x": 800.0,
+            "y": 160.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_022": {
+          "seal_guardian_spine_parts_ai01_auto_022": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_022",
+            "x": 1120.0,
+            "y": 160.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_023": {
+          "seal_guardian_spine_parts_ai01_auto_023": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_023",
+            "x": 1440.0,
+            "y": 160.0,
+            "width": 320,
+            "height": 320
+          }
+        },
+        "seal_guardian_spine_parts_ai01_auto_024": {
+          "seal_guardian_spine_parts_ai01_auto_024": {
+            "type": "region",
+            "path": "seal_guardian_spine_parts_ai01_auto_024",
+            "x": 1760.0,
+            "y": 160.0,
+            "width": 320,
+            "height": 320
+          }
+        }
+      }
+    }
+  ],
+  "animations": {}
+}

@@ -1,0 +1,125 @@
+{
+  "id": "enemy_miasma_caster_runtime_sheet_ai01",
+  "source_asset_id": "enemies_core_runtime_sheet_ai01",
+  "kind": "sprite_sheet",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.png",
+  "cell": [
+    160,
+    160
+  ],
+  "columns": 8,
+  "rows": 1,
+  "frames": [
+    {
+      "index": 0,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_001",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 24,
+      "region": [
+        0,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 1,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_002",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 25,
+      "region": [
+        160,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 2,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_003",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 26,
+      "region": [
+        320,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 3,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_004",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 27,
+      "region": [
+        480,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 4,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_005",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 28,
+      "region": [
+        640,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 5,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_006",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 29,
+      "region": [
+        800,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 6,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_007",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 30,
+      "region": [
+        960,
+        0,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 7,
+      "name": "enemy_miasma_caster_runtime_sheet_ai01_runtime_008",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemies_core_runtime_sheet_ai01.png",
+      "source_frame_index": 31,
+      "region": [
+        1120,
+        0,
+        160,
+        160
+      ]
+    }
+  ],
+  "split": {
+    "source_runtime_candidate": "enemies_core_runtime_sheet_ai01",
+    "source_frame_indexes": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "filter": "none",
+    "boundary": "Single miasma caster enemy runtime candidate split from the enemy roster sheet."
+  }
+}

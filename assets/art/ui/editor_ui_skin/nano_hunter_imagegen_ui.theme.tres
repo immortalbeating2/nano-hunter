@@ -1,0 +1,21 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/007_menu_ninepatch_ui_ai_01_auto_008_c_02.stylebox_texture.tres" id="1_c8xp8"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/004_menu_ninepatch_ui_ai_01_auto_005_c_01.stylebox_texture.tres" id="2_pn77k"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai_01_auto_003_c_01.stylebox_texture.tres" id="3_8mn7p"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai_01_auto_002_c_01.stylebox_texture.tres" id="4_o4fta"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/003_menu_ninepatch_ui_ai_01_auto_004_c_01.stylebox_texture.tres" id="5_xkfsq"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres" id="6_gsqyb"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/005_menu_ninepatch_ui_ai_01_auto_006_c_01.stylebox_texture.tres" id="7_pchds"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/006_menu_ninepatch_ui_ai_01_auto_007_c_02.stylebox_texture.tres" id="8_045q8"]
+
+[resource]
+AcceptDialog/styles/panel = ExtResource("1_c8xp8")
+Button/styles/disabled = ExtResource("2_pn77k")
+Button/styles/hover = ExtResource("3_8mn7p")
+Button/styles/normal = ExtResource("4_o4fta")
+Button/styles/pressed = ExtResource("5_xkfsq")
+Panel/styles/panel = ExtResource("6_gsqyb")
+PanelContainer/styles/panel = ExtResource("6_gsqyb")
+PopupPanel/styles/panel = ExtResource("7_pchds")
+TooltipPanel/styles/panel = ExtResource("8_045q8")

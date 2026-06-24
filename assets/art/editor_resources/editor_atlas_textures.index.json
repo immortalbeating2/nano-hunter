@@ -1,0 +1,3475 @@
+{
+  "version": 1,
+  "source_manifest": "res://docs/assets/asset-atlas-build-manifest.json",
+  "include_sprite_sheets": false,
+  "asset_count": 16,
+  "resource_count": 302,
+  "assets": [
+    {
+      "id": "hud_core_ui_atlas_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/ui/atlases/hud_core_ui_atlas_ai01.png",
+      "metadata": "res://assets/art/ui/atlases/hud_core_ui_atlas_ai01.regions.json",
+      "count": 16,
+      "resources": [
+        {
+          "index": 0,
+          "name": "hud_core_ui_atlas_ai01_auto_001_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001_c01.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 1,
+          "name": "hud_core_ui_atlas_ai01_auto_002_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/001_hud_core_ui_atlas_ai01_auto_002_c01.atlas_texture.tres",
+          "region": [
+            96,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 2,
+          "name": "hud_core_ui_atlas_ai01_auto_003_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/002_hud_core_ui_atlas_ai01_auto_003_c01.atlas_texture.tres",
+          "region": [
+            192,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 3,
+          "name": "hud_core_ui_atlas_ai01_auto_004_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/003_hud_core_ui_atlas_ai01_auto_004_c01.atlas_texture.tres",
+          "region": [
+            288,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 4,
+          "name": "hud_core_ui_atlas_ai01_auto_005_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/004_hud_core_ui_atlas_ai01_auto_005_c01.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 5,
+          "name": "hud_core_ui_atlas_ai01_auto_006_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/005_hud_core_ui_atlas_ai01_auto_006_c01.atlas_texture.tres",
+          "region": [
+            480,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 6,
+          "name": "hud_core_ui_atlas_ai01_auto_007_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/006_hud_core_ui_atlas_ai01_auto_007_c01.atlas_texture.tres",
+          "region": [
+            576,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 7,
+          "name": "hud_core_ui_atlas_ai01_auto_008_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/007_hud_core_ui_atlas_ai01_auto_008_c01.atlas_texture.tres",
+          "region": [
+            672,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 8,
+          "name": "hud_core_ui_atlas_ai01_auto_009_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/008_hud_core_ui_atlas_ai01_auto_009_c01.atlas_texture.tres",
+          "region": [
+            0,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 9,
+          "name": "hud_core_ui_atlas_ai01_auto_010_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/009_hud_core_ui_atlas_ai01_auto_010_c01.atlas_texture.tres",
+          "region": [
+            96,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 10,
+          "name": "hud_core_ui_atlas_ai01_auto_011_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/010_hud_core_ui_atlas_ai01_auto_011_c01.atlas_texture.tres",
+          "region": [
+            192,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 11,
+          "name": "hud_core_ui_atlas_ai01_auto_012_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/011_hud_core_ui_atlas_ai01_auto_012_c01.atlas_texture.tres",
+          "region": [
+            288,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 12,
+          "name": "hud_core_ui_atlas_ai01_auto_013_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/012_hud_core_ui_atlas_ai01_auto_013_c01.atlas_texture.tres",
+          "region": [
+            384,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 13,
+          "name": "hud_core_ui_atlas_ai01_auto_014_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/013_hud_core_ui_atlas_ai01_auto_014_c01.atlas_texture.tres",
+          "region": [
+            480,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 14,
+          "name": "hud_core_ui_atlas_ai01_auto_015_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/014_hud_core_ui_atlas_ai01_auto_015_c01.atlas_texture.tres",
+          "region": [
+            576,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 15,
+          "name": "hud_core_ui_atlas_ai01_auto_016_c01",
+          "resource": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/015_hud_core_ui_atlas_ai01_auto_016_c01.atlas_texture.tres",
+          "region": [
+            672,
+            96,
+            96,
+            96
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icon_sheet_core_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/ui/atlases/icon_sheet_core_ai01.png",
+      "metadata": "res://assets/art/ui/atlases/icon_sheet_core_ai01.regions.json",
+      "count": 16,
+      "resources": [
+        {
+          "index": 0,
+          "name": "icon_sheet_core_ai01_auto_001_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "name": "icon_sheet_core_ai01_auto_002_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/001_icon_sheet_core_ai01_auto_002_c01.atlas_texture.tres",
+          "region": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 2,
+          "name": "icon_sheet_core_ai01_auto_003_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/002_icon_sheet_core_ai01_auto_003_c01.atlas_texture.tres",
+          "region": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 3,
+          "name": "icon_sheet_core_ai01_auto_004_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/003_icon_sheet_core_ai01_auto_004_c01.atlas_texture.tres",
+          "region": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 4,
+          "name": "icon_sheet_core_ai01_auto_005_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/004_icon_sheet_core_ai01_auto_005_c01.atlas_texture.tres",
+          "region": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 5,
+          "name": "icon_sheet_core_ai01_auto_006_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/005_icon_sheet_core_ai01_auto_006_c01.atlas_texture.tres",
+          "region": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 6,
+          "name": "icon_sheet_core_ai01_auto_007_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/006_icon_sheet_core_ai01_auto_007_c01.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 7,
+          "name": "icon_sheet_core_ai01_auto_008_c01",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/007_icon_sheet_core_ai01_auto_008_c01.atlas_texture.tres",
+          "region": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 8,
+          "name": "icon_sheet_core_ai01_auto_009_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/008_icon_sheet_core_ai01_auto_009_c02.atlas_texture.tres",
+          "region": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 9,
+          "name": "icon_sheet_core_ai01_auto_010_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/009_icon_sheet_core_ai01_auto_010_c02.atlas_texture.tres",
+          "region": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 10,
+          "name": "icon_sheet_core_ai01_auto_011_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/010_icon_sheet_core_ai01_auto_011_c02.atlas_texture.tres",
+          "region": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 11,
+          "name": "icon_sheet_core_ai01_auto_012_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/011_icon_sheet_core_ai01_auto_012_c02.atlas_texture.tres",
+          "region": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 12,
+          "name": "icon_sheet_core_ai01_auto_013_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/012_icon_sheet_core_ai01_auto_013_c02.atlas_texture.tres",
+          "region": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 13,
+          "name": "icon_sheet_core_ai01_auto_014_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/013_icon_sheet_core_ai01_auto_014_c02.atlas_texture.tres",
+          "region": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 14,
+          "name": "icon_sheet_core_ai01_auto_015_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/014_icon_sheet_core_ai01_auto_015_c02.atlas_texture.tres",
+          "region": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 15,
+          "name": "icon_sheet_core_ai01_auto_016_c02",
+          "resource": "res://assets/art/editor_resources/icon_sheet_core_ai01/015_icon_sheet_core_ai01_auto_016_c02.atlas_texture.tres",
+          "region": [
+            448,
+            64,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "id": "menu_ninepatch_ui_ai01",
+      "kind": "ninepatch_sheet",
+      "source_texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png",
+      "metadata": "res://assets/art/ui/menu_ninepatch_ui_ai01.regions.json",
+      "count": 8,
+      "resources": [
+        {
+          "index": 0,
+          "name": "menu_ninepatch_ui_ai01_auto_001_c01",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai01_auto_001_c01.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 1,
+          "name": "menu_ninepatch_ui_ai01_auto_002_c01",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai01_auto_002_c01.atlas_texture.tres",
+          "region": [
+            192,
+            0,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 2,
+          "name": "menu_ninepatch_ui_ai01_auto_003_c01",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai01_auto_003_c01.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 3,
+          "name": "menu_ninepatch_ui_ai01_auto_004_c01",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/003_menu_ninepatch_ui_ai01_auto_004_c01.atlas_texture.tres",
+          "region": [
+            576,
+            0,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 4,
+          "name": "menu_ninepatch_ui_ai01_auto_005_c01",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/004_menu_ninepatch_ui_ai01_auto_005_c01.atlas_texture.tres",
+          "region": [
+            0,
+            96,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 5,
+          "name": "menu_ninepatch_ui_ai01_auto_006_c01",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/005_menu_ninepatch_ui_ai01_auto_006_c01.atlas_texture.tres",
+          "region": [
+            192,
+            96,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 6,
+          "name": "menu_ninepatch_ui_ai01_auto_007_c02",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/006_menu_ninepatch_ui_ai01_auto_007_c02.atlas_texture.tres",
+          "region": [
+            384,
+            96,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 7,
+          "name": "menu_ninepatch_ui_ai01_auto_008_c02",
+          "resource": "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/007_menu_ninepatch_ui_ai01_auto_008_c02.atlas_texture.tres",
+          "region": [
+            576,
+            96,
+            192,
+            96
+          ]
+        }
+      ]
+    },
+    {
+      "id": "miasma_marsh_tileset_ai01",
+      "kind": "tileset_sheet",
+      "source_texture": "res://assets/art/tilesets/miasma_marsh_tileset_ai01.png",
+      "metadata": "res://assets/art/tilesets/miasma_marsh_tileset_ai01.regions.json",
+      "count": 48,
+      "resources": [
+        {
+          "index": 0,
+          "name": "miasma_marsh_tileset_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/000_miasma_marsh_tileset_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "name": "miasma_marsh_tileset_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/001_miasma_marsh_tileset_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 2,
+          "name": "miasma_marsh_tileset_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/002_miasma_marsh_tileset_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 3,
+          "name": "miasma_marsh_tileset_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/003_miasma_marsh_tileset_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 4,
+          "name": "miasma_marsh_tileset_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/004_miasma_marsh_tileset_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 5,
+          "name": "miasma_marsh_tileset_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/005_miasma_marsh_tileset_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 6,
+          "name": "miasma_marsh_tileset_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/006_miasma_marsh_tileset_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 7,
+          "name": "miasma_marsh_tileset_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/007_miasma_marsh_tileset_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 8,
+          "name": "miasma_marsh_tileset_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/008_miasma_marsh_tileset_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 9,
+          "name": "miasma_marsh_tileset_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/009_miasma_marsh_tileset_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 10,
+          "name": "miasma_marsh_tileset_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/010_miasma_marsh_tileset_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 11,
+          "name": "miasma_marsh_tileset_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/011_miasma_marsh_tileset_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 12,
+          "name": "miasma_marsh_tileset_ai01_auto_013",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/012_miasma_marsh_tileset_ai01_auto_013.atlas_texture.tres",
+          "region": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 13,
+          "name": "miasma_marsh_tileset_ai01_auto_014",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/013_miasma_marsh_tileset_ai01_auto_014.atlas_texture.tres",
+          "region": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 14,
+          "name": "miasma_marsh_tileset_ai01_auto_015",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/014_miasma_marsh_tileset_ai01_auto_015.atlas_texture.tres",
+          "region": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 15,
+          "name": "miasma_marsh_tileset_ai01_auto_016",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/015_miasma_marsh_tileset_ai01_auto_016.atlas_texture.tres",
+          "region": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 16,
+          "name": "miasma_marsh_tileset_ai01_auto_017",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/016_miasma_marsh_tileset_ai01_auto_017.atlas_texture.tres",
+          "region": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 17,
+          "name": "miasma_marsh_tileset_ai01_auto_018",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/017_miasma_marsh_tileset_ai01_auto_018.atlas_texture.tres",
+          "region": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 18,
+          "name": "miasma_marsh_tileset_ai01_auto_019",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/018_miasma_marsh_tileset_ai01_auto_019.atlas_texture.tres",
+          "region": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 19,
+          "name": "miasma_marsh_tileset_ai01_auto_020",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/019_miasma_marsh_tileset_ai01_auto_020.atlas_texture.tres",
+          "region": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 20,
+          "name": "miasma_marsh_tileset_ai01_auto_021",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/020_miasma_marsh_tileset_ai01_auto_021.atlas_texture.tres",
+          "region": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 21,
+          "name": "miasma_marsh_tileset_ai01_auto_022",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/021_miasma_marsh_tileset_ai01_auto_022.atlas_texture.tres",
+          "region": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 22,
+          "name": "miasma_marsh_tileset_ai01_auto_023",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/022_miasma_marsh_tileset_ai01_auto_023.atlas_texture.tres",
+          "region": [
+            384,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 23,
+          "name": "miasma_marsh_tileset_ai01_auto_024",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/023_miasma_marsh_tileset_ai01_auto_024.atlas_texture.tres",
+          "region": [
+            448,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 24,
+          "name": "miasma_marsh_tileset_ai01_auto_025",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/024_miasma_marsh_tileset_ai01_auto_025.atlas_texture.tres",
+          "region": [
+            0,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 25,
+          "name": "miasma_marsh_tileset_ai01_auto_026",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/025_miasma_marsh_tileset_ai01_auto_026.atlas_texture.tres",
+          "region": [
+            64,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 26,
+          "name": "miasma_marsh_tileset_ai01_auto_027",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/026_miasma_marsh_tileset_ai01_auto_027.atlas_texture.tres",
+          "region": [
+            128,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 27,
+          "name": "miasma_marsh_tileset_ai01_auto_028",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/027_miasma_marsh_tileset_ai01_auto_028.atlas_texture.tres",
+          "region": [
+            192,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 28,
+          "name": "miasma_marsh_tileset_ai01_auto_029",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/028_miasma_marsh_tileset_ai01_auto_029.atlas_texture.tres",
+          "region": [
+            256,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 29,
+          "name": "miasma_marsh_tileset_ai01_auto_030",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/029_miasma_marsh_tileset_ai01_auto_030.atlas_texture.tres",
+          "region": [
+            320,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 30,
+          "name": "miasma_marsh_tileset_ai01_auto_031",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/030_miasma_marsh_tileset_ai01_auto_031.atlas_texture.tres",
+          "region": [
+            384,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 31,
+          "name": "miasma_marsh_tileset_ai01_auto_032",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/031_miasma_marsh_tileset_ai01_auto_032.atlas_texture.tres",
+          "region": [
+            448,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 32,
+          "name": "miasma_marsh_tileset_ai01_auto_033",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/032_miasma_marsh_tileset_ai01_auto_033.atlas_texture.tres",
+          "region": [
+            0,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 33,
+          "name": "miasma_marsh_tileset_ai01_auto_034",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/033_miasma_marsh_tileset_ai01_auto_034.atlas_texture.tres",
+          "region": [
+            64,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 34,
+          "name": "miasma_marsh_tileset_ai01_auto_035",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/034_miasma_marsh_tileset_ai01_auto_035.atlas_texture.tres",
+          "region": [
+            128,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 35,
+          "name": "miasma_marsh_tileset_ai01_auto_036",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/035_miasma_marsh_tileset_ai01_auto_036.atlas_texture.tres",
+          "region": [
+            192,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 36,
+          "name": "miasma_marsh_tileset_ai01_auto_037",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/036_miasma_marsh_tileset_ai01_auto_037.atlas_texture.tres",
+          "region": [
+            256,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 37,
+          "name": "miasma_marsh_tileset_ai01_auto_038",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/037_miasma_marsh_tileset_ai01_auto_038.atlas_texture.tres",
+          "region": [
+            320,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 38,
+          "name": "miasma_marsh_tileset_ai01_auto_039",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/038_miasma_marsh_tileset_ai01_auto_039.atlas_texture.tres",
+          "region": [
+            384,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 39,
+          "name": "miasma_marsh_tileset_ai01_auto_040",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/039_miasma_marsh_tileset_ai01_auto_040.atlas_texture.tres",
+          "region": [
+            448,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 40,
+          "name": "miasma_marsh_tileset_ai01_auto_041",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/040_miasma_marsh_tileset_ai01_auto_041.atlas_texture.tres",
+          "region": [
+            0,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 41,
+          "name": "miasma_marsh_tileset_ai01_auto_042",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/041_miasma_marsh_tileset_ai01_auto_042.atlas_texture.tres",
+          "region": [
+            64,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 42,
+          "name": "miasma_marsh_tileset_ai01_auto_043",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/042_miasma_marsh_tileset_ai01_auto_043.atlas_texture.tres",
+          "region": [
+            128,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 43,
+          "name": "miasma_marsh_tileset_ai01_auto_044",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/043_miasma_marsh_tileset_ai01_auto_044.atlas_texture.tres",
+          "region": [
+            192,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 44,
+          "name": "miasma_marsh_tileset_ai01_auto_045",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/044_miasma_marsh_tileset_ai01_auto_045.atlas_texture.tres",
+          "region": [
+            256,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 45,
+          "name": "miasma_marsh_tileset_ai01_auto_046",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/045_miasma_marsh_tileset_ai01_auto_046.atlas_texture.tres",
+          "region": [
+            320,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 46,
+          "name": "miasma_marsh_tileset_ai01_auto_047",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/046_miasma_marsh_tileset_ai01_auto_047.atlas_texture.tres",
+          "region": [
+            384,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 47,
+          "name": "miasma_marsh_tileset_ai01_auto_048",
+          "resource": "res://assets/art/editor_resources/miasma_marsh_tileset_ai01/047_miasma_marsh_tileset_ai01_auto_048.atlas_texture.tres",
+          "region": [
+            448,
+            320,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shrine_gate_prop_atlas_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/atlases/shrine_gate_prop_atlas_ai01.png",
+      "metadata": "res://assets/art/atlases/shrine_gate_prop_atlas_ai01.regions.json",
+      "count": 24,
+      "resources": [
+        {
+          "index": 0,
+          "name": "shrine_gate_prop_atlas_ai01_auto_001_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/000_shrine_gate_prop_atlas_ai01_auto_001_c01.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 1,
+          "name": "shrine_gate_prop_atlas_ai01_auto_002_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/001_shrine_gate_prop_atlas_ai01_auto_002_c01.atlas_texture.tres",
+          "region": [
+            192,
+            0,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 2,
+          "name": "shrine_gate_prop_atlas_ai01_auto_003_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 3,
+          "name": "shrine_gate_prop_atlas_ai01_auto_004_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres",
+          "region": [
+            576,
+            0,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 4,
+          "name": "shrine_gate_prop_atlas_ai01_auto_005_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/004_shrine_gate_prop_atlas_ai01_auto_005_c01.atlas_texture.tres",
+          "region": [
+            768,
+            0,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 5,
+          "name": "shrine_gate_prop_atlas_ai01_auto_006_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/005_shrine_gate_prop_atlas_ai01_auto_006_c01.atlas_texture.tres",
+          "region": [
+            960,
+            0,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 6,
+          "name": "shrine_gate_prop_atlas_ai01_auto_007_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/006_shrine_gate_prop_atlas_ai01_auto_007_c01.atlas_texture.tres",
+          "region": [
+            0,
+            160,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 7,
+          "name": "shrine_gate_prop_atlas_ai01_auto_008_c01",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/007_shrine_gate_prop_atlas_ai01_auto_008_c01.atlas_texture.tres",
+          "region": [
+            192,
+            160,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 8,
+          "name": "shrine_gate_prop_atlas_ai01_auto_009_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/008_shrine_gate_prop_atlas_ai01_auto_009_c02.atlas_texture.tres",
+          "region": [
+            384,
+            160,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 9,
+          "name": "shrine_gate_prop_atlas_ai01_auto_010_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/009_shrine_gate_prop_atlas_ai01_auto_010_c02.atlas_texture.tres",
+          "region": [
+            576,
+            160,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 10,
+          "name": "shrine_gate_prop_atlas_ai01_auto_011_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/010_shrine_gate_prop_atlas_ai01_auto_011_c02.atlas_texture.tres",
+          "region": [
+            768,
+            160,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 11,
+          "name": "shrine_gate_prop_atlas_ai01_auto_012_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/011_shrine_gate_prop_atlas_ai01_auto_012_c02.atlas_texture.tres",
+          "region": [
+            960,
+            160,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 12,
+          "name": "shrine_gate_prop_atlas_ai01_auto_013_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/012_shrine_gate_prop_atlas_ai01_auto_013_c02.atlas_texture.tres",
+          "region": [
+            0,
+            320,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 13,
+          "name": "shrine_gate_prop_atlas_ai01_auto_014_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/013_shrine_gate_prop_atlas_ai01_auto_014_c02.atlas_texture.tres",
+          "region": [
+            192,
+            320,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 14,
+          "name": "shrine_gate_prop_atlas_ai01_auto_015_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/014_shrine_gate_prop_atlas_ai01_auto_015_c02.atlas_texture.tres",
+          "region": [
+            384,
+            320,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 15,
+          "name": "shrine_gate_prop_atlas_ai01_auto_016_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/015_shrine_gate_prop_atlas_ai01_auto_016_c02.atlas_texture.tres",
+          "region": [
+            576,
+            320,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 16,
+          "name": "shrine_gate_prop_atlas_ai01_auto_017_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/016_shrine_gate_prop_atlas_ai01_auto_017_c02.atlas_texture.tres",
+          "region": [
+            768,
+            320,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 17,
+          "name": "shrine_gate_prop_atlas_ai01_auto_018_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/017_shrine_gate_prop_atlas_ai01_auto_018_c02.atlas_texture.tres",
+          "region": [
+            960,
+            320,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 18,
+          "name": "shrine_gate_prop_atlas_ai01_auto_019_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/018_shrine_gate_prop_atlas_ai01_auto_019_c02.atlas_texture.tres",
+          "region": [
+            0,
+            480,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 19,
+          "name": "shrine_gate_prop_atlas_ai01_auto_020_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/019_shrine_gate_prop_atlas_ai01_auto_020_c02.atlas_texture.tres",
+          "region": [
+            192,
+            480,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 20,
+          "name": "shrine_gate_prop_atlas_ai01_auto_021_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/020_shrine_gate_prop_atlas_ai01_auto_021_c02.atlas_texture.tres",
+          "region": [
+            384,
+            480,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 21,
+          "name": "shrine_gate_prop_atlas_ai01_auto_022_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/021_shrine_gate_prop_atlas_ai01_auto_022_c02.atlas_texture.tres",
+          "region": [
+            576,
+            480,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 22,
+          "name": "shrine_gate_prop_atlas_ai01_auto_023_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/022_shrine_gate_prop_atlas_ai01_auto_023_c02.atlas_texture.tres",
+          "region": [
+            768,
+            480,
+            192,
+            160
+          ]
+        },
+        {
+          "index": 23,
+          "name": "shrine_gate_prop_atlas_ai01_auto_024_c02",
+          "resource": "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/023_shrine_gate_prop_atlas_ai01_auto_024_c02.atlas_texture.tres",
+          "region": [
+            960,
+            480,
+            192,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "id": "luna_spine_parts_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/spine_parts/luna_spine_parts_ai01.png",
+      "metadata": "res://assets/art/spine_parts/luna_spine_parts_ai01.regions.json",
+      "count": 24,
+      "resources": [
+        {
+          "index": 0,
+          "name": "luna_spine_parts_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/000_luna_spine_parts_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_spine_parts_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/001_luna_spine_parts_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_spine_parts_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/002_luna_spine_parts_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_spine_parts_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/003_luna_spine_parts_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_spine_parts_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/004_luna_spine_parts_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            1024,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_spine_parts_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/005_luna_spine_parts_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            1280,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_spine_parts_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/006_luna_spine_parts_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_spine_parts_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/007_luna_spine_parts_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 8,
+          "name": "luna_spine_parts_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/008_luna_spine_parts_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 9,
+          "name": "luna_spine_parts_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/009_luna_spine_parts_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 10,
+          "name": "luna_spine_parts_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/010_luna_spine_parts_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            1024,
+            256,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 11,
+          "name": "luna_spine_parts_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/011_luna_spine_parts_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            1280,
+            256,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 12,
+          "name": "luna_spine_parts_ai01_auto_013",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/012_luna_spine_parts_ai01_auto_013.atlas_texture.tres",
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 13,
+          "name": "luna_spine_parts_ai01_auto_014",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/013_luna_spine_parts_ai01_auto_014.atlas_texture.tres",
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 14,
+          "name": "luna_spine_parts_ai01_auto_015",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/014_luna_spine_parts_ai01_auto_015.atlas_texture.tres",
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 15,
+          "name": "luna_spine_parts_ai01_auto_016",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/015_luna_spine_parts_ai01_auto_016.atlas_texture.tres",
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 16,
+          "name": "luna_spine_parts_ai01_auto_017",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/016_luna_spine_parts_ai01_auto_017.atlas_texture.tres",
+          "region": [
+            1024,
+            512,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 17,
+          "name": "luna_spine_parts_ai01_auto_018",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/017_luna_spine_parts_ai01_auto_018.atlas_texture.tres",
+          "region": [
+            1280,
+            512,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 18,
+          "name": "luna_spine_parts_ai01_auto_019",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/018_luna_spine_parts_ai01_auto_019.atlas_texture.tres",
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 19,
+          "name": "luna_spine_parts_ai01_auto_020",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/019_luna_spine_parts_ai01_auto_020.atlas_texture.tres",
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 20,
+          "name": "luna_spine_parts_ai01_auto_021",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/020_luna_spine_parts_ai01_auto_021.atlas_texture.tres",
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 21,
+          "name": "luna_spine_parts_ai01_auto_022",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/021_luna_spine_parts_ai01_auto_022.atlas_texture.tres",
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 22,
+          "name": "luna_spine_parts_ai01_auto_023",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/022_luna_spine_parts_ai01_auto_023.atlas_texture.tres",
+          "region": [
+            1024,
+            768,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 23,
+          "name": "luna_spine_parts_ai01_auto_024",
+          "resource": "res://assets/art/editor_resources/luna_spine_parts_ai01/023_luna_spine_parts_ai01_auto_024.atlas_texture.tres",
+          "region": [
+            1280,
+            768,
+            256,
+            256
+          ]
+        }
+      ]
+    },
+    {
+      "id": "promo_key_art_sheet_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/promo/promo_key_art_sheet_ai01.png",
+      "metadata": "res://assets/art/promo/promo_key_art_sheet_ai01.regions.json",
+      "count": 6,
+      "resources": [
+        {
+          "index": 0,
+          "name": "promo_key_art_sheet_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/promo_key_art_sheet_ai01/000_promo_key_art_sheet_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 1,
+          "name": "promo_key_art_sheet_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/promo_key_art_sheet_ai01/001_promo_key_art_sheet_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            640,
+            0,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 2,
+          "name": "promo_key_art_sheet_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/promo_key_art_sheet_ai01/002_promo_key_art_sheet_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            0,
+            360,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 3,
+          "name": "promo_key_art_sheet_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/promo_key_art_sheet_ai01/003_promo_key_art_sheet_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            640,
+            360,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 4,
+          "name": "promo_key_art_sheet_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/promo_key_art_sheet_ai01/004_promo_key_art_sheet_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            0,
+            720,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 5,
+          "name": "promo_key_art_sheet_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/promo_key_art_sheet_ai01/005_promo_key_art_sheet_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            640,
+            720,
+            640,
+            360
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storyboard_narrative_sheet_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/storyboards/storyboard_narrative_sheet_ai01.png",
+      "metadata": "res://assets/art/storyboards/storyboard_narrative_sheet_ai01.regions.json",
+      "count": 12,
+      "resources": [
+        {
+          "index": 0,
+          "name": "storyboard_narrative_sheet_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/000_storyboard_narrative_sheet_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 1,
+          "name": "storyboard_narrative_sheet_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/001_storyboard_narrative_sheet_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            320,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 2,
+          "name": "storyboard_narrative_sheet_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/002_storyboard_narrative_sheet_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            640,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 3,
+          "name": "storyboard_narrative_sheet_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/003_storyboard_narrative_sheet_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            0,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 4,
+          "name": "storyboard_narrative_sheet_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/004_storyboard_narrative_sheet_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            320,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 5,
+          "name": "storyboard_narrative_sheet_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/005_storyboard_narrative_sheet_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            640,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 6,
+          "name": "storyboard_narrative_sheet_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/006_storyboard_narrative_sheet_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            0,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 7,
+          "name": "storyboard_narrative_sheet_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/007_storyboard_narrative_sheet_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            320,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 8,
+          "name": "storyboard_narrative_sheet_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/008_storyboard_narrative_sheet_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            640,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 9,
+          "name": "storyboard_narrative_sheet_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/009_storyboard_narrative_sheet_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            0,
+            540,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 10,
+          "name": "storyboard_narrative_sheet_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/010_storyboard_narrative_sheet_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            320,
+            540,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 11,
+          "name": "storyboard_narrative_sheet_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/storyboard_narrative_sheet_ai01/011_storyboard_narrative_sheet_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            640,
+            540,
+            320,
+            180
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shrine_trial_tileset_ai01",
+      "kind": "tileset_sheet",
+      "source_texture": "res://assets/art/tilesets/shrine_trial_tileset_ai01.png",
+      "metadata": "res://assets/art/tilesets/shrine_trial_tileset_ai01.regions.json",
+      "count": 48,
+      "resources": [
+        {
+          "index": 0,
+          "name": "shrine_trial_tileset_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/000_shrine_trial_tileset_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "name": "shrine_trial_tileset_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/001_shrine_trial_tileset_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            64,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 2,
+          "name": "shrine_trial_tileset_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/002_shrine_trial_tileset_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            128,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 3,
+          "name": "shrine_trial_tileset_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/003_shrine_trial_tileset_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            192,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 4,
+          "name": "shrine_trial_tileset_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/004_shrine_trial_tileset_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            256,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 5,
+          "name": "shrine_trial_tileset_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/005_shrine_trial_tileset_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            320,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 6,
+          "name": "shrine_trial_tileset_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/006_shrine_trial_tileset_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 7,
+          "name": "shrine_trial_tileset_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/007_shrine_trial_tileset_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            448,
+            0,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 8,
+          "name": "shrine_trial_tileset_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/008_shrine_trial_tileset_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            0,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 9,
+          "name": "shrine_trial_tileset_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/009_shrine_trial_tileset_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            64,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 10,
+          "name": "shrine_trial_tileset_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/010_shrine_trial_tileset_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            128,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 11,
+          "name": "shrine_trial_tileset_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/011_shrine_trial_tileset_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            192,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 12,
+          "name": "shrine_trial_tileset_ai01_auto_013",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/012_shrine_trial_tileset_ai01_auto_013.atlas_texture.tres",
+          "region": [
+            256,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 13,
+          "name": "shrine_trial_tileset_ai01_auto_014",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/013_shrine_trial_tileset_ai01_auto_014.atlas_texture.tres",
+          "region": [
+            320,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 14,
+          "name": "shrine_trial_tileset_ai01_auto_015",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/014_shrine_trial_tileset_ai01_auto_015.atlas_texture.tres",
+          "region": [
+            384,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 15,
+          "name": "shrine_trial_tileset_ai01_auto_016",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/015_shrine_trial_tileset_ai01_auto_016.atlas_texture.tres",
+          "region": [
+            448,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 16,
+          "name": "shrine_trial_tileset_ai01_auto_017",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/016_shrine_trial_tileset_ai01_auto_017.atlas_texture.tres",
+          "region": [
+            0,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 17,
+          "name": "shrine_trial_tileset_ai01_auto_018",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/017_shrine_trial_tileset_ai01_auto_018.atlas_texture.tres",
+          "region": [
+            64,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 18,
+          "name": "shrine_trial_tileset_ai01_auto_019",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/018_shrine_trial_tileset_ai01_auto_019.atlas_texture.tres",
+          "region": [
+            128,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 19,
+          "name": "shrine_trial_tileset_ai01_auto_020",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/019_shrine_trial_tileset_ai01_auto_020.atlas_texture.tres",
+          "region": [
+            192,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 20,
+          "name": "shrine_trial_tileset_ai01_auto_021",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/020_shrine_trial_tileset_ai01_auto_021.atlas_texture.tres",
+          "region": [
+            256,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 21,
+          "name": "shrine_trial_tileset_ai01_auto_022",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/021_shrine_trial_tileset_ai01_auto_022.atlas_texture.tres",
+          "region": [
+            320,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 22,
+          "name": "shrine_trial_tileset_ai01_auto_023",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/022_shrine_trial_tileset_ai01_auto_023.atlas_texture.tres",
+          "region": [
+            384,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 23,
+          "name": "shrine_trial_tileset_ai01_auto_024",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/023_shrine_trial_tileset_ai01_auto_024.atlas_texture.tres",
+          "region": [
+            448,
+            128,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 24,
+          "name": "shrine_trial_tileset_ai01_auto_025",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/024_shrine_trial_tileset_ai01_auto_025.atlas_texture.tres",
+          "region": [
+            0,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 25,
+          "name": "shrine_trial_tileset_ai01_auto_026",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/025_shrine_trial_tileset_ai01_auto_026.atlas_texture.tres",
+          "region": [
+            64,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 26,
+          "name": "shrine_trial_tileset_ai01_auto_027",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/026_shrine_trial_tileset_ai01_auto_027.atlas_texture.tres",
+          "region": [
+            128,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 27,
+          "name": "shrine_trial_tileset_ai01_auto_028",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/027_shrine_trial_tileset_ai01_auto_028.atlas_texture.tres",
+          "region": [
+            192,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 28,
+          "name": "shrine_trial_tileset_ai01_auto_029",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/028_shrine_trial_tileset_ai01_auto_029.atlas_texture.tres",
+          "region": [
+            256,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 29,
+          "name": "shrine_trial_tileset_ai01_auto_030",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/029_shrine_trial_tileset_ai01_auto_030.atlas_texture.tres",
+          "region": [
+            320,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 30,
+          "name": "shrine_trial_tileset_ai01_auto_031",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/030_shrine_trial_tileset_ai01_auto_031.atlas_texture.tres",
+          "region": [
+            384,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 31,
+          "name": "shrine_trial_tileset_ai01_auto_032",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/031_shrine_trial_tileset_ai01_auto_032.atlas_texture.tres",
+          "region": [
+            448,
+            192,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 32,
+          "name": "shrine_trial_tileset_ai01_auto_033",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/032_shrine_trial_tileset_ai01_auto_033.atlas_texture.tres",
+          "region": [
+            0,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 33,
+          "name": "shrine_trial_tileset_ai01_auto_034",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/033_shrine_trial_tileset_ai01_auto_034.atlas_texture.tres",
+          "region": [
+            64,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 34,
+          "name": "shrine_trial_tileset_ai01_auto_035",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/034_shrine_trial_tileset_ai01_auto_035.atlas_texture.tres",
+          "region": [
+            128,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 35,
+          "name": "shrine_trial_tileset_ai01_auto_036",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/035_shrine_trial_tileset_ai01_auto_036.atlas_texture.tres",
+          "region": [
+            192,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 36,
+          "name": "shrine_trial_tileset_ai01_auto_037",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/036_shrine_trial_tileset_ai01_auto_037.atlas_texture.tres",
+          "region": [
+            256,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 37,
+          "name": "shrine_trial_tileset_ai01_auto_038",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/037_shrine_trial_tileset_ai01_auto_038.atlas_texture.tres",
+          "region": [
+            320,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 38,
+          "name": "shrine_trial_tileset_ai01_auto_039",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/038_shrine_trial_tileset_ai01_auto_039.atlas_texture.tres",
+          "region": [
+            384,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 39,
+          "name": "shrine_trial_tileset_ai01_auto_040",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/039_shrine_trial_tileset_ai01_auto_040.atlas_texture.tres",
+          "region": [
+            448,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 40,
+          "name": "shrine_trial_tileset_ai01_auto_041",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/040_shrine_trial_tileset_ai01_auto_041.atlas_texture.tres",
+          "region": [
+            0,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 41,
+          "name": "shrine_trial_tileset_ai01_auto_042",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/041_shrine_trial_tileset_ai01_auto_042.atlas_texture.tres",
+          "region": [
+            64,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 42,
+          "name": "shrine_trial_tileset_ai01_auto_043",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/042_shrine_trial_tileset_ai01_auto_043.atlas_texture.tres",
+          "region": [
+            128,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 43,
+          "name": "shrine_trial_tileset_ai01_auto_044",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/043_shrine_trial_tileset_ai01_auto_044.atlas_texture.tres",
+          "region": [
+            192,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 44,
+          "name": "shrine_trial_tileset_ai01_auto_045",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/044_shrine_trial_tileset_ai01_auto_045.atlas_texture.tres",
+          "region": [
+            256,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 45,
+          "name": "shrine_trial_tileset_ai01_auto_046",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/045_shrine_trial_tileset_ai01_auto_046.atlas_texture.tres",
+          "region": [
+            320,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 46,
+          "name": "shrine_trial_tileset_ai01_auto_047",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/046_shrine_trial_tileset_ai01_auto_047.atlas_texture.tres",
+          "region": [
+            384,
+            320,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 47,
+          "name": "shrine_trial_tileset_ai01_auto_048",
+          "resource": "res://assets/art/editor_resources/shrine_trial_tileset_ai01/047_shrine_trial_tileset_ai01_auto_048.atlas_texture.tres",
+          "region": [
+            448,
+            320,
+            64,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "id": "material_texture_atlas_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/textures/material_texture_atlas_ai01.png",
+      "metadata": "res://assets/art/textures/material_texture_atlas_ai01.regions.json",
+      "count": 16,
+      "resources": [
+        {
+          "index": 0,
+          "name": "material_texture_atlas_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/000_material_texture_atlas_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "name": "material_texture_atlas_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/001_material_texture_atlas_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            128,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "name": "material_texture_atlas_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/002_material_texture_atlas_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            256,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "name": "material_texture_atlas_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/003_material_texture_atlas_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "name": "material_texture_atlas_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/004_material_texture_atlas_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            512,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 5,
+          "name": "material_texture_atlas_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/005_material_texture_atlas_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            640,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 6,
+          "name": "material_texture_atlas_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/006_material_texture_atlas_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            768,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 7,
+          "name": "material_texture_atlas_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/007_material_texture_atlas_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            896,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 8,
+          "name": "material_texture_atlas_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/008_material_texture_atlas_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            0,
+            128,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 9,
+          "name": "material_texture_atlas_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/009_material_texture_atlas_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            128,
+            128,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 10,
+          "name": "material_texture_atlas_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/010_material_texture_atlas_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            256,
+            128,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 11,
+          "name": "material_texture_atlas_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/011_material_texture_atlas_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            384,
+            128,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 12,
+          "name": "material_texture_atlas_ai01_auto_013",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/012_material_texture_atlas_ai01_auto_013.atlas_texture.tres",
+          "region": [
+            512,
+            128,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 13,
+          "name": "material_texture_atlas_ai01_auto_014",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/013_material_texture_atlas_ai01_auto_014.atlas_texture.tres",
+          "region": [
+            640,
+            128,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 14,
+          "name": "material_texture_atlas_ai01_auto_015",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/014_material_texture_atlas_ai01_auto_015.atlas_texture.tres",
+          "region": [
+            768,
+            128,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 15,
+          "name": "material_texture_atlas_ai01_auto_016",
+          "resource": "res://assets/art/editor_resources/material_texture_atlas_ai01/015_material_texture_atlas_ai01_auto_016.atlas_texture.tres",
+          "region": [
+            896,
+            128,
+            128,
+            128
+          ]
+        }
+      ]
+    },
+    {
+      "id": "equipment_pickup_atlas_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/atlases/equipment_pickup_atlas_ai01.png",
+      "metadata": "res://assets/art/atlases/equipment_pickup_atlas_ai01.regions.json",
+      "count": 24,
+      "resources": [
+        {
+          "index": 0,
+          "name": "equipment_pickup_atlas_ai01_auto_001_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/000_equipment_pickup_atlas_ai01_auto_001_c01.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 1,
+          "name": "equipment_pickup_atlas_ai01_auto_002_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/001_equipment_pickup_atlas_ai01_auto_002_c01.atlas_texture.tres",
+          "region": [
+            96,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 2,
+          "name": "equipment_pickup_atlas_ai01_auto_003_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/002_equipment_pickup_atlas_ai01_auto_003_c01.atlas_texture.tres",
+          "region": [
+            192,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 3,
+          "name": "equipment_pickup_atlas_ai01_auto_004_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/003_equipment_pickup_atlas_ai01_auto_004_c01.atlas_texture.tres",
+          "region": [
+            288,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 4,
+          "name": "equipment_pickup_atlas_ai01_auto_005_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/004_equipment_pickup_atlas_ai01_auto_005_c01.atlas_texture.tres",
+          "region": [
+            384,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 5,
+          "name": "equipment_pickup_atlas_ai01_auto_006_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/005_equipment_pickup_atlas_ai01_auto_006_c01.atlas_texture.tres",
+          "region": [
+            480,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 6,
+          "name": "equipment_pickup_atlas_ai01_auto_007_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/006_equipment_pickup_atlas_ai01_auto_007_c01.atlas_texture.tres",
+          "region": [
+            576,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 7,
+          "name": "equipment_pickup_atlas_ai01_auto_008_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/007_equipment_pickup_atlas_ai01_auto_008_c01.atlas_texture.tres",
+          "region": [
+            672,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 8,
+          "name": "equipment_pickup_atlas_ai01_auto_009_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/008_equipment_pickup_atlas_ai01_auto_009_c01.atlas_texture.tres",
+          "region": [
+            0,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 9,
+          "name": "equipment_pickup_atlas_ai01_auto_010_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/009_equipment_pickup_atlas_ai01_auto_010_c01.atlas_texture.tres",
+          "region": [
+            96,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 10,
+          "name": "equipment_pickup_atlas_ai01_auto_011_c01",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/010_equipment_pickup_atlas_ai01_auto_011_c01.atlas_texture.tres",
+          "region": [
+            192,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 11,
+          "name": "equipment_pickup_atlas_ai01_auto_012_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/011_equipment_pickup_atlas_ai01_auto_012_c02.atlas_texture.tres",
+          "region": [
+            288,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 12,
+          "name": "equipment_pickup_atlas_ai01_auto_013_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/012_equipment_pickup_atlas_ai01_auto_013_c02.atlas_texture.tres",
+          "region": [
+            384,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 13,
+          "name": "equipment_pickup_atlas_ai01_auto_014_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/013_equipment_pickup_atlas_ai01_auto_014_c02.atlas_texture.tres",
+          "region": [
+            480,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 14,
+          "name": "equipment_pickup_atlas_ai01_auto_015_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/014_equipment_pickup_atlas_ai01_auto_015_c02.atlas_texture.tres",
+          "region": [
+            576,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 15,
+          "name": "equipment_pickup_atlas_ai01_auto_016_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/015_equipment_pickup_atlas_ai01_auto_016_c02.atlas_texture.tres",
+          "region": [
+            672,
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 16,
+          "name": "equipment_pickup_atlas_ai01_auto_017_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/016_equipment_pickup_atlas_ai01_auto_017_c02.atlas_texture.tres",
+          "region": [
+            0,
+            192,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 17,
+          "name": "equipment_pickup_atlas_ai01_auto_018_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/017_equipment_pickup_atlas_ai01_auto_018_c02.atlas_texture.tres",
+          "region": [
+            96,
+            192,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 18,
+          "name": "equipment_pickup_atlas_ai01_auto_019_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/018_equipment_pickup_atlas_ai01_auto_019_c02.atlas_texture.tres",
+          "region": [
+            192,
+            192,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 19,
+          "name": "equipment_pickup_atlas_ai01_auto_020_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/019_equipment_pickup_atlas_ai01_auto_020_c02.atlas_texture.tres",
+          "region": [
+            288,
+            192,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 20,
+          "name": "equipment_pickup_atlas_ai01_auto_021_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/020_equipment_pickup_atlas_ai01_auto_021_c02.atlas_texture.tres",
+          "region": [
+            384,
+            192,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 21,
+          "name": "equipment_pickup_atlas_ai01_auto_022_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/021_equipment_pickup_atlas_ai01_auto_022_c02.atlas_texture.tres",
+          "region": [
+            480,
+            192,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 22,
+          "name": "equipment_pickup_atlas_ai01_auto_023_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/022_equipment_pickup_atlas_ai01_auto_023_c02.atlas_texture.tres",
+          "region": [
+            576,
+            192,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 23,
+          "name": "equipment_pickup_atlas_ai01_auto_024_c02",
+          "resource": "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/023_equipment_pickup_atlas_ai01_auto_024_c02.atlas_texture.tres",
+          "region": [
+            672,
+            192,
+            96,
+            96
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seal_guardian_spine_parts_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/spine_parts/seal_guardian_spine_parts_ai01.png",
+      "metadata": "res://assets/art/spine_parts/seal_guardian_spine_parts_ai01.regions.json",
+      "count": 24,
+      "resources": [
+        {
+          "index": 0,
+          "name": "seal_guardian_spine_parts_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/000_seal_guardian_spine_parts_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 1,
+          "name": "seal_guardian_spine_parts_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/001_seal_guardian_spine_parts_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            320,
+            0,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 2,
+          "name": "seal_guardian_spine_parts_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/002_seal_guardian_spine_parts_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            640,
+            0,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 3,
+          "name": "seal_guardian_spine_parts_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/003_seal_guardian_spine_parts_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            960,
+            0,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 4,
+          "name": "seal_guardian_spine_parts_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/004_seal_guardian_spine_parts_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            1280,
+            0,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 5,
+          "name": "seal_guardian_spine_parts_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/005_seal_guardian_spine_parts_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            1600,
+            0,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 6,
+          "name": "seal_guardian_spine_parts_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/006_seal_guardian_spine_parts_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            0,
+            320,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 7,
+          "name": "seal_guardian_spine_parts_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/007_seal_guardian_spine_parts_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            320,
+            320,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 8,
+          "name": "seal_guardian_spine_parts_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/008_seal_guardian_spine_parts_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            640,
+            320,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 9,
+          "name": "seal_guardian_spine_parts_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/009_seal_guardian_spine_parts_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            960,
+            320,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 10,
+          "name": "seal_guardian_spine_parts_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/010_seal_guardian_spine_parts_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            1280,
+            320,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 11,
+          "name": "seal_guardian_spine_parts_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/011_seal_guardian_spine_parts_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            1600,
+            320,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 12,
+          "name": "seal_guardian_spine_parts_ai01_auto_013",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/012_seal_guardian_spine_parts_ai01_auto_013.atlas_texture.tres",
+          "region": [
+            0,
+            640,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 13,
+          "name": "seal_guardian_spine_parts_ai01_auto_014",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/013_seal_guardian_spine_parts_ai01_auto_014.atlas_texture.tres",
+          "region": [
+            320,
+            640,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 14,
+          "name": "seal_guardian_spine_parts_ai01_auto_015",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/014_seal_guardian_spine_parts_ai01_auto_015.atlas_texture.tres",
+          "region": [
+            640,
+            640,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 15,
+          "name": "seal_guardian_spine_parts_ai01_auto_016",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/015_seal_guardian_spine_parts_ai01_auto_016.atlas_texture.tres",
+          "region": [
+            960,
+            640,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 16,
+          "name": "seal_guardian_spine_parts_ai01_auto_017",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/016_seal_guardian_spine_parts_ai01_auto_017.atlas_texture.tres",
+          "region": [
+            1280,
+            640,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 17,
+          "name": "seal_guardian_spine_parts_ai01_auto_018",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/017_seal_guardian_spine_parts_ai01_auto_018.atlas_texture.tres",
+          "region": [
+            1600,
+            640,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 18,
+          "name": "seal_guardian_spine_parts_ai01_auto_019",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/018_seal_guardian_spine_parts_ai01_auto_019.atlas_texture.tres",
+          "region": [
+            0,
+            960,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 19,
+          "name": "seal_guardian_spine_parts_ai01_auto_020",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/019_seal_guardian_spine_parts_ai01_auto_020.atlas_texture.tres",
+          "region": [
+            320,
+            960,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 20,
+          "name": "seal_guardian_spine_parts_ai01_auto_021",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/020_seal_guardian_spine_parts_ai01_auto_021.atlas_texture.tres",
+          "region": [
+            640,
+            960,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 21,
+          "name": "seal_guardian_spine_parts_ai01_auto_022",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/021_seal_guardian_spine_parts_ai01_auto_022.atlas_texture.tres",
+          "region": [
+            960,
+            960,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 22,
+          "name": "seal_guardian_spine_parts_ai01_auto_023",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/022_seal_guardian_spine_parts_ai01_auto_023.atlas_texture.tres",
+          "region": [
+            1280,
+            960,
+            320,
+            320
+          ]
+        },
+        {
+          "index": 23,
+          "name": "seal_guardian_spine_parts_ai01_auto_024",
+          "resource": "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/023_seal_guardian_spine_parts_ai01_auto_024.atlas_texture.tres",
+          "region": [
+            1600,
+            960,
+            320,
+            320
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capsule_art_alpha_demo_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/promo/capsule_art_alpha_demo_ai01.png",
+      "metadata": "res://assets/art/promo/capsule_art_alpha_demo_ai01.regions.json",
+      "count": 6,
+      "resources": [
+        {
+          "index": 0,
+          "name": "capsule_art_alpha_demo_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/capsule_art_alpha_demo_ai01/000_capsule_art_alpha_demo_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            616,
+            353
+          ]
+        },
+        {
+          "index": 1,
+          "name": "capsule_art_alpha_demo_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/capsule_art_alpha_demo_ai01/001_capsule_art_alpha_demo_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            616,
+            0,
+            616,
+            353
+          ]
+        },
+        {
+          "index": 2,
+          "name": "capsule_art_alpha_demo_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/capsule_art_alpha_demo_ai01/002_capsule_art_alpha_demo_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            0,
+            353,
+            616,
+            353
+          ]
+        },
+        {
+          "index": 3,
+          "name": "capsule_art_alpha_demo_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/capsule_art_alpha_demo_ai01/003_capsule_art_alpha_demo_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            616,
+            353,
+            616,
+            353
+          ]
+        },
+        {
+          "index": 4,
+          "name": "capsule_art_alpha_demo_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/capsule_art_alpha_demo_ai01/004_capsule_art_alpha_demo_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            0,
+            706,
+            616,
+            353
+          ]
+        },
+        {
+          "index": 5,
+          "name": "capsule_art_alpha_demo_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/capsule_art_alpha_demo_ai01/005_capsule_art_alpha_demo_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            616,
+            706,
+            616,
+            353
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cg_seal_guardian_reveal_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/promo/cg_seal_guardian_reveal_ai01.png",
+      "metadata": "res://assets/art/promo/cg_seal_guardian_reveal_ai01.regions.json",
+      "count": 6,
+      "resources": [
+        {
+          "index": 0,
+          "name": "cg_seal_guardian_reveal_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/cg_seal_guardian_reveal_ai01/000_cg_seal_guardian_reveal_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 1,
+          "name": "cg_seal_guardian_reveal_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/cg_seal_guardian_reveal_ai01/001_cg_seal_guardian_reveal_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            640,
+            0,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 2,
+          "name": "cg_seal_guardian_reveal_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/cg_seal_guardian_reveal_ai01/002_cg_seal_guardian_reveal_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            0,
+            360,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 3,
+          "name": "cg_seal_guardian_reveal_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/cg_seal_guardian_reveal_ai01/003_cg_seal_guardian_reveal_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            640,
+            360,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 4,
+          "name": "cg_seal_guardian_reveal_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/cg_seal_guardian_reveal_ai01/004_cg_seal_guardian_reveal_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            0,
+            720,
+            640,
+            360
+          ]
+        },
+        {
+          "index": 5,
+          "name": "cg_seal_guardian_reveal_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/cg_seal_guardian_reveal_ai01/005_cg_seal_guardian_reveal_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            640,
+            720,
+            640,
+            360
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storyboard_intro_bounty_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/storyboards/storyboard_intro_bounty_ai01.png",
+      "metadata": "res://assets/art/storyboards/storyboard_intro_bounty_ai01.regions.json",
+      "count": 12,
+      "resources": [
+        {
+          "index": 0,
+          "name": "storyboard_intro_bounty_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/000_storyboard_intro_bounty_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 1,
+          "name": "storyboard_intro_bounty_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/001_storyboard_intro_bounty_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            320,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 2,
+          "name": "storyboard_intro_bounty_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/002_storyboard_intro_bounty_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            640,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 3,
+          "name": "storyboard_intro_bounty_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/003_storyboard_intro_bounty_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            0,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 4,
+          "name": "storyboard_intro_bounty_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/004_storyboard_intro_bounty_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            320,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 5,
+          "name": "storyboard_intro_bounty_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/005_storyboard_intro_bounty_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            640,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 6,
+          "name": "storyboard_intro_bounty_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/006_storyboard_intro_bounty_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            0,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 7,
+          "name": "storyboard_intro_bounty_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/007_storyboard_intro_bounty_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            320,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 8,
+          "name": "storyboard_intro_bounty_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/008_storyboard_intro_bounty_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            640,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 9,
+          "name": "storyboard_intro_bounty_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/009_storyboard_intro_bounty_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            0,
+            540,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 10,
+          "name": "storyboard_intro_bounty_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/010_storyboard_intro_bounty_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            320,
+            540,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 11,
+          "name": "storyboard_intro_bounty_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/011_storyboard_intro_bounty_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            640,
+            540,
+            320,
+            180
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storyboard_miasma_marsh_ai01",
+      "kind": "atlas",
+      "source_texture": "res://assets/art/storyboards/storyboard_miasma_marsh_ai01.png",
+      "metadata": "res://assets/art/storyboards/storyboard_miasma_marsh_ai01.regions.json",
+      "count": 12,
+      "resources": [
+        {
+          "index": 0,
+          "name": "storyboard_miasma_marsh_ai01_auto_001",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/000_storyboard_miasma_marsh_ai01_auto_001.atlas_texture.tres",
+          "region": [
+            0,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 1,
+          "name": "storyboard_miasma_marsh_ai01_auto_002",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/001_storyboard_miasma_marsh_ai01_auto_002.atlas_texture.tres",
+          "region": [
+            320,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 2,
+          "name": "storyboard_miasma_marsh_ai01_auto_003",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/002_storyboard_miasma_marsh_ai01_auto_003.atlas_texture.tres",
+          "region": [
+            640,
+            0,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 3,
+          "name": "storyboard_miasma_marsh_ai01_auto_004",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/003_storyboard_miasma_marsh_ai01_auto_004.atlas_texture.tres",
+          "region": [
+            0,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 4,
+          "name": "storyboard_miasma_marsh_ai01_auto_005",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/004_storyboard_miasma_marsh_ai01_auto_005.atlas_texture.tres",
+          "region": [
+            320,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 5,
+          "name": "storyboard_miasma_marsh_ai01_auto_006",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/005_storyboard_miasma_marsh_ai01_auto_006.atlas_texture.tres",
+          "region": [
+            640,
+            180,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 6,
+          "name": "storyboard_miasma_marsh_ai01_auto_007",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/006_storyboard_miasma_marsh_ai01_auto_007.atlas_texture.tres",
+          "region": [
+            0,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 7,
+          "name": "storyboard_miasma_marsh_ai01_auto_008",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/007_storyboard_miasma_marsh_ai01_auto_008.atlas_texture.tres",
+          "region": [
+            320,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 8,
+          "name": "storyboard_miasma_marsh_ai01_auto_009",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/008_storyboard_miasma_marsh_ai01_auto_009.atlas_texture.tres",
+          "region": [
+            640,
+            360,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 9,
+          "name": "storyboard_miasma_marsh_ai01_auto_010",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/009_storyboard_miasma_marsh_ai01_auto_010.atlas_texture.tres",
+          "region": [
+            0,
+            540,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 10,
+          "name": "storyboard_miasma_marsh_ai01_auto_011",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/010_storyboard_miasma_marsh_ai01_auto_011.atlas_texture.tres",
+          "region": [
+            320,
+            540,
+            320,
+            180
+          ]
+        },
+        {
+          "index": 11,
+          "name": "storyboard_miasma_marsh_ai01_auto_012",
+          "resource": "res://assets/art/editor_resources/storyboard_miasma_marsh_ai01/011_storyboard_miasma_marsh_ai01_auto_012.atlas_texture.tres",
+          "region": [
+            640,
+            540,
+            320,
+            180
+          ]
+        }
+      ]
+    }
+  ]
+}

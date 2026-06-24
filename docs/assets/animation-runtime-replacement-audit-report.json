@@ -1,0 +1,6425 @@
+{
+  "version": 1,
+  "status": "blocked",
+  "asset_count": 8,
+  "source_manifest": "docs/assets/asset-atlas-build-manifest.json",
+  "ready_count": 0,
+  "blocked_count": 8,
+  "assets": [
+    {
+      "asset_id": "luna_run_sheet_ai01",
+      "texture": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "run",
+        "speed": 18.0,
+        "loop": true
+      },
+      "cell": [
+        160,
+        160
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "duplicate_frame_hashes",
+        "insufficient_edge_padding"
+      ],
+      "warnings": [
+        "duplicate_frame_groups=[[0, 21], [1, 22], [2, 23]]",
+        "edge_touch_frames=[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20]",
+        "edge_padding_failures=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]",
+        "horizontal_padding_below_recommended=[8, 14]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_run_sheet_ai01_auto_001_c06",
+          "region": [
+            0,
+            0,
+            160,
+            160
+          ],
+          "hash": -8900623136854455558,
+          "empty": false,
+          "bbox": [
+            18,
+            2,
+            141,
+            158
+          ],
+          "margins": {
+            "left": 18,
+            "top": 2,
+            "right": 19,
+            "bottom": 2
+          },
+          "content_size": [
+            123,
+            156
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 1,
+          "name": "luna_run_sheet_ai01_auto_002_c06",
+          "region": [
+            160,
+            0,
+            160,
+            160
+          ],
+          "hash": 7606022301866592102,
+          "empty": false,
+          "bbox": [
+            16,
+            2,
+            143,
+            158
+          ],
+          "margins": {
+            "left": 16,
+            "top": 2,
+            "right": 17,
+            "bottom": 2
+          },
+          "content_size": [
+            127,
+            156
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 2,
+          "name": "luna_run_sheet_ai01_auto_003_c06",
+          "region": [
+            320,
+            0,
+            160,
+            160
+          ],
+          "hash": 8644447458815717474,
+          "empty": false,
+          "bbox": [
+            20,
+            2,
+            140,
+            158
+          ],
+          "margins": {
+            "left": 20,
+            "top": 2,
+            "right": 20,
+            "bottom": 2
+          },
+          "content_size": [
+            120,
+            156
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 3,
+          "name": "luna_run_sheet_ai01_auto_004_c06",
+          "region": [
+            480,
+            0,
+            160,
+            160
+          ],
+          "hash": 8525289728648700065,
+          "empty": false,
+          "bbox": [
+            20,
+            2,
+            139,
+            160
+          ],
+          "margins": {
+            "left": 20,
+            "top": 2,
+            "right": 21,
+            "bottom": 0
+          },
+          "content_size": [
+            119,
+            158
+          ],
+          "center": [
+            79.5,
+            81.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 4,
+          "name": "luna_run_sheet_ai01_auto_005_c06",
+          "region": [
+            640,
+            0,
+            160,
+            160
+          ],
+          "hash": -6279586184435297450,
+          "empty": false,
+          "bbox": [
+            17,
+            2,
+            143,
+            160
+          ],
+          "margins": {
+            "left": 17,
+            "top": 2,
+            "right": 17,
+            "bottom": 0
+          },
+          "content_size": [
+            126,
+            158
+          ],
+          "center": [
+            80.0,
+            81.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 5,
+          "name": "luna_run_sheet_ai01_auto_006_c06",
+          "region": [
+            800,
+            0,
+            160,
+            160
+          ],
+          "hash": -8016486877184975490,
+          "empty": false,
+          "bbox": [
+            14,
+            2,
+            145,
+            160
+          ],
+          "margins": {
+            "left": 14,
+            "top": 2,
+            "right": 15,
+            "bottom": 0
+          },
+          "content_size": [
+            131,
+            158
+          ],
+          "center": [
+            79.5,
+            81.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 6,
+          "name": "luna_run_sheet_ai01_auto_007_c06",
+          "region": [
+            960,
+            0,
+            160,
+            160
+          ],
+          "hash": 7943867605473455230,
+          "empty": false,
+          "bbox": [
+            19,
+            2,
+            140,
+            160
+          ],
+          "margins": {
+            "left": 19,
+            "top": 2,
+            "right": 20,
+            "bottom": 0
+          },
+          "content_size": [
+            121,
+            158
+          ],
+          "center": [
+            79.5,
+            81.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 7,
+          "name": "luna_run_sheet_ai01_auto_008_c06",
+          "region": [
+            1120,
+            0,
+            160,
+            160
+          ],
+          "hash": 6331643285601921439,
+          "empty": false,
+          "bbox": [
+            22,
+            0,
+            140,
+            160
+          ],
+          "margins": {
+            "left": 22,
+            "top": 0,
+            "right": 20,
+            "bottom": 0
+          },
+          "content_size": [
+            118,
+            160
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 8,
+          "name": "luna_run_sheet_ai01_auto_009_c06",
+          "region": [
+            0,
+            160,
+            160,
+            160
+          ],
+          "hash": -825481957323662134,
+          "empty": false,
+          "bbox": [
+            10,
+            0,
+            150,
+            157
+          ],
+          "margins": {
+            "left": 10,
+            "top": 0,
+            "right": 10,
+            "bottom": 3
+          },
+          "content_size": [
+            140,
+            157
+          ],
+          "center": [
+            80.0,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 9,
+          "name": "luna_run_sheet_ai01_auto_010_c06",
+          "region": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "hash": -1211046366096544338,
+          "empty": false,
+          "bbox": [
+            17,
+            0,
+            142,
+            160
+          ],
+          "margins": {
+            "left": 17,
+            "top": 0,
+            "right": 18,
+            "bottom": 0
+          },
+          "content_size": [
+            125,
+            160
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 10,
+          "name": "luna_run_sheet_ai01_auto_011_c06",
+          "region": [
+            320,
+            160,
+            160,
+            160
+          ],
+          "hash": -2733696519970678077,
+          "empty": false,
+          "bbox": [
+            18,
+            0,
+            141,
+            160
+          ],
+          "margins": {
+            "left": 18,
+            "top": 0,
+            "right": 19,
+            "bottom": 0
+          },
+          "content_size": [
+            123,
+            160
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 11,
+          "name": "luna_run_sheet_ai01_auto_012_c06",
+          "region": [
+            480,
+            160,
+            160,
+            160
+          ],
+          "hash": -8865111539078210920,
+          "empty": false,
+          "bbox": [
+            19,
+            0,
+            141,
+            160
+          ],
+          "margins": {
+            "left": 19,
+            "top": 0,
+            "right": 19,
+            "bottom": 0
+          },
+          "content_size": [
+            122,
+            160
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 12,
+          "name": "luna_run_sheet_ai01_auto_013_c06",
+          "region": [
+            640,
+            160,
+            160,
+            160
+          ],
+          "hash": -7069625656396073168,
+          "empty": false,
+          "bbox": [
+            19,
+            3,
+            141,
+            160
+          ],
+          "margins": {
+            "left": 19,
+            "top": 3,
+            "right": 19,
+            "bottom": 0
+          },
+          "content_size": [
+            122,
+            157
+          ],
+          "center": [
+            80.0,
+            81.5
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 13,
+          "name": "luna_run_sheet_ai01_auto_014_c06",
+          "region": [
+            800,
+            160,
+            160,
+            160
+          ],
+          "hash": 1923263313727921670,
+          "empty": false,
+          "bbox": [
+            15,
+            3,
+            145,
+            160
+          ],
+          "margins": {
+            "left": 15,
+            "top": 3,
+            "right": 15,
+            "bottom": 0
+          },
+          "content_size": [
+            130,
+            157
+          ],
+          "center": [
+            80.0,
+            81.5
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 14,
+          "name": "luna_run_sheet_ai01_auto_015_c06",
+          "region": [
+            960,
+            160,
+            160,
+            160
+          ],
+          "hash": -5235827896207338400,
+          "empty": false,
+          "bbox": [
+            3,
+            3,
+            156,
+            157
+          ],
+          "margins": {
+            "left": 3,
+            "top": 3,
+            "right": 4,
+            "bottom": 3
+          },
+          "content_size": [
+            153,
+            154
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 15,
+          "name": "luna_run_sheet_ai01_auto_016_c06",
+          "region": [
+            1120,
+            160,
+            160,
+            160
+          ],
+          "hash": -4242789464602061507,
+          "empty": false,
+          "bbox": [
+            17,
+            0,
+            142,
+            157
+          ],
+          "margins": {
+            "left": 17,
+            "top": 0,
+            "right": 18,
+            "bottom": 3
+          },
+          "content_size": [
+            125,
+            157
+          ],
+          "center": [
+            79.5,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 16,
+          "name": "luna_run_sheet_ai01_auto_017_c06",
+          "region": [
+            0,
+            320,
+            160,
+            160
+          ],
+          "hash": 6331103820346194426,
+          "empty": false,
+          "bbox": [
+            15,
+            0,
+            145,
+            158
+          ],
+          "margins": {
+            "left": 15,
+            "top": 0,
+            "right": 15,
+            "bottom": 2
+          },
+          "content_size": [
+            130,
+            158
+          ],
+          "center": [
+            80.0,
+            79.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 17,
+          "name": "luna_run_sheet_ai01_auto_018_c06",
+          "region": [
+            160,
+            320,
+            160,
+            160
+          ],
+          "hash": 1139119284527352123,
+          "empty": false,
+          "bbox": [
+            13,
+            0,
+            147,
+            158
+          ],
+          "margins": {
+            "left": 13,
+            "top": 0,
+            "right": 13,
+            "bottom": 2
+          },
+          "content_size": [
+            134,
+            158
+          ],
+          "center": [
+            80.0,
+            79.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 18,
+          "name": "luna_run_sheet_ai01_auto_019_c06",
+          "region": [
+            320,
+            320,
+            160,
+            160
+          ],
+          "hash": 8454804941645224363,
+          "empty": false,
+          "bbox": [
+            15,
+            0,
+            145,
+            157
+          ],
+          "margins": {
+            "left": 15,
+            "top": 0,
+            "right": 15,
+            "bottom": 3
+          },
+          "content_size": [
+            130,
+            157
+          ],
+          "center": [
+            80.0,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 19,
+          "name": "luna_run_sheet_ai01_auto_020_c06",
+          "region": [
+            480,
+            320,
+            160,
+            160
+          ],
+          "hash": -1252973636458961454,
+          "empty": false,
+          "bbox": [
+            19,
+            0,
+            141,
+            157
+          ],
+          "margins": {
+            "left": 19,
+            "top": 0,
+            "right": 19,
+            "bottom": 3
+          },
+          "content_size": [
+            122,
+            157
+          ],
+          "center": [
+            80.0,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 20,
+          "name": "luna_run_sheet_ai01_auto_021_c06",
+          "region": [
+            640,
+            320,
+            160,
+            160
+          ],
+          "hash": -2669774785937523238,
+          "empty": false,
+          "bbox": [
+            19,
+            0,
+            141,
+            157
+          ],
+          "margins": {
+            "left": 19,
+            "top": 0,
+            "right": 19,
+            "bottom": 3
+          },
+          "content_size": [
+            122,
+            157
+          ],
+          "center": [
+            80.0,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 21,
+          "name": "luna_run_sheet_ai01_duplicate_022_c06",
+          "region": [
+            800,
+            320,
+            160,
+            160
+          ],
+          "hash": -8900623136854455558,
+          "empty": false,
+          "bbox": [
+            18,
+            2,
+            141,
+            158
+          ],
+          "margins": {
+            "left": 18,
+            "top": 2,
+            "right": 19,
+            "bottom": 2
+          },
+          "content_size": [
+            123,
+            156
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 22,
+          "name": "luna_run_sheet_ai01_duplicate_023_c06",
+          "region": [
+            960,
+            320,
+            160,
+            160
+          ],
+          "hash": 7606022301866592102,
+          "empty": false,
+          "bbox": [
+            16,
+            2,
+            143,
+            158
+          ],
+          "margins": {
+            "left": 16,
+            "top": 2,
+            "right": 17,
+            "bottom": 2
+          },
+          "content_size": [
+            127,
+            156
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 23,
+          "name": "luna_run_sheet_ai01_duplicate_024_c06",
+          "region": [
+            1120,
+            320,
+            160,
+            160
+          ],
+          "hash": 8644447458815717474,
+          "empty": false,
+          "bbox": [
+            20,
+            2,
+            140,
+            158
+          ],
+          "margins": {
+            "left": 20,
+            "top": 2,
+            "right": 20,
+            "bottom": 2
+          },
+          "content_size": [
+            120,
+            156
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 158
+        }
+      ],
+      "summary": {
+        "frame_count": 24,
+        "min_margins": {
+          "left": 3,
+          "top": 0,
+          "right": 4,
+          "bottom": 0
+        },
+        "edge_touch_frames": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "edge_padding_failures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "horizontal_padding_below_recommended": [
+          8,
+          14
+        ],
+        "duplicate_frame_groups": [
+          [
+            0,
+            21
+          ],
+          [
+            1,
+            22
+          ],
+          [
+            2,
+            23
+          ]
+        ],
+        "foot_baseline_variance_px": 3,
+        "center_x_variance_px": 1.5,
+        "content_width_variance_ratio": 0.2288,
+        "content_height_variance_ratio": 0.0375
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_air_dash_sheet_ai01",
+      "texture": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "air_dash",
+        "speed": 20.0,
+        "loop": false
+      },
+      "cell": [
+        192,
+        160
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "duplicate_frame_hashes",
+        "insufficient_edge_padding",
+        "unstable_foot_baseline"
+      ],
+      "warnings": [
+        "duplicate_frame_groups=[[0, 14], [1, 15]]",
+        "edge_touch_frames=[3, 5, 6, 7]",
+        "edge_padding_failures=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]",
+        "horizontal_padding_below_recommended=[1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_air_dash_sheet_ai01_auto_001_c06",
+          "region": [
+            0,
+            0,
+            192,
+            160
+          ],
+          "hash": 3823970199246774077,
+          "empty": false,
+          "bbox": [
+            24,
+            4,
+            167,
+            156
+          ],
+          "margins": {
+            "left": 24,
+            "top": 4,
+            "right": 25,
+            "bottom": 4
+          },
+          "content_size": [
+            143,
+            152
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 1,
+          "name": "luna_air_dash_sheet_ai01_auto_002_c06",
+          "region": [
+            192,
+            0,
+            192,
+            160
+          ],
+          "hash": 1855899029851189317,
+          "empty": false,
+          "bbox": [
+            18,
+            3,
+            173,
+            156
+          ],
+          "margins": {
+            "left": 18,
+            "top": 3,
+            "right": 19,
+            "bottom": 4
+          },
+          "content_size": [
+            155,
+            153
+          ],
+          "center": [
+            95.5,
+            79.5
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 2,
+          "name": "luna_air_dash_sheet_ai01_auto_003_c06",
+          "region": [
+            384,
+            0,
+            192,
+            160
+          ],
+          "hash": 5278708268565647393,
+          "empty": false,
+          "bbox": [
+            24,
+            4,
+            167,
+            156
+          ],
+          "margins": {
+            "left": 24,
+            "top": 4,
+            "right": 25,
+            "bottom": 4
+          },
+          "content_size": [
+            143,
+            152
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 3,
+          "name": "luna_air_dash_sheet_ai01_auto_004_c06",
+          "region": [
+            576,
+            0,
+            192,
+            160
+          ],
+          "hash": -9220019180963802858,
+          "empty": false,
+          "bbox": [
+            2,
+            27,
+            192,
+            133
+          ],
+          "margins": {
+            "left": 2,
+            "top": 27,
+            "right": 0,
+            "bottom": 27
+          },
+          "content_size": [
+            190,
+            106
+          ],
+          "center": [
+            97.0,
+            80.0
+          ],
+          "foot_y": 133
+        },
+        {
+          "index": 4,
+          "name": "luna_air_dash_sheet_ai01_auto_005_c06",
+          "region": [
+            768,
+            0,
+            192,
+            160
+          ],
+          "hash": 4878579567653633013,
+          "empty": false,
+          "bbox": [
+            25,
+            4,
+            165,
+            156
+          ],
+          "margins": {
+            "left": 25,
+            "top": 4,
+            "right": 27,
+            "bottom": 4
+          },
+          "content_size": [
+            140,
+            152
+          ],
+          "center": [
+            95.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 5,
+          "name": "luna_air_dash_sheet_ai01_auto_006_c06",
+          "region": [
+            960,
+            0,
+            192,
+            160
+          ],
+          "hash": 9045399867233756415,
+          "empty": false,
+          "bbox": [
+            0,
+            20,
+            192,
+            143
+          ],
+          "margins": {
+            "left": 0,
+            "top": 20,
+            "right": 0,
+            "bottom": 17
+          },
+          "content_size": [
+            192,
+            123
+          ],
+          "center": [
+            96.0,
+            81.5
+          ],
+          "foot_y": 143
+        },
+        {
+          "index": 6,
+          "name": "luna_air_dash_sheet_ai01_auto_007_c06",
+          "region": [
+            1152,
+            0,
+            192,
+            160
+          ],
+          "hash": -5821684376596887410,
+          "empty": false,
+          "bbox": [
+            0,
+            17,
+            189,
+            143
+          ],
+          "margins": {
+            "left": 0,
+            "top": 17,
+            "right": 3,
+            "bottom": 17
+          },
+          "content_size": [
+            189,
+            126
+          ],
+          "center": [
+            94.5,
+            80.0
+          ],
+          "foot_y": 143
+        },
+        {
+          "index": 7,
+          "name": "luna_air_dash_sheet_ai01_auto_008_c06",
+          "region": [
+            1344,
+            0,
+            192,
+            160
+          ],
+          "hash": -642710713224897873,
+          "empty": false,
+          "bbox": [
+            7,
+            0,
+            185,
+            156
+          ],
+          "margins": {
+            "left": 7,
+            "top": 0,
+            "right": 7,
+            "bottom": 4
+          },
+          "content_size": [
+            178,
+            156
+          ],
+          "center": [
+            96.0,
+            78.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 8,
+          "name": "luna_air_dash_sheet_ai01_auto_009_c06",
+          "region": [
+            0,
+            160,
+            192,
+            160
+          ],
+          "hash": 4986158227089357364,
+          "empty": false,
+          "bbox": [
+            4,
+            9,
+            188,
+            150
+          ],
+          "margins": {
+            "left": 4,
+            "top": 9,
+            "right": 4,
+            "bottom": 10
+          },
+          "content_size": [
+            184,
+            141
+          ],
+          "center": [
+            96.0,
+            79.5
+          ],
+          "foot_y": 150
+        },
+        {
+          "index": 9,
+          "name": "luna_air_dash_sheet_ai01_auto_010_c06",
+          "region": [
+            192,
+            160,
+            192,
+            160
+          ],
+          "hash": 5261902409330963312,
+          "empty": false,
+          "bbox": [
+            19,
+            3,
+            173,
+            156
+          ],
+          "margins": {
+            "left": 19,
+            "top": 3,
+            "right": 19,
+            "bottom": 4
+          },
+          "content_size": [
+            154,
+            153
+          ],
+          "center": [
+            96.0,
+            79.5
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 10,
+          "name": "luna_air_dash_sheet_ai01_auto_011_c06",
+          "region": [
+            384,
+            160,
+            192,
+            160
+          ],
+          "hash": 3149070210536356148,
+          "empty": false,
+          "bbox": [
+            14,
+            5,
+            177,
+            155
+          ],
+          "margins": {
+            "left": 14,
+            "top": 5,
+            "right": 15,
+            "bottom": 5
+          },
+          "content_size": [
+            163,
+            150
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 155
+        },
+        {
+          "index": 11,
+          "name": "luna_air_dash_sheet_ai01_auto_012_c06",
+          "region": [
+            576,
+            160,
+            192,
+            160
+          ],
+          "hash": 4674018569559235374,
+          "empty": false,
+          "bbox": [
+            8,
+            4,
+            183,
+            155
+          ],
+          "margins": {
+            "left": 8,
+            "top": 4,
+            "right": 9,
+            "bottom": 5
+          },
+          "content_size": [
+            175,
+            151
+          ],
+          "center": [
+            95.5,
+            79.5
+          ],
+          "foot_y": 155
+        },
+        {
+          "index": 12,
+          "name": "luna_air_dash_sheet_ai01_auto_013_c06",
+          "region": [
+            768,
+            160,
+            192,
+            160
+          ],
+          "hash": -5174786717297292975,
+          "empty": false,
+          "bbox": [
+            18,
+            5,
+            174,
+            155
+          ],
+          "margins": {
+            "left": 18,
+            "top": 5,
+            "right": 18,
+            "bottom": 5
+          },
+          "content_size": [
+            156,
+            150
+          ],
+          "center": [
+            96.0,
+            80.0
+          ],
+          "foot_y": 155
+        },
+        {
+          "index": 13,
+          "name": "luna_air_dash_sheet_ai01_auto_014_c06",
+          "region": [
+            960,
+            160,
+            192,
+            160
+          ],
+          "hash": 1927777092953644334,
+          "empty": false,
+          "bbox": [
+            5,
+            12,
+            187,
+            147
+          ],
+          "margins": {
+            "left": 5,
+            "top": 12,
+            "right": 5,
+            "bottom": 13
+          },
+          "content_size": [
+            182,
+            135
+          ],
+          "center": [
+            96.0,
+            79.5
+          ],
+          "foot_y": 147
+        },
+        {
+          "index": 14,
+          "name": "luna_air_dash_sheet_ai01_duplicate_015_c06",
+          "region": [
+            1152,
+            160,
+            192,
+            160
+          ],
+          "hash": 3823970199246774077,
+          "empty": false,
+          "bbox": [
+            24,
+            4,
+            167,
+            156
+          ],
+          "margins": {
+            "left": 24,
+            "top": 4,
+            "right": 25,
+            "bottom": 4
+          },
+          "content_size": [
+            143,
+            152
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 15,
+          "name": "luna_air_dash_sheet_ai01_duplicate_016_c06",
+          "region": [
+            1344,
+            160,
+            192,
+            160
+          ],
+          "hash": 1855899029851189317,
+          "empty": false,
+          "bbox": [
+            18,
+            3,
+            173,
+            156
+          ],
+          "margins": {
+            "left": 18,
+            "top": 3,
+            "right": 19,
+            "bottom": 4
+          },
+          "content_size": [
+            155,
+            153
+          ],
+          "center": [
+            95.5,
+            79.5
+          ],
+          "foot_y": 156
+        }
+      ],
+      "summary": {
+        "frame_count": 16,
+        "min_margins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 4
+        },
+        "edge_touch_frames": [
+          3,
+          5,
+          6,
+          7
+        ],
+        "edge_padding_failures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "horizontal_padding_below_recommended": [
+          1,
+          3,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          15
+        ],
+        "duplicate_frame_groups": [
+          [
+            0,
+            14
+          ],
+          [
+            1,
+            15
+          ]
+        ],
+        "foot_baseline_variance_px": 23,
+        "center_x_variance_px": 2.5,
+        "content_width_variance_ratio": 0.2708,
+        "content_height_variance_ratio": 0.3205
+      },
+      "gates": {
+        "min_edge_padding_px": 8,
+        "recommended_horizontal_padding_px": 24,
+        "max_foot_baseline_variance_px": 12,
+        "max_center_variance_px": 36,
+        "max_size_variance_ratio": 0.55,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_attack_01_sheet_ai01",
+      "texture": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "attack_01",
+        "speed": 18.0,
+        "loop": false
+      },
+      "cell": [
+        192,
+        160
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "insufficient_edge_padding",
+        "unstable_content_scale"
+      ],
+      "warnings": [
+        "edge_touch_frames=[3, 6, 12]",
+        "edge_padding_failures=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]",
+        "horizontal_padding_below_recommended=[3, 4, 5, 6, 7, 12, 14]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_attack_01_sheet_ai01_auto_001_c06",
+          "region": [
+            0,
+            0,
+            192,
+            160
+          ],
+          "hash": -426362447925384244,
+          "empty": false,
+          "bbox": [
+            53,
+            2,
+            138,
+            158
+          ],
+          "margins": {
+            "left": 53,
+            "top": 2,
+            "right": 54,
+            "bottom": 2
+          },
+          "content_size": [
+            85,
+            156
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 1,
+          "name": "luna_attack_01_sheet_ai01_auto_002_c06",
+          "region": [
+            192,
+            0,
+            192,
+            160
+          ],
+          "hash": -3772331742390183041,
+          "empty": false,
+          "bbox": [
+            50,
+            2,
+            142,
+            157
+          ],
+          "margins": {
+            "left": 50,
+            "top": 2,
+            "right": 50,
+            "bottom": 3
+          },
+          "content_size": [
+            92,
+            155
+          ],
+          "center": [
+            96.0,
+            79.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 2,
+          "name": "luna_attack_01_sheet_ai01_auto_003_c06",
+          "region": [
+            384,
+            0,
+            192,
+            160
+          ],
+          "hash": 7273624276475557921,
+          "empty": false,
+          "bbox": [
+            44,
+            3,
+            147,
+            157
+          ],
+          "margins": {
+            "left": 44,
+            "top": 3,
+            "right": 45,
+            "bottom": 3
+          },
+          "content_size": [
+            103,
+            154
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 3,
+          "name": "luna_attack_01_sheet_ai01_auto_004_c06",
+          "region": [
+            576,
+            0,
+            192,
+            160
+          ],
+          "hash": -518536419356684054,
+          "empty": false,
+          "bbox": [
+            13,
+            0,
+            178,
+            157
+          ],
+          "margins": {
+            "left": 13,
+            "top": 0,
+            "right": 14,
+            "bottom": 3
+          },
+          "content_size": [
+            165,
+            157
+          ],
+          "center": [
+            95.5,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 4,
+          "name": "luna_attack_01_sheet_ai01_auto_005_c06",
+          "region": [
+            768,
+            0,
+            192,
+            160
+          ],
+          "hash": -3301945399941260985,
+          "empty": false,
+          "bbox": [
+            22,
+            2,
+            173,
+            157
+          ],
+          "margins": {
+            "left": 22,
+            "top": 2,
+            "right": 19,
+            "bottom": 3
+          },
+          "content_size": [
+            151,
+            155
+          ],
+          "center": [
+            97.5,
+            79.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 5,
+          "name": "luna_attack_01_sheet_ai01_auto_006_c06",
+          "region": [
+            960,
+            0,
+            192,
+            160
+          ],
+          "hash": -3906173554373525796,
+          "empty": false,
+          "bbox": [
+            19,
+            3,
+            173,
+            157
+          ],
+          "margins": {
+            "left": 19,
+            "top": 3,
+            "right": 19,
+            "bottom": 3
+          },
+          "content_size": [
+            154,
+            154
+          ],
+          "center": [
+            96.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 6,
+          "name": "luna_attack_01_sheet_ai01_auto_007_c06",
+          "region": [
+            1152,
+            0,
+            192,
+            160
+          ],
+          "hash": -6393637536963701391,
+          "empty": false,
+          "bbox": [
+            0,
+            4,
+            192,
+            156
+          ],
+          "margins": {
+            "left": 0,
+            "top": 4,
+            "right": 0,
+            "bottom": 4
+          },
+          "content_size": [
+            192,
+            152
+          ],
+          "center": [
+            96.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 7,
+          "name": "luna_attack_01_sheet_ai01_auto_008_c06",
+          "region": [
+            1344,
+            0,
+            192,
+            160
+          ],
+          "hash": 9099126079701565344,
+          "empty": false,
+          "bbox": [
+            2,
+            4,
+            189,
+            156
+          ],
+          "margins": {
+            "left": 2,
+            "top": 4,
+            "right": 3,
+            "bottom": 4
+          },
+          "content_size": [
+            187,
+            152
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 8,
+          "name": "luna_attack_01_sheet_ai01_auto_009_c06",
+          "region": [
+            0,
+            160,
+            192,
+            160
+          ],
+          "hash": -8147500364910393315,
+          "empty": false,
+          "bbox": [
+            54,
+            2,
+            137,
+            158
+          ],
+          "margins": {
+            "left": 54,
+            "top": 2,
+            "right": 55,
+            "bottom": 2
+          },
+          "content_size": [
+            83,
+            156
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 9,
+          "name": "luna_attack_01_sheet_ai01_auto_010_c06",
+          "region": [
+            192,
+            160,
+            192,
+            160
+          ],
+          "hash": 7609362707199501685,
+          "empty": false,
+          "bbox": [
+            54,
+            1,
+            138,
+            158
+          ],
+          "margins": {
+            "left": 54,
+            "top": 1,
+            "right": 54,
+            "bottom": 2
+          },
+          "content_size": [
+            84,
+            157
+          ],
+          "center": [
+            96.0,
+            79.5
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 10,
+          "name": "luna_attack_01_sheet_ai01_auto_011_c06",
+          "region": [
+            384,
+            160,
+            192,
+            160
+          ],
+          "hash": 8784572458101147993,
+          "empty": false,
+          "bbox": [
+            54,
+            3,
+            137,
+            157
+          ],
+          "margins": {
+            "left": 54,
+            "top": 3,
+            "right": 55,
+            "bottom": 3
+          },
+          "content_size": [
+            83,
+            154
+          ],
+          "center": [
+            95.5,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 11,
+          "name": "luna_attack_01_sheet_ai01_auto_012_c06",
+          "region": [
+            576,
+            160,
+            192,
+            160
+          ],
+          "hash": 7000794084324662120,
+          "empty": false,
+          "bbox": [
+            41,
+            3,
+            151,
+            157
+          ],
+          "margins": {
+            "left": 41,
+            "top": 3,
+            "right": 41,
+            "bottom": 3
+          },
+          "content_size": [
+            110,
+            154
+          ],
+          "center": [
+            96.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 12,
+          "name": "luna_attack_01_sheet_ai01_auto_013_c06",
+          "region": [
+            768,
+            160,
+            192,
+            160
+          ],
+          "hash": -8446404175103689734,
+          "empty": false,
+          "bbox": [
+            20,
+            0,
+            171,
+            157
+          ],
+          "margins": {
+            "left": 20,
+            "top": 0,
+            "right": 21,
+            "bottom": 3
+          },
+          "content_size": [
+            151,
+            157
+          ],
+          "center": [
+            95.5,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 13,
+          "name": "luna_attack_01_sheet_ai01_auto_014_c06",
+          "region": [
+            960,
+            160,
+            192,
+            160
+          ],
+          "hash": -1729516189318778765,
+          "empty": false,
+          "bbox": [
+            40,
+            2,
+            148,
+            157
+          ],
+          "margins": {
+            "left": 40,
+            "top": 2,
+            "right": 44,
+            "bottom": 3
+          },
+          "content_size": [
+            108,
+            155
+          ],
+          "center": [
+            94.0,
+            79.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 14,
+          "name": "luna_attack_01_sheet_ai01_auto_015_c06",
+          "region": [
+            1152,
+            160,
+            192,
+            160
+          ],
+          "hash": 3582706807308199434,
+          "empty": false,
+          "bbox": [
+            20,
+            2,
+            175,
+            157
+          ],
+          "margins": {
+            "left": 20,
+            "top": 2,
+            "right": 17,
+            "bottom": 3
+          },
+          "content_size": [
+            155,
+            155
+          ],
+          "center": [
+            97.5,
+            79.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 15,
+          "name": "luna_attack_01_sheet_ai01_auto_016_c06",
+          "region": [
+            1344,
+            160,
+            192,
+            160
+          ],
+          "hash": 7367122925508263625,
+          "empty": false,
+          "bbox": [
+            27,
+            3,
+            165,
+            157
+          ],
+          "margins": {
+            "left": 27,
+            "top": 3,
+            "right": 27,
+            "bottom": 3
+          },
+          "content_size": [
+            138,
+            154
+          ],
+          "center": [
+            96.0,
+            80.0
+          ],
+          "foot_y": 157
+        }
+      ],
+      "summary": {
+        "frame_count": 16,
+        "min_margins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 2
+        },
+        "edge_touch_frames": [
+          3,
+          6,
+          12
+        ],
+        "edge_padding_failures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "horizontal_padding_below_recommended": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          12,
+          14
+        ],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 2,
+        "center_x_variance_px": 3.5,
+        "content_width_variance_ratio": 0.5677,
+        "content_height_variance_ratio": 0.0318
+      },
+      "gates": {
+        "min_edge_padding_px": 8,
+        "recommended_horizontal_padding_px": 24,
+        "max_foot_baseline_variance_px": 12,
+        "max_center_variance_px": 36,
+        "max_size_variance_ratio": 0.55,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_idle_sheet_ai01",
+      "texture": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "idle",
+        "speed": 8.0,
+        "loop": true
+      },
+      "cell": [
+        160,
+        160
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "insufficient_edge_padding"
+      ],
+      "warnings": [
+        "edge_touch_frames=[12, 13, 14, 15]",
+        "edge_padding_failures=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_idle_sheet_ai01_auto_001_c05",
+          "region": [
+            0,
+            0,
+            160,
+            160
+          ],
+          "hash": -8922441895795495654,
+          "empty": false,
+          "bbox": [
+            36,
+            2,
+            125,
+            158
+          ],
+          "margins": {
+            "left": 36,
+            "top": 2,
+            "right": 35,
+            "bottom": 2
+          },
+          "content_size": [
+            89,
+            156
+          ],
+          "center": [
+            80.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 1,
+          "name": "luna_idle_sheet_ai01_auto_002_c05",
+          "region": [
+            160,
+            0,
+            160,
+            160
+          ],
+          "hash": -6281201649324781021,
+          "empty": false,
+          "bbox": [
+            35,
+            2,
+            127,
+            158
+          ],
+          "margins": {
+            "left": 35,
+            "top": 2,
+            "right": 33,
+            "bottom": 2
+          },
+          "content_size": [
+            92,
+            156
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 2,
+          "name": "luna_idle_sheet_ai01_auto_003_c05",
+          "region": [
+            320,
+            0,
+            160,
+            160
+          ],
+          "hash": -808786841921403396,
+          "empty": false,
+          "bbox": [
+            37,
+            2,
+            124,
+            158
+          ],
+          "margins": {
+            "left": 37,
+            "top": 2,
+            "right": 36,
+            "bottom": 2
+          },
+          "content_size": [
+            87,
+            156
+          ],
+          "center": [
+            80.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 3,
+          "name": "luna_idle_sheet_ai01_auto_004_c05",
+          "region": [
+            480,
+            0,
+            160,
+            160
+          ],
+          "hash": -3298946248505856474,
+          "empty": false,
+          "bbox": [
+            39,
+            2,
+            123,
+            158
+          ],
+          "margins": {
+            "left": 39,
+            "top": 2,
+            "right": 37,
+            "bottom": 2
+          },
+          "content_size": [
+            84,
+            156
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 4,
+          "name": "luna_idle_sheet_ai01_auto_005_c05",
+          "region": [
+            640,
+            0,
+            160,
+            160
+          ],
+          "hash": 773982173440161676,
+          "empty": false,
+          "bbox": [
+            34,
+            2,
+            125,
+            158
+          ],
+          "margins": {
+            "left": 34,
+            "top": 2,
+            "right": 35,
+            "bottom": 2
+          },
+          "content_size": [
+            91,
+            156
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 5,
+          "name": "luna_idle_sheet_ai01_auto_006_c05",
+          "region": [
+            800,
+            0,
+            160,
+            160
+          ],
+          "hash": -1158331917263527357,
+          "empty": false,
+          "bbox": [
+            35,
+            2,
+            127,
+            158
+          ],
+          "margins": {
+            "left": 35,
+            "top": 2,
+            "right": 33,
+            "bottom": 2
+          },
+          "content_size": [
+            92,
+            156
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 6,
+          "name": "luna_idle_sheet_ai01_auto_007_c05",
+          "region": [
+            960,
+            0,
+            160,
+            160
+          ],
+          "hash": 3816839007071629237,
+          "empty": false,
+          "bbox": [
+            32,
+            2,
+            127,
+            158
+          ],
+          "margins": {
+            "left": 32,
+            "top": 2,
+            "right": 33,
+            "bottom": 2
+          },
+          "content_size": [
+            95,
+            156
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 7,
+          "name": "luna_idle_sheet_ai01_auto_008_c05",
+          "region": [
+            1120,
+            0,
+            160,
+            160
+          ],
+          "hash": 2358325433205899475,
+          "empty": false,
+          "bbox": [
+            37,
+            2,
+            125,
+            158
+          ],
+          "margins": {
+            "left": 37,
+            "top": 2,
+            "right": 35,
+            "bottom": 2
+          },
+          "content_size": [
+            88,
+            156
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 8,
+          "name": "luna_idle_sheet_ai01_auto_009_c05",
+          "region": [
+            0,
+            160,
+            160,
+            160
+          ],
+          "hash": 6630094675569128586,
+          "empty": false,
+          "bbox": [
+            36,
+            2,
+            125,
+            158
+          ],
+          "margins": {
+            "left": 36,
+            "top": 2,
+            "right": 35,
+            "bottom": 2
+          },
+          "content_size": [
+            89,
+            156
+          ],
+          "center": [
+            80.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 9,
+          "name": "luna_idle_sheet_ai01_auto_010_c05",
+          "region": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "hash": 8690436822844333007,
+          "empty": false,
+          "bbox": [
+            35,
+            2,
+            126,
+            158
+          ],
+          "margins": {
+            "left": 35,
+            "top": 2,
+            "right": 34,
+            "bottom": 2
+          },
+          "content_size": [
+            91,
+            156
+          ],
+          "center": [
+            80.5,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 10,
+          "name": "luna_idle_sheet_ai01_auto_011_c05",
+          "region": [
+            320,
+            160,
+            160,
+            160
+          ],
+          "hash": -2701637183220533203,
+          "empty": false,
+          "bbox": [
+            37,
+            1,
+            125,
+            158
+          ],
+          "margins": {
+            "left": 37,
+            "top": 1,
+            "right": 35,
+            "bottom": 2
+          },
+          "content_size": [
+            88,
+            157
+          ],
+          "center": [
+            81.0,
+            79.5
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 11,
+          "name": "luna_idle_sheet_ai01_auto_012_c05",
+          "region": [
+            480,
+            160,
+            160,
+            160
+          ],
+          "hash": -3331731139908747053,
+          "empty": false,
+          "bbox": [
+            36,
+            1,
+            126,
+            158
+          ],
+          "margins": {
+            "left": 36,
+            "top": 1,
+            "right": 34,
+            "bottom": 2
+          },
+          "content_size": [
+            90,
+            157
+          ],
+          "center": [
+            81.0,
+            79.5
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 12,
+          "name": "luna_idle_sheet_ai01_auto_013_c05",
+          "region": [
+            640,
+            160,
+            160,
+            160
+          ],
+          "hash": 6375011043773047949,
+          "empty": false,
+          "bbox": [
+            31,
+            2,
+            128,
+            160
+          ],
+          "margins": {
+            "left": 31,
+            "top": 2,
+            "right": 32,
+            "bottom": 0
+          },
+          "content_size": [
+            97,
+            158
+          ],
+          "center": [
+            79.5,
+            81.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 13,
+          "name": "luna_idle_sheet_ai01_auto_014_c05",
+          "region": [
+            800,
+            160,
+            160,
+            160
+          ],
+          "hash": 349155013761275263,
+          "empty": false,
+          "bbox": [
+            34,
+            2,
+            128,
+            160
+          ],
+          "margins": {
+            "left": 34,
+            "top": 2,
+            "right": 32,
+            "bottom": 0
+          },
+          "content_size": [
+            94,
+            158
+          ],
+          "center": [
+            81.0,
+            81.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 14,
+          "name": "luna_idle_sheet_ai01_auto_015_c05",
+          "region": [
+            960,
+            160,
+            160,
+            160
+          ],
+          "hash": -1936647005267100018,
+          "empty": false,
+          "bbox": [
+            34,
+            2,
+            128,
+            160
+          ],
+          "margins": {
+            "left": 34,
+            "top": 2,
+            "right": 32,
+            "bottom": 0
+          },
+          "content_size": [
+            94,
+            158
+          ],
+          "center": [
+            81.0,
+            81.0
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 15,
+          "name": "luna_idle_sheet_ai01_auto_016_c05",
+          "region": [
+            1120,
+            160,
+            160,
+            160
+          ],
+          "hash": -8969837890732744189,
+          "empty": false,
+          "bbox": [
+            33,
+            2,
+            128,
+            160
+          ],
+          "margins": {
+            "left": 33,
+            "top": 2,
+            "right": 32,
+            "bottom": 0
+          },
+          "content_size": [
+            95,
+            158
+          ],
+          "center": [
+            80.5,
+            81.0
+          ],
+          "foot_y": 160
+        }
+      ],
+      "summary": {
+        "frame_count": 16,
+        "min_margins": {
+          "left": 31,
+          "top": 1,
+          "right": 32,
+          "bottom": 0
+        },
+        "edge_touch_frames": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "edge_padding_failures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 2,
+        "center_x_variance_px": 1.5,
+        "content_width_variance_ratio": 0.134,
+        "content_height_variance_ratio": 0.0127
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "seal_guardian_boss_sheet_ai01",
+      "texture": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+      "metadata": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "attack",
+        "speed": 12.0,
+        "loop": false
+      },
+      "cell": [
+        256,
+        192
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "insufficient_edge_padding",
+        "unstable_foot_baseline"
+      ],
+      "warnings": [
+        "edge_touch_frames=[0, 1, 9, 12, 14]",
+        "edge_padding_failures=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]",
+        "horizontal_padding_below_recommended=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "seal_guardian_boss_sheet_ai01_auto_001_c04",
+          "region": [
+            0,
+            0,
+            256,
+            192
+          ],
+          "hash": 3496979307528660427,
+          "empty": false,
+          "bbox": [
+            4,
+            13,
+            256,
+            174
+          ],
+          "margins": {
+            "left": 4,
+            "top": 13,
+            "right": 0,
+            "bottom": 18
+          },
+          "content_size": [
+            252,
+            161
+          ],
+          "center": [
+            130.0,
+            93.5
+          ],
+          "foot_y": 174
+        },
+        {
+          "index": 1,
+          "name": "seal_guardian_boss_sheet_ai01_auto_002_c04",
+          "region": [
+            256,
+            0,
+            256,
+            192
+          ],
+          "hash": 1291663007612456928,
+          "empty": false,
+          "bbox": [
+            4,
+            16,
+            256,
+            171
+          ],
+          "margins": {
+            "left": 4,
+            "top": 16,
+            "right": 0,
+            "bottom": 21
+          },
+          "content_size": [
+            252,
+            155
+          ],
+          "center": [
+            130.0,
+            93.5
+          ],
+          "foot_y": 171
+        },
+        {
+          "index": 2,
+          "name": "seal_guardian_boss_sheet_ai01_auto_003_c04",
+          "region": [
+            512,
+            0,
+            256,
+            192
+          ],
+          "hash": 6260252190050758020,
+          "empty": false,
+          "bbox": [
+            4,
+            17,
+            255,
+            175
+          ],
+          "margins": {
+            "left": 4,
+            "top": 17,
+            "right": 1,
+            "bottom": 17
+          },
+          "content_size": [
+            251,
+            158
+          ],
+          "center": [
+            129.5,
+            96.0
+          ],
+          "foot_y": 175
+        },
+        {
+          "index": 3,
+          "name": "seal_guardian_boss_sheet_ai01_auto_004_c04",
+          "region": [
+            768,
+            0,
+            256,
+            192
+          ],
+          "hash": 6587675010198098405,
+          "empty": false,
+          "bbox": [
+            4,
+            19,
+            252,
+            168
+          ],
+          "margins": {
+            "left": 4,
+            "top": 19,
+            "right": 4,
+            "bottom": 24
+          },
+          "content_size": [
+            248,
+            149
+          ],
+          "center": [
+            128.0,
+            93.5
+          ],
+          "foot_y": 168
+        },
+        {
+          "index": 4,
+          "name": "seal_guardian_boss_sheet_ai01_auto_005_c04",
+          "region": [
+            1024,
+            0,
+            256,
+            192
+          ],
+          "hash": -4081502508374769070,
+          "empty": false,
+          "bbox": [
+            4,
+            21,
+            252,
+            166
+          ],
+          "margins": {
+            "left": 4,
+            "top": 21,
+            "right": 4,
+            "bottom": 26
+          },
+          "content_size": [
+            248,
+            145
+          ],
+          "center": [
+            128.0,
+            93.5
+          ],
+          "foot_y": 166
+        },
+        {
+          "index": 5,
+          "name": "seal_guardian_boss_sheet_ai01_auto_006_c04",
+          "region": [
+            0,
+            192,
+            256,
+            192
+          ],
+          "hash": 7364347489589924060,
+          "empty": false,
+          "bbox": [
+            4,
+            11,
+            254,
+            180
+          ],
+          "margins": {
+            "left": 4,
+            "top": 11,
+            "right": 2,
+            "bottom": 12
+          },
+          "content_size": [
+            250,
+            169
+          ],
+          "center": [
+            129.0,
+            95.5
+          ],
+          "foot_y": 180
+        },
+        {
+          "index": 6,
+          "name": "seal_guardian_boss_sheet_ai01_auto_007_c04",
+          "region": [
+            256,
+            192,
+            256,
+            192
+          ],
+          "hash": 7366444101372754345,
+          "empty": false,
+          "bbox": [
+            4,
+            15,
+            252,
+            173
+          ],
+          "margins": {
+            "left": 4,
+            "top": 15,
+            "right": 4,
+            "bottom": 19
+          },
+          "content_size": [
+            248,
+            158
+          ],
+          "center": [
+            128.0,
+            94.0
+          ],
+          "foot_y": 173
+        },
+        {
+          "index": 7,
+          "name": "seal_guardian_boss_sheet_ai01_auto_008_c04",
+          "region": [
+            512,
+            192,
+            256,
+            192
+          ],
+          "hash": 1549001814478116788,
+          "empty": false,
+          "bbox": [
+            4,
+            15,
+            254,
+            176
+          ],
+          "margins": {
+            "left": 4,
+            "top": 15,
+            "right": 2,
+            "bottom": 16
+          },
+          "content_size": [
+            250,
+            161
+          ],
+          "center": [
+            129.0,
+            95.5
+          ],
+          "foot_y": 176
+        },
+        {
+          "index": 8,
+          "name": "seal_guardian_boss_sheet_ai01_auto_009_c04",
+          "region": [
+            768,
+            192,
+            256,
+            192
+          ],
+          "hash": 5455648802837575507,
+          "empty": false,
+          "bbox": [
+            4,
+            16,
+            254,
+            173
+          ],
+          "margins": {
+            "left": 4,
+            "top": 16,
+            "right": 2,
+            "bottom": 19
+          },
+          "content_size": [
+            250,
+            157
+          ],
+          "center": [
+            129.0,
+            94.5
+          ],
+          "foot_y": 173
+        },
+        {
+          "index": 9,
+          "name": "seal_guardian_boss_sheet_ai01_auto_010_c04",
+          "region": [
+            1024,
+            192,
+            256,
+            192
+          ],
+          "hash": -1687982177146410459,
+          "empty": false,
+          "bbox": [
+            5,
+            14,
+            256,
+            174
+          ],
+          "margins": {
+            "left": 5,
+            "top": 14,
+            "right": 0,
+            "bottom": 18
+          },
+          "content_size": [
+            251,
+            160
+          ],
+          "center": [
+            130.5,
+            94.0
+          ],
+          "foot_y": 174
+        },
+        {
+          "index": 10,
+          "name": "seal_guardian_boss_sheet_ai01_auto_011_c04",
+          "region": [
+            0,
+            384,
+            256,
+            192
+          ],
+          "hash": -7620637280706927068,
+          "empty": false,
+          "bbox": [
+            2,
+            7,
+            253,
+            181
+          ],
+          "margins": {
+            "left": 2,
+            "top": 7,
+            "right": 3,
+            "bottom": 11
+          },
+          "content_size": [
+            251,
+            174
+          ],
+          "center": [
+            127.5,
+            94.0
+          ],
+          "foot_y": 181
+        },
+        {
+          "index": 11,
+          "name": "seal_guardian_boss_sheet_ai01_auto_012_c04",
+          "region": [
+            256,
+            384,
+            256,
+            192
+          ],
+          "hash": -1555434137074619323,
+          "empty": false,
+          "bbox": [
+            2,
+            20,
+            253,
+            169
+          ],
+          "margins": {
+            "left": 2,
+            "top": 20,
+            "right": 3,
+            "bottom": 23
+          },
+          "content_size": [
+            251,
+            149
+          ],
+          "center": [
+            127.5,
+            94.5
+          ],
+          "foot_y": 169
+        },
+        {
+          "index": 12,
+          "name": "seal_guardian_boss_sheet_ai01_auto_013_c04",
+          "region": [
+            512,
+            384,
+            256,
+            192
+          ],
+          "hash": -219836882351758919,
+          "empty": false,
+          "bbox": [
+            0,
+            19,
+            254,
+            169
+          ],
+          "margins": {
+            "left": 0,
+            "top": 19,
+            "right": 2,
+            "bottom": 23
+          },
+          "content_size": [
+            254,
+            150
+          ],
+          "center": [
+            127.0,
+            94.0
+          ],
+          "foot_y": 169
+        },
+        {
+          "index": 13,
+          "name": "seal_guardian_boss_sheet_ai01_auto_014_c04",
+          "region": [
+            768,
+            384,
+            256,
+            192
+          ],
+          "hash": 5445348914634439031,
+          "empty": false,
+          "bbox": [
+            3,
+            25,
+            253,
+            164
+          ],
+          "margins": {
+            "left": 3,
+            "top": 25,
+            "right": 3,
+            "bottom": 28
+          },
+          "content_size": [
+            250,
+            139
+          ],
+          "center": [
+            128.0,
+            94.5
+          ],
+          "foot_y": 164
+        },
+        {
+          "index": 14,
+          "name": "seal_guardian_boss_sheet_ai01_auto_015_c04",
+          "region": [
+            1024,
+            384,
+            256,
+            192
+          ],
+          "hash": 4969983184682295519,
+          "empty": false,
+          "bbox": [
+            0,
+            20,
+            254,
+            172
+          ],
+          "margins": {
+            "left": 0,
+            "top": 20,
+            "right": 2,
+            "bottom": 20
+          },
+          "content_size": [
+            254,
+            152
+          ],
+          "center": [
+            127.0,
+            96.0
+          ],
+          "foot_y": 172
+        },
+        {
+          "index": 15,
+          "name": "seal_guardian_boss_sheet_ai01_auto_016_c04",
+          "region": [
+            0,
+            576,
+            256,
+            192
+          ],
+          "hash": -7939841449280566152,
+          "empty": false,
+          "bbox": [
+            4,
+            11,
+            253,
+            179
+          ],
+          "margins": {
+            "left": 4,
+            "top": 11,
+            "right": 3,
+            "bottom": 13
+          },
+          "content_size": [
+            249,
+            168
+          ],
+          "center": [
+            128.5,
+            95.0
+          ],
+          "foot_y": 179
+        },
+        {
+          "index": 16,
+          "name": "seal_guardian_boss_sheet_ai01_auto_017_c04",
+          "region": [
+            256,
+            576,
+            256,
+            192
+          ],
+          "hash": 6928091854976054592,
+          "empty": false,
+          "bbox": [
+            4,
+            14,
+            252,
+            174
+          ],
+          "margins": {
+            "left": 4,
+            "top": 14,
+            "right": 4,
+            "bottom": 18
+          },
+          "content_size": [
+            248,
+            160
+          ],
+          "center": [
+            128.0,
+            94.0
+          ],
+          "foot_y": 174
+        },
+        {
+          "index": 17,
+          "name": "seal_guardian_boss_sheet_ai01_auto_018_c04",
+          "region": [
+            512,
+            576,
+            256,
+            192
+          ],
+          "hash": -3980894948542324021,
+          "empty": false,
+          "bbox": [
+            4,
+            9,
+            255,
+            179
+          ],
+          "margins": {
+            "left": 4,
+            "top": 9,
+            "right": 1,
+            "bottom": 13
+          },
+          "content_size": [
+            251,
+            170
+          ],
+          "center": [
+            129.5,
+            94.0
+          ],
+          "foot_y": 179
+        },
+        {
+          "index": 18,
+          "name": "seal_guardian_boss_sheet_ai01_auto_019_c04",
+          "region": [
+            768,
+            576,
+            256,
+            192
+          ],
+          "hash": 2565664023290650603,
+          "empty": false,
+          "bbox": [
+            4,
+            15,
+            254,
+            173
+          ],
+          "margins": {
+            "left": 4,
+            "top": 15,
+            "right": 2,
+            "bottom": 19
+          },
+          "content_size": [
+            250,
+            158
+          ],
+          "center": [
+            129.0,
+            94.0
+          ],
+          "foot_y": 173
+        },
+        {
+          "index": 19,
+          "name": "seal_guardian_boss_sheet_ai01_auto_020_c04",
+          "region": [
+            1024,
+            576,
+            256,
+            192
+          ],
+          "hash": -7729563449248799260,
+          "empty": false,
+          "bbox": [
+            4,
+            12,
+            252,
+            175
+          ],
+          "margins": {
+            "left": 4,
+            "top": 12,
+            "right": 4,
+            "bottom": 17
+          },
+          "content_size": [
+            248,
+            163
+          ],
+          "center": [
+            128.0,
+            93.5
+          ],
+          "foot_y": 175
+        }
+      ],
+      "summary": {
+        "frame_count": 20,
+        "min_margins": {
+          "left": 0,
+          "top": 7,
+          "right": 0,
+          "bottom": 11
+        },
+        "edge_touch_frames": [
+          0,
+          1,
+          9,
+          12,
+          14
+        ],
+        "edge_padding_failures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "horizontal_padding_below_recommended": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 17,
+        "center_x_variance_px": 3.5,
+        "content_width_variance_ratio": 0.0236,
+        "content_height_variance_ratio": 0.2011
+      },
+      "gates": {
+        "min_edge_padding_px": 8,
+        "recommended_horizontal_padding_px": 24,
+        "max_foot_baseline_variance_px": 12,
+        "max_center_variance_px": 36,
+        "max_size_variance_ratio": 0.55,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_jump_fall_sheet_ai01",
+      "texture": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "jump_fall",
+        "speed": 14.0,
+        "loop": false
+      },
+      "cell": [
+        160,
+        160
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "insufficient_edge_padding",
+        "unstable_foot_baseline"
+      ],
+      "warnings": [
+        "edge_touch_frames=[4, 8, 9, 11, 22]",
+        "edge_padding_failures=[4, 6, 8, 9, 10, 11, 13, 14, 18, 19, 20, 22]",
+        "horizontal_padding_below_recommended=[3, 4, 5, 16, 17, 22, 23]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_jump_fall_sheet_ai01_auto_001_c06",
+          "region": [
+            0,
+            0,
+            160,
+            160
+          ],
+          "hash": -8459604941152181626,
+          "empty": false,
+          "bbox": [
+            26,
+            4,
+            133,
+            156
+          ],
+          "margins": {
+            "left": 26,
+            "top": 4,
+            "right": 27,
+            "bottom": 4
+          },
+          "content_size": [
+            107,
+            152
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 1,
+          "name": "luna_jump_fall_sheet_ai01_auto_002_c06",
+          "region": [
+            160,
+            0,
+            160,
+            160
+          ],
+          "hash": -3245415517794378334,
+          "empty": false,
+          "bbox": [
+            20,
+            4,
+            139,
+            156
+          ],
+          "margins": {
+            "left": 20,
+            "top": 4,
+            "right": 21,
+            "bottom": 4
+          },
+          "content_size": [
+            119,
+            152
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 2,
+          "name": "luna_jump_fall_sheet_ai01_auto_003_c06",
+          "region": [
+            320,
+            0,
+            160,
+            160
+          ],
+          "hash": 6515687709421835739,
+          "empty": false,
+          "bbox": [
+            23,
+            4,
+            137,
+            156
+          ],
+          "margins": {
+            "left": 23,
+            "top": 4,
+            "right": 23,
+            "bottom": 4
+          },
+          "content_size": [
+            114,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 3,
+          "name": "luna_jump_fall_sheet_ai01_auto_004_c06",
+          "region": [
+            480,
+            0,
+            160,
+            160
+          ],
+          "hash": -91516117082441164,
+          "empty": false,
+          "bbox": [
+            4,
+            11,
+            156,
+            148
+          ],
+          "margins": {
+            "left": 4,
+            "top": 11,
+            "right": 4,
+            "bottom": 12
+          },
+          "content_size": [
+            152,
+            137
+          ],
+          "center": [
+            80.0,
+            79.5
+          ],
+          "foot_y": 148
+        },
+        {
+          "index": 4,
+          "name": "luna_jump_fall_sheet_ai01_auto_005_c06",
+          "region": [
+            640,
+            0,
+            160,
+            160
+          ],
+          "hash": 4593466058262603278,
+          "empty": false,
+          "bbox": [
+            3,
+            12,
+            160,
+            149
+          ],
+          "margins": {
+            "left": 3,
+            "top": 12,
+            "right": 0,
+            "bottom": 11
+          },
+          "content_size": [
+            157,
+            137
+          ],
+          "center": [
+            81.5,
+            80.5
+          ],
+          "foot_y": 149
+        },
+        {
+          "index": 5,
+          "name": "luna_jump_fall_sheet_ai01_auto_006_c06",
+          "region": [
+            800,
+            0,
+            160,
+            160
+          ],
+          "hash": -5804764611987925936,
+          "empty": false,
+          "bbox": [
+            7,
+            14,
+            153,
+            145
+          ],
+          "margins": {
+            "left": 7,
+            "top": 14,
+            "right": 7,
+            "bottom": 15
+          },
+          "content_size": [
+            146,
+            131
+          ],
+          "center": [
+            80.0,
+            79.5
+          ],
+          "foot_y": 145
+        },
+        {
+          "index": 6,
+          "name": "luna_jump_fall_sheet_ai01_auto_007_c06",
+          "region": [
+            960,
+            0,
+            160,
+            160
+          ],
+          "hash": 4785663129702853187,
+          "empty": false,
+          "bbox": [
+            18,
+            3,
+            141,
+            157
+          ],
+          "margins": {
+            "left": 18,
+            "top": 3,
+            "right": 19,
+            "bottom": 3
+          },
+          "content_size": [
+            123,
+            154
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 7,
+          "name": "luna_jump_fall_sheet_ai01_auto_008_c06",
+          "region": [
+            1120,
+            0,
+            160,
+            160
+          ],
+          "hash": -1899755071201708358,
+          "empty": false,
+          "bbox": [
+            14,
+            4,
+            145,
+            156
+          ],
+          "margins": {
+            "left": 14,
+            "top": 4,
+            "right": 15,
+            "bottom": 4
+          },
+          "content_size": [
+            131,
+            152
+          ],
+          "center": [
+            79.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 8,
+          "name": "luna_jump_fall_sheet_ai01_auto_009_c06",
+          "region": [
+            0,
+            160,
+            160,
+            160
+          ],
+          "hash": 4098753979586860064,
+          "empty": false,
+          "bbox": [
+            27,
+            0,
+            132,
+            157
+          ],
+          "margins": {
+            "left": 27,
+            "top": 0,
+            "right": 28,
+            "bottom": 3
+          },
+          "content_size": [
+            105,
+            157
+          ],
+          "center": [
+            79.5,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 9,
+          "name": "luna_jump_fall_sheet_ai01_auto_010_c06",
+          "region": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "hash": 6109291412317762410,
+          "empty": false,
+          "bbox": [
+            27,
+            0,
+            132,
+            156
+          ],
+          "margins": {
+            "left": 27,
+            "top": 0,
+            "right": 28,
+            "bottom": 4
+          },
+          "content_size": [
+            105,
+            156
+          ],
+          "center": [
+            79.5,
+            78.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 10,
+          "name": "luna_jump_fall_sheet_ai01_auto_011_c06",
+          "region": [
+            320,
+            160,
+            160,
+            160
+          ],
+          "hash": 3080087098671434450,
+          "empty": false,
+          "bbox": [
+            25,
+            2,
+            134,
+            156
+          ],
+          "margins": {
+            "left": 25,
+            "top": 2,
+            "right": 26,
+            "bottom": 4
+          },
+          "content_size": [
+            109,
+            154
+          ],
+          "center": [
+            79.5,
+            79.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 11,
+          "name": "luna_jump_fall_sheet_ai01_auto_012_c06",
+          "region": [
+            480,
+            160,
+            160,
+            160
+          ],
+          "hash": -3381178539983462094,
+          "empty": false,
+          "bbox": [
+            26,
+            0,
+            134,
+            156
+          ],
+          "margins": {
+            "left": 26,
+            "top": 0,
+            "right": 26,
+            "bottom": 4
+          },
+          "content_size": [
+            108,
+            156
+          ],
+          "center": [
+            80.0,
+            78.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 12,
+          "name": "luna_jump_fall_sheet_ai01_auto_013_c06",
+          "region": [
+            640,
+            160,
+            160,
+            160
+          ],
+          "hash": 2346654842867467003,
+          "empty": false,
+          "bbox": [
+            28,
+            4,
+            132,
+            156
+          ],
+          "margins": {
+            "left": 28,
+            "top": 4,
+            "right": 28,
+            "bottom": 4
+          },
+          "content_size": [
+            104,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 13,
+          "name": "luna_jump_fall_sheet_ai01_auto_014_c06",
+          "region": [
+            800,
+            160,
+            160,
+            160
+          ],
+          "hash": -8146181437337192703,
+          "empty": false,
+          "bbox": [
+            20,
+            3,
+            140,
+            156
+          ],
+          "margins": {
+            "left": 20,
+            "top": 3,
+            "right": 20,
+            "bottom": 4
+          },
+          "content_size": [
+            120,
+            153
+          ],
+          "center": [
+            80.0,
+            79.5
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 14,
+          "name": "luna_jump_fall_sheet_ai01_auto_015_c06",
+          "region": [
+            960,
+            160,
+            160,
+            160
+          ],
+          "hash": -5972149004033263492,
+          "empty": false,
+          "bbox": [
+            22,
+            2,
+            138,
+            156
+          ],
+          "margins": {
+            "left": 22,
+            "top": 2,
+            "right": 22,
+            "bottom": 4
+          },
+          "content_size": [
+            116,
+            154
+          ],
+          "center": [
+            80.0,
+            79.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 15,
+          "name": "luna_jump_fall_sheet_ai01_auto_016_c06",
+          "region": [
+            1120,
+            160,
+            160,
+            160
+          ],
+          "hash": 6951525626742829808,
+          "empty": false,
+          "bbox": [
+            14,
+            4,
+            146,
+            156
+          ],
+          "margins": {
+            "left": 14,
+            "top": 4,
+            "right": 14,
+            "bottom": 4
+          },
+          "content_size": [
+            132,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 16,
+          "name": "luna_jump_fall_sheet_ai01_auto_017_c06",
+          "region": [
+            0,
+            320,
+            160,
+            160
+          ],
+          "hash": 5564947187091073376,
+          "empty": false,
+          "bbox": [
+            6,
+            16,
+            155,
+            143
+          ],
+          "margins": {
+            "left": 6,
+            "top": 16,
+            "right": 5,
+            "bottom": 17
+          },
+          "content_size": [
+            149,
+            127
+          ],
+          "center": [
+            80.5,
+            79.5
+          ],
+          "foot_y": 143
+        },
+        {
+          "index": 17,
+          "name": "luna_jump_fall_sheet_ai01_auto_018_c06",
+          "region": [
+            160,
+            320,
+            160,
+            160
+          ],
+          "hash": -7216429333726293238,
+          "empty": false,
+          "bbox": [
+            4,
+            23,
+            156,
+            137
+          ],
+          "margins": {
+            "left": 4,
+            "top": 23,
+            "right": 4,
+            "bottom": 23
+          },
+          "content_size": [
+            152,
+            114
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 137
+        },
+        {
+          "index": 18,
+          "name": "luna_jump_fall_sheet_ai01_auto_019_c06",
+          "region": [
+            320,
+            320,
+            160,
+            160
+          ],
+          "hash": 4995672895950738764,
+          "empty": false,
+          "bbox": [
+            35,
+            3,
+            125,
+            157
+          ],
+          "margins": {
+            "left": 35,
+            "top": 3,
+            "right": 35,
+            "bottom": 3
+          },
+          "content_size": [
+            90,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 19,
+          "name": "luna_jump_fall_sheet_ai01_auto_020_c06",
+          "region": [
+            480,
+            320,
+            160,
+            160
+          ],
+          "hash": -8449930150208318071,
+          "empty": false,
+          "bbox": [
+            25,
+            3,
+            135,
+            157
+          ],
+          "margins": {
+            "left": 25,
+            "top": 3,
+            "right": 25,
+            "bottom": 3
+          },
+          "content_size": [
+            110,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 20,
+          "name": "luna_jump_fall_sheet_ai01_auto_021_c06",
+          "region": [
+            640,
+            320,
+            160,
+            160
+          ],
+          "hash": 3386337817053348385,
+          "empty": false,
+          "bbox": [
+            24,
+            3,
+            136,
+            157
+          ],
+          "margins": {
+            "left": 24,
+            "top": 3,
+            "right": 24,
+            "bottom": 3
+          },
+          "content_size": [
+            112,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 21,
+          "name": "luna_jump_fall_sheet_ai01_auto_022_c06",
+          "region": [
+            800,
+            320,
+            160,
+            160
+          ],
+          "hash": 3427420083670824783,
+          "empty": false,
+          "bbox": [
+            12,
+            5,
+            148,
+            155
+          ],
+          "margins": {
+            "left": 12,
+            "top": 5,
+            "right": 12,
+            "bottom": 5
+          },
+          "content_size": [
+            136,
+            150
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 155
+        },
+        {
+          "index": 22,
+          "name": "luna_jump_fall_sheet_ai01_auto_023_c06",
+          "region": [
+            960,
+            320,
+            160,
+            160
+          ],
+          "hash": -5848838648262640019,
+          "empty": false,
+          "bbox": [
+            4,
+            25,
+            160,
+            135
+          ],
+          "margins": {
+            "left": 4,
+            "top": 25,
+            "right": 0,
+            "bottom": 25
+          },
+          "content_size": [
+            156,
+            110
+          ],
+          "center": [
+            82.0,
+            80.0
+          ],
+          "foot_y": 135
+        },
+        {
+          "index": 23,
+          "name": "luna_jump_fall_sheet_ai01_auto_024_c06",
+          "region": [
+            1120,
+            320,
+            160,
+            160
+          ],
+          "hash": -5074551673075272025,
+          "empty": false,
+          "bbox": [
+            4,
+            23,
+            156,
+            135
+          ],
+          "margins": {
+            "left": 4,
+            "top": 23,
+            "right": 4,
+            "bottom": 25
+          },
+          "content_size": [
+            152,
+            112
+          ],
+          "center": [
+            80.0,
+            79.0
+          ],
+          "foot_y": 135
+        }
+      ],
+      "summary": {
+        "frame_count": 24,
+        "min_margins": {
+          "left": 3,
+          "top": 0,
+          "right": 0,
+          "bottom": 3
+        },
+        "edge_touch_frames": [
+          4,
+          8,
+          9,
+          11,
+          22
+        ],
+        "edge_padding_failures": [
+          4,
+          6,
+          8,
+          9,
+          10,
+          11,
+          13,
+          14,
+          18,
+          19,
+          20,
+          22
+        ],
+        "horizontal_padding_below_recommended": [
+          3,
+          4,
+          5,
+          16,
+          17,
+          22,
+          23
+        ],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 22,
+        "center_x_variance_px": 2.5,
+        "content_width_variance_ratio": 0.4268,
+        "content_height_variance_ratio": 0.2994
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_hit_death_sheet_ai01",
+      "texture": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "hit_death",
+        "speed": 12.0,
+        "loop": false
+      },
+      "cell": [
+        160,
+        160
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "insufficient_edge_padding",
+        "unstable_content_scale",
+        "unstable_foot_baseline"
+      ],
+      "warnings": [
+        "edge_touch_frames=[5, 7, 8, 9, 11, 14, 15, 16, 17, 21]",
+        "edge_padding_failures=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 23]",
+        "horizontal_padding_below_recommended=[2, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_hit_death_sheet_ai01_auto_001_c04",
+          "region": [
+            0,
+            0,
+            160,
+            160
+          ],
+          "hash": 8724884872311303029,
+          "empty": false,
+          "bbox": [
+            26,
+            2,
+            134,
+            158
+          ],
+          "margins": {
+            "left": 26,
+            "top": 2,
+            "right": 26,
+            "bottom": 2
+          },
+          "content_size": [
+            108,
+            156
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 158
+        },
+        {
+          "index": 1,
+          "name": "luna_hit_death_sheet_ai01_auto_002_c04",
+          "region": [
+            160,
+            0,
+            160,
+            160
+          ],
+          "hash": -9029097324323754533,
+          "empty": false,
+          "bbox": [
+            21,
+            3,
+            142,
+            157
+          ],
+          "margins": {
+            "left": 21,
+            "top": 3,
+            "right": 18,
+            "bottom": 3
+          },
+          "content_size": [
+            121,
+            154
+          ],
+          "center": [
+            81.5,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 2,
+          "name": "luna_hit_death_sheet_ai01_auto_003_c04",
+          "region": [
+            320,
+            0,
+            160,
+            160
+          ],
+          "hash": 4179018538132096694,
+          "empty": false,
+          "bbox": [
+            6,
+            3,
+            152,
+            157
+          ],
+          "margins": {
+            "left": 6,
+            "top": 3,
+            "right": 8,
+            "bottom": 3
+          },
+          "content_size": [
+            146,
+            154
+          ],
+          "center": [
+            79.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 3,
+          "name": "luna_hit_death_sheet_ai01_auto_004_c04",
+          "region": [
+            480,
+            0,
+            160,
+            160
+          ],
+          "hash": -1400631884601991116,
+          "empty": false,
+          "bbox": [
+            17,
+            1,
+            143,
+            157
+          ],
+          "margins": {
+            "left": 17,
+            "top": 1,
+            "right": 17,
+            "bottom": 3
+          },
+          "content_size": [
+            126,
+            156
+          ],
+          "center": [
+            80.0,
+            79.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 4,
+          "name": "luna_hit_death_sheet_ai01_auto_005_c04",
+          "region": [
+            640,
+            0,
+            160,
+            160
+          ],
+          "hash": 3627305387055923933,
+          "empty": false,
+          "bbox": [
+            16,
+            3,
+            144,
+            157
+          ],
+          "margins": {
+            "left": 16,
+            "top": 3,
+            "right": 16,
+            "bottom": 3
+          },
+          "content_size": [
+            128,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 5,
+          "name": "luna_hit_death_sheet_ai01_auto_006_c04",
+          "region": [
+            800,
+            0,
+            160,
+            160
+          ],
+          "hash": 4293776297918674407,
+          "empty": false,
+          "bbox": [
+            5,
+            0,
+            154,
+            157
+          ],
+          "margins": {
+            "left": 5,
+            "top": 0,
+            "right": 6,
+            "bottom": 3
+          },
+          "content_size": [
+            149,
+            157
+          ],
+          "center": [
+            79.5,
+            78.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 6,
+          "name": "luna_hit_death_sheet_ai01_auto_007_c04",
+          "region": [
+            960,
+            0,
+            160,
+            160
+          ],
+          "hash": -4201438040010044693,
+          "empty": false,
+          "bbox": [
+            15,
+            1,
+            145,
+            156
+          ],
+          "margins": {
+            "left": 15,
+            "top": 1,
+            "right": 15,
+            "bottom": 4
+          },
+          "content_size": [
+            130,
+            155
+          ],
+          "center": [
+            80.0,
+            78.5
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 7,
+          "name": "luna_hit_death_sheet_ai01_auto_008_c04",
+          "region": [
+            1120,
+            0,
+            160,
+            160
+          ],
+          "hash": 8840161839325770377,
+          "empty": false,
+          "bbox": [
+            3,
+            3,
+            160,
+            153
+          ],
+          "margins": {
+            "left": 3,
+            "top": 3,
+            "right": 0,
+            "bottom": 7
+          },
+          "content_size": [
+            157,
+            150
+          ],
+          "center": [
+            81.5,
+            78.0
+          ],
+          "foot_y": 153
+        },
+        {
+          "index": 8,
+          "name": "luna_hit_death_sheet_ai01_auto_009_c04",
+          "region": [
+            0,
+            160,
+            160,
+            160
+          ],
+          "hash": 5953530070637067184,
+          "empty": false,
+          "bbox": [
+            8,
+            0,
+            151,
+            156
+          ],
+          "margins": {
+            "left": 8,
+            "top": 0,
+            "right": 9,
+            "bottom": 4
+          },
+          "content_size": [
+            143,
+            156
+          ],
+          "center": [
+            79.5,
+            78.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 9,
+          "name": "luna_hit_death_sheet_ai01_auto_010_c04",
+          "region": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "hash": -9122260718044809706,
+          "empty": false,
+          "bbox": [
+            9,
+            0,
+            152,
+            156
+          ],
+          "margins": {
+            "left": 9,
+            "top": 0,
+            "right": 8,
+            "bottom": 4
+          },
+          "content_size": [
+            143,
+            156
+          ],
+          "center": [
+            80.5,
+            78.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 10,
+          "name": "luna_hit_death_sheet_ai01_auto_011_c04",
+          "region": [
+            320,
+            160,
+            160,
+            160
+          ],
+          "hash": 6942315148897837201,
+          "empty": false,
+          "bbox": [
+            10,
+            2,
+            148,
+            156
+          ],
+          "margins": {
+            "left": 10,
+            "top": 2,
+            "right": 12,
+            "bottom": 4
+          },
+          "content_size": [
+            138,
+            154
+          ],
+          "center": [
+            79.0,
+            79.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 11,
+          "name": "luna_hit_death_sheet_ai01_auto_012_c04",
+          "region": [
+            480,
+            160,
+            160,
+            160
+          ],
+          "hash": -3042967082095506607,
+          "empty": false,
+          "bbox": [
+            0,
+            13,
+            157,
+            145
+          ],
+          "margins": {
+            "left": 0,
+            "top": 13,
+            "right": 3,
+            "bottom": 15
+          },
+          "content_size": [
+            157,
+            132
+          ],
+          "center": [
+            78.5,
+            79.0
+          ],
+          "foot_y": 145
+        },
+        {
+          "index": 12,
+          "name": "luna_hit_death_sheet_ai01_auto_013_c04",
+          "region": [
+            640,
+            160,
+            160,
+            160
+          ],
+          "hash": 1378049498558793011,
+          "empty": false,
+          "bbox": [
+            5,
+            15,
+            157,
+            145
+          ],
+          "margins": {
+            "left": 5,
+            "top": 15,
+            "right": 3,
+            "bottom": 15
+          },
+          "content_size": [
+            152,
+            130
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 145
+        },
+        {
+          "index": 13,
+          "name": "luna_hit_death_sheet_ai01_auto_014_c04",
+          "region": [
+            800,
+            160,
+            160,
+            160
+          ],
+          "hash": 5569102122070875845,
+          "empty": false,
+          "bbox": [
+            4,
+            12,
+            156,
+            143
+          ],
+          "margins": {
+            "left": 4,
+            "top": 12,
+            "right": 4,
+            "bottom": 17
+          },
+          "content_size": [
+            152,
+            131
+          ],
+          "center": [
+            80.0,
+            77.5
+          ],
+          "foot_y": 143
+        },
+        {
+          "index": 14,
+          "name": "luna_hit_death_sheet_ai01_auto_015_c04",
+          "region": [
+            960,
+            160,
+            160,
+            160
+          ],
+          "hash": -3865733966681852447,
+          "empty": false,
+          "bbox": [
+            2,
+            43,
+            160,
+            121
+          ],
+          "margins": {
+            "left": 2,
+            "top": 43,
+            "right": 0,
+            "bottom": 39
+          },
+          "content_size": [
+            158,
+            78
+          ],
+          "center": [
+            81.0,
+            82.0
+          ],
+          "foot_y": 121
+        },
+        {
+          "index": 15,
+          "name": "luna_hit_death_sheet_ai01_auto_016_c04",
+          "region": [
+            1120,
+            160,
+            160,
+            160
+          ],
+          "hash": 1711626273192684539,
+          "empty": false,
+          "bbox": [
+            3,
+            45,
+            160,
+            115
+          ],
+          "margins": {
+            "left": 3,
+            "top": 45,
+            "right": 0,
+            "bottom": 45
+          },
+          "content_size": [
+            157,
+            70
+          ],
+          "center": [
+            81.5,
+            80.0
+          ],
+          "foot_y": 115
+        },
+        {
+          "index": 16,
+          "name": "luna_hit_death_sheet_ai01_auto_017_c04",
+          "region": [
+            0,
+            320,
+            160,
+            160
+          ],
+          "hash": 3183528500031393820,
+          "empty": false,
+          "bbox": [
+            5,
+            8,
+            160,
+            151
+          ],
+          "margins": {
+            "left": 5,
+            "top": 8,
+            "right": 0,
+            "bottom": 9
+          },
+          "content_size": [
+            155,
+            143
+          ],
+          "center": [
+            82.5,
+            79.5
+          ],
+          "foot_y": 151
+        },
+        {
+          "index": 17,
+          "name": "luna_hit_death_sheet_ai01_auto_018_c04",
+          "region": [
+            160,
+            320,
+            160,
+            160
+          ],
+          "hash": 2139598138696561788,
+          "empty": false,
+          "bbox": [
+            0,
+            36,
+            159,
+            125
+          ],
+          "margins": {
+            "left": 0,
+            "top": 36,
+            "right": 1,
+            "bottom": 35
+          },
+          "content_size": [
+            159,
+            89
+          ],
+          "center": [
+            79.5,
+            80.5
+          ],
+          "foot_y": 125
+        },
+        {
+          "index": 18,
+          "name": "luna_hit_death_sheet_ai01_auto_019_c04",
+          "region": [
+            320,
+            320,
+            160,
+            160
+          ],
+          "hash": -719671713208651038,
+          "empty": false,
+          "bbox": [
+            4,
+            34,
+            158,
+            125
+          ],
+          "margins": {
+            "left": 4,
+            "top": 34,
+            "right": 2,
+            "bottom": 35
+          },
+          "content_size": [
+            154,
+            91
+          ],
+          "center": [
+            81.0,
+            79.5
+          ],
+          "foot_y": 125
+        },
+        {
+          "index": 19,
+          "name": "luna_hit_death_sheet_ai01_auto_020_c04",
+          "region": [
+            480,
+            320,
+            160,
+            160
+          ],
+          "hash": 6805543463964997740,
+          "empty": false,
+          "bbox": [
+            1,
+            38,
+            159,
+            121
+          ],
+          "margins": {
+            "left": 1,
+            "top": 38,
+            "right": 1,
+            "bottom": 39
+          },
+          "content_size": [
+            158,
+            83
+          ],
+          "center": [
+            80.0,
+            79.5
+          ],
+          "foot_y": 121
+        },
+        {
+          "index": 20,
+          "name": "luna_hit_death_sheet_ai01_auto_021_c04",
+          "region": [
+            640,
+            320,
+            160,
+            160
+          ],
+          "hash": 2424603582681183035,
+          "empty": false,
+          "bbox": [
+            3,
+            42,
+            157,
+            117
+          ],
+          "margins": {
+            "left": 3,
+            "top": 42,
+            "right": 3,
+            "bottom": 43
+          },
+          "content_size": [
+            154,
+            75
+          ],
+          "center": [
+            80.0,
+            79.5
+          ],
+          "foot_y": 117
+        },
+        {
+          "index": 21,
+          "name": "luna_hit_death_sheet_ai01_auto_022_c04",
+          "region": [
+            800,
+            320,
+            160,
+            160
+          ],
+          "hash": 4931852883024620293,
+          "empty": false,
+          "bbox": [
+            0,
+            46,
+            156,
+            113
+          ],
+          "margins": {
+            "left": 0,
+            "top": 46,
+            "right": 4,
+            "bottom": 47
+          },
+          "content_size": [
+            156,
+            67
+          ],
+          "center": [
+            78.0,
+            79.5
+          ],
+          "foot_y": 113
+        },
+        {
+          "index": 22,
+          "name": "luna_hit_death_sheet_ai01_auto_023_c04",
+          "region": [
+            960,
+            320,
+            160,
+            160
+          ],
+          "hash": -3625804034792205231,
+          "empty": false,
+          "bbox": [
+            4,
+            44,
+            156,
+            116
+          ],
+          "margins": {
+            "left": 4,
+            "top": 44,
+            "right": 4,
+            "bottom": 44
+          },
+          "content_size": [
+            152,
+            72
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 116
+        },
+        {
+          "index": 23,
+          "name": "luna_hit_death_sheet_ai01_auto_024_c04",
+          "region": [
+            1120,
+            320,
+            160,
+            160
+          ],
+          "hash": -5021054562888109156,
+          "empty": false,
+          "bbox": [
+            3,
+            46,
+            158,
+            109
+          ],
+          "margins": {
+            "left": 3,
+            "top": 46,
+            "right": 2,
+            "bottom": 51
+          },
+          "content_size": [
+            155,
+            63
+          ],
+          "center": [
+            80.5,
+            77.5
+          ],
+          "foot_y": 109
+        }
+      ],
+      "summary": {
+        "frame_count": 24,
+        "min_margins": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 2
+        },
+        "edge_touch_frames": [
+          5,
+          7,
+          8,
+          9,
+          11,
+          14,
+          15,
+          16,
+          17,
+          21
+        ],
+        "edge_padding_failures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          23
+        ],
+        "horizontal_padding_below_recommended": [
+          2,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 49,
+        "center_x_variance_px": 4.5,
+        "content_width_variance_ratio": 0.3208,
+        "content_height_variance_ratio": 0.5987
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "enemies_core_sheet_ai01",
+      "texture": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png",
+      "metadata": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "enemy_core_cycle",
+        "speed": 10.0,
+        "loop": true
+      },
+      "cell": [
+        160,
+        160
+      ],
+      "status": "blocked",
+      "blockers": [
+        "content_touches_cell_edge",
+        "insufficient_edge_padding",
+        "unstable_foot_baseline"
+      ],
+      "warnings": [
+        "edge_touch_frames=[11, 19, 20]",
+        "edge_padding_failures=[11, 19, 20, 22, 24, 25, 26, 27, 28, 29, 30, 31]",
+        "horizontal_padding_below_recommended=[8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 23]"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "name": "enemies_core_sheet_ai01_auto_001_c06",
+          "region": [
+            0,
+            0,
+            160,
+            160
+          ],
+          "hash": -3899132859337037894,
+          "empty": false,
+          "bbox": [
+            33,
+            4,
+            131,
+            156
+          ],
+          "margins": {
+            "left": 33,
+            "top": 4,
+            "right": 29,
+            "bottom": 4
+          },
+          "content_size": [
+            98,
+            152
+          ],
+          "center": [
+            82.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 1,
+          "name": "enemies_core_sheet_ai01_auto_002_c06",
+          "region": [
+            160,
+            0,
+            160,
+            160
+          ],
+          "hash": -2095500308327324189,
+          "empty": false,
+          "bbox": [
+            20,
+            4,
+            140,
+            156
+          ],
+          "margins": {
+            "left": 20,
+            "top": 4,
+            "right": 20,
+            "bottom": 4
+          },
+          "content_size": [
+            120,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 2,
+          "name": "enemies_core_sheet_ai01_auto_003_c06",
+          "region": [
+            320,
+            0,
+            160,
+            160
+          ],
+          "hash": -3288048220594306069,
+          "empty": false,
+          "bbox": [
+            33,
+            4,
+            127,
+            156
+          ],
+          "margins": {
+            "left": 33,
+            "top": 4,
+            "right": 33,
+            "bottom": 4
+          },
+          "content_size": [
+            94,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 3,
+          "name": "enemies_core_sheet_ai01_auto_004_c06",
+          "region": [
+            480,
+            0,
+            160,
+            160
+          ],
+          "hash": -8654144797358945843,
+          "empty": false,
+          "bbox": [
+            33,
+            4,
+            127,
+            156
+          ],
+          "margins": {
+            "left": 33,
+            "top": 4,
+            "right": 33,
+            "bottom": 4
+          },
+          "content_size": [
+            94,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 4,
+          "name": "enemies_core_sheet_ai01_auto_005_c06",
+          "region": [
+            640,
+            0,
+            160,
+            160
+          ],
+          "hash": 3411854886199422429,
+          "empty": false,
+          "bbox": [
+            18,
+            4,
+            138,
+            156
+          ],
+          "margins": {
+            "left": 18,
+            "top": 4,
+            "right": 22,
+            "bottom": 4
+          },
+          "content_size": [
+            120,
+            152
+          ],
+          "center": [
+            78.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 5,
+          "name": "enemies_core_sheet_ai01_auto_006_c06",
+          "region": [
+            800,
+            0,
+            160,
+            160
+          ],
+          "hash": -1364083765247488707,
+          "empty": false,
+          "bbox": [
+            20,
+            4,
+            140,
+            156
+          ],
+          "margins": {
+            "left": 20,
+            "top": 4,
+            "right": 20,
+            "bottom": 4
+          },
+          "content_size": [
+            120,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 6,
+          "name": "enemies_core_sheet_ai01_auto_007_c06",
+          "region": [
+            960,
+            0,
+            160,
+            160
+          ],
+          "hash": 5968729444020442820,
+          "empty": false,
+          "bbox": [
+            25,
+            4,
+            136,
+            156
+          ],
+          "margins": {
+            "left": 25,
+            "top": 4,
+            "right": 24,
+            "bottom": 4
+          },
+          "content_size": [
+            111,
+            152
+          ],
+          "center": [
+            80.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 7,
+          "name": "enemies_core_sheet_ai01_auto_008_c06",
+          "region": [
+            1120,
+            0,
+            160,
+            160
+          ],
+          "hash": 2842784932788181538,
+          "empty": false,
+          "bbox": [
+            24,
+            4,
+            136,
+            156
+          ],
+          "margins": {
+            "left": 24,
+            "top": 4,
+            "right": 24,
+            "bottom": 4
+          },
+          "content_size": [
+            112,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 8,
+          "name": "enemies_core_sheet_ai01_auto_009_c06",
+          "region": [
+            0,
+            160,
+            160,
+            160
+          ],
+          "hash": 1572234595290079450,
+          "empty": false,
+          "bbox": [
+            4,
+            10,
+            156,
+            150
+          ],
+          "margins": {
+            "left": 4,
+            "top": 10,
+            "right": 4,
+            "bottom": 10
+          },
+          "content_size": [
+            152,
+            140
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 150
+        },
+        {
+          "index": 9,
+          "name": "enemies_core_sheet_ai01_auto_010_c06",
+          "region": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "hash": -1990359852688969410,
+          "empty": false,
+          "bbox": [
+            4,
+            14,
+            156,
+            146
+          ],
+          "margins": {
+            "left": 4,
+            "top": 14,
+            "right": 4,
+            "bottom": 14
+          },
+          "content_size": [
+            152,
+            132
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 146
+        },
+        {
+          "index": 10,
+          "name": "enemies_core_sheet_ai01_auto_011_c06",
+          "region": [
+            320,
+            160,
+            160,
+            160
+          ],
+          "hash": -6492277094307998787,
+          "empty": false,
+          "bbox": [
+            4,
+            13,
+            156,
+            146
+          ],
+          "margins": {
+            "left": 4,
+            "top": 13,
+            "right": 4,
+            "bottom": 14
+          },
+          "content_size": [
+            152,
+            133
+          ],
+          "center": [
+            80.0,
+            79.5
+          ],
+          "foot_y": 146
+        },
+        {
+          "index": 11,
+          "name": "enemies_core_sheet_ai01_auto_012_c06",
+          "region": [
+            480,
+            160,
+            160,
+            160
+          ],
+          "hash": -6846680386113850720,
+          "empty": false,
+          "bbox": [
+            0,
+            2,
+            160,
+            157
+          ],
+          "margins": {
+            "left": 0,
+            "top": 2,
+            "right": 0,
+            "bottom": 3
+          },
+          "content_size": [
+            160,
+            155
+          ],
+          "center": [
+            80.0,
+            79.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 12,
+          "name": "enemies_core_sheet_ai01_auto_013_c06",
+          "region": [
+            640,
+            160,
+            160,
+            160
+          ],
+          "hash": 5360687223920289816,
+          "empty": false,
+          "bbox": [
+            4,
+            12,
+            156,
+            144
+          ],
+          "margins": {
+            "left": 4,
+            "top": 12,
+            "right": 4,
+            "bottom": 16
+          },
+          "content_size": [
+            152,
+            132
+          ],
+          "center": [
+            80.0,
+            78.0
+          ],
+          "foot_y": 144
+        },
+        {
+          "index": 13,
+          "name": "enemies_core_sheet_ai01_auto_014_c06",
+          "region": [
+            800,
+            160,
+            160,
+            160
+          ],
+          "hash": 7667905103420071579,
+          "empty": false,
+          "bbox": [
+            4,
+            27,
+            156,
+            134
+          ],
+          "margins": {
+            "left": 4,
+            "top": 27,
+            "right": 4,
+            "bottom": 26
+          },
+          "content_size": [
+            152,
+            107
+          ],
+          "center": [
+            80.0,
+            80.5
+          ],
+          "foot_y": 134
+        },
+        {
+          "index": 14,
+          "name": "enemies_core_sheet_ai01_auto_015_c06",
+          "region": [
+            960,
+            160,
+            160,
+            160
+          ],
+          "hash": 6258449082121747642,
+          "empty": false,
+          "bbox": [
+            5,
+            9,
+            155,
+            145
+          ],
+          "margins": {
+            "left": 5,
+            "top": 9,
+            "right": 5,
+            "bottom": 15
+          },
+          "content_size": [
+            150,
+            136
+          ],
+          "center": [
+            80.0,
+            77.0
+          ],
+          "foot_y": 145
+        },
+        {
+          "index": 15,
+          "name": "enemies_core_sheet_ai01_auto_016_c06",
+          "region": [
+            1120,
+            160,
+            160,
+            160
+          ],
+          "hash": -3871106288206884381,
+          "empty": false,
+          "bbox": [
+            4,
+            22,
+            156,
+            135
+          ],
+          "margins": {
+            "left": 4,
+            "top": 22,
+            "right": 4,
+            "bottom": 25
+          },
+          "content_size": [
+            152,
+            113
+          ],
+          "center": [
+            80.0,
+            78.5
+          ],
+          "foot_y": 135
+        },
+        {
+          "index": 16,
+          "name": "enemies_core_sheet_ai01_auto_017_c06",
+          "region": [
+            0,
+            320,
+            160,
+            160
+          ],
+          "hash": -7896570854430580722,
+          "empty": false,
+          "bbox": [
+            19,
+            4,
+            136,
+            156
+          ],
+          "margins": {
+            "left": 19,
+            "top": 4,
+            "right": 24,
+            "bottom": 4
+          },
+          "content_size": [
+            117,
+            152
+          ],
+          "center": [
+            77.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 17,
+          "name": "enemies_core_sheet_ai01_auto_018_c06",
+          "region": [
+            160,
+            320,
+            160,
+            160
+          ],
+          "hash": -916668931436012728,
+          "empty": false,
+          "bbox": [
+            21,
+            4,
+            134,
+            156
+          ],
+          "margins": {
+            "left": 21,
+            "top": 4,
+            "right": 26,
+            "bottom": 4
+          },
+          "content_size": [
+            113,
+            152
+          ],
+          "center": [
+            77.5,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 18,
+          "name": "enemies_core_sheet_ai01_auto_019_c06",
+          "region": [
+            320,
+            320,
+            160,
+            160
+          ],
+          "hash": -7898889778665744228,
+          "empty": false,
+          "bbox": [
+            5,
+            5,
+            155,
+            155
+          ],
+          "margins": {
+            "left": 5,
+            "top": 5,
+            "right": 5,
+            "bottom": 5
+          },
+          "content_size": [
+            150,
+            150
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 155
+        },
+        {
+          "index": 19,
+          "name": "enemies_core_sheet_ai01_auto_020_c06",
+          "region": [
+            480,
+            320,
+            160,
+            160
+          ],
+          "hash": -7458191479987887368,
+          "empty": false,
+          "bbox": [
+            8,
+            5,
+            150,
+            160
+          ],
+          "margins": {
+            "left": 8,
+            "top": 5,
+            "right": 10,
+            "bottom": 0
+          },
+          "content_size": [
+            142,
+            155
+          ],
+          "center": [
+            79.0,
+            82.5
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 20,
+          "name": "enemies_core_sheet_ai01_auto_021_c06",
+          "region": [
+            640,
+            320,
+            160,
+            160
+          ],
+          "hash": 8782991564467932319,
+          "empty": false,
+          "bbox": [
+            20,
+            5,
+            139,
+            160
+          ],
+          "margins": {
+            "left": 20,
+            "top": 5,
+            "right": 21,
+            "bottom": 0
+          },
+          "content_size": [
+            119,
+            155
+          ],
+          "center": [
+            79.5,
+            82.5
+          ],
+          "foot_y": 160
+        },
+        {
+          "index": 21,
+          "name": "enemies_core_sheet_ai01_auto_022_c06",
+          "region": [
+            800,
+            320,
+            160,
+            160
+          ],
+          "hash": -5355354254442572319,
+          "empty": false,
+          "bbox": [
+            14,
+            4,
+            146,
+            156
+          ],
+          "margins": {
+            "left": 14,
+            "top": 4,
+            "right": 14,
+            "bottom": 4
+          },
+          "content_size": [
+            132,
+            152
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 156
+        },
+        {
+          "index": 22,
+          "name": "enemies_core_sheet_ai01_auto_023_c06",
+          "region": [
+            960,
+            320,
+            160,
+            160
+          ],
+          "hash": -4819367091181523998,
+          "empty": false,
+          "bbox": [
+            15,
+            4,
+            145,
+            157
+          ],
+          "margins": {
+            "left": 15,
+            "top": 4,
+            "right": 15,
+            "bottom": 3
+          },
+          "content_size": [
+            130,
+            153
+          ],
+          "center": [
+            80.0,
+            80.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 23,
+          "name": "enemies_core_sheet_ai01_auto_024_c06",
+          "region": [
+            1120,
+            320,
+            160,
+            160
+          ],
+          "hash": 7669823465518193903,
+          "empty": false,
+          "bbox": [
+            12,
+            5,
+            149,
+            155
+          ],
+          "margins": {
+            "left": 12,
+            "top": 5,
+            "right": 11,
+            "bottom": 5
+          },
+          "content_size": [
+            137,
+            150
+          ],
+          "center": [
+            80.5,
+            80.0
+          ],
+          "foot_y": 155
+        },
+        {
+          "index": 24,
+          "name": "enemies_core_sheet_ai01_auto_025_c06",
+          "region": [
+            0,
+            480,
+            160,
+            160
+          ],
+          "hash": 5410827994383958069,
+          "empty": false,
+          "bbox": [
+            23,
+            3,
+            139,
+            157
+          ],
+          "margins": {
+            "left": 23,
+            "top": 3,
+            "right": 21,
+            "bottom": 3
+          },
+          "content_size": [
+            116,
+            154
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 25,
+          "name": "enemies_core_sheet_ai01_auto_026_c06",
+          "region": [
+            160,
+            480,
+            160,
+            160
+          ],
+          "hash": 1340144381094521910,
+          "empty": false,
+          "bbox": [
+            27,
+            3,
+            133,
+            157
+          ],
+          "margins": {
+            "left": 27,
+            "top": 3,
+            "right": 27,
+            "bottom": 3
+          },
+          "content_size": [
+            106,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 26,
+          "name": "enemies_core_sheet_ai01_auto_027_c06",
+          "region": [
+            320,
+            480,
+            160,
+            160
+          ],
+          "hash": -3798034178334202548,
+          "empty": false,
+          "bbox": [
+            19,
+            3,
+            143,
+            157
+          ],
+          "margins": {
+            "left": 19,
+            "top": 3,
+            "right": 17,
+            "bottom": 3
+          },
+          "content_size": [
+            124,
+            154
+          ],
+          "center": [
+            81.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 27,
+          "name": "enemies_core_sheet_ai01_auto_028_c06",
+          "region": [
+            480,
+            480,
+            160,
+            160
+          ],
+          "hash": -7723348524298340635,
+          "empty": false,
+          "bbox": [
+            18,
+            2,
+            141,
+            157
+          ],
+          "margins": {
+            "left": 18,
+            "top": 2,
+            "right": 19,
+            "bottom": 3
+          },
+          "content_size": [
+            123,
+            155
+          ],
+          "center": [
+            79.5,
+            79.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 28,
+          "name": "enemies_core_sheet_ai01_auto_029_c06",
+          "region": [
+            640,
+            480,
+            160,
+            160
+          ],
+          "hash": -1743060560472292136,
+          "empty": false,
+          "bbox": [
+            24,
+            3,
+            136,
+            157
+          ],
+          "margins": {
+            "left": 24,
+            "top": 3,
+            "right": 24,
+            "bottom": 3
+          },
+          "content_size": [
+            112,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 29,
+          "name": "enemies_core_sheet_ai01_auto_030_c06",
+          "region": [
+            800,
+            480,
+            160,
+            160
+          ],
+          "hash": -8612935995096191073,
+          "empty": false,
+          "bbox": [
+            18,
+            2,
+            144,
+            157
+          ],
+          "margins": {
+            "left": 18,
+            "top": 2,
+            "right": 16,
+            "bottom": 3
+          },
+          "content_size": [
+            126,
+            155
+          ],
+          "center": [
+            81.0,
+            79.5
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 30,
+          "name": "enemies_core_sheet_ai01_auto_031_c06",
+          "region": [
+            960,
+            480,
+            160,
+            160
+          ],
+          "hash": 7809240197007686253,
+          "empty": false,
+          "bbox": [
+            17,
+            3,
+            143,
+            157
+          ],
+          "margins": {
+            "left": 17,
+            "top": 3,
+            "right": 17,
+            "bottom": 3
+          },
+          "content_size": [
+            126,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        },
+        {
+          "index": 31,
+          "name": "enemies_core_sheet_ai01_auto_032_c06",
+          "region": [
+            1120,
+            480,
+            160,
+            160
+          ],
+          "hash": -1190996423273092695,
+          "empty": false,
+          "bbox": [
+            18,
+            3,
+            142,
+            157
+          ],
+          "margins": {
+            "left": 18,
+            "top": 3,
+            "right": 18,
+            "bottom": 3
+          },
+          "content_size": [
+            124,
+            154
+          ],
+          "center": [
+            80.0,
+            80.0
+          ],
+          "foot_y": 157
+        }
+      ],
+      "summary": {
+        "frame_count": 32,
+        "min_margins": {
+          "left": 0,
+          "top": 2,
+          "right": 0,
+          "bottom": 0
+        },
+        "edge_touch_frames": [
+          11,
+          19,
+          20
+        ],
+        "edge_padding_failures": [
+          11,
+          19,
+          20,
+          22,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "horizontal_padding_below_recommended": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          18,
+          19,
+          23
+        ],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 26,
+        "center_x_variance_px": 4.5,
+        "content_width_variance_ratio": 0.4125,
+        "content_height_variance_ratio": 0.3097
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "require_no_duplicate_frame_hashes": true
+      }
+    }
+  ],
+  "boundary": "Formal animation runtime replacement audit. Passing this audit is required before replacing live player, enemy or boss controller animations, but it does not replace gameplay timing, hitbox/hurtbox and playtest verification."
+}

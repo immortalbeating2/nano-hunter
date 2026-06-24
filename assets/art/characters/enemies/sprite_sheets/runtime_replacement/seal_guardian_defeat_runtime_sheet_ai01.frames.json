@@ -1,0 +1,73 @@
+{
+  "id": "seal_guardian_defeat_runtime_sheet_ai01",
+  "source_asset_id": "seal_guardian_boss_runtime_sheet_ai01",
+  "kind": "sprite_sheet",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.png",
+  "cell": [
+    256,
+    192
+  ],
+  "columns": 8,
+  "rows": 1,
+  "frames": [
+    {
+      "index": 0,
+      "name": "seal_guardian_defeat_runtime_sheet_ai01_runtime_001",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.png",
+      "source_frame_index": 16,
+      "region": [
+        0,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 1,
+      "name": "seal_guardian_defeat_runtime_sheet_ai01_runtime_002",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.png",
+      "source_frame_index": 17,
+      "region": [
+        256,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 2,
+      "name": "seal_guardian_defeat_runtime_sheet_ai01_runtime_003",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.png",
+      "source_frame_index": 18,
+      "region": [
+        512,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 3,
+      "name": "seal_guardian_defeat_runtime_sheet_ai01_runtime_004",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.png",
+      "source_frame_index": 19,
+      "region": [
+        768,
+        0,
+        256,
+        192
+      ]
+    }
+  ],
+  "split": {
+    "source_runtime_candidate": "seal_guardian_boss_runtime_sheet_ai01",
+    "source_frame_indexes": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "filter": "none",
+    "boundary": "Seal Guardian defeat / seal-release candidate only. Does not replace Stage16 completion feedback by itself."
+  }
+}

@@ -1,0 +1,2735 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "status": "source_recorded_review_required",
+  "boundary": "Provenance record only. It records image-gen prompts, source candidates, hashes and output hashes. It does not replace legal review, final art approval or runtime integration.",
+  "tool_policy": {
+    "primary_tool": "Codex built-in image_gen",
+    "fallback_tool": "not_used",
+    "workspace_destination_required": true
+  },
+  "license_boundary": "AI-generated source records are present for project tracking. Commercial release and external distribution still require manual terms review for the active tool/account and any downstream platform.",
+  "summary": {
+    "record_count": 55,
+    "candidate_hash_count": 133,
+    "output_hash_count": 55,
+    "prompt_hash_count": 55,
+    "recovery_ledger_count": 1
+  },
+  "recovery_ledgers": [
+    {
+      "path": "assets/source/imagegen_inbox/recovered-2026-06-20-current-thread/recovery-ledger.json",
+      "item_count": 30
+    }
+  ],
+  "records": [
+    {
+      "asset_id": "style_board_global_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 00",
+      "priority": "P0",
+      "target_kind": "style_board",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Nano Hunter global visual style board. Create a cohesive style board showing Luna, a Seal Guardian boss silhouette, Buddhist talisman seals, shrine trial stonework, miasma marsh color notes, HUD icon motifs, and VFX swatches. Style: 2D side-view metroidvania, Northern and Southern Dynasties Chinese dark fantasy, demon-suppressing bureau, Shanhaijing monster mythology, ink wash and gongbi accents, soft Ori-like glow. Composition: clean board with grouped visual motifs and no readable labels. Palette: moon white, ink teal, cyan-white spiritual glow, vermilion talisman accents, muted gold, dark miasma purple and green. Constraints: no modern lab, no sci-fi, no watermark, no tiny unreadable clutter.",
+      "prompt_sha256": "8a090770d9ac96efc5ad6f56bde3edbb713b142799726758e7e53363fc0782ee",
+      "source_dir": "assets/source/ai_generated/batch_00/style_board_global_ai01/candidates",
+      "output_path": "assets/art/promo/style_board_global_ai01.png",
+      "output_sha256": "0c82505ea9d7fa84614fc263a4a6be70d79b1e941e60fde023c9bb6ffd1e6ad8",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_00/style_board_global_ai01/candidates/style_board_global_ai01_candidate_01.png",
+          "sha256": "0c82505ea9d7fa84614fc263a4a6be70d79b1e941e60fde023c9bb6ffd1e6ad8",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_luna_player_readability_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "character_direction",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Luna player readability concept. Create a clean side-view playable character direction for Luna, a demon-suppressing bureau bounty hunter with hidden Buddhist demon-hybrid identity. She should read clearly at 640x360 gameplay distance, with moon-white clothing, ink-teal cloth and hair accents, cyan-white talisman glow, small vermilion seal papers, light weapon or charm silhouette, and agile metroidvania proportions. Background: perfectly flat solid #00ff00 chroma-key for removal. Constraints: one character only, no text, no watermark, no modern armor, no sci-fi, no background scene, no cast shadow, do not use #00ff00 in the subject.",
+      "prompt_sha256": "88d1fd2eaca9f4c891a4fca16beb3deb4b456b9a29d44bc712f394b6c34a8e24",
+      "source_dir": "assets/source/ai_generated/batch_01/stage16_luna_player_readability_ai01/candidates",
+      "output_path": "assets/art/characters/player/stage16_luna_player_readability_ai01.png",
+      "output_sha256": "4b5ff9de412474a8718f3728e5a97fd30036b2d964330e8eec781d8d80036ed6",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage16_luna_player_readability_ai01/candidates/stage16_luna_player_readability_ai01_candidate_01.png",
+          "sha256": "ce2bcfb7dc015c83f88f2c4088c9606a9266a4e3bea45730e9d943dc3ae72b3e",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage14_air_dash_icon_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "icon",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 64x64 HUD icon source. Create a readable Air Dash ability icon using a compact Luna silhouette, Buddhist talisman ring, cyan-white horizontal motion streak, and tiny vermilion seal spark. Style: crisp 2D game UI, ancient Chinese dark fantasy, ink-teal outline, moon-white paper, muted gold trim. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no readable text, no letters, no numbers, no watermark, no modern app UI, no sci-fi arrow, do not use #00ff00 in the icon.",
+      "prompt_sha256": "2ae8ecac859b2e1d5c9b47497c953ab8c4f852bc2792c0034e5cfa84dc3894f3",
+      "source_dir": "assets/source/ai_generated/batch_01/stage14_air_dash_icon_ai01/candidates",
+      "output_path": "assets/art/ui/stage14_air_dash_icon_ai01.png",
+      "output_sha256": "b42cec88527ec4b364ee4978e6e01462202036d1442443f6033fb22575836d92",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage14_air_dash_icon_ai01/candidates/stage14_air_dash_icon_ai01_candidate_01.png",
+          "sha256": "e5301ae745ee11e556ec3d7f780fd6c88b64535b7ed1e82b2e8faacd5c86865f",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_01/stage14_air_dash_icon_ai01/candidates/stage14_air_dash_icon_ai01_candidate_02.png",
+          "sha256": "0a9bf035f083991a10b0883bf948646f00d518ab435c1b5b0a03210801bc225a",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage14_air_dash_trail_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "vfx_direction",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Air Dash VFX source. Create a horizontal dash trail made of cyan-white talisman energy, ink-brush streaks, small vermilion seal sparks, and faint moon-white afterimage arcs. It must be readable as movement, not damage. Background: perfectly flat solid #00ff00 chroma-key. Composition: VFX only, centered, generous padding, no character body. Constraints: no text, no watermark, no floor plane, no sci-fi laser, no noisy smoke blob, do not use #00ff00 in the effect.",
+      "prompt_sha256": "f5bdc75ba20af109d353e4b7ec44645a2e24046e5bccb1f20e626517411d2245",
+      "source_dir": "assets/source/ai_generated/batch_01/stage14_air_dash_trail_ai01/candidates",
+      "output_path": "assets/art/vfx/stage14_air_dash_trail_ai01.png",
+      "output_sha256": "e795fd5767d1e3e201d19f0ce935c5af770a71a7d711221bc4b284ab8b91969e",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage14_air_dash_trail_ai01/candidates/stage14_air_dash_trail_ai01_candidate_01.png",
+          "sha256": "0203074edc2a746e361fdb6d4c483d6b977d9d7dfcb045a69e035a2c9e04cb79",
+          "width": 1942,
+          "height": 809,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage14_air_dash_shrine_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "prop",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: ability shrine prop. Create a side-view Air Dash shrine for a shrine trial room: aged stone altar, Buddhist talisman circle, hanging seal paper, muted gold bronze rim, cyan-white energy hovering above it, and inactive / active readability potential. Background: perfectly flat solid #00ff00 chroma-key. Style: hand-painted 2D metroidvania prop, Northern and Southern Dynasties Chinese dark fantasy. Constraints: no readable text, no modern machine, no sci-fi capsule, no watermark, do not use #00ff00 in the prop.",
+      "prompt_sha256": "383a0cdba8464367e5214a0b0712ba9319a9ce7cdc584298a3b157ed6e2ff120",
+      "source_dir": "assets/source/ai_generated/batch_01/stage14_air_dash_shrine_ai01/candidates",
+      "output_path": "assets/art/props/stage14_air_dash_shrine_ai01.png",
+      "output_sha256": "5110f75d272b934adb3490b3bace34149f383bbbb4f71549d8a892df9f750eb9",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage14_air_dash_shrine_ai01/candidates/stage14_air_dash_shrine_ai01_candidate_01.png",
+          "sha256": "12231937de52d95b48c630014b6daaa309b5a57e932206b09d8d7955fa8fa17e",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage14_air_dash_gate_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "prop",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: ability gate prop. Create an Air Dash gate obstacle for a 2D metroidvania room: stone arch, talisman barrier, cyan-white horizontal dash channel, vermilion seal locks, and clear passable-after-air-dash visual language. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no text, no warning label, no sci-fi door, no modern lab, no watermark, readable silhouette, do not use #00ff00 in the prop.",
+      "prompt_sha256": "b42905a73ed5018ce031b253d443f5afa3026f473fbad1bfce811dedffb8b5df",
+      "source_dir": "assets/source/ai_generated/batch_01/stage14_air_dash_gate_ai01/candidates",
+      "output_path": "assets/art/props/stage14_air_dash_gate_ai01.png",
+      "output_sha256": "27fa8ee31b3a95398525b3576a81ac3bcfe22c080d0bc4c2a232be1bb946c6e9",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage14_air_dash_gate_ai01/candidates/stage14_air_dash_gate_ai01_candidate_01.png",
+          "sha256": "c8f0c841015ccba7a220f4485cd22086635ca9731fb98737a660309367ba8d02",
+          "width": 1024,
+          "height": 1536,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage15_seal_guardian_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "boss_direction",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Seal Guardian boss direction. Create a large side-view boss creature made of ancient stone armor, Buddhist seal chains, beast-mask silhouette, Shanhaijing-inspired guardian anatomy, cyan-white seal core, muted gold edges, and dark miasma cracks. It must read as powerful but fair in a 2D metroidvania boss room. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no gore, no modern biotech, no sci-fi armor, no text, no watermark, do not use #00ff00 in the boss.",
+      "prompt_sha256": "bfb2c94eaaa2550283839a2d6ef94cdacf68c568b7029ff88bb6efb7b6fed015",
+      "source_dir": "assets/source/ai_generated/batch_01/stage15_seal_guardian_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/stage15_seal_guardian_ai01.png",
+      "output_sha256": "ee2df2537b46849005b5bbc606ce880e612fdef3a65fa00e423d2da7c0d2d877",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage15_seal_guardian_ai01/candidates/stage15_seal_guardian_ai01_candidate_01.png",
+          "sha256": "2e2752a48aa4380ab9c102a46d5b19c91989206f38940d013a441c6f2d091c28",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage15_boss_attack_warning_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "vfx_warning",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: boss attack warning VFX. Create a readable warning marker made of vermilion Buddhist seal geometry, dark ink brush pulse, cyan-white edge glow, and aggressive but non-modern danger language. Background: perfectly flat solid #00ff00 chroma-key. Composition: VFX only, centered, readable at small size. Constraints: no exclamation mark, no readable text, no modern warning triangle, no sci-fi hologram, no watermark, do not use #00ff00 in the effect.",
+      "prompt_sha256": "b1911894578ffaed52e12b8b06e6ddb657465016801ffc2d9ef6d3cee635442b",
+      "source_dir": "assets/source/ai_generated/batch_01/stage15_boss_attack_warning_ai01/candidates",
+      "output_path": "assets/art/vfx/stage15_boss_attack_warning_ai01.png",
+      "output_sha256": "fe1a5384444dc86ec62202dd2107c4c1c5e6c139919c7ecb72c177915a61cdb5",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage15_boss_attack_warning_ai01/candidates/stage15_boss_attack_warning_ai01_candidate_01.png",
+          "sha256": "7cee7a97ace23d8f062bacdc755820379ef25233531b7c70e29c25008a70884e",
+          "width": 1619,
+          "height": 972,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage15_recovery_charge_icon_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 01",
+      "priority": "P0",
+      "target_kind": "icon",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 64x64 Recovery Charge HUD icon source. Create a compact healing / recovery charge icon using a lotus-shaped Buddhist seal, cyan-white refill glow, moon-white talisman paper, and vermilion stamp accent. Style: crisp ancient Chinese fantasy UI, readable at 32x32. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no medical cross, no battery icon, no readable text, no letters, no watermark, do not use #00ff00 in the icon.",
+      "prompt_sha256": "2b26ac4c569d8c7460e2ce32393123f132870247961677e1f85a8c5899f2ce55",
+      "source_dir": "assets/source/ai_generated/batch_01/stage15_recovery_charge_icon_ai01/candidates",
+      "output_path": "assets/art/ui/stage15_recovery_charge_icon_ai01.png",
+      "output_sha256": "f45557ee26ab87ea5294fc235fe65959c7590719b68dea2c204f1333df9896b9",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_01/stage15_recovery_charge_icon_ai01/candidates/stage15_recovery_charge_icon_ai01_candidate_01.png",
+          "sha256": "6782fd7335b9bebf16ab599480514030193ee2d8ef59d89ceb970d643263f499",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "luna_run_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D metroidvania player character run sprite sheet for Godot, exact 8 columns by 3 rows, 24 frames, 160x160 cell target. Primary request: Create a clean consistent Luna running animation sprite sheet for Nano Hunter. Luna is a young Nanbei dynasty demon-hunter bounty hunter with black tied-back hair, white outer robe, dark teal inner hunter skirt, black leggings, bronze belt ornaments, and talisman papers tied to the waist. The cyan Buddhist seal charm is a small fixed glow on her belt only, same position relative to her body in every frame. Every frame must show the same character in the same left-facing side-view run cycle, same silhouette, same costume, same scale, same head size, same belt charm, and consistent foot baseline. Motion: smooth 24-frame run loop with contact, down, passing, and up phases; robe hem, hair, sash, and talisman papers follow through naturally but costume design must not change. Background: perfectly flat solid #00ff00 chroma-key for background removal; no floor, no shadow, no gradient, no texture. Composition: exact 8 columns by 3 rows sprite sheet, one full-body character per cell, generous padding, fixed foot baseline, fixed center pivot, no camera angle changes, no zoom changes, no mixed concept variants. Constraints: no text, no numbers, no labels, no watermark, no frame captions, no UI, no extra characters, no front-facing or back-facing frames, no alternate costume frames, no cropped body parts, no handheld lantern, no big paper sheets, no cast shadow, do not use #00ff00 anywhere in the character or effects.",
+      "prompt_sha256": "025e1b428c358561f42f5b9466e8d92708386af70dac3e959a5de2689b900bf2",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.png",
+      "output_sha256": "be88316c6148928209b32e3efb7113cd0ea0ef21b8ed220e30bebcf5c61833c3",
+      "candidate_count": 6,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/candidates/luna_run_sheet_ai01_candidate_01.png",
+          "sha256": "d32a30c54404a8158894580702df81326cdc0d129218e90bea634641743373c1",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/candidates/luna_run_sheet_ai01_candidate_02.png",
+          "sha256": "c6702afd8d1bc04831940e400c81692bb42af011ea89c9347b474783f4d60017",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/candidates/luna_run_sheet_ai01_candidate_03.png",
+          "sha256": "b7074ea66afaef789a2c072e918427415c6504a486fae4a46d981fabe5c7426f",
+          "width": 2048,
+          "height": 768,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/candidates/luna_run_sheet_ai01_candidate_04.png",
+          "sha256": "8ed1fd5ccc130e6ae24950635d62403946310c9cca43ea42e6363260f5207cbd",
+          "width": 1586,
+          "height": 992,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/candidates/luna_run_sheet_ai01_candidate_05.png",
+          "sha256": "d69dbc8242318da69420e370cc17b099ca5273d6a6b8559bcedb0996ec4556b3",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 6,
+          "path": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/candidates/luna_run_sheet_ai01_candidate_06.png",
+          "sha256": "8778a8e8701652d9168a21f3f0751564c422c7fe487f3e4eeb0a296aff19b8f3",
+          "width": 2048,
+          "height": 768,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 16,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "luna_air_dash_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept\nAsset type: technical 2D game sprite sheet for Nano Hunter, asset_id luna_air_dash_sheet_ai01, candidate_06 replacement attempt\nPrimary request: Create a production sprite sheet with EXACTLY SIXTEEN separate Luna air dash sprites. Arrange them in EXACTLY 8 columns and EXACTLY 2 rows. Every one of the 16 implied cells must contain exactly one complete Luna sprite, centered in that cell. Do not leave any empty cell. Do not merge frames. Do not make a cinematic montage.\nFrame plan: top row frames 01-08: crouched launch, deeper anticipation, push-off, forward lean, body leaving ground, horizontal dash start, horizontal dash stretch, peak speed smear. Bottom row frames 09-16: sustained air dash, energy trail follow-through, deceleration, knees tuck, controlled drop, landing contact, crouched recovery, ready-to-run recovery.\nSubject: Luna, the same Southern-and-Northern-Dynasties inspired demon hunter woman in every frame, black tied hair with flowing strands, white outer robe, dark teal inner clothing, dark boots, small bronze-gold talisman belt charm, subtle Buddhist seal motifs. Character faces right in every frame.\nStyle/medium: unified hand-painted 2D game sprite art matching current Nano Hunter generated assets, soft ink-and-gongbi linework, painterly but readable at gameplay scale, crisp sprite silhouette, elegant Eastern fantasy.\nBackground: perfectly flat solid #00ff00 chroma-key only. No shadows, no gradients, no texture, no floor plane. Do not use #00ff00 anywhere in Luna or the effects.\nComposition/framing: exact 8x2 sprite sheet, one sprite per invisible cell, stable side-view camera, stable character scale, stable baseline/anchor, generous padding around each frame, no cropping. Leave consistent horizontal and vertical spacing between cells.\nMotion/VFX: restrained cyan seal-energy dash trail behind the body, thin talisman-paper streaks, never covering the silhouette. The effect follows the dash but does not create extra characters.\nConstraints: exactly 16 sprites total, exactly 8 top row and 8 bottom row, same costume and identity, readable frame order left-to-right then top-to-bottom, no labels, no frame numbers, no text, no watermark, no grid lines, no UI, no scene background.\nAvoid: missing frames, duplicate blank cells, merged poses, concept-art lineup, poster composition, standing idle except recovery frame, outfit drift, extra weapons, extra characters, front view, back view, modern lab, sci-fi effects, English letters, Chinese text.",
+      "prompt_sha256": "fdc8009f211c6a1e9ab2d3bf6f6e490248a33a019f36e40f826fee4a2d1c9bcd",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png",
+      "output_sha256": "c3bb5dfad244a3b14cb5f200a615c54c4e9546eeb445d64551c4997309055521",
+      "candidate_count": 6,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/candidates/luna_air_dash_sheet_ai01_candidate_01.png",
+          "sha256": "3f9a1b2dabf51dac826c58024ce7fb378134ff64a57b9316166ef5f7f204e458",
+          "width": 1881,
+          "height": 836,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/candidates/luna_air_dash_sheet_ai01_candidate_02.png",
+          "sha256": "6b04e820cab098e5231cf6bc35a486c94f52cbedf15d2d27f2e2666bfe57e4e1",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/candidates/luna_air_dash_sheet_ai01_candidate_03.png",
+          "sha256": "29bc4360bd1b1e6e441528c5a8f8fd73e0760aaf4136b5c3bb18b79a9b69e0e8",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/candidates/luna_air_dash_sheet_ai01_candidate_04.png",
+          "sha256": "96f86b63789c5d8e6fe63add35e140472cfc406271394bb9f2f434203b300d2b",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/candidates/luna_air_dash_sheet_ai01_candidate_05.png",
+          "sha256": "618aecda14e78f69d066d804dbe408b2105572cb2942c9ae19f7c9f7722d1cf3",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 6,
+          "path": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/candidates/luna_air_dash_sheet_ai01_candidate_06.png",
+          "sha256": "3b30773560e29c022502e666cb7c220c0d41a086b848abbcbc7726b19205533c",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "luna_attack_01_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept\nAsset type: technical 2D game sprite sheet for Nano Hunter, asset_id luna_attack_01_sheet_ai01, candidate_06\nPrimary request: Create a production sprite sheet with EXACTLY SIXTEEN separate Luna basic attack sprites. Arrange them in EXACTLY 8 columns and EXACTLY 2 rows. Every one of the 16 implied cells must contain exactly one complete Luna sprite, centered in that cell. No enemies, no target dummy, no ghost monster, no separate floating object as a frame.\nFrame plan: top row frames 01-08: ready stance, anticipation with hand on talisman blade, deeper wind-up, first step, slash start, slash active 1, slash active 2, brightest seal arc. Bottom row frames 09-16: follow-through, trailing robe and talisman papers, blade arm extended, recoil, recovery step, returning guard, ready stance, calm end pose.\nSubject: Luna, the same Southern-and-Northern-Dynasties inspired demon hunter woman in every frame, black tied hair with flowing strands, white outer robe, dark teal inner clothing, dark boots, small bronze-gold talisman belt charm, subtle Buddhist seal motifs. Character faces right in every frame. Use the same outfit and proportions as the existing Nano Hunter Luna idle, run, and air dash sheets.\nWeapon/action: a short ritual blade or talisman-hand slash integrated with Luna's hand, not a long spear, not a floating lantern, not a separate orb. Cyan-white Buddhist seal slash arc appears only around the attacking arm and follows the swing; it must not hide the body silhouette.\nStyle/medium: unified hand-painted 2D game sprite art matching current Nano Hunter generated assets, soft ink-and-gongbi linework, painterly but readable at gameplay scale, crisp sprite silhouette, elegant Eastern fantasy.\nBackground: perfectly flat solid #00ff00 chroma-key only. No shadows, no gradients, no texture, no floor plane. Do not use #00ff00 anywhere in Luna or the effects.\nComposition/framing: exact 8x2 sprite sheet, one sprite per invisible cell, stable side-view camera, stable character scale, stable foot baseline/anchor, generous padding around each frame, no cropping. Leave consistent horizontal and vertical spacing between cells.\nConstraints: exactly 16 sprites total, exactly 8 top row and 8 bottom row, same costume and identity, readable frame order left-to-right then top-to-bottom, no labels, no frame numbers, no text, no watermark, no grid lines, no UI, no scene background.\nAvoid: missing frames, duplicate blank cells, merged poses, concept-art lineup, poster composition, outfit drift, extra weapons, extra characters, enemies, monsters, target dummies, front view, back view, modern lab, sci-fi effects, English letters, Chinese text.",
+      "prompt_sha256": "4d21d8246c4acd6de8004f02902147c6825fdf6b7563b4b8587c6289ddb65f68",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png",
+      "output_sha256": "eac450dd8b181e5697949658ae2963ff9054c61f06c3d120aca99060fe210275",
+      "candidate_count": 6,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/candidates/luna_attack_01_sheet_ai01_candidate_01.png",
+          "sha256": "3a3d8b4ddd81ce991999c80ff57e2777ca798bedc0b454c8c9de3ee1fe451a5a",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/candidates/luna_attack_01_sheet_ai01_candidate_02.png",
+          "sha256": "88067ac80a5026e9bf2da1a160e3c612cd44d71188e95c1bdd9da446534eb36f",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/candidates/luna_attack_01_sheet_ai01_candidate_03.png",
+          "sha256": "b90eb022f7ea45b440ba9fc7b2c0c3cba40532a5d0b2b2a49a4604635d939b54",
+          "width": 1586,
+          "height": 992,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/candidates/luna_attack_01_sheet_ai01_candidate_04.png",
+          "sha256": "29050913ecabd992cb05dc745f3a3d1f2c27d295977104151385bc60f44da29c",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/candidates/luna_attack_01_sheet_ai01_candidate_05.png",
+          "sha256": "1bbc635f6cd05c472fb5593cd841ec45ef8997b4cc081145be9a20dbe34ee6ee",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 6,
+          "path": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/candidates/luna_attack_01_sheet_ai01_candidate_06.png",
+          "sha256": "e9eb30b855f9957eda76aa1b3468b8c0821a2fb01b5f320f8469ddf54cc63eb9",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "luna_idle_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D metroidvania player character idle sprite sheet for Godot, 4x4 grid, 16 frames, 160x160 cell target. Primary request: Create a consistent Luna idle animation sprite sheet for Nano Hunter. Luna is a young Nanbei dynasty demon-hunter bounty hunter, elegant but battle-ready, with black hair tied back, white and dark teal layered hanfu-inspired hunter robes, subtle bronze ornaments, talisman papers, and a small cyan Buddhist seal lantern / charm glow. Every frame must show the same character in the same left-facing side-view pose, same silhouette, same costume, same scale, and same foot position. Motion: gentle breathing idle loop with tiny cloth, hair, talisman, and lantern glow movement only. Background: perfectly flat solid #00ff00 chroma-key for background removal; no floor, no shadow, no gradient, no texture. Composition: exact 4 columns by 4 rows sprite sheet, one full-body character per cell, generous padding, fixed foot baseline, fixed center pivot, no camera angle changes, no zoom changes. Style: polished 2D game sprite concept art, Ori-like soft readability plus Chinese ink/gongbi fantasy. Constraints: no text, no numbers, no labels, no watermark, no frame captions, no UI, no extra characters, no front-facing or back-facing frames, no cropped body parts, no cast shadow, do not use #00ff00 anywhere in the character or effects.",
+      "prompt_sha256": "bf8283821e364dce9091ee1cc26b447f3ee1746a69dba4ec5d500becb612abca",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_idle_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png",
+      "output_sha256": "b51f5ca302c432a96e9c28e1489e61a9b7f12467b5b82562cfe93d59e2460cf6",
+      "candidate_count": 5,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/luna_idle_sheet_ai01/candidates/luna_idle_sheet_ai01_candidate_01.png",
+          "sha256": "b6d017d6bd2861655efae52002fe86f6dfd62de4b243497e1212af5168360939",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/luna_idle_sheet_ai01/candidates/luna_idle_sheet_ai01_candidate_02.png",
+          "sha256": "b7df670d979b52ab1af431e66c0045573262b4ea690868778292787b10fcf07c",
+          "width": 2048,
+          "height": 768,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/luna_idle_sheet_ai01/candidates/luna_idle_sheet_ai01_candidate_03.png",
+          "sha256": "d6dff5d27c6e9fd8fd0de2b414b191ffae528c7c1f2d5519403dc717b20ebca4",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/luna_idle_sheet_ai01/candidates/luna_idle_sheet_ai01_candidate_04.png",
+          "sha256": "ec23a2cd1b406d2445216bdf1ee175f208947c004c8a3a1b1708d4fb8874917b",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_06/luna_idle_sheet_ai01/candidates/luna_idle_sheet_ai01_candidate_05.png",
+          "sha256": "8e41f60a9e87f266ea3b2c334dab37dff21ac629528da672b30d8e3b21824101",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "seal_guardian_boss_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: technical 2D boss animation sprite source sheet for Nano Hunter, target asset seal_guardian_boss_sheet_ai01 candidate 04. Primary request: Create exactly 20 separate full-body animation poses for the Seal Guardian Boss, showing one coherent right-facing side-view attack sequence. Arrange the poses as a strict 5 columns by 4 rows grid. The output must contain twenty distinct sprites of the same quadruped boss, no fewer and no extra. Reference style: match the approved Seal Guardian direction already used in Nano Hunter: a massive ancient stone beast guardian, lion-dog / temple guardian silhouette, cracked teal-gray stone plates, black miasma mane and tail smoke, bronze chains, Buddhist seal ornaments, cyan-white glowing seal core on the chest, vermilion talisman papers and locks. Keep the boss quadruped in every frame. Do not turn it into a humanoid warrior. Scene/backdrop: perfectly flat solid #00ff00 chroma-key background for background removal. No floor, no shadow, no scenery. Style/medium: hand-painted 2D metroidvania boss sprite sheet, ink wash and gongbi-inspired accents, soft cyan spiritual glow, readable gameplay silhouette, not pixel art, not 3D. Composition/framing: strict 5x4 technical sprite sheet. One full-body quadruped Seal Guardian sprite per invisible cell. Stable side-view camera, stable scale, stable body proportions, consistent left-to-right facing direction. Keep all chains, talisman papers, smoke mane, tail wisps, and cyan seal VFX inside the same cell as the pose. No overlapping frames and no detached fragments between cells. Generous green padding around each pose. Motion sequence: row 1 frames 1-5 idle crouch, breath, head lowers, seal core charges, chains lift. Row 2 frames 6-10 anticipation and wind-up, forepaw rises, body coils, miasma mane pulls back, cyan seal circle brightens. Row 3 frames 11-15 heavy ground slam / sweeping seal strike, paw impacts, cyan-white seal shockwave remains inside each cell, talismans flare, body follows through. Row 4 frames 16-20 recovery, chains settle, smoke mane relaxes, boss returns to guarded crouch. Every frame must be meaningfully different and ordered left to right, top to bottom. Color palette: teal-gray cracked stone, dark ink-black mane and miasma, muted bronze chains, cyan-white spiritual glow, small vermilion talisman accents. Do not use #00ff00 anywhere in the boss, chains, talismans, smoke, or VFX. Constraints: quadruped Seal Guardian only, one boss sprite per cell, no Luna, no other enemies, no humanoid warrior forms, no front-facing portrait, no background scene, no cast shadow, no floor plane, no text, no numbers, no labels, no watermark, no logo, no frame borders, no duplicated pose, no mirrored duplicate, no concept drift, no costume drift, no sci-fi armor, no modern lab, no gore. Avoid: photorealistic, 3D render, chibi, humanoid boss, bipedal warrior, cyberpunk, modern laboratory, biotech, excessive tiny detail, blurry edges, unreadable silhouette, overlapping frames, cropped body parts, huge VFX arcs crossing cell boundaries.",
+      "prompt_sha256": "b1164e869e72579719782a57ef6d7e1d6b173cc63fe9b0e8b5c3235a08aff0f4",
+      "source_dir": "assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+      "output_sha256": "ce84fdaa8a743d4b0ef05dfa761c51775c39060338be4afc538c7f6aec81551d",
+      "candidate_count": 4,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/candidates/seal_guardian_boss_sheet_ai01_candidate_01.png",
+          "sha256": "c832170727eb65c87cac23619074a0712697db49ad0600b0e79c44c22bda011c",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/candidates/seal_guardian_boss_sheet_ai01_candidate_02.png",
+          "sha256": "ea435ce96558607ecf74bde19547c5cfc9719fab1e3df5d793bd53e735c2fdda",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/candidates/seal_guardian_boss_sheet_ai01_candidate_03.png",
+          "sha256": "1759c90a5def7eef117f6ee481697da2b18fda765afd5a137863bc581026574c",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/candidates/seal_guardian_boss_sheet_ai01_candidate_04.png",
+          "sha256": "3b9709e14bca28c3b7f09a7c7e286a89592352dc4f637c48fc8dc0ac34f2037a",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "miasma_marsh_tileset_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 07",
+      "priority": "P0",
+      "target_kind": "tileset_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Godot 2D TileSet source sheet. Create tile concepts for miasma marsh: safe ground, platform edge, wall, inner corner, outer corner, hanging root, corrupted water hazard edge, and decorative stone seal fragments. Style: hand-painted side-view metroidvania, ancient Chinese dark fantasy, ink wash surfaces, gongbi line accents. Background: clean tile sheet layout on flat #00ff00 chroma-key or neutral matte. Constraints: no text, no watermark, no modern lab shapes, no sci-fi panels, collision edges must read clearly, hazards must be visually distinct from safe ground.",
+      "prompt_sha256": "0f29e22387c5cbb9fcc25649f603a803ffcec8c2594d71b2cdf5f156be9cf9cd",
+      "source_dir": "assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles",
+      "output_path": "assets/art/tilesets/miasma_marsh_tileset_ai01.png",
+      "output_sha256": "132a190295f5aa5de3f5f8a60c99fa6c87e9ec4338b089eeef8dda02a60288c8",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/candidates/miasma_marsh_tileset_ai01_candidate_01.png",
+          "sha256": "7563d6f57b7f0cb92fe1f8ba96a1735cffd23ed1ccea2d519536b6dc9d1b7d05",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 48,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "shrine_trial_tileset_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 07",
+      "priority": "P1",
+      "target_kind": "tileset_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Godot 2D TileSet source sheet for Nano Hunter shrine trial rooms. Create modular side-view tiles for ancient shrine ground, platform edge, vertical wall, inner corner, outer corner, cracked stair stone, carved Buddhist seal floor, mossy roof tile, hanging talisman strip, and broken stone trim. Style: hand-painted metroidvania, Northern and Southern Dynasties Chinese dark fantasy, ink wash stone surfaces, gongbi line accents, moon-white and ink-teal lighting with restrained vermilion seal marks. Background: clean tile sheet layout on flat #00ff00 chroma-key or neutral matte. Constraints: no readable text, no watermark, no modern lab shapes, no sci-fi panels, collision edges must read clearly, safe ground and decorative trim must be easy to separate.",
+      "prompt_sha256": "86bff93476ba0ad3392da8baeb35c916c8220ebb0377a525c1343c2eb57c5f69",
+      "source_dir": "assets/source/ai_generated/batch_07/shrine_trial_tileset_ai01/selected_tiles",
+      "output_path": "assets/art/tilesets/shrine_trial_tileset_ai01.png",
+      "output_sha256": "e4a16037dd47631feac7516d2c5b37b58564c5a06a127e465a8f34b0d2bc896c",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_07/shrine_trial_tileset_ai01/candidates/shrine_trial_tileset_ai01_candidate_01.png",
+          "sha256": "d22a7e8fb0e2873bb95dda16a11a3f34a686cc236293f21e2ca342437e5dbafc",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 48,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "material_texture_atlas_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 07",
+      "priority": "P1",
+      "target_kind": "texture_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: hand-painted material texture atlas for Nano Hunter 2D environments. Create separate square material swatches for aged shrine stone, wet miasma mud, dark lacquered wood, moon-white talisman paper, tarnished bronze, mossy root bark, corrupted water surface, and cracked seal-carved stone. Style: 2D Chinese dark fantasy metroidvania materials, ink wash softness, gongbi accent lines, soft cyan spiritual glow and vermilion seal hints where appropriate. Background: clean atlas layout on flat #00ff00 chroma-key or neutral matte. Constraints: no readable text, no watermark, no PBR realism, no sci-fi panels, no modern lab materials, swatches must tile or crop cleanly for Godot texture usage.",
+      "prompt_sha256": "133f483d5e9be16e744312f66ba8bf694209948a75ea06f870c1a6ed9ec63adf",
+      "source_dir": "assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items",
+      "output_path": "assets/art/textures/material_texture_atlas_ai01.png",
+      "output_sha256": "42cbc4807fb7c83f6df1ba68c3bee1594a6348d3a73d89ca17f482038e7a8e6a",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_07/material_texture_atlas_ai01/candidates/material_texture_atlas_ai01_candidate_01.png",
+          "sha256": "53bbd37ffda893162ce843ceb261fc9e91b7236eba387fd687be590ab1e4a940",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 16,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "hud_core_ui_atlas_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "ui_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Godot HUD UI atlas. Create separate HUD elements: health seal pips, recovery charge ring, ability slot frame, boss status trim, checkpoint indicator, completion seal, small talisman divider, and soft glow states. Style: crisp 2D game UI, Buddhist talisman circles, bamboo-slip shapes, moon-white paper, ink-teal outlines, cyan-white glow, vermilion accents, muted gold. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no readable text, no letters, no numbers, no modern app UI, no watermark, do not use #00ff00 in the items.",
+      "prompt_sha256": "bd3644b62a120f9173c9b763fd5c10cd411c6da34a773f3f61d2a94ab1c6ff7e",
+      "source_dir": "assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items",
+      "output_path": "assets/art/ui/atlases/hud_core_ui_atlas_ai01.png",
+      "output_sha256": "ab19950a654585f869b7ebdfb91cf9a62919571026743610e4afb71067f54324",
+      "candidate_count": 3,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/candidates/hud_core_ui_atlas_ai01_candidate_01.png",
+          "sha256": "94d84f723ada9728028710012814048048ca69d7327fd0da9677b744e89b455e",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/candidates/hud_core_ui_atlas_ai01_candidate_02.png",
+          "sha256": "d3d6eeea4efe54a871133f11e57a1f2d0accbbca0793bffadf8b93d16029a2a2",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/candidates/hud_core_ui_atlas_ai01_candidate_03.png",
+          "sha256": "05b5e9858231ba35675382e87c9ab89ed0c62076458c5b92b11760a6b587d23a",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 16,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "icon_sheet_core_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "icon_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 64x64 game icon sheet. Create separate icons for Air Dash, Recovery Charge, checkpoint shrine, sealed gate, boss warning, talisman relay, corruption purge, and demo completion. Style: ancient Chinese dark fantasy UI, Buddhist seal geometry, moon-white paper, ink-teal outline, cyan-white glow, vermilion seal accents. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no readable text, no letters, no numbers, no modern UI symbols, no watermark, icons readable at 32x32.",
+      "prompt_sha256": "4ec5b376b2f85db9b1e15a12ed3171d177e080e6c55136a07f41608f56c47767",
+      "source_dir": "assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items",
+      "output_path": "assets/art/ui/atlases/icon_sheet_core_ai01.png",
+      "output_sha256": "84373c54e088e7a1d0d4c154e941c6f6e96e58c21f367e08fcee52da5216865a",
+      "candidate_count": 5,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/icon_sheet_core_ai01/candidates/icon_sheet_core_ai01_candidate_01.png",
+          "sha256": "e705a8b24d2cf129d19d33033c28adea129341166e20a434e6bc5271e40692af",
+          "width": 1870,
+          "height": 841,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_08/icon_sheet_core_ai01/candidates/icon_sheet_core_ai01_candidate_02.png",
+          "sha256": "e0cb2fd7fc7511a2a0eaaa5279b34d41acbcc4d3e2928e6ae6aedae0c74b88d0",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_08/icon_sheet_core_ai01/candidates/icon_sheet_core_ai01_candidate_03.png",
+          "sha256": "077bf8c350b22339c8cf1c3fe75ec760ce9ba346457e1b0917baa60901a430d6",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_08/icon_sheet_core_ai01/candidates/icon_sheet_core_ai01_candidate_04.png",
+          "sha256": "11c84e9ae33cb7abaca75f609cc86122039d727a1406312e6fbc66535e61e49c",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_08/icon_sheet_core_ai01/candidates/icon_sheet_core_ai01_candidate_05.png",
+          "sha256": "6468898c9d1b7ce4df8f5adfcf6141dc98542bb6a140d0fb8ce57bef43c02b83",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 8,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "menu_ninepatch_ui_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "ninepatch_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: NinePatch UI panel source. Create stretchable menu and dialog panel pieces: large paper panel, dark shrine stone panel, small tooltip panel, button frame, and divider strip. Style: crisp 2D UI, moon-white talisman paper, ink-teal brush border, muted gold trim, subtle vermilion seal corners. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no text, no letters, no numbers, no modern app card, no watermark, corners and borders should support nine-slice cleanup.",
+      "prompt_sha256": "31605ecb4703c5ba2078b171f11e9b837665870d7aa6a2a64bd033fcabb56e71",
+      "source_dir": "assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items",
+      "output_path": "assets/art/ui/menu_ninepatch_ui_ai01.png",
+      "output_sha256": "f858e3d5bf67f7b45b3a077427ef995b223bf050f8741c98cdc2bca20d3a8947",
+      "candidate_count": 3,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/candidates/menu_ninepatch_ui_ai01_candidate_01.png",
+          "sha256": "0eeb65e859906fd354d2c9cfbb68dd4f3874fe6bb6b22ededf9426bd03d8a6ad",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/candidates/menu_ninepatch_ui_ai01_candidate_02.png",
+          "sha256": "92a6a3abd3fe39e6a9cbb5035071638f5931413365b108314b0d00d6a240387d",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/candidates/menu_ninepatch_ui_ai01_candidate_03.png",
+          "sha256": "6a977de85ebe3f89c25033f0fcd5b74f482d257c0b7f238078e46f06fd893fe8",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 3,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "shrine_gate_prop_atlas_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 09",
+      "priority": "P1",
+      "target_kind": "prop_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: prop atlas. Create separate side-view props: ability shrine inactive, ability shrine active, sealed gate locked, sealed gate open, talisman relay pillar, corruption purge stone, checkpoint lantern, ancient stone tablet. Style: hand-painted 2D metroidvania props, Northern and Southern Dynasties Chinese dark fantasy, Buddhist seal magic, aged stone, dark wood, moon-white paper, cyan spiritual glow, vermilion seals. Background: perfectly flat solid #00ff00 chroma-key. Constraints: no readable text, no modern machinery, no sci-fi door, no watermark.",
+      "prompt_sha256": "beeb57d6ae0a38e3cbac08abfbedcf4965c1bdc4d28df2bc5b20482fb9e07849",
+      "source_dir": "assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items",
+      "output_path": "assets/art/atlases/shrine_gate_prop_atlas_ai01.png",
+      "output_sha256": "da8051e50f4b2816ca9d02f358fb4537cc67e5cd54f14fb526b4bc0be75fc72e",
+      "candidate_count": 3,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/candidates/shrine_gate_prop_atlas_ai01_candidate_01.png",
+          "sha256": "53fdc2b780e8438b29d61926928e7bedeb04a182f2dbd6f1767df2205112ba3f",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/candidates/shrine_gate_prop_atlas_ai01_candidate_02.png",
+          "sha256": "d64dd9b2df52b5f5f628b66d7ecfa78b23d4d668de63989a737bbe81c15f811b",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/candidates/shrine_gate_prop_atlas_ai01_candidate_03.png",
+          "sha256": "039c22dd397904ed160e076970c36424e86c8d7c9fb249c6ae13c501eda0b7f1",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 24,
+      "selected_candidate_indices": [
+        1,
+        2
+      ],
+      "unselected_candidate_indices": [
+        3
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "equipment_pickup_atlas_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 09",
+      "priority": "P1",
+      "target_kind": "equipment_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: equipment and pickup atlas for Nano Hunter. Create separate side-view pickups and small equipment props: talisman charm, seal fragment, recovery charge shard, jade token, spirit lantern core, monk-thread bracelet, ritual blade charm, and purified miasma crystal. Style: hand-painted 2D metroidvania item art, Northern and Southern Dynasties Chinese dark fantasy, Buddhist talisman seal magic, moon-white paper, ink-teal outline, cyan-white spiritual glow, muted gold metal, vermilion seal accents. Background: perfectly flat solid #00ff00 chroma-key with generous padding. Constraints: no readable text, no letters, no modern tech item, no sci-fi battery, no watermark, readable at small pickup size, do not use #00ff00 in items.",
+      "prompt_sha256": "a6e416454002fc8e3de957c6b34b86e09440d1c8102c4c17314dbbbf9f72a3dc",
+      "source_dir": "assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items",
+      "output_path": "assets/art/atlases/equipment_pickup_atlas_ai01.png",
+      "output_sha256": "3fea49d8b1cd7f5a40c267f14918d5143a8ce40398a187d15388f4f1883942a5",
+      "candidate_count": 5,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/candidates/equipment_pickup_atlas_ai01_candidate_01.png",
+          "sha256": "9395d0ed9ad91d67b3d6554e7c12e1be06b29c8902e05b85dddceb50348d00c6",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/candidates/equipment_pickup_atlas_ai01_candidate_02.png",
+          "sha256": "09daf0e087aba500670d99749834fc03f2f9a63e581cc4dc1aca1f4a48e96777",
+          "width": 2048,
+          "height": 768,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/candidates/equipment_pickup_atlas_ai01_candidate_03.png",
+          "sha256": "780afdc35a18f878e3166d93689018681c5d597414fc4ea0f9307d6c2c5b14ef",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/candidates/equipment_pickup_atlas_ai01_candidate_04.png",
+          "sha256": "688d78fa554b4cb95c2062dae92067d200a8822a0799324fe2aa69f69aa825a1",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/candidates/equipment_pickup_atlas_ai01_candidate_05.png",
+          "sha256": "7f42c5991462b290b555436d5c17a36466af3cbb5e3a2839771e6ed4597afb93",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 24,
+      "selected_candidate_indices": [
+        1,
+        2
+      ],
+      "unselected_candidate_indices": [
+        3,
+        4,
+        5
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "vfx_seal_magic_atlas_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 10",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D VFX sequence sheet. Create VFX frames for seal magic: Air Dash trail, talisman relay pulse, corruption purge burst, boss warning pulse, hit spark, and slash arc. Style: ink-brush motion, cyan-white spiritual energy, vermilion seal sparks, dark miasma accents, crisp readable timing. Background: perfectly flat solid #00ff00 chroma-key. Composition: regular frame grid, fixed center point, generous padding. Constraints: VFX only, no text, no watermark, no sci-fi laser, no excessive particle noise.",
+      "prompt_sha256": "b4a257bf3f75a6cfc7e761fe5005c9790a8390e07fbe1c2ab654fddba64f848b",
+      "source_dir": "assets/source/ai_generated/batch_10/vfx_seal_magic_atlas_ai01/selected_frames",
+      "output_path": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.png",
+      "output_sha256": "aaeee2367d05c8634acc54fcbf513d28ea62c953aea5f319fabb5e2faf5818d3",
+      "candidate_count": 5,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_10/vfx_seal_magic_atlas_ai01/candidates/vfx_seal_magic_atlas_ai01_candidate_01.png",
+          "sha256": "af67a19e67f5dcf809f67626e6e74298b90624f1693605ffabd6ddc73f0168d5",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_10/vfx_seal_magic_atlas_ai01/candidates/vfx_seal_magic_atlas_ai01_candidate_02.png",
+          "sha256": "90f1c5ae68de23ca16b6df1cdc394179e529459f46d7d816ea3d93c2683e73b9",
+          "width": 1402,
+          "height": 1122,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_10/vfx_seal_magic_atlas_ai01/candidates/vfx_seal_magic_atlas_ai01_candidate_03.png",
+          "sha256": "0913e827ee3b62baf81ac5b3f8ca0a261f67d2deb5bf88cc06d222dbbd0e5a42",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_10/vfx_seal_magic_atlas_ai01/candidates/vfx_seal_magic_atlas_ai01_candidate_04.png",
+          "sha256": "da4d4cd66bdaa6ba2a1788215f994cd9ed276db0eb4cb68542c216eebf25294e",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_10/vfx_seal_magic_atlas_ai01/candidates/vfx_seal_magic_atlas_ai01_candidate_05.png",
+          "sha256": "325b7d600768db77a9337c3ba64bb91a474304124c521da6d01251b0e7ae3c06",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "vfx_combat_atlas_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 10",
+      "priority": "P1",
+      "target_kind": "vfx_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D combat VFX sequence sheet for Nano Hunter. Create separate frame groups for basic slash arc, enemy hit spark, boss impact burst, guard break flash, recovery charge pickup sparkle, and short warning pulse. Style: crisp metroidvania VFX, ink-brush motion, cyan-white spiritual energy, vermilion talisman sparks, dark miasma impact accents, readable timing and silhouettes at 640x360. Background: perfectly flat solid #00ff00 chroma-key. Composition: regular frame grid, fixed center point, generous padding, VFX only. Constraints: no readable text, no numbers, no watermark, no sci-fi laser, no modern warning icon, no excessive particle noise, do not use #00ff00 in the effects.",
+      "prompt_sha256": "c01dd0340ac00b655331c49fec4eb5f5161f5682cbea68687ffd3fcd74ad836f",
+      "source_dir": "assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames",
+      "output_path": "assets/art/vfx/atlases/vfx_combat_atlas_ai01.png",
+      "output_sha256": "5cda70e625c551085b2f7a587ea3ff3bdd6170eb6fe876ea0ea210c05b89d998",
+      "candidate_count": 5,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/candidates/vfx_combat_atlas_ai01_candidate_01.png",
+          "sha256": "96b224c475f10f4339804225012f96ef03068a0eba101c447305af013cc75163",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/candidates/vfx_combat_atlas_ai01_candidate_02.png",
+          "sha256": "140c59b072e6a456371ce3cb790de62144922b7914ddc549fd0ecda95da924d2",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/candidates/vfx_combat_atlas_ai01_candidate_03.png",
+          "sha256": "f7f2afedc32dc9e791bb401147a1e94a3d52d08bb8f3f2b3f3893a27afbcb49e",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/candidates/vfx_combat_atlas_ai01_candidate_04.png",
+          "sha256": "7512c148e8e80938086f221b4b51af0ce513819ff558634d6068c024e212ef25",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/candidates/vfx_combat_atlas_ai01_candidate_05.png",
+          "sha256": "3633cec2e9be45059de14c68f89b56587ad37e9dd8fc0ee8828b33f3874e61f4",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 32,
+      "selected_candidate_indices": [
+        1,
+        2,
+        3
+      ],
+      "unselected_candidate_indices": [
+        4,
+        5
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "luna_spine_parts_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 11",
+      "priority": "P1",
+      "target_kind": "spine_cutout_parts",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D character cutout parts sheet for future Spine-style rigging. Create separated parts for Luna: head, hair front, hair back, torso, upper arms, forearms, hands, thighs, calves, feet, sash, talisman papers, weapon or charm. All parts must match the same character design and palette. Background: perfectly flat solid #00ff00 chroma-key. Composition: parts arranged separately in a grid, no overlap, no labels. Constraints: no assembled full animation, no readable text, no watermark, no costume drift, do not use #00ff00 in parts.",
+      "prompt_sha256": "a9d4d0ba4d6c9c816d774c206e8b0a5a1d4a6216fa1f275b768e54e99320e3f3",
+      "source_dir": "assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts",
+      "output_path": "assets/art/spine_parts/luna_spine_parts_ai01.png",
+      "output_sha256": "57e16ccd7830ef8ed53f8cb7f2fba7d101d0623cd15585593c5aaf4b538e02d7",
+      "candidate_count": 3,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_11/luna_spine_parts_ai01/candidates/luna_spine_parts_ai01_candidate_01.png",
+          "sha256": "86d1482ac7251c1ae32206fdd0056d6b863f63c46edd57fe37f85ee2a8f6fe01",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_11/luna_spine_parts_ai01/candidates/luna_spine_parts_ai01_candidate_02.png",
+          "sha256": "3745f4b909c6cafa7c8efbcbb065a1632dd9bf49d8ffe654b5a081687c32cbbb",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_11/luna_spine_parts_ai01/candidates/luna_spine_parts_ai01_candidate_03.png",
+          "sha256": "d13b66d0a26a124aa0aa970247b1cc2fe07d9f7cfce7972713e566480c7c11ca",
+          "width": 1024,
+          "height": 1536,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 24,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1,
+        2,
+        3
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "seal_guardian_spine_parts_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 11",
+      "priority": "P2",
+      "target_kind": "spine_cutout_parts",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D boss cutout parts sheet for future Spine-style rigging in Nano Hunter. Create separated parts for the Seal Guardian: beast-mask head, stone torso core, left and right shoulders, upper arms, forearms, claw hands, seal chains, talisman locks, back armor plates, legs or base stones, cyan-white seal core, and miasma crack fragments. Style: ancient stone beast guardian, Buddhist seal chains, Shanhaijing-inspired silhouette, Chinese dark fantasy, muted gold trim, vermilion locks, cyan spiritual glow. Background: perfectly flat solid #00ff00 chroma-key. Composition: parts arranged separately in a tidy grid, no overlap, no labels, no assembled full animation. Constraints: no readable text, no watermark, no sci-fi armor, no modern biotech, no gore, do not use #00ff00 in parts.",
+      "prompt_sha256": "26452202842cc5d45da3fe86b3217302b53489de207b8d3ce3ed0fefed0f9fa7",
+      "source_dir": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts",
+      "output_path": "assets/art/spine_parts/seal_guardian_spine_parts_ai01.png",
+      "output_sha256": "88c3912d05aa2f0b2cf02a21baa83ffdb5da428fef0b17e5ad559e1dd1d7900c",
+      "candidate_count": 8,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_01.png",
+          "sha256": "c1d3622c8fca5bfa2408efcb52ad154c14bcec14c308e88cb367140d3368054c",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_02.png",
+          "sha256": "715b5314fb5f2f46992092154fd482dd8d4293dbd2aa74378ea7c63261dd7845",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_03.png",
+          "sha256": "5c936b5ee1b07242a9cd1395ad6722e91c4003e83f2fa00d18f39b76a2b53ca5",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_04.png",
+          "sha256": "31fd325d00e795b20b824783b3051d1de30015ce9ebc3437283e20224320c351",
+          "width": 1024,
+          "height": 1536,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_05.png",
+          "sha256": "30c5b10674c65e42c2ca6b23524eaa40abf9160f99cddb5253ff2afeeda5d80a",
+          "width": 1024,
+          "height": 1536,
+          "mode": "RGB"
+        },
+        {
+          "index": 6,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_06.png",
+          "sha256": "abaacbd66d86ab63ba29544243169dbe66dba87e65d283295bab64fd140f6811",
+          "width": 1024,
+          "height": 1536,
+          "mode": "RGB"
+        },
+        {
+          "index": 7,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_07.png",
+          "sha256": "9eeb181e295caea9dc92cd7858ffcf1484046fa4a96bfaaf2a05b871277dafc0",
+          "width": 1024,
+          "height": 1536,
+          "mode": "RGB"
+        },
+        {
+          "index": 8,
+          "path": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/candidates/seal_guardian_spine_parts_ai01_candidate_08.png",
+          "sha256": "b0e0a633b83c6db2dda34a918a24c95796eb6722f41253a419eba7d96eb6a131",
+          "width": 1024,
+          "height": 1536,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 24,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "promo_key_art_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 12",
+      "priority": "P2",
+      "target_kind": "promo_key_art",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: promotional key art concept. Create a cinematic 16:9 key art for Nano Hunter: Luna stands in a ruined shrine gate facing a looming Seal Guardian silhouette in a miasma marsh, Buddhist talisman seals floating between them, cyan-white spiritual glow cutting through ink-dark fog. Style: polished 2D illustration, ink wash atmosphere, gongbi detail accents, soft Ori-like glow. Composition: leave safe title space at top, no final title text. Constraints: no watermark, no modern objects, no sci-fi, no biotech lab, no readable text.",
+      "prompt_sha256": "1d1b557b47daa31ce40fadeb26295b97070d333b41b8a5ecd6971708094d5cfc",
+      "source_dir": "assets/source/ai_generated/batch_12/promo_key_art_sheet_ai01/selected_items",
+      "output_path": "assets/art/promo/promo_key_art_sheet_ai01.png",
+      "output_sha256": "33e62c7710c16e540e9b88347a087881c2858938449121bf802273d30f590cee",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_12/promo_key_art_sheet_ai01/candidates/promo_key_art_sheet_ai01_candidate_01.png",
+          "sha256": "e5b57bf8dd57c30dffc42b6afe8c9fbc7bc6988772af0b861de0fbdebf102a95",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 6,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "nano_hunter_logo_direction_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 12",
+      "priority": "P2",
+      "target_kind": "logo_direction",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: logo-brand. Asset type: logo direction concept, not final production typography. Create a title-mark direction for Nano Hunter using talisman seal geometry, ink-brush strokes, muted gold and vermilion accents, and ancient Chinese dark fantasy mood. Include an abstract emblem option and a rough wordmark direction; text accuracy is not final and will be manually cleaned later. Constraints: no modern sci-fi logo, no cyberpunk, no watermark, no clutter, readable silhouette, no fake studio marks.",
+      "prompt_sha256": "7485f232e02319a1a42aa20fb038ebc086f5596d850b40b755a21d35c286f3a9",
+      "source_dir": "assets/source/ai_generated/batch_12/nano_hunter_logo_direction_ai01/candidates",
+      "output_path": "assets/art/promo/nano_hunter_logo_direction_ai01.png",
+      "output_sha256": "1edf7c8feac01aec276f77a1d02ccae3b1534176648fa97838024100954e5c4f",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_12/nano_hunter_logo_direction_ai01/candidates/nano_hunter_logo_direction_ai01_candidate_01.png",
+          "sha256": "1edf7c8feac01aec276f77a1d02ccae3b1534176648fa97838024100954e5c4f",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "capsule_art_alpha_demo_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 12",
+      "priority": "P2",
+      "target_kind": "promo_capsule",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: promotional capsule art concept for Nano Hunter Alpha Demo. Create a wide capsule composition with Luna in the foreground, ruined shrine gate and miasma marsh behind her, Seal Guardian silhouette in the distance, cyan-white talisman glow cutting through ink fog, and clear empty safe space for a manually placed title. Style: polished 2D Chinese dark fantasy illustration, ink wash atmosphere, gongbi detail accents, soft Ori-like glow. Composition: wide marketing crop, strong silhouette, title-safe negative space, no final text baked in. Constraints: no readable text, no logo, no watermark, no modern objects, no sci-fi, no biotech lab, no fake store badges.",
+      "prompt_sha256": "8eb0da23097818864eeea808610b5d8a81a05edc6d0a4bc9af3fca7d610f1b45",
+      "source_dir": "assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items",
+      "output_path": "assets/art/promo/capsule_art_alpha_demo_ai01.png",
+      "output_sha256": "f35ff39d9b29577feded93f82ef19f7dc8225e4bcba128c065f156d98f8c8609",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/candidates/capsule_art_alpha_demo_ai01_candidate_01.png",
+          "sha256": "20ba85559ad3251a4dc817da628dad214591380f98895482da2a21266f0cfa09",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 6,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "cg_seal_guardian_reveal_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 12",
+      "priority": "P2",
+      "target_kind": "cg_illustration",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: illustration-story. Asset type: narrative CG illustration for Nano Hunter. Create a cinematic still of the Seal Guardian reveal: Luna stands small before a massive ancient stone guardian emerging from broken seal chains inside a ruined shrine chamber, cyan-white Buddhist talisman light exposing dark miasma cracks and vermilion locks. Style: polished 2D Chinese dark fantasy CG, ink wash fog, gongbi detail accents, dramatic metroidvania boss reveal. Composition: 16:9, strong depth, readable Luna silhouette, guardian dominates the frame, no title space required. Constraints: no readable text, no speech balloons, no watermark, no modern lab, no sci-fi armor, no gore, no UI frame.",
+      "prompt_sha256": "9208f3e7547639deb1ac100e81096d4434c1698cdd0afb53bb82f2c283f38b0b",
+      "source_dir": "assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items",
+      "output_path": "assets/art/promo/cg_seal_guardian_reveal_ai01.png",
+      "output_sha256": "1b8f710e108263a2f608923ea10f3e2eea4ee32eca602ae979dfa42f024649cc",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/candidates/cg_seal_guardian_reveal_ai01_candidate_01.png",
+          "sha256": "05d947f6bc14ca0241877e8aadbd72e2ffd12d3aac2fefc2f7dbfbaae4376806",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 6,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "storyboard_narrative_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 13",
+      "priority": "P2",
+      "target_kind": "storyboard_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: illustration-story. Asset type: narrative storyboard sheet. Create a 6-panel storyboard for Luna accepting a demon-suppression bounty, entering shrine ruins, discovering miasma corruption, triggering a talisman gate, confronting the Seal Guardian, and purging the seal chain. Style: rough but polished ink-wash storyboard thumbnails with gongbi accents and cyan-white spiritual glow. Composition: six clean panels in a grid, clear camera staging, no dialogue. Constraints: no readable text, no speech balloons, no watermark, no modern objects, no sci-fi.",
+      "prompt_sha256": "a881532f01c9de5c6a7873e78d77ec8dbfdc2b9d7df70ac2cbb8c3d66873511c",
+      "source_dir": "assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels",
+      "output_path": "assets/art/storyboards/storyboard_narrative_sheet_ai01.png",
+      "output_sha256": "b0d1cd7395df7e1629db014b6cb4dc8cc62d9e8437eb0c7325884f57211fa958",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/candidates/storyboard_narrative_sheet_ai01_candidate_01.png",
+          "sha256": "69b4c24f6f2ff16996e48f236170fd996aadf779a3084dbf2e08e0a1aace80cd",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "storyboard_intro_bounty_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 13",
+      "priority": "P2",
+      "target_kind": "storyboard_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: illustration-story. Asset type: intro bounty storyboard sheet for Nano Hunter. Create a 6-panel storyboard showing Luna receiving a demon-suppression bounty from the demon-suppressing bureau, inspecting a talisman warrant, preparing her charm weapon, leaving a rain-dark town gate, crossing into shrine ruins, and noticing the first miasma glow. Style: rough but polished ink-wash storyboard thumbnails, Northern and Southern Dynasties Chinese dark fantasy, Buddhist talisman seal motifs, cyan-white spiritual glow, vermilion accents. Composition: six clean panels in a grid, clear cinematic staging, no dialogue balloons, no captions, no labels. Constraints: no readable text, no watermark, no modern city, no sci-fi, no biotech lab.",
+      "prompt_sha256": "e94eb8d83ad716b967140702712ce42677c56eb9226796570c69c49cfa415f3d",
+      "source_dir": "assets/source/ai_generated/batch_13/storyboard_intro_bounty_ai01/selected_panels",
+      "output_path": "assets/art/storyboards/storyboard_intro_bounty_ai01.png",
+      "output_sha256": "6a84b46288834efa2a7b19bca375166d4f15bb990c12bacb78686ee76c607961",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_13/storyboard_intro_bounty_ai01/candidates/storyboard_intro_bounty_ai01_candidate_01.png",
+          "sha256": "ddaae5e6b61cfcace8ab07359d98ee6f3db7f638ee0c9eaa2027f420ec8de427",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "storyboard_miasma_marsh_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 13",
+      "priority": "P2",
+      "target_kind": "storyboard_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: illustration-story. Asset type: miasma marsh storyboard sheet for Nano Hunter. Create a 6-panel storyboard showing Luna entering the miasma marsh, reading corrupted water as a hazard, discovering broken Buddhist seal stones, activating a talisman relay pillar, seeing miasma lift from a shrine gate, and revealing a safe path forward. Style: rough but polished ink-wash storyboard thumbnails, Chinese dark fantasy metroidvania, Shanhaijing miasma mood, cyan-white seal glow, muted jade marsh and vermilion talisman sparks. Composition: six clean panels in a grid, clear camera staging and gameplay readability, no dialogue balloons, no captions, no labels. Constraints: no readable text, no watermark, no modern objects, no sci-fi panels, no biotech lab.",
+      "prompt_sha256": "9c3c14809de53c3ebf22cf5cf9835c5675e38c4eceaaf36848457df8b9a3fb60",
+      "source_dir": "assets/source/ai_generated/batch_13/storyboard_miasma_marsh_ai01/selected_panels",
+      "output_path": "assets/art/storyboards/storyboard_miasma_marsh_ai01.png",
+      "output_sha256": "9075201e3e5054802a8af2e63fcac8399ec8e800c10a68df112aafc0c45dd461",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_13/storyboard_miasma_marsh_ai01/candidates/storyboard_miasma_marsh_ai01_candidate_01.png",
+          "sha256": "3200c9bf0af42d8a6957c17cef783811158403bc84a8bc9ccc7df0873e0f3e9b",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 12,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_title_background_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 02",
+      "priority": "P1",
+      "target_kind": "title_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Alpha Demo title background for Nano Hunter. Create a 16:9 menu background showing a ruined shrine gate at the edge of a miasma marsh, moonlit water, broken Buddhist seal chains, cyan-white talisman glow, vermilion seal paper accents, and distant Seal Guardian silhouette implied in fog. Style: polished 2D Chinese dark fantasy metroidvania background, ink wash atmosphere, gongbi detail accents, soft Ori-like glow. Composition: leave calm negative space in the upper center and lower center for manually placed UI; no title text, no menu buttons baked in. Constraints: no readable text, no logo, no watermark, no modern objects, no sci-fi, no biotech lab, background must not be too busy.",
+      "prompt_sha256": "a4a059a8011b581aa5c49c6d760e8f152d69fc9e9d8771275a50e81788d5cca3",
+      "source_dir": "assets/source/ai_generated/batch_02/stage16_title_background_ai01/candidates",
+      "output_path": "assets/art/ui/stage16_title_background_ai01.png",
+      "output_sha256": "1b08779f7e840e7879ec36729d96db990102c072192adce181f03c1316377572",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_02/stage16_title_background_ai01/candidates/stage16_title_background_ai01_candidate_01.png",
+          "sha256": "1b08779f7e840e7879ec36729d96db990102c072192adce181f03c1316377572",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_demo_menu_icons_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 02",
+      "priority": "P0",
+      "target_kind": "icon_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Alpha Demo menu icon sheet. Create one clean 2x3 icon sheet with exactly six separate menu icons: pause, continue/play, restart, completion/seal-finished, back arrow, and locked/disabled. Use Buddhist talisman geometry, dark jade enamel, aged bronze-gold trim, pale cyan spirit glow, moon-white parchment accents, and vermilion tassel accents only when useful. Background: perfectly flat solid #ff00ff chroma-key. Composition: strict 2 rows by 3 columns, generous padding, equal spacing, no labels, no letters, no numbers, readable at 48px and 64px. Constraints: no pseudo-text, no signatures, no stamps that look like readable characters, no modern app styling, no sci-fi UI, no watermark, do not use #ff00ff inside icons.",
+      "prompt_sha256": "4a3221401627b1a7990765d8f3f1b323750ec339766e9b55cbdb522cb2a299e1",
+      "source_dir": "assets/source/ai_generated/batch_02/stage16_demo_menu_icons_ai01/candidates",
+      "output_path": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "output_sha256": "b269e8cbb6fde3ceb7a07d6d406b44b7020ef6d4b0f6b551d9fa2103303d2b3f",
+      "candidate_count": 4,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_02/stage16_demo_menu_icons_ai01/candidates/stage16_demo_menu_icons_ai01_candidate_01.png",
+          "sha256": "adfa52150fbaa6048718ff6c43a3503f9bce84efa9b51b7d96ec7081c1429395",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_02/stage16_demo_menu_icons_ai01/candidates/stage16_demo_menu_icons_ai01_candidate_02.png",
+          "sha256": "08d873c2da5fbfcc0f5d3d0d50752792f5795ab510fec5ab40ce45ca3fe51789",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_02/stage16_demo_menu_icons_ai01/candidates/stage16_demo_menu_icons_ai01_candidate_03.png",
+          "sha256": "165727d9ae3aa6ff762851f0e4dd3d5ad1ce617110fb7465e6f76af505b1a76c",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_02/stage16_demo_menu_icons_ai01/candidates/stage16_demo_menu_icons_ai01_candidate_04.png",
+          "sha256": "d18c7f5260d657584c84b64c978875db62bc3a6046038dcca731a9bb1094c55d",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        4
+      ],
+      "unselected_candidate_indices": [
+        1,
+        2,
+        3
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_seal_release_threshold_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 02",
+      "priority": "P0",
+      "target_kind": "prop",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: final seal release threshold prop. Create a side-view prop sheet for the Stage16 final seal threshold: cracked stone seal pillar, locked ward chains, partially released state, fully purified state, cyan-white Buddhist seal core, vermilion paper locks, muted gold bronze rings, and dark miasma cracks. Background: perfectly flat solid #00ff00 chroma-key. Style: hand-painted 2D metroidvania prop, Northern and Southern Dynasties Chinese dark fantasy. Constraints: no readable text, no modern machinery, no sci-fi gate, no watermark, clear inactive / active / complete state language, do not use #00ff00 in props.",
+      "prompt_sha256": "d9dd89995ba7ce7dfdf5dacdb5ab48d39838c51cb8b552492b569b527a9feb0d",
+      "source_dir": "assets/source/ai_generated/batch_02/stage16_seal_release_threshold_ai01/candidates",
+      "output_path": "assets/art/props/stage16_seal_release_threshold_ai01.png",
+      "output_sha256": "a219575515d7bb48a9764df02e38a94fdaa908055ae1e5e54711385ac0fa91af",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_02/stage16_seal_release_threshold_ai01/candidates/stage16_seal_release_threshold_ai01_candidate_01.png",
+          "sha256": "03a87b7866fd194d19410ad07430135d62c803de9e0a0256e39daaaefe847dcd",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_02/stage16_seal_release_threshold_ai01/candidates/stage16_seal_release_threshold_ai01_candidate_02.png",
+          "sha256": "dc830760b49720f58c7be87b97159e9f3d69c392b71a6f7a2d86626962994931",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_talisman_relay_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 02",
+      "priority": "P0",
+      "target_kind": "vfx_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: talisman relay VFX sheet. Create a compact sequence sheet for a talisman relay activation: dormant seal circle, cyan-white pulse, vermilion talisman sparks, ink-brush light path, relay confirmation burst, and fading purified motes. Background: perfectly flat solid #00ff00 chroma-key. Style: crisp 2D metroidvania VFX, Buddhist seal magic, readable at 640x360. Composition: regular frame groups, fixed center point, VFX only, no labels. Constraints: no readable text, no numbers, no sci-fi hologram, no modern warning signs, no watermark, do not use #00ff00 in effects.",
+      "prompt_sha256": "6f189c36b8f26f7d21b817865be54193e8f426cef65c5e7982202e422339034f",
+      "source_dir": "assets/source/ai_generated/batch_02/stage16_talisman_relay_ai01/candidates",
+      "output_path": "assets/art/vfx/stage16_talisman_relay_ai01.png",
+      "output_sha256": "2aa3c95a97ceca7346e2b1f094555e75e8e2143f7dddf018bbb7f666b13d984a",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_02/stage16_talisman_relay_ai01/candidates/stage16_talisman_relay_ai01_candidate_01.png",
+          "sha256": "76b3c55c2c07b0bd8d3f76e4d8fef031b54da98e92d7c79bfb43d47bb87e2876",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_02/stage16_talisman_relay_ai01/candidates/stage16_talisman_relay_ai01_candidate_02.png",
+          "sha256": "cdec101e9d8721a0789732fe6ac76be155aab3079bee2e2660584e9a7ab90447",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_corruption_purge_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 02",
+      "priority": "P1",
+      "target_kind": "vfx_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Nano Hunter Stage16 corruption purge VFX sheet. Create one clean 3x2 sprite/VFX sheet with six equal cells: 1 dark miasma curl, 2 cyan-white Buddhist seal ignition, 3 vermilion talisman ring forming, 4 black-green corruption cracking apart, 5 bright lotus-seal purification burst, 6 fading moon-white motes and clean afterglow. Background: perfectly flat solid #00ff00 chroma-key. Style: crisp 2D hand-painted game VFX, Southern and Northern Dynasties eastern fantasy, Buddhist talisman magic, Shanhai-jing mystic mood, matching Nano Hunter cyan-white seal light, ink-brush smoke, black miasma, vermilion paper talisman, lotus/seal motifs. Composition: exactly 3 columns by 2 rows, equal cell size, six separate frames, clear gutters, fixed center point in every cell, landscape sheet layout, readable at small in-game size. Constraints: no text, no numbers, no labels, no watermark, no sci-fi hologram, no modern lab liquid, no gore, do not use #00ff00 in the effects.",
+      "prompt_sha256": "d698b0cc153b4e476b34f9886cb637cd8c7f9d4d837d99d14e394012645a65b5",
+      "source_dir": "assets/source/ai_generated/batch_02/stage16_corruption_purge_ai01/candidates",
+      "output_path": "assets/art/vfx/stage16_corruption_purge_ai01.png",
+      "output_sha256": "781c0dfe2a6911f32ee562297ae245ad9618cfb57e6ec6cd7b3a9081287627c8",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_02/stage16_corruption_purge_ai01/candidates/stage16_corruption_purge_ai01_candidate_01.png",
+          "sha256": "da93fc5626193e9537429f4f916a7f6826a1efb815c12b82e9d9e8b7ee569afe",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_02/stage16_corruption_purge_ai01/candidates/stage16_corruption_purge_ai01_candidate_02.png",
+          "sha256": "57b19acfb8a2d43a14fd487ac6f15399f7c5a3cdb04902e049998effdb4984e3",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_alpha_demo_completion_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 02",
+      "priority": "P0",
+      "target_kind": "completion_ui",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Alpha Demo completion UI emblem. Create a completion glyph and small UI panel source: purified Buddhist seal circle, broken miasma chain, moon-white talisman paper, cyan-white completion glow, vermilion stamp accent, muted gold frame. Background: perfectly flat solid #00ff00 chroma-key. Style: crisp 2D game UI for Chinese dark fantasy metroidvania. Composition: centered emblem plus simple panel shape, no final text baked in, no labels. Constraints: no readable text, no letters, no numbers, no modern achievement badge, no watermark, readable at HUD scale, do not use #00ff00 in the emblem.",
+      "prompt_sha256": "e086957cb9e201ca1a5b768200f5e1b66a2c39cc4b28e12cdf3730b258e9b6c0",
+      "source_dir": "assets/source/ai_generated/batch_02/stage16_alpha_demo_completion_ai01/candidates",
+      "output_path": "assets/art/ui/stage16_alpha_demo_completion_ai01.png",
+      "output_sha256": "fea498e3f71e706951caae4f045d6b2135ab58afb46691dc7f26cc52cbdd976c",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_02/stage16_alpha_demo_completion_ai01/candidates/stage16_alpha_demo_completion_ai01_candidate_01.png",
+          "sha256": "a572388d169487512ed3460f6f3b531cd29b67ee3a4aae3192d526ce78416f4a",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_02/stage16_alpha_demo_completion_ai01/candidates/stage16_alpha_demo_completion_ai01_candidate_02.png",
+          "sha256": "ef5f1592e1dbaa329388ae13d4c7fe9f860ac1cea5fe82d045a4f7b35672be80",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "biome01_shrine_trial_tiles_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P1",
+      "target_kind": "environment_tiles",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: shrine trial environment tile source sheet. Create modular 2D metroidvania tiles for Nano Hunter biome 01: ancient shrine floor, platform edge, wall block, inner corner, outer corner, cracked stair stone, carved Buddhist seal floor, mossy roof trim, hanging talisman strip, and broken stone ornament. Style: Northern and Southern Dynasties Chinese dark fantasy, hand-painted ink wash stone, gongbi line accents, moon-white and ink-teal lighting, restrained vermilion seal marks. Background: clean tile sheet layout on perfectly flat solid #00ff00 chroma-key. Constraints: no readable text, no watermark, no modern lab shapes, no sci-fi panels, collision edges must read clearly, safe ground and decorative trim must be easy to separate, do not use #00ff00 in tiles.",
+      "prompt_sha256": "81826b97956a38bce48f4ae8c58518d64cb316180d76c09b45e74562d607f3a0",
+      "source_dir": "assets/source/ai_generated/batch_03/biome01_shrine_trial_tiles_ai01/candidates",
+      "output_path": "assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_tiles_ai01.png",
+      "output_sha256": "4cb5b1d9453fdafc67b57d058cefdd13b55eb3d1dd129c3f7eadab15bdc985c8",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/biome01_shrine_trial_tiles_ai01/candidates/biome01_shrine_trial_tiles_ai01_candidate_01.png",
+          "sha256": "303f761c82db0d149ba8a8b2544670c4a7921a9951675b934474892d81a6ec87",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "biome01_shrine_trial_background_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P2",
+      "target_kind": "environment_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D parallax background concept for Nano Hunter biome 01 shrine trial. Create a 16:9 layered background showing an ancient mountain shrine gate, broken roof silhouettes, hanging talisman papers, distant stone lanterns, misty forest cliffs, and subtle cyan-white Buddhist seal glow. Style: Chinese dark fantasy metroidvania, ink wash atmosphere, gongbi accents, soft Ori-like glow. Composition: background only, no playable characters, no foreground platforms blocking the center, clear depth layers for future parallax, low contrast behind gameplay lanes. Constraints: no readable text, no watermark, no modern buildings, no sci-fi, no biotech lab, background must not overpower player and enemies.",
+      "prompt_sha256": "c862973b956ab2a81099ba1084a9bdd554e38806fb060723179e8eb40a7c8f15",
+      "source_dir": "assets/source/ai_generated/batch_03/biome01_shrine_trial_background_ai01/candidates",
+      "output_path": "assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png",
+      "output_sha256": "5640ae6ede439a0a2c15b82e2944810b259376410f4fcfc0ebf076e72661cdac",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/biome01_shrine_trial_background_ai01/candidates/biome01_shrine_trial_background_ai01_candidate_01.png",
+          "sha256": "5640ae6ede439a0a2c15b82e2944810b259376410f4fcfc0ebf076e72661cdac",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "biome02_miasma_marsh_tiles_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P1",
+      "target_kind": "environment_tiles",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: miasma marsh environment tile source sheet. Create modular 2D metroidvania tiles for Nano Hunter biome 02: safe muddy ground, root-covered platform edge, marsh wall, inner corner, outer corner, corrupted water hazard edge, broken Buddhist seal stones, hanging roots, miasma bubbles, and small shrine fragments. Style: Shanhaijing miasma marsh, Chinese dark fantasy, ink wash surfaces, gongbi line accents, muted jade green and dark purple miasma, cyan-white seal glow, vermilion talisman sparks. Background: clean tile sheet layout on perfectly flat solid #00ff00 chroma-key. Constraints: no readable text, no watermark, no modern lab shapes, no sci-fi panels, safe ground and hazard water must be visually distinct, do not use #00ff00 in tiles.",
+      "prompt_sha256": "d4de841db38a004488f50e46e84241751d457826fb629f7e3e5e584dbf5e1439",
+      "source_dir": "assets/source/ai_generated/batch_03/biome02_miasma_marsh_tiles_ai01/candidates",
+      "output_path": "assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png",
+      "output_sha256": "f22bc42cea032b9b83c6f7bb19723b73f3f8997402dc13be1697c6534245132d",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/biome02_miasma_marsh_tiles_ai01/candidates/biome02_miasma_marsh_tiles_ai01_candidate_01.png",
+          "sha256": "bb3183b6fa45e9dd759aaddb9c00f34c091b2472bcfd0da0b3f0c19df7b93664",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "biome02_miasma_marsh_background_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P2",
+      "target_kind": "environment_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: 2D parallax background concept for Nano Hunter biome 02 miasma marsh. Create a 16:9 layered background showing a flooded demon-seal marsh, dead twisted trees, broken Buddhist seal stones, misty water channels, distant ruined shrine silhouettes, dark miasma fog, and cyan-white purification glow cutting through the swamp. Style: Chinese dark fantasy metroidvania, Shanhaijing mood, ink wash atmosphere, gongbi accents, soft Ori-like glow. Composition: background only, no player, no UI, low contrast center lanes for gameplay readability, clear near/mid/far depth layers. Constraints: no readable text, no watermark, no modern laboratory, no biotech tanks, no sci-fi panels, no gore.",
+      "prompt_sha256": "cdc4c291b238a9f47652153d676d3764f538799fef9ac586a6c2da849bbdb5c3",
+      "source_dir": "assets/source/ai_generated/batch_03/biome02_miasma_marsh_background_ai01/candidates",
+      "output_path": "assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png",
+      "output_sha256": "12cbb67ed0199c56b58f346194a78814659d30adfa4328bbdd25093b8f86bad9",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/biome02_miasma_marsh_background_ai01/candidates/biome02_miasma_marsh_background_ai01_candidate_01.png",
+          "sha256": "12cbb67ed0199c56b58f346194a78814659d30adfa4328bbdd25093b8f86bad9",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "reusable_seal_props_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P1",
+      "target_kind": "prop_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: reusable seal prop sheet for Nano Hunter environments. Create separate side-view props: stone lantern, talisman stake, broken shrine plaque, seal-chain anchor, small Buddhist ward ring, cracked stone tablet, miasma-sealed urn, and purified seal shard. Style: hand-painted 2D metroidvania props, Northern and Southern Dynasties Chinese dark fantasy, aged stone, dark wood, muted bronze, moon-white talisman paper, cyan-white seal glow, vermilion seal accents. Background: perfectly flat solid #00ff00 chroma-key with generous padding. Constraints: no readable text, no modern objects, no sci-fi machinery, no watermark, props readable at small in-room size, do not use #00ff00 in props.",
+      "prompt_sha256": "2d27d309462d481dbe1433c8edebcf145081b5d0e24dbcfee7d892cac96d0404",
+      "source_dir": "assets/source/ai_generated/batch_03/reusable_seal_props_ai01/candidates",
+      "output_path": "assets/art/props/reusable_seal_props_ai01.png",
+      "output_sha256": "f275fa9da85ab89f2925dedfdcd5bd6add35345cb9088e065c6101177043beb7",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/reusable_seal_props_ai01/candidates/reusable_seal_props_ai01_candidate_01.png",
+          "sha256": "9233dfe78b8126ea2e557d0085cacf1753e704559c6e7b867a2ef9a996ac9036",
+          "width": 1774,
+          "height": 887,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "luna_jump_fall_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: technical 2D animation sprite source sheet for Nano Hunter, target asset luna_jump_fall_sheet_ai01 candidate 06. Primary request: Create exactly 24 separate full-body animation poses for Luna, the player protagonist, showing a complete jump, airborne, fall, and landing sequence. Arrange the poses as a strict 6 columns by 4 rows grid. The output must contain twenty-four distinct Luna sprites, no fewer and no extra. Subject: Luna, a young Nanbei dynasty demon-suppressing bounty hunter with long black hair, moon-white layered robe, ink-teal sash and cloth streamers, small vermilion Buddhist talisman papers, subtle cyan-white seal magic glow. Keep identical costume, body proportions, face shape, hair mass, robe colors, and side-view silhouette in all 24 poses. Scene/backdrop: perfectly flat solid #00ff00 chroma-key background for background removal. No floor, no shadow, no scenery. Style/medium: hand-painted 2D metroidvania animation source sheet, ink wash and gongbi-inspired accents, soft Ori-like glow, readable gameplay silhouette, not pixel art, not 3D. Composition/framing: strict 6x4 technical sprite sheet. Each Luna pose must sit alone in its own invisible cell with generous green empty space around it. Keep all talisman papers, hair trails, robe trails, and cyan glow attached to the same pose and inside that pose's cell. Do not let any VFX, paper charm, hair strand, robe cloth, weapon trail, or body part cross into another cell. Stable scale and consistent side-view camera across all cells. Motion sequence: row 1 frames 1-6 crouch anticipation, compression, takeoff, early rising, rising tuck, rising extended. Row 2 frames 7-12 rising arc, high jump tuck, apex float, apex hold, transition into fall, start descending. Row 3 frames 13-18 fall extended, fall tuck, fast downward fall, prepare landing, low landing approach, landing contact. Row 4 frames 19-24 deep landing crouch, hand-near-ground recovery, rebound, stand recovery, settle, ready stance. Every frame must be meaningfully different and ordered left to right, top to bottom. Color palette: moon white robes, ink teal fabric, cyan-white spiritual glow, tiny vermilion talisman accents. Do not use #00ff00 anywhere in Luna, talismans, or VFX. Constraints: Luna only, one full-body Luna sprite per cell, no enemies, no props except her own talisman papers, no background scene, no cast shadow, no floor plane, no text, no numbers, no labels, no watermark, no logo, no frame borders, no duplicated pose, no mirrored duplicate, no idle-pose repeats, no detached fragments between cells. Avoid: photorealistic, 3D render, chibi, front-facing portrait, modern lab, sci-fi armor, cyberpunk, excessive tiny detail, blurry edges, unreadable silhouette, overlapping frames, cropped body parts, huge VFX arcs crossing cell boundaries.",
+      "prompt_sha256": "ed7163d750fddef695bbafa95a901d952629c9c2bae856c5280c123533975b6f",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png",
+      "output_sha256": "5a23b9a5527e1146df1f45154be4adfe4bdc5d3197ce2ce8812af3662793603b",
+      "candidate_count": 6,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/candidates/luna_jump_fall_sheet_ai01_candidate_01.png",
+          "sha256": "d223db5aa44b723f79dcfcf96952862a7fe1a9c4c178f6bf64f5fc74e1aaeb65",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/candidates/luna_jump_fall_sheet_ai01_candidate_02.png",
+          "sha256": "89c99934974e2c854831855498e9d469d7ff30863171e6adad85dd8719678bd6",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/candidates/luna_jump_fall_sheet_ai01_candidate_03.png",
+          "sha256": "3c77f411fbebbf3ef86346b186d01ee285841f116f7172cce17e12574b2de317",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/candidates/luna_jump_fall_sheet_ai01_candidate_04.png",
+          "sha256": "ada41084f631eba2e3cc9cabedd67534b46cc4f016494ee9887467a2668e555f",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/candidates/luna_jump_fall_sheet_ai01_candidate_05.png",
+          "sha256": "f062ed1c171258556146ef6d1798c2e61bd402d8a63a139d511a528e7088ce3e",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 6,
+          "path": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/candidates/luna_jump_fall_sheet_ai01_candidate_06.png",
+          "sha256": "356efa567c64343497309132c817b7c4aec08d5ba4754cfb9fde264e2448e928",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 16,
+      "selected_candidate_indices": [
+        4
+      ],
+      "unselected_candidate_indices": [
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "luna_hit_death_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: technical 2D player animation sprite source sheet for Nano Hunter, target asset luna_hit_death_sheet_ai01 candidate 04. Primary request: Create exactly 24 separate full-body animation poses for Luna, the player protagonist, showing one coherent right-facing side-view hit reaction, heavy stagger, collapse, and clean non-gory defeat sequence. Arrange the poses as a strict 8 columns by 3 rows grid. The output must contain twenty-four distinct Luna sprites, no fewer and no extra. Subject: Luna, a young Nanbei dynasty demon-suppressing bounty hunter with long black hair, moon-white layered robe, ink-teal sash and cloth streamers, small vermilion Buddhist talisman papers, subtle cyan-white seal magic glow. Keep identical costume, body proportions, face shape, hair mass, robe colors, and side-view silhouette in all 24 poses. Scene/backdrop: perfectly flat solid #00ff00 chroma-key background for background removal. No floor, no shadow, no scenery. Style/medium: hand-painted 2D metroidvania animation source sheet, ink wash and gongbi-inspired accents, soft Ori-like glow, readable gameplay silhouette, not pixel art, not 3D. Composition/framing: strict 8x3 technical sprite sheet. Each Luna pose must sit alone in its own invisible cell with generous green empty space around it. Keep all talisman papers, hair trails, robe trails, and cyan glow attached to the same pose and inside that pose's cell. Do not let any VFX, paper charm, hair strand, robe cloth, weapon trail, or body part cross into another cell. Stable scale, stable foot baseline before collapse, stable side-view camera across all cells. Full body visible in every frame, no cropped feet, no cropped hair, no cropped robe. Motion sequence: row 1 frames 1-8 light hit reaction and recoil: ready stance, impact flinch, head/shoulder snap back, robe shock, step back, regain balance, second flinch, guard broken. Row 2 frames 9-16 heavy stagger and collapse: stronger impact, body bends forward, one knee buckles, kneel, hand reaches down, talisman glow dims, collapse sideways, near-ground fall. Row 3 frames 17-24 clean non-gory defeat / restart-readable pose: prone recovery attempt, low crouched collapse, lying side pose, talisman papers settle, robe streamers settle, faint seal glow pulse, still defeat pose, final readable restart pose. Every frame must be meaningfully different and ordered left to right, top to bottom. Color palette: moon white robes, ink teal fabric, cyan-white spiritual glow, tiny vermilion talisman accents. Do not use #00ff00 anywhere in Luna, talismans, robe, hair, or VFX. Constraints: Luna only, one full-body Luna sprite per cell, no enemies, no weapons detached from the body, no gore, no blood, no injury detail, no background scene, no cast shadow, no floor plane, no text, no numbers, no labels, no watermark, no logo, no frame borders, no duplicated pose, no mirrored duplicate, no idle-pose repeats, no detached fragments between cells. Avoid: photorealistic, 3D render, chibi, front-facing portrait, modern lab, sci-fi armor, cyberpunk, excessive tiny detail, blurry edges, unreadable silhouette, overlapping frames, cropped body parts, huge VFX arcs crossing cell boundaries, green edge speckles on the sprite.",
+      "prompt_sha256": "df147f55e04c900bb9fd7c84b3d07172a6d283d40a55a65dd28f8fea156819e0",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_hit_death_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.png",
+      "output_sha256": "82d24aec483784eb8140efab5b7701a5ed4214464bda195290c28a9ed592d2ad",
+      "candidate_count": 4,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/luna_hit_death_sheet_ai01/candidates/luna_hit_death_sheet_ai01_candidate_01.png",
+          "sha256": "302f89ef8a2004c20c9ac8eda3ef14dd15186199cc868757324263cf6fb6c8cb",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/luna_hit_death_sheet_ai01/candidates/luna_hit_death_sheet_ai01_candidate_02.png",
+          "sha256": "cf0558d8d3b23efc3921e05ef4de7867fe1acf380a58f38d993355972b8a1625",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/luna_hit_death_sheet_ai01/candidates/luna_hit_death_sheet_ai01_candidate_03.png",
+          "sha256": "91674ad415857905ed303bb42a65c7be4c3c204055bb28f975161ed0a1083253",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/luna_hit_death_sheet_ai01/candidates/luna_hit_death_sheet_ai01_candidate_04.png",
+          "sha256": "aa9084ca9b033773d42773cd7513c045d9c6160166700307c2c7b1f2b059d7c8",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 24,
+      "selected_candidate_indices": [
+        4
+      ],
+      "unselected_candidate_indices": [
+        1,
+        2,
+        3
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "enemies_core_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 06",
+      "priority": "P0",
+      "target_kind": "sprite_sheet",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: technical 2D core enemy roster sprite source sheet for Nano Hunter, target asset enemies_core_sheet_ai01 candidate 06. Primary request: Create exactly 32 separate full-body enemy animation poses for Nano Hunter. Arrange the poses as a strict 8 columns by 4 rows grid. The output must contain thirty-two distinct sprites, no fewer and no extra. Scene/backdrop: perfectly flat solid #00ff00 chroma-key background for background removal. No floor, no shadow, no scenery. Style/medium: clean hand-painted 2D metroidvania enemy sprite sheet, Nanbei dynasty Chinese dark fantasy, Shanhaijing demon mythology, Buddhist talisman seals, ink wash and gongbi accents, readable gameplay silhouettes, restrained detail, not pixel art, not 3D. Composition/framing: strict 8x4 technical sprite sheet. One complete enemy sprite per invisible cell. Each row is one enemy type with 8 ordered animation frames left to right. Stable side-view camera, stable scale inside each row, consistent silhouette and costume within each row. Large empty #00ff00 gutters between all sprites. Keep every robe edge, weapon, talisman paper, smoke wisp, and glow attached to the same enemy body and fully inside that cell. No overlapping frames, no detached fragments between cells, no isolated projectiles, no separate slash arcs, no separate smoke clouds. Row 1 enemy type: basic melee ward guard. Humanoid talisman-mask ward, paper seal over face, ragged monk-warrior robe, short bronze blade held close to body, dark teal cloth, vermilion talismans. Frames 1-8: idle, ready, small step, wind-up with blade close, compact slash with blade close to body, follow-through, recoil, return to guard. No wide slash VFX. Row 2 enemy type: ground charger demon beast. Low quadruped stone-and-miasma beast, cracked teal-gray armor plates, black smoke mane attached to body, bronze bells, vermilion talisman tags, no gore. Frames 9-16: crouch, sniff, paw scrape, charge wind-up, compact lunge, skid, recover, guarded crouch. No long dust trail. Row 3 enemy type: aerial sentinel talisman spirit. Floating lantern-mask spirit with hanging seal papers, small bronze ring, cyan seal core, dark ink smoke lower body attached to body. Frames 17-24: hover idle, bob up, drift forward, charge seal close to chest, tiny glow pulse close to body, recoil, drift back, settle. No detached orb projectile. Row 4 enemy type: miasma caster. Robed corrupted talisman shaman silhouette, long sleeves, seal staff or talisman fan attached to body, dark miasma smoke attached close to robe, cyan cracked seal glow. Frames 25-32: idle, raise sleeve, gather miasma close to hands, cast warning pose, release glow close to body, recoil, lower stance, return idle. No separate cloud projectile. Color palette: dark ink teal, teal-gray stone, moon-white cloth accents, muted bronze, cyan-white seal glow, small vermilion talisman accents, miasma green only in subtle attached smoke. Do not use #00ff00 anywhere in enemies, smoke, glow, talismans, cloth, or weapons. Constraints: exactly four enemy types, exactly one row per enemy type, one enemy sprite per cell, no Luna, no Seal Guardian boss, no extra characters, no background scene, no cast shadow, no floor plane, no text, no numbers, no labels, no watermark, no logo, no frame borders, no duplicated pose, no mirrored duplicate, no cropped body parts, no detached weapons, no detached limbs, no huge VFX crossing cell boundaries. Avoid: photorealistic, 3D render, chibi, cyberpunk, modern laboratory, biotech, sci-fi armor, gore, blood, excessive tiny detail, blurry edges, unreadable silhouette, overlapping frames, mixed enemy type inside a row, wrong enemy type in the final cell, concept drift, scale drift, green edge speckles on sprites.",
+      "prompt_sha256": "a35e48f7cf937fc58e46e8be8a0ad7e9f416044a0874d1e76ce0a6e7cd9ae64d",
+      "source_dir": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png",
+      "output_sha256": "64d1f99f529a9681dd8c68c6dfc79280732321a22ff936a091cd91e86c847de2",
+      "candidate_count": 6,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/candidates/enemies_core_sheet_ai01_candidate_01.png",
+          "sha256": "4da7c91d4af51cc2b82e90153860e58ae116ac4f88a9c78200eae341018a6f0b",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/candidates/enemies_core_sheet_ai01_candidate_02.png",
+          "sha256": "dc10a82244ba4871895457a595520f9476773bb28634cce64b6f16231ef00260",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 3,
+          "path": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/candidates/enemies_core_sheet_ai01_candidate_03.png",
+          "sha256": "fad381990ad0a48014ab2357f6326ddad091b700cb6b09be8594371c153670c5",
+          "width": 1122,
+          "height": 1402,
+          "mode": "RGB"
+        },
+        {
+          "index": 4,
+          "path": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/candidates/enemies_core_sheet_ai01_candidate_04.png",
+          "sha256": "b5a21c3b590972b1ea433cbe836f87e0d1e855be5de5f228ac900eaa44f886c2",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 5,
+          "path": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/candidates/enemies_core_sheet_ai01_candidate_05.png",
+          "sha256": "3e86daab9251378be97f6b4e06e9585df10ba6c3fd7e38b826363d15fcb7e911",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        },
+        {
+          "index": 6,
+          "path": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/candidates/enemies_core_sheet_ai01_candidate_06.png",
+          "sha256": "3a17c61b26a72f6bff29c3fc23d27ff988b1955b80e81bacfe7d0154dc4a7752",
+          "width": 1619,
+          "height": 971,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 16,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "biome01_shrine_trial_room_parallax_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P1",
+      "target_kind": "environment_room_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: playable room background and parallax source for Nano Hunter biome 01 shrine trial. Create a 16:9 side-view metroidvania room background showing an ancient shrine trial chamber, carved Buddhist seal floor, broken roof beams, hanging talisman strips, distant mountain mist visible through a ruined gate, stone lantern silhouettes, and subtle cyan-white seal glow. Style: Northern and Southern Dynasties Chinese dark fantasy, ink wash atmosphere, gongbi stone linework, soft Ori-like glow, moon-white, ink teal, muted gold, restrained vermilion accents. Composition: background / midground source only, leave a clear low-contrast gameplay lane across the middle, avoid large foreground shapes blocking the player, include separable near/mid/far visual layers for later parallax cleanup. Constraints: no playable character, no enemies, no UI, no readable text, no watermark, no modern building, no sci-fi, no laboratory, no biotech, no photorealism, no excessive tiny detail.",
+      "prompt_sha256": "e0689679b4235d845a0c2fa1a1144359c895b61373b037193f6ee1924136ee5a",
+      "source_dir": "assets/source/ai_generated/batch_03/biome01_shrine_trial_room_parallax_ai01/candidates",
+      "output_path": "assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_room_parallax_ai01.png",
+      "output_sha256": "1d031545da2106adaae2ce2b321442401b4e54d1a071e72df802dff6443d3c59",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/biome01_shrine_trial_room_parallax_ai01/candidates/biome01_shrine_trial_room_parallax_ai01_candidate_01.png",
+          "sha256": "1d031545da2106adaae2ce2b321442401b4e54d1a071e72df802dff6443d3c59",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "biome01_air_dash_shrine_room_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P1",
+      "target_kind": "environment_room_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: ability shrine room background concept for Nano Hunter. Create a 16:9 side-view room background for the Air Dash ability shrine: a quiet ruined Buddhist shrine chamber, central empty space for a separate gameplay shrine prop, carved seal circles on stone, suspended talisman papers, moonlit roof opening, cyan-white wind-like seal energy, and vermilion ward accents. Style: 2D Chinese dark fantasy metroidvania, ink wash and gongbi accents, soft Ori-like glow, readable gameplay staging. Composition: background only with obvious empty placement zone for the interactive shrine prop, low contrast behind the player path, no baked UI, no text, no characters. Constraints: no modern machine, no sci-fi capsule, no laboratory, no readable text, no watermark, no photorealism, no clutter that hides platforms or pickups.",
+      "prompt_sha256": "7cf9b83098552edee7974c1e61fdbebdbb77e4abb9b0a1417b207b4c86e9cf68",
+      "source_dir": "assets/source/ai_generated/batch_03/biome01_air_dash_shrine_room_ai01/candidates",
+      "output_path": "assets/art/environment/biome_01_shrine_trial/biome01_air_dash_shrine_room_ai01.png",
+      "output_sha256": "2ddd80012836854de04a0c3b171408d1a0828afeb6fbcf496c8df2b30498e2ee",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/biome01_air_dash_shrine_room_ai01/candidates/biome01_air_dash_shrine_room_ai01_candidate_01.png",
+          "sha256": "2ddd80012836854de04a0c3b171408d1a0828afeb6fbcf496c8df2b30498e2ee",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "biome02_miasma_hazard_room_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P1",
+      "target_kind": "environment_room_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: playable room background and hazard readability source for Nano Hunter biome 02 miasma marsh. Create a 16:9 side-view metroidvania room background showing a flooded demon-seal marsh chamber, broken Buddhist seal stones, dead roots, shallow corrupted water channels, miasma vapor, talisman stakes, and cyan-white purification glow marking safe routes. Style: Shanhaijing Chinese dark fantasy, ink wash fog, gongbi seal details, muted jade, dark purple miasma, ink teal, vermilion talisman sparks. Composition: background and midground only, leave clear gameplay lane and hazard readability space, safe ground and corrupted water must be visually distinct, separable depth layers for future parallax. Constraints: no player, no enemies, no UI, no readable text, no watermark, no modern laboratory, no biotech tanks, no sci-fi panels, no gore, no photorealism.",
+      "prompt_sha256": "74d28eda700c3111620914cc9732ef54dcbd328692f3ab2bcac4a0609a73b725",
+      "source_dir": "assets/source/ai_generated/batch_03/biome02_miasma_hazard_room_ai01/candidates",
+      "output_path": "assets/art/environment/biome_02_miasma_marsh/biome02_miasma_hazard_room_ai01.png",
+      "output_sha256": "e6471593d34ae1bde359cf8b2a64bac6f73a330cefb8cff9aea6ef288e9a22ad",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/biome02_miasma_hazard_room_ai01/candidates/biome02_miasma_hazard_room_ai01_candidate_01.png",
+          "sha256": "e6471593d34ae1bde359cf8b2a64bac6f73a330cefb8cff9aea6ef288e9a22ad",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage15_seal_guardian_boss_room_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 03",
+      "priority": "P1",
+      "target_kind": "environment_boss_room_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Seal Guardian boss room background for Nano Hunter. Create a 16:9 side-view metroidvania boss arena background: vast ruined seal hall, cracked Buddhist ward chains, ancient stone beast-mask carvings, broken shrine pillars, circular seal floor motif, cyan-white weak-point glow in the architecture, vermilion locks, and dark miasma cracks. Style: Northern and Southern Dynasties Chinese dark fantasy, Shanhaijing guardian mythology, ink wash atmosphere, gongbi stone detail, soft Ori-like glow. Composition: background only, wide flat readable arena floor zone, clear center for the boss and Luna to be placed separately, no baked boss body, no UI, no text. Constraints: no readable text, no watermark, no modern lab, no sci-fi machinery, no biotech, no gore, no photorealism, background must not overpower boss telegraphs.",
+      "prompt_sha256": "a9570d9507ca1a28c9615c8e91c0927cad4233612047edc06d83b3407ba98358",
+      "source_dir": "assets/source/ai_generated/batch_03/stage15_seal_guardian_boss_room_ai01/candidates",
+      "output_path": "assets/art/environment/boss_rooms/stage15_seal_guardian_boss_room_ai01.png",
+      "output_sha256": "8ff2a5dacd08a5e0b5837d12a2c5fb05fd0480506084ae1280a8d1a0cc5c0aac",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_03/stage15_seal_guardian_boss_room_ai01/candidates/stage15_seal_guardian_boss_room_ai01_candidate_01.png",
+          "sha256": "8ff2a5dacd08a5e0b5837d12a2c5fb05fd0480506084ae1280a8d1a0cc5c0aac",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 0,
+      "selected_candidate_indices": [],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_pause_panel_ui_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "ui_panel",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: pause menu panel source for Nano Hunter Alpha Demo. Create a reusable game UI panel for a paused state: Buddhist talisman frame, moon-white paper surface, ink-teal brush outline, muted gold trim, subtle cyan-white seal glow, tiny vermilion stamp accents, empty center and button slots for text to be added later in Godot. Background: perfectly flat solid #00ff00 chroma-key for background removal. Composition: one large central panel plus 3 small button plate variants, clean padding, no readable text, no letters, no numbers. Style: crisp 2D Chinese dark fantasy metroidvania UI, not modern app UI. Constraints: no baked labels, no watermark, no sci-fi hologram, no cyberpunk, no modern rectangular glass panel, no clutter, readable at 640x360, do not use #00ff00 in the panel artwork.",
+      "prompt_sha256": "33c068c0d067563e5d6d93ff2a2e983b566fa508ccc8db17d31e152954a7b82e",
+      "source_dir": "assets/source/ai_generated/batch_08/stage16_pause_panel_ui_ai01/candidates",
+      "output_path": "assets/art/ui/stage16_pause_panel_ui_ai01.png",
+      "output_sha256": "1dd5c6f5675424dee0b2068227de468f872e3aefc4dba254e19659c098c797d9",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/stage16_pause_panel_ui_ai01/candidates/stage16_pause_panel_ui_ai01_candidate_01.png",
+          "sha256": "59d607ed6f9cfee6c7575380d77d998b9009e7997d509476fc9e53a13f2b3191",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_08/stage16_pause_panel_ui_ai01/candidates/stage16_pause_panel_ui_ai01_candidate_02.png",
+          "sha256": "e47a4ccb3ed4eacfe92aa29af18b10da83206b2509c27111e18c9bb959f862f2",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage16_completion_panel_ui_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "ui_panel",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Alpha Demo completion panel source for Nano Hunter. Create a celebratory but restrained completion UI panel: purified Buddhist seal circle, broken miasma chain motif, moon-white talisman paper center, ink-teal frame, muted gold trim, cyan-white completion glow, vermilion stamp accents, and empty title / body zones for text to be added later in Godot. Background: perfectly flat solid #00ff00 chroma-key for removal. Composition: one completion panel, one small seal emblem, one small divider ornament, generous padding, no readable text, no letters, no numbers. Constraints: no modern achievement badge, no sci-fi UI, no watermark, no fake logo, readable at 640x360, do not use #00ff00 in the artwork.",
+      "prompt_sha256": "0fa61c3560b6c22d0e175c7dca4e726e4737705f7db0b324b2b7aa1991b778b2",
+      "source_dir": "assets/source/ai_generated/batch_08/stage16_completion_panel_ui_ai01/candidates",
+      "output_path": "assets/art/ui/stage16_completion_panel_ui_ai01.png",
+      "output_sha256": "927ae89c70126b6eecfe0d7547ad430b8d86f6b72ae9938b46e9d3cf732016e1",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/stage16_completion_panel_ui_ai01/candidates/stage16_completion_panel_ui_ai01_candidate_01.png",
+          "sha256": "fddb700004f0228e21d177d5de6228bfc76530eb7ac60752454afe97c9dff907",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_08/stage16_completion_panel_ui_ai01/candidates/stage16_completion_panel_ui_ai01_candidate_02.png",
+          "sha256": "804dfe7c60f1f9e0b0ab9421a98aad94861b36924b378d7df1cac423b8789197",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage15_boss_hud_frame_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "hud_frame",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: Seal Guardian boss HUD status frame source for Nano Hunter. Create a long horizontal boss health frame and small status glyphs using ancient stone seal geometry, Buddhist ward chains, ink-teal outlines, muted gold trim, cyan-white weak-point glow, vermilion lock accents, and dark miasma crack details. Background: perfectly flat solid #00ff00 chroma-key for removal. Composition: one wide boss status bar frame, two small boss phase markers, one warning seal glyph, no labels, no letters, no numbers. Style: crisp 2D game HUD for Chinese dark fantasy metroidvania. Constraints: no readable text, no modern health bar UI, no sci-fi hologram, no watermark, readable over dark backgrounds at 640x360, do not use #00ff00 in the artwork.",
+      "prompt_sha256": "7bc7ce8c8f6b442ce647589d7e1f2ef90e0f307d3ee04934cc51a6e9414954e3",
+      "source_dir": "assets/source/ai_generated/batch_08/stage15_boss_hud_frame_ai01/candidates",
+      "output_path": "assets/art/ui/stage15_boss_hud_frame_ai01.png",
+      "output_sha256": "b301b6ae4c9686c8b66f283ca7ad1342e1984111a51014730f0061536b7e7e79",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/stage15_boss_hud_frame_ai01/candidates/stage15_boss_hud_frame_ai01_candidate_01.png",
+          "sha256": "3ea38a2de9270ecd78ddaeadde914e06636957b9590f5fe1a69d726dd3312c2d",
+          "width": 2172,
+          "height": 724,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_08/stage15_boss_hud_frame_ai01/candidates/stage15_boss_hud_frame_ai01_candidate_02.png",
+          "sha256": "1f9fa345efe44eb666f1eb8f7da5d4802545b090566853901bc470b197693c9a",
+          "width": 1983,
+          "height": 793,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage14_ability_status_hud_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "hud_frame",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept. Asset type: player ability and recovery HUD status source for Nano Hunter. Create compact HUD components for Air Dash availability, Recovery Charge readiness, checkpoint status, and small talisman cooldown pips. Visual language: Buddhist talisman circles, moon-white paper chips, ink-teal outlines, cyan-white active glow, muted gold trim, vermilion seal accent for spent / locked state. Background: perfectly flat solid #00ff00 chroma-key for removal. Composition: separate HUD widgets with generous padding, no readable text, no letters, no numbers, no labels. Style: crisp 2D Chinese dark fantasy metroidvania UI, readable at 32x32 and 640x360. Constraints: no modern app icons, no medical cross, no battery symbol, no sci-fi UI, no watermark, do not use #00ff00 in the artwork.",
+      "prompt_sha256": "55a9d61d274d00289c53a16abd46f1848a6c7926ee0c66785a33915efa66508d",
+      "source_dir": "assets/source/ai_generated/batch_08/stage14_ability_status_hud_ai01/candidates",
+      "output_path": "assets/art/ui/stage14_ability_status_hud_ai01.png",
+      "output_sha256": "1bfe4ee2e556dccb95feb181944ae5713067c89f3a72c02592057b14e4fcad70",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/stage14_ability_status_hud_ai01/candidates/stage14_ability_status_hud_ai01_candidate_01.png",
+          "sha256": "7d4b8ddc962242020976110a614f449c7fffe3a13f895a2b6078884e04a953ca",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_08/stage14_ability_status_hud_ai01/candidates/stage14_ability_status_hud_ai01_candidate_02.png",
+          "sha256": "5ecf9e2e04975b4dad996dc1380dba706ddf72a0b205bca895f4084279ffc6b1",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [
+        2
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    }
+  ]
+}

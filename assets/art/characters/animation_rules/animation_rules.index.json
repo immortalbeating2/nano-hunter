@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "status": "placeholder_ready",
+  "asset_count": 8,
+  "frame_rule_count": 172,
+  "manual_review_required": true,
+  "assets": [
+    {
+      "asset_id": "luna_run_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/luna_run_sheet_ai01.animation_rules.json",
+      "frame_count": 24,
+      "animation_name": "run",
+      "speed_fps": 18.0,
+      "loop": true
+    },
+    {
+      "asset_id": "luna_air_dash_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/luna_air_dash_sheet_ai01.animation_rules.json",
+      "frame_count": 16,
+      "animation_name": "air_dash",
+      "speed_fps": 20.0,
+      "loop": false
+    },
+    {
+      "asset_id": "luna_attack_01_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/luna_attack_01_sheet_ai01.animation_rules.json",
+      "frame_count": 16,
+      "animation_name": "attack_01",
+      "speed_fps": 18.0,
+      "loop": false
+    },
+    {
+      "asset_id": "luna_idle_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/luna_idle_sheet_ai01.animation_rules.json",
+      "frame_count": 16,
+      "animation_name": "idle",
+      "speed_fps": 8.0,
+      "loop": true
+    },
+    {
+      "asset_id": "seal_guardian_boss_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/seal_guardian_boss_sheet_ai01.animation_rules.json",
+      "frame_count": 20,
+      "animation_name": "attack",
+      "speed_fps": 12.0,
+      "loop": false
+    },
+    {
+      "asset_id": "luna_jump_fall_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/luna_jump_fall_sheet_ai01.animation_rules.json",
+      "frame_count": 24,
+      "animation_name": "jump_fall",
+      "speed_fps": 14.0,
+      "loop": false
+    },
+    {
+      "asset_id": "luna_hit_death_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/luna_hit_death_sheet_ai01.animation_rules.json",
+      "frame_count": 24,
+      "animation_name": "hit_death",
+      "speed_fps": 12.0,
+      "loop": false
+    },
+    {
+      "asset_id": "enemies_core_sheet_ai01",
+      "path": "assets/art/characters/animation_rules/enemies_core_sheet_ai01.animation_rules.json",
+      "frame_count": 32,
+      "animation_name": "enemy_core_cycle",
+      "speed_fps": 10.0,
+      "loop": true
+    }
+  ],
+  "boundary": "First-pass animation rule index. Runtime replacement still requires frame-order, baseline, timing, collision/readability, and playtest review."
+}

@@ -1,0 +1,64 @@
+{
+  "asset_id": "luna_air_dash_body_runtime_sheet_ai02",
+  "source_asset_id": "imagegen_luna_air_dash_body_clean_source_ai02",
+  "source_texture": "assets/source/imagegen_inbox/animation_runtime_replacement/arp_13/imagegen_luna_air_dash_body_clean_source_ai02.png",
+  "source_hash_sha256": "58d887ea90c2a545a931806deb44a8b83b1a7433aa7a1924a187cfad3d55cafb",
+  "tool": "built_in_image_gen",
+  "process": "imagegen_chroma_key_strip_to_runtime_normalized_candidate",
+  "prompt": "Use case: stylized-concept\nAsset type: production candidate spritesheet for a 2D Godot metroidvania player air dash body animation\nPrimary request: Create a single horizontal 8-frame spritesheet of Luna, a young Northern-and-Southern-Dynasties inspired demon-hunter heroine, performing a fast forward air dash. This is body-only animation for runtime integration.\nSubject and style: same character identity across all frames; elegant Chinese fantasy / Shan Hai Jing / Buddhist talisman hunter style; white layered robe, dark teal-black flowing hair, teal sash fabric, small talisman accessories, slim athletic silhouette, painterly 2D game sprite art matching a soft Ori-like readable action silhouette.\nComposition: exactly one row of 8 equal frame slots, left-to-right action progression, character facing right in every frame, generous empty padding around each frame, consistent scale, consistent bottom-center anchor, no cropped limbs.\nAction beats: frame 1 crouched air-dash anticipation, frame 2 launch lean, frames 3-5 stretched forward dash body pose, frames 6-7 recovery hover, frame 8 compact landing-ready recovery pose.\nBackground: perfectly flat solid #00ff00 chroma-key background for local removal; one uniform color only, no shadows, no gradients, no texture, no floor plane.\nCritical constraints: no cyan energy ball, no blue glow, no air trail, no slash arc, no impact burst, no dust, no particles, no detached fragments, no extra characters, no labels, no text, no watermark. Do not use #00ff00 anywhere in the character. Keep all 8 frames clearly separated with empty green space between slots.\n",
+  "boundary": "Clean Luna air-dash body candidate only. Independent AirDashTrailArt remains the VFX layer; dash physics, ability gating, collision and cooldown timing are unchanged.",
+  "normalization": {
+    "source_image_size": [
+      2172,
+      724
+    ],
+    "source_max_content_size": [
+      278,
+      230
+    ],
+    "target_safe_size": [
+      144,
+      144
+    ],
+    "scale": 0.517986,
+    "horizontal_padding": 24,
+    "vertical_padding": 8,
+    "foot_baseline_y": 152,
+    "center_x": 96,
+    "projected_runs": [
+      [
+        43,
+        193
+      ],
+      [
+        308,
+        514
+      ],
+      [
+        567,
+        845
+      ],
+      [
+        859,
+        1116
+      ],
+      [
+        1165,
+        1420
+      ],
+      [
+        1482,
+        1647
+      ],
+      [
+        1745,
+        1894
+      ],
+      [
+        1984,
+        2129
+      ]
+    ],
+    "slice_strategy": "alpha_projection_8_horizontal_runs_then_alpha_bbox_normalize"
+  }
+}

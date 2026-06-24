@@ -1,0 +1,621 @@
+{
+  "version": 1,
+  "asset_id": "vfx_combat_atlas_ai01",
+  "kind": "sprite_sheet",
+  "batch": "Batch 10",
+  "source_metadata": "assets/art/vfx/atlases/vfx_combat_atlas_ai01.frames.json",
+  "output": "assets/art/vfx/atlases/vfx_combat_atlas_ai01.png",
+  "entry_count": 32,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "slash_frame_001",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "slash_frame_002",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_002_c01.png",
+      "region": [
+        192,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "slash_frame_003",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_003_c01.png",
+      "region": [
+        384,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "slash_frame_004",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_004_c01.png",
+      "region": [
+        576,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "slash_frame_005",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_005_c01.png",
+      "region": [
+        768,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "slash_frame_006",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_006_c01.png",
+      "region": [
+        960,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "slash_frame_007",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_007_c01.png",
+      "region": [
+        1152,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "slash_frame_008",
+      "category": "sprite_sheet",
+      "group": "slash",
+      "role": "animation_frame",
+      "tags": [
+        "slash"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_008_c01.png",
+      "region": [
+        1344,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "hit_spark_frame_009",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_009_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_009_c01.png",
+      "region": [
+        0,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "hit_spark_frame_010",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_010_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_010_c01.png",
+      "region": [
+        192,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "hit_spark_frame_011",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_011_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_011_c01.png",
+      "region": [
+        384,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "hit_spark_frame_012",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_012_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_012_c01.png",
+      "region": [
+        576,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "hit_spark_frame_013",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_013_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_013_c01.png",
+      "region": [
+        768,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "hit_spark_frame_014",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_014_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_014_c01.png",
+      "region": [
+        960,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "hit_spark_frame_015",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_015_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_015_c01.png",
+      "region": [
+        1152,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "hit_spark_frame_016",
+      "category": "sprite_sheet",
+      "group": "hit_spark",
+      "role": "animation_frame",
+      "tags": [
+        "hit_spark"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_016_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_016_c02.png",
+      "region": [
+        1344,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 16,
+      "semantic_name": "warning_frame_017",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_017_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_017_c02.png",
+      "region": [
+        0,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 17,
+      "semantic_name": "warning_frame_018",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_018_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_018_c02.png",
+      "region": [
+        192,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 18,
+      "semantic_name": "warning_frame_019",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_019_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_019_c02.png",
+      "region": [
+        384,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 19,
+      "semantic_name": "warning_frame_020",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_020_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_020_c02.png",
+      "region": [
+        576,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 20,
+      "semantic_name": "warning_frame_021",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_021_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_021_c02.png",
+      "region": [
+        768,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 21,
+      "semantic_name": "warning_frame_022",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_022_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_022_c02.png",
+      "region": [
+        960,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 22,
+      "semantic_name": "warning_frame_023",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_023_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_023_c02.png",
+      "region": [
+        1152,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 23,
+      "semantic_name": "warning_frame_024",
+      "category": "sprite_sheet",
+      "group": "warning",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_024_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_024_c02.png",
+      "region": [
+        1344,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 24,
+      "semantic_name": "purge_frame_025",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_025_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_025_c02.png",
+      "region": [
+        0,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 25,
+      "semantic_name": "purge_frame_026",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_026_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_026_c02.png",
+      "region": [
+        192,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 26,
+      "semantic_name": "purge_frame_027",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_027_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_027_c02.png",
+      "region": [
+        384,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 27,
+      "semantic_name": "purge_frame_028",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_028_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_028_c02.png",
+      "region": [
+        576,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 28,
+      "semantic_name": "purge_frame_029",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_029_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_029_c02.png",
+      "region": [
+        768,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 29,
+      "semantic_name": "purge_frame_030",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_030_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_030_c02.png",
+      "region": [
+        960,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 30,
+      "semantic_name": "purge_frame_031",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_031_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_031_c02.png",
+      "region": [
+        1152,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 31,
+      "semantic_name": "purge_frame_032",
+      "category": "sprite_sheet",
+      "group": "purge",
+      "role": "animation_frame",
+      "tags": [
+        "purge"
+      ],
+      "manual_review_required": true,
+      "source_name": "vfx_combat_atlas_ai01_auto_032_c03",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_032_c03.png",
+      "region": [
+        1344,
+        384,
+        192,
+        128
+      ]
+    }
+  ]
+}

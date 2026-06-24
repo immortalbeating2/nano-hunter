@@ -1,0 +1,79 @@
+{
+  "id": "cg_seal_guardian_reveal_ai01",
+  "kind": "atlas",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/promo/cg_seal_guardian_reveal_ai01.png",
+  "cell": [
+    640,
+    360
+  ],
+  "columns": 2,
+  "rows": 3,
+  "frames": [
+    {
+      "index": 0,
+      "name": "cg_seal_guardian_reveal_ai01_auto_001",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items/cg_seal_guardian_reveal_ai01_auto_001.png",
+      "region": [
+        0,
+        0,
+        640,
+        360
+      ]
+    },
+    {
+      "index": 1,
+      "name": "cg_seal_guardian_reveal_ai01_auto_002",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items/cg_seal_guardian_reveal_ai01_auto_002.png",
+      "region": [
+        640,
+        0,
+        640,
+        360
+      ]
+    },
+    {
+      "index": 2,
+      "name": "cg_seal_guardian_reveal_ai01_auto_003",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items/cg_seal_guardian_reveal_ai01_auto_003.png",
+      "region": [
+        0,
+        360,
+        640,
+        360
+      ]
+    },
+    {
+      "index": 3,
+      "name": "cg_seal_guardian_reveal_ai01_auto_004",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items/cg_seal_guardian_reveal_ai01_auto_004.png",
+      "region": [
+        640,
+        360,
+        640,
+        360
+      ]
+    },
+    {
+      "index": 4,
+      "name": "cg_seal_guardian_reveal_ai01_auto_005",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items/cg_seal_guardian_reveal_ai01_auto_005.png",
+      "region": [
+        0,
+        720,
+        640,
+        360
+      ]
+    },
+    {
+      "index": 5,
+      "name": "cg_seal_guardian_reveal_ai01_auto_006",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items/cg_seal_guardian_reveal_ai01_auto_006.png",
+      "region": [
+        640,
+        720,
+        640,
+        360
+      ]
+    }
+  ]
+}

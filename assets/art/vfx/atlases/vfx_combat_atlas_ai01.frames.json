@@ -1,0 +1,365 @@
+{
+  "id": "vfx_combat_atlas_ai01",
+  "kind": "sprite_sheet",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/vfx/atlases/vfx_combat_atlas_ai01.png",
+  "cell": [
+    192,
+    128
+  ],
+  "columns": 8,
+  "rows": 4,
+  "frames": [
+    {
+      "index": 0,
+      "name": "vfx_combat_atlas_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 1,
+      "name": "vfx_combat_atlas_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_002_c01.png",
+      "region": [
+        192,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 2,
+      "name": "vfx_combat_atlas_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_003_c01.png",
+      "region": [
+        384,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 3,
+      "name": "vfx_combat_atlas_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_004_c01.png",
+      "region": [
+        576,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 4,
+      "name": "vfx_combat_atlas_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_005_c01.png",
+      "region": [
+        768,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 5,
+      "name": "vfx_combat_atlas_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_006_c01.png",
+      "region": [
+        960,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 6,
+      "name": "vfx_combat_atlas_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_007_c01.png",
+      "region": [
+        1152,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 7,
+      "name": "vfx_combat_atlas_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_008_c01.png",
+      "region": [
+        1344,
+        0,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 8,
+      "name": "vfx_combat_atlas_ai01_auto_009_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_009_c01.png",
+      "region": [
+        0,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 9,
+      "name": "vfx_combat_atlas_ai01_auto_010_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_010_c01.png",
+      "region": [
+        192,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 10,
+      "name": "vfx_combat_atlas_ai01_auto_011_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_011_c01.png",
+      "region": [
+        384,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 11,
+      "name": "vfx_combat_atlas_ai01_auto_012_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_012_c01.png",
+      "region": [
+        576,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 12,
+      "name": "vfx_combat_atlas_ai01_auto_013_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_013_c01.png",
+      "region": [
+        768,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 13,
+      "name": "vfx_combat_atlas_ai01_auto_014_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_014_c01.png",
+      "region": [
+        960,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 14,
+      "name": "vfx_combat_atlas_ai01_auto_015_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_015_c01.png",
+      "region": [
+        1152,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 15,
+      "name": "vfx_combat_atlas_ai01_auto_016_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_016_c02.png",
+      "region": [
+        1344,
+        128,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 16,
+      "name": "vfx_combat_atlas_ai01_auto_017_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_017_c02.png",
+      "region": [
+        0,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 17,
+      "name": "vfx_combat_atlas_ai01_auto_018_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_018_c02.png",
+      "region": [
+        192,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 18,
+      "name": "vfx_combat_atlas_ai01_auto_019_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_019_c02.png",
+      "region": [
+        384,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 19,
+      "name": "vfx_combat_atlas_ai01_auto_020_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_020_c02.png",
+      "region": [
+        576,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 20,
+      "name": "vfx_combat_atlas_ai01_auto_021_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_021_c02.png",
+      "region": [
+        768,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 21,
+      "name": "vfx_combat_atlas_ai01_auto_022_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_022_c02.png",
+      "region": [
+        960,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 22,
+      "name": "vfx_combat_atlas_ai01_auto_023_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_023_c02.png",
+      "region": [
+        1152,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 23,
+      "name": "vfx_combat_atlas_ai01_auto_024_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_024_c02.png",
+      "region": [
+        1344,
+        256,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 24,
+      "name": "vfx_combat_atlas_ai01_auto_025_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_025_c02.png",
+      "region": [
+        0,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 25,
+      "name": "vfx_combat_atlas_ai01_auto_026_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_026_c02.png",
+      "region": [
+        192,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 26,
+      "name": "vfx_combat_atlas_ai01_auto_027_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_027_c02.png",
+      "region": [
+        384,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 27,
+      "name": "vfx_combat_atlas_ai01_auto_028_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_028_c02.png",
+      "region": [
+        576,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 28,
+      "name": "vfx_combat_atlas_ai01_auto_029_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_029_c02.png",
+      "region": [
+        768,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 29,
+      "name": "vfx_combat_atlas_ai01_auto_030_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_030_c02.png",
+      "region": [
+        960,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 30,
+      "name": "vfx_combat_atlas_ai01_auto_031_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_031_c02.png",
+      "region": [
+        1152,
+        384,
+        192,
+        128
+      ]
+    },
+    {
+      "index": 31,
+      "name": "vfx_combat_atlas_ai01_auto_032_c03",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames/vfx_combat_atlas_ai01_auto_032_c03.png",
+      "region": [
+        1344,
+        384,
+        192,
+        128
+      ]
+    }
+  ]
+}

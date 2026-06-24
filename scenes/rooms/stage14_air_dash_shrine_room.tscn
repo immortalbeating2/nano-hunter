@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage14_backtracking_room_base.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_shrine_ai01.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_gate_ai01.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage14_air_dash_trail_ai01.png" id="4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -45,6 +48,27 @@ position = Vector2(88, 104)
 [node name="ShrineVisual" type="Polygon2D" parent="AirDashShrine"]
 color = Color(0.470588, 0.811765, 0.941176, 0.82)
 polygon = PackedVector2Array(-24, 40, -32, -8, 0, -48, 32, -8, 24, 40)
+
+[node name="ShrineArt" type="Sprite2D" parent="AirDashShrine"]
+position = Vector2(0, -10)
+scale = Vector2(0.065, 0.065)
+modulate = Color(1, 1, 1, 0.78)
+texture = ExtResource("2")
+metadata/asset_id = "stage14_air_dash_shrine_ai01"
+
+[node name="GatePreviewArt" type="Sprite2D" parent="AirDashShrine"]
+position = Vector2(92, 0)
+scale = Vector2(0.042, 0.042)
+modulate = Color(1, 1, 1, 0.42)
+texture = ExtResource("3")
+metadata/asset_id = "stage14_air_dash_gate_ai01"
+
+[node name="AirDashTrailPreviewArt" type="Sprite2D" parent="AirDashShrine"]
+position = Vector2(46, -34)
+scale = Vector2(0.045, 0.045)
+modulate = Color(1, 1, 1, 0.54)
+texture = ExtResource("4")
+metadata/asset_id = "stage14_air_dash_trail_ai01"
 
 [node name="ExitZone" type="Area2D" parent="."]
 position = Vector2(544, 96)

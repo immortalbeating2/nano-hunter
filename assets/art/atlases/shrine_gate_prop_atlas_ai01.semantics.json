@@ -1,0 +1,421 @@
+{
+  "version": 1,
+  "asset_id": "shrine_gate_prop_atlas_ai01",
+  "kind": "atlas",
+  "batch": "Batch 09",
+  "source_metadata": "assets/art/atlases/shrine_gate_prop_atlas_ai01.regions.json",
+  "output": "assets/art/atlases/shrine_gate_prop_atlas_ai01.png",
+  "entry_count": 24,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "air_dash_shrine_inactive",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "air_dash_shrine_active",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_002_c01.png",
+      "region": [
+        192,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "air_dash_shrine_claimed",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_003_c01.png",
+      "region": [
+        384,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "seal_gate_locked",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_004_c01.png",
+      "region": [
+        576,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "seal_gate_unlocking",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_005_c01.png",
+      "region": [
+        768,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "seal_gate_open",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_006_c01.png",
+      "region": [
+        960,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "talisman_stake_idle",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_007_c01.png",
+      "region": [
+        0,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "talisman_stake_lit",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_008_c01.png",
+      "region": [
+        192,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "stone_lantern_idle",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_009_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_009_c02.png",
+      "region": [
+        384,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "stone_lantern_lit",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_010_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_010_c02.png",
+      "region": [
+        576,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "seal_pillar_intact",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_011_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_011_c02.png",
+      "region": [
+        768,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "seal_pillar_cracked",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_012_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_012_c02.png",
+      "region": [
+        960,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "reward_marker_idle",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_013_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_013_c02.png",
+      "region": [
+        0,
+        320,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "reward_marker_collected",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_014_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_014_c02.png",
+      "region": [
+        192,
+        320,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "checkpoint_inactive",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_015_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_015_c02.png",
+      "region": [
+        384,
+        320,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "checkpoint_active",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_016_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_016_c02.png",
+      "region": [
+        576,
+        320,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 16,
+      "semantic_name": "miasma_ward_idle",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_017_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_017_c02.png",
+      "region": [
+        768,
+        320,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 17,
+      "semantic_name": "miasma_ward_purged",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_018_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_018_c02.png",
+      "region": [
+        960,
+        320,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 18,
+      "semantic_name": "chain_anchor_left",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_019_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_019_c02.png",
+      "region": [
+        0,
+        480,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 19,
+      "semantic_name": "chain_anchor_right",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_020_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_020_c02.png",
+      "region": [
+        192,
+        480,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 20,
+      "semantic_name": "seal_ring_idle",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_021_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_021_c02.png",
+      "region": [
+        384,
+        480,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 21,
+      "semantic_name": "seal_ring_active",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_022_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_022_c02.png",
+      "region": [
+        576,
+        480,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 22,
+      "semantic_name": "boss_gate_locked",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_023_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_023_c02.png",
+      "region": [
+        768,
+        480,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 23,
+      "semantic_name": "boss_gate_open",
+      "category": "atlas",
+      "group": "props",
+      "role": "prop_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "shrine_gate_prop_atlas_ai01_auto_024_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items/shrine_gate_prop_atlas_ai01_auto_024_c02.png",
+      "region": [
+        960,
+        480,
+        192,
+        160
+      ]
+    }
+  ]
+}

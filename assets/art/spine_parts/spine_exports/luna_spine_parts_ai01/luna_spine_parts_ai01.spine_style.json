@@ -1,0 +1,387 @@
+{
+  "skeleton": {
+    "spine": "spine-style-cutout-descriptor",
+    "hash": "luna_spine_parts_ai01",
+    "images": "./",
+    "audio": "",
+    "width": 1536,
+    "height": 1024,
+    "source_texture": "luna_spine_parts_ai01.png",
+    "note": "Descriptor only; pivots, bones, mesh weights and animation must be authored manually."
+  },
+  "bones": [
+    {
+      "name": "root"
+    }
+  ],
+  "slots": [
+    {
+      "name": "luna_spine_parts_ai01_auto_001",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_001"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_002",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_002"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_003",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_003"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_004",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_004"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_005",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_005"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_006",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_006"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_007",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_007"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_008",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_008"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_009",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_009"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_010",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_010"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_011",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_011"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_012",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_012"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_013",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_013"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_014",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_014"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_015",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_015"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_016",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_016"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_017",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_017"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_018",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_018"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_019",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_019"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_020",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_020"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_021",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_021"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_022",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_022"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_023",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_023"
+    },
+    {
+      "name": "luna_spine_parts_ai01_auto_024",
+      "bone": "root",
+      "attachment": "luna_spine_parts_ai01_auto_024"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "luna_spine_parts_ai01_auto_001": {
+          "luna_spine_parts_ai01_auto_001": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_001",
+            "x": 128.0,
+            "y": 896.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_002": {
+          "luna_spine_parts_ai01_auto_002": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_002",
+            "x": 384.0,
+            "y": 896.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_003": {
+          "luna_spine_parts_ai01_auto_003": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_003",
+            "x": 640.0,
+            "y": 896.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_004": {
+          "luna_spine_parts_ai01_auto_004": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_004",
+            "x": 896.0,
+            "y": 896.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_005": {
+          "luna_spine_parts_ai01_auto_005": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_005",
+            "x": 1152.0,
+            "y": 896.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_006": {
+          "luna_spine_parts_ai01_auto_006": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_006",
+            "x": 1408.0,
+            "y": 896.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_007": {
+          "luna_spine_parts_ai01_auto_007": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_007",
+            "x": 128.0,
+            "y": 640.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_008": {
+          "luna_spine_parts_ai01_auto_008": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_008",
+            "x": 384.0,
+            "y": 640.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_009": {
+          "luna_spine_parts_ai01_auto_009": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_009",
+            "x": 640.0,
+            "y": 640.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_010": {
+          "luna_spine_parts_ai01_auto_010": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_010",
+            "x": 896.0,
+            "y": 640.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_011": {
+          "luna_spine_parts_ai01_auto_011": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_011",
+            "x": 1152.0,
+            "y": 640.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_012": {
+          "luna_spine_parts_ai01_auto_012": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_012",
+            "x": 1408.0,
+            "y": 640.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_013": {
+          "luna_spine_parts_ai01_auto_013": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_013",
+            "x": 128.0,
+            "y": 384.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_014": {
+          "luna_spine_parts_ai01_auto_014": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_014",
+            "x": 384.0,
+            "y": 384.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_015": {
+          "luna_spine_parts_ai01_auto_015": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_015",
+            "x": 640.0,
+            "y": 384.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_016": {
+          "luna_spine_parts_ai01_auto_016": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_016",
+            "x": 896.0,
+            "y": 384.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_017": {
+          "luna_spine_parts_ai01_auto_017": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_017",
+            "x": 1152.0,
+            "y": 384.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_018": {
+          "luna_spine_parts_ai01_auto_018": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_018",
+            "x": 1408.0,
+            "y": 384.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_019": {
+          "luna_spine_parts_ai01_auto_019": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_019",
+            "x": 128.0,
+            "y": 128.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_020": {
+          "luna_spine_parts_ai01_auto_020": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_020",
+            "x": 384.0,
+            "y": 128.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_021": {
+          "luna_spine_parts_ai01_auto_021": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_021",
+            "x": 640.0,
+            "y": 128.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_022": {
+          "luna_spine_parts_ai01_auto_022": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_022",
+            "x": 896.0,
+            "y": 128.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_023": {
+          "luna_spine_parts_ai01_auto_023": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_023",
+            "x": 1152.0,
+            "y": 128.0,
+            "width": 256,
+            "height": 256
+          }
+        },
+        "luna_spine_parts_ai01_auto_024": {
+          "luna_spine_parts_ai01_auto_024": {
+            "type": "region",
+            "path": "luna_spine_parts_ai01_auto_024",
+            "x": 1408.0,
+            "y": 128.0,
+            "width": 256,
+            "height": 256
+          }
+        }
+      }
+    }
+  ],
+  "animations": {}
+}

@@ -1,0 +1,112 @@
+{
+	"count": 8,
+	"id": "menu_ninepatch_ui_ai01",
+	"items": [
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_001_c01",
+			"region": [
+				0.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		},
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_002_c01",
+			"region": [
+				192.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai_01_auto_002_c_01.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		},
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_003_c01",
+			"region": [
+				384.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai_01_auto_003_c_01.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		},
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_004_c01",
+			"region": [
+				576.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/003_menu_ninepatch_ui_ai_01_auto_004_c_01.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		},
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_005_c01",
+			"region": [
+				0.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/004_menu_ninepatch_ui_ai_01_auto_005_c_01.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		},
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_006_c01",
+			"region": [
+				192.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/005_menu_ninepatch_ui_ai_01_auto_006_c_01.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		},
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_007_c02",
+			"region": [
+				384.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/006_menu_ninepatch_ui_ai_01_auto_007_c_02.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		},
+		{
+			"asset_id": "menu_ninepatch_ui_ai01",
+			"margin": 24,
+			"name": "menu_ninepatch_ui_ai01_auto_008_c02",
+			"region": [
+				576.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/007_menu_ninepatch_ui_ai_01_auto_008_c_02.stylebox_texture.tres",
+			"texture": "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+		}
+	],
+	"kind": "stylebox_texture_set",
+	"source_metadata": "res://assets/art/ui/menu_ninepatch_ui_ai01.regions.json"
+}

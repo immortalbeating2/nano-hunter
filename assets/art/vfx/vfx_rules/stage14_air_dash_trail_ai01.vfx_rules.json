@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "asset_id": "stage14_air_dash_trail_ai01",
+  "target_kind": "vfx_direction",
+  "status": "placeholder_ready",
+  "source_texture": "assets/art/vfx/stage14_air_dash_trail_ai01.png",
+  "source_metadata": "",
+  "sprite_frames": "",
+  "frame_count": 1,
+  "rules": [
+    {
+      "index": 0,
+      "source_name": "stage14_air_dash_trail_ai01.png",
+      "semantic_name": "stage14_air_dash_trail_ai01",
+      "group": "movement_feedback",
+      "role": "movement_feedback",
+      "region": [
+        0,
+        0,
+        1942,
+        809
+      ],
+      "anchor_px": [
+        971,
+        404
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "standalone_vfx_texture_candidate",
+        "manual_split_or_mask_review_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    }
+  ],
+  "manual_review_required": true,
+  "boundary": "First-pass standalone VFX rule. This describes the whole texture as one VFX source; manual cleanup is still required before runtime replacement."
+}

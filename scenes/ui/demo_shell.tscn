@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/demo_shell.gd" id="1"]
+[ext_resource type="Theme" path="res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres" id="2"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres" id="3"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_title_background_ai01.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_pause_panel_ui_ai01.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_completion_panel_ui_ai01.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_demo_menu_icons_ai01.png" id="7"]
 
 [node name="DemoShell" type="Control"]
 process_mode = 3
@@ -11,7 +17,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2")
 script = ExtResource("1")
+
+[node name="TitleBackground" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 6
+metadata/asset_id = "stage16_title_background_ai01"
 
 [node name="MainMenu" type="Panel" parent="."]
 layout_mode = 0
@@ -19,6 +36,19 @@ offset_left = 196.0
 offset_top = 82.0
 offset_right = 444.0
 offset_bottom = 234.0
+theme_override_styles/panel = ExtResource("3")
+
+[node name="MenuIconStrip" type="TextureRect" parent="MainMenu"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 108.0
+offset_right = 236.0
+offset_bottom = 140.0
+mouse_filter = 2
+texture = ExtResource("7")
+expand_mode = 1
+stretch_mode = 5
+metadata/asset_id = "stage16_demo_menu_icons_ai01"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 0
@@ -59,6 +89,19 @@ offset_left = 214.0
 offset_top = 92.0
 offset_right = 426.0
 offset_bottom = 218.0
+theme_override_styles/panel = ExtResource("3")
+
+[node name="PausePanelArt" type="TextureRect" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 204.0
+offset_bottom = 118.0
+mouse_filter = 2
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 5
+metadata/asset_id = "stage16_pause_panel_ui_ai01"
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
 layout_mode = 0
@@ -90,3 +133,43 @@ text = "继续"
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 text = "重开"
+
+[node name="CompletionPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 166.0
+offset_top = 238.0
+offset_right = 474.0
+offset_bottom = 334.0
+theme_override_styles/panel = ExtResource("3")
+
+[node name="CompletionPanelArt" type="TextureRect" parent="CompletionPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 300.0
+offset_bottom = 88.0
+mouse_filter = 2
+texture = ExtResource("6")
+expand_mode = 1
+stretch_mode = 5
+metadata/asset_id = "stage16_completion_panel_ui_ai01"
+
+[node name="MarginContainer" type="MarginContainer" parent="CompletionPanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = 290.0
+offset_bottom = 78.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="CompletionLabel" type="Label" parent="CompletionPanel/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Alpha Demo 已完成"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

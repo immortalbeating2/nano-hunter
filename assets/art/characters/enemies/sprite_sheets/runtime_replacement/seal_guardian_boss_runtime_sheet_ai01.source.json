@@ -1,0 +1,24 @@
+{
+  "asset_id": "seal_guardian_boss_runtime_sheet_ai01",
+  "source_asset_id": "seal_guardian_boss_sheet_ai01",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.frames.json",
+  "process": "runtime_normalized_from_existing_final_ready_source",
+  "boundary": "Candidate for Animation Runtime Replacement Pass geometry review. Not approved for live controller replacement until strict audit, scene tests and runtime review pass.",
+  "normalization": {
+    "duplicates_removed": [],
+    "scale": 0.818898,
+    "source_max_content_size": [
+      254,
+      174
+    ],
+    "target_safe_size": [
+      208,
+      176
+    ],
+    "foot_baseline_y": 184,
+    "center_x": 128,
+    "horizontal_padding": 24,
+    "vertical_padding": 8
+  }
+}

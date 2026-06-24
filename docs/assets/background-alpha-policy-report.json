@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "status": "background_alpha_policy_ready_manual_review",
+  "boundary": "Alpha policy only. It preserves original generated PNGs, records which alpha channels are intentional, and creates opaque previews for release/narrative sheets. It does not approve final art.",
+  "composite_color_rgba": [
+    8,
+    16,
+    20,
+    255
+  ],
+  "summary": {
+    "record_count": 11,
+    "policy_counts": {
+      "alpha_allowed_for_tile_or_atlas_padding": 5,
+      "opaque_preview_ready_manual_review": 6
+    },
+    "opaque_preview_count": 6
+  },
+  "records": [
+    {
+      "asset_id": "miasma_marsh_tileset_ai01",
+      "target_kind": "tileset_sheet",
+      "source_path": "assets/art/tilesets/miasma_marsh_tileset_ai01.png",
+      "transparent_pixel_ratio": 0.679866,
+      "policy_status": "alpha_allowed_for_tile_or_atlas_padding",
+      "opaque_preview_path": "",
+      "note": "Transparent padding is expected for tile/atlas editing; preserve source alpha for Godot editing."
+    },
+    {
+      "asset_id": "shrine_trial_tileset_ai01",
+      "target_kind": "tileset_sheet",
+      "source_path": "assets/art/tilesets/shrine_trial_tileset_ai01.png",
+      "transparent_pixel_ratio": 0.650406,
+      "policy_status": "alpha_allowed_for_tile_or_atlas_padding",
+      "opaque_preview_path": "",
+      "note": "Transparent padding is expected for tile/atlas editing; preserve source alpha for Godot editing."
+    },
+    {
+      "asset_id": "material_texture_atlas_ai01",
+      "target_kind": "texture_atlas",
+      "source_path": "assets/art/textures/material_texture_atlas_ai01.png",
+      "transparent_pixel_ratio": 0.736328,
+      "policy_status": "alpha_allowed_for_tile_or_atlas_padding",
+      "opaque_preview_path": "",
+      "note": "Transparent padding is expected for tile/atlas editing; preserve source alpha for Godot editing."
+    },
+    {
+      "asset_id": "promo_key_art_sheet_ai01",
+      "target_kind": "promo_key_art",
+      "source_path": "assets/art/promo/promo_key_art_sheet_ai01.png",
+      "transparent_pixel_ratio": 0.317593,
+      "policy_status": "opaque_preview_ready_manual_review",
+      "opaque_preview_path": "assets/art/promo/opaque_previews/promo_key_art_sheet_ai01_opaque_preview.png",
+      "note": "Source alpha is preserved; opaque preview is available for release/narrative review.",
+      "opaque_preview_metrics": {
+        "width": 1280,
+        "height": 1080,
+        "mode": "RGB"
+      }
+    },
+    {
+      "asset_id": "capsule_art_alpha_demo_ai01",
+      "target_kind": "promo_capsule",
+      "source_path": "assets/art/promo/capsule_art_alpha_demo_ai01.png",
+      "transparent_pixel_ratio": 0.329556,
+      "policy_status": "opaque_preview_ready_manual_review",
+      "opaque_preview_path": "assets/art/promo/opaque_previews/capsule_art_alpha_demo_ai01_opaque_preview.png",
+      "note": "Source alpha is preserved; opaque preview is available for release/narrative review.",
+      "opaque_preview_metrics": {
+        "width": 1232,
+        "height": 1059,
+        "mode": "RGB"
+      }
+    },
+    {
+      "asset_id": "cg_seal_guardian_reveal_ai01",
+      "target_kind": "cg_illustration",
+      "source_path": "assets/art/promo/cg_seal_guardian_reveal_ai01.png",
+      "transparent_pixel_ratio": 0.317593,
+      "policy_status": "opaque_preview_ready_manual_review",
+      "opaque_preview_path": "assets/art/promo/opaque_previews/cg_seal_guardian_reveal_ai01_opaque_preview.png",
+      "note": "Source alpha is preserved; opaque preview is available for release/narrative review.",
+      "opaque_preview_metrics": {
+        "width": 1280,
+        "height": 1080,
+        "mode": "RGB"
+      }
+    },
+    {
+      "asset_id": "storyboard_narrative_sheet_ai01",
+      "target_kind": "storyboard_sheet",
+      "source_path": "assets/art/storyboards/storyboard_narrative_sheet_ai01.png",
+      "transparent_pixel_ratio": 0.090741,
+      "policy_status": "opaque_preview_ready_manual_review",
+      "opaque_preview_path": "assets/art/storyboards/opaque_previews/storyboard_narrative_sheet_ai01_opaque_preview.png",
+      "note": "Source alpha is preserved; opaque preview is available for release/narrative review.",
+      "opaque_preview_metrics": {
+        "width": 960,
+        "height": 720,
+        "mode": "RGB"
+      }
+    },
+    {
+      "asset_id": "storyboard_intro_bounty_ai01",
+      "target_kind": "storyboard_sheet",
+      "source_path": "assets/art/storyboards/storyboard_intro_bounty_ai01.png",
+      "transparent_pixel_ratio": 0.090741,
+      "policy_status": "opaque_preview_ready_manual_review",
+      "opaque_preview_path": "assets/art/storyboards/opaque_previews/storyboard_intro_bounty_ai01_opaque_preview.png",
+      "note": "Source alpha is preserved; opaque preview is available for release/narrative review.",
+      "opaque_preview_metrics": {
+        "width": 960,
+        "height": 720,
+        "mode": "RGB"
+      }
+    },
+    {
+      "asset_id": "storyboard_miasma_marsh_ai01",
+      "target_kind": "storyboard_sheet",
+      "source_path": "assets/art/storyboards/storyboard_miasma_marsh_ai01.png",
+      "transparent_pixel_ratio": 0.090741,
+      "policy_status": "opaque_preview_ready_manual_review",
+      "opaque_preview_path": "assets/art/storyboards/opaque_previews/storyboard_miasma_marsh_ai01_opaque_preview.png",
+      "note": "Source alpha is preserved; opaque preview is available for release/narrative review.",
+      "opaque_preview_metrics": {
+        "width": 960,
+        "height": 720,
+        "mode": "RGB"
+      }
+    },
+    {
+      "asset_id": "biome01_shrine_trial_tiles_ai01",
+      "target_kind": "environment_tiles",
+      "source_path": "assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_tiles_ai01.png",
+      "transparent_pixel_ratio": 0.570518,
+      "policy_status": "alpha_allowed_for_tile_or_atlas_padding",
+      "opaque_preview_path": "",
+      "note": "Transparent padding is expected for tile/atlas editing; preserve source alpha for Godot editing."
+    },
+    {
+      "asset_id": "biome02_miasma_marsh_tiles_ai01",
+      "target_kind": "environment_tiles",
+      "source_path": "assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png",
+      "transparent_pixel_ratio": 0.652768,
+      "policy_status": "alpha_allowed_for_tile_or_atlas_padding",
+      "opaque_preview_path": "",
+      "note": "Transparent padding is expected for tile/atlas editing; preserve source alpha for Godot editing."
+    }
+  ]
+}

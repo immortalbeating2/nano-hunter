@@ -1,0 +1,79 @@
+{
+  "id": "capsule_art_alpha_demo_ai01",
+  "kind": "atlas",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/promo/capsule_art_alpha_demo_ai01.png",
+  "cell": [
+    616,
+    353
+  ],
+  "columns": 2,
+  "rows": 3,
+  "frames": [
+    {
+      "index": 0,
+      "name": "capsule_art_alpha_demo_ai01_auto_001",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items/capsule_art_alpha_demo_ai01_auto_001.png",
+      "region": [
+        0,
+        0,
+        616,
+        353
+      ]
+    },
+    {
+      "index": 1,
+      "name": "capsule_art_alpha_demo_ai01_auto_002",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items/capsule_art_alpha_demo_ai01_auto_002.png",
+      "region": [
+        616,
+        0,
+        616,
+        353
+      ]
+    },
+    {
+      "index": 2,
+      "name": "capsule_art_alpha_demo_ai01_auto_003",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items/capsule_art_alpha_demo_ai01_auto_003.png",
+      "region": [
+        0,
+        353,
+        616,
+        353
+      ]
+    },
+    {
+      "index": 3,
+      "name": "capsule_art_alpha_demo_ai01_auto_004",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items/capsule_art_alpha_demo_ai01_auto_004.png",
+      "region": [
+        616,
+        353,
+        616,
+        353
+      ]
+    },
+    {
+      "index": 4,
+      "name": "capsule_art_alpha_demo_ai01_auto_005",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items/capsule_art_alpha_demo_ai01_auto_005.png",
+      "region": [
+        0,
+        706,
+        616,
+        353
+      ]
+    },
+    {
+      "index": 5,
+      "name": "capsule_art_alpha_demo_ai01_auto_006",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items/capsule_art_alpha_demo_ai01_auto_006.png",
+      "region": [
+        616,
+        706,
+        616,
+        353
+      ]
+    }
+  ]
+}

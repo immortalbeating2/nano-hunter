@@ -16,6 +16,7 @@ const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
 const QA_CHECKLIST_PATH := "res://docs/deliverables/stage16-alpha-demo-candidate/qa-checklist.md"
 const RELEASE_NOTES_PATH := "res://docs/deliverables/stage16-alpha-demo-candidate/release-notes.md"
+const STAGE16_SEAL_RELEASE_THRESHOLD_ART_PATH := "res://assets/art/props/stage16_seal_release_threshold_ai01.png"
 
 const STAGE16_ROOM_PATHS := [
 	STAGE16_SEAL_RELEASE_THRESHOLD_ROOM_PATH,
@@ -134,6 +135,102 @@ func test_demo_shell_exposes_start_pause_resume_and_restart_contract() -> void:
 	main_scene.call("restart_demo")
 	await _advance_process_frames(2)
 	assert_eq(_get_room_path(main_scene), "res://scenes/rooms/tutorial_room.tscn")
+
+
+# 保护 DemoShell 的 image gen UI 壳资源：正式 UI 场景应引用标题背景、菜单图标和暂停 / 完成面板候选。
+func test_demo_shell_references_imagegen_ui_shell_assets() -> void:
+	var main_scene := await _spawn_main_scene()
+	var demo_shell := main_scene.get_node_or_null("HUD/DemoShell")
+	assert_not_null(demo_shell)
+	if demo_shell == null:
+		return
+
+	var expected_textures := {
+		"TitleBackground": "res://assets/art/ui/stage16_title_background_ai01.png",
+		"MainMenu/MenuIconStrip": "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
+		"PauseMenu/PausePanelArt": "res://assets/art/ui/stage16_pause_panel_ui_ai01.png",
+		"CompletionPanel/CompletionPanelArt": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
+	}
+	for node_path: String in expected_textures.keys():
+		var texture_rect := demo_shell.get_node_or_null(NodePath(node_path)) as TextureRect
+		assert_not_null(texture_rect, "缺少 DemoShell UI 资产节点：%s" % node_path)
+		if texture_rect == null:
+			continue
+		assert_not_null(texture_rect.texture, "DemoShell UI 资产节点没有纹理：%s" % node_path)
+		if texture_rect.texture != null:
+			assert_eq(texture_rect.texture.resource_path, expected_textures[node_path])
+
+
+# 保护 Stage16 终点房完成反馈：终点房应直接引用 Alpha Demo completion 候选图。
+func test_stage16_end_room_references_alpha_demo_completion_art() -> void:
+	var room := await _spawn_room(STAGE16_ALPHA_DEMO_END_ROOM_PATH)
+	var completion_art := room.get_node_or_null("AlphaDemoCompletionArt") as Sprite2D
+	assert_not_null(completion_art)
+	if completion_art == null:
+		return
+
+	assert_eq(completion_art.get_meta("asset_id", ""), "stage16_alpha_demo_completion_ai01")
+	assert_not_null(completion_art.texture)
+	if completion_art.texture != null:
+		assert_eq(completion_art.texture.resource_path, "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png")
+
+
+# 保护 Stage16 符印 relay VFX 资源：relay / purge 房间应引用同一套符印传递候选图。
+func test_stage16_relay_and_purge_rooms_reference_talisman_relay_art() -> void:
+	var relay_room := await _spawn_room(STAGE16_TALISMAN_RELAY_ROOM_PATH)
+	var expected_regions := {
+		"TalismanRelayA/RelayArt": Rect2(0, 0, 512, 512),
+		"TalismanRelayB/RelayArt": Rect2(512, 0, 512, 512),
+		"TalismanRelayC/RelayArt": Rect2(1024, 0, 512, 512),
+	}
+	for relay_path in expected_regions.keys():
+		_assert_sprite_references_asset(
+			relay_room,
+			relay_path,
+			"stage16_talisman_relay_ai01",
+			"res://assets/art/vfx/stage16_talisman_relay_ai01.png"
+		)
+		_assert_sprite_uses_region(relay_room, relay_path, expected_regions[relay_path])
+
+	var purge_room := await _spawn_room(STAGE16_CORRUPTION_PURGE_ROOM_PATH)
+	_assert_sprite_references_asset(
+		purge_room,
+		"CorruptionPurgeNode/TalismanRelayEchoArt",
+		"stage16_talisman_relay_ai01",
+		"res://assets/art/vfx/stage16_talisman_relay_ai01.png"
+	)
+	_assert_sprite_uses_region(
+		purge_room,
+		"CorruptionPurgeNode/TalismanRelayEchoArt",
+		Rect2(512, 512, 512, 512)
+	)
+
+
+# 保护 Stage16 妖瘴净化 VFX 资源：purge 房间应直接引用 corruption purge 候选图。
+func test_stage16_corruption_purge_room_references_corruption_purge_art() -> void:
+	var purge_room := await _spawn_room(STAGE16_CORRUPTION_PURGE_ROOM_PATH)
+	_assert_sprite_references_asset(
+		purge_room,
+		"CorruptionMiasma/PurgeArt",
+		"stage16_corruption_purge_ai01",
+		"res://assets/art/vfx/stage16_corruption_purge_ai01.png"
+	)
+	_assert_sprite_uses_region(
+		purge_room,
+		"CorruptionMiasma/PurgeArt",
+		Rect2(512, 512, 512, 512)
+	)
+
+
+# 保护 Stage16 第一房封印阈值道具：只接入 visual preview，不改变碰撞或门控。
+func test_stage16_seal_release_threshold_room_references_threshold_art() -> void:
+	var threshold_room := await _spawn_room(STAGE16_SEAL_RELEASE_THRESHOLD_ROOM_PATH)
+	_assert_sprite_references_asset(
+		threshold_room,
+		"SealReleaseNode/SealReleaseThresholdArt",
+		"stage16_seal_release_threshold_ai01",
+		STAGE16_SEAL_RELEASE_THRESHOLD_ART_PATH
+	)
 
 
 # 保护 HUD 完成态优先级：Alpha Demo 完成后不应继续显示旧 Boss 目标、旧收集行或旧恢复充能行。
@@ -294,3 +391,27 @@ func _read_text_file(path: String) -> String:
 	var file := FileAccess.open(path, FileAccess.READ)
 	assert_not_null(file, "无法读取文件：%s" % path)
 	return file.get_as_text() if file != null else ""
+
+
+# 资产接入断言 helper：保护 Sprite2D 节点、asset_id metadata 和实际资源路径三者一致。
+func _assert_sprite_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String) -> void:
+	var sprite := parent.get_node_or_null(NodePath(node_path)) as Sprite2D
+	assert_not_null(sprite, "缺少 Sprite2D 资产节点：%s" % node_path)
+	if sprite == null:
+		return
+
+	assert_eq(sprite.get_meta("asset_id", ""), asset_id)
+	assert_not_null(sprite.texture, "Sprite2D 没有纹理：%s" % node_path)
+	if sprite.texture != null:
+		assert_eq(sprite.texture.resource_path, resource_path)
+
+
+# VFX sheet 运行时只能显示具体 frame region，避免把整张候选表缩小后直接上屏。
+func _assert_sprite_uses_region(parent: Node, node_path: String, expected_region: Rect2) -> void:
+	var sprite := parent.get_node_or_null(NodePath(node_path)) as Sprite2D
+	assert_not_null(sprite, "缺少 Sprite2D 区域资产节点：%s" % node_path)
+	if sprite == null:
+		return
+
+	assert_true(sprite.region_enabled, "Sprite2D 未启用 region：%s" % node_path)
+	assert_eq(sprite.region_rect, expected_region)

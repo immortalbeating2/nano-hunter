@@ -1,0 +1,24 @@
+{
+  "asset_id": "luna_idle_runtime_sheet_ai01",
+  "source_asset_id": "luna_idle_sheet_ai01",
+  "source_texture": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.frames.json",
+  "process": "runtime_normalized_from_existing_final_ready_source",
+  "boundary": "Candidate for Animation Runtime Replacement Pass geometry review. Not approved for live controller replacement until strict audit, scene tests and runtime review pass.",
+  "normalization": {
+    "duplicates_removed": [],
+    "scale": 0.911392,
+    "source_max_content_size": [
+      97,
+      158
+    ],
+    "target_safe_size": [
+      128,
+      144
+    ],
+    "foot_baseline_y": 152,
+    "center_x": 80,
+    "horizontal_padding": 16,
+    "vertical_padding": 8
+  }
+}

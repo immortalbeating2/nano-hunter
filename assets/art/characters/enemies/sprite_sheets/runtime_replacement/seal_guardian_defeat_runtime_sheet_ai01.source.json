@@ -1,0 +1,15 @@
+{
+  "asset_id": "seal_guardian_defeat_runtime_sheet_ai01",
+  "source_asset_id": "seal_guardian_boss_runtime_sheet_ai01",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.frames.json",
+  "process": "semantic_runtime_clip_split_from_normalized_candidate",
+  "boundary": "Seal Guardian defeat / seal-release candidate only. Does not replace Stage16 completion feedback by itself.",
+  "source_frame_indexes": [
+    16,
+    17,
+    18,
+    19
+  ],
+  "filter": "none"
+}

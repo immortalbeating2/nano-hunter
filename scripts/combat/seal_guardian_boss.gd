@@ -20,6 +20,13 @@ const STATE_AIR_PUNISH: StringName = &"air_punish"
 const STATE_STAGGERED: StringName = &"staggered"
 const STATE_DEFEATED: StringName = &"defeated"
 
+# Seal Guardian 的正式替换动作只接入通过几何审查的 body clips；攻击 VFX 仍由独立视觉层承担。
+const SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres")
+const SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_warning_runtime_sheet_ai01.spriteframes.tres")
+const SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.spriteframes.tres")
+const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres")
+const SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres")
+
 # 导出参数是 Stage15 原型的调参面板：生命、护印、读招时长、伤害窗口和占位颜色。
 @export var max_health: int = 8
 @export var max_guard: int = 3
@@ -55,6 +62,8 @@ var _last_knockback_force := 0.0
 @onready var _body_canvas: CanvasItem = get_node_or_null("Body") as CanvasItem
 @onready var _attack_area: Area2D = get_node_or_null("AttackArea") as Area2D
 @onready var _collision_shape: CollisionShape2D = get_node_or_null("CollisionShape2D") as CollisionShape2D
+@onready var _runtime_animation_visual: AnimatedSprite2D = get_node_or_null("SealGuardianRuntimeAnimationVisual") as AnimatedSprite2D
+@onready var _attack_vfx_visual: AnimatedSprite2D = get_node_or_null("SealGuardianAttackVfxVisual") as AnimatedSprite2D
 
 
 # 场景实例化后统一初始化 Boss 状态，保证测试直接实例化和房间加载一致。
@@ -316,6 +325,8 @@ func _enter_state(next_state: StringName) -> void:
 		attack_started.emit(next_state)
 	state_changed.emit(current_state)
 	_refresh_body_color()
+	_sync_runtime_animation_visual()
+	_sync_attack_vfx_visual()
 
 
 # 进入击败状态，关闭碰撞并广播 defeated，由 Boss 房决定后续流程。
@@ -332,6 +343,8 @@ func _enter_defeated() -> void:
 	guard_changed.emit(current_guard, max_guard)
 	state_changed.emit(current_state)
 	_refresh_body_color()
+	_sync_runtime_animation_visual()
+	_sync_attack_vfx_visual()
 	defeated.emit()
 
 
@@ -367,3 +380,63 @@ func _refresh_body_color() -> void:
 			_body_canvas.set("color", defeated_color)
 		_:
 			_body_canvas.set("color", idle_color)
+
+
+# 按状态切换已通过审查的运行态动作；攻击状态只显示 clean body，不承载伤害 / VFX 判定。
+func _sync_runtime_animation_visual() -> void:
+	if _runtime_animation_visual == null:
+		return
+
+	var target_frames: SpriteFrames = null
+	var target_animation: StringName = &""
+	var target_asset_id := ""
+	match current_state:
+		STATE_IDLE:
+			target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
+			target_animation = &"idle"
+			target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
+		STATE_CLOSE_PRESSURE:
+			target_frames = SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES
+			target_animation = &"warning"
+			target_asset_id = "seal_guardian_warning_runtime_sheet_ai01"
+		STATE_GROUND_IMPACT, STATE_AIR_PUNISH:
+			target_frames = SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES
+			target_animation = &"attack_body"
+			target_asset_id = "seal_guardian_attack_body_runtime_sheet_ai02"
+		STATE_DEFEATED:
+			target_frames = SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES
+			target_animation = &"defeat"
+			target_asset_id = "seal_guardian_defeat_runtime_sheet_ai01"
+		_:
+			_runtime_animation_visual.visible = false
+			return
+
+	_runtime_animation_visual.visible = true
+	if _runtime_animation_visual.sprite_frames != target_frames:
+		_runtime_animation_visual.sprite_frames = target_frames
+	if _runtime_animation_visual.animation != target_animation:
+		_runtime_animation_visual.animation = target_animation
+	_runtime_animation_visual.set_meta("asset_id", target_asset_id)
+	_runtime_animation_visual.play(target_animation)
+
+
+# Boss attack VFX 只跟随攻击状态显示，不参与 AttackArea、碰撞、伤害或状态判定。
+func _sync_attack_vfx_visual() -> void:
+	if _attack_vfx_visual == null:
+		return
+
+	var should_show := current_state == STATE_GROUND_IMPACT or current_state == STATE_AIR_PUNISH
+	if not should_show:
+		_attack_vfx_visual.visible = false
+		_attack_vfx_visual.stop()
+		return
+
+	_attack_vfx_visual.visible = true
+	if _attack_vfx_visual.sprite_frames != SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES:
+		_attack_vfx_visual.sprite_frames = SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES
+	if _attack_vfx_visual.animation != &"boss_attack_vfx":
+		_attack_vfx_visual.animation = &"boss_attack_vfx"
+	_attack_vfx_visual.set_meta("asset_id", "seal_guardian_attack_vfx_atlas_ai01")
+	_attack_vfx_visual.set_meta("gameplay_collision", false)
+	_attack_vfx_visual.set_meta("damage_source", false)
+	_attack_vfx_visual.play(&"boss_attack_vfx")

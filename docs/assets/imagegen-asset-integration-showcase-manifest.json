@@ -1,0 +1,18 @@
+{
+	"version": 1,
+	"status": "placeholder_ready",
+	"scene": "res://scenes/dev/imagegen_asset_integration_showcase.tscn",
+	"purpose": "Godot node-level integration showcase for image-gen art package resources.",
+	"boundary": "Node-consumption smoke only; not final runtime replacement, collision polish, animation tuning, or art cleanup.",
+	"counts": {
+		"animated_sprite_nodes": 10,
+		"tilemap_layer_nodes": 2,
+		"stylebox_nodes": 4,
+		"atlas_sprite_nodes": 8
+	},
+	"sources": {
+		"atlas_manifest": "res://docs/assets/asset-atlas-build-manifest.json",
+		"atlas_texture_index": "res://assets/art/editor_resources/editor_atlas_textures.index.json",
+		"stylebox_index": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/menu_ninepatch_ui_ai01.styleboxes.index.json"
+	}
+}

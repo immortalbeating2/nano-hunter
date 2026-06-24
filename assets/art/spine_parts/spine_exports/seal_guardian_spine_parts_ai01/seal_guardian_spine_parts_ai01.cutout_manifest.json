@@ -1,0 +1,424 @@
+{
+  "version": 1,
+  "asset_id": "seal_guardian_spine_parts_ai01",
+  "kind": "spine_style_cutout_manifest",
+  "source_texture": "res://assets/art/spine_parts/seal_guardian_spine_parts_ai01.png",
+  "source_metadata": "res://assets/art/spine_parts/seal_guardian_spine_parts_ai01.regions.json",
+  "texture_size": [
+    1920,
+    1280
+  ],
+  "part_count": 24,
+  "parts": [
+    {
+      "index": 0,
+      "name": "seal_guardian_spine_parts_ai01_auto_001",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_001",
+      "region": [
+        0,
+        0,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_001.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 1,
+      "name": "seal_guardian_spine_parts_ai01_auto_002",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_002",
+      "region": [
+        320,
+        0,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_002.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 2,
+      "name": "seal_guardian_spine_parts_ai01_auto_003",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_003",
+      "region": [
+        640,
+        0,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_003.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 3,
+      "name": "seal_guardian_spine_parts_ai01_auto_004",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_004",
+      "region": [
+        960,
+        0,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_004.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 4,
+      "name": "seal_guardian_spine_parts_ai01_auto_005",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_005",
+      "region": [
+        1280,
+        0,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_005.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 5,
+      "name": "seal_guardian_spine_parts_ai01_auto_006",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_006",
+      "region": [
+        1600,
+        0,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_006.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 6,
+      "name": "seal_guardian_spine_parts_ai01_auto_007",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_007",
+      "region": [
+        0,
+        320,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_007.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 7,
+      "name": "seal_guardian_spine_parts_ai01_auto_008",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_008",
+      "region": [
+        320,
+        320,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_008.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 8,
+      "name": "seal_guardian_spine_parts_ai01_auto_009",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_009",
+      "region": [
+        640,
+        320,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_009.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 9,
+      "name": "seal_guardian_spine_parts_ai01_auto_010",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_010",
+      "region": [
+        960,
+        320,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_010.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 10,
+      "name": "seal_guardian_spine_parts_ai01_auto_011",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_011",
+      "region": [
+        1280,
+        320,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_011.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 11,
+      "name": "seal_guardian_spine_parts_ai01_auto_012",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_012",
+      "region": [
+        1600,
+        320,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_012.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 12,
+      "name": "seal_guardian_spine_parts_ai01_auto_013",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_013",
+      "region": [
+        0,
+        640,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_013.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 13,
+      "name": "seal_guardian_spine_parts_ai01_auto_014",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_014",
+      "region": [
+        320,
+        640,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_014.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 14,
+      "name": "seal_guardian_spine_parts_ai01_auto_015",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_015",
+      "region": [
+        640,
+        640,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_015.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 15,
+      "name": "seal_guardian_spine_parts_ai01_auto_016",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_016",
+      "region": [
+        960,
+        640,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_016.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 16,
+      "name": "seal_guardian_spine_parts_ai01_auto_017",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_017",
+      "region": [
+        1280,
+        640,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_017.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 17,
+      "name": "seal_guardian_spine_parts_ai01_auto_018",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_018",
+      "region": [
+        1600,
+        640,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_018.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 18,
+      "name": "seal_guardian_spine_parts_ai01_auto_019",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_019",
+      "region": [
+        0,
+        960,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_019.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 19,
+      "name": "seal_guardian_spine_parts_ai01_auto_020",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_020",
+      "region": [
+        320,
+        960,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_020.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 20,
+      "name": "seal_guardian_spine_parts_ai01_auto_021",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_021",
+      "region": [
+        640,
+        960,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_021.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 21,
+      "name": "seal_guardian_spine_parts_ai01_auto_022",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_022",
+      "region": [
+        960,
+        960,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_022.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 22,
+      "name": "seal_guardian_spine_parts_ai01_auto_023",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_023",
+      "region": [
+        1280,
+        960,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_023.png",
+      "role": "unclassified_cutout_part"
+    },
+    {
+      "index": 23,
+      "name": "seal_guardian_spine_parts_ai01_auto_024",
+      "source_name": "seal_guardian_spine_parts_ai01_auto_024",
+      "region": [
+        1600,
+        960,
+        320,
+        320
+      ],
+      "pivot": [
+        160.0,
+        160.0
+      ],
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_024.png",
+      "role": "unclassified_cutout_part"
+    }
+  ],
+  "status": "placeholder_ready",
+  "boundary": "Auto-generated from image-gen cutout atlas regions. Parts still need semantic naming, pivot cleanup, overlap padding review, manual bone hierarchy and animation authoring before runtime use."
+}

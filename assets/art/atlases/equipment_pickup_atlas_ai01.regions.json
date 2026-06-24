@@ -1,0 +1,277 @@
+{
+  "id": "equipment_pickup_atlas_ai01",
+  "kind": "atlas",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/atlases/equipment_pickup_atlas_ai01.png",
+  "cell": [
+    96,
+    96
+  ],
+  "columns": 8,
+  "rows": 3,
+  "frames": [
+    {
+      "index": 0,
+      "name": "equipment_pickup_atlas_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 1,
+      "name": "equipment_pickup_atlas_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_002_c01.png",
+      "region": [
+        96,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 2,
+      "name": "equipment_pickup_atlas_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_003_c01.png",
+      "region": [
+        192,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 3,
+      "name": "equipment_pickup_atlas_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_004_c01.png",
+      "region": [
+        288,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 4,
+      "name": "equipment_pickup_atlas_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_005_c01.png",
+      "region": [
+        384,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 5,
+      "name": "equipment_pickup_atlas_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_006_c01.png",
+      "region": [
+        480,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 6,
+      "name": "equipment_pickup_atlas_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_007_c01.png",
+      "region": [
+        576,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 7,
+      "name": "equipment_pickup_atlas_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_008_c01.png",
+      "region": [
+        672,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 8,
+      "name": "equipment_pickup_atlas_ai01_auto_009_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_009_c01.png",
+      "region": [
+        0,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 9,
+      "name": "equipment_pickup_atlas_ai01_auto_010_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_010_c01.png",
+      "region": [
+        96,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 10,
+      "name": "equipment_pickup_atlas_ai01_auto_011_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_011_c01.png",
+      "region": [
+        192,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 11,
+      "name": "equipment_pickup_atlas_ai01_auto_012_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_012_c02.png",
+      "region": [
+        288,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 12,
+      "name": "equipment_pickup_atlas_ai01_auto_013_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_013_c02.png",
+      "region": [
+        384,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 13,
+      "name": "equipment_pickup_atlas_ai01_auto_014_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_014_c02.png",
+      "region": [
+        480,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 14,
+      "name": "equipment_pickup_atlas_ai01_auto_015_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_015_c02.png",
+      "region": [
+        576,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 15,
+      "name": "equipment_pickup_atlas_ai01_auto_016_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_016_c02.png",
+      "region": [
+        672,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 16,
+      "name": "equipment_pickup_atlas_ai01_auto_017_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_017_c02.png",
+      "region": [
+        0,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 17,
+      "name": "equipment_pickup_atlas_ai01_auto_018_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_018_c02.png",
+      "region": [
+        96,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 18,
+      "name": "equipment_pickup_atlas_ai01_auto_019_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_019_c02.png",
+      "region": [
+        192,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 19,
+      "name": "equipment_pickup_atlas_ai01_auto_020_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_020_c02.png",
+      "region": [
+        288,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 20,
+      "name": "equipment_pickup_atlas_ai01_auto_021_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_021_c02.png",
+      "region": [
+        384,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 21,
+      "name": "equipment_pickup_atlas_ai01_auto_022_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_022_c02.png",
+      "region": [
+        480,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 22,
+      "name": "equipment_pickup_atlas_ai01_auto_023_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_023_c02.png",
+      "region": [
+        576,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 23,
+      "name": "equipment_pickup_atlas_ai01_auto_024_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_024_c02.png",
+      "region": [
+        672,
+        192,
+        96,
+        96
+      ]
+    }
+  ]
+}

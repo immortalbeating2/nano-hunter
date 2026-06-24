@@ -1,0 +1,326 @@
+{
+  "version": 1,
+  "status": "structural_coverage_ready",
+  "boundary": "Coverage report for requested asset families and Godot-ready formats. It proves structural coverage only, not final art approval.",
+  "sources": {
+    "image_gen_prompt_queue": "docs/assets/image-gen-prompt-queue.json",
+    "art_readiness": "docs/assets/art-readiness-audit-report.json",
+    "asset_package_audit": "docs/assets/asset-package-audit-report.json"
+  },
+  "summary": {
+    "family_count": 10,
+    "families_structurally_covered": 10,
+    "format_count": 7,
+    "formats_structurally_covered": 7,
+    "structural_ready_count": 55,
+    "final_ready_count": 55,
+    "queue_item_count": 55
+  },
+  "asset_families": [
+    {
+      "family": "characters",
+      "label": "角色类",
+      "target_kinds": [
+        "boss_direction",
+        "character_direction",
+        "spine_cutout_parts",
+        "sprite_sheet"
+      ],
+      "asset_count": 12,
+      "minimum_assets": 6,
+      "structural_ready_count": 12,
+      "final_ready_count": 12,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "level_environment",
+      "label": "关卡地图 / 场景类",
+      "target_kinds": [
+        "environment_background",
+        "environment_boss_room_background",
+        "environment_room_background",
+        "environment_tiles",
+        "tileset_sheet"
+      ],
+      "asset_count": 10,
+      "minimum_assets": 6,
+      "structural_ready_count": 10,
+      "final_ready_count": 10,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "ui_interface",
+      "label": "UI / 界面类",
+      "target_kinds": [
+        "completion_ui",
+        "hud_frame",
+        "ninepatch_sheet",
+        "title_background",
+        "ui_atlas",
+        "ui_panel"
+      ],
+      "asset_count": 8,
+      "minimum_assets": 6,
+      "structural_ready_count": 8,
+      "final_ready_count": 8,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "icons",
+      "label": "图标类",
+      "target_kinds": [
+        "icon",
+        "icon_sheet"
+      ],
+      "asset_count": 4,
+      "minimum_assets": 3,
+      "structural_ready_count": 4,
+      "final_ready_count": 4,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "props_equipment",
+      "label": "道具与装备类",
+      "target_kinds": [
+        "equipment_atlas",
+        "prop",
+        "prop_atlas",
+        "prop_sheet"
+      ],
+      "asset_count": 6,
+      "minimum_assets": 4,
+      "structural_ready_count": 6,
+      "final_ready_count": 6,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "vfx",
+      "label": "特效类",
+      "target_kinds": [
+        "vfx_atlas",
+        "vfx_direction",
+        "vfx_sheet",
+        "vfx_warning"
+      ],
+      "asset_count": 6,
+      "minimum_assets": 5,
+      "structural_ready_count": 6,
+      "final_ready_count": 6,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "animation_frames",
+      "label": "动画帧图 / 序列帧",
+      "target_kinds": [
+        "sprite_sheet"
+      ],
+      "asset_count": 8,
+      "minimum_assets": 6,
+      "structural_ready_count": 8,
+      "final_ready_count": 8,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "textures",
+      "label": "贴图类",
+      "target_kinds": [
+        "environment_tiles",
+        "texture_atlas",
+        "tileset_sheet"
+      ],
+      "asset_count": 5,
+      "minimum_assets": 3,
+      "structural_ready_count": 5,
+      "final_ready_count": 5,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "promo_logo_cg",
+      "label": "宣传 / 运营 / LOGO / CG",
+      "target_kinds": [
+        "cg_illustration",
+        "logo_direction",
+        "promo_capsule",
+        "promo_key_art",
+        "style_board"
+      ],
+      "asset_count": 5,
+      "minimum_assets": 5,
+      "structural_ready_count": 5,
+      "final_ready_count": 5,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "family": "story_narrative",
+      "label": "叙事 / 剧情 / 分镜",
+      "target_kinds": [
+        "cg_illustration",
+        "storyboard_sheet"
+      ],
+      "asset_count": 4,
+      "minimum_assets": 3,
+      "structural_ready_count": 4,
+      "final_ready_count": 4,
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    }
+  ],
+  "godot_formats": [
+    {
+      "format": "sprite_sheet",
+      "label": "Sprite Sheet",
+      "target_kinds": [
+        "sprite_sheet"
+      ],
+      "asset_count": 8,
+      "minimum_assets": 6,
+      "structural_ready_count": 8,
+      "final_ready_count": 8,
+      "package_count": 172,
+      "package_path": [
+        "editor_resources",
+        "animation_rules",
+        "frame_rule_count"
+      ],
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "format": "texture_atlas",
+      "label": "Texture Atlas",
+      "target_kinds": [
+        "cg_illustration",
+        "equipment_atlas",
+        "promo_key_art",
+        "prop_atlas",
+        "storyboard_sheet",
+        "texture_atlas"
+      ],
+      "asset_count": 8,
+      "minimum_assets": 6,
+      "structural_ready_count": 8,
+      "final_ready_count": 8,
+      "package_count": 302,
+      "package_path": [
+        "editor_resources",
+        "atlas_textures",
+        "resource_count"
+      ],
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "format": "tile_set",
+      "label": "Tile Set",
+      "target_kinds": [
+        "environment_tiles",
+        "tileset_sheet"
+      ],
+      "asset_count": 4,
+      "minimum_assets": 2,
+      "structural_ready_count": 4,
+      "final_ready_count": 4,
+      "package_count": 2,
+      "package_path": [
+        "editor_resources",
+        "tilesets",
+        "resource_count"
+      ],
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "format": "spine_cutout",
+      "label": "Spine 拆件图集",
+      "target_kinds": [
+        "spine_cutout_parts"
+      ],
+      "asset_count": 2,
+      "minimum_assets": 2,
+      "structural_ready_count": 2,
+      "final_ready_count": 2,
+      "package_count": 48,
+      "package_path": [
+        "editor_resources",
+        "spine_exports",
+        "part_count"
+      ],
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "format": "ui_atlas",
+      "label": "UI 图集",
+      "target_kinds": [
+        "hud_frame",
+        "icon_sheet",
+        "ui_atlas",
+        "ui_panel"
+      ],
+      "asset_count": 7,
+      "minimum_assets": 5,
+      "structural_ready_count": 7,
+      "final_ready_count": 7,
+      "package_count": 9,
+      "package_path": [
+        "editor_resources",
+        "ui_skin",
+        "stylebox_mapping_count"
+      ],
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "format": "vfx_atlas",
+      "label": "特效图集",
+      "target_kinds": [
+        "vfx_atlas",
+        "vfx_direction",
+        "vfx_sheet",
+        "vfx_warning"
+      ],
+      "asset_count": 6,
+      "minimum_assets": 5,
+      "structural_ready_count": 6,
+      "final_ready_count": 6,
+      "package_count": 78,
+      "package_path": [
+        "editor_resources",
+        "vfx_rules",
+        "frame_rule_count"
+      ],
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    },
+    {
+      "format": "ninepatch",
+      "label": "九宫格图片 / StyleBox",
+      "target_kinds": [
+        "hud_frame",
+        "ninepatch_sheet",
+        "ui_panel"
+      ],
+      "asset_count": 5,
+      "minimum_assets": 3,
+      "structural_ready_count": 5,
+      "final_ready_count": 5,
+      "package_count": 8,
+      "package_path": [
+        "editor_resources",
+        "styleboxes",
+        "resource_count"
+      ],
+      "coverage_status": "covered_structural",
+      "final_status": "final_ready"
+    }
+  ]
+}

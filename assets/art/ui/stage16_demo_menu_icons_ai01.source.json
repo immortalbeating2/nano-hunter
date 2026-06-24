@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "stage16_demo_menu_icons_ai01",
+  "candidate_index": 4,
+  "candidate_path": "assets/source/ai_generated/batch_02/stage16_demo_menu_icons_ai01/candidates/stage16_demo_menu_icons_ai01_candidate_04.png",
+  "output_path": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+  "boundary": "Standalone output derivation record for source-safety audits. Candidate 04 was generated in the current Nano Hunter image_gen pass, copied from Codex generated_images, converted from flat chroma key to alpha, and exported as the current Stage16 menu icon sheet. This proves which image_gen candidate was exported, not final art approval."
+}

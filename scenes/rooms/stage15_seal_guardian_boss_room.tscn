@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage15_boss_room.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/seal_guardian_boss.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage15_boss_attack_warning_ai01.png" id="4"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres" id="5_yb28m"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -59,6 +62,30 @@ polygon = PackedVector2Array(-64, -16, 64, -16, 64, 16, -64, 16)
 
 [node name="SealGuardianBoss" parent="." instance=ExtResource("2")]
 position = Vector2(192, 120)
+
+[node name="SealGuardianRoomArt" type="Sprite2D" parent="."]
+position = Vector2(192, 56)
+scale = Vector2(0.055, 0.055)
+modulate = Color(1, 1, 1, 0.38)
+texture = ExtResource("3")
+metadata/asset_id = "stage15_seal_guardian_ai01"
+
+[node name="BossWarningRoomArt" type="Sprite2D" parent="."]
+position = Vector2(192, 18)
+scale = Vector2(0.045, 0.045)
+modulate = Color(1, 1, 1, 0.34)
+texture = ExtResource("4")
+metadata/asset_id = "stage15_boss_attack_warning_ai01"
+
+[node name="SealGuardianRoomAnimationPreview" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(192, 56)
+scale = Vector2(0.32, 0.32)
+modulate = Color(1, 1, 1, 0.34)
+sprite_frames = ExtResource("5_yb28m")
+animation = &"attack"
+metadata/asset_id = "seal_guardian_boss_sheet_ai01"
+metadata/asset_binding_note = "animation_preview_only_state_machine_still_graybox"
 
 [node name="GateBarrier" type="StaticBody2D" parent="."]
 position = Vector2(456, 80)

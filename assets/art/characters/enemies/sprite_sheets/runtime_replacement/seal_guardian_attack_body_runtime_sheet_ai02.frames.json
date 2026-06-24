@@ -1,0 +1,260 @@
+{
+  "id": "seal_guardian_attack_body_runtime_sheet_ai02",
+  "source_asset_id": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+  "kind": "sprite_sheet",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.png",
+  "cell": [
+    256,
+    192
+  ],
+  "columns": 8,
+  "rows": 1,
+  "frames": [
+    {
+      "index": 0,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_001",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 0,
+      "source_region": [
+        16,
+        0,
+        260,
+        724
+      ],
+      "source_bbox": [
+        0,
+        293,
+        260,
+        501
+      ],
+      "region": [
+        0,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 1,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_002",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 1,
+      "source_region": [
+        291,
+        0,
+        262,
+        724
+      ],
+      "source_bbox": [
+        0,
+        312,
+        262,
+        501
+      ],
+      "region": [
+        256,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 2,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_003",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 2,
+      "source_region": [
+        575,
+        0,
+        279,
+        724
+      ],
+      "source_bbox": [
+        0,
+        282,
+        279,
+        495
+      ],
+      "region": [
+        512,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 3,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_004",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 3,
+      "source_region": [
+        870,
+        0,
+        224,
+        724
+      ],
+      "source_bbox": [
+        0,
+        252,
+        224,
+        502
+      ],
+      "region": [
+        768,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 4,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_005",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 4,
+      "source_region": [
+        1099,
+        0,
+        268,
+        724
+      ],
+      "source_bbox": [
+        0,
+        303,
+        268,
+        522
+      ],
+      "region": [
+        1024,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 5,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_006",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 5,
+      "source_region": [
+        1392,
+        0,
+        232,
+        724
+      ],
+      "source_bbox": [
+        0,
+        328,
+        232,
+        502
+      ],
+      "region": [
+        1280,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 6,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_007",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 6,
+      "source_region": [
+        1643,
+        0,
+        255,
+        724
+      ],
+      "source_bbox": [
+        0,
+        347,
+        255,
+        505
+      ],
+      "region": [
+        1536,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 7,
+      "name": "seal_guardian_attack_body_runtime_sheet_ai02_runtime_008",
+      "source": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+      "source_frame_index": 7,
+      "source_region": [
+        1914,
+        0,
+        250,
+        724
+      ],
+      "source_bbox": [
+        0,
+        302,
+        250,
+        508
+      ],
+      "region": [
+        1792,
+        0,
+        256,
+        192
+      ]
+    }
+  ],
+  "normalization": {
+    "source_image_size": [
+      2172,
+      724
+    ],
+    "source_max_content_size": [
+      279,
+      250
+    ],
+    "target_safe_size": [
+      208,
+      176
+    ],
+    "scale": 0.704,
+    "horizontal_padding": 24,
+    "vertical_padding": 8,
+    "foot_baseline_y": 184,
+    "center_x": 128,
+    "projected_runs": [
+      [
+        16,
+        276
+      ],
+      [
+        291,
+        553
+      ],
+      [
+        575,
+        854
+      ],
+      [
+        870,
+        1094
+      ],
+      [
+        1099,
+        1367
+      ],
+      [
+        1392,
+        1624
+      ],
+      [
+        1643,
+        1898
+      ],
+      [
+        1914,
+        2164
+      ]
+    ],
+    "slice_strategy": "magenta_key_alpha_projection_8_horizontal_runs_then_alpha_bbox_normalize"
+  }
+}

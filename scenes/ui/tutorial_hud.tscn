@@ -1,7 +1,15 @@
-[gd_scene format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tutorial_hud.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage12_checkpoint_gate_goal_icons.svg" id="2"]
+[ext_resource type="Theme" path="res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres" id="3"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres" id="4"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage14_air_dash_icon_ai01.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage15_recovery_charge_icon_ai01.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage14_ability_status_hud_ai01.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage15_boss_hud_frame_ai01.png" id="8"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres" id="9"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres" id="10"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_objective_icon"]
 atlas = ExtResource("2")
@@ -15,6 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("3")
 script = ExtResource("1")
 
 [node name="PromptPanel" type="Panel" parent="."]
@@ -22,6 +31,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 364.0
 offset_bottom = 116.0
+theme_override_styles/panel = ExtResource("4")
 
 [node name="StepLabel" type="Label" parent="PromptPanel"]
 offset_left = 12.0
@@ -45,6 +55,53 @@ offset_left = 386.0
 offset_top = 16.0
 offset_right = 624.0
 offset_bottom = 220.0
+theme_override_styles/panel = ExtResource("4")
+
+[node name="AbilityStatusFrameArt" type="TextureRect" parent="BattlePanel"]
+visible = false
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 232.0
+offset_bottom = 198.0
+mouse_filter = 2
+texture = ExtResource("7")
+expand_mode = 1
+stretch_mode = 5
+metadata/asset_id = "stage14_ability_status_hud_ai01"
+
+[node name="BossHudFrameArt" type="TextureRect" parent="BattlePanel"]
+visible = false
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 232.0
+offset_bottom = 198.0
+mouse_filter = 2
+texture = ExtResource("8")
+expand_mode = 1
+stretch_mode = 5
+metadata/asset_id = "stage15_boss_hud_frame_ai01"
+
+[node name="HudCoreAtlasPreview" type="TextureRect" parent="BattlePanel"]
+visible = false
+offset_left = 12.0
+offset_top = 130.0
+offset_right = 40.0
+offset_bottom = 158.0
+mouse_filter = 2
+texture = ExtResource("9")
+stretch_mode = 5
+metadata/asset_id = "hud_core_ui_atlas_ai01"
+
+[node name="IconSheetCorePreview" type="TextureRect" parent="BattlePanel"]
+visible = false
+offset_left = 44.0
+offset_top = 130.0
+offset_right = 72.0
+offset_bottom = 158.0
+mouse_filter = 2
+texture = ExtResource("10")
+stretch_mode = 5
+metadata/asset_id = "icon_sheet_core_ai01"
 
 [node name="HealthIcon" type="ColorRect" parent="BattlePanel"]
 offset_left = 12.0
@@ -61,12 +118,14 @@ offset_bottom = 28.0
 theme_override_font_sizes/font_size = 18
 text = "生命：■■■"
 
-[node name="DashIcon" type="ColorRect" parent="BattlePanel"]
+[node name="DashIcon" type="TextureRect" parent="BattlePanel"]
 offset_left = 12.0
-offset_top = 40.0
-offset_right = 24.0
-offset_bottom = 52.0
-color = Color(0.411765, 0.815686, 1, 1)
+offset_top = 36.0
+offset_right = 28.0
+offset_bottom = 56.0
+texture = ExtResource("5")
+stretch_mode = 5
+metadata/asset_id = "stage14_air_dash_icon_ai01"
 
 [node name="DashLabel" type="Label" parent="BattlePanel"]
 offset_left = 32.0
@@ -83,6 +142,15 @@ offset_right = 26.0
 offset_bottom = 86.0
 texture = SubResource("AtlasTexture_objective_icon")
 stretch_mode = 5
+
+[node name="RecoveryChargeIcon" type="TextureRect" parent="BattlePanel"]
+offset_left = 12.0
+offset_top = 104.0
+offset_right = 30.0
+offset_bottom = 122.0
+texture = ExtResource("6")
+stretch_mode = 5
+metadata/asset_id = "stage15_recovery_charge_icon_ai01"
 
 [node name="ProgressLabel" type="Label" parent="BattlePanel"]
 offset_left = 44.0

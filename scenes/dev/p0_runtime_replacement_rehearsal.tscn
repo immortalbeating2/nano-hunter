@@ -1,0 +1,354 @@
+[gd_scene format=4]
+
+[ext_resource type="Texture2D" path="res://assets/art/promo/style_board_global_ai01.png" id="1_6uprv"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/stage16_luna_player_readability_ai01.png" id="2_4ayoa"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage14_air_dash_icon_ai01.png" id="3_drwd5"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage14_air_dash_trail_ai01.png" id="4_mfplf"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_shrine_ai01.png" id="5_eay0s"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_gate_ai01.png" id="6_cndrm"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png" id="7_mkt07"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage15_boss_attack_warning_ai01.png" id="8_t6bru"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage15_recovery_charge_icon_ai01.png" id="9_yg0df"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres" id="10_rkt2v"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres" id="11_bfrac"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres" id="12_tu62r"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres" id="13_82f16"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres" id="14_nh708"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="15_q0bj1"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres" id="16_18e2o"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres" id="17_uonqo"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres" id="18_po758"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres" id="19_uqhor"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_demo_menu_icons_ai01.png" id="20_fp64i"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage16_seal_release_threshold_ai01.png" id="21_so0hx"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_talisman_relay_ai01.png" id="22_d6toh"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_alpha_demo_completion_ai01.png" id="23_wotnq"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres" id="24_7dwrw"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres" id="25_qnrv8"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres" id="26_keq21"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_pause_panel_ui_ai01.png" id="27_q7tdv"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_completion_panel_ui_ai01.png" id="28_fxf0q"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage15_boss_hud_frame_ai01.png" id="29_420vw"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage14_ability_status_hud_ai01.png" id="30_fm4yj"]
+
+[node name="P0RuntimeReplacementRehearsal" type="Node2D" unique_id=1146749968]
+metadata/p0_runtime_replacement_rehearsal_scene = true
+
+[node name="Rehearsal_texture2d_style_board_global_ai01" type="Sprite2D" parent="." unique_id=1405922300]
+position = Vector2(120, 120)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("1_6uprv")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "style_board_global_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/promo/style_board_global_ai01.png"
+metadata/p0_rehearsal_track = "art_direction"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage16_luna_player_readability_ai01" type="Sprite2D" parent="." unique_id=482021885]
+position = Vector2(350, 120)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("2_4ayoa")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage16_luna_player_readability_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/player/stage16_luna_player_readability_ai01.png"
+metadata/p0_rehearsal_track = "runtime_gameplay"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage14_air_dash_icon_ai01" type="Sprite2D" parent="." unique_id=210516206]
+position = Vector2(580, 120)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("3_drwd5")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage14_air_dash_icon_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage14_air_dash_icon_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage14_air_dash_trail_ai01" type="Sprite2D" parent="." unique_id=46422513]
+position = Vector2(810, 120)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("4_mfplf")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage14_air_dash_trail_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/vfx/stage14_air_dash_trail_ai01.png"
+metadata/p0_rehearsal_track = "runtime_vfx"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage14_air_dash_shrine_ai01" type="Sprite2D" parent="." unique_id=156349011]
+position = Vector2(1040, 120)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("5_eay0s")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage14_air_dash_shrine_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/props/stage14_air_dash_shrine_ai01.png"
+metadata/p0_rehearsal_track = "runtime_gameplay"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage14_air_dash_gate_ai01" type="Sprite2D" parent="." unique_id=302009074]
+position = Vector2(1270, 120)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("6_cndrm")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage14_air_dash_gate_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/props/stage14_air_dash_gate_ai01.png"
+metadata/p0_rehearsal_track = "runtime_gameplay"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage15_seal_guardian_ai01" type="Sprite2D" parent="." unique_id=1444570426]
+position = Vector2(1500, 120)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("7_mkt07")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage15_seal_guardian_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png"
+metadata/p0_rehearsal_track = "runtime_gameplay"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage15_boss_attack_warning_ai01" type="Sprite2D" parent="." unique_id=283586384]
+position = Vector2(120, 310)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("8_t6bru")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage15_boss_attack_warning_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png"
+metadata/p0_rehearsal_track = "runtime_vfx"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage15_recovery_charge_icon_ai01" type="Sprite2D" parent="." unique_id=1724660194]
+position = Vector2(350, 310)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("9_yg0df")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage15_recovery_charge_icon_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_luna_run_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=2043130932]
+position = Vector2(580, 310)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("10_rkt2v")
+animation = &"run"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "luna_run_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_luna_air_dash_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=2092659340]
+position = Vector2(810, 310)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("11_bfrac")
+animation = &"air_dash"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "luna_air_dash_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_luna_attack_01_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=565167132]
+position = Vector2(1040, 310)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("12_tu62r")
+animation = &"attack_01"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "luna_attack_01_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_luna_idle_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=1144559716]
+position = Vector2(1270, 310)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("13_82f16")
+animation = &"idle"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "luna_idle_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_seal_guardian_boss_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=480670852]
+position = Vector2(1500, 310)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("14_nh708")
+animation = &"attack"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "seal_guardian_boss_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_tileset_miasma_marsh_tileset_ai01" type="TileMapLayer" parent="." unique_id=946599332]
+position = Vector2(120, 500)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
+tile_set = ExtResource("15_q0bj1")
+metadata/p0_rehearsal_kind = "tileset"
+metadata/p0_rehearsal_asset_id = "miasma_marsh_tileset_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres"
+metadata/p0_rehearsal_track = "runtime_environment"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_atlastexture_hud_core_ui_atlas_ai01" type="Sprite2D" parent="." unique_id=986907453]
+position = Vector2(350, 500)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("16_18e2o")
+metadata/p0_rehearsal_kind = "atlastexture"
+metadata/p0_rehearsal_asset_id = "hud_core_ui_atlas_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_atlastexture_icon_sheet_core_ai01" type="Sprite2D" parent="." unique_id=376225514]
+position = Vector2(580, 500)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("17_uonqo")
+metadata/p0_rehearsal_kind = "atlastexture"
+metadata/p0_rehearsal_asset_id = "icon_sheet_core_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_stylebox_menu_ninepatch_ui_ai01" type="PanelContainer" parent="." unique_id=2039701008]
+custom_minimum_size = Vector2(180, 90)
+offset_left = 810.0
+offset_top = 500.0
+offset_right = 810.0
+offset_bottom = 500.0
+theme_override_styles/panel = ExtResource("18_po758")
+metadata/p0_rehearsal_kind = "stylebox"
+metadata/p0_rehearsal_asset_id = "menu_ninepatch_ui_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="@Label@2" type="Label" parent="Rehearsal_stylebox_menu_ninepatch_ui_ai01" unique_id=831878094]
+layout_mode = 2
+text = "menu_ninepatch_ui_ai01"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Rehearsal_spriteframes_vfx_seal_magic_atlas_ai01" type="AnimatedSprite2D" parent="." unique_id=960540990]
+position = Vector2(1040, 500)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("19_uqhor")
+animation = &"seal_magic"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "vfx_seal_magic_atlas_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_vfx"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage16_demo_menu_icons_ai01" type="Sprite2D" parent="." unique_id=1087706047]
+position = Vector2(1270, 500)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("20_fp64i")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage16_demo_menu_icons_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage16_demo_menu_icons_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage16_seal_release_threshold_ai01" type="Sprite2D" parent="." unique_id=55338320]
+position = Vector2(1500, 500)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("21_so0hx")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage16_seal_release_threshold_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/props/stage16_seal_release_threshold_ai01.png"
+metadata/p0_rehearsal_track = "runtime_gameplay"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage16_talisman_relay_ai01" type="Sprite2D" parent="." unique_id=1468730015]
+position = Vector2(120, 690)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("22_d6toh")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage16_talisman_relay_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/vfx/stage16_talisman_relay_ai01.png"
+metadata/p0_rehearsal_track = "runtime_vfx"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage16_alpha_demo_completion_ai01" type="Sprite2D" parent="." unique_id=938073718]
+position = Vector2(350, 690)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("23_wotnq")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage16_alpha_demo_completion_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_luna_jump_fall_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=1172138413]
+position = Vector2(580, 690)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("24_7dwrw")
+animation = &"jump_fall"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "luna_jump_fall_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_luna_hit_death_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=611500696]
+position = Vector2(810, 690)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("25_qnrv8")
+animation = &"hit_death"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "luna_hit_death_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_spriteframes_enemies_core_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=1551515472]
+position = Vector2(1040, 690)
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("26_keq21")
+animation = &"enemy_core_cycle"
+metadata/p0_rehearsal_kind = "spriteframes"
+metadata/p0_rehearsal_asset_id = "enemies_core_sheet_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres"
+metadata/p0_rehearsal_track = "runtime_animation"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage16_pause_panel_ui_ai01" type="Sprite2D" parent="." unique_id=1516835207]
+position = Vector2(1270, 690)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("27_q7tdv")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage16_pause_panel_ui_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage16_pause_panel_ui_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage16_completion_panel_ui_ai01" type="Sprite2D" parent="." unique_id=593416044]
+position = Vector2(1500, 690)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("28_fxf0q")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage16_completion_panel_ui_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage16_completion_panel_ui_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage15_boss_hud_frame_ai01" type="Sprite2D" parent="." unique_id=531445177]
+position = Vector2(120, 880)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("29_420vw")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage15_boss_hud_frame_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage15_boss_hud_frame_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"
+
+[node name="Rehearsal_texture2d_stage14_ability_status_hud_ai01" type="Sprite2D" parent="." unique_id=1147107429]
+position = Vector2(350, 880)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("30_fm4yj")
+metadata/p0_rehearsal_kind = "texture2d"
+metadata/p0_rehearsal_asset_id = "stage14_ability_status_hud_ai01"
+metadata/p0_rehearsal_resource = "res://assets/art/ui/stage14_ability_status_hud_ai01.png"
+metadata/p0_rehearsal_track = "runtime_ui"
+metadata/p0_rehearsal_status = "already_referenced"

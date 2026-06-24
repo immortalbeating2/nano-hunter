@@ -1,0 +1,242 @@
+{
+	"version": 1,
+	"status": "placeholder_ready",
+	"theme_resource": "res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres",
+	"source_stylebox_index": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/menu_ninepatch_ui_ai01.styleboxes.index.json",
+	"stylebox_mappings": [
+		{
+			"usage": "default_panel",
+			"theme_type": "PanelContainer",
+			"style_name": "panel",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres",
+			"source_region": [
+				0.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "runtime_panel",
+			"theme_type": "Panel",
+			"style_name": "panel",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres",
+			"source_region": [
+				0.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "button_normal",
+			"theme_type": "Button",
+			"style_name": "normal",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai_01_auto_002_c_01.stylebox_texture.tres",
+			"source_region": [
+				192.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "button_hover",
+			"theme_type": "Button",
+			"style_name": "hover",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai_01_auto_003_c_01.stylebox_texture.tres",
+			"source_region": [
+				384.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "button_pressed",
+			"theme_type": "Button",
+			"style_name": "pressed",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/003_menu_ninepatch_ui_ai_01_auto_004_c_01.stylebox_texture.tres",
+			"source_region": [
+				576.0,
+				0.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "button_disabled",
+			"theme_type": "Button",
+			"style_name": "disabled",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/004_menu_ninepatch_ui_ai_01_auto_005_c_01.stylebox_texture.tres",
+			"source_region": [
+				0.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "popup_panel",
+			"theme_type": "PopupPanel",
+			"style_name": "panel",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/005_menu_ninepatch_ui_ai_01_auto_006_c_01.stylebox_texture.tres",
+			"source_region": [
+				192.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "tooltip_panel",
+			"theme_type": "TooltipPanel",
+			"style_name": "panel",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/006_menu_ninepatch_ui_ai_01_auto_007_c_02.stylebox_texture.tres",
+			"source_region": [
+				384.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		},
+		{
+			"usage": "dialog_panel",
+			"theme_type": "AcceptDialog",
+			"style_name": "panel",
+			"stylebox_resource": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/007_menu_ninepatch_ui_ai_01_auto_008_c_02.stylebox_texture.tres",
+			"source_region": [
+				576.0,
+				96.0,
+				192.0,
+				96.0
+			],
+			"margin": 24,
+			"manual_review_required": true
+		}
+	],
+	"standalone_panels": [
+		{
+			"id": "stage16_pause_panel_ui_ai01",
+			"texture": "res://assets/art/ui/stage16_pause_panel_ui_ai01.png",
+			"size": [
+				1536,
+				1024
+			],
+			"recommended_control": "PanelContainer",
+			"layout_role": "pause_menu_panel",
+			"text_safe_rect": [
+				184,
+				143,
+				1168,
+				738
+			],
+			"min_runtime_size": [
+				384,
+				256
+			],
+			"manual_review_required": true,
+			"notes": [
+				"conservative_text_safe_area_candidate",
+				"pseudo_text_cleanup_required_before_runtime_use",
+				"contrast_and_640x360_readability_review_required"
+			]
+		},
+		{
+			"id": "stage16_completion_panel_ui_ai01",
+			"texture": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
+			"size": [
+				1536,
+				1024
+			],
+			"recommended_control": "PanelContainer",
+			"layout_role": "completion_panel",
+			"text_safe_rect": [
+				184,
+				143,
+				1168,
+				738
+			],
+			"min_runtime_size": [
+				384,
+				256
+			],
+			"manual_review_required": true,
+			"notes": [
+				"conservative_text_safe_area_candidate",
+				"pseudo_text_cleanup_required_before_runtime_use",
+				"contrast_and_640x360_readability_review_required"
+			]
+		},
+		{
+			"id": "stage15_boss_hud_frame_ai01",
+			"texture": "res://assets/art/ui/stage15_boss_hud_frame_ai01.png",
+			"size": [
+				2172,
+				724
+			],
+			"recommended_control": "TextureRect",
+			"layout_role": "boss_hud_frame",
+			"text_safe_rect": [
+				261,
+				101,
+				1650,
+				522
+			],
+			"min_runtime_size": [
+				543,
+				181
+			],
+			"manual_review_required": true,
+			"notes": [
+				"conservative_text_safe_area_candidate",
+				"pseudo_text_cleanup_required_before_runtime_use",
+				"contrast_and_640x360_readability_review_required"
+			]
+		},
+		{
+			"id": "stage14_ability_status_hud_ai01",
+			"texture": "res://assets/art/ui/stage14_ability_status_hud_ai01.png",
+			"size": [
+				1536,
+				1024
+			],
+			"recommended_control": "TextureRect",
+			"layout_role": "ability_status_hud",
+			"text_safe_rect": [
+				184,
+				143,
+				1168,
+				738
+			],
+			"min_runtime_size": [
+				384,
+				256
+			],
+			"manual_review_required": true,
+			"notes": [
+				"conservative_text_safe_area_candidate",
+				"pseudo_text_cleanup_required_before_runtime_use",
+				"contrast_and_640x360_readability_review_required"
+			]
+		}
+	],
+	"manual_review_required": true,
+	"boundary": "First-pass UI skin rules. Theme mapping, text-safe areas, stretch behavior and runtime layout must be reviewed before replacing DemoShell or HUD UI."
+}

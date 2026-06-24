@@ -1,0 +1,421 @@
+{
+  "version": 1,
+  "asset_id": "equipment_pickup_atlas_ai01",
+  "kind": "atlas",
+  "batch": "Batch 09",
+  "source_metadata": "assets/art/atlases/equipment_pickup_atlas_ai01.regions.json",
+  "output": "assets/art/atlases/equipment_pickup_atlas_ai01.png",
+  "entry_count": 24,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "luna_blade",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "talisman_paper",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_002_c01.png",
+      "region": [
+        96,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "prayer_beads",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_003_c01.png",
+      "region": [
+        192,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "bronze_bell",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_004_c01.png",
+      "region": [
+        288,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "demon_bureau_token",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_005_c01.png",
+      "region": [
+        384,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "seal_fragment",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_006_c01.png",
+      "region": [
+        480,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "recovery_charm",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_007_c01.png",
+      "region": [
+        576,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "air_dash_charm",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_008_c01.png",
+      "region": [
+        672,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "reward_orb_small",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_009_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_009_c01.png",
+      "region": [
+        0,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "reward_orb_large",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_010_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_010_c01.png",
+      "region": [
+        96,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "miasma_sample",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_011_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_011_c01.png",
+      "region": [
+        192,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "shrine_key_token",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_012_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_012_c02.png",
+      "region": [
+        288,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "ward_chain_link",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_013_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_013_c02.png",
+      "region": [
+        384,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "spirit_coin",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_014_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_014_c02.png",
+      "region": [
+        480,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "cloth_sash",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_015_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_015_c02.png",
+      "region": [
+        576,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "paper_seal_stack",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_016_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_016_c02.png",
+      "region": [
+        672,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 16,
+      "semantic_name": "ritual_ink",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_017_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_017_c02.png",
+      "region": [
+        0,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 17,
+      "semantic_name": "broken_mask",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_018_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_018_c02.png",
+      "region": [
+        96,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 18,
+      "semantic_name": "copper_talisman_case",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_019_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_019_c02.png",
+      "region": [
+        192,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 19,
+      "semantic_name": "boss_core_shard",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_020_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_020_c02.png",
+      "region": [
+        288,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 20,
+      "semantic_name": "checkpoint_bell",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_021_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_021_c02.png",
+      "region": [
+        384,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 21,
+      "semantic_name": "purge_flame_seed",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_022_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_022_c02.png",
+      "region": [
+        480,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 22,
+      "semantic_name": "map_scrap",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_023_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_023_c02.png",
+      "region": [
+        576,
+        192,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 23,
+      "semantic_name": "demo_completion_token",
+      "category": "atlas",
+      "group": "equipment",
+      "role": "equipment_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "equipment_pickup_atlas_ai01_auto_024_c02",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items/equipment_pickup_atlas_ai01_auto_024_c02.png",
+      "region": [
+        672,
+        192,
+        96,
+        96
+      ]
+    }
+  ]
+}

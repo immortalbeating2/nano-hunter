@@ -1,0 +1,421 @@
+{
+  "version": 1,
+  "asset_id": "seal_guardian_spine_parts_ai01",
+  "kind": "atlas",
+  "batch": "Batch 11",
+  "source_metadata": "assets/art/spine_parts/seal_guardian_spine_parts_ai01.regions.json",
+  "output": "assets/art/spine_parts/seal_guardian_spine_parts_ai01.png",
+  "entry_count": 24,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "seal_guardian_mask",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_001",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_001.png",
+      "region": [
+        0,
+        0,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "seal_guardian_head_back",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_002",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_002.png",
+      "region": [
+        320,
+        0,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "seal_guardian_torso",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_003",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_003.png",
+      "region": [
+        640,
+        0,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "seal_guardian_core",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_004",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_004.png",
+      "region": [
+        960,
+        0,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "seal_guardian_shoulder_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_005",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_005.png",
+      "region": [
+        1280,
+        0,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "seal_guardian_upper_arm_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_006",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_006.png",
+      "region": [
+        1600,
+        0,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "seal_guardian_forearm_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_007",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_007.png",
+      "region": [
+        0,
+        320,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "seal_guardian_hand_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_008",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_008.png",
+      "region": [
+        320,
+        320,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "seal_guardian_shoulder_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_009",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_009.png",
+      "region": [
+        640,
+        320,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "seal_guardian_upper_arm_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_010",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_010.png",
+      "region": [
+        960,
+        320,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "seal_guardian_forearm_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_011",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_011.png",
+      "region": [
+        1280,
+        320,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "seal_guardian_hand_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_012",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_012.png",
+      "region": [
+        1600,
+        320,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "seal_guardian_hip",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_013",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_013.png",
+      "region": [
+        0,
+        640,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "seal_guardian_upper_leg_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_014",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_014.png",
+      "region": [
+        320,
+        640,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "seal_guardian_lower_leg_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_015",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_015.png",
+      "region": [
+        640,
+        640,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "seal_guardian_foot_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_016",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_016.png",
+      "region": [
+        960,
+        640,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 16,
+      "semantic_name": "seal_guardian_upper_leg_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_017",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_017.png",
+      "region": [
+        1280,
+        640,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 17,
+      "semantic_name": "seal_guardian_lower_leg_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_018",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_018.png",
+      "region": [
+        1600,
+        640,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 18,
+      "semantic_name": "seal_guardian_foot_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_019",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_019.png",
+      "region": [
+        0,
+        960,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 19,
+      "semantic_name": "seal_guardian_chain_left",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_020",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_020.png",
+      "region": [
+        320,
+        960,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 20,
+      "semantic_name": "seal_guardian_chain_right",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_021",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_021.png",
+      "region": [
+        640,
+        960,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 21,
+      "semantic_name": "seal_guardian_back_banner",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_022",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_022.png",
+      "region": [
+        960,
+        960,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 22,
+      "semantic_name": "seal_guardian_seal_ring",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_023",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_023.png",
+      "region": [
+        1280,
+        960,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 23,
+      "semantic_name": "seal_guardian_shadow_contact",
+      "category": "atlas",
+      "group": "seal_guardian",
+      "role": "spine_part",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_spine_parts_ai01_auto_024",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts/seal_guardian_spine_parts_ai01_auto_024.png",
+      "region": [
+        1600,
+        960,
+        320,
+        320
+      ]
+    }
+  ]
+}

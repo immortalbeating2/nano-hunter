@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="2_f1m3a"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -38,6 +39,13 @@ shape = SubResource("2")
 [node name="FloorVisual" type="Polygon2D" parent="Floor"]
 color = Color(0.188235, 0.317647, 0.231373, 1)
 polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
+
+[node name="MiasmaTilesetPreview" type="TileMapLayer" parent="."]
+position = Vector2(-160, 128)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
+tile_set = ExtResource("2_f1m3a")
+metadata/asset_id = "miasma_marsh_tileset_ai01"
+metadata/asset_binding_note = "visual_preview_only_collision_still_graybox"
 
 [node name="ExitZone" type="Area2D" parent="."]
 position = Vector2(544, 96)

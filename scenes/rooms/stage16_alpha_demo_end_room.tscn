@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage16_seal_chain_room_base.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_alpha_demo_completion_ai01.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -43,6 +44,12 @@ polygon = PackedVector2Array(-416, -16, 416, -16, 416, 16, -416, 16)
 position = Vector2(256, 96)
 color = Color(0.933333, 0.843137, 0.431373, 0.72)
 polygon = PackedVector2Array(-64, 0, -32, -56, 32, -56, 64, 0, 32, 56, -32, 56)
+
+[node name="AlphaDemoCompletionArt" type="Sprite2D" parent="."]
+position = Vector2(256, 30)
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("2")
+metadata/asset_id = "stage16_alpha_demo_completion_ai01"
 
 [node name="ExitZone" type="Area2D" parent="."]
 position = Vector2(544, 96)

@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "asset_id": "stage16_corruption_purge_ai01",
+  "target_kind": "vfx_sheet",
+  "status": "runtime_region_ready",
+  "source_texture": "assets/art/vfx/stage16_corruption_purge_ai01.png",
+  "source_metadata": "",
+  "sprite_frames": "",
+  "frame_count": 6,
+  "grid": {
+    "columns": 3,
+    "rows": 2,
+    "cell_size": [
+      512,
+      512
+    ]
+  },
+  "rules": [
+    {
+      "index": 0,
+      "source_name": "stage16_corruption_purge_ai01_dark_miasma_curl",
+      "semantic_name": "dark_miasma_curl",
+      "group": "completion_feedback",
+      "role": "completion_feedback",
+      "region": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "anchor_px": [
+        256,
+        256
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive_soft",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 1,
+      "source_name": "stage16_corruption_purge_ai01_cyan_white_seal_ignition",
+      "semantic_name": "cyan_white_seal_ignition",
+      "group": "completion_feedback",
+      "role": "completion_feedback",
+      "region": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "anchor_px": [
+        256,
+        256
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive_soft",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 2,
+      "source_name": "stage16_corruption_purge_ai01_vermilion_talisman_ring",
+      "semantic_name": "vermilion_talisman_ring",
+      "group": "completion_feedback",
+      "role": "completion_feedback",
+      "region": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "anchor_px": [
+        256,
+        256
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive_soft",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 3,
+      "source_name": "stage16_corruption_purge_ai01_corruption_cracking_apart",
+      "semantic_name": "corruption_cracking_apart",
+      "group": "completion_feedback",
+      "role": "completion_feedback",
+      "region": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "anchor_px": [
+        256,
+        256
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive_soft",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 4,
+      "source_name": "stage16_corruption_purge_ai01_lotus_seal_purification_burst",
+      "semantic_name": "lotus_seal_purification_burst",
+      "group": "completion_feedback",
+      "role": "completion_feedback",
+      "region": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "anchor_px": [
+        256,
+        256
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive_soft",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 5,
+      "source_name": "stage16_corruption_purge_ai01_moon_white_motes_afterglow",
+      "semantic_name": "moon_white_motes_afterglow",
+      "group": "completion_feedback",
+      "role": "completion_feedback",
+      "region": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "anchor_px": [
+        256,
+        256
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive_soft",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    }
+  ],
+  "manual_review_required": true,
+  "boundary": "Reviewed 3x2 standalone VFX grid for Stage16 corruption purge feedback. Runtime scenes must bind explicit Sprite2D regions instead of displaying the full sheet."
+}

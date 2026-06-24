@@ -1,0 +1,474 @@
+{
+  "version": 1,
+  "asset_id": "luna_attack_01_sheet_ai01",
+  "target_kind": "sprite_sheet",
+  "status": "placeholder_ready",
+  "source_texture": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.frames.json",
+  "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
+  "animation_name": "attack_01",
+  "speed_fps": 18.0,
+  "loop": false,
+  "frame_count": 16,
+  "cell": [
+    192,
+    160
+  ],
+  "default_pivot_px": [
+    96,
+    140
+  ],
+  "default_foot_baseline_y": 144,
+  "rules": [
+    {
+      "index": 0,
+      "source_name": "luna_attack_01_sheet_ai01_auto_001_c06",
+      "semantic_name": "attack_01_frame_001",
+      "phase": "anticipation",
+      "region": [
+        0,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 1,
+      "source_name": "luna_attack_01_sheet_ai01_auto_002_c06",
+      "semantic_name": "attack_01_frame_002",
+      "phase": "anticipation",
+      "region": [
+        192,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 2,
+      "source_name": "luna_attack_01_sheet_ai01_auto_003_c06",
+      "semantic_name": "attack_01_frame_003",
+      "phase": "anticipation",
+      "region": [
+        384,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 3,
+      "source_name": "luna_attack_01_sheet_ai01_auto_004_c06",
+      "semantic_name": "attack_01_frame_004",
+      "phase": "active",
+      "region": [
+        576,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 4,
+      "source_name": "luna_attack_01_sheet_ai01_auto_005_c06",
+      "semantic_name": "attack_01_frame_005",
+      "phase": "active",
+      "region": [
+        768,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 5,
+      "source_name": "luna_attack_01_sheet_ai01_auto_006_c06",
+      "semantic_name": "attack_01_frame_006",
+      "phase": "active",
+      "region": [
+        960,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 6,
+      "source_name": "luna_attack_01_sheet_ai01_auto_007_c06",
+      "semantic_name": "attack_01_frame_007",
+      "phase": "active",
+      "region": [
+        1152,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 7,
+      "source_name": "luna_attack_01_sheet_ai01_auto_008_c06",
+      "semantic_name": "attack_01_frame_008",
+      "phase": "active",
+      "region": [
+        1344,
+        0,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 8,
+      "source_name": "luna_attack_01_sheet_ai01_auto_009_c06",
+      "semantic_name": "attack_01_frame_009",
+      "phase": "active",
+      "region": [
+        0,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 9,
+      "source_name": "luna_attack_01_sheet_ai01_auto_010_c06",
+      "semantic_name": "attack_01_frame_010",
+      "phase": "follow_through",
+      "region": [
+        192,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 10,
+      "source_name": "luna_attack_01_sheet_ai01_auto_011_c06",
+      "semantic_name": "attack_01_frame_011",
+      "phase": "follow_through",
+      "region": [
+        384,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 11,
+      "source_name": "luna_attack_01_sheet_ai01_auto_012_c06",
+      "semantic_name": "attack_01_frame_012",
+      "phase": "follow_through",
+      "region": [
+        576,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 12,
+      "source_name": "luna_attack_01_sheet_ai01_auto_013_c06",
+      "semantic_name": "attack_01_frame_013",
+      "phase": "follow_through",
+      "region": [
+        768,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 13,
+      "source_name": "luna_attack_01_sheet_ai01_auto_014_c06",
+      "semantic_name": "attack_01_frame_014",
+      "phase": "recovery",
+      "region": [
+        960,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 14,
+      "source_name": "luna_attack_01_sheet_ai01_auto_015_c06",
+      "semantic_name": "attack_01_frame_015",
+      "phase": "recovery",
+      "region": [
+        1152,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 15,
+      "source_name": "luna_attack_01_sheet_ai01_auto_016_c06",
+      "semantic_name": "attack_01_frame_016",
+      "phase": "recovery",
+      "region": [
+        1344,
+        160,
+        192,
+        160
+      ],
+      "pivot_px": [
+        96,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.055556,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    }
+  ],
+  "manual_review_required": true,
+  "boundary": "First-pass animation timing and anchor rules. These rules guide editor/runtime hookup; they do not prove final frame order, foot baseline, hitbox, timing, or gameplay readability."
+}

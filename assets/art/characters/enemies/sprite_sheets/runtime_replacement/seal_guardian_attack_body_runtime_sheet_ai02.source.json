@@ -1,0 +1,64 @@
+{
+  "asset_id": "seal_guardian_attack_body_runtime_sheet_ai02",
+  "source_asset_id": "imagegen_seal_guardian_attack_body_clean_source_ai02",
+  "source_texture": "assets/source/imagegen_inbox/animation_runtime_replacement/arp_14/imagegen_seal_guardian_attack_body_clean_source_ai02.png",
+  "source_hash_sha256": "1deff7c81404124f123e3c70fc654acd543ff28272a690a4e49c12c76e323804",
+  "tool": "built_in_image_gen",
+  "process": "imagegen_magenta_key_strip_to_runtime_normalized_candidate",
+  "prompt": "Use case: stylized-concept\nAsset type: production candidate spritesheet for a 2D Godot metroidvania boss attack body animation\nPrimary request: Create a single horizontal 8-frame spritesheet of the Seal Guardian boss performing a heavy claw-lunge / ground-slam body attack. This is body-only animation for runtime integration.\nSubject and style: one massive quadruped stone-and-jade guardian beast, Shan Hai Jing eastern fantasy monster, Buddhist seal guardian, weathered teal-green stone armor plates, cracked pale jade mask, dark smoky mane, bronze chains and talisman tags, small turquoise seal glow only in eyes and chest core, powerful lion-dog / qilin-like silhouette. Painterly 2D game sprite art, readable at game scale, matching a soft Ori-like action silhouette and Chinese ink / gongbi fantasy palette.\nComposition: exactly one row of 8 equal frame slots, left-to-right action progression, boss facing left in every frame, full body visible in every frame, generous empty padding around each slot, consistent scale, consistent bottom-center anchor, no cropped claws, no cropped mane, no cropped tail.\nAction beats: frame 1 low ready crouch, frame 2 weight shift and foreleg draw-back, frame 3 forward lunge, frame 4 claw wind-up, frame 5 heavy claw slam body pose, frame 6 recoil, frame 7 recovery crouch, frame 8 return-ready guarded pose.\nBackground: perfectly flat solid #ff00ff chroma-key background for local removal; one uniform color only, no shadows, no gradients, no texture, no floor plane.\nCritical constraints: BODY LAYER ONLY. No cyan slash arc, no ground shockwave, no impact burst, no dust, no particles, no magic circles, no detached VFX fragments, no extra enemies, no labels, no text, no watermark. Do not use #ff00ff anywhere in the boss. Keep all 8 frames clearly separated with empty magenta space between slots.\n",
+  "boundary": "Clean Seal Guardian attack body candidate only. Attack warning / impact VFX must remain independent; damage window, hurtbox, attack area and Boss AI timing are unchanged.",
+  "normalization": {
+    "source_image_size": [
+      2172,
+      724
+    ],
+    "source_max_content_size": [
+      279,
+      250
+    ],
+    "target_safe_size": [
+      208,
+      176
+    ],
+    "scale": 0.704,
+    "horizontal_padding": 24,
+    "vertical_padding": 8,
+    "foot_baseline_y": 184,
+    "center_x": 128,
+    "projected_runs": [
+      [
+        16,
+        276
+      ],
+      [
+        291,
+        553
+      ],
+      [
+        575,
+        854
+      ],
+      [
+        870,
+        1094
+      ],
+      [
+        1099,
+        1367
+      ],
+      [
+        1392,
+        1624
+      ],
+      [
+        1643,
+        1898
+      ],
+      [
+        1914,
+        2164
+      ]
+    ],
+    "slice_strategy": "magenta_key_alpha_projection_8_horizontal_runs_then_alpha_bbox_normalize"
+  }
+}

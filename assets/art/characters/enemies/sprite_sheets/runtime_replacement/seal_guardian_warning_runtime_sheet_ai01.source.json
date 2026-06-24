@@ -1,0 +1,15 @@
+{
+  "asset_id": "seal_guardian_warning_runtime_sheet_ai01",
+  "source_asset_id": "seal_guardian_boss_runtime_sheet_ai01",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_boss_runtime_sheet_ai01.frames.json",
+  "process": "semantic_runtime_clip_split_from_normalized_candidate",
+  "boundary": "Seal Guardian attack warning candidate only. Runtime boss binding must align this with warning telegraph timing.",
+  "source_frame_indexes": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "filter": "none"
+}

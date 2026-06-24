@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "asset_id": "material_texture_atlas_ai01",
+  "kind": "atlas",
+  "batch": "Batch 07",
+  "source_metadata": "assets/art/textures/material_texture_atlas_ai01.regions.json",
+  "output": "assets/art/textures/material_texture_atlas_ai01.png",
+  "entry_count": 16,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "shrine_stone",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_001",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_001.png",
+      "region": [
+        0,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "weathered_wood",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_002",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_002.png",
+      "region": [
+        128,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "talisman_paper",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_003",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_003.png",
+      "region": [
+        256,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "miasma_mud",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_004",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_004.png",
+      "region": [
+        384,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "corrupted_water",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_005",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_005.png",
+      "region": [
+        512,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "cloth_sash",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_006",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_006.png",
+      "region": [
+        640,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "bronze_trim",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_007",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_007.png",
+      "region": [
+        768,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "carved_jade",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_008",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_008.png",
+      "region": [
+        896,
+        0,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "charcoal_ink",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_009",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_009.png",
+      "region": [
+        0,
+        128,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "vermilion_paint",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_010",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_010.png",
+      "region": [
+        128,
+        128,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "moss_edge",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_011",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_011.png",
+      "region": [
+        256,
+        128,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "worn_tile",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_012",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_012.png",
+      "region": [
+        384,
+        128,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "cracked_plaster",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_013",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_013.png",
+      "region": [
+        512,
+        128,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "sealed_chain",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_014",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_014.png",
+      "region": [
+        640,
+        128,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "ritual_rope",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_015",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_015.png",
+      "region": [
+        768,
+        128,
+        128,
+        128
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "ash_dust",
+      "category": "atlas",
+      "group": "materials",
+      "role": "material_region",
+      "tags": [],
+      "manual_review_required": true,
+      "source_name": "material_texture_atlas_ai01_auto_016",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items/material_texture_atlas_ai01_auto_016.png",
+      "region": [
+        896,
+        128,
+        128,
+        128
+      ]
+    }
+  ]
+}

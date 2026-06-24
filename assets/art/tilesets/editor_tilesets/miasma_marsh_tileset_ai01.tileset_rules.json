@@ -1,0 +1,792 @@
+{
+	"asset_id": "miasma_marsh_tileset_ai01",
+	"boundary": "Conservative first-pass TileSet rules. Collision and hazard boundaries must be reviewed before runtime TileMap replacement.",
+	"counts": {
+		"decorative_visual_only": 8,
+		"hazard_visual_only": 8,
+		"one_way_platform": 8,
+		"solid": 24,
+		"unclassified_visual_only": 0
+	},
+	"manual_review_required": true,
+	"physics_layer_count": 1,
+	"rules": [
+		{
+			"atlas_coords": [
+				0,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 0,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_01"
+		},
+		{
+			"atlas_coords": [
+				1,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 1,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_02"
+		},
+		{
+			"atlas_coords": [
+				2,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 2,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_03"
+		},
+		{
+			"atlas_coords": [
+				3,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 3,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_04"
+		},
+		{
+			"atlas_coords": [
+				4,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 4,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_05"
+		},
+		{
+			"atlas_coords": [
+				5,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 5,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_06"
+		},
+		{
+			"atlas_coords": [
+				6,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 6,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_07"
+		},
+		{
+			"atlas_coords": [
+				7,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 7,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_ground_01_08"
+		},
+		{
+			"atlas_coords": [
+				0,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 8,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_01"
+		},
+		{
+			"atlas_coords": [
+				1,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 9,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_02"
+		},
+		{
+			"atlas_coords": [
+				2,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 10,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_03"
+		},
+		{
+			"atlas_coords": [
+				3,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 11,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_04"
+		},
+		{
+			"atlas_coords": [
+				4,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 12,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_05"
+		},
+		{
+			"atlas_coords": [
+				5,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 13,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_06"
+		},
+		{
+			"atlas_coords": [
+				6,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 14,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_07"
+		},
+		{
+			"atlas_coords": [
+				7,
+				1
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 15,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "miasma_marsh_platform_edge_02_08"
+		},
+		{
+			"atlas_coords": [
+				0,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 16,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_01"
+		},
+		{
+			"atlas_coords": [
+				1,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 17,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_02"
+		},
+		{
+			"atlas_coords": [
+				2,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 18,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_03"
+		},
+		{
+			"atlas_coords": [
+				3,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 19,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_04"
+		},
+		{
+			"atlas_coords": [
+				4,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 20,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_05"
+		},
+		{
+			"atlas_coords": [
+				5,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 21,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_06"
+		},
+		{
+			"atlas_coords": [
+				6,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 22,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_07"
+		},
+		{
+			"atlas_coords": [
+				7,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 23,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_wall_03_08"
+		},
+		{
+			"atlas_coords": [
+				0,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 24,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_01"
+		},
+		{
+			"atlas_coords": [
+				1,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 25,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_02"
+		},
+		{
+			"atlas_coords": [
+				2,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 26,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_03"
+		},
+		{
+			"atlas_coords": [
+				3,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 27,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_04"
+		},
+		{
+			"atlas_coords": [
+				4,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 28,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_05"
+		},
+		{
+			"atlas_coords": [
+				5,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 29,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_06"
+		},
+		{
+			"atlas_coords": [
+				6,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 30,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_07"
+		},
+		{
+			"atlas_coords": [
+				7,
+				3
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 31,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "miasma_marsh_decor_04_08"
+		},
+		{
+			"atlas_coords": [
+				0,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 32,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_01"
+		},
+		{
+			"atlas_coords": [
+				1,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 33,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_02"
+		},
+		{
+			"atlas_coords": [
+				2,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 34,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_03"
+		},
+		{
+			"atlas_coords": [
+				3,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 35,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_04"
+		},
+		{
+			"atlas_coords": [
+				4,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 36,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_05"
+		},
+		{
+			"atlas_coords": [
+				5,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 37,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_06"
+		},
+		{
+			"atlas_coords": [
+				6,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 38,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_07"
+		},
+		{
+			"atlas_coords": [
+				7,
+				4
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 39,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "miasma_marsh_hazard_05_08"
+		},
+		{
+			"atlas_coords": [
+				0,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 40,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_01"
+		},
+		{
+			"atlas_coords": [
+				1,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 41,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_02"
+		},
+		{
+			"atlas_coords": [
+				2,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 42,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_03"
+		},
+		{
+			"atlas_coords": [
+				3,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 43,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_04"
+		},
+		{
+			"atlas_coords": [
+				4,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 44,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_05"
+		},
+		{
+			"atlas_coords": [
+				5,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 45,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_06"
+		},
+		{
+			"atlas_coords": [
+				6,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 46,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_07"
+		},
+		{
+			"atlas_coords": [
+				7,
+				5
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 47,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "miasma_marsh_transition_06_08"
+		}
+	],
+	"source_semantics": "res://assets/art/tilesets/miasma_marsh_tileset_ai01.semantics.json",
+	"terrain_set_count": 1,
+	"tile_count": 48,
+	"tile_size": [
+		64,
+		64
+	],
+	"tileset_resource": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
+	"version": 1
+}

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "status": "isolated",
+  "boundary": "Project isolation audit only. It checks asset records, asset docs and asset scripts for known other-project markers, outside absolute paths and non-Nano-Hunter project keys. It does not prove visual quality, legal terms, final art readiness or runtime polish.",
+  "scan_roots": [
+    "assets",
+    "docs/assets",
+    "scripts/assets"
+  ],
+  "summary": {
+    "scanned_file_count": 1936,
+    "forbidden_project_marker_count": 0,
+    "outside_absolute_path_count": 0,
+    "project_key_error_count": 0,
+    "errors": []
+  },
+  "forbidden_project_marker_matches": [],
+  "outside_absolute_path_matches": [],
+  "project_key_errors": [],
+  "allowed_external_path_markers": [
+    "Documents/Codex/tools/imagegen-export",
+    "Documents\\Codex\\tools\\imagegen-export",
+    ".codex/generated_images",
+    ".codex\\generated_images",
+    ".codex/sessions",
+    ".codex\\sessions",
+    "C:/path/to/",
+    "C:\\path\\to\\"
+  ]
+}

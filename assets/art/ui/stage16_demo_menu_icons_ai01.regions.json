@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "asset_id": "stage16_demo_menu_icons_ai01",
+  "kind": "standalone_icon_sheet_regions",
+  "source_asset": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+  "grid": {
+    "columns": 3,
+    "rows": 2,
+    "cell_width": 512,
+    "cell_height": 512
+  },
+  "regions": [
+    {
+      "index": 0,
+      "name": "pause",
+      "rect": [0, 0, 512, 512]
+    },
+    {
+      "index": 1,
+      "name": "continue_play",
+      "rect": [512, 0, 512, 512]
+    },
+    {
+      "index": 2,
+      "name": "restart",
+      "rect": [1024, 0, 512, 512]
+    },
+    {
+      "index": 3,
+      "name": "completion_seal",
+      "rect": [0, 512, 512, 512]
+    },
+    {
+      "index": 4,
+      "name": "back",
+      "rect": [512, 512, 512, 512]
+    },
+    {
+      "index": 5,
+      "name": "locked_disabled",
+      "rect": [1024, 512, 512, 512]
+    }
+  ]
+}

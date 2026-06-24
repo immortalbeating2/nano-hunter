@@ -1,0 +1,189 @@
+{
+  "id": "hud_core_ui_atlas_ai01",
+  "kind": "atlas",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/ui/atlases/hud_core_ui_atlas_ai01.png",
+  "cell": [
+    96,
+    96
+  ],
+  "columns": 8,
+  "rows": 2,
+  "frames": [
+    {
+      "index": 0,
+      "name": "hud_core_ui_atlas_ai01_auto_001_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_001_c01.png",
+      "region": [
+        0,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 1,
+      "name": "hud_core_ui_atlas_ai01_auto_002_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_002_c01.png",
+      "region": [
+        96,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 2,
+      "name": "hud_core_ui_atlas_ai01_auto_003_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_003_c01.png",
+      "region": [
+        192,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 3,
+      "name": "hud_core_ui_atlas_ai01_auto_004_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_004_c01.png",
+      "region": [
+        288,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 4,
+      "name": "hud_core_ui_atlas_ai01_auto_005_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_005_c01.png",
+      "region": [
+        384,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 5,
+      "name": "hud_core_ui_atlas_ai01_auto_006_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_006_c01.png",
+      "region": [
+        480,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 6,
+      "name": "hud_core_ui_atlas_ai01_auto_007_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_007_c01.png",
+      "region": [
+        576,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 7,
+      "name": "hud_core_ui_atlas_ai01_auto_008_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_008_c01.png",
+      "region": [
+        672,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 8,
+      "name": "hud_core_ui_atlas_ai01_auto_009_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_009_c01.png",
+      "region": [
+        0,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 9,
+      "name": "hud_core_ui_atlas_ai01_auto_010_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_010_c01.png",
+      "region": [
+        96,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 10,
+      "name": "hud_core_ui_atlas_ai01_auto_011_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_011_c01.png",
+      "region": [
+        192,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 11,
+      "name": "hud_core_ui_atlas_ai01_auto_012_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_012_c01.png",
+      "region": [
+        288,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 12,
+      "name": "hud_core_ui_atlas_ai01_auto_013_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_013_c01.png",
+      "region": [
+        384,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 13,
+      "name": "hud_core_ui_atlas_ai01_auto_014_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_014_c01.png",
+      "region": [
+        480,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 14,
+      "name": "hud_core_ui_atlas_ai01_auto_015_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_015_c01.png",
+      "region": [
+        576,
+        96,
+        96,
+        96
+      ]
+    },
+    {
+      "index": 15,
+      "name": "hud_core_ui_atlas_ai01_auto_016_c01",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items/hud_core_ui_atlas_ai01_auto_016_c01.png",
+      "region": [
+        672,
+        96,
+        96,
+        96
+      ]
+    }
+  ]
+}

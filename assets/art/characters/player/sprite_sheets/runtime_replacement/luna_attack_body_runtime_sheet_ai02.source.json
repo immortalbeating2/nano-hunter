@@ -1,0 +1,64 @@
+{
+  "asset_id": "luna_attack_body_runtime_sheet_ai02",
+  "source_asset_id": "imagegen_luna_attack_body_clean_source_ai02",
+  "source_texture": "assets/source/imagegen_inbox/animation_runtime_replacement/arp_11/imagegen_luna_attack_body_clean_source_ai02.png",
+  "source_hash_sha256": "21fb6341efd958aea69cf965eb4170029742382d4d84f4bbe68d2a52eb84cbda",
+  "tool": "built_in_image_gen",
+  "process": "imagegen_chroma_key_strip_to_runtime_normalized_candidate",
+  "prompt": "Use case: stylized-concept\nAsset type: 2D game animation sprite sheet source for Nano Hunter, player attack body layer only\nPrimary request: Create a clean 8-frame side-view attack animation sprite sheet for Luna, a young female 镇妖卫 bounty hunter in a Southern/Northern Dynasties eastern fantasy metroidvania game. She wears flowing white and pale jade robes, teal waist sash, dark long hair tied back, subtle Buddhist talisman accents, agile martial-arts stance. The animation shows only her body performing a short forward palm/short-blade attack sequence: anticipation, step, strike, follow-through, recovery.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background.\nStyle/medium: high-quality hand-painted 2D game sprite art, Ori-like soft flow plus Chinese ink/gongbi color sensibility, readable silhouette, consistent proportions.\nComposition/framing: exact sprite sheet layout, 8 evenly spaced frames in one horizontal row, full body visible in every frame, side view facing right, same camera, same scale, feet on same baseline, generous padding inside every frame, no frame overlaps.\nConstraints: character body layer only; no slash VFX, no cyan arc, no energy trail, no impact burst, no weapon trail, no detached fragments, no duplicate ghost limbs from adjacent frames, no text, no watermark, no grid lines, no frame numbers. Background must be one uniform #00ff00 with no gradients, no floor plane, no texture, no shadows.\n",
+  "boundary": "Clean Luna attack body candidate only. No attack slash, damage timing, hitbox or live controller replacement is approved until strict audit, Stage14 GUT and runtime review pass.",
+  "normalization": {
+    "source_image_size": [
+      2172,
+      724
+    ],
+    "source_max_content_size": [
+      326,
+      317
+    ],
+    "target_safe_size": [
+      144,
+      144
+    ],
+    "scale": 0.441718,
+    "horizontal_padding": 24,
+    "vertical_padding": 8,
+    "foot_baseline_y": 152,
+    "center_x": 96,
+    "projected_runs": [
+      [
+        48,
+        213
+      ],
+      [
+        290,
+        493
+      ],
+      [
+        546,
+        813
+      ],
+      [
+        830,
+        1156
+      ],
+      [
+        1159,
+        1429
+      ],
+      [
+        1451,
+        1631
+      ],
+      [
+        1693,
+        1849
+      ],
+      [
+        1919,
+        2086
+      ]
+    ],
+    "slice_strategy": "alpha_projection_8_horizontal_runs_then_alpha_bbox_normalize"
+  }
+}

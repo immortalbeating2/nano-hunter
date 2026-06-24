@@ -1,0 +1,698 @@
+{
+  "version": 1,
+  "asset_id": "luna_jump_fall_sheet_ai01",
+  "target_kind": "sprite_sheet",
+  "status": "placeholder_ready",
+  "source_texture": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.frames.json",
+  "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
+  "animation_name": "jump_fall",
+  "speed_fps": 14.0,
+  "loop": false,
+  "frame_count": 24,
+  "cell": [
+    160,
+    160
+  ],
+  "default_pivot_px": [
+    80,
+    140
+  ],
+  "default_foot_baseline_y": 144,
+  "rules": [
+    {
+      "index": 0,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_001_c06",
+      "semantic_name": "luna_jump_start_frame_001",
+      "phase": "anticipation",
+      "region": [
+        0,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 1,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_002_c06",
+      "semantic_name": "luna_jump_start_frame_002",
+      "phase": "anticipation",
+      "region": [
+        160,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 2,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_003_c06",
+      "semantic_name": "luna_jump_start_frame_003",
+      "phase": "anticipation",
+      "region": [
+        320,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 3,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_004_c06",
+      "semantic_name": "luna_jump_start_frame_004",
+      "phase": "anticipation",
+      "region": [
+        480,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 4,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_005_c06",
+      "semantic_name": "luna_jump_start_frame_005",
+      "phase": "anticipation",
+      "region": [
+        640,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 5,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_006_c06",
+      "semantic_name": "luna_jump_start_frame_006",
+      "phase": "active",
+      "region": [
+        800,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 6,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_007_c06",
+      "semantic_name": "luna_rise_frame_007",
+      "phase": "active",
+      "region": [
+        960,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 7,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_008_c06",
+      "semantic_name": "luna_rise_frame_008",
+      "phase": "active",
+      "region": [
+        1120,
+        0,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 8,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_009_c06",
+      "semantic_name": "luna_rise_frame_009",
+      "phase": "active",
+      "region": [
+        0,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 9,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_010_c06",
+      "semantic_name": "luna_rise_frame_010",
+      "phase": "active",
+      "region": [
+        160,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 10,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_011_c06",
+      "semantic_name": "luna_rise_frame_011",
+      "phase": "active",
+      "region": [
+        320,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 11,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_012_c06",
+      "semantic_name": "luna_rise_frame_012",
+      "phase": "active",
+      "region": [
+        480,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 12,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_013_c06",
+      "semantic_name": "luna_fall_frame_013",
+      "phase": "active",
+      "region": [
+        640,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 13,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_014_c06",
+      "semantic_name": "luna_fall_frame_014",
+      "phase": "active",
+      "region": [
+        800,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 14,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_015_c06",
+      "semantic_name": "luna_fall_frame_015",
+      "phase": "follow_through",
+      "region": [
+        960,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 15,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_016_c06",
+      "semantic_name": "luna_fall_frame_016",
+      "phase": "follow_through",
+      "region": [
+        1120,
+        160,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 16,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_017_c06",
+      "semantic_name": "luna_fall_frame_017",
+      "phase": "follow_through",
+      "region": [
+        0,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 17,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_018_c06",
+      "semantic_name": "luna_fall_frame_018",
+      "phase": "follow_through",
+      "region": [
+        160,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 18,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_019_c06",
+      "semantic_name": "luna_land_frame_019",
+      "phase": "follow_through",
+      "region": [
+        320,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 19,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_020_c06",
+      "semantic_name": "luna_land_frame_020",
+      "phase": "follow_through",
+      "region": [
+        480,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 20,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_021_c06",
+      "semantic_name": "luna_land_frame_021",
+      "phase": "recovery",
+      "region": [
+        640,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 21,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_022_c06",
+      "semantic_name": "luna_land_frame_022",
+      "phase": "recovery",
+      "region": [
+        800,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 22,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_023_c06",
+      "semantic_name": "luna_land_frame_023",
+      "phase": "recovery",
+      "region": [
+        960,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 23,
+      "source_name": "luna_jump_fall_sheet_ai01_auto_024_c06",
+      "semantic_name": "luna_land_frame_024",
+      "phase": "recovery",
+      "region": [
+        1120,
+        320,
+        160,
+        160
+      ],
+      "pivot_px": [
+        80,
+        140
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.875
+      ],
+      "foot_baseline_y": 144,
+      "frame_duration_sec": 0.071429,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    }
+  ],
+  "manual_review_required": true,
+  "boundary": "First-pass animation timing and anchor rules. These rules guide editor/runtime hookup; they do not prove final frame order, foot baseline, hitbox, timing, or gameplay readability."
+}

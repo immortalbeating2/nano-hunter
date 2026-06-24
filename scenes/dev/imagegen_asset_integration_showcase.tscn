@@ -1,0 +1,243 @@
+[gd_scene format=4]
+
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres" id="1_pvih3"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres" id="2_wxbbl"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres" id="3_tlbix"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres" id="4_8aqsn"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres" id="5_ta63p"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres" id="6_8s476"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres" id="7_qrqs7"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres" id="8_r74w1"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres" id="9_bq6rk"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres" id="10_n1d14"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="11_54db1"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="12_3omt3"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres" id="13_iywpr"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai_01_auto_002_c_01.stylebox_texture.tres" id="14_so3h8"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai_01_auto_003_c_01.stylebox_texture.tres" id="15_2asdh"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/003_menu_ninepatch_ui_ai_01_auto_004_c_01.stylebox_texture.tres" id="16_p66se"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres" id="17_vjl4d"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/000_shrine_gate_prop_atlas_ai01_auto_001_c01.atlas_texture.tres" id="18_nbri3"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/000_equipment_pickup_atlas_ai01_auto_001_c01.atlas_texture.tres" id="19_mbnf3"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/material_texture_atlas_ai01/000_material_texture_atlas_ai01_auto_001.atlas_texture.tres" id="20_3vtlm"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/promo_key_art_sheet_ai01/000_promo_key_art_sheet_ai01_auto_001.atlas_texture.tres" id="21_hdw85"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/storyboard_intro_bounty_ai01/000_storyboard_intro_bounty_ai01_auto_001.atlas_texture.tres" id="22_348so"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/luna_spine_parts_ai01/000_luna_spine_parts_ai01_auto_001.atlas_texture.tres" id="23_il2jc"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/000_seal_guardian_spine_parts_ai01_auto_001.atlas_texture.tres" id="24_bvl0c"]
+
+[node name="ImagegenAssetIntegrationShowcase" type="Node2D" unique_id=524160386]
+metadata/imagegen_asset_integration_showcase = true
+
+[node name="Animated_luna_run_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=1420428430]
+position = Vector2(120, 120)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("1_pvih3")
+animation = &"run"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres"
+
+[node name="Animated_luna_air_dash_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=68156313]
+position = Vector2(340, 120)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("2_wxbbl")
+animation = &"air_dash"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres"
+
+[node name="Animated_luna_attack_01_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=2004258093]
+position = Vector2(560, 120)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("3_tlbix")
+animation = &"attack_01"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres"
+
+[node name="Animated_luna_idle_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=430647564]
+position = Vector2(780, 120)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("4_8aqsn")
+animation = &"idle"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres"
+
+[node name="Animated_seal_guardian_boss_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=1395846171]
+position = Vector2(1000, 120)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("5_ta63p")
+animation = &"attack"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres"
+
+[node name="Animated_vfx_seal_magic_atlas_ai01" type="AnimatedSprite2D" parent="." unique_id=1495512229]
+position = Vector2(120, 310)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("6_8s476")
+animation = &"seal_magic"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
+
+[node name="Animated_vfx_combat_atlas_ai01" type="AnimatedSprite2D" parent="." unique_id=599633989]
+position = Vector2(340, 310)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("7_qrqs7")
+animation = &"combat_vfx"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres"
+
+[node name="Animated_luna_jump_fall_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=959385476]
+position = Vector2(560, 310)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("8_r74w1")
+animation = &"jump_fall"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres"
+
+[node name="Animated_luna_hit_death_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=1730466216]
+position = Vector2(780, 310)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("9_bq6rk")
+animation = &"hit_death"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres"
+
+[node name="Animated_enemies_core_sheet_ai01" type="AnimatedSprite2D" parent="." unique_id=1998364568]
+position = Vector2(1000, 310)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("10_n1d14")
+animation = &"enemy_core_cycle"
+metadata/integration_kind = "animated_sprite"
+metadata/integration_resource = "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres"
+
+[node name="TileLayer_miasma_marsh_tileset_ai01" type="TileMapLayer" parent="." unique_id=871969046]
+position = Vector2(120, 540)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAEAAAAAAAEAAAAAAAFAAAAAAAFAAAAAAAAAAEAAAAGAAAAAAABAAEAAAAHAAAAAAACAAEAAAAAAAEAAAADAAEAAAABAAEAAAAEAAEAAAACAAEAAAAFAAEAAAADAAEAAAA=")
+tile_set = ExtResource("11_54db1")
+metadata/integration_kind = "tilemap_layer"
+metadata/integration_resource = "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres"
+
+[node name="TileLayer_shrine_trial_tileset_ai01" type="TileMapLayer" parent="." unique_id=859128860]
+position = Vector2(740, 540)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAEAAAAAAAEAAAAAAAFAAAAAAAFAAAAAAAAAAEAAAAGAAAAAAABAAEAAAAHAAAAAAACAAEAAAAAAAEAAAADAAEAAAABAAEAAAAEAAEAAAACAAEAAAAFAAEAAAADAAEAAAA=")
+tile_set = ExtResource("12_3omt3")
+metadata/integration_kind = "tilemap_layer"
+metadata/integration_resource = "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
+
+[node name="StyleBoxPanel_0" type="PanelContainer" parent="." unique_id=1408619231]
+custom_minimum_size = Vector2(300, 100)
+offset_left = 1180.0
+offset_top = 100.0
+offset_right = 1180.0
+offset_bottom = 100.0
+theme_override_styles/panel = ExtResource("13_iywpr")
+metadata/integration_kind = "stylebox_panel"
+metadata/integration_resource = "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres"
+
+[node name="@Label@2" type="Label" parent="StyleBoxPanel_0" unique_id=307710896]
+layout_mode = 2
+text = "StyleBox 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StyleBoxPanel_1" type="PanelContainer" parent="." unique_id=555183907]
+custom_minimum_size = Vector2(300, 100)
+offset_left = 1180.0
+offset_top = 250.0
+offset_right = 1180.0
+offset_bottom = 250.0
+theme_override_styles/panel = ExtResource("14_so3h8")
+metadata/integration_kind = "stylebox_panel"
+metadata/integration_resource = "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai_01_auto_002_c_01.stylebox_texture.tres"
+
+[node name="@Label@3" type="Label" parent="StyleBoxPanel_1" unique_id=362455197]
+layout_mode = 2
+text = "StyleBox 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StyleBoxPanel_2" type="PanelContainer" parent="." unique_id=69002019]
+custom_minimum_size = Vector2(300, 100)
+offset_left = 1180.0
+offset_top = 400.0
+offset_right = 1180.0
+offset_bottom = 400.0
+theme_override_styles/panel = ExtResource("15_2asdh")
+metadata/integration_kind = "stylebox_panel"
+metadata/integration_resource = "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai_01_auto_003_c_01.stylebox_texture.tres"
+
+[node name="@Label@4" type="Label" parent="StyleBoxPanel_2" unique_id=2032410578]
+layout_mode = 2
+text = "StyleBox 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StyleBoxPanel_3" type="PanelContainer" parent="." unique_id=927717654]
+custom_minimum_size = Vector2(300, 100)
+offset_left = 1180.0
+offset_top = 550.0
+offset_right = 1180.0
+offset_bottom = 550.0
+theme_override_styles/panel = ExtResource("16_p66se")
+metadata/integration_kind = "stylebox_panel"
+metadata/integration_resource = "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/003_menu_ninepatch_ui_ai_01_auto_004_c_01.stylebox_texture.tres"
+
+[node name="@Label@5" type="Label" parent="StyleBoxPanel_3" unique_id=1027166725]
+layout_mode = 2
+text = "StyleBox 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AtlasSprite_icon_sheet_core_ai01" type="Sprite2D" parent="." unique_id=1161943165]
+position = Vector2(140, 780)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("17_vjl4d")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres"
+
+[node name="AtlasSprite_shrine_gate_prop_atlas_ai01" type="Sprite2D" parent="." unique_id=1634600590]
+position = Vector2(370, 780)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("18_nbri3")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/000_shrine_gate_prop_atlas_ai01_auto_001_c01.atlas_texture.tres"
+
+[node name="AtlasSprite_equipment_pickup_atlas_ai01" type="Sprite2D" parent="." unique_id=499002942]
+position = Vector2(600, 780)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("19_mbnf3")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/000_equipment_pickup_atlas_ai01_auto_001_c01.atlas_texture.tres"
+
+[node name="AtlasSprite_material_texture_atlas_ai01" type="Sprite2D" parent="." unique_id=969220004]
+position = Vector2(830, 780)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("20_3vtlm")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/material_texture_atlas_ai01/000_material_texture_atlas_ai01_auto_001.atlas_texture.tres"
+
+[node name="AtlasSprite_promo_key_art_sheet_ai01" type="Sprite2D" parent="." unique_id=394924462]
+position = Vector2(140, 930)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("21_hdw85")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/promo_key_art_sheet_ai01/000_promo_key_art_sheet_ai01_auto_001.atlas_texture.tres"
+
+[node name="AtlasSprite_storyboard_intro_bounty_ai01" type="Sprite2D" parent="." unique_id=111076801]
+position = Vector2(370, 930)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("22_348so")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/storyboard_intro_bounty_ai01/000_storyboard_intro_bounty_ai01_auto_001.atlas_texture.tres"
+
+[node name="AtlasSprite_luna_spine_parts_ai01" type="Sprite2D" parent="." unique_id=441379677]
+position = Vector2(600, 930)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("23_il2jc")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/luna_spine_parts_ai01/000_luna_spine_parts_ai01_auto_001.atlas_texture.tres"
+
+[node name="AtlasSprite_seal_guardian_spine_parts_ai01" type="Sprite2D" parent="." unique_id=1002610159]
+position = Vector2(830, 930)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("24_bvl0c")
+metadata/integration_kind = "atlas_sprite"
+metadata/integration_resource = "res://assets/art/editor_resources/seal_guardian_spine_parts_ai01/000_seal_guardian_spine_parts_ai01_auto_001.atlas_texture.tres"

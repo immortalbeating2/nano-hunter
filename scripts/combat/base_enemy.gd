@@ -13,6 +13,8 @@ signal defeated
 @onready var _hurtbox: Area2D = $Hurtbox
 @onready var _hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
 @onready var _body_polygon: Polygon2D = $Body
+@onready var _runtime_animation_visual: AnimatedSprite2D = get_node_or_null("EnemyRuntimeAnimationVisual") as AnimatedSprite2D
+@onready var _hit_spark_vfx_visual: AnimatedSprite2D = get_node_or_null("EnemyHitSparkVfxVisual") as AnimatedSprite2D
 
 # 基类只记录是否已经失效；生命、护印和复杂状态由更高阶敌人自行实现。
 var _is_defeated := false
@@ -30,7 +32,9 @@ func receive_attack(_hit_direction: Vector2, _knockback_force: float) -> void:
 		_hurtbox_shape.disabled = true
 	if _body_polygon != null:
 		_body_polygon.color = Color(0.572549, 0.294118, 0.294118, 0.45)
-	_show_stage12_hit_spark()
+	if _runtime_animation_visual != null:
+		_runtime_animation_visual.visible = false
+	_show_enemy_hit_spark_vfx()
 	defeated.emit()
 
 
@@ -40,12 +44,18 @@ func is_defeated() -> bool:
 	return _is_defeated
 
 
-# Stage12 轻量命中特效通过可选节点接入，缺节点时不影响早期敌人场景。
-func _show_stage12_hit_spark() -> void:
-	var hit_spark := get_node_or_null("Stage12HitSpark") as CanvasItem
-	if hit_spark != null:
-		# Stage 12 的 hit spark 只作为受击读秒的轻量可视反馈，不改变敌人失效契约。
-		hit_spark.visible = true
+# 敌人受击命中特效通过可选节点接入，缺节点时不影响早期敌人场景。
+func _show_enemy_hit_spark_vfx() -> void:
+	if _hit_spark_vfx_visual == null:
+		var legacy_hit_spark := get_node_or_null("Stage12HitSpark") as CanvasItem
+		if legacy_hit_spark != null:
+			legacy_hit_spark.visible = true
+		return
+
+	_hit_spark_vfx_visual.visible = true
+	_hit_spark_vfx_visual.set_meta("gameplay_collision", false)
+	_hit_spark_vfx_visual.set_meta("damage_source", false)
+	_hit_spark_vfx_visual.play(&"enemy_hit_spark")
 
 
 # 触碰伤害统一由基类发起，这样子类只需要决定“何时应当能碰到玩家”。

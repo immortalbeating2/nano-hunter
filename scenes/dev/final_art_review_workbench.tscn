@@ -1,0 +1,3888 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png" id="1_8mo0v"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png" id="2_l2yu8"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png" id="3_witde"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.png" id="4_koyuu"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png" id="5_rci55"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png" id="6_h2p5t"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.png" id="7_38ihj"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png" id="8_puqfr"]
+[ext_resource type="Texture2D" path="res://assets/art/spine_parts/luna_spine_parts_ai01.png" id="9_foguj"]
+[ext_resource type="Texture2D" path="res://assets/art/spine_parts/seal_guardian_spine_parts_ai01.png" id="10_v06kk"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png" id="11_deske"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/stage16_luna_player_readability_ai01.png" id="12_7lvfl"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/atlases/icon_sheet_core_ai01.png" id="13_46e3u"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage14_air_dash_icon_ai01.png" id="14_sd4pi"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage15_recovery_charge_icon_ai01.png" id="15_fbch0"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_demo_menu_icons_ai01.png" id="16_kmoqe"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/atlases/hud_core_ui_atlas_ai01.png" id="17_x3iun"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/menu_ninepatch_ui_ai01.png" id="18_2dvoq"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage14_ability_status_hud_ai01.png" id="19_savx2"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage15_boss_hud_frame_ai01.png" id="20_bscay"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_alpha_demo_completion_ai01.png" id="21_41qhq"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_completion_panel_ui_ai01.png" id="22_3v0w1"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_pause_panel_ui_ai01.png" id="23_4peop"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_title_background_ai01.png" id="24_pxkb4"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage14_air_dash_trail_ai01.png" id="25_5dsw4"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage15_boss_attack_warning_ai01.png" id="26_7qal8"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_corruption_purge_ai01.png" id="27_1nnag"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_talisman_relay_ai01.png" id="28_48bwf"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.png" id="29_yor7d"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.png" id="30_wl2qw"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_air_dash_shrine_room_ai01.png" id="31_jtbj1"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="32_wmpih"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_room_parallax_ai01.png" id="33_rjip6"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_tiles_ai01.png" id="34_a7133"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_hazard_room_ai01.png" id="35_gsneq"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="36_k482a"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="37_weyl8"]
+[ext_resource type="Texture2D" path="res://assets/art/tilesets/miasma_marsh_tileset_ai01.png" id="38_dmbnp"]
+[ext_resource type="Texture2D" path="res://assets/art/tilesets/shrine_trial_tileset_ai01.png" id="39_u5f2a"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/boss_rooms/stage15_seal_guardian_boss_room_ai01.png" id="40_ubv7a"]
+[ext_resource type="Texture2D" path="res://assets/art/atlases/equipment_pickup_atlas_ai01.png" id="41_t4kvw"]
+[ext_resource type="Texture2D" path="res://assets/art/props/reusable_seal_props_ai01.png" id="42_wousf"]
+[ext_resource type="Texture2D" path="res://assets/art/atlases/shrine_gate_prop_atlas_ai01.png" id="43_ewiw3"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_gate_ai01.png" id="44_0277y"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_shrine_ai01.png" id="45_i7yor"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage16_seal_release_threshold_ai01.png" id="46_7bms0"]
+[ext_resource type="Texture2D" path="res://assets/art/promo/style_board_global_ai01.png" id="47_qhow3"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/material_texture_atlas_ai01.png" id="48_s76mg"]
+[ext_resource type="Texture2D" path="res://assets/art/promo/capsule_art_alpha_demo_ai01.png" id="49_xmjvx"]
+[ext_resource type="Texture2D" path="res://assets/art/promo/cg_seal_guardian_reveal_ai01.png" id="50_wd4j4"]
+[ext_resource type="Texture2D" path="res://assets/art/promo/nano_hunter_logo_direction_ai01.png" id="51_gil75"]
+[ext_resource type="Texture2D" path="res://assets/art/promo/promo_key_art_sheet_ai01.png" id="52_rckrp"]
+[ext_resource type="Texture2D" path="res://assets/art/storyboards/storyboard_intro_bounty_ai01.png" id="53_fsv1q"]
+[ext_resource type="Texture2D" path="res://assets/art/storyboards/storyboard_miasma_marsh_ai01.png" id="54_nx8yf"]
+[ext_resource type="Texture2D" path="res://assets/art/storyboards/storyboard_narrative_sheet_ai01.png" id="55_igkcx"]
+
+[node name="FinalArtReviewWorkbench" type="Control" unique_id=639903272]
+custom_minimum_size = Vector2(1700, 1050)
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/final_art_review_workbench_scene = true
+
+[node name="Scroll" type="ScrollContainer" parent="." unique_id=1731068564]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Content" type="VBoxContainer" parent="Scroll" unique_id=1864402372]
+custom_minimum_size = Vector2(1600, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="@Label@4" type="Label" parent="Scroll/Content" unique_id=1203326533]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Nano Hunter Final Art Review Workbench"
+autowrap_mode = 3
+
+[node name="@Label@5" type="Label" parent="Scroll/Content" unique_id=794094530]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "用途：在 Godot 编辑器中逐项复核角色、关卡、UI、图标、道具、VFX、动画帧、贴图、宣传图、CG 与分镜资产。"
+autowrap_mode = 3
+
+[node name="@Label@6" type="Label" parent="Scroll/Content" unique_id=1117269412]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "边界：该工作台只证明复核入口和预览资源可用，不代表 final ready、授权完成、运行时替换完成或玩法读值完成。"
+autowrap_mode = 3
+
+[node name="@Label@7" type="Label" parent="Scroll/Content" unique_id=1287624242]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "当前队列：assets=55.0, manual_review=0.0, final_ready=55.0"
+autowrap_mode = 3
+
+[node name="@Label@8" type="Label" parent="Scroll/Content" unique_id=2077745744]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Family counts: animation=8.0, characters=4.0, environment=10.0, icons=4.0, promo_logo_cg=4.0, props_equipment=6.0, story=3.0, style=1.0, textures=1.0, ui=8.0, vfx=6.0"
+autowrap_mode = 3
+
+[node name="@Label@9" type="Label" parent="Scroll/Content" unique_id=1469696271]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / review assets: 30"
+autowrap_mode = 3
+
+[node name="@Label@10" type="Label" parent="Scroll/Content" unique_id=1124527239]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "animation / 动画帧 / 序列帧：8"
+autowrap_mode = 3
+
+[node name="@GridContainer@11" type="GridContainer" parent="Scroll/Content" unique_id=967387007]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_enemies_core_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=2096536056]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "enemies_core_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@12" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_enemies_core_sheet_ai01" unique_id=753868203]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@13" type="Label" parent="Scroll/Content/@GridContainer@11/Review_enemies_core_sheet_ai01/@VBoxContainer@12" unique_id=747214002]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / enemies_core_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@14" type="Label" parent="Scroll/Content/@GridContainer@11/Review_enemies_core_sheet_ai01/@VBoxContainer@12" unique_id=1284052583]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@15" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_enemies_core_sheet_ai01/@VBoxContainer@12" unique_id=123543584]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("1_8mo0v")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@16" type="Label" parent="Scroll/Content/@GridContainer@11/Review_enemies_core_sheet_ai01/@VBoxContainer@12" unique_id=756971796]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@17" type="Label" parent="Scroll/Content/@GridContainer@11/Review_enemies_core_sheet_ai01/@VBoxContainer@12" unique_id=550129935]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@18" type="Label" parent="Scroll/Content/@GridContainer@11/Review_enemies_core_sheet_ai01/@VBoxContainer@12" unique_id=1475900191]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_luna_air_dash_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=633535600]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "luna_air_dash_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@19" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_luna_air_dash_sheet_ai01" unique_id=1319444743]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@20" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_air_dash_sheet_ai01/@VBoxContainer@19" unique_id=905993882]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / luna_air_dash_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@21" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_air_dash_sheet_ai01/@VBoxContainer@19" unique_id=314163414]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@22" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_luna_air_dash_sheet_ai01/@VBoxContainer@19" unique_id=1190497093]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("2_l2yu8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@23" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_air_dash_sheet_ai01/@VBoxContainer@19" unique_id=912713723]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@24" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_air_dash_sheet_ai01/@VBoxContainer@19" unique_id=1149796136]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@25" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_air_dash_sheet_ai01/@VBoxContainer@19" unique_id=946948889]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_luna_attack_01_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=255840644]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "luna_attack_01_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@26" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_luna_attack_01_sheet_ai01" unique_id=306863262]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@27" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_attack_01_sheet_ai01/@VBoxContainer@26" unique_id=624856063]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / luna_attack_01_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@28" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_attack_01_sheet_ai01/@VBoxContainer@26" unique_id=10950204]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@29" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_luna_attack_01_sheet_ai01/@VBoxContainer@26" unique_id=725246835]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("3_witde")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@30" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_attack_01_sheet_ai01/@VBoxContainer@26" unique_id=1516809344]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@31" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_attack_01_sheet_ai01/@VBoxContainer@26" unique_id=1125922197]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@32" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_attack_01_sheet_ai01/@VBoxContainer@26" unique_id=2138425517]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_luna_hit_death_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=1012087122]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "luna_hit_death_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@33" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_luna_hit_death_sheet_ai01" unique_id=1617658297]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@34" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_hit_death_sheet_ai01/@VBoxContainer@33" unique_id=641820323]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / luna_hit_death_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@35" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_hit_death_sheet_ai01/@VBoxContainer@33" unique_id=1663274336]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@36" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_luna_hit_death_sheet_ai01/@VBoxContainer@33" unique_id=1963773559]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("4_koyuu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@37" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_hit_death_sheet_ai01/@VBoxContainer@33" unique_id=1018113574]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@38" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_hit_death_sheet_ai01/@VBoxContainer@33" unique_id=820577298]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@39" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_hit_death_sheet_ai01/@VBoxContainer@33" unique_id=1542001601]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_luna_idle_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=2060582465]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "luna_idle_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@40" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_luna_idle_sheet_ai01" unique_id=1387088459]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@41" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_idle_sheet_ai01/@VBoxContainer@40" unique_id=1654671185]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / luna_idle_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@42" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_idle_sheet_ai01/@VBoxContainer@40" unique_id=1942644647]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@43" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_luna_idle_sheet_ai01/@VBoxContainer@40" unique_id=23574904]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("5_rci55")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@44" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_idle_sheet_ai01/@VBoxContainer@40" unique_id=309713399]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@45" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_idle_sheet_ai01/@VBoxContainer@40" unique_id=304557167]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@46" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_idle_sheet_ai01/@VBoxContainer@40" unique_id=125966512]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_luna_jump_fall_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=1624450961]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "luna_jump_fall_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@47" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_luna_jump_fall_sheet_ai01" unique_id=1021432018]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@48" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_jump_fall_sheet_ai01/@VBoxContainer@47" unique_id=2015770405]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / luna_jump_fall_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@49" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_jump_fall_sheet_ai01/@VBoxContainer@47" unique_id=793590585]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@50" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_luna_jump_fall_sheet_ai01/@VBoxContainer@47" unique_id=1136285893]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("6_h2p5t")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@51" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_jump_fall_sheet_ai01/@VBoxContainer@47" unique_id=402541238]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@52" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_jump_fall_sheet_ai01/@VBoxContainer@47" unique_id=259353124]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@53" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_jump_fall_sheet_ai01/@VBoxContainer@47" unique_id=1820839856]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_luna_run_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=1480560669]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "luna_run_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@54" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_luna_run_sheet_ai01" unique_id=219298168]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@55" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_run_sheet_ai01/@VBoxContainer@54" unique_id=801900096]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / luna_run_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@56" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_run_sheet_ai01/@VBoxContainer@54" unique_id=1451524105]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@57" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_luna_run_sheet_ai01/@VBoxContainer@54" unique_id=792227318]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("7_38ihj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@58" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_run_sheet_ai01/@VBoxContainer@54" unique_id=1458737631]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@59" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_run_sheet_ai01/@VBoxContainer@54" unique_id=211758628]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@60" type="Label" parent="Scroll/Content/@GridContainer@11/Review_luna_run_sheet_ai01/@VBoxContainer@54" unique_id=1335592083]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_seal_guardian_boss_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@11" unique_id=1015457556]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "seal_guardian_boss_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "animation"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@61" type="VBoxContainer" parent="Scroll/Content/@GridContainer@11/Review_seal_guardian_boss_sheet_ai01" unique_id=1970951135]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@62" type="Label" parent="Scroll/Content/@GridContainer@11/Review_seal_guardian_boss_sheet_ai01/@VBoxContainer@61" unique_id=864943976]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / seal_guardian_boss_sheet_ai01 / sprite_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@63" type="Label" parent="Scroll/Content/@GridContainer@11/Review_seal_guardian_boss_sheet_ai01/@VBoxContainer@61" unique_id=2039978113]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@64" type="TextureRect" parent="Scroll/Content/@GridContainer@11/Review_seal_guardian_boss_sheet_ai01/@VBoxContainer@61" unique_id=310769971]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("8_puqfr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@65" type="Label" parent="Scroll/Content/@GridContainer@11/Review_seal_guardian_boss_sheet_ai01/@VBoxContainer@61" unique_id=1947635293]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@66" type="Label" parent="Scroll/Content/@GridContainer@11/Review_seal_guardian_boss_sheet_ai01/@VBoxContainer@61" unique_id=30383477]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@67" type="Label" parent="Scroll/Content/@GridContainer@11/Review_seal_guardian_boss_sheet_ai01/@VBoxContainer@61" unique_id=1616298891]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@68" type="Label" parent="Scroll/Content" unique_id=1325677083]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "characters / 角色 / Boss / 拆件：4"
+autowrap_mode = 3
+
+[node name="@GridContainer@69" type="GridContainer" parent="Scroll/Content" unique_id=803016204]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_luna_spine_parts_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@69" unique_id=2075692041]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "luna_spine_parts_ai01"
+metadata/final_art_review_resource = "res://assets/art/spine_parts/luna_spine_parts_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "characters"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@70" type="VBoxContainer" parent="Scroll/Content/@GridContainer@69/Review_luna_spine_parts_ai01" unique_id=58570463]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@71" type="Label" parent="Scroll/Content/@GridContainer@69/Review_luna_spine_parts_ai01/@VBoxContainer@70" unique_id=2044968488]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / luna_spine_parts_ai01 / spine_cutout_parts"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@72" type="Label" parent="Scroll/Content/@GridContainer@69/Review_luna_spine_parts_ai01/@VBoxContainer@70" unique_id=1234597696]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@73" type="TextureRect" parent="Scroll/Content/@GridContainer@69/Review_luna_spine_parts_ai01/@VBoxContainer@70" unique_id=1954934200]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("9_foguj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@74" type="Label" parent="Scroll/Content/@GridContainer@69/Review_luna_spine_parts_ai01/@VBoxContainer@70" unique_id=1575849441]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@75" type="Label" parent="Scroll/Content/@GridContainer@69/Review_luna_spine_parts_ai01/@VBoxContainer@70" unique_id=249293709]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@76" type="Label" parent="Scroll/Content/@GridContainer@69/Review_luna_spine_parts_ai01/@VBoxContainer@70" unique_id=2016796653]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/spine_parts/luna_spine_parts_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_seal_guardian_spine_parts_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@69" unique_id=1208746347]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "seal_guardian_spine_parts_ai01"
+metadata/final_art_review_resource = "res://assets/art/spine_parts/seal_guardian_spine_parts_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "characters"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@77" type="VBoxContainer" parent="Scroll/Content/@GridContainer@69/Review_seal_guardian_spine_parts_ai01" unique_id=1157079290]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@78" type="Label" parent="Scroll/Content/@GridContainer@69/Review_seal_guardian_spine_parts_ai01/@VBoxContainer@77" unique_id=36003296]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / seal_guardian_spine_parts_ai01 / spine_cutout_parts"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@79" type="Label" parent="Scroll/Content/@GridContainer@69/Review_seal_guardian_spine_parts_ai01/@VBoxContainer@77" unique_id=705486553]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@80" type="TextureRect" parent="Scroll/Content/@GridContainer@69/Review_seal_guardian_spine_parts_ai01/@VBoxContainer@77" unique_id=443048869]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("10_v06kk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@81" type="Label" parent="Scroll/Content/@GridContainer@69/Review_seal_guardian_spine_parts_ai01/@VBoxContainer@77" unique_id=814154085]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@82" type="Label" parent="Scroll/Content/@GridContainer@69/Review_seal_guardian_spine_parts_ai01/@VBoxContainer@77" unique_id=1808858782]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@83" type="Label" parent="Scroll/Content/@GridContainer@69/Review_seal_guardian_spine_parts_ai01/@VBoxContainer@77" unique_id=727712093]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/spine_parts/seal_guardian_spine_parts_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage15_seal_guardian_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@69" unique_id=968405972]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage15_seal_guardian_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "characters"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@84" type="VBoxContainer" parent="Scroll/Content/@GridContainer@69/Review_stage15_seal_guardian_ai01" unique_id=1635820014]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@85" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage15_seal_guardian_ai01/@VBoxContainer@84" unique_id=567108317]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage15_seal_guardian_ai01 / boss_direction"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@86" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage15_seal_guardian_ai01/@VBoxContainer@84" unique_id=214063988]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@87" type="TextureRect" parent="Scroll/Content/@GridContainer@69/Review_stage15_seal_guardian_ai01/@VBoxContainer@84" unique_id=1584800218]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("11_deske")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@88" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage15_seal_guardian_ai01/@VBoxContainer@84" unique_id=196174591]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@89" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage15_seal_guardian_ai01/@VBoxContainer@84" unique_id=2098700123]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@90" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage15_seal_guardian_ai01/@VBoxContainer@84" unique_id=1917902602]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_luna_player_readability_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@69" unique_id=1031728778]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_luna_player_readability_ai01"
+metadata/final_art_review_resource = "res://assets/art/characters/player/stage16_luna_player_readability_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "characters"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@91" type="VBoxContainer" parent="Scroll/Content/@GridContainer@69/Review_stage16_luna_player_readability_ai01" unique_id=1221475322]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@92" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage16_luna_player_readability_ai01/@VBoxContainer@91" unique_id=1911325305]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_luna_player_readability_ai01 / character_direction"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@93" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage16_luna_player_readability_ai01/@VBoxContainer@91" unique_id=416979286]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@94" type="TextureRect" parent="Scroll/Content/@GridContainer@69/Review_stage16_luna_player_readability_ai01/@VBoxContainer@91" unique_id=30022565]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("12_7lvfl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@95" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage16_luna_player_readability_ai01/@VBoxContainer@91" unique_id=962405556]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@96" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage16_luna_player_readability_ai01/@VBoxContainer@91" unique_id=98001557]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@97" type="Label" parent="Scroll/Content/@GridContainer@69/Review_stage16_luna_player_readability_ai01/@VBoxContainer@91" unique_id=1090032922]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/characters/player/stage16_luna_player_readability_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@98" type="Label" parent="Scroll/Content" unique_id=397622533]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "icons / 图标：4"
+autowrap_mode = 3
+
+[node name="@GridContainer@99" type="GridContainer" parent="Scroll/Content" unique_id=55744082]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_icon_sheet_core_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@99" unique_id=805494480]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "icon_sheet_core_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/atlases/icon_sheet_core_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "icons"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@100" type="VBoxContainer" parent="Scroll/Content/@GridContainer@99/Review_icon_sheet_core_ai01" unique_id=1713393247]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@101" type="Label" parent="Scroll/Content/@GridContainer@99/Review_icon_sheet_core_ai01/@VBoxContainer@100" unique_id=1131634882]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / icon_sheet_core_ai01 / icon_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@102" type="Label" parent="Scroll/Content/@GridContainer@99/Review_icon_sheet_core_ai01/@VBoxContainer@100" unique_id=1233540052]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@103" type="TextureRect" parent="Scroll/Content/@GridContainer@99/Review_icon_sheet_core_ai01/@VBoxContainer@100" unique_id=1442775014]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("13_46e3u")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@104" type="Label" parent="Scroll/Content/@GridContainer@99/Review_icon_sheet_core_ai01/@VBoxContainer@100" unique_id=1208546002]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@105" type="Label" parent="Scroll/Content/@GridContainer@99/Review_icon_sheet_core_ai01/@VBoxContainer@100" unique_id=601621694]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@106" type="Label" parent="Scroll/Content/@GridContainer@99/Review_icon_sheet_core_ai01/@VBoxContainer@100" unique_id=67003937]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/atlases/icon_sheet_core_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage14_air_dash_icon_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@99" unique_id=73639147]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage14_air_dash_icon_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage14_air_dash_icon_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "icons"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@107" type="VBoxContainer" parent="Scroll/Content/@GridContainer@99/Review_stage14_air_dash_icon_ai01" unique_id=1756223719]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@108" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage14_air_dash_icon_ai01/@VBoxContainer@107" unique_id=1531400858]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage14_air_dash_icon_ai01 / icon"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@109" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage14_air_dash_icon_ai01/@VBoxContainer@107" unique_id=901350886]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@110" type="TextureRect" parent="Scroll/Content/@GridContainer@99/Review_stage14_air_dash_icon_ai01/@VBoxContainer@107" unique_id=1791447139]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("14_sd4pi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@111" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage14_air_dash_icon_ai01/@VBoxContainer@107" unique_id=1473794520]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@112" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage14_air_dash_icon_ai01/@VBoxContainer@107" unique_id=1326333327]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@113" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage14_air_dash_icon_ai01/@VBoxContainer@107" unique_id=1522806694]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage14_air_dash_icon_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage15_recovery_charge_icon_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@99" unique_id=7378233]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage15_recovery_charge_icon_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "icons"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@114" type="VBoxContainer" parent="Scroll/Content/@GridContainer@99/Review_stage15_recovery_charge_icon_ai01" unique_id=338413238]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@115" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage15_recovery_charge_icon_ai01/@VBoxContainer@114" unique_id=1003413190]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage15_recovery_charge_icon_ai01 / icon"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@116" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage15_recovery_charge_icon_ai01/@VBoxContainer@114" unique_id=272437647]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@117" type="TextureRect" parent="Scroll/Content/@GridContainer@99/Review_stage15_recovery_charge_icon_ai01/@VBoxContainer@114" unique_id=4178055]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("15_fbch0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@118" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage15_recovery_charge_icon_ai01/@VBoxContainer@114" unique_id=1038813920]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@119" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage15_recovery_charge_icon_ai01/@VBoxContainer@114" unique_id=1836121278]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@120" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage15_recovery_charge_icon_ai01/@VBoxContainer@114" unique_id=1137969819]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_demo_menu_icons_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@99" unique_id=2049500941]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_demo_menu_icons_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage16_demo_menu_icons_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "icons"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@121" type="VBoxContainer" parent="Scroll/Content/@GridContainer@99/Review_stage16_demo_menu_icons_ai01" unique_id=2119114261]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@122" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage16_demo_menu_icons_ai01/@VBoxContainer@121" unique_id=944443027]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_demo_menu_icons_ai01 / icon_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@123" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage16_demo_menu_icons_ai01/@VBoxContainer@121" unique_id=1215589582]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@124" type="TextureRect" parent="Scroll/Content/@GridContainer@99/Review_stage16_demo_menu_icons_ai01/@VBoxContainer@121" unique_id=1742404395]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("16_kmoqe")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@125" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage16_demo_menu_icons_ai01/@VBoxContainer@121" unique_id=1551603449]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@126" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage16_demo_menu_icons_ai01/@VBoxContainer@121" unique_id=1399582540]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@127" type="Label" parent="Scroll/Content/@GridContainer@99/Review_stage16_demo_menu_icons_ai01/@VBoxContainer@121" unique_id=1421845004]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage16_demo_menu_icons_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@128" type="Label" parent="Scroll/Content" unique_id=1939039408]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "ui / UI / 界面：8"
+autowrap_mode = 3
+
+[node name="@GridContainer@129" type="GridContainer" parent="Scroll/Content" unique_id=1524105204]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_hud_core_ui_atlas_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=335164267]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "hud_core_ui_atlas_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/atlases/hud_core_ui_atlas_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@130" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_hud_core_ui_atlas_ai01" unique_id=1941115052]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@131" type="Label" parent="Scroll/Content/@GridContainer@129/Review_hud_core_ui_atlas_ai01/@VBoxContainer@130" unique_id=2123053983]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / hud_core_ui_atlas_ai01 / ui_atlas"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@132" type="Label" parent="Scroll/Content/@GridContainer@129/Review_hud_core_ui_atlas_ai01/@VBoxContainer@130" unique_id=59881559]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@133" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_hud_core_ui_atlas_ai01/@VBoxContainer@130" unique_id=1019643772]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("17_x3iun")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@134" type="Label" parent="Scroll/Content/@GridContainer@129/Review_hud_core_ui_atlas_ai01/@VBoxContainer@130" unique_id=1428799490]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@135" type="Label" parent="Scroll/Content/@GridContainer@129/Review_hud_core_ui_atlas_ai01/@VBoxContainer@130" unique_id=579728154]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@136" type="Label" parent="Scroll/Content/@GridContainer@129/Review_hud_core_ui_atlas_ai01/@VBoxContainer@130" unique_id=1987252663]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/atlases/hud_core_ui_atlas_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_menu_ninepatch_ui_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=820962639]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "menu_ninepatch_ui_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@137" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_menu_ninepatch_ui_ai01" unique_id=1643130532]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@138" type="Label" parent="Scroll/Content/@GridContainer@129/Review_menu_ninepatch_ui_ai01/@VBoxContainer@137" unique_id=1795245804]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / menu_ninepatch_ui_ai01 / ninepatch_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@139" type="Label" parent="Scroll/Content/@GridContainer@129/Review_menu_ninepatch_ui_ai01/@VBoxContainer@137" unique_id=1051298668]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@140" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_menu_ninepatch_ui_ai01/@VBoxContainer@137" unique_id=1139863288]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("18_2dvoq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@141" type="Label" parent="Scroll/Content/@GridContainer@129/Review_menu_ninepatch_ui_ai01/@VBoxContainer@137" unique_id=1630839868]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@142" type="Label" parent="Scroll/Content/@GridContainer@129/Review_menu_ninepatch_ui_ai01/@VBoxContainer@137" unique_id=917328178]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@143" type="Label" parent="Scroll/Content/@GridContainer@129/Review_menu_ninepatch_ui_ai01/@VBoxContainer@137" unique_id=19057873]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/menu_ninepatch_ui_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage14_ability_status_hud_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=1610318700]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage14_ability_status_hud_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage14_ability_status_hud_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@144" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_stage14_ability_status_hud_ai01" unique_id=137152702]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@145" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage14_ability_status_hud_ai01/@VBoxContainer@144" unique_id=1184246528]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage14_ability_status_hud_ai01 / hud_frame"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@146" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage14_ability_status_hud_ai01/@VBoxContainer@144" unique_id=1581732580]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@147" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_stage14_ability_status_hud_ai01/@VBoxContainer@144" unique_id=1477472747]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("19_savx2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@148" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage14_ability_status_hud_ai01/@VBoxContainer@144" unique_id=1856649452]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@149" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage14_ability_status_hud_ai01/@VBoxContainer@144" unique_id=252781524]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@150" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage14_ability_status_hud_ai01/@VBoxContainer@144" unique_id=1121743739]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage14_ability_status_hud_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage15_boss_hud_frame_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=1800331532]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage15_boss_hud_frame_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage15_boss_hud_frame_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@151" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_stage15_boss_hud_frame_ai01" unique_id=1458107553]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@152" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage15_boss_hud_frame_ai01/@VBoxContainer@151" unique_id=574069589]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage15_boss_hud_frame_ai01 / hud_frame"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@153" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage15_boss_hud_frame_ai01/@VBoxContainer@151" unique_id=1760599932]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@154" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_stage15_boss_hud_frame_ai01/@VBoxContainer@151" unique_id=698214243]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("20_bscay")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@155" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage15_boss_hud_frame_ai01/@VBoxContainer@151" unique_id=1627351179]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@156" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage15_boss_hud_frame_ai01/@VBoxContainer@151" unique_id=1574694350]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@157" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage15_boss_hud_frame_ai01/@VBoxContainer@151" unique_id=27982594]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage15_boss_hud_frame_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_alpha_demo_completion_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=1833671137]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_alpha_demo_completion_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@158" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_stage16_alpha_demo_completion_ai01" unique_id=1048708067]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@159" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_alpha_demo_completion_ai01/@VBoxContainer@158" unique_id=999121873]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_alpha_demo_completion_ai01 / completion_ui"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@160" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_alpha_demo_completion_ai01/@VBoxContainer@158" unique_id=1630342976]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@161" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_stage16_alpha_demo_completion_ai01/@VBoxContainer@158" unique_id=1571974604]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("21_41qhq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@162" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_alpha_demo_completion_ai01/@VBoxContainer@158" unique_id=882483187]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@163" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_alpha_demo_completion_ai01/@VBoxContainer@158" unique_id=18946991]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@164" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_alpha_demo_completion_ai01/@VBoxContainer@158" unique_id=227023696]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_completion_panel_ui_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=1254337644]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_completion_panel_ui_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage16_completion_panel_ui_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@165" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_stage16_completion_panel_ui_ai01" unique_id=839267140]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@166" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_completion_panel_ui_ai01/@VBoxContainer@165" unique_id=1731554268]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_completion_panel_ui_ai01 / ui_panel"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@167" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_completion_panel_ui_ai01/@VBoxContainer@165" unique_id=1560722034]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@168" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_stage16_completion_panel_ui_ai01/@VBoxContainer@165" unique_id=846617630]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("22_3v0w1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@169" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_completion_panel_ui_ai01/@VBoxContainer@165" unique_id=1820911831]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@170" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_completion_panel_ui_ai01/@VBoxContainer@165" unique_id=948159557]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@171" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_completion_panel_ui_ai01/@VBoxContainer@165" unique_id=130839740]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage16_completion_panel_ui_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_pause_panel_ui_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=1186085437]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_pause_panel_ui_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage16_pause_panel_ui_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@172" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_stage16_pause_panel_ui_ai01" unique_id=853356991]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@173" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_pause_panel_ui_ai01/@VBoxContainer@172" unique_id=956563863]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_pause_panel_ui_ai01 / ui_panel"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@174" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_pause_panel_ui_ai01/@VBoxContainer@172" unique_id=45907568]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@175" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_stage16_pause_panel_ui_ai01/@VBoxContainer@172" unique_id=389601319]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("23_4peop")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@176" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_pause_panel_ui_ai01/@VBoxContainer@172" unique_id=1576432413]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@177" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_pause_panel_ui_ai01/@VBoxContainer@172" unique_id=1201277378]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@178" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_pause_panel_ui_ai01/@VBoxContainer@172" unique_id=1711836000]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage16_pause_panel_ui_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_title_background_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@129" unique_id=2087858019]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_title_background_ai01"
+metadata/final_art_review_resource = "res://assets/art/ui/stage16_title_background_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "ui"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@179" type="VBoxContainer" parent="Scroll/Content/@GridContainer@129/Review_stage16_title_background_ai01" unique_id=510903875]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@180" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_title_background_ai01/@VBoxContainer@179" unique_id=996102266]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_title_background_ai01 / title_background"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@181" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_title_background_ai01/@VBoxContainer@179" unique_id=1892866849]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@182" type="TextureRect" parent="Scroll/Content/@GridContainer@129/Review_stage16_title_background_ai01/@VBoxContainer@179" unique_id=649453099]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("24_pxkb4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@183" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_title_background_ai01/@VBoxContainer@179" unique_id=1081428978]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@184" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_title_background_ai01/@VBoxContainer@179" unique_id=998852441]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@185" type="Label" parent="Scroll/Content/@GridContainer@129/Review_stage16_title_background_ai01/@VBoxContainer@179" unique_id=1337487749]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/ui/stage16_title_background_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@186" type="Label" parent="Scroll/Content" unique_id=112259738]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "vfx / 特效：6"
+autowrap_mode = 3
+
+[node name="@GridContainer@187" type="GridContainer" parent="Scroll/Content" unique_id=1947341893]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_stage14_air_dash_trail_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@187" unique_id=1114056303]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage14_air_dash_trail_ai01"
+metadata/final_art_review_resource = "res://assets/art/vfx/stage14_air_dash_trail_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "vfx"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@188" type="VBoxContainer" parent="Scroll/Content/@GridContainer@187/Review_stage14_air_dash_trail_ai01" unique_id=936123813]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@189" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage14_air_dash_trail_ai01/@VBoxContainer@188" unique_id=1735121432]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage14_air_dash_trail_ai01 / vfx_direction"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@190" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage14_air_dash_trail_ai01/@VBoxContainer@188" unique_id=745210885]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@191" type="TextureRect" parent="Scroll/Content/@GridContainer@187/Review_stage14_air_dash_trail_ai01/@VBoxContainer@188" unique_id=964265276]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("25_5dsw4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@192" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage14_air_dash_trail_ai01/@VBoxContainer@188" unique_id=2025791380]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@193" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage14_air_dash_trail_ai01/@VBoxContainer@188" unique_id=1293378046]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@194" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage14_air_dash_trail_ai01/@VBoxContainer@188" unique_id=740492630]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/vfx/stage14_air_dash_trail_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage15_boss_attack_warning_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@187" unique_id=46751427]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage15_boss_attack_warning_ai01"
+metadata/final_art_review_resource = "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "vfx"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@195" type="VBoxContainer" parent="Scroll/Content/@GridContainer@187/Review_stage15_boss_attack_warning_ai01" unique_id=669688249]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@196" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage15_boss_attack_warning_ai01/@VBoxContainer@195" unique_id=1163363140]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage15_boss_attack_warning_ai01 / vfx_warning"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@197" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage15_boss_attack_warning_ai01/@VBoxContainer@195" unique_id=2103172829]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@198" type="TextureRect" parent="Scroll/Content/@GridContainer@187/Review_stage15_boss_attack_warning_ai01/@VBoxContainer@195" unique_id=33878265]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("26_7qal8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@199" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage15_boss_attack_warning_ai01/@VBoxContainer@195" unique_id=1003715719]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@200" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage15_boss_attack_warning_ai01/@VBoxContainer@195" unique_id=2019425650]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@201" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage15_boss_attack_warning_ai01/@VBoxContainer@195" unique_id=202994772]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_corruption_purge_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@187" unique_id=978530662]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_corruption_purge_ai01"
+metadata/final_art_review_resource = "res://assets/art/vfx/stage16_corruption_purge_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "vfx"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@202" type="VBoxContainer" parent="Scroll/Content/@GridContainer@187/Review_stage16_corruption_purge_ai01" unique_id=510122061]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@203" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_corruption_purge_ai01/@VBoxContainer@202" unique_id=1628448903]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_corruption_purge_ai01 / vfx_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@204" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_corruption_purge_ai01/@VBoxContainer@202" unique_id=965617244]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@205" type="TextureRect" parent="Scroll/Content/@GridContainer@187/Review_stage16_corruption_purge_ai01/@VBoxContainer@202" unique_id=633133947]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("27_1nnag")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@206" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_corruption_purge_ai01/@VBoxContainer@202" unique_id=362238733]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@207" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_corruption_purge_ai01/@VBoxContainer@202" unique_id=788071803]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@208" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_corruption_purge_ai01/@VBoxContainer@202" unique_id=770717100]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/vfx/stage16_corruption_purge_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_talisman_relay_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@187" unique_id=462278464]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_talisman_relay_ai01"
+metadata/final_art_review_resource = "res://assets/art/vfx/stage16_talisman_relay_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "vfx"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@209" type="VBoxContainer" parent="Scroll/Content/@GridContainer@187/Review_stage16_talisman_relay_ai01" unique_id=1327439914]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@210" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_talisman_relay_ai01/@VBoxContainer@209" unique_id=300140986]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / stage16_talisman_relay_ai01 / vfx_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@211" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_talisman_relay_ai01/@VBoxContainer@209" unique_id=1965918591]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@212" type="TextureRect" parent="Scroll/Content/@GridContainer@187/Review_stage16_talisman_relay_ai01/@VBoxContainer@209" unique_id=1361806631]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("28_48bwf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@213" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_talisman_relay_ai01/@VBoxContainer@209" unique_id=2035405064]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@214" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_talisman_relay_ai01/@VBoxContainer@209" unique_id=1829610241]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@215" type="Label" parent="Scroll/Content/@GridContainer@187/Review_stage16_talisman_relay_ai01/@VBoxContainer@209" unique_id=1767137554]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/vfx/stage16_talisman_relay_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_vfx_combat_atlas_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@187" unique_id=2091231341]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "vfx_combat_atlas_ai01"
+metadata/final_art_review_resource = "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "vfx"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@216" type="VBoxContainer" parent="Scroll/Content/@GridContainer@187/Review_vfx_combat_atlas_ai01" unique_id=1316337147]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@217" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_combat_atlas_ai01/@VBoxContainer@216" unique_id=1884532164]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / vfx_combat_atlas_ai01 / vfx_atlas"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@218" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_combat_atlas_ai01/@VBoxContainer@216" unique_id=1135613339]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@219" type="TextureRect" parent="Scroll/Content/@GridContainer@187/Review_vfx_combat_atlas_ai01/@VBoxContainer@216" unique_id=2033354592]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("29_yor7d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@220" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_combat_atlas_ai01/@VBoxContainer@216" unique_id=1776095471]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@221" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_combat_atlas_ai01/@VBoxContainer@216" unique_id=1284823787]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@222" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_combat_atlas_ai01/@VBoxContainer@216" unique_id=1001269957]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_vfx_seal_magic_atlas_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@187" unique_id=118903118]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "vfx_seal_magic_atlas_ai01"
+metadata/final_art_review_resource = "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.png"
+metadata/final_art_review_priority = "P0"
+metadata/final_art_review_family = "vfx"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@223" type="VBoxContainer" parent="Scroll/Content/@GridContainer@187/Review_vfx_seal_magic_atlas_ai01" unique_id=555891729]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@224" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_seal_magic_atlas_ai01/@VBoxContainer@223" unique_id=2113507202]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P0 / vfx_seal_magic_atlas_ai01 / vfx_atlas"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@225" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_seal_magic_atlas_ai01/@VBoxContainer@223" unique_id=750367671]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@226" type="TextureRect" parent="Scroll/Content/@GridContainer@187/Review_vfx_seal_magic_atlas_ai01/@VBoxContainer@223" unique_id=1914196353]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("30_wl2qw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@227" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_seal_magic_atlas_ai01/@VBoxContainer@223" unique_id=41749108]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@228" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_seal_magic_atlas_ai01/@VBoxContainer@223" unique_id=977765977]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@229" type="Label" parent="Scroll/Content/@GridContainer@187/Review_vfx_seal_magic_atlas_ai01/@VBoxContainer@223" unique_id=1914661821]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@230" type="Label" parent="Scroll/Content" unique_id=764233410]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / review assets: 18"
+autowrap_mode = 3
+
+[node name="@Label@231" type="Label" parent="Scroll/Content" unique_id=1328782635]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "environment / 关卡地图 / 场景：10"
+autowrap_mode = 3
+
+[node name="@GridContainer@232" type="GridContainer" parent="Scroll/Content" unique_id=359119601]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_biome01_air_dash_shrine_room_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=1522745518]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "biome01_air_dash_shrine_room_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/biome_01_shrine_trial/biome01_air_dash_shrine_room_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@233" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_biome01_air_dash_shrine_room_ai01" unique_id=813990431]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@234" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_air_dash_shrine_room_ai01/@VBoxContainer@233" unique_id=2010773259]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / biome01_air_dash_shrine_room_ai01 / environment_room_background"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@235" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_air_dash_shrine_room_ai01/@VBoxContainer@233" unique_id=1007763390]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@236" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_biome01_air_dash_shrine_room_ai01/@VBoxContainer@233" unique_id=1371245138]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("31_jtbj1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@237" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_air_dash_shrine_room_ai01/@VBoxContainer@233" unique_id=799240442]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@238" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_air_dash_shrine_room_ai01/@VBoxContainer@233" unique_id=1127392132]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@239" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_air_dash_shrine_room_ai01/@VBoxContainer@233" unique_id=1680411223]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/biome_01_shrine_trial/biome01_air_dash_shrine_room_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_biome01_shrine_trial_background_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=1686236742]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "biome01_shrine_trial_background_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@240" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_background_ai01" unique_id=837463952]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@241" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_background_ai01/@VBoxContainer@240" unique_id=2078877006]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / biome01_shrine_trial_background_ai01 / environment_background"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@242" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_background_ai01/@VBoxContainer@240" unique_id=463460380]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@243" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_background_ai01/@VBoxContainer@240" unique_id=612805771]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("32_wmpih")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@244" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_background_ai01/@VBoxContainer@240" unique_id=840876774]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@245" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_background_ai01/@VBoxContainer@240" unique_id=1470997093]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@246" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_background_ai01/@VBoxContainer@240" unique_id=130265581]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_biome01_shrine_trial_room_parallax_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=77344028]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "biome01_shrine_trial_room_parallax_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_room_parallax_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@247" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_room_parallax_ai01" unique_id=1279559363]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@248" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_room_parallax_ai01/@VBoxContainer@247" unique_id=182837994]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / biome01_shrine_trial_room_parallax_ai01 / environment_room_background"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@249" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_room_parallax_ai01/@VBoxContainer@247" unique_id=418248444]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@250" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_room_parallax_ai01/@VBoxContainer@247" unique_id=1667257265]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("33_rjip6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@251" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_room_parallax_ai01/@VBoxContainer@247" unique_id=1808882056]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@252" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_room_parallax_ai01/@VBoxContainer@247" unique_id=920377759]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@253" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_room_parallax_ai01/@VBoxContainer@247" unique_id=925748265]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_room_parallax_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_biome01_shrine_trial_tiles_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=10182095]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "biome01_shrine_trial_tiles_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_tiles_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@254" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_tiles_ai01" unique_id=1148538164]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@255" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_tiles_ai01/@VBoxContainer@254" unique_id=1524204497]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / biome01_shrine_trial_tiles_ai01 / environment_tiles"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@256" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_tiles_ai01/@VBoxContainer@254" unique_id=914476338]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@257" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_tiles_ai01/@VBoxContainer@254" unique_id=1616927484]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("34_a7133")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@258" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_tiles_ai01/@VBoxContainer@254" unique_id=1465965101]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@259" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_tiles_ai01/@VBoxContainer@254" unique_id=660655761]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@260" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome01_shrine_trial_tiles_ai01/@VBoxContainer@254" unique_id=1603977496]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_tiles_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_biome02_miasma_hazard_room_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=1655864780]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "biome02_miasma_hazard_room_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_hazard_room_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@261" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_hazard_room_ai01" unique_id=408067827]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@262" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_hazard_room_ai01/@VBoxContainer@261" unique_id=1646071583]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / biome02_miasma_hazard_room_ai01 / environment_room_background"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@263" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_hazard_room_ai01/@VBoxContainer@261" unique_id=1844131230]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@264" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_hazard_room_ai01/@VBoxContainer@261" unique_id=134244717]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("35_gsneq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@265" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_hazard_room_ai01/@VBoxContainer@261" unique_id=153280302]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@266" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_hazard_room_ai01/@VBoxContainer@261" unique_id=207077971]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@267" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_hazard_room_ai01/@VBoxContainer@261" unique_id=563330077]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_hazard_room_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_biome02_miasma_marsh_background_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=682158930]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "biome02_miasma_marsh_background_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@268" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_background_ai01" unique_id=1795298195]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@269" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_background_ai01/@VBoxContainer@268" unique_id=496078344]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / biome02_miasma_marsh_background_ai01 / environment_background"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@270" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_background_ai01/@VBoxContainer@268" unique_id=989717293]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@271" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_background_ai01/@VBoxContainer@268" unique_id=2103915087]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("36_k482a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@272" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_background_ai01/@VBoxContainer@268" unique_id=1129871002]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@273" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_background_ai01/@VBoxContainer@268" unique_id=899881615]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@274" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_background_ai01/@VBoxContainer@268" unique_id=1736331962]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_biome02_miasma_marsh_tiles_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=2084742505]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "biome02_miasma_marsh_tiles_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@275" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_tiles_ai01" unique_id=712091898]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@276" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_tiles_ai01/@VBoxContainer@275" unique_id=1050359357]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / biome02_miasma_marsh_tiles_ai01 / environment_tiles"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@277" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_tiles_ai01/@VBoxContainer@275" unique_id=1419773199]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@278" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_tiles_ai01/@VBoxContainer@275" unique_id=1200789196]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("37_weyl8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@279" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_tiles_ai01/@VBoxContainer@275" unique_id=859993155]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@280" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_tiles_ai01/@VBoxContainer@275" unique_id=1352813954]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@281" type="Label" parent="Scroll/Content/@GridContainer@232/Review_biome02_miasma_marsh_tiles_ai01/@VBoxContainer@275" unique_id=398997539]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_miasma_marsh_tileset_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=2064411601]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "miasma_marsh_tileset_ai01"
+metadata/final_art_review_resource = "res://assets/art/tilesets/miasma_marsh_tileset_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@282" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_miasma_marsh_tileset_ai01" unique_id=546298849]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@283" type="Label" parent="Scroll/Content/@GridContainer@232/Review_miasma_marsh_tileset_ai01/@VBoxContainer@282" unique_id=557523403]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / miasma_marsh_tileset_ai01 / tileset_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@284" type="Label" parent="Scroll/Content/@GridContainer@232/Review_miasma_marsh_tileset_ai01/@VBoxContainer@282" unique_id=1579529312]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@285" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_miasma_marsh_tileset_ai01/@VBoxContainer@282" unique_id=1330130511]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("38_dmbnp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@286" type="Label" parent="Scroll/Content/@GridContainer@232/Review_miasma_marsh_tileset_ai01/@VBoxContainer@282" unique_id=1908691103]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@287" type="Label" parent="Scroll/Content/@GridContainer@232/Review_miasma_marsh_tileset_ai01/@VBoxContainer@282" unique_id=941820197]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@288" type="Label" parent="Scroll/Content/@GridContainer@232/Review_miasma_marsh_tileset_ai01/@VBoxContainer@282" unique_id=1548067122]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/tilesets/miasma_marsh_tileset_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_shrine_trial_tileset_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=690716791]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "shrine_trial_tileset_ai01"
+metadata/final_art_review_resource = "res://assets/art/tilesets/shrine_trial_tileset_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@289" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_shrine_trial_tileset_ai01" unique_id=947688077]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@290" type="Label" parent="Scroll/Content/@GridContainer@232/Review_shrine_trial_tileset_ai01/@VBoxContainer@289" unique_id=312226882]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / shrine_trial_tileset_ai01 / tileset_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@291" type="Label" parent="Scroll/Content/@GridContainer@232/Review_shrine_trial_tileset_ai01/@VBoxContainer@289" unique_id=218472549]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@292" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_shrine_trial_tileset_ai01/@VBoxContainer@289" unique_id=1312834075]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("39_u5f2a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@293" type="Label" parent="Scroll/Content/@GridContainer@232/Review_shrine_trial_tileset_ai01/@VBoxContainer@289" unique_id=788415060]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@294" type="Label" parent="Scroll/Content/@GridContainer@232/Review_shrine_trial_tileset_ai01/@VBoxContainer@289" unique_id=2077275559]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@295" type="Label" parent="Scroll/Content/@GridContainer@232/Review_shrine_trial_tileset_ai01/@VBoxContainer@289" unique_id=2071436230]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/tilesets/shrine_trial_tileset_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage15_seal_guardian_boss_room_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@232" unique_id=588849124]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage15_seal_guardian_boss_room_ai01"
+metadata/final_art_review_resource = "res://assets/art/environment/boss_rooms/stage15_seal_guardian_boss_room_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "environment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@296" type="VBoxContainer" parent="Scroll/Content/@GridContainer@232/Review_stage15_seal_guardian_boss_room_ai01" unique_id=479156710]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@297" type="Label" parent="Scroll/Content/@GridContainer@232/Review_stage15_seal_guardian_boss_room_ai01/@VBoxContainer@296" unique_id=1279351046]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / stage15_seal_guardian_boss_room_ai01 / environment_boss_room_background"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@298" type="Label" parent="Scroll/Content/@GridContainer@232/Review_stage15_seal_guardian_boss_room_ai01/@VBoxContainer@296" unique_id=1888367056]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@299" type="TextureRect" parent="Scroll/Content/@GridContainer@232/Review_stage15_seal_guardian_boss_room_ai01/@VBoxContainer@296" unique_id=1988165542]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("40_ubv7a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@300" type="Label" parent="Scroll/Content/@GridContainer@232/Review_stage15_seal_guardian_boss_room_ai01/@VBoxContainer@296" unique_id=1602597144]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@301" type="Label" parent="Scroll/Content/@GridContainer@232/Review_stage15_seal_guardian_boss_room_ai01/@VBoxContainer@296" unique_id=1432835178]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@302" type="Label" parent="Scroll/Content/@GridContainer@232/Review_stage15_seal_guardian_boss_room_ai01/@VBoxContainer@296" unique_id=567367699]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/environment/boss_rooms/stage15_seal_guardian_boss_room_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@303" type="Label" parent="Scroll/Content" unique_id=886970095]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "props_equipment / 道具与装备：6"
+autowrap_mode = 3
+
+[node name="@GridContainer@304" type="GridContainer" parent="Scroll/Content" unique_id=553305705]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_equipment_pickup_atlas_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@304" unique_id=1763541789]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "equipment_pickup_atlas_ai01"
+metadata/final_art_review_resource = "res://assets/art/atlases/equipment_pickup_atlas_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "props_equipment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@305" type="VBoxContainer" parent="Scroll/Content/@GridContainer@304/Review_equipment_pickup_atlas_ai01" unique_id=1284001873]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@306" type="Label" parent="Scroll/Content/@GridContainer@304/Review_equipment_pickup_atlas_ai01/@VBoxContainer@305" unique_id=121565020]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / equipment_pickup_atlas_ai01 / equipment_atlas"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@307" type="Label" parent="Scroll/Content/@GridContainer@304/Review_equipment_pickup_atlas_ai01/@VBoxContainer@305" unique_id=1741121343]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@308" type="TextureRect" parent="Scroll/Content/@GridContainer@304/Review_equipment_pickup_atlas_ai01/@VBoxContainer@305" unique_id=1986189689]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("41_t4kvw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@309" type="Label" parent="Scroll/Content/@GridContainer@304/Review_equipment_pickup_atlas_ai01/@VBoxContainer@305" unique_id=947732239]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@310" type="Label" parent="Scroll/Content/@GridContainer@304/Review_equipment_pickup_atlas_ai01/@VBoxContainer@305" unique_id=35034302]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@311" type="Label" parent="Scroll/Content/@GridContainer@304/Review_equipment_pickup_atlas_ai01/@VBoxContainer@305" unique_id=249527598]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/atlases/equipment_pickup_atlas_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_reusable_seal_props_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@304" unique_id=1160862096]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "reusable_seal_props_ai01"
+metadata/final_art_review_resource = "res://assets/art/props/reusable_seal_props_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "props_equipment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@312" type="VBoxContainer" parent="Scroll/Content/@GridContainer@304/Review_reusable_seal_props_ai01" unique_id=1204504522]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@313" type="Label" parent="Scroll/Content/@GridContainer@304/Review_reusable_seal_props_ai01/@VBoxContainer@312" unique_id=1690946490]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / reusable_seal_props_ai01 / prop_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@314" type="Label" parent="Scroll/Content/@GridContainer@304/Review_reusable_seal_props_ai01/@VBoxContainer@312" unique_id=692551204]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@315" type="TextureRect" parent="Scroll/Content/@GridContainer@304/Review_reusable_seal_props_ai01/@VBoxContainer@312" unique_id=596230391]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("42_wousf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@316" type="Label" parent="Scroll/Content/@GridContainer@304/Review_reusable_seal_props_ai01/@VBoxContainer@312" unique_id=1367877179]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@317" type="Label" parent="Scroll/Content/@GridContainer@304/Review_reusable_seal_props_ai01/@VBoxContainer@312" unique_id=228099388]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@318" type="Label" parent="Scroll/Content/@GridContainer@304/Review_reusable_seal_props_ai01/@VBoxContainer@312" unique_id=1475232391]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/props/reusable_seal_props_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_shrine_gate_prop_atlas_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@304" unique_id=1766671326]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/final_art_review_resource = "res://assets/art/atlases/shrine_gate_prop_atlas_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "props_equipment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@319" type="VBoxContainer" parent="Scroll/Content/@GridContainer@304/Review_shrine_gate_prop_atlas_ai01" unique_id=2113183536]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@320" type="Label" parent="Scroll/Content/@GridContainer@304/Review_shrine_gate_prop_atlas_ai01/@VBoxContainer@319" unique_id=1604279160]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / shrine_gate_prop_atlas_ai01 / prop_atlas"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@321" type="Label" parent="Scroll/Content/@GridContainer@304/Review_shrine_gate_prop_atlas_ai01/@VBoxContainer@319" unique_id=110072926]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@322" type="TextureRect" parent="Scroll/Content/@GridContainer@304/Review_shrine_gate_prop_atlas_ai01/@VBoxContainer@319" unique_id=179256764]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("43_ewiw3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@323" type="Label" parent="Scroll/Content/@GridContainer@304/Review_shrine_gate_prop_atlas_ai01/@VBoxContainer@319" unique_id=576185267]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@324" type="Label" parent="Scroll/Content/@GridContainer@304/Review_shrine_gate_prop_atlas_ai01/@VBoxContainer@319" unique_id=387004769]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@325" type="Label" parent="Scroll/Content/@GridContainer@304/Review_shrine_gate_prop_atlas_ai01/@VBoxContainer@319" unique_id=1802143404]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/atlases/shrine_gate_prop_atlas_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage14_air_dash_gate_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@304" unique_id=346705341]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage14_air_dash_gate_ai01"
+metadata/final_art_review_resource = "res://assets/art/props/stage14_air_dash_gate_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "props_equipment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@326" type="VBoxContainer" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_gate_ai01" unique_id=1954276681]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@327" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_gate_ai01/@VBoxContainer@326" unique_id=1780438373]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / stage14_air_dash_gate_ai01 / prop"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@328" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_gate_ai01/@VBoxContainer@326" unique_id=290918981]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@329" type="TextureRect" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_gate_ai01/@VBoxContainer@326" unique_id=551490789]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("44_0277y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@330" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_gate_ai01/@VBoxContainer@326" unique_id=1525766234]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@331" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_gate_ai01/@VBoxContainer@326" unique_id=1511798057]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@332" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_gate_ai01/@VBoxContainer@326" unique_id=1226214406]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/props/stage14_air_dash_gate_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage14_air_dash_shrine_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@304" unique_id=343311854]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage14_air_dash_shrine_ai01"
+metadata/final_art_review_resource = "res://assets/art/props/stage14_air_dash_shrine_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "props_equipment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@333" type="VBoxContainer" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_shrine_ai01" unique_id=1967372912]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@334" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_shrine_ai01/@VBoxContainer@333" unique_id=1996191690]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / stage14_air_dash_shrine_ai01 / prop"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@335" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_shrine_ai01/@VBoxContainer@333" unique_id=70413386]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@336" type="TextureRect" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_shrine_ai01/@VBoxContainer@333" unique_id=1803319769]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("45_i7yor")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@337" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_shrine_ai01/@VBoxContainer@333" unique_id=1421911646]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@338" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_shrine_ai01/@VBoxContainer@333" unique_id=1347668218]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@339" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage14_air_dash_shrine_ai01/@VBoxContainer@333" unique_id=2085311227]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/props/stage14_air_dash_shrine_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_stage16_seal_release_threshold_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@304" unique_id=1544285505]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "stage16_seal_release_threshold_ai01"
+metadata/final_art_review_resource = "res://assets/art/props/stage16_seal_release_threshold_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "props_equipment"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@340" type="VBoxContainer" parent="Scroll/Content/@GridContainer@304/Review_stage16_seal_release_threshold_ai01" unique_id=2037397216]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@341" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage16_seal_release_threshold_ai01/@VBoxContainer@340" unique_id=901259264]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / stage16_seal_release_threshold_ai01 / prop"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@342" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage16_seal_release_threshold_ai01/@VBoxContainer@340" unique_id=1323612336]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@343" type="TextureRect" parent="Scroll/Content/@GridContainer@304/Review_stage16_seal_release_threshold_ai01/@VBoxContainer@340" unique_id=264856275]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("46_7bms0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@344" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage16_seal_release_threshold_ai01/@VBoxContainer@340" unique_id=367753037]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@345" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage16_seal_release_threshold_ai01/@VBoxContainer@340" unique_id=602761176]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@346" type="Label" parent="Scroll/Content/@GridContainer@304/Review_stage16_seal_release_threshold_ai01/@VBoxContainer@340" unique_id=979458504]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/props/stage16_seal_release_threshold_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@347" type="Label" parent="Scroll/Content" unique_id=924503212]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "style / 风格板：1"
+autowrap_mode = 3
+
+[node name="@GridContainer@348" type="GridContainer" parent="Scroll/Content" unique_id=1253000326]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_style_board_global_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@348" unique_id=738158409]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "style_board_global_ai01"
+metadata/final_art_review_resource = "res://assets/art/promo/style_board_global_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "style"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@349" type="VBoxContainer" parent="Scroll/Content/@GridContainer@348/Review_style_board_global_ai01" unique_id=46170179]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@350" type="Label" parent="Scroll/Content/@GridContainer@348/Review_style_board_global_ai01/@VBoxContainer@349" unique_id=277726988]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / style_board_global_ai01 / style_board"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@351" type="Label" parent="Scroll/Content/@GridContainer@348/Review_style_board_global_ai01/@VBoxContainer@349" unique_id=473080698]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@352" type="TextureRect" parent="Scroll/Content/@GridContainer@348/Review_style_board_global_ai01/@VBoxContainer@349" unique_id=155024197]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("47_qhow3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@353" type="Label" parent="Scroll/Content/@GridContainer@348/Review_style_board_global_ai01/@VBoxContainer@349" unique_id=1219167932]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@354" type="Label" parent="Scroll/Content/@GridContainer@348/Review_style_board_global_ai01/@VBoxContainer@349" unique_id=660771496]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@355" type="Label" parent="Scroll/Content/@GridContainer@348/Review_style_board_global_ai01/@VBoxContainer@349" unique_id=114273748]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/promo/style_board_global_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@356" type="Label" parent="Scroll/Content" unique_id=1495741331]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "textures / 贴图：1"
+autowrap_mode = 3
+
+[node name="@GridContainer@357" type="GridContainer" parent="Scroll/Content" unique_id=1728356159]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_material_texture_atlas_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@357" unique_id=453536331]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "material_texture_atlas_ai01"
+metadata/final_art_review_resource = "res://assets/art/textures/material_texture_atlas_ai01.png"
+metadata/final_art_review_priority = "P1"
+metadata/final_art_review_family = "textures"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@358" type="VBoxContainer" parent="Scroll/Content/@GridContainer@357/Review_material_texture_atlas_ai01" unique_id=1048805490]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@359" type="Label" parent="Scroll/Content/@GridContainer@357/Review_material_texture_atlas_ai01/@VBoxContainer@358" unique_id=1796527787]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P1 / material_texture_atlas_ai01 / texture_atlas"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@360" type="Label" parent="Scroll/Content/@GridContainer@357/Review_material_texture_atlas_ai01/@VBoxContainer@358" unique_id=207475834]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@361" type="TextureRect" parent="Scroll/Content/@GridContainer@357/Review_material_texture_atlas_ai01/@VBoxContainer@358" unique_id=1422491667]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("48_s76mg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@362" type="Label" parent="Scroll/Content/@GridContainer@357/Review_material_texture_atlas_ai01/@VBoxContainer@358" unique_id=586524570]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@363" type="Label" parent="Scroll/Content/@GridContainer@357/Review_material_texture_atlas_ai01/@VBoxContainer@358" unique_id=556762570]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@364" type="Label" parent="Scroll/Content/@GridContainer@357/Review_material_texture_atlas_ai01/@VBoxContainer@358" unique_id=1510780511]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/textures/material_texture_atlas_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@365" type="Label" parent="Scroll/Content" unique_id=1120371640]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / review assets: 7"
+autowrap_mode = 3
+
+[node name="@Label@366" type="Label" parent="Scroll/Content" unique_id=1818985453]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "promo_logo_cg / 宣传 / LOGO / CG：4"
+autowrap_mode = 3
+
+[node name="@GridContainer@367" type="GridContainer" parent="Scroll/Content" unique_id=351753885]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_capsule_art_alpha_demo_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@367" unique_id=1324647923]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "capsule_art_alpha_demo_ai01"
+metadata/final_art_review_resource = "res://assets/art/promo/capsule_art_alpha_demo_ai01.png"
+metadata/final_art_review_priority = "P2"
+metadata/final_art_review_family = "promo_logo_cg"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@368" type="VBoxContainer" parent="Scroll/Content/@GridContainer@367/Review_capsule_art_alpha_demo_ai01" unique_id=1683575125]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@369" type="Label" parent="Scroll/Content/@GridContainer@367/Review_capsule_art_alpha_demo_ai01/@VBoxContainer@368" unique_id=910384834]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / capsule_art_alpha_demo_ai01 / promo_capsule"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@370" type="Label" parent="Scroll/Content/@GridContainer@367/Review_capsule_art_alpha_demo_ai01/@VBoxContainer@368" unique_id=509484615]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@371" type="TextureRect" parent="Scroll/Content/@GridContainer@367/Review_capsule_art_alpha_demo_ai01/@VBoxContainer@368" unique_id=715336374]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("49_xmjvx")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@372" type="Label" parent="Scroll/Content/@GridContainer@367/Review_capsule_art_alpha_demo_ai01/@VBoxContainer@368" unique_id=1757514617]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@373" type="Label" parent="Scroll/Content/@GridContainer@367/Review_capsule_art_alpha_demo_ai01/@VBoxContainer@368" unique_id=1983344822]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@374" type="Label" parent="Scroll/Content/@GridContainer@367/Review_capsule_art_alpha_demo_ai01/@VBoxContainer@368" unique_id=1627242901]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/promo/capsule_art_alpha_demo_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_cg_seal_guardian_reveal_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@367" unique_id=626916669]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "cg_seal_guardian_reveal_ai01"
+metadata/final_art_review_resource = "res://assets/art/promo/cg_seal_guardian_reveal_ai01.png"
+metadata/final_art_review_priority = "P2"
+metadata/final_art_review_family = "promo_logo_cg"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@375" type="VBoxContainer" parent="Scroll/Content/@GridContainer@367/Review_cg_seal_guardian_reveal_ai01" unique_id=2057274592]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@376" type="Label" parent="Scroll/Content/@GridContainer@367/Review_cg_seal_guardian_reveal_ai01/@VBoxContainer@375" unique_id=409056584]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / cg_seal_guardian_reveal_ai01 / cg_illustration"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@377" type="Label" parent="Scroll/Content/@GridContainer@367/Review_cg_seal_guardian_reveal_ai01/@VBoxContainer@375" unique_id=1224931921]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@378" type="TextureRect" parent="Scroll/Content/@GridContainer@367/Review_cg_seal_guardian_reveal_ai01/@VBoxContainer@375" unique_id=1336605567]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("50_wd4j4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@379" type="Label" parent="Scroll/Content/@GridContainer@367/Review_cg_seal_guardian_reveal_ai01/@VBoxContainer@375" unique_id=1132852055]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@380" type="Label" parent="Scroll/Content/@GridContainer@367/Review_cg_seal_guardian_reveal_ai01/@VBoxContainer@375" unique_id=1367644583]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@381" type="Label" parent="Scroll/Content/@GridContainer@367/Review_cg_seal_guardian_reveal_ai01/@VBoxContainer@375" unique_id=1848719883]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/promo/cg_seal_guardian_reveal_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_nano_hunter_logo_direction_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@367" unique_id=572902296]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "nano_hunter_logo_direction_ai01"
+metadata/final_art_review_resource = "res://assets/art/promo/nano_hunter_logo_direction_ai01.png"
+metadata/final_art_review_priority = "P2"
+metadata/final_art_review_family = "promo_logo_cg"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@382" type="VBoxContainer" parent="Scroll/Content/@GridContainer@367/Review_nano_hunter_logo_direction_ai01" unique_id=1406353244]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@383" type="Label" parent="Scroll/Content/@GridContainer@367/Review_nano_hunter_logo_direction_ai01/@VBoxContainer@382" unique_id=263265437]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / nano_hunter_logo_direction_ai01 / logo_direction"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@384" type="Label" parent="Scroll/Content/@GridContainer@367/Review_nano_hunter_logo_direction_ai01/@VBoxContainer@382" unique_id=151705569]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@385" type="TextureRect" parent="Scroll/Content/@GridContainer@367/Review_nano_hunter_logo_direction_ai01/@VBoxContainer@382" unique_id=1889109347]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("51_gil75")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@386" type="Label" parent="Scroll/Content/@GridContainer@367/Review_nano_hunter_logo_direction_ai01/@VBoxContainer@382" unique_id=2083000935]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@387" type="Label" parent="Scroll/Content/@GridContainer@367/Review_nano_hunter_logo_direction_ai01/@VBoxContainer@382" unique_id=1028000943]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@388" type="Label" parent="Scroll/Content/@GridContainer@367/Review_nano_hunter_logo_direction_ai01/@VBoxContainer@382" unique_id=1919260298]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/promo/nano_hunter_logo_direction_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_promo_key_art_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@367" unique_id=645641247]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "promo_key_art_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/promo/promo_key_art_sheet_ai01.png"
+metadata/final_art_review_priority = "P2"
+metadata/final_art_review_family = "promo_logo_cg"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@389" type="VBoxContainer" parent="Scroll/Content/@GridContainer@367/Review_promo_key_art_sheet_ai01" unique_id=240151001]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@390" type="Label" parent="Scroll/Content/@GridContainer@367/Review_promo_key_art_sheet_ai01/@VBoxContainer@389" unique_id=1638837085]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / promo_key_art_sheet_ai01 / promo_key_art"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@391" type="Label" parent="Scroll/Content/@GridContainer@367/Review_promo_key_art_sheet_ai01/@VBoxContainer@389" unique_id=129691574]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@392" type="TextureRect" parent="Scroll/Content/@GridContainer@367/Review_promo_key_art_sheet_ai01/@VBoxContainer@389" unique_id=862672628]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("52_rckrp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@393" type="Label" parent="Scroll/Content/@GridContainer@367/Review_promo_key_art_sheet_ai01/@VBoxContainer@389" unique_id=236608747]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@394" type="Label" parent="Scroll/Content/@GridContainer@367/Review_promo_key_art_sheet_ai01/@VBoxContainer@389" unique_id=614654253]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@395" type="Label" parent="Scroll/Content/@GridContainer@367/Review_promo_key_art_sheet_ai01/@VBoxContainer@389" unique_id=1357643079]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/promo/promo_key_art_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@396" type="Label" parent="Scroll/Content" unique_id=1556952434]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "story / 叙事 / 分镜：3"
+autowrap_mode = 3
+
+[node name="@GridContainer@397" type="GridContainer" parent="Scroll/Content" unique_id=657856514]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Review_storyboard_intro_bounty_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@397" unique_id=1549472428]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "storyboard_intro_bounty_ai01"
+metadata/final_art_review_resource = "res://assets/art/storyboards/storyboard_intro_bounty_ai01.png"
+metadata/final_art_review_priority = "P2"
+metadata/final_art_review_family = "story"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@398" type="VBoxContainer" parent="Scroll/Content/@GridContainer@397/Review_storyboard_intro_bounty_ai01" unique_id=1789808623]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@399" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_intro_bounty_ai01/@VBoxContainer@398" unique_id=1518503920]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / storyboard_intro_bounty_ai01 / storyboard_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@400" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_intro_bounty_ai01/@VBoxContainer@398" unique_id=751269178]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@401" type="TextureRect" parent="Scroll/Content/@GridContainer@397/Review_storyboard_intro_bounty_ai01/@VBoxContainer@398" unique_id=1390894678]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("53_fsv1q")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@402" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_intro_bounty_ai01/@VBoxContainer@398" unique_id=229508742]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@403" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_intro_bounty_ai01/@VBoxContainer@398" unique_id=1118616406]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@404" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_intro_bounty_ai01/@VBoxContainer@398" unique_id=1801823442]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/storyboards/storyboard_intro_bounty_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_storyboard_miasma_marsh_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@397" unique_id=792791661]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "storyboard_miasma_marsh_ai01"
+metadata/final_art_review_resource = "res://assets/art/storyboards/storyboard_miasma_marsh_ai01.png"
+metadata/final_art_review_priority = "P2"
+metadata/final_art_review_family = "story"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@405" type="VBoxContainer" parent="Scroll/Content/@GridContainer@397/Review_storyboard_miasma_marsh_ai01" unique_id=1115610122]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@406" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_miasma_marsh_ai01/@VBoxContainer@405" unique_id=1973224756]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / storyboard_miasma_marsh_ai01 / storyboard_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@407" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_miasma_marsh_ai01/@VBoxContainer@405" unique_id=148899633]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@408" type="TextureRect" parent="Scroll/Content/@GridContainer@397/Review_storyboard_miasma_marsh_ai01/@VBoxContainer@405" unique_id=561001444]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("54_nx8yf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@409" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_miasma_marsh_ai01/@VBoxContainer@405" unique_id=2107739104]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@410" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_miasma_marsh_ai01/@VBoxContainer@405" unique_id=327125679]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@411" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_miasma_marsh_ai01/@VBoxContainer@405" unique_id=1843376642]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/storyboards/storyboard_miasma_marsh_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Review_storyboard_narrative_sheet_ai01" type="PanelContainer" parent="Scroll/Content/@GridContainer@397" unique_id=116271407]
+custom_minimum_size = Vector2(500, 420)
+layout_mode = 2
+metadata/final_art_review_kind = "asset_review_card"
+metadata/final_art_review_asset_id = "storyboard_narrative_sheet_ai01"
+metadata/final_art_review_resource = "res://assets/art/storyboards/storyboard_narrative_sheet_ai01.png"
+metadata/final_art_review_priority = "P2"
+metadata/final_art_review_family = "story"
+metadata/final_art_review_blocker_count = 0
+
+[node name="@VBoxContainer@412" type="VBoxContainer" parent="Scroll/Content/@GridContainer@397/Review_storyboard_narrative_sheet_ai01" unique_id=1674563274]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="@Label@413" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_narrative_sheet_ai01/@VBoxContainer@412" unique_id=28654069]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.95, 0.86, 0.58, 1)
+text = "P2 / storyboard_narrative_sheet_ai01 / storyboard_sheet"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@414" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_narrative_sheet_ai01/@VBoxContainer@412" unique_id=2019947980]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.78, 0.62, 1)
+text = "0.0 blockers / manual_review_required"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@TextureRect@415" type="TextureRect" parent="Scroll/Content/@GridContainer@397/Review_storyboard_narrative_sheet_ai01/@VBoxContainer@412" unique_id=74972499]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+texture = ExtResource("55_igkcx")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@416" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_narrative_sheet_ai01/@VBoxContainer@412" unique_id=2054250578]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.92, 0.92, 0.88, 1)
+text = "Blockers: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@417" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_narrative_sheet_ai01/@VBoxContainer@412" unique_id=153828404]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+text = "Next: "
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="@Label@418" type="Label" parent="Scroll/Content/@GridContainer@397/Review_storyboard_narrative_sheet_ai01/@VBoxContainer@412" unique_id=1903614502]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.78, 0.78, 0.78, 1)
+text = "res://assets/art/storyboards/storyboard_narrative_sheet_ai01.png"
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3

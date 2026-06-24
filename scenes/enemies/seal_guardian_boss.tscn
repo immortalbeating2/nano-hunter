@@ -1,6 +1,16 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/combat/seal_guardian_boss.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage15_boss_attack_warning_ai01.png" id="3"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres" id="4_sgb1a"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres" id="5_vfxsm"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres" id="6_vfxcb"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres" id="7_sgridle"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_warning_runtime_sheet_ai01.spriteframes.tres" id="8_sgrwarn"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres" id="9_sgrdef"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.spriteframes.tres" id="10_sgratk"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres" id="11_sgrvfx"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(88, 112)
@@ -34,6 +44,75 @@ polygon = PackedVector2Array(-28, 24, -34, -8, -12, -34, 0, -20, 12, -34, 34, -8
 position = Vector2(0, -40)
 color = Color(0.364706, 0.0823529, 0.0784314, 0.82)
 polygon = PackedVector2Array(-20, 0, 0, -28, 20, 0, 0, 28)
+
+[node name="SealGuardianArt" type="Sprite2D" parent="."]
+position = Vector2(0, -58)
+scale = Vector2(0.075, 0.075)
+modulate = Color(1, 1, 1, 0.76)
+texture = ExtResource("2")
+metadata/asset_id = "stage15_seal_guardian_ai01"
+
+[node name="AttackWarningArt" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -104)
+scale = Vector2(0.05, 0.05)
+modulate = Color(1, 1, 1, 0.68)
+texture = ExtResource("3")
+metadata/asset_id = "stage15_boss_attack_warning_ai01"
+
+[node name="SealGuardianAnimationPreview" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -58)
+scale = Vector2(0.42, 0.42)
+modulate = Color(1, 1, 1, 0.64)
+sprite_frames = ExtResource("4_sgb1a")
+animation = &"attack"
+metadata/asset_id = "seal_guardian_boss_sheet_ai01"
+metadata/asset_binding_note = "animation_preview_only_state_machine_still_graybox"
+
+[node name="SealGuardianRuntimeAnimationVisual" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -58)
+scale = Vector2(0.42, 0.42)
+modulate = Color(1, 1, 1, 0.82)
+sprite_frames = ExtResource("7_sgridle")
+animation = &"idle"
+metadata/asset_id = "seal_guardian_idle_runtime_sheet_ai01"
+metadata/asset_binding_note = "runtime_visual_only_idle_warning_attack_body_defeat"
+
+[node name="SealGuardianAttackVfxVisual" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(0, -24)
+scale = Vector2(0.42, 0.42)
+modulate = Color(1, 1, 1, 0.68)
+sprite_frames = ExtResource("11_sgrvfx")
+animation = &"boss_attack_vfx"
+metadata/asset_id = "seal_guardian_attack_vfx_atlas_ai01"
+metadata/asset_binding_note = "runtime_attack_vfx_only_no_collision_no_damage"
+metadata/recommended_blend = "additive_alpha"
+metadata/anchor_alignment = "anchor_px_128_154_aligned_near_boss_origin"
+metadata/gameplay_collision = false
+metadata/damage_source = false
+
+[node name="SealMagicVfxPreview" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -80)
+scale = Vector2(0.42, 0.42)
+modulate = Color(1, 1, 1, 0.52)
+sprite_frames = ExtResource("5_vfxsm")
+animation = &"seal_magic"
+metadata/asset_id = "vfx_seal_magic_atlas_ai01"
+metadata/asset_binding_note = "vfx_preview_only_no_collision_no_damage"
+
+[node name="CombatVfxPreview" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(18, -68)
+scale = Vector2(0.36, 0.36)
+modulate = Color(1, 1, 1, 0.52)
+sprite_frames = ExtResource("6_vfxcb")
+animation = &"combat_vfx"
+metadata/asset_id = "vfx_combat_atlas_ai01"
+metadata/asset_binding_note = "vfx_preview_only_no_collision_no_damage"
 
 [node name="Stage12HitSpark" type="Polygon2D" parent="."]
 visible = false

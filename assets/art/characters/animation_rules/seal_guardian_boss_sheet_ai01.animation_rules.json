@@ -1,0 +1,586 @@
+{
+  "version": 1,
+  "asset_id": "seal_guardian_boss_sheet_ai01",
+  "target_kind": "sprite_sheet",
+  "status": "placeholder_ready",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.frames.json",
+  "sprite_frames": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
+  "animation_name": "attack",
+  "speed_fps": 12.0,
+  "loop": false,
+  "frame_count": 20,
+  "cell": [
+    256,
+    192
+  ],
+  "default_pivot_px": [
+    128,
+    157
+  ],
+  "default_foot_baseline_y": 165,
+  "rules": [
+    {
+      "index": 0,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_001_c04",
+      "semantic_name": "seal_guardian_idle_frame_001",
+      "phase": "anticipation",
+      "region": [
+        0,
+        0,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 1,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_002_c04",
+      "semantic_name": "seal_guardian_idle_frame_002",
+      "phase": "anticipation",
+      "region": [
+        256,
+        0,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 2,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_003_c04",
+      "semantic_name": "seal_guardian_idle_frame_003",
+      "phase": "anticipation",
+      "region": [
+        512,
+        0,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 3,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_004_c04",
+      "semantic_name": "seal_guardian_idle_frame_004",
+      "phase": "anticipation",
+      "region": [
+        768,
+        0,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 4,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_005_c04",
+      "semantic_name": "seal_guardian_warning_frame_005",
+      "phase": "active",
+      "region": [
+        1024,
+        0,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 5,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_006_c04",
+      "semantic_name": "seal_guardian_warning_frame_006",
+      "phase": "active",
+      "region": [
+        0,
+        192,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 6,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_007_c04",
+      "semantic_name": "seal_guardian_warning_frame_007",
+      "phase": "active",
+      "region": [
+        256,
+        192,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 7,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_008_c04",
+      "semantic_name": "seal_guardian_warning_frame_008",
+      "phase": "active",
+      "region": [
+        512,
+        192,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 8,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_009_c04",
+      "semantic_name": "seal_guardian_attack_frame_009",
+      "phase": "active",
+      "region": [
+        768,
+        192,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 9,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_010_c04",
+      "semantic_name": "seal_guardian_attack_frame_010",
+      "phase": "active",
+      "region": [
+        1024,
+        192,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 10,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_011_c04",
+      "semantic_name": "seal_guardian_attack_frame_011",
+      "phase": "active",
+      "region": [
+        0,
+        384,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 11,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_012_c04",
+      "semantic_name": "seal_guardian_attack_frame_012",
+      "phase": "active",
+      "region": [
+        256,
+        384,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 12,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_013_c04",
+      "semantic_name": "seal_guardian_attack_frame_013",
+      "phase": "follow_through",
+      "region": [
+        512,
+        384,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 13,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_014_c04",
+      "semantic_name": "seal_guardian_attack_frame_014",
+      "phase": "follow_through",
+      "region": [
+        768,
+        384,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 14,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_015_c04",
+      "semantic_name": "seal_guardian_attack_frame_015",
+      "phase": "follow_through",
+      "region": [
+        1024,
+        384,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 15,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_016_c04",
+      "semantic_name": "seal_guardian_attack_frame_016",
+      "phase": "follow_through",
+      "region": [
+        0,
+        576,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 16,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_017_c04",
+      "semantic_name": "seal_guardian_defeat_frame_017",
+      "phase": "follow_through",
+      "region": [
+        256,
+        576,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 17,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_018_c04",
+      "semantic_name": "seal_guardian_defeat_frame_018",
+      "phase": "recovery",
+      "region": [
+        512,
+        576,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 18,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_019_c04",
+      "semantic_name": "seal_guardian_defeat_frame_019",
+      "phase": "recovery",
+      "region": [
+        768,
+        576,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    },
+    {
+      "index": 19,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_020_c04",
+      "semantic_name": "seal_guardian_defeat_frame_020",
+      "phase": "recovery",
+      "region": [
+        1024,
+        576,
+        256,
+        192
+      ],
+      "pivot_px": [
+        128,
+        157
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.8177
+      ],
+      "foot_baseline_y": 165,
+      "frame_duration_sec": 0.083333,
+      "manual_review_required": true,
+      "notes": [
+        "first_pass_animation_timing_candidate",
+        "frame_order_and_baseline_manual_review_required",
+        "not_runtime_replacement_without_playtest"
+      ]
+    }
+  ],
+  "manual_review_required": true,
+  "boundary": "First-pass animation timing and anchor rules. These rules guide editor/runtime hookup; they do not prove final frame order, foot baseline, hitbox, timing, or gameplay readability."
+}

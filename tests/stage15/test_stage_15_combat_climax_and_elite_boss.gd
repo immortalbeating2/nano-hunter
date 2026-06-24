@@ -13,6 +13,23 @@ const STAGE15_BOSS_ROOM_PATH := "res://scenes/rooms/stage15_seal_guardian_boss_r
 const STAGE15_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage15_challenge_branch_room.tscn"
 const STAGE15_COMPLETE_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
+const BASIC_MELEE_ENEMY_SCENE_PATH := "res://scenes/combat/basic_melee_enemy.tscn"
+const GROUND_CHARGER_ENEMY_SCENE_PATH := "res://scenes/combat/ground_charger_enemy.tscn"
+const AERIAL_SENTINEL_ENEMY_SCENE_PATH := "res://scenes/combat/aerial_sentinel_enemy.tscn"
+const MIASMA_CASTER_ENEMY_SCENE_PATH := "res://scenes/combat/miasma_caster_enemy.tscn"
+const ENEMIES_CORE_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres"
+const ENEMY_BASIC_MELEE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_basic_melee_runtime_sheet_ai01.spriteframes.tres"
+const ENEMY_GROUND_CHARGER_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_runtime_sheet_ai01.spriteframes.tres"
+const ENEMY_AERIAL_SENTINEL_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.spriteframes.tres"
+const ENEMY_MIASMA_CASTER_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.spriteframes.tres"
+const SEAL_GUARDIAN_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres"
+const SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres"
+const SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_warning_runtime_sheet_ai01.spriteframes.tres"
+const SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.spriteframes.tres"
+const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres"
+const SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres"
+const VFX_SEAL_MAGIC_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
+const VFX_COMBAT_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres"
 
 # defeated 信号单独计数，确保 Boss 归零后只发出一次完成事件。
 var _stage15_boss_defeated_signal_count := 0
@@ -130,6 +147,226 @@ func test_stage15_rooms_exist_and_stage14_loop_links_to_ante_room() -> void:
 	assert_eq(transitions.size(), 1)
 	assert_eq(transitions[0].get("target"), STAGE15_ANTE_ROOM_PATH)
 	assert_eq(transitions[0].get("spawn"), &"stage15_seal_pressure_start")
+
+
+# 保护 Stage15 Boss 方向稿与攻击预警资产：Boss 场景和 Boss 房都应直接引用当前项目内 image gen 资源。
+func test_stage15_boss_scene_and_room_reference_boss_art_assets() -> void:
+	var boss := await _spawn_seal_guardian()
+	_assert_sprite_references_asset(
+		boss,
+		"SealGuardianArt",
+		"stage15_seal_guardian_ai01",
+		"res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png"
+	)
+	_assert_sprite_references_asset(
+		boss,
+		"AttackWarningArt",
+		"stage15_boss_attack_warning_ai01",
+		"res://assets/art/vfx/stage15_boss_attack_warning_ai01.png"
+	)
+	_assert_animated_sprite_references_asset(
+		boss,
+		"SealGuardianAnimationPreview",
+		"seal_guardian_boss_sheet_ai01",
+		SEAL_GUARDIAN_SPRITEFRAMES_PATH,
+		&"attack"
+	)
+	_assert_animated_sprite_references_asset(
+		boss,
+		"SealGuardianRuntimeAnimationVisual",
+		"seal_guardian_idle_runtime_sheet_ai01",
+		SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES_PATH,
+		&"idle"
+	)
+	var runtime_visual := boss.get_node("SealGuardianRuntimeAnimationVisual") as AnimatedSprite2D
+	assert_true(runtime_visual.visible)
+	_assert_animated_sprite_references_asset(
+		boss,
+		"SealGuardianAttackVfxVisual",
+		"seal_guardian_attack_vfx_atlas_ai01",
+		SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES_PATH,
+		&"boss_attack_vfx"
+	)
+	var attack_vfx_visual := boss.get_node("SealGuardianAttackVfxVisual") as AnimatedSprite2D
+	assert_false(attack_vfx_visual.visible)
+	assert_false(attack_vfx_visual.get_meta("gameplay_collision", true))
+	assert_false(attack_vfx_visual.get_meta("damage_source", true))
+	_assert_animated_sprite_references_asset(
+		boss,
+		"SealMagicVfxPreview",
+		"vfx_seal_magic_atlas_ai01",
+		VFX_SEAL_MAGIC_SPRITEFRAMES_PATH,
+		&"seal_magic"
+	)
+	_assert_animated_sprite_references_asset(
+		boss,
+		"CombatVfxPreview",
+		"vfx_combat_atlas_ai01",
+		VFX_COMBAT_SPRITEFRAMES_PATH,
+		&"combat_vfx"
+	)
+
+	var room := await _spawn_room(STAGE15_BOSS_ROOM_PATH)
+	_assert_sprite_references_asset(
+		room,
+		"SealGuardianRoomArt",
+		"stage15_seal_guardian_ai01",
+		"res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png"
+	)
+	_assert_sprite_references_asset(
+		room,
+		"BossWarningRoomArt",
+		"stage15_boss_attack_warning_ai01",
+		"res://assets/art/vfx/stage15_boss_attack_warning_ai01.png"
+	)
+	_assert_animated_sprite_references_asset(
+		room,
+		"SealGuardianRoomAnimationPreview",
+		"seal_guardian_boss_sheet_ai01",
+		SEAL_GUARDIAN_SPRITEFRAMES_PATH,
+		&"attack"
+	)
+
+	var enemy_scene := load(BASIC_MELEE_ENEMY_SCENE_PATH) as PackedScene
+	assert_not_null(enemy_scene)
+	var enemy := enemy_scene.instantiate()
+	add_child(enemy)
+	_assert_animated_sprite_references_asset(
+		enemy,
+		"EnemiesCoreAnimationPreview",
+		"enemies_core_sheet_ai01",
+		ENEMIES_CORE_SPRITEFRAMES_PATH,
+		&"enemy_core_cycle"
+	)
+	_assert_animated_sprite_references_asset(
+		enemy,
+		"EnemyRuntimeAnimationVisual",
+		"enemy_basic_melee_runtime_sheet_ai01",
+		ENEMY_BASIC_MELEE_RUNTIME_SPRITEFRAMES_PATH,
+		&"basic_melee_cycle"
+	)
+	enemy.queue_free()
+
+
+# 保护普通敌人正式替换边界：四个单体 clips 只替换视觉层，不改变 AI、攻击窗口或碰撞契约。
+func test_enemy_runtime_visuals_reference_single_enemy_clips() -> void:
+	var cases := [
+		{
+			"scene": BASIC_MELEE_ENEMY_SCENE_PATH,
+			"asset_id": "enemy_basic_melee_runtime_sheet_ai01",
+			"resource": ENEMY_BASIC_MELEE_RUNTIME_SPRITEFRAMES_PATH,
+			"animation": &"basic_melee_cycle"
+		},
+		{
+			"scene": GROUND_CHARGER_ENEMY_SCENE_PATH,
+			"asset_id": "enemy_ground_charger_runtime_sheet_ai01",
+			"resource": ENEMY_GROUND_CHARGER_RUNTIME_SPRITEFRAMES_PATH,
+			"animation": &"ground_charger_cycle"
+		},
+		{
+			"scene": AERIAL_SENTINEL_ENEMY_SCENE_PATH,
+			"asset_id": "enemy_aerial_sentinel_runtime_sheet_ai01",
+			"resource": ENEMY_AERIAL_SENTINEL_RUNTIME_SPRITEFRAMES_PATH,
+			"animation": &"aerial_sentinel_cycle"
+		},
+		{
+			"scene": MIASMA_CASTER_ENEMY_SCENE_PATH,
+			"asset_id": "enemy_miasma_caster_runtime_sheet_ai01",
+			"resource": ENEMY_MIASMA_CASTER_RUNTIME_SPRITEFRAMES_PATH,
+			"animation": &"miasma_caster_cycle"
+		}
+	]
+
+	for enemy_case: Dictionary in cases:
+		var packed_scene := load(str(enemy_case.get("scene"))) as PackedScene
+		assert_not_null(packed_scene)
+		if packed_scene == null:
+			continue
+
+		var enemy := packed_scene.instantiate()
+		add_child_autofree(enemy)
+		await get_tree().process_frame
+		_assert_animated_sprite_references_asset(
+			enemy,
+			"EnemyRuntimeAnimationVisual",
+			str(enemy_case.get("asset_id")),
+			str(enemy_case.get("resource")),
+			enemy_case.get("animation") as StringName
+		)
+		var visual := enemy.get_node_or_null("EnemyRuntimeAnimationVisual") as AnimatedSprite2D
+		assert_not_null(visual)
+		if visual == null:
+			continue
+
+		assert_true(visual.visible)
+		enemy.call("receive_attack", Vector2.RIGHT, 120.0)
+		assert_true(enemy.call("is_defeated"))
+		assert_false(visual.visible)
+
+
+# 保护 Boss 正式替换动作边界：运行态只接入通过审查的 body clips，不使用旧 blocked attack VFX frames。
+func test_seal_guardian_runtime_visual_uses_ready_clips_only() -> void:
+	var boss := await _spawn_seal_guardian()
+	var visual := boss.get_node_or_null("SealGuardianRuntimeAnimationVisual") as AnimatedSprite2D
+	var attack_vfx_visual := boss.get_node_or_null("SealGuardianAttackVfxVisual") as AnimatedSprite2D
+	assert_not_null(visual)
+	assert_not_null(attack_vfx_visual)
+	if visual == null or attack_vfx_visual == null:
+		return
+
+	assert_true(visual.visible)
+	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_idle_runtime_sheet_ai01")
+	assert_not_null(visual.sprite_frames)
+	if visual.sprite_frames != null:
+		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES_PATH)
+	assert_eq(visual.animation, &"idle")
+	assert_false(attack_vfx_visual.visible)
+	assert_false(attack_vfx_visual.get_meta("gameplay_collision", true))
+	assert_false(attack_vfx_visual.get_meta("damage_source", true))
+
+	var dummy_player := Node2D.new()
+	add_child_autofree(dummy_player)
+	dummy_player.global_position = boss.global_position
+	boss.call("bind_player", dummy_player)
+	await _advance_physics_frames(2)
+	assert_eq(boss.call("get_boss_state"), &"close_pressure")
+	assert_true(visual.visible)
+	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_warning_runtime_sheet_ai01")
+	assert_not_null(visual.sprite_frames)
+	if visual.sprite_frames != null:
+		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES_PATH)
+	assert_eq(visual.animation, &"warning")
+	assert_false(attack_vfx_visual.visible)
+
+	await _advance_physics_frames(30)
+	if boss.call("get_boss_state") == &"ground_impact" or boss.call("get_boss_state") == &"air_punish":
+		assert_true(visual.visible)
+		assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_attack_body_runtime_sheet_ai02")
+		assert_not_null(visual.sprite_frames)
+		if visual.sprite_frames != null:
+			assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH)
+		assert_eq(visual.animation, &"attack_body")
+		assert_ne(visual.sprite_frames.resource_path, SEAL_GUARDIAN_SPRITEFRAMES_PATH)
+		assert_true(attack_vfx_visual.visible)
+		assert_eq(attack_vfx_visual.get_meta("asset_id", ""), "seal_guardian_attack_vfx_atlas_ai01")
+		assert_not_null(attack_vfx_visual.sprite_frames)
+		if attack_vfx_visual.sprite_frames != null:
+			assert_eq(attack_vfx_visual.sprite_frames.resource_path, SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES_PATH)
+		assert_eq(attack_vfx_visual.animation, &"boss_attack_vfx")
+		assert_false(attack_vfx_visual.get_meta("gameplay_collision", true))
+		assert_false(attack_vfx_visual.get_meta("damage_source", true))
+
+	var max_health := int(boss.call("get_max_health"))
+	for _i in range(max_health):
+		boss.call("receive_attack", Vector2.RIGHT, 120.0)
+	assert_eq(boss.call("get_boss_state"), &"defeated")
+	assert_true(visual.visible)
+	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_defeat_runtime_sheet_ai01")
+	assert_not_null(visual.sprite_frames)
+	if visual.sprite_frames != null:
+		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES_PATH)
+	assert_eq(visual.animation, &"defeat")
+	assert_false(attack_vfx_visual.visible)
 
 
 # 保护战斗高潮节奏：混合遭遇必须三类敌人全清后才允许进入 Boss 房。
@@ -463,3 +700,32 @@ func _read_text_file(path: String) -> String:
 	var file := FileAccess.open(path, FileAccess.READ)
 	assert_not_null(file, "无法读取文件：%s" % path)
 	return file.get_as_text() if file != null else ""
+
+
+# 资产接入断言 helper：保护 Sprite2D 节点、asset_id metadata 和实际资源路径三者一致。
+func _assert_sprite_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String) -> void:
+	var sprite := parent.get_node_or_null(NodePath(node_path)) as Sprite2D
+	assert_not_null(sprite, "缺少 Sprite2D 资产节点：%s" % node_path)
+	if sprite == null:
+		return
+
+	assert_eq(sprite.get_meta("asset_id", ""), asset_id)
+	assert_not_null(sprite.texture, "Sprite2D 没有纹理：%s" % node_path)
+	if sprite.texture != null:
+		assert_eq(sprite.texture.resource_path, resource_path)
+
+
+# 资产接入断言 helper：保护 AnimatedSprite2D、asset_id metadata、SpriteFrames 路径和默认动画一致。
+func _assert_animated_sprite_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String, animation_name: StringName) -> void:
+	var animated_sprite := parent.get_node_or_null(NodePath(node_path)) as AnimatedSprite2D
+	assert_not_null(animated_sprite, "缺少 AnimatedSprite2D 资产节点：%s" % node_path)
+	if animated_sprite == null:
+		return
+
+	assert_eq(animated_sprite.get_meta("asset_id", ""), asset_id)
+	assert_not_null(animated_sprite.sprite_frames, "AnimatedSprite2D 没有 SpriteFrames：%s" % node_path)
+	if animated_sprite.sprite_frames != null:
+		assert_eq(animated_sprite.sprite_frames.resource_path, resource_path)
+		assert_true(animated_sprite.sprite_frames.has_animation(animation_name))
+		assert_gt(animated_sprite.sprite_frames.get_frame_count(animation_name), 0)
+	assert_eq(animated_sprite.animation, animation_name)

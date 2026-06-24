@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage16_seal_chain_room_base.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_talisman_relay_ai01.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_corruption_purge_ai01.png" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -48,10 +50,28 @@ position = Vector2(128, 116)
 color = Color(0.482353, 0.223529, 0.529412, 0.28)
 polygon = PackedVector2Array(-88, -40, 88, -40, 104, 40, -104, 40)
 
+[node name="PurgeArt" type="Sprite2D" parent="CorruptionMiasma"]
+position = Vector2(0, -6)
+scale = Vector2(0.08, 0.08)
+modulate = Color(1, 1, 1, 0.62)
+texture = ExtResource("3")
+region_enabled = true
+region_rect = Rect2(512, 512, 512, 512)
+metadata/asset_id = "stage16_corruption_purge_ai01"
+metadata/vfx_frame = "lotus_seal_purification_burst"
+
 [node name="CorruptionPurgeNode" type="Polygon2D" parent="."]
 position = Vector2(160, 96)
 color = Color(0.67451, 0.866667, 0.839216, 0.58)
 polygon = PackedVector2Array(-44, 0, -16, -48, 32, -36, 44, 0, 16, 48, -32, 36)
+
+[node name="TalismanRelayEchoArt" type="Sprite2D" parent="CorruptionPurgeNode"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2")
+region_enabled = true
+region_rect = Rect2(512, 512, 512, 512)
+metadata/asset_id = "stage16_talisman_relay_ai01"
+metadata/vfx_frame = "relay_confirmation_burst"
 
 [node name="GateBarrier" type="StaticBody2D" parent="."]
 position = Vector2(392, 88)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage16_seal_chain_room_base.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_talisman_relay_ai01.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -49,15 +50,39 @@ position = Vector2(40, 112)
 color = Color(0.819608, 0.827451, 0.505882, 0.58)
 polygon = PackedVector2Array(-28, -32, 28, -32, 28, 32, -28, 32)
 
+[node name="RelayArt" type="Sprite2D" parent="TalismanRelayA"]
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("2")
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 512)
+metadata/asset_id = "stage16_talisman_relay_ai01"
+metadata/vfx_frame = "dormant_seal_circle"
+
 [node name="TalismanRelayB" type="Polygon2D" parent="."]
 position = Vector2(192, 80)
 color = Color(0.819608, 0.827451, 0.505882, 0.58)
 polygon = PackedVector2Array(-28, -32, 28, -32, 28, 32, -28, 32)
 
+[node name="RelayArt" type="Sprite2D" parent="TalismanRelayB"]
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("2")
+region_enabled = true
+region_rect = Rect2(512, 0, 512, 512)
+metadata/asset_id = "stage16_talisman_relay_ai01"
+metadata/vfx_frame = "cyan_white_pulse"
+
 [node name="TalismanRelayC" type="Polygon2D" parent="."]
 position = Vector2(344, 112)
 color = Color(0.819608, 0.827451, 0.505882, 0.58)
 polygon = PackedVector2Array(-28, -32, 28, -32, 28, 32, -28, 32)
+
+[node name="RelayArt" type="Sprite2D" parent="TalismanRelayC"]
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("2")
+region_enabled = true
+region_rect = Rect2(1024, 0, 512, 512)
+metadata/asset_id = "stage16_talisman_relay_ai01"
+metadata/vfx_frame = "vermilion_talisman_sparks"
 
 [node name="GateBarrier" type="StaticBody2D" parent="."]
 position = Vector2(456, 88)

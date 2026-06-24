@@ -1,0 +1,1127 @@
+{
+  "version": 1,
+  "status": "p0_runtime_replacement_plan_ready",
+  "boundary": "Planning report only. It maps P0 image-gen assets to target scenes and replacement modes; it does not replace runtime scene references or approve final art.",
+  "sources": {
+    "runtime_map": "docs\\assets\\asset-runtime-integration-map.json",
+    "runtime_catalog": "docs\\assets\\imagegen-runtime-asset-catalog-manifest.json",
+    "acceptance_gates": "docs\\assets\\final-art-acceptance-gates.json"
+  },
+  "summary": {
+    "asset_count": 30,
+    "planned_manual_replacement_count": 0,
+    "already_referenced_count": 30,
+    "missing_resource_count": 0,
+    "missing_target_scene_count": 0,
+    "track_counts": {
+      "art_direction": 1,
+      "runtime_animation": 8,
+      "runtime_environment": 1,
+      "runtime_gameplay": 5,
+      "runtime_ui": 11,
+      "runtime_vfx": 4
+    },
+    "resource_type_counts": {
+      "AtlasTexture": 2,
+      "CompressedTexture2D": 17,
+      "SpriteFrames": 9,
+      "StyleBoxTexture": 1,
+      "TileSet": 1
+    },
+    "missing_resources": [],
+    "missing_target_scenes": []
+  },
+  "entries": [
+    {
+      "asset_id": "style_board_global_ai01",
+      "priority": "P0",
+      "track": "art_direction",
+      "target_kind": "style_board",
+      "target_system": "style lock reference",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/promo/style_board_global_ai01.png",
+      "output_path": "assets/art/promo/style_board_global_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/dev/imagegen_asset_gallery.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage16_luna_player_readability_ai01",
+      "priority": "P0",
+      "track": "runtime_gameplay",
+      "target_kind": "character_direction",
+      "target_system": "player visual readability direction",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/characters/player/stage16_luna_player_readability_ai01.png",
+      "output_path": "assets/art/characters/player/stage16_luna_player_readability_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_icon_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "icon",
+      "target_system": "ability/status HUD icon replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage14_air_dash_icon_ai01.png",
+      "output_path": "assets/art/ui/stage14_air_dash_icon_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/tutorial_hud.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_trail_ai01",
+      "priority": "P0",
+      "track": "runtime_vfx",
+      "target_kind": "vfx_direction",
+      "target_system": "Air Dash VFX direction replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/vfx/stage14_air_dash_trail_ai01.png",
+      "output_path": "assets/art/vfx/stage14_air_dash_trail_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/rooms/stage14_air_dash_shrine_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_shrine_ai01",
+      "priority": "P0",
+      "track": "runtime_gameplay",
+      "target_kind": "prop",
+      "target_system": "room prop visual replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/props/stage14_air_dash_shrine_ai01.png",
+      "output_path": "assets/art/props/stage14_air_dash_shrine_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/rooms/stage14_air_dash_shrine_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/rooms/stage14_air_dash_gate_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage14_air_dash_gate_ai01",
+      "priority": "P0",
+      "track": "runtime_gameplay",
+      "target_kind": "prop",
+      "target_system": "room prop visual replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/props/stage14_air_dash_gate_ai01.png",
+      "output_path": "assets/art/props/stage14_air_dash_gate_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/rooms/stage14_air_dash_shrine_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/rooms/stage14_air_dash_gate_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage15_seal_guardian_ai01",
+      "priority": "P0",
+      "track": "runtime_gameplay",
+      "target_kind": "boss_direction",
+      "target_system": "Seal Guardian boss readability direction",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png",
+      "output_path": "assets/art/characters/enemies/stage15_seal_guardian_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/rooms/stage15_seal_guardian_boss_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage15_boss_attack_warning_ai01",
+      "priority": "P0",
+      "track": "runtime_vfx",
+      "target_kind": "vfx_warning",
+      "target_system": "boss warning VFX replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png",
+      "output_path": "assets/art/vfx/stage15_boss_attack_warning_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/rooms/stage15_seal_guardian_boss_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage15_recovery_charge_icon_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "icon",
+      "target_system": "ability/status HUD icon replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png",
+      "output_path": "assets/art/ui/stage15_recovery_charge_icon_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/tutorial_hud.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "luna_run_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "luna_air_dash_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "luna_attack_01_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "luna_idle_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "seal_guardian_boss_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "miasma_marsh_tileset_ai01",
+      "priority": "P0",
+      "track": "runtime_environment",
+      "target_kind": "tileset_sheet",
+      "target_system": "TileMapLayer visual/collision replacement",
+      "recommended_resource_type": "TileSet",
+      "catalog_resource_type": "TileSet",
+      "resource_path": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
+      "output_path": "assets/art/tilesets/miasma_marsh_tileset_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to TileMapLayer.tile_set after collision, terrain and hazard boundary review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/rooms/stage14_air_dash_gate_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [
+        "collision_and_terrain_manual_review",
+        "hazard_safe_boundary_manual_review",
+        "alpha_padding_policy_manual_review",
+        "semantic_labels_manual_review"
+      ],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "hud_core_ui_atlas_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "ui_atlas",
+      "target_system": "HUD/menu atlas replacement",
+      "recommended_resource_type": "AtlasTexture",
+      "catalog_resource_type": "AtlasTexture",
+      "resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres",
+      "output_path": "assets/art/ui/atlases/hud_core_ui_atlas_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Use the selected AtlasTexture region for TextureRect/Sprite2D after semantic region review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/ui/tutorial_hud.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "icon_sheet_core_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "icon_sheet",
+      "target_system": "menu/HUD icon atlas replacement",
+      "recommended_resource_type": "AtlasTexture",
+      "catalog_resource_type": "AtlasTexture",
+      "resource_path": "res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres",
+      "output_path": "assets/art/ui/atlases/icon_sheet_core_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Use the selected AtlasTexture region for TextureRect/Sprite2D after semantic region review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/ui/tutorial_hud.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "menu_ninepatch_ui_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "ninepatch_sheet",
+      "target_system": "menu/panel NinePatch theme replacement",
+      "recommended_resource_type": "StyleBoxTexture",
+      "catalog_resource_type": "StyleBoxTexture",
+      "resource_path": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres",
+      "output_path": "assets/art/ui/menu_ninepatch_ui_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Apply through Theme or add_theme_stylebox_override after NinePatch margin and stretch review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "vfx_seal_magic_atlas_ai01",
+      "priority": "P0",
+      "track": "runtime_vfx",
+      "target_kind": "vfx_atlas",
+      "target_system": "VFX atlas animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
+      "output_path": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage16_demo_menu_icons_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "icon_sheet",
+      "target_system": "menu/HUD icon atlas replacement",
+      "recommended_resource_type": "AtlasTexture",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "output_path": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/ui/tutorial_hud.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage16_seal_release_threshold_ai01",
+      "priority": "P0",
+      "track": "runtime_gameplay",
+      "target_kind": "prop",
+      "target_system": "room prop visual replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/props/stage16_seal_release_threshold_ai01.png",
+      "output_path": "assets/art/props/stage16_seal_release_threshold_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/rooms/stage16_seal_release_threshold_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage16_talisman_relay_ai01",
+      "priority": "P0",
+      "track": "runtime_vfx",
+      "target_kind": "vfx_sheet",
+      "target_system": "room progression VFX replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/vfx/stage16_talisman_relay_ai01.png",
+      "output_path": "assets/art/vfx/stage16_talisman_relay_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/rooms/stage16_talisman_relay_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/rooms/stage16_corruption_purge_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 2,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage16_alpha_demo_completion_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "completion_ui",
+      "target_system": "Alpha Demo completion feedback",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png",
+      "output_path": "assets/art/ui/stage16_alpha_demo_completion_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/rooms/stage16_alpha_demo_end_room.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "luna_jump_fall_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "luna_hit_death_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "enemies_core_sheet_ai01",
+      "priority": "P0",
+      "track": "runtime_animation",
+      "target_kind": "sprite_sheet",
+      "target_system": "player/enemy/boss animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "catalog_resource_type": "SpriteFrames",
+      "resource_path": "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Assign to AnimatedSprite2D.sprite_frames after animation clip, fps and frame order review.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/player/player_placeholder.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/enemies/seal_guardian_boss.tscn",
+          "exists": true,
+          "already_references_resource": false
+        },
+        {
+          "scene": "scenes/combat/basic_melee_enemy.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 3,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [
+        "runtime_catalog_ready_manual_replacement"
+      ],
+      "family_polish_blockers": [
+        "frame_order_manual_review",
+        "foot_baseline_and_anchor_manual_review",
+        "animation_timing_manual_review"
+      ],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage16_pause_panel_ui_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "ui_panel",
+      "target_system": "pause/completion panel replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage16_pause_panel_ui_ai01.png",
+      "output_path": "assets/art/ui/stage16_pause_panel_ui_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage16_completion_panel_ui_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "ui_panel",
+      "target_system": "pause/completion panel replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
+      "output_path": "assets/art/ui/stage16_completion_panel_ui_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": true
+        }
+      ],
+      "target_scene_count": 1,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage15_boss_hud_frame_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "hud_frame",
+      "target_system": "HUD frame or status panel visual replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage15_boss_hud_frame_ai01.png",
+      "output_path": "assets/art/ui/stage15_boss_hud_frame_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/tutorial_hud.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    },
+    {
+      "asset_id": "stage14_ability_status_hud_ai01",
+      "priority": "P0",
+      "track": "runtime_ui",
+      "target_kind": "hud_frame",
+      "target_system": "HUD frame or status panel visual replacement",
+      "recommended_resource_type": "Texture2D",
+      "catalog_resource_type": "CompressedTexture2D",
+      "resource_path": "res://assets/art/ui/stage14_ability_status_hud_ai01.png",
+      "output_path": "assets/art/ui/stage14_ability_status_hud_ai01.png",
+      "resource_exists": true,
+      "output_exists": true,
+      "replacement_mode": "Texture2D direct reference; use Sprite2D.texture, TextureRect.texture, or exported Texture2D on a target script.",
+      "target_scene_status": [
+        {
+          "scene": "scenes/ui/tutorial_hud.tscn",
+          "exists": true,
+          "already_references_resource": true
+        },
+        {
+          "scene": "scenes/ui/demo_shell.tscn",
+          "exists": true,
+          "already_references_resource": false
+        }
+      ],
+      "target_scene_count": 2,
+      "current_scene_reference_count": 1,
+      "runtime_replacement_status": "already_referenced",
+      "runtime_gate_blockers": [],
+      "family_polish_blockers": [],
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report",
+        "Use the closest Stage / HUD / room GUT after replacing the target scene reference."
+      ]
+    }
+  ]
+}

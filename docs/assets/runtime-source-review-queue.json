@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "status": "ready",
+  "boundary": "Review queue for runtime-bound image_gen source risk. It recommends review and regeneration actions; it does not approve final art.",
+  "sources": {
+    "runtime_source_safety": "docs/assets/runtime-source-safety-report.json",
+    "imagegen_source_safety": "docs/assets/imagegen-source-safety-report.json",
+    "asset_provenance": "docs/assets/asset-provenance-records.json"
+  },
+  "summary": {
+    "runtime_review_required_count": 0,
+    "unsafe_item_count": 0,
+    "strategy_counts": {},
+    "errors": []
+  },
+  "entries": []
+}

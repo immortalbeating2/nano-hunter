@@ -1,0 +1,493 @@
+{
+  "version": 1,
+  "updated": "2026-06-19",
+  "root": ".",
+  "defaults": {
+    "background": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "padding": 0,
+    "resample": "lanczos"
+  },
+  "outputs": [
+    {
+      "id": "luna_run_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_run_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 16,
+      "expected_target": 24,
+      "cell": [
+        160,
+        160
+      ],
+      "columns": 8,
+      "output": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "run",
+        "speed": 18.0,
+        "loop": true
+      }
+    },
+    {
+      "id": "luna_air_dash_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 16,
+      "cell": [
+        192,
+        160
+      ],
+      "columns": 8,
+      "output": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "air_dash",
+        "speed": 20.0,
+        "loop": false
+      }
+    },
+    {
+      "id": "luna_attack_01_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_attack_01_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 16,
+      "cell": [
+        192,
+        160
+      ],
+      "columns": 8,
+      "output": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "attack_01",
+        "speed": 18.0,
+        "loop": false
+      }
+    },
+    {
+      "id": "luna_idle_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_idle_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 16,
+      "cell": [
+        160,
+        160
+      ],
+      "columns": 8,
+      "output": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "idle",
+        "speed": 8.0,
+        "loop": true
+      }
+    },
+    {
+      "id": "seal_guardian_boss_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 20,
+      "cell": [
+        256,
+        192
+      ],
+      "columns": 5,
+      "output": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+      "metadata": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "attack",
+        "speed": 12.0,
+        "loop": false
+      }
+    },
+    {
+      "id": "hud_core_ui_atlas_ai01",
+      "kind": "atlas",
+      "batch": "Batch 08",
+      "source_dir": "assets/source/ai_generated/batch_08/hud_core_ui_atlas_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 8,
+      "expected_target": 16,
+      "cell": [
+        96,
+        96
+      ],
+      "columns": 8,
+      "output": "assets/art/ui/atlases/hud_core_ui_atlas_ai01.png",
+      "metadata": "assets/art/ui/atlases/hud_core_ui_atlas_ai01.regions.json"
+    },
+    {
+      "id": "icon_sheet_core_ai01",
+      "kind": "atlas",
+      "batch": "Batch 08",
+      "source_dir": "assets/source/ai_generated/batch_08/icon_sheet_core_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 8,
+      "expected_target": 16,
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 8,
+      "output": "assets/art/ui/atlases/icon_sheet_core_ai01.png",
+      "metadata": "assets/art/ui/atlases/icon_sheet_core_ai01.regions.json"
+    },
+    {
+      "id": "menu_ninepatch_ui_ai01",
+      "kind": "ninepatch_sheet",
+      "batch": "Batch 08",
+      "source_dir": "assets/source/ai_generated/batch_08/menu_ninepatch_ui_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 3,
+      "expected_target": 8,
+      "cell": [
+        192,
+        96
+      ],
+      "columns": 4,
+      "output": "assets/art/ui/menu_ninepatch_ui_ai01.png",
+      "metadata": "assets/art/ui/menu_ninepatch_ui_ai01.regions.json"
+    },
+    {
+      "id": "miasma_marsh_tileset_ai01",
+      "kind": "tileset_sheet",
+      "batch": "Batch 07",
+      "source_dir": "assets/source/ai_generated/batch_07/miasma_marsh_tileset_ai01/selected_tiles",
+      "source_glob": "*.png",
+      "expected_min": 16,
+      "expected_target": 48,
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 8,
+      "output": "assets/art/tilesets/miasma_marsh_tileset_ai01.png",
+      "metadata": "assets/art/tilesets/miasma_marsh_tileset_ai01.regions.json"
+    },
+    {
+      "id": "shrine_gate_prop_atlas_ai01",
+      "kind": "atlas",
+      "batch": "Batch 09",
+      "source_dir": "assets/source/ai_generated/batch_09/shrine_gate_prop_atlas_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 8,
+      "expected_target": 24,
+      "cell": [
+        192,
+        160
+      ],
+      "columns": 6,
+      "output": "assets/art/atlases/shrine_gate_prop_atlas_ai01.png",
+      "metadata": "assets/art/atlases/shrine_gate_prop_atlas_ai01.regions.json"
+    },
+    {
+      "id": "vfx_seal_magic_atlas_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 10",
+      "source_dir": "assets/source/ai_generated/batch_10/vfx_seal_magic_atlas_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 32,
+      "cell": [
+        192,
+        128
+      ],
+      "columns": 8,
+      "output": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.png",
+      "metadata": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.frames.json",
+      "sprite_frames": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
+      "animation": {
+        "name": "seal_magic",
+        "speed": 16.0,
+        "loop": false
+      }
+    },
+    {
+      "id": "luna_spine_parts_ai01",
+      "kind": "atlas",
+      "batch": "Batch 11",
+      "source_dir": "assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 24,
+      "cell": [
+        256,
+        256
+      ],
+      "columns": 6,
+      "output": "assets/art/spine_parts/luna_spine_parts_ai01.png",
+      "metadata": "assets/art/spine_parts/luna_spine_parts_ai01.regions.json"
+    },
+    {
+      "id": "promo_key_art_sheet_ai01",
+      "kind": "atlas",
+      "batch": "Batch 12",
+      "source_dir": "assets/source/ai_generated/batch_12/promo_key_art_sheet_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 3,
+      "expected_target": 6,
+      "cell": [
+        640,
+        360
+      ],
+      "columns": 2,
+      "output": "assets/art/promo/promo_key_art_sheet_ai01.png",
+      "metadata": "assets/art/promo/promo_key_art_sheet_ai01.regions.json"
+    },
+    {
+      "id": "storyboard_narrative_sheet_ai01",
+      "kind": "atlas",
+      "batch": "Batch 13",
+      "source_dir": "assets/source/ai_generated/batch_13/storyboard_narrative_sheet_ai01/selected_panels",
+      "source_glob": "*.png",
+      "expected_min": 6,
+      "expected_target": 12,
+      "cell": [
+        320,
+        180
+      ],
+      "columns": 3,
+      "output": "assets/art/storyboards/storyboard_narrative_sheet_ai01.png",
+      "metadata": "assets/art/storyboards/storyboard_narrative_sheet_ai01.regions.json"
+    },
+    {
+      "id": "shrine_trial_tileset_ai01",
+      "kind": "tileset_sheet",
+      "batch": "Batch 07",
+      "source_dir": "assets/source/ai_generated/batch_07/shrine_trial_tileset_ai01/selected_tiles",
+      "source_glob": "*.png",
+      "expected_min": 16,
+      "expected_target": 48,
+      "cell": [
+        64,
+        64
+      ],
+      "columns": 8,
+      "output": "assets/art/tilesets/shrine_trial_tileset_ai01.png",
+      "metadata": "assets/art/tilesets/shrine_trial_tileset_ai01.regions.json"
+    },
+    {
+      "id": "material_texture_atlas_ai01",
+      "kind": "atlas",
+      "batch": "Batch 07",
+      "source_dir": "assets/source/ai_generated/batch_07/material_texture_atlas_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 8,
+      "expected_target": 16,
+      "cell": [
+        128,
+        128
+      ],
+      "columns": 8,
+      "output": "assets/art/textures/material_texture_atlas_ai01.png",
+      "metadata": "assets/art/textures/material_texture_atlas_ai01.regions.json"
+    },
+    {
+      "id": "equipment_pickup_atlas_ai01",
+      "kind": "atlas",
+      "batch": "Batch 09",
+      "source_dir": "assets/source/ai_generated/batch_09/equipment_pickup_atlas_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 8,
+      "expected_target": 24,
+      "cell": [
+        96,
+        96
+      ],
+      "columns": 8,
+      "output": "assets/art/atlases/equipment_pickup_atlas_ai01.png",
+      "metadata": "assets/art/atlases/equipment_pickup_atlas_ai01.regions.json"
+    },
+    {
+      "id": "vfx_combat_atlas_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 10",
+      "source_dir": "assets/source/ai_generated/batch_10/vfx_combat_atlas_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 32,
+      "cell": [
+        192,
+        128
+      ],
+      "columns": 8,
+      "output": "assets/art/vfx/atlases/vfx_combat_atlas_ai01.png",
+      "metadata": "assets/art/vfx/atlases/vfx_combat_atlas_ai01.frames.json",
+      "sprite_frames": "assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres",
+      "animation": {
+        "name": "combat_vfx",
+        "speed": 16.0,
+        "loop": false
+      }
+    },
+    {
+      "id": "seal_guardian_spine_parts_ai01",
+      "kind": "atlas",
+      "batch": "Batch 11",
+      "source_dir": "assets/source/ai_generated/batch_11/seal_guardian_spine_parts_ai01/selected_parts",
+      "source_glob": "*.png",
+      "expected_min": 12,
+      "expected_target": 24,
+      "cell": [
+        320,
+        320
+      ],
+      "columns": 6,
+      "output": "assets/art/spine_parts/seal_guardian_spine_parts_ai01.png",
+      "metadata": "assets/art/spine_parts/seal_guardian_spine_parts_ai01.regions.json"
+    },
+    {
+      "id": "capsule_art_alpha_demo_ai01",
+      "kind": "atlas",
+      "batch": "Batch 12",
+      "source_dir": "assets/source/ai_generated/batch_12/capsule_art_alpha_demo_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 3,
+      "expected_target": 6,
+      "cell": [
+        616,
+        353
+      ],
+      "columns": 2,
+      "output": "assets/art/promo/capsule_art_alpha_demo_ai01.png",
+      "metadata": "assets/art/promo/capsule_art_alpha_demo_ai01.regions.json"
+    },
+    {
+      "id": "cg_seal_guardian_reveal_ai01",
+      "kind": "atlas",
+      "batch": "Batch 12",
+      "source_dir": "assets/source/ai_generated/batch_12/cg_seal_guardian_reveal_ai01/selected_items",
+      "source_glob": "*.png",
+      "expected_min": 3,
+      "expected_target": 6,
+      "cell": [
+        640,
+        360
+      ],
+      "columns": 2,
+      "output": "assets/art/promo/cg_seal_guardian_reveal_ai01.png",
+      "metadata": "assets/art/promo/cg_seal_guardian_reveal_ai01.regions.json"
+    },
+    {
+      "id": "storyboard_intro_bounty_ai01",
+      "kind": "atlas",
+      "batch": "Batch 13",
+      "source_dir": "assets/source/ai_generated/batch_13/storyboard_intro_bounty_ai01/selected_panels",
+      "source_glob": "*.png",
+      "expected_min": 6,
+      "expected_target": 12,
+      "cell": [
+        320,
+        180
+      ],
+      "columns": 3,
+      "output": "assets/art/storyboards/storyboard_intro_bounty_ai01.png",
+      "metadata": "assets/art/storyboards/storyboard_intro_bounty_ai01.regions.json"
+    },
+    {
+      "id": "storyboard_miasma_marsh_ai01",
+      "kind": "atlas",
+      "batch": "Batch 13",
+      "source_dir": "assets/source/ai_generated/batch_13/storyboard_miasma_marsh_ai01/selected_panels",
+      "source_glob": "*.png",
+      "expected_min": 6,
+      "expected_target": 12,
+      "cell": [
+        320,
+        180
+      ],
+      "columns": 3,
+      "output": "assets/art/storyboards/storyboard_miasma_marsh_ai01.png",
+      "metadata": "assets/art/storyboards/storyboard_miasma_marsh_ai01.regions.json"
+    },
+    {
+      "id": "luna_jump_fall_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_jump_fall_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 16,
+      "expected_target": 24,
+      "cell": [
+        160,
+        160
+      ],
+      "columns": 8,
+      "output": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "jump_fall",
+        "speed": 14.0,
+        "loop": false
+      }
+    },
+    {
+      "id": "luna_hit_death_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/luna_hit_death_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 16,
+      "expected_target": 24,
+      "cell": [
+        160,
+        160
+      ],
+      "columns": 8,
+      "output": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "hit_death",
+        "speed": 12.0,
+        "loop": false
+      }
+    },
+    {
+      "id": "enemies_core_sheet_ai01",
+      "kind": "sprite_sheet",
+      "batch": "Batch 06",
+      "source_dir": "assets/source/ai_generated/batch_06/enemies_core_sheet_ai01/selected_frames",
+      "source_glob": "*.png",
+      "expected_min": 16,
+      "expected_target": 32,
+      "cell": [
+        160,
+        160
+      ],
+      "columns": 8,
+      "output": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png",
+      "metadata": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
+      "animation": {
+        "name": "enemy_core_cycle",
+        "speed": 10.0,
+        "loop": true
+      }
+    }
+  ]
+}

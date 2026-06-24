@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "status": "first_pass",
+  "asset_count": 26,
+  "entry_count": 538,
+  "manual_review_required": true,
+  "boundary": "First-pass semantic labels for generated assets; not final art approval.",
+  "assets": [
+    {
+      "asset_id": "luna_run_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.semantics.json",
+      "entry_count": 24,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "luna_air_dash_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.semantics.json",
+      "entry_count": 16,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "luna_attack_01_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.semantics.json",
+      "entry_count": 16,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "luna_idle_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.semantics.json",
+      "entry_count": 16,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "seal_guardian_boss_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.semantics.json",
+      "entry_count": 20,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "hud_core_ui_atlas_ai01",
+      "kind": "atlas",
+      "path": "assets/art/ui/atlases/hud_core_ui_atlas_ai01.semantics.json",
+      "entry_count": 16,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "icon_sheet_core_ai01",
+      "kind": "atlas",
+      "path": "assets/art/ui/atlases/icon_sheet_core_ai01.semantics.json",
+      "entry_count": 16,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "menu_ninepatch_ui_ai01",
+      "kind": "ninepatch_sheet",
+      "path": "assets/art/ui/menu_ninepatch_ui_ai01.semantics.json",
+      "entry_count": 8,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "miasma_marsh_tileset_ai01",
+      "kind": "tileset_sheet",
+      "path": "assets/art/tilesets/miasma_marsh_tileset_ai01.semantics.json",
+      "entry_count": 48,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "shrine_gate_prop_atlas_ai01",
+      "kind": "atlas",
+      "path": "assets/art/atlases/shrine_gate_prop_atlas_ai01.semantics.json",
+      "entry_count": 24,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "vfx_seal_magic_atlas_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.semantics.json",
+      "entry_count": 32,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "luna_spine_parts_ai01",
+      "kind": "atlas",
+      "path": "assets/art/spine_parts/luna_spine_parts_ai01.semantics.json",
+      "entry_count": 24,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "promo_key_art_sheet_ai01",
+      "kind": "atlas",
+      "path": "assets/art/promo/promo_key_art_sheet_ai01.semantics.json",
+      "entry_count": 6,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "storyboard_narrative_sheet_ai01",
+      "kind": "atlas",
+      "path": "assets/art/storyboards/storyboard_narrative_sheet_ai01.semantics.json",
+      "entry_count": 12,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "shrine_trial_tileset_ai01",
+      "kind": "tileset_sheet",
+      "path": "assets/art/tilesets/shrine_trial_tileset_ai01.semantics.json",
+      "entry_count": 48,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "material_texture_atlas_ai01",
+      "kind": "atlas",
+      "path": "assets/art/textures/material_texture_atlas_ai01.semantics.json",
+      "entry_count": 16,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "equipment_pickup_atlas_ai01",
+      "kind": "atlas",
+      "path": "assets/art/atlases/equipment_pickup_atlas_ai01.semantics.json",
+      "entry_count": 24,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "vfx_combat_atlas_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/vfx/atlases/vfx_combat_atlas_ai01.semantics.json",
+      "entry_count": 32,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "seal_guardian_spine_parts_ai01",
+      "kind": "atlas",
+      "path": "assets/art/spine_parts/seal_guardian_spine_parts_ai01.semantics.json",
+      "entry_count": 24,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "capsule_art_alpha_demo_ai01",
+      "kind": "atlas",
+      "path": "assets/art/promo/capsule_art_alpha_demo_ai01.semantics.json",
+      "entry_count": 6,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "cg_seal_guardian_reveal_ai01",
+      "kind": "atlas",
+      "path": "assets/art/promo/cg_seal_guardian_reveal_ai01.semantics.json",
+      "entry_count": 6,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "storyboard_intro_bounty_ai01",
+      "kind": "atlas",
+      "path": "assets/art/storyboards/storyboard_intro_bounty_ai01.semantics.json",
+      "entry_count": 12,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "storyboard_miasma_marsh_ai01",
+      "kind": "atlas",
+      "path": "assets/art/storyboards/storyboard_miasma_marsh_ai01.semantics.json",
+      "entry_count": 12,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "luna_jump_fall_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.semantics.json",
+      "entry_count": 24,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "luna_hit_death_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.semantics.json",
+      "entry_count": 24,
+      "manual_review_required": true
+    },
+    {
+      "asset_id": "enemies_core_sheet_ai01",
+      "kind": "sprite_sheet",
+      "path": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.semantics.json",
+      "entry_count": 32,
+      "manual_review_required": true
+    }
+  ]
+}

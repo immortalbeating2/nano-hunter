@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "source_manifest": "res://docs/assets/asset-atlas-build-manifest.json",
+  "asset_count": 2,
+  "part_count": 48,
+  "assets": [
+    {
+      "asset_id": "luna_spine_parts_ai01",
+      "part_count": 24,
+      "atlas": "res://assets/art/spine_parts/spine_exports/luna_spine_parts_ai01/luna_spine_parts_ai01.atlas",
+      "spine_style_json": "res://assets/art/spine_parts/spine_exports/luna_spine_parts_ai01/luna_spine_parts_ai01.spine_style.json",
+      "cutout_manifest": "res://assets/art/spine_parts/spine_exports/luna_spine_parts_ai01/luna_spine_parts_ai01.cutout_manifest.json"
+    },
+    {
+      "asset_id": "seal_guardian_spine_parts_ai01",
+      "part_count": 24,
+      "atlas": "res://assets/art/spine_parts/spine_exports/seal_guardian_spine_parts_ai01/seal_guardian_spine_parts_ai01.atlas",
+      "spine_style_json": "res://assets/art/spine_parts/spine_exports/seal_guardian_spine_parts_ai01/seal_guardian_spine_parts_ai01.spine_style.json",
+      "cutout_manifest": "res://assets/art/spine_parts/spine_exports/seal_guardian_spine_parts_ai01/seal_guardian_spine_parts_ai01.cutout_manifest.json"
+    }
+  ]
+}

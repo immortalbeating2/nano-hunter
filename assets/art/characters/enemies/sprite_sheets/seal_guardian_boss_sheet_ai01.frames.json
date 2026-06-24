@@ -1,0 +1,233 @@
+{
+  "id": "seal_guardian_boss_sheet_ai01",
+  "kind": "sprite_sheet",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+  "cell": [
+    256,
+    192
+  ],
+  "columns": 5,
+  "rows": 4,
+  "frames": [
+    {
+      "index": 0,
+      "name": "seal_guardian_boss_sheet_ai01_auto_001_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_001_c04.png",
+      "region": [
+        0,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 1,
+      "name": "seal_guardian_boss_sheet_ai01_auto_002_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_002_c04.png",
+      "region": [
+        256,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 2,
+      "name": "seal_guardian_boss_sheet_ai01_auto_003_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_003_c04.png",
+      "region": [
+        512,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 3,
+      "name": "seal_guardian_boss_sheet_ai01_auto_004_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_004_c04.png",
+      "region": [
+        768,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 4,
+      "name": "seal_guardian_boss_sheet_ai01_auto_005_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_005_c04.png",
+      "region": [
+        1024,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 5,
+      "name": "seal_guardian_boss_sheet_ai01_auto_006_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_006_c04.png",
+      "region": [
+        0,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 6,
+      "name": "seal_guardian_boss_sheet_ai01_auto_007_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_007_c04.png",
+      "region": [
+        256,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 7,
+      "name": "seal_guardian_boss_sheet_ai01_auto_008_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_008_c04.png",
+      "region": [
+        512,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 8,
+      "name": "seal_guardian_boss_sheet_ai01_auto_009_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_009_c04.png",
+      "region": [
+        768,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 9,
+      "name": "seal_guardian_boss_sheet_ai01_auto_010_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_010_c04.png",
+      "region": [
+        1024,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 10,
+      "name": "seal_guardian_boss_sheet_ai01_auto_011_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_011_c04.png",
+      "region": [
+        0,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 11,
+      "name": "seal_guardian_boss_sheet_ai01_auto_012_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_012_c04.png",
+      "region": [
+        256,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 12,
+      "name": "seal_guardian_boss_sheet_ai01_auto_013_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_013_c04.png",
+      "region": [
+        512,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 13,
+      "name": "seal_guardian_boss_sheet_ai01_auto_014_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_014_c04.png",
+      "region": [
+        768,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 14,
+      "name": "seal_guardian_boss_sheet_ai01_auto_015_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_015_c04.png",
+      "region": [
+        1024,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 15,
+      "name": "seal_guardian_boss_sheet_ai01_auto_016_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_016_c04.png",
+      "region": [
+        0,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 16,
+      "name": "seal_guardian_boss_sheet_ai01_auto_017_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_017_c04.png",
+      "region": [
+        256,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 17,
+      "name": "seal_guardian_boss_sheet_ai01_auto_018_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_018_c04.png",
+      "region": [
+        512,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 18,
+      "name": "seal_guardian_boss_sheet_ai01_auto_019_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_019_c04.png",
+      "region": [
+        768,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 19,
+      "name": "seal_guardian_boss_sheet_ai01_auto_020_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_020_c04.png",
+      "region": [
+        1024,
+        576,
+        256,
+        192
+      ]
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "id": "luna_spine_parts_ai01",
+  "kind": "atlas",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/spine_parts/luna_spine_parts_ai01.png",
+  "cell": [
+    256,
+    256
+  ],
+  "columns": 6,
+  "rows": 4,
+  "frames": [
+    {
+      "index": 0,
+      "name": "luna_spine_parts_ai01_auto_001",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_001.png",
+      "region": [
+        0,
+        0,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 1,
+      "name": "luna_spine_parts_ai01_auto_002",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_002.png",
+      "region": [
+        256,
+        0,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 2,
+      "name": "luna_spine_parts_ai01_auto_003",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_003.png",
+      "region": [
+        512,
+        0,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 3,
+      "name": "luna_spine_parts_ai01_auto_004",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_004.png",
+      "region": [
+        768,
+        0,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 4,
+      "name": "luna_spine_parts_ai01_auto_005",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_005.png",
+      "region": [
+        1024,
+        0,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 5,
+      "name": "luna_spine_parts_ai01_auto_006",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_006.png",
+      "region": [
+        1280,
+        0,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 6,
+      "name": "luna_spine_parts_ai01_auto_007",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_007.png",
+      "region": [
+        0,
+        256,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 7,
+      "name": "luna_spine_parts_ai01_auto_008",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_008.png",
+      "region": [
+        256,
+        256,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 8,
+      "name": "luna_spine_parts_ai01_auto_009",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_009.png",
+      "region": [
+        512,
+        256,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 9,
+      "name": "luna_spine_parts_ai01_auto_010",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_010.png",
+      "region": [
+        768,
+        256,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 10,
+      "name": "luna_spine_parts_ai01_auto_011",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_011.png",
+      "region": [
+        1024,
+        256,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 11,
+      "name": "luna_spine_parts_ai01_auto_012",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_012.png",
+      "region": [
+        1280,
+        256,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 12,
+      "name": "luna_spine_parts_ai01_auto_013",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_013.png",
+      "region": [
+        0,
+        512,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 13,
+      "name": "luna_spine_parts_ai01_auto_014",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_014.png",
+      "region": [
+        256,
+        512,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 14,
+      "name": "luna_spine_parts_ai01_auto_015",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_015.png",
+      "region": [
+        512,
+        512,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 15,
+      "name": "luna_spine_parts_ai01_auto_016",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_016.png",
+      "region": [
+        768,
+        512,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 16,
+      "name": "luna_spine_parts_ai01_auto_017",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_017.png",
+      "region": [
+        1024,
+        512,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 17,
+      "name": "luna_spine_parts_ai01_auto_018",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_018.png",
+      "region": [
+        1280,
+        512,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 18,
+      "name": "luna_spine_parts_ai01_auto_019",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_019.png",
+      "region": [
+        0,
+        768,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 19,
+      "name": "luna_spine_parts_ai01_auto_020",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_020.png",
+      "region": [
+        256,
+        768,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 20,
+      "name": "luna_spine_parts_ai01_auto_021",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_021.png",
+      "region": [
+        512,
+        768,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 21,
+      "name": "luna_spine_parts_ai01_auto_022",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_022.png",
+      "region": [
+        768,
+        768,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 22,
+      "name": "luna_spine_parts_ai01_auto_023",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_023.png",
+      "region": [
+        1024,
+        768,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 23,
+      "name": "luna_spine_parts_ai01_auto_024",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_11/luna_spine_parts_ai01/selected_parts/luna_spine_parts_ai01_auto_024.png",
+      "region": [
+        1280,
+        768,
+        256,
+        256
+      ]
+    }
+  ]
+}

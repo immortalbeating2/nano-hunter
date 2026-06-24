@@ -1,0 +1,18 @@
+{
+	"version": 1,
+	"status": "rehearsal_ready",
+	"scene": "res://scenes/dev/p0_runtime_replacement_rehearsal.tscn",
+	"purpose": "Godot editor rehearsal scene for P0 runtime replacement resources.",
+	"boundary": "Rehearsal only. It binds resources to compatible Godot nodes but does not modify formal gameplay scenes, close runtime_replacement gates, or approve final art.",
+	"counts": {
+		"entry_count": 30,
+		"texture2d_nodes": 17,
+		"spriteframes_nodes": 9,
+		"tileset_nodes": 1,
+		"stylebox_nodes": 1,
+		"atlastexture_nodes": 2
+	},
+	"sources": {
+		"p0_runtime_replacement_plan": "res://docs/assets/p0-runtime-replacement-plan.json"
+	}
+}

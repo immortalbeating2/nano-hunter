@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "stage16_corruption_purge_ai01",
+  "candidate_index": 2,
+  "candidate_path": "assets/source/ai_generated/batch_02/stage16_corruption_purge_ai01/candidates/stage16_corruption_purge_ai01_candidate_02.png",
+  "output_path": "assets/art/vfx/stage16_corruption_purge_ai01.png",
+  "boundary": "Standalone output derivation record for source-safety audits. This proves which image_gen candidate was exported, not final art approval."
+}

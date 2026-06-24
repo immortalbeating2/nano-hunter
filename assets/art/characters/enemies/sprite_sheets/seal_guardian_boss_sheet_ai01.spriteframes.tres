@@ -1,0 +1,91 @@
+[gd_resource type="SpriteFrames" load_steps=22 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_001"]
+atlas = ExtResource("1")
+region = Rect2(256, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_002"]
+atlas = ExtResource("1")
+region = Rect2(512, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_003"]
+atlas = ExtResource("1")
+region = Rect2(768, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_004"]
+atlas = ExtResource("1")
+region = Rect2(1024, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_005"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_006"]
+atlas = ExtResource("1")
+region = Rect2(256, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_007"]
+atlas = ExtResource("1")
+region = Rect2(512, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_008"]
+atlas = ExtResource("1")
+region = Rect2(768, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_009"]
+atlas = ExtResource("1")
+region = Rect2(1024, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_010"]
+atlas = ExtResource("1")
+region = Rect2(0, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_011"]
+atlas = ExtResource("1")
+region = Rect2(256, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_012"]
+atlas = ExtResource("1")
+region = Rect2(512, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_013"]
+atlas = ExtResource("1")
+region = Rect2(768, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_014"]
+atlas = ExtResource("1")
+region = Rect2(1024, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_015"]
+atlas = ExtResource("1")
+region = Rect2(0, 576, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_016"]
+atlas = ExtResource("1")
+region = Rect2(256, 576, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_017"]
+atlas = ExtResource("1")
+region = Rect2(512, 576, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_018"]
+atlas = ExtResource("1")
+region = Rect2(768, 576, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seal_guardian_boss_sheet_ai01_019"]
+atlas = ExtResource("1")
+region = Rect2(1024, 576, 256, 192)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_002")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_003")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_004")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_005")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_006")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_007")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_009")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_010")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_011")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_012")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_013")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_014")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_015")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_016")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_017")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_018")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_seal_guardian_boss_sheet_ai01_019")}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}]

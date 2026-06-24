@@ -9,6 +9,7 @@ const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_r
 const MIASMA_CASTER_SCENE_PATH := "res://scenes/combat/miasma_caster_enemy.tscn"
 const MIASMA_CASTER_CONFIG_SCRIPT_PATH := "res://scripts/configs/miasma_caster_enemy_config.gd"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
+const MIASMA_TILESET_RESOURCE_PATH := "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres"
 
 const STAGE13_MAIN_ROOM_PATHS := [
 	"res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
@@ -157,6 +158,12 @@ func test_stage13_asset_manifest_contains_miasma_marsh_requirements() -> void:
 		assert_string_contains(manifest, term)
 
 
+# 保护瘴泽 TileSet 预览接入：入口房先引用 Godot TileSet，但碰撞仍由灰盒 StaticBody 负责。
+func test_stage13_entry_room_references_miasma_marsh_tileset_preview() -> void:
+	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[0])
+	_assert_tileset_preview_references_asset(room, "MiasmaTilesetPreview")
+
+
 # 保护灰盒主路径：从 Main 进入 Stage11 终点后应能自动推进到 Stage13 目标房。
 func test_stage13_graybox_driver_can_reach_second_zone_goal_from_main_scene() -> void:
 	# 这条测试从 Main.tscn 出发，保护 Stage11 终点继续进入 Stage13 的真实主线契约。
@@ -260,3 +267,18 @@ func _read_text_file(path: String) -> String:
 	var file := FileAccess.open(path, FileAccess.READ)
 	assert_not_null(file, "无法读取文件：%s" % path)
 	return file.get_as_text() if file != null else ""
+
+
+# TileSet 预览断言 helper：只证明场景可加载项目内 TileSet 并放置可见 tile，不代表最终碰撞清稿。
+func _assert_tileset_preview_references_asset(parent: Node, node_path: String) -> void:
+	var layer := parent.get_node_or_null(NodePath(node_path)) as TileMapLayer
+	assert_not_null(layer, "缺少 TileMapLayer 资产节点：%s" % node_path)
+	if layer == null:
+		return
+
+	assert_eq(layer.get_meta("asset_id", ""), "miasma_marsh_tileset_ai01")
+	assert_not_null(layer.tile_set, "TileMapLayer 没有 TileSet：%s" % node_path)
+	if layer.tile_set != null:
+		assert_eq(layer.tile_set.resource_path, MIASMA_TILESET_RESOURCE_PATH)
+		assert_gt(layer.tile_set.get_source_count(), 0)
+	assert_gt(layer.get_used_cells().size(), 0)

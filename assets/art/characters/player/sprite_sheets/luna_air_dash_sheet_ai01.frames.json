@@ -1,0 +1,189 @@
+{
+  "id": "luna_air_dash_sheet_ai01",
+  "kind": "sprite_sheet",
+  "output": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.png",
+  "cell": [
+    192,
+    160
+  ],
+  "columns": 8,
+  "rows": 2,
+  "frames": [
+    {
+      "index": 0,
+      "name": "luna_air_dash_sheet_ai01_auto_001_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_001_c06.png",
+      "region": [
+        0,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 1,
+      "name": "luna_air_dash_sheet_ai01_auto_002_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_002_c06.png",
+      "region": [
+        192,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 2,
+      "name": "luna_air_dash_sheet_ai01_auto_003_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_003_c06.png",
+      "region": [
+        384,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 3,
+      "name": "luna_air_dash_sheet_ai01_auto_004_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_004_c06.png",
+      "region": [
+        576,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 4,
+      "name": "luna_air_dash_sheet_ai01_auto_005_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_005_c06.png",
+      "region": [
+        768,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 5,
+      "name": "luna_air_dash_sheet_ai01_auto_006_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_006_c06.png",
+      "region": [
+        960,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 6,
+      "name": "luna_air_dash_sheet_ai01_auto_007_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_007_c06.png",
+      "region": [
+        1152,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 7,
+      "name": "luna_air_dash_sheet_ai01_auto_008_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_008_c06.png",
+      "region": [
+        1344,
+        0,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 8,
+      "name": "luna_air_dash_sheet_ai01_auto_009_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_009_c06.png",
+      "region": [
+        0,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 9,
+      "name": "luna_air_dash_sheet_ai01_auto_010_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_010_c06.png",
+      "region": [
+        192,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 10,
+      "name": "luna_air_dash_sheet_ai01_auto_011_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_011_c06.png",
+      "region": [
+        384,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 11,
+      "name": "luna_air_dash_sheet_ai01_auto_012_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_012_c06.png",
+      "region": [
+        576,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 12,
+      "name": "luna_air_dash_sheet_ai01_auto_013_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_013_c06.png",
+      "region": [
+        768,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 13,
+      "name": "luna_air_dash_sheet_ai01_auto_014_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_auto_014_c06.png",
+      "region": [
+        960,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 14,
+      "name": "luna_air_dash_sheet_ai01_duplicate_015_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_duplicate_015_c06.png",
+      "region": [
+        1152,
+        160,
+        192,
+        160
+      ]
+    },
+    {
+      "index": 15,
+      "name": "luna_air_dash_sheet_ai01_duplicate_016_c06",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/luna_air_dash_sheet_ai01/selected_frames/luna_air_dash_sheet_ai01_duplicate_016_c06.png",
+      "region": [
+        1344,
+        160,
+        192,
+        160
+      ]
+    }
+  ]
+}

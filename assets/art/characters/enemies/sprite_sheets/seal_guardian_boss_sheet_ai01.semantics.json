@@ -1,0 +1,393 @@
+{
+  "version": 1,
+  "asset_id": "seal_guardian_boss_sheet_ai01",
+  "kind": "sprite_sheet",
+  "batch": "Batch 06",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.frames.json",
+  "output": "assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.png",
+  "entry_count": 20,
+  "manual_review_required": true,
+  "boundary": "First-pass machine semantic labels. Human review is still required before final runtime integration.",
+  "entries": [
+    {
+      "index": 0,
+      "semantic_name": "seal_guardian_idle_frame_001",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_001_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_001_c04.png",
+      "region": [
+        0,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 1,
+      "semantic_name": "seal_guardian_idle_frame_002",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_002_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_002_c04.png",
+      "region": [
+        256,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 2,
+      "semantic_name": "seal_guardian_idle_frame_003",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_003_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_003_c04.png",
+      "region": [
+        512,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 3,
+      "semantic_name": "seal_guardian_idle_frame_004",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "idle"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_004_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_004_c04.png",
+      "region": [
+        768,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 4,
+      "semantic_name": "seal_guardian_warning_frame_005",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_005_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_005_c04.png",
+      "region": [
+        1024,
+        0,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 5,
+      "semantic_name": "seal_guardian_warning_frame_006",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_006_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_006_c04.png",
+      "region": [
+        0,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 6,
+      "semantic_name": "seal_guardian_warning_frame_007",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_007_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_007_c04.png",
+      "region": [
+        256,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 7,
+      "semantic_name": "seal_guardian_warning_frame_008",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "warning"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_008_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_008_c04.png",
+      "region": [
+        512,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 8,
+      "semantic_name": "seal_guardian_attack_frame_009",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_009_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_009_c04.png",
+      "region": [
+        768,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 9,
+      "semantic_name": "seal_guardian_attack_frame_010",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_010_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_010_c04.png",
+      "region": [
+        1024,
+        192,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 10,
+      "semantic_name": "seal_guardian_attack_frame_011",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_011_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_011_c04.png",
+      "region": [
+        0,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 11,
+      "semantic_name": "seal_guardian_attack_frame_012",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_012_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_012_c04.png",
+      "region": [
+        256,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 12,
+      "semantic_name": "seal_guardian_attack_frame_013",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_013_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_013_c04.png",
+      "region": [
+        512,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 13,
+      "semantic_name": "seal_guardian_attack_frame_014",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_014_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_014_c04.png",
+      "region": [
+        768,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 14,
+      "semantic_name": "seal_guardian_attack_frame_015",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_015_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_015_c04.png",
+      "region": [
+        1024,
+        384,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 15,
+      "semantic_name": "seal_guardian_attack_frame_016",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "attack"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_016_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_016_c04.png",
+      "region": [
+        0,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 16,
+      "semantic_name": "seal_guardian_defeat_frame_017",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "defeat"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_017_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_017_c04.png",
+      "region": [
+        256,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 17,
+      "semantic_name": "seal_guardian_defeat_frame_018",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "defeat"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_018_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_018_c04.png",
+      "region": [
+        512,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 18,
+      "semantic_name": "seal_guardian_defeat_frame_019",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "defeat"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_019_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_019_c04.png",
+      "region": [
+        768,
+        576,
+        256,
+        192
+      ]
+    },
+    {
+      "index": 19,
+      "semantic_name": "seal_guardian_defeat_frame_020",
+      "category": "sprite_sheet",
+      "group": "attack",
+      "role": "animation_frame",
+      "tags": [
+        "defeat"
+      ],
+      "manual_review_required": true,
+      "source_name": "seal_guardian_boss_sheet_ai01_auto_020_c04",
+      "source": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/source/ai_generated/batch_06/seal_guardian_boss_sheet_ai01/selected_frames/seal_guardian_boss_sheet_ai01_auto_020_c04.png",
+      "region": [
+        1024,
+        576,
+        256,
+        192
+      ]
+    }
+  ]
+}

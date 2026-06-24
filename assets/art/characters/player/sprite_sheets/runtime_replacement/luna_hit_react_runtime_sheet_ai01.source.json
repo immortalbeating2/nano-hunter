@@ -1,0 +1,22 @@
+{
+  "asset_id": "luna_hit_react_runtime_sheet_ai01",
+  "source_asset_id": "luna_hit_death_runtime_sheet_ai01",
+  "source_texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_death_runtime_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_death_runtime_sheet_ai01.frames.json",
+  "process": "semantic_runtime_clip_split_from_normalized_candidate",
+  "boundary": "Hit reaction candidate only. Does not include knockdown or death idle.",
+  "source_frame_indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "filter": "none"
+}

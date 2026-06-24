@@ -1,0 +1,24 @@
+{
+  "asset_id": "enemies_core_runtime_sheet_ai01",
+  "source_asset_id": "enemies_core_sheet_ai01",
+  "source_texture": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.png",
+  "source_metadata": "assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.frames.json",
+  "process": "runtime_normalized_from_existing_final_ready_source",
+  "boundary": "Candidate for Animation Runtime Replacement Pass geometry review. Not approved for live controller replacement until strict audit, scene tests and runtime review pass.",
+  "normalization": {
+    "duplicates_removed": [],
+    "scale": 0.7,
+    "source_max_content_size": [
+      160,
+      155
+    ],
+    "target_safe_size": [
+      112,
+      144
+    ],
+    "foot_baseline_y": 152,
+    "center_x": 80,
+    "horizontal_padding": 24,
+    "vertical_padding": 8
+  }
+}

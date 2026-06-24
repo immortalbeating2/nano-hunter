@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage16_seal_chain_room_base.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/props/stage16_seal_release_threshold_ai01.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -48,6 +49,14 @@ polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
 position = Vector2(96, 104)
 color = Color(0.933333, 0.705882, 0.294118, 0.58)
 polygon = PackedVector2Array(-40, 0, 0, -56, 40, 0, 0, 56)
+
+[node name="SealReleaseThresholdArt" type="Sprite2D" parent="SealReleaseNode"]
+position = Vector2(0, -12)
+scale = Vector2(0.055, 0.055)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("2")
+metadata/asset_id = "stage16_seal_release_threshold_ai01"
+metadata/asset_binding_note = "visual_preview_only_graybox_collision_unchanged"
 
 [node name="GateBarrier" type="StaticBody2D" parent="."]
 position = Vector2(392, 88)

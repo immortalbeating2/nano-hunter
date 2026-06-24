@@ -1,0 +1,21 @@
+{
+	"version": 1,
+	"status": "runtime_source_review_workbench_ready",
+	"scene": "res://scenes/dev/runtime_source_review_workbench.tscn",
+	"purpose": "Godot editor-facing review workbench for runtime-bound image_gen source-risk assets.",
+	"boundary": "Review workbench only. It previews current runtime outputs and raw candidates; it does not approve source, final art, licensing or runtime replacement.",
+	"counts": {
+		"entry_count": 18,
+		"current_output_count": 18,
+		"candidate_count": 72,
+		"selected_candidate_count": 20,
+		"strategy_counts": {
+			"confirmed_candidate_rebuild_candidate": 7,
+			"manual_compare_selected_mix": 2,
+			"manual_source_review_or_regenerate": 9
+		}
+	},
+	"sources": {
+		"runtime_source_review_queue": "res://docs/assets/runtime-source-review-queue.json"
+	}
+}
