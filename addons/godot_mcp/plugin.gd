@@ -48,9 +48,6 @@ func _enter_tree() -> void:
 	var ver := "unknown"
 	if cfg.load("res://addons/godot_mcp/plugin.cfg") == OK:
 		ver = cfg.get_value("plugin", "version", "unknown")
-	# 端口规划需和 Node server、PowerShell 诊断脚本、通用补丁脚本同步。
-	# 端口规划必须与 Node server、PowerShell 脚本、补丁脚本和连通性指南同步。
-	# 17605-17619 是 stdio primary；17620-17624 是 CLI primary；6505-6509/6510-6514 仅为 legacy。
 	print("[MCP] Godot MCP Pro v%s started (stdio 17605-17619; cli 17620-17624; legacy 6505-6509/6510-6514)" % ver)
 
 
@@ -132,13 +129,26 @@ func _try_debugger_continue() -> void:
 
 
 func _find_debugger_continue_button(node: Node) -> Button:
-	# Search for the Continue button in ScriptEditorDebugger
+	# Search for the Continue button in ScriptEditorDebugger.
+	# The editor UI is translated, so matching tooltip/label text fails for
+	# non-English editors (issue #34: Italian → "Continua"). Match by the editor
+	# theme icon "DebugContinue" first, falling back to English text.
+	var continue_icon: Texture2D = null
+	var base: Control = EditorInterface.get_base_control()
+	if base != null and base.has_theme_icon("DebugContinue", "EditorIcons"):
+		continue_icon = base.get_theme_icon("DebugContinue", "EditorIcons")
+	return _find_continue_button_recursive(node, continue_icon)
+
+
+func _find_continue_button_recursive(node: Node, continue_icon: Texture2D) -> Button:
 	if node is Button:
 		var btn: Button = node
+		if continue_icon != null and btn.icon == continue_icon:
+			return btn
 		if btn.tooltip_text.contains("Continue") or btn.text == "Continue":
 			return btn
 	for child in node.get_children():
-		var found: Button = _find_debugger_continue_button(child)
+		var found: Button = _find_continue_button_recursive(child, continue_icon)
 		if found:
 			return found
 	return null

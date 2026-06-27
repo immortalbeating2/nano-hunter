@@ -152,58 +152,94 @@ export class GodotConnection {
   async connect(): Promise<void> {
     if (this.wss) return;
 
-    const chosenPort = await this.choosePort();
-    this.port = chosenPort;
+    if (this.strictPort && this.reservedCliPorts.includes(this.port)) {
+      throw new GodotConnectionError(`Configured strict port ${this.port} is reserved for godot-cli.`);
+    }
 
-    return new Promise<void>((resolve, reject) => {
-      let settled = false;
-      this.wss = new WebSocketServer({ port: this.port, host: "127.0.0.1" });
+    const candidates = this.strictPort
+      ? [this.port]
+      : [this.port, ...this.candidatePorts.filter((p) => p !== this.port)];
 
-      this.wss.on("listening", () => {
+    let lastError: Error | null = null;
+    for (const port of candidates) {
+      if (this.reservedCliPorts.includes(port)) continue;
+      try {
+        const wss = await this.bindWebSocketServer(port);
+        this.wss = wss;
+        this.port = port;
         this.lastError = null;
         this.bridgeLock.start(this.port);
+        this.attachConnectionHandler(wss);
         console.error(
           `[MCP] WebSocket server listening on ws://127.0.0.1:${this.port}`
         );
-        settled = true;
-        resolve();
+        return;
+      } catch (err) {
+        lastError = err as Error;
+        this.lastError = lastError.message;
+        this.cleanupFailedServer();
+        if ((err as NodeJS.ErrnoException).code !== "EADDRINUSE") {
+          console.error("[MCP] WebSocket server error:", lastError.message);
+        }
+      }
+    }
+
+    const range = this.strictPort ? String(this.port) : this.candidatePorts.join(",");
+    throw new GodotConnectionError(
+      `No free Godot MCP stdio bridge ports in ${range}. ` +
+      `Last error: ${lastError?.message ?? "unknown"}.`
+    );
+  }
+
+  /** Try to bind one WebSocketServer. A bind race rejects this candidate and lets connect try the next port. */
+  private bindWebSocketServer(port: number): Promise<WebSocketServer> {
+    return new Promise<WebSocketServer>((resolve, reject) => {
+      const wss = new WebSocketServer({ port, host: "127.0.0.1" });
+
+      const onError = (err: Error) => {
+        wss.off("listening", onListening);
+        wss.close();
+        reject(err);
+      };
+      const onListening = () => {
+        wss.off("error", onError);
+        wss.on("error", (err: Error) => {
+          this.lastError = err.message;
+          console.error("[MCP] WebSocket server error:", err.message);
+        });
+        resolve(wss);
+      };
+
+      wss.once("error", onError);
+      wss.once("listening", onListening);
+    });
+  }
+
+  private attachConnectionHandler(wss: WebSocketServer): void {
+    wss.on("connection", (ws: WebSocket) => {
+      console.error("[MCP] Godot editor connected; waiting for workspace handshake");
+
+      // OS 层 keepalive 辅助暴露半开 TCP；应用层 ping/pong 仍负责主要存活判断。
+      const sock = (ws as unknown as { _socket?: { setKeepAlive?: (enable: boolean, initialDelay: number) => void } })._socket;
+      sock?.setKeepAlive?.(true, TCP_KEEPALIVE_DELAY_MS);
+
+      ws.on("message", (data: Buffer) => {
+        this.handleMessage(data.toString(), ws);
       });
 
-      this.wss.on("error", (err: Error) => {
-        this.lastError = err.message;
-        console.error("[MCP] WebSocket server error:", err.message);
-        this.cleanupFailedServer();
-        if (!settled) {
-          settled = true;
-          reject(err);
+      ws.on("close", () => {
+        console.error("[MCP] Godot editor disconnected");
+        if (this.client === ws) {
+          this.client = null;
+          this.stopHeartbeat();
+          this.rejectAllPending(
+            new GodotConnectionError("Godot disconnected")
+          );
         }
       });
 
-      this.wss.on("connection", (ws: WebSocket) => {
-        console.error("[MCP] Godot editor connected; waiting for workspace handshake");
-
-        // OS 层 keepalive 辅助暴露半开 TCP；应用层 ping/pong 仍负责主要存活判断。
-        const sock = (ws as unknown as { _socket?: { setKeepAlive?: (enable: boolean, initialDelay: number) => void } })._socket;
-        sock?.setKeepAlive?.(true, TCP_KEEPALIVE_DELAY_MS);
-
-        ws.on("message", (data: Buffer) => {
-          this.handleMessage(data.toString(), ws);
-        });
-
-        ws.on("close", () => {
-          console.error("[MCP] Godot editor disconnected");
-          if (this.client === ws) {
-            this.client = null;
-            this.stopHeartbeat();
-            this.rejectAllPending(
-              new GodotConnectionError("Godot disconnected")
-            );
-          }
-        });
-
-        ws.on("error", (err: Error) => {
-          console.error("[MCP] WebSocket error:", err.message);
-        });
+      ws.on("error", (err: Error) => {
+        console.error("[MCP] WebSocket error:", err.message);
       });
     });
   }

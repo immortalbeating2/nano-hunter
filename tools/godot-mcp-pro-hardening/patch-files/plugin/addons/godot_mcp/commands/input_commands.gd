@@ -88,7 +88,10 @@ func _simulate_mouse_move(params: Dictionary) -> Dictionary:
 		"relative": {"x": rel_x, "y": rel_y},
 		"button_mask": button_mask,
 	}
-	# 只有调用方没有显式传入 unhandled 时，拖拽 motion 才自动绕过 GUI 消费。
+	# Auto-enable unhandled for drag motions (camera-pan use case) ONLY when
+	# the caller did NOT explicitly pass an "unhandled" key. If they passed
+	# one — true or false — honor it. This lets UI drag-and-drop tests opt
+	# back into normal GUI dispatch by passing unhandled: false explicitly.
 	if unhandled_explicit:
 		event["unhandled"] = unhandled
 	elif button_mask > 0:

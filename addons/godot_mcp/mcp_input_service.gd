@@ -76,8 +76,12 @@ func _dispatch_next_sequence_event() -> void:
 
 ## Dispatch an input event using the appropriate method.
 ## Mouse drag motions (button_mask > 0) auto-promote to push_input to bypass
-## GUI consumption and reach _unhandled_input(). When callers explicitly pass
-## "unhandled": false, respect normal GUI dispatch so UI drag/drop tests work.
+## GUI consumption and reach _unhandled_input — needed for camera-pan use
+## cases where UI Controls would otherwise swallow drag events. But for UI
+## drag-and-drop *testing* we want events to reach the GUI dispatcher so
+## hit-testing and _get_drag_data / _drop_data fire. So: respect an explicit
+## "unhandled": false in the event payload — only auto-promote when the
+## caller did NOT pass an "unhandled" key. Default behavior preserved.
 func _dispatch_event(event: InputEvent, event_data: Dictionary = {}) -> void:
 	var force_unhandled: bool
 	if event_data.has("unhandled"):

@@ -271,7 +271,7 @@ func _send_workspace_hello(p: int) -> void:
 			"workspace": workspace,
 			"projectPath": workspace,
 			"sessionId": str(_rendezvous_sessions.get(p, "")),
-			"pluginVersion": "1.12.0",
+			"pluginVersion": "1.15.0-nh.1",
 			"connectionSource": get_port_source(p),
 		},
 	}

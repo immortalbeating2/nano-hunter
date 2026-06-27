@@ -2,6 +2,13 @@
 
 本文件只记录项目里程碑级事件。每日细节、命令输出、MCP 复核过程、分支操作原因和误判修正过程保存在 `docs/progress/logs/YYYY-MM-DD.md`。每条里程碑默认包含范围、结果、关键验证、详情日志；重要阶段收口或工具链修复可补提交 hash 与遗留风险。
 
+## 2026-06-28
+
+- **Godot MCP Pro v1.15.0 hardening upgrade**：以官方 `1.15.0` 为基底重新吸收本地 bridge hardening。
+  结果：稳定目录切换到 `1.15.0-nh.1`；项目插件、Node server、补丁模板与联通文档同步更新；`.mcp.json` 继续使用 `%USERPROFILE%\.mcp\godot-mcp-pro\server\build\index.js`。
+  关键验证或结论：新稳定路径 `npm run build` 通过，`npm test` 通过 `2` 个测试文件 / `6` 个测试；工具注册数为 `176`，包含本地 `get_bridge_status`；patch dry-run 通过；Godot editor 连接新稳定 bridge `17615`，CLI `project info` 使用 `17620` 通过。
+  详情日志链接：`docs/progress/logs/2026-06-28.md`；遗留：npm audit 仍报告上游依赖 `10` 个漏洞，本轮不执行 `npm audit fix`，避免扩大依赖变更。
+
 ## 2026-06-24
 
 - **Animation Runtime Replacement Pass ARP-19 Enemy hit spark runtime VFX binding**：把普通敌人受击 spark 从 Stage12 占位迁移到独立 runtime VFX visual。

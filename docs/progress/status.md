@@ -1,13 +1,13 @@
 # Nano Hunter Status
 
-Last Updated: 2026-06-25
+Last Updated: 2026-06-28
 
 ## Current Status
 
 - 当前稳定游戏基线仍是 `main` 上的 Stage16 Alpha Demo 打包候选，包含最小 Demo 壳、Stage15 `Seal Guardian / 封印守卫`、`Recovery Charge / 恢复充能`、Stage16 五房终局封印链、Alpha Demo 完成反馈、`docs/deliverables/stage16-alpha-demo-candidate/` 交付物与第二轮资产 / 音频需求记录。
-- Godot MCP Pro 1.13.1 增量已合并到主线；当前项目保留 `17605-17619` / `17620-17624`、rendezvous、workspace/session 握手和 diagnostic tools，并吸收 ping/pong、heartbeat timeout、idle/stale UI 与输入模拟修正。
+- Godot MCP Pro 已升级为 `1.15.0-nh.1` 合并版；当前项目保留 `17605-17619` / `17620-17624`、rendezvous、workspace/session 握手和 `get_bridge_status`，并吸收上游 selection 工具、UndoRedo / dry-run 安全修复、`assert_node_state` 修复、ping/pong、heartbeat timeout、idle/stale UI 与输入模拟修正。
 - 资产生产线治理已合并到主线；`Asset Production Track / 资产生产线` 作为长期并行工作流运行，玩法 Stage 仍先用灰盒 / 占位验证，资产 Batch 同步生成候选，玩法稳定后再清理并接入可运行资产。
-- 本次合并刻意排除了 Luna 行走关键帧生成内容：`assets/art/characters/player/luna_walk/`、`docs/progress/logs/2026-05-05.md` 和 `asset-manifest.md` 中对应行不进入本轮远端同步。
+- Luna 行走关键帧旧生成批次已判定弃选：会话 `019df842-b0bb-7881-bda8-2be9f584d281` 属于 2026-05-05 资产管线确定前的行走帧试验，相关未提交产物已从主工作区清理；用户提供的两张弃选参考图仅本地留存在 `tests/artifacts/local/rejected-assets/luna-walk-keyframes-2026-05-05/`，不进入普通 Git。
 
 ## Current Stable Baseline
 
@@ -19,6 +19,12 @@ Last Updated: 2026-06-25
 - 2026-06-25 复核结论：动作正式替换批次的活跃候选严格审计已通过，runtime source review queue 清零；当前剩余历史 blocked reference 仅作为归档证据保留，不再构成活跃替换阻塞。
 
 ## Recent Status Changes
+
+### 2026-06-28 - Godot MCP Pro v1.15.0 hardening upgrade
+
+- 状态：Godot MCP Pro 已从本地 `1.12/1.13` hardening 基线升级到 `1.15.0-nh.1`；稳定目录已切换为 `C:\Users\peng8\.mcp\godot-mcp-pro`，旧目录备份为 `godot-mcp-pro-backup-20260628-020124`。
+- 范围：升级项目 `addons/godot_mcp`、全局 Node server、补丁模板与联通文档；不改变游戏玩法、资产或 `.mcp.json` 稳定路径。
+- 验证：新稳定路径 `npm run build` 通过，`npm test` 通过 `2` 个测试文件 / `6` 个测试；工具注册数为 `176`，包含官方 v1.15.0 工具与本地 `get_bridge_status`；patch dry-run 通过；Godot editor 已连接新稳定 bridge `17615`，CLI `project info` 通过并使用 `17620`。
 
 ### 2026-06-25 - Animation Runtime Replacement Pass 复核收口
 

@@ -34,7 +34,7 @@ describe("bridge lock files", () => {
       sessionId: "session-a",
       startedAt: "2026-04-30T00:00:00.000Z",
       lastHeartbeat: "2026-04-30T00:00:05.000Z",
-      version: "1.12.0",
+      version: "1.15.0-nh.1",
       kind: "stdio",
     });
 
@@ -59,7 +59,7 @@ describe("bridge lock files", () => {
       sessionId: "session-a",
       startedAt: "2026-04-30T00:00:00.000Z",
       lastHeartbeat: "2026-04-30T00:00:00.000Z",
-      version: "1.12.0",
+      version: "1.15.0-nh.1",
       kind: "stdio",
     });
 
@@ -82,7 +82,7 @@ describe("bridge lock files", () => {
       sessionId: "session-b",
       startedAt: "2026-05-01T00:00:00.000Z",
       lastHeartbeat: "2026-05-01T00:00:05.000Z",
-      version: "1.12.0",
+      version: "1.15.0-nh.1",
       kind: "stdio",
       portPlanVersion: "17605-primary",
     });

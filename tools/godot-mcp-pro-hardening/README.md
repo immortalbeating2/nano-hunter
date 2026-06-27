@@ -1,6 +1,6 @@
 # Godot MCP Pro Hardening Patch
 
-This directory stores the movable, replayable hardening patch for Godot MCP Pro `1.12.0`, with reviewed `1.13.1` connection/input increments merged into the local hardening model.
+This directory stores the movable, replayable hardening patch for Godot MCP Pro. The current patch baseline is `1.15.0-nh.1`: upstream `1.15.0` plus the local bridge lifecycle hardening.
 
 `nano-hunter` currently hosts and verifies this tool, but the patch tool is not tied to this project. It can be used for another Godot project, such as `angel-fallen`, as long as `-ProjectPath` points to that project and the script can find `patch-files`.
 
@@ -25,7 +25,7 @@ The old `6505-6534` range overlaps this machine's observed TCP dynamic port pool
 ## Patch Layout
 
 - `patch-files/server`: global Node MCP Server patch and Vitest regression tests.
-- `patch-files/plugin/addons/godot_mcp`: per-project Godot plugin patch, including the local rendezvous/handshake connection layer plus selected 1.13.1 idle/stale and input-dispatch fixes.
+- `patch-files/plugin/addons/godot_mcp`: per-project Godot plugin patch, including the local rendezvous/handshake connection layer, idle/stale status panel, input-dispatch fixes, and plugin metadata.
 - `patch-files/optional-project-scripts/scripts/dev`: optional diagnostic scripts for projects that adopt the Nano Hunter workflow.
 
 `optional-project-scripts` are not applied by default. They are useful for projects that want the same `check / enter / safe-repair / open-worktree` workflow, but they should not be forced into unrelated projects.
@@ -115,7 +115,7 @@ C:\Tools\apply-godot-mcp-pro-hardening-patch.ps1 `
 
 ## Safety And Rollback
 
-- The script checks `package.json` and expects a reviewed Godot MCP Pro version, currently `1.12.0` or `1.13.1`, when the scope includes the server.
+- The script checks `package.json` and expects a reviewed Godot MCP Pro version, currently `1.12.0`, `1.13.1`, `1.15.0`, or `1.15.0-nh.1`, when the scope includes the server.
 - Unknown versions require `-Force` after manual review.
 - `-DryRun` does not write target files, does not build, and does not create backup directories.
 - Real apply backs up existing targets to `tests/artifacts/local/godot-mcp-patch-backups/<timestamp>/`, or to `-BackupRoot`.

@@ -49,16 +49,12 @@ const explicitPort = process.env.GODOT_MCP_PORT;
 const strictPort = process.env.GODOT_MCP_STRICT_PORT === "1";
 const workspace = process.env.GODOT_MCP_WORKSPACE || process.cwd();
 const sessionId = process.env.GODOT_MCP_SESSION_ID || randomUUID();
-// GODOT_MCP_PORT 在普通模式下只是 preferred port，旧 bridge 占用时允许 fallback。
-// 只有 GODOT_MCP_STRICT_PORT=1 时才把该端口视为硬约束并在失败时退出。
-// workspace/sessionId 会写入全局 lock 与项目本地 rendezvous，并通过 Godot 端
-// godot_hello / godot_hello_ack 防止跨项目或跨会话 editor 抢线。
 const godot = new GodotConnection(
   parseInt(explicitPort || "17605"),
   strictPort,
   workspace,
   sessionId,
-  "1.12.0"
+  "1.15.0-nh.1"
 );
 
 const serverName = MINIMAL_MODE
@@ -72,7 +68,7 @@ const serverName = MINIMAL_MODE
 const server = new McpServer(
   {
     name: serverName,
-    version: "1.12.0",
+    version: "1.15.0-nh.1",
   },
   {
     instructions: loadInstructions(),
@@ -119,8 +115,7 @@ if (!LITE_MODE) {
   registerAndroidTools(server, godot);
 }
 
-// 启动 MCP server。初始 bridge 监听失败时，非 strict 模式仍保持 stdio MCP 入口可用；
-// 之后第一次 sendCommand 会触发 lazy reconnect，让清理端口后的当前会话可以自救。
+// Start server
 async function main() {
   godot.connect().catch((err) => {
     console.error(
@@ -160,9 +155,9 @@ async function main() {
     const modeLabel = MINIMAL_MODE
       ? "[MCP] Godot MCP Pro MINIMAL started (35 tools, stdio transport)"
       : THREED_MODE
-        ? "[MCP] Godot MCP Pro 3D started (100 tools, stdio transport)"
+        ? "[MCP] Godot MCP Pro 3D started (103 tools, stdio transport)"
         : LITE_MODE
-          ? "[MCP] Godot MCP Pro LITE started (81 tools, stdio transport)"
+          ? "[MCP] Godot MCP Pro LITE started (84 tools, stdio transport)"
           : "[MCP] Godot MCP Pro started (stdio transport)";
     console.error(modeLabel);
   }
@@ -174,7 +169,6 @@ main().catch((err) => {
   process.exit(1);
 });
 
-/** 当前进程是 Codex 会话外部的 bridge；各种退出路径都要尽量释放 lock 与端口。 */
 function cleanupAndExit(signal: string): void {
   console.error(`[MCP] Received ${signal}, shutting down bridge`);
   godot.disconnect();
