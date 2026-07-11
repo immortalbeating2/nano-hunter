@@ -4,15 +4,14 @@ Last Updated: 2026-07-11
 
 ## Current Status
 
+- 2026-07-11 Stage17 `动作运行态稳定化` 开发与自动化收口完成：Luna 保持固定 runtime transform，Attack / Air Dash / Hit React 由 gameplay phase 映射关键帧，Jump 使用 Model Lock v1 四物理相位；四类普通敌人 cycle 会播放、defeat 可见，Ground Charger 具备 telegraph / charge / recover；Seal Guardian 拆分 strike / recovery / staggered，body / VFX 到达后半帧且单次攻击只结算一次伤害。最终验证为 Stage17 `10/10` / `118` asserts、全量 GUT `229/229` / `6245` asserts、strict audit `21/21 active ready`、OpenGL runtime probe 十一项全真、键盘 / synthetic Joypad smoke `ok=true`，以及无调试注入的 input-only Demo 重放 `34` 次主线房间进入、最终完成标记 `true`、`P0/P1/P2=0`。
 - 2026-07-11 完成根 `AGENTS.md` 治理瘦身：从 `530` 行收敛为 `108` 行的仓库执行契约，只保留跨阶段硬规则、事实来源、最短流程和完成门禁；阶段历史、MCP 端口、插件候选、资产 Batch、worktree 操作手册和单次故障经验退出根文件，继续由现有专题文档与 Git 历史负责。本轮不修改 Stage17 动画运行时代码。
-- 2026-07-11 完成 Stage17 分支前置收口：当前 Formal Demo 候选以本次提交建立本地可回退点，`codex/stage-17-animation-runtime-stabilization` 从同一验证基线分叉，尚未开始动作运行代码修改。提交前重新执行全量 GUT `31` scripts、`219/219` tests、`6105` asserts，Godot import、39 房运行态构图复核和全部严格资产审计通过；构图问题为 `P0=0 / P1=0 / P2=0`。同时修正两处陈旧审计口径：TileSet 包审计改为当前 `5` 个资源 / `3` 份规则，运行态资产表改为 `51` 个场景引用已验证、`4` 个旧独立资产被正式图集替换，不把旧资产错误接回运行时。
 - 2026-07-11 完成角色 / 敌人 / Boss 动作、39 房内容和北极星实现度审计。关键修正：Luna 节点 scale 固定，视觉变大变小来自跨动作模型与时序未统一；Attack `0.23s` 对应 16 帧 / 18fps、Air Dash `0.24s` 对应 16 帧 / 20fps，均会截断大部分帧；Jump/Fall 是时间顺播而非物理相位映射。运行探针确认四类普通敌人 cycle 均未播放，Boss 在 staggered 状态隐藏。39 房当前有 `16` 个战斗房、`24` 个普通敌人实例、`1` 个 Boss；空间职责已明确，敌人行为和动作仍是原型级。北极星完整实现约 `25-30%`，独特核心“元素 + 姿态 + 序列连锁”约 `0-10%`。
-- 2026-07-11 已确认 Stage17 `动作运行态稳定化` 的设计、正式阶段计划和执行清单：保留玩家攻击 `0.23s` 与 Air Dash `0.24s` 手感，用玩法相位映射关键帧；Luna Jump 按 Model Lock v1 重做为 start / rise / fall / land；普通敌人共享播放根修复并补最小死亡动作；Boss 拆分 recovery 与 staggered。元素 / 姿态 / 两步序列明确留给下一独立阶段。本轮只落计划，不修改运行代码。
 - 2026-07-11 `codex/demo-level-formal-remap` 完成 Formal Demo Map Redesign：三类样板与 Batch 1-9 全部收口，当前 `39/39` 个可运行房间已按职责重排。Stage16 五房分别形成上层释放、三层中继、回溯确认、危险净化和终局大厅；Purge 首轮节点悬在平台间的问题已由运行图拒绝并修正。
 - 最终验证：全量 GUT `31` scripts、`219/219` tests、`6105` asserts；39 房 Windows/OpenGL 运行态截图审计 `P0=0 / P1=0 / P2=0`；Stage16 自动完整主线到达 Alpha Demo End；Godot import 通过。
 - 地图契约：其余 38 房使用正式 TileMap collision 与独立 visual-only surface；`test_room` 因保留 Stage1-4 非整格机制碰撞，使用真实 shape bounds 顶沿 / cap，作为显式机制沙盒例外，不把随机 tile 或背景装饰当道路。
 - 资产结论：本轮没有为 Stage13-16 追加 Image Gen；未选候选、source sheet、整房概念图和 `imagegen_inbox` 未登记文件没有进入运行时。当前背景和地形达到 Alpha Demo 可读标准，但不等于商业版最终多区域背景、autotile 与装饰多样性清稿。
-- 当前边界：结果尚未合并到 `main` 或推送远端；Formal Demo 本地回退点已建立，Stage17 专用分支只承接动作运行态稳定化。真人键鼠 / 手柄连续试玩和最终美术签核仍未完成。
+- 当前边界：结果尚未合并到 `main` 或推送远端；`AGENTS.md` 仍保持主线 Stage16 指针。自动化已经覆盖生产键盘映射、synthetic Joypad 和完整 input-only Demo 路线，但不冒充实体手柄硬件认证或真人体验签核；最终美术签核也仍属于后续发布级验收。
 - 2026-07-11 完成正式地图 Batch 8，Stage15 战斗高潮链收口：Pressure `24x9` 新增双敌全清门；Challenge `26x10` 形成瘴气绕行、双敌全清和门后奖励；Boss `28x10` 从旧窄地面扩为宽 arena 与左右规避平台；Completion `18x8` 用上层封印装置进入 Stage16。Boss 运行复核初次误把击退力当伤害，已改为按公开生命逐次命中；Stage15 旧测试同步更新封印焦点坐标、危险 VFX 可读范围和 Pressure 清敌 driver。验证：Batch8 `5/5` / `193` asserts，Stage15/16 + formal remap `45/45` / `1106` asserts，六图运行态 `ok=true`，Godot import 通过。正式重排进度 `34/39`，下一批处理 Stage16 最后五房。
 - 2026-07-11 完成正式地图 Batch 7，Stage14 全链收口：Shrine `20x8` 收敛为单一能力焦点；Backtrack Hub `26x10` 把三个收益点分布到递增三层；Loop Return `20x8` 用两段上行和上层目标进入 Stage15。Loop 首轮运行图发现 Goal marker 挂在平台下，根因是触发仍用旧地面高度，已将视觉与触发一起移到上层可踩面；Stage13 Goal 与 Stage14 Gate 同步补右侧安全 return spawn。验证：Batch7 `4/4` / `137` asserts，Stage14-16 + formal remap `61/61` / `1504` asserts，五图运行态 `ok=true`，Godot import 通过。正式重排进度 `30/39`，下一批处理 Stage15 剩余四房。
 - 2026-07-11 完成正式地图 Batch 6，Stage13 全区域正式重排收口：Branch Hub `24x9` 把资源、挑战、主线三路放到不同高度；Resource `18x8` 成为无敌人两级上行奖励房；Challenge `24x9` 新增清敌门，法师未击败时不能直接取得门后奖励；Return `20x8` 承担支路 / 主线汇流降压；Goal `20x8` 把祭器与 Stage14 入口放到明确上层平台。验证：Batch6 `5/5` / `214` asserts，Stage13/manual/Stage14/Stage16/formal remap `58/58` / `1464` asserts，六图运行态 `ok=true`，Goal 真实切入 Stage14，Godot import 通过。正式重排进度 `27/39` 房，下一批处理 Stage14 剩余三房。
@@ -34,9 +33,9 @@ Last Updated: 2026-07-11
 
 ## Current Stable Baseline
 
-- 当前分支候选：`codex/demo-level-formal-remap` 保留 39 房正式重排回退点；`codex/stage-17-animation-runtime-stabilization` 从同一通过全量验证的提交分叉，当前仅含已确认计划，尚未修改动作运行代码。
+- 当前分支候选：`codex/stage-17-animation-runtime-stabilization` 已完成 Stage17 动作运行态实现、回归和本地验证收口；`codex/demo-level-formal-remap` / `985ec28` 仍是其正式地图回退基线。当前分支尚未合并 `main` 或推送远端。
 - `main` 稳定基线：Stage16 Alpha Demo 打包候选已合并，主线验证通过。
-- 当前可试玩方向：从教程、战斗原型、回溯门控、首个精英 Boss 原型推进到 Alpha Demo 候选；下一步默认进入 Alpha Demo 试玩反馈、稳定性修正与 Stage17 规划。
+- 当前可试玩方向：Stage16 Alpha Demo 内容加上 Stage17 动作运行态稳定化已形成分支候选；合并前先做实体手柄 / 真人体验签核，合并后再独立规划最小 `2 元素 + 2 姿态 + 2 步序列` 北极星战斗切片。
 - 当前设计约束：后续阶段继续向南北朝东方奇幻、封妖禁地、瘴泽、妖域、符印机关等语境回收灰盒命名，不继续扩大现代实验室表达。
 - 当前资产方向：围绕 Alpha Demo 候选补强 Luna、Air Dash、Seal Guardian、Stage16 UI / 终局反馈、区域表现、最小 SFX / BGM 和动画参考，不追求完整商业版资产量。
 - 当前资产补齐目标已扩展为长期完整资产族：角色、关卡地图场景、UI / 界面、图标、道具与装备、特效、动画帧 / 序列帧、贴图、宣传运营、LOGO、CG、分镜和叙事剧情资产，并最终整理为 Godot 可用的 Sprite Sheet、Texture Atlas、Tile Set、Spine 拆件图集、UI 图集、特效图集和九宫格图片。
@@ -114,6 +113,13 @@ Last Updated: 2026-07-11
 
 ## Recent Status Changes
 
+### 2026-07-11 - Stage17 animation runtime stabilization completed on branch
+
+- 状态：Luna、四类普通敌人与 Seal Guardian 的 Animation State Contract 已实现，Stage17 开发与自动化验收完成。
+- 范围：短动作关键帧、Jump Model Lock v1、普通敌人 cycle / defeat、Ground Charger 读招与状态动作、Boss recovery / staggered、统一运行探针和输入式 Demo 重放；不增加房间、敌人、投射物或北极星核心系统。
+- 验证：Stage17 `10/10` tests、`118` asserts；全量 GUT `229/229` tests、`6245` asserts；strict audit `21/21 active ready`；OpenGL probe `ok=true`；input smoke `ok=true`；input-only replay `34` 次主线房间进入并完成 Stage16，`P0/P1/P2=0`。
+- 边界：尚未合并 / push；实体手柄硬件认证和真人体验签核不由自动化结论代替，`AGENTS.md` 仅在合并后更新。
+
 ### 2026-07-11 - AGENTS repository contract slimmed
 
 - 状态：根 `AGENTS.md` 已从阶段手册和工具知识库收敛为稳定的仓库执行契约。
@@ -126,7 +132,7 @@ Last Updated: 2026-07-11
 - 状态：已批准 Stage17 动作运行态稳定化边界，形成设计文档、正式阶段计划和逐任务执行清单。
 - 方案：不拉长玩家攻击 / Dash，不暴力倍速完整长动画；改为 gameplay phase -> keyframe contract。普通敌人共享入口一次启动 cycle，Boss 新增 recovery 并把 guard-break stagger 独立出来。
 - 文档：`spec-design/2026-07-11-stage-17-animation-runtime-stabilization-design.md`、`plan/2026-07-11-stage-17-animation-runtime-stabilization.md`、`docs/implementation-plans/2026-07-11-stage-17-animation-runtime-stabilization.md`。
-- 边界：Formal Demo 本地回退点 `985ec28` 已建立，当前已位于干净的 `codex/stage-17-animation-runtime-stabilization`；Stage17 动作代码仍未开始修改。
+- 边界（计划确认时）：Formal Demo 本地回退点 `985ec28` 已建立并切到 `codex/stage-17-animation-runtime-stabilization`；后续实现与完成状态以上方最新条目为准。
 
 ### 2026-07-11 - Animation, room content and North Star audit
 
@@ -283,7 +289,7 @@ Last Updated: 2026-07-11
 
 ## Current Risks
 
-- 当前最大工程风险是 `codex/demo-level-formal-remap` 工作树同时包含大量地图、资产和运行时未提交改动；Stage17 不得直接叠加实现，必须先完成差异审查和提交点固化。
+- Stage17 的脏工作树前置风险已由 Formal Demo 回退点 `985ec28` 和专用阶段分支解除；当前主要交付风险转为“尚未合并 / push，以及实体手柄与真人体验尚未签核”，不再是动作运行代码缺失。
 - 2026-07-04 2K 同 16:9 运行态已通过 Camera2D zoom 收回到 640x360 设计视野，不再直接暴露上一轮截图中的明显竖向背景拼接缝；但这不等于背景商业清稿完成。若后续要支持 21:9、自由缩放镜头或大幅横向可视范围，仍需要背景无缝化、parallax split、可延展边缘或逐房宽屏构图 polish。
 - 2026-06-19 内置 `image_gen` 已生成 Batch00 / Batch01 / Batch02 / Batch03 / Batch06-Batch13 的 `55/55` 个候选 PNG；2026-06-20 已追加补充候选用于 duplicate clearance；2026-06-21 已追加当前项目确认候选用于 `luna_jump_fall_sheet_ai01` 和 `stage16_seal_release_threshold_ai01`，并追加 `stage16_demo_menu_icons_ai01_candidate_02` 与 `stage14_air_dash_icon_ai01_candidate_02` 两个评审候选；9 个 standalone runtime UI / VFX / prop PNG 已补齐带 `project_key = nano-hunter` 的 `.source.json`，`hud_core_ui_atlas_ai01` 已从 `candidate_01` 重建 selected source 与 atlas。同日继续为 15 个 runtime review-required 资产追加统一风格重生候选，当前候选池为 `120` raw candidates、`547` selected sources、`82` unselected candidates；source safety 为 `0` unsafe，runtime source safety 仍有 `15` 个 runtime assets 需来源 / 派生复核。当前已生成 target-count `assets/art` 候选 sheet / atlas / standalone PNG，`26/26` 个 atlas-linked outputs 已达到 `expected_target` 且全部 `duplicates=0`；非 SpriteFrames atlas-linked 输出已生成 `302` 个 Godot `AtlasTexture` editor resources，Batch07 两套 TileSet sheet 已生成 `2` 个 Godot `TileSet` `.tileset.tres`、`2` 个 `.tileset_rules.json`、`96` 个 tile rules、`64` 个 collision-ready tiles 和 `8` 个 hazard visual-only tiles，Batch08 `menu_ninepatch_ui_ai01` 已生成 `8` 个 Godot `StyleBoxTexture` 资源骨架、`1` 个 Godot `Theme` 候选、`9` 个 Theme stylebox mappings 和 `4` 个 standalone UI skin panel rules，Batch10 / standalone VFX 已生成 `6` 个 VFX rule sidecars 与 `73` 条 anchor-blend rules，Batch06 角色 / 敌人 Sprite Sheet 已生成 `8` 个 animation rule sidecars 与 `172` 条 frame rules，Batch11 已生成 `2` 个 Spine-style cutout exports / `48` 个 part descriptors；P0 runtime replacement plan 当前为 `28/28` already referenced，final-art `runtime_replacement` gate 为 `37 passed / 18 blocked`；Art readiness 报告确认 `55/55` structural-ready、`13/55` final-ready；综合资产包审计报告 `ok=true`。风险转为“剩余 42 个资产的候选质量、授权记录、15 个 runtime review-required 来源复核、TileSet 碰撞 / terrain 人工复核、正式危险 Area author、UI Theme 最终套用和读值、VFX mask / timing / runtime hookup、角色动画帧序 / 基线 / timing 复核、NinePatch 清稿、Spine parts 语义绑定和游戏内正式接入仍未完成”；`stage16_talisman_relay_ai01` 只批准为当前 Stage16 region-bound visual VFX。
 - Batch 00-05 当前是资产需求与治理记录，不代表资产已生成或接入。
@@ -311,7 +317,7 @@ Last Updated: 2026-07-11
 
 ## Next Steps
 
-- Stage17 下一步：先收口当前地图分支现场，再按 `docs/implementation-plans/2026-07-11-stage-17-animation-runtime-stabilization.md` 从失败测试与 Luna 动作契约开始；Stage17 完成前不启动元素 / 姿态 / 序列实现。
+- Stage17 下一步：审查并合并 `codex/stage-17-animation-runtime-stabilization`，在实体手柄 / 真人体验签核后更新 `AGENTS.md` 主线阶段指针；随后为最小 `2 元素 + 2 姿态 + 2 步序列` 另做 brainstorming、设计和正式阶段计划。
 - Formal Demo map 下一步：先做提交前差异审查和真人连续试玩；若发现具体房间读值问题，按房间证据局部修正，不再回到随机全图替换。当前 39 房截图脚本已经覆盖主线、支路和非主线机制沙盒。
 - 下一步建议转入人工美术签核 / 发布级 polish 清单：伪文字清理、最终 typography、正式 autotile / hazard Area author、TileMap 手工边缘拟合、UI 细节清稿和完整试玩审美反馈；若后续新增或重做动作帧，继续按透明背景规则网格 sprite sheet 规格使用 image_gen。
 - 若后续必须重生成动作帧，统一使用 image_gen，并严格要求透明背景 PNG、标准规则网格 sprite sheet、单动作优先、固定格子、角色居中、同一角色 / 比例 / 视角、根部锚点稳定、充足留白、无绿底 / 白底 / 棋盘格、无自由排布 / 跳跃弧线散布 / 相邻帧重叠 / 裁切 / 跨格特效。

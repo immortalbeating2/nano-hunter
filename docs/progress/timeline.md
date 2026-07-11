@@ -4,6 +4,11 @@
 
 ## 2026-07-11
 
+- **Stage17 animation runtime stabilization branch closure**：完成 Luna、四类普通敌人与 Seal Guardian 的动作运行态稳定化，并建立可重放的输入式验收链路。
+  结果：Luna 短动作按 gameplay phase 选关键帧，Jump 使用 Model Lock v1 四相；普通敌人 cycle / defeat 与 Ground Charger telegraph / charge / recover 生效；Boss strike / recovery / staggered 独立且全程可见；Stage10 Challenge 空中敌人同步上移 `24px`，消除正式地图重排后真实攻击距离外的 2px 边界误差。
+  关键验证或结论：Stage17 `10/10` / `118` asserts；全量 GUT `32` suites、`229/229` tests、`6245` asserts；strict audit `21/21 active ready`；OpenGL runtime probe 十一项全真；键盘 / synthetic Joypad smoke `ok=true`；input-only Demo replay `34` 次主线房间进入、Stage16 最终完成、`P0/P1/P2=0`。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；设计：`spec-design/2026-07-11-stage-17-animation-runtime-stabilization-design.md`；正式计划：`plan/2026-07-11-stage-17-animation-runtime-stabilization.md`；执行清单：`docs/implementation-plans/2026-07-11-stage-17-animation-runtime-stabilization.md`；提交：`069ea11`、`303c8bf`、`8eba387`、`aa4771b`、`31818db`，最终收口提交见 Stage17 分支 HEAD；边界：尚未合并 / push，实体手柄与真人体验仍需人工签核。
+
 - **AGENTS repository contract slimming**：把根代理说明从阶段手册和工具知识库收敛为稳定的仓库执行契约。
   结果：`AGENTS.md` 从 `530` 行缩减为 `108` 行；保留北极星、中文协作、任务分级、项目接口、文档门禁、验证和 Git 安全原则，移除动态阶段、端口、Batch、插件候选、worktree 操作手册和单次故障经验。
   关键验证或结论：八段式结构成立；`9` 个专题引用路径全部存在，陈旧词和常见乱码扫描均为 `0`，`git diff --check` 退出码为 `0`；本轮不修改 Stage17 运行时代码。

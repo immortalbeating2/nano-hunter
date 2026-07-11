@@ -6,6 +6,15 @@ Stage 17 修复 Luna、四类普通敌人与 Seal Guardian 的动作运行态：
 
 本阶段完成后，当前 Alpha Demo 的角色和敌人动作应达到“可看、可玩、可调、可验证”的稳定基线，但不代表商业版完整动作库或北极星战斗系统完成。
 
+## Completion Record
+
+- 2026-07-11：Stage17 开发实现和代理可执行的自动化验收已完成于 `codex/stage-17-animation-runtime-stabilization`；尚未合并 `main`，也未推送远端。
+- Luna、四类普通敌人与 Seal Guardian 均按本计划完成动作状态契约；新增资源全部由可重放构建脚本生成并通过严格审计。
+- 最终验证：Stage17 `10/10` tests、`118` asserts；全量 GUT `229/229` tests、`6245` asserts；strict audit `21/21 active ready`；OpenGL 运行探针 `ok=true` 且十一项检查全真。
+- 输入验证：键盘与 synthetic Joypad smoke 均为 `ok=true`；从主菜单开始的 input-only replay 完成 `34` 次主线房间进入并触发 Stage16 最终完成，`P0/P1/P2=0`。
+- 唯一边界例外：input replay 证明 Stage10 Challenge 的 Aerial Sentinel 在 Formal Demo 重排后比真实攻击可达范围高约 `2px`，因此仅将其根节点 `y=120 -> 144` 并同步 Batch3 构建脚本 / 契约测试；不改房间职责、敌人类型、玩家攻击范围或 Hurtbox。
+- 验证边界：自动化不冒充真人或实体手柄硬件认证；该项保留为合并 / 发布前人工签核，不构成遗留代码修复。
+
 ## Goals
 
 - Luna 所有动作保持固定 runtime transform，跨动作不再读成缩放跳变。
@@ -128,6 +137,7 @@ Stage 17 修复 Luna、四类普通敌人与 Seal Guardian 的动作运行态：
 - 普通敌人：默认循环确实推进；Charger 读招 / 冲锋 / 恢复；四类 defeat 可见且门控立即解锁。
 - Boss：warning -> strike -> recovery -> idle；护印击破 -> staggered -> idle；attack body 与 VFX 同帧段；任何状态都不隐藏。
 - 复核输出放入 `tests/artifacts/local/stage17-animation-runtime/`，默认不提交截图。
+- 已完成 OpenGL 截图逐张复核和 input-only 全链路连续重放；实体手柄硬件体验仍需人工签核。
 
 ## Documentation Updates
 

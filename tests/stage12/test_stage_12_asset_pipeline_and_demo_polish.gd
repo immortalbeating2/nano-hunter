@@ -301,8 +301,15 @@ func test_stage12_lightweight_vfx_toggle_without_changing_combat_contract() -> v
 	assert_false(attack_seal_arc_vfx.visible)
 	assert_false(legacy_slash.visible)
 	player.call("_start_attack")
-	assert_true(attack_slash_vfx.visible)
-	assert_true(attack_seal_arc_vfx.visible)
+	assert_false(attack_slash_vfx.visible, "Stage17 startup 关键帧期间不应提前显示攻击 VFX。")
+	assert_false(attack_seal_arc_vfx.visible, "Stage17 startup 关键帧期间不应提前显示符印 VFX。")
+	var active_vfx_seen := false
+	for _i in range(12):
+		await get_tree().physics_frame
+		if attack_slash_vfx.visible and attack_seal_arc_vfx.visible:
+			active_vfx_seen = true
+			break
+	assert_true(active_vfx_seen, "Stage17 attack active 窗口必须显示两层攻击 VFX。")
 	assert_false(legacy_slash.visible)
 	assert_false(attack_slash_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_slash_vfx.get_meta("damage_source", true))

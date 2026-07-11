@@ -124,7 +124,7 @@ script = ExtResource("9_oj1tr")
 config = ExtResource("10_3ytd2")
 
 [node name="AerialSentinelEnemy" type="StaticBody2D" parent="." unique_id=778111793 instance=ExtResource("5")]
-position = Vector2(832, 120)
+position = Vector2(832, 144)
 script = ExtResource("12_bxqch")
 config = ExtResource("13_gb1qj")
 

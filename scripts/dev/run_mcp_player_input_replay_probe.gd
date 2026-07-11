@@ -6,6 +6,10 @@ extends SceneTree
 const MAIN_SCENE := "res://scenes/main/main.tscn"
 const PROBE_SCRIPT := "res://scripts/dev/mcp_player_input_replay_probe.gd"
 const REPORT_JSON := "res://tests/artifacts/local/full-content-demo-qa/mcp_2026_07_01/player_input_replay/player_input_replay_probe.json"
+const START_ROOM_ENV := "NANO_HUNTER_REPLAY_START_ROOM"
+const START_SPAWN_ENV := "NANO_HUNTER_REPLAY_START_SPAWN"
+const DEBUG_REWARD_COUNT_ENV := "NANO_HUNTER_REPLAY_DEBUG_REWARD_COUNT"
+const DEBUG_AIR_DASH_ENV := "NANO_HUNTER_REPLAY_DEBUG_AIR_DASH"
 
 
 func _initialize() -> void:
@@ -18,14 +22,23 @@ func _run() -> void:
 	root.add_child(main)
 	await _settle()
 
+	var start_room := OS.get_environment(START_ROOM_ENV)
+	var start_spawn := StringName(OS.get_environment(START_SPAWN_ENV))
 	var shell := main.get_node_or_null("HUD/DemoShell")
 	if shell != null and shell.has_method("start_demo"):
 		shell.call("start_demo")
 	await _settle()
+	if not start_room.is_empty() and main.has_method("start_demo_at_room"):
+		var debug_progress := {
+			"air_dash_unlocked": OS.get_environment(DEBUG_AIR_DASH_ENV) == "1",
+			"stage14_backtrack_reward_count": int(OS.get_environment(DEBUG_REWARD_COUNT_ENV)),
+		}
+		main.call("start_demo_at_room", start_room, start_spawn, debug_progress)
+	await _settle()
 
 	var probe: Node = (load(PROBE_SCRIPT) as Script).new()
 	root.add_child(probe)
-	probe.start(main)
+	probe.start(main, start_room)
 	while not probe.is_finished():
 		await process_frame
 

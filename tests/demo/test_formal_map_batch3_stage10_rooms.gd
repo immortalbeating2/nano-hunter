@@ -42,7 +42,8 @@ func test_stage10_challenge_is_26x10_three_enemy_clear_arena() -> void:
 	assert_eq(room.call("get_spawn_position", &"stage10_challenge_start"), Vector2(-256, 268))
 	assert_eq(room.get_node("BasicMeleeEnemy").position, Vector2(128, 184))
 	assert_eq(room.get_node("GroundChargerEnemy").position, Vector2(512, 264))
-	assert_eq(room.get_node("AerialSentinelEnemy").position, Vector2(832, 120))
+	# 正式重排后的低台跳跃必须能进入空中攻击判定窗，避免全清门被不可达敌人永久锁住。
+	assert_eq(room.get_node("AerialSentinelEnemy").position, Vector2(832, 144))
 	assert_eq(room.get_node("ChallengeCollectible").position, Vector2(896, 104))
 	assert_eq(room.get_node("GateBarrier").position, Vector2(1152, 232))
 	assert_false(bool(room.call("is_gate_unlocked")))

@@ -19,6 +19,20 @@ Stage 17 的唯一主目标是把 Luna、四类普通敌人与 Seal Guardian 的
 - `spec-design/2026-07-11-north-star-implementation-audit.md`
 - `spec-design/2026-06-24-animation-runtime-replacement-pass.md`
 
+## Implementation Outcome
+
+- 2026-07-11 已按方案 C 完成实现：玩法时长保持不变，由 gameplay phase 选择关键帧，动画层不反向驱动伤害、位移或门控。
+- Luna Attack 使用 `[4, 6, 7, 8, 10, 12]`，Air Dash 使用 `[0, 2, 4, 6, 7, 8]`；Hit React 视觉窗口为 `0.20s`，无敌仍为 `0.35s`；Jump 已替换为 Model Lock v1 四物理相位资源。
+- `BaseEnemy` 已成为普通敌人唯一播放入口；四类 cycle 会推进，defeat 立即释放碰撞但保留可见终态；Ground Charger 增加 `0.12s` telegraph 并映射 patrol / charge / recover。
+- Seal Guardian 已拆分 strike / recovery / staggered；body 与 VFX 到达帧 `7`，单次攻击只结算一次伤害，未知状态回退到可见 idle。
+- Stage17 专项、全量 GUT、严格资产审计、OpenGL 时间序列探针、键盘 / synthetic Joypad smoke 与 input-only Demo 重放均通过；实体手柄硬件认证不在自动化结论内。
+
+### Boundary Deviation
+
+- input-only replay 暴露一个实现前已存在的 Formal Demo 可达性缺陷：Stage10 Challenge 的 Aerial Sentinel 根节点在 `y=120` 时，其真实 Hurtbox 比 Luna 的最高有效空中攻击窗口高约 `2px`，会永久锁住全清门。
+- 为恢复该房原定“三敌全清 arena”职责，仅将该实例及 Batch3 权威坐标下移到 `y=144`，并更新正式地图契约测试；没有改变玩家攻击范围、敌人 Hurtbox、房间结构、门控或内容数量。
+- 该修正是运行验收发现的局部可玩性补丁，不扩展 Stage17 设计范围，也不作为后续随意改房间的先例。
+
 ## Goals
 
 - 固定 Luna Model Lock v1，并让运行代码不再通过动作资源隐式改变角色尺度或锚点。

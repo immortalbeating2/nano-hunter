@@ -95,3 +95,37 @@ Model Lock 只能解决“画的是不是同一个 Luna”。还必须增加 `An
 - 运行绑定：`scripts/player/player_placeholder.gd`、`scripts/combat/base_enemy.gd`、`scripts/combat/seal_guardian_boss.gd` 与对应 `.tscn`。
 - 本地运行探针：四类普通敌人均为 `is_playing=false / frame 0 -> 0`；Boss 在 `state=staggered` 时 `visible=false`。证据保存在 `tests/artifacts/local/animation-content-audit/runtime_probe.json`。
 - 本报告不修改玩法代码；下一批应先补失败测试，再修状态绑定。
+
+## Stage17 修复收口（2026-07-11）
+
+本节追加修复后结论，保留上文原始故障证据，不回写或淡化实现前审计。
+
+### Luna
+
+- `LunaRuntimeAnimationVisual` 在所有动作继续固定 `position = (0, -16)`、`scale = 0.45`；Stage17 测试逐动作确认运行时 transform 不变。
+- Attack 在原 `0.23s` 内映射 `[4, 6, 7, 8, 10, 12]`，Air Dash 在原 `0.24s` 内映射 `[0, 2, 4, 6, 7, 8]`，不拉长玩法窗口，也不让长 sheet 自然播放后被截断。
+- Hit React 使用独立 `0.20s` 视觉计时，玩家仍保留完整 `0.35s` 无敌时间。
+- `luna_jump_state_runtime_sheet_ai04` 按 Model Lock v1 确定性生成并接入 `jump_start / rise_hold / fall_hold / land`，由真实物理相位选择动作。
+
+### 普通敌人
+
+- `BaseEnemy` 已成为统一播放入口；四类默认 cycle 在 `_ready()` 后均为 `is_playing=true` 且 frame 会推进。
+- 击败时 collision / hurtbox 仍立即关闭并发出 `defeated`，视觉改为播放非血腥 defeat 并保留终态，不再首帧静止或同帧消失。
+- Ground Charger 新增 `0.12s` telegraph；读招期不移动、不造成触碰伤害，随后按真实 AI 状态显示 charge / recover，并要求玩家离开触发带后重新武装。
+- Miasma Caster 仍是压力 pulse 原型，没有新增投射物；该项保持 Stage17 Non-Goal。
+
+### Seal Guardian
+
+- `strike_duration=0.18s` 映射 attack body / VFX 帧 `0-3`，随后进入独立 `recovery` 映射帧 `4-7`。
+- `staggered` 只用于护印击破，使用独立 `seal_guardian_stagger_runtime_sheet_ai01` 和原 `stagger_duration=0.7s`；未知状态回退到可见 idle，不再隐藏 Boss。
+- 单次 attack cycle 只在 strike 结束边界造成一次伤害；recovery 不重复伤害。
+
+### 最终证据
+
+- Stage17 GUT：`10/10` tests、`118` asserts。
+- 全量 GUT：`32` suites、`229/229` tests、`6245` asserts、`0` failures。
+- 严格资产审计：`21/21 active ready`、`0 active blocked`、`10 archived references`、`0 archive errors`。
+- OpenGL 运行探针：`tests/artifacts/local/stage17-animation-runtime/runtime_report.json`，`ok=true`，十一项自检全部为 `true`；五张本地截图已人工复核。
+- 输入 smoke：键盘与 synthetic Joypad 的 move / jump / attack / dash 均通过生产 `InputMap` 进入玩家，报告 `ok=true`。
+- input-only Demo replay：从主菜单开始、不调用房间切换、不移动玩家坐标，完成 `34` 次主线房间进入并触发 Stage16 最终完成，`P0/P1/P2=0`。
+- 边界：自动化结论不等于实体手柄硬件认证或真人体验签核；后者保留为合并 / 发布前人工验收。

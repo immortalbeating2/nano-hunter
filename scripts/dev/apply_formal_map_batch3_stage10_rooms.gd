@@ -37,7 +37,7 @@ const SPECS := [
 		"previous": "res://scenes/rooms/stage10_zone_aerial_room.tscn", "previous_spawn": &"stage10_aerial_return", "left_exit": Vector2(-352, 224),
 		"spawns": {&"stage10_challenge_start": Vector2(-256, 268), &"stage10_challenge_return": Vector2(1088, 268)},
 		"exit": Vector2(1248, 224), "gate": Vector2(1152, 232), "require_all": true,
-		"nodes": {"BasicMeleeEnemy": Vector2(128, 184), "GroundChargerEnemy": Vector2(512, 264), "AerialSentinelEnemy": Vector2(832, 120), "ChallengeCollectible": Vector2(896, 104)},
+		"nodes": {"BasicMeleeEnemy": Vector2(128, 184), "GroundChargerEnemy": Vector2(512, 264), "AerialSentinelEnemy": Vector2(832, 144), "ChallengeCollectible": Vector2(896, 104)},
 	},
 ]
 
