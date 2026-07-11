@@ -15,8 +15,10 @@ from PIL import Image
 
 ROOT = Path.cwd()
 PLAYER_DIR = Path("assets/art/characters/player/sprite_sheets/runtime_replacement")
+ENEMY_DIR = Path("assets/art/characters/enemies/sprite_sheets/runtime_replacement")
 CANDIDATE_MANIFEST = Path("docs/assets/animation-runtime-replacement-candidates.json")
 CELL = (192, 192)
+ENEMY_CELL = (160, 160)
 JUMP_ASSET_ID = "luna_jump_state_runtime_sheet_ai04"
 JUMP_SOURCE_ID = "luna_jump_fall_runtime_sheet_ai03"
 JUMP_SOURCE = PLAYER_DIR / f"{JUMP_SOURCE_ID}.png"
@@ -40,11 +42,41 @@ JUMP_ANIMATIONS = [
     {"name": "fall_hold", "indexes": [5, 6], "speed": 8.0, "loop": True},
     {"name": "land", "indexes": [7, 8, 9, 10], "speed": 14.0, "loop": False},
 ]
+ENEMY_DEFEAT_SPECS = [
+    {
+        "id": "enemy_basic_melee_defeat_runtime_sheet_ai02",
+        "source_id": "enemy_basic_melee_runtime_sheet_ai01",
+        "animation": "basic_melee_defeat",
+    },
+    {
+        "id": "enemy_ground_charger_defeat_runtime_sheet_ai02",
+        "source_id": "enemy_ground_charger_runtime_sheet_ai01",
+        "animation": "ground_charger_defeat",
+    },
+    {
+        "id": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02",
+        "source_id": "enemy_aerial_sentinel_runtime_sheet_ai01",
+        "animation": "aerial_sentinel_defeat",
+    },
+    {
+        "id": "enemy_miasma_caster_defeat_runtime_sheet_ai02",
+        "source_id": "enemy_miasma_caster_runtime_sheet_ai01",
+        "animation": "miasma_caster_defeat",
+    },
+]
+CHARGER_ACTION_ASSET_ID = "enemy_ground_charger_action_runtime_sheet_ai02"
+CHARGER_SOURCE_ID = "enemy_ground_charger_runtime_sheet_ai01"
+CHARGER_ACTION_ANIMATIONS = [
+    {"name": "ground_charger_telegraph", "indexes": [0, 1, 2], "speed": 24.0, "loop": False},
+    {"name": "ground_charger_charge", "indexes": [3, 4, 5], "speed": 10.0, "loop": True},
+    {"name": "ground_charger_recover", "indexes": [6, 7, 8], "speed": 8.0, "loop": False},
+]
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="构建 Stage17 动作运行态资产。")
     parser.add_argument("--jump", action="store_true", help="构建 Luna Model Lock jump-state sheet。")
+    parser.add_argument("--enemies", action="store_true", help="构建普通敌人 action / defeat sheets。")
     return parser.parse_args()
 
 
@@ -64,11 +96,16 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-# 从固定 192px 网格读取一格，保留现有透明像素和角色细节。
-def source_cell(sheet: Image.Image, index: int, columns: int) -> Image.Image:
-    x = (index % columns) * CELL[0]
-    y = (index // columns) * CELL[1]
-    return sheet.crop((x, y, x + CELL[0], y + CELL[1])).convert("RGBA")
+# 从固定网格读取一格，保留现有透明像素和角色细节。
+def source_cell(
+    sheet: Image.Image,
+    index: int,
+    columns: int,
+    cell: tuple[int, int] = CELL,
+) -> Image.Image:
+    x = (index % columns) * cell[0]
+    y = (index // columns) * cell[1]
+    return sheet.crop((x, y, x + cell[0], y + cell[1])).convert("RGBA")
 
 
 # 读取角色 alpha bounds；空帧属于不可恢复的源资产错误。
@@ -77,6 +114,55 @@ def alpha_bbox(image: Image.Image) -> tuple[int, int, int, int]:
     if bbox is None:
         raise ValueError("source frame is empty")
     return tuple(int(value) for value in bbox)
+
+
+# 颜色乘数只改变动作读值，不重新绘制模型；alpha 单独保留，避免透明背景被污染。
+def tint_image(image: Image.Image, factors: tuple[float, float, float], alpha_factor: float) -> Image.Image:
+    red, green, blue, alpha = image.split()
+    channels = []
+    for channel, factor in zip((red, green, blue), factors):
+        channels.append(channel.point(lambda value, f=factor: min(255, round(value * f))))
+    alpha = alpha.point(lambda value: min(255, round(value * alpha_factor)))
+    return Image.merge("RGBA", (*channels, alpha))
+
+
+# 普通敌人派生帧使用统一中心和脚底基线；状态差异只通过受控缩放、压缩和色值表达。
+def normalize_enemy_frame(
+    frame: Image.Image,
+    scale_multiplier: float,
+    width_multiplier: float,
+    tint: tuple[float, float, float],
+    alpha_factor: float,
+    foot_y: int = 148,
+) -> tuple[Image.Image, dict[str, Any]]:
+    bbox = alpha_bbox(frame)
+    content = frame.crop(bbox)
+    safe_width = ENEMY_CELL[0] - 24
+    safe_height = ENEMY_CELL[1] - 16
+    base_scale = min(safe_width / content.width, safe_height / content.height, 1.0)
+    width = max(1, round(content.width * base_scale * scale_multiplier * width_multiplier))
+    height = max(1, round(content.height * base_scale * scale_multiplier))
+    width = min(width, safe_width)
+    height = min(height, safe_height)
+    resized = content.resize((width, height), Image.Resampling.LANCZOS)
+    resized = tint_image(resized, tint, alpha_factor)
+    paste_x = round((ENEMY_CELL[0] - width) / 2)
+    paste_y = foot_y - height
+    output = Image.new("RGBA", ENEMY_CELL, (0, 0, 0, 0))
+    output.alpha_composite(resized, (paste_x, paste_y))
+    return (
+        output,
+        {
+            "source_bbox": list(bbox),
+            "normalized_size": [width, height],
+            "paste": [paste_x, paste_y],
+            "scale": round(base_scale * scale_multiplier, 6),
+            "center_x": ENEMY_CELL[0] // 2,
+            "foot_y": foot_y,
+            "alpha_factor": alpha_factor,
+            "tint": list(tint),
+        },
+    )
 
 
 # 使用单一 scale 规范化所有跳跃相位，避免每帧独立缩放造成模型呼吸。
@@ -166,6 +252,257 @@ def write_jump_spriteframes(path: Path, texture_path: Path, frame_count: int) ->
         )
     lines.extend(["[resource]", f'animations = [{", ".join(animations)}]'])
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+# 普通敌人资源共用同一 SpriteFrames 写入器，动作表可声明一个或多个稳定 animation 名。
+def write_enemy_spriteframes(
+    path: Path,
+    texture_path: Path,
+    asset_id: str,
+    frame_count: int,
+    columns: int,
+    animations_spec: list[dict[str, Any]],
+) -> None:
+    lines = [
+        f'[gd_resource type="SpriteFrames" load_steps={frame_count + 2} format=3]',
+        "",
+        f'[ext_resource type="Texture2D" path="{resource_path(texture_path)}" id="1"]',
+        "",
+    ]
+    for index in range(frame_count):
+        x = (index % columns) * ENEMY_CELL[0]
+        y = (index // columns) * ENEMY_CELL[1]
+        lines.extend(
+            [
+                f'[sub_resource type="AtlasTexture" id="AtlasTexture_{asset_id}_{index:03d}"]',
+                'atlas = ExtResource("1")',
+                f"region = Rect2({x}, {y}, {ENEMY_CELL[0]}, {ENEMY_CELL[1]})",
+                "",
+            ]
+        )
+
+    animations = []
+    for animation in animations_spec:
+        frames = [
+            '{"duration": 1.0, "texture": SubResource("AtlasTexture_%s_%03d")}' % (asset_id, index)
+            for index in animation["indexes"]
+        ]
+        animations.append(
+            "{\n"
+            f'"frames": [{", ".join(frames)}],\n'
+            f'"loop": {str(bool(animation["loop"])).lower()},\n'
+            f'"name": &"{animation["name"]}",\n'
+            f'"speed": {float(animation["speed"]):.1f}\n'
+            "}"
+        )
+    lines.extend(["[resource]", f'animations = [{", ".join(animations)}]'])
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+# Stage17 派生资产以最小候选条目加入严格审计，不复制 frames.json 的逐帧正文。
+def update_enemy_candidate_manifest(entries: list[dict[str, Any]]) -> None:
+    manifest = json.loads(CANDIDATE_MANIFEST.read_text(encoding="utf-8"))
+    entry_ids = {str(entry["id"]) for entry in entries}
+    outputs = [item for item in manifest.get("outputs", []) if str(item.get("id", "")) not in entry_ids]
+    outputs.extend(entries)
+    manifest["outputs"] = outputs
+    manifest["asset_count"] = len(outputs)
+    manifest["active_asset_count"] = sum(1 for item in outputs if item.get("kind") == "sprite_sheet")
+    manifest["archived_reference_count"] = len(outputs) - manifest["active_asset_count"]
+    CANDIDATE_MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+# 从现有敌人 cycle 的后半姿态派生非血腥倒地反馈，保持模型、透明边界和脚底基线一致。
+def build_enemy_defeat(spec: dict[str, str]) -> dict[str, Any]:
+    asset_id = spec["id"]
+    source_id = spec["source_id"]
+    animation_name = spec["animation"]
+    source_path = ENEMY_DIR / f"{source_id}.png"
+    source_sheet = Image.open(source_path).convert("RGBA")
+    selected_indexes = [4, 5, 6, 7]
+    scale_multipliers = [1.0, 0.94, 0.86, 0.78]
+    alpha_factors = [1.0, 0.88, 0.72, 0.56]
+    tints = [
+        (1.0, 0.96, 0.96),
+        (0.96, 0.88, 0.88),
+        (0.88, 0.76, 0.76),
+        (0.78, 0.64, 0.64),
+    ]
+    columns = 4
+    output = Image.new("RGBA", (columns * ENEMY_CELL[0], ENEMY_CELL[1]), (0, 0, 0, 0))
+    frames: list[dict[str, Any]] = []
+    for index, source_index in enumerate(selected_indexes):
+        frame = source_cell(source_sheet, source_index, 8, ENEMY_CELL)
+        normalized, record = normalize_enemy_frame(
+            frame,
+            scale_multipliers[index],
+            1.0,
+            tints[index],
+            alpha_factors[index],
+        )
+        target_x = index * ENEMY_CELL[0]
+        output.alpha_composite(normalized, (target_x, 0))
+        frames.append(
+            {
+                "index": index,
+                "name": f"{asset_id}_{animation_name}_{index + 1:02d}",
+                "phase": "defeat",
+                "source": relative(source_path),
+                "source_frame_index": source_index,
+                "region": [target_x, 0, *ENEMY_CELL],
+                **record,
+            }
+        )
+
+    output_path = ENEMY_DIR / f"{asset_id}.png"
+    metadata_path = ENEMY_DIR / f"{asset_id}.frames.json"
+    source_record_path = ENEMY_DIR / f"{asset_id}.source.json"
+    spriteframes_path = ENEMY_DIR / f"{asset_id}.spriteframes.tres"
+    output.save(output_path)
+    animations = [{"name": animation_name, "indexes": [0, 1, 2, 3], "speed": 12.0, "loop": False}]
+    write_enemy_spriteframes(spriteframes_path, output_path, asset_id, len(frames), columns, animations)
+    metadata = {
+        "id": asset_id,
+        "source_asset_id": source_id,
+        "kind": "sprite_sheet",
+        "batch": "ARP-17",
+        "output": relative(output_path),
+        "metadata": relative(metadata_path),
+        "sprite_frames": relative(spriteframes_path),
+        "cell": list(ENEMY_CELL),
+        "columns": columns,
+        "rows": 1,
+        "frame_count": len(frames),
+        "animation": {"name": animation_name, "speed": 12.0, "loop": False},
+        "animations": animations,
+        "anchor": "foot",
+        "frames": frames,
+        "normalization": {
+            "process": "reuse_cycle_frames_with_progressive_collapse_and_fade",
+            "source_cell": list(ENEMY_CELL),
+            "selected_source_frames": selected_indexes,
+            "foot_baseline_y": 148,
+            "center_x": 80,
+        },
+    }
+    metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    source_record_path.write_text(
+        json.dumps(
+            {
+                "asset_id": asset_id,
+                "source_asset_id": source_id,
+                "source": relative(source_path),
+                "source_sha256": sha256(source_path),
+                "process": "stage17_deterministic_cycle_to_non_gory_defeat",
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return {key: value for key, value in metadata.items() if key != "frames"}
+
+
+# Ground Charger 只派生当前 AI 已真实存在的读招、冲锋和恢复姿态，不新增攻击判定。
+def build_ground_charger_action() -> dict[str, Any]:
+    asset_id = CHARGER_ACTION_ASSET_ID
+    source_path = ENEMY_DIR / f"{CHARGER_SOURCE_ID}.png"
+    source_sheet = Image.open(source_path).convert("RGBA")
+    frame_specs = [
+        ("telegraph", 0, 0.92, 0.92, (0.84, 0.96, 1.08), 1.0),
+        ("telegraph", 1, 0.96, 0.96, (0.88, 0.98, 1.08), 1.0),
+        ("telegraph", 2, 1.0, 1.0, (0.94, 1.0, 1.08), 1.0),
+        ("charge", 3, 1.0, 1.0, (1.0, 1.0, 1.0), 1.0),
+        ("charge", 4, 1.0, 1.04, (1.04, 1.02, 0.96), 1.0),
+        ("charge", 5, 1.0, 1.08, (1.08, 1.02, 0.92), 1.0),
+        ("recover", 6, 0.98, 1.0, (0.94, 0.94, 0.98), 1.0),
+        ("recover", 7, 0.92, 1.0, (0.88, 0.88, 0.94), 0.92),
+        ("recover", 0, 0.86, 1.0, (0.80, 0.80, 0.88), 0.84),
+    ]
+    columns = 3
+    rows = 3
+    output = Image.new("RGBA", (columns * ENEMY_CELL[0], rows * ENEMY_CELL[1]), (0, 0, 0, 0))
+    frames: list[dict[str, Any]] = []
+    for index, (phase, source_index, scale, width_scale, tint, alpha_factor) in enumerate(frame_specs):
+        frame = source_cell(source_sheet, source_index, 8, ENEMY_CELL)
+        normalized, record = normalize_enemy_frame(frame, scale, width_scale, tint, alpha_factor)
+        target_x = (index % columns) * ENEMY_CELL[0]
+        target_y = (index // columns) * ENEMY_CELL[1]
+        output.alpha_composite(normalized, (target_x, target_y))
+        frames.append(
+            {
+                "index": index,
+                "name": f"{asset_id}_{phase}_{index + 1:02d}",
+                "phase": phase,
+                "source": relative(source_path),
+                "source_frame_index": source_index,
+                "region": [target_x, target_y, *ENEMY_CELL],
+                **record,
+            }
+        )
+
+    output_path = ENEMY_DIR / f"{asset_id}.png"
+    metadata_path = ENEMY_DIR / f"{asset_id}.frames.json"
+    source_record_path = ENEMY_DIR / f"{asset_id}.source.json"
+    spriteframes_path = ENEMY_DIR / f"{asset_id}.spriteframes.tres"
+    output.save(output_path)
+    write_enemy_spriteframes(
+        spriteframes_path,
+        output_path,
+        asset_id,
+        len(frames),
+        columns,
+        CHARGER_ACTION_ANIMATIONS,
+    )
+    metadata = {
+        "id": asset_id,
+        "source_asset_id": CHARGER_SOURCE_ID,
+        "kind": "sprite_sheet",
+        "batch": "ARP-17",
+        "output": relative(output_path),
+        "metadata": relative(metadata_path),
+        "sprite_frames": relative(spriteframes_path),
+        "cell": list(ENEMY_CELL),
+        "columns": columns,
+        "rows": rows,
+        "frame_count": len(frames),
+        "animation": CHARGER_ACTION_ANIMATIONS[0],
+        "animations": CHARGER_ACTION_ANIMATIONS,
+        "anchor": "foot",
+        "frames": frames,
+        "normalization": {
+            "process": "reuse_cycle_frames_with_state_specific_pose_emphasis",
+            "source_cell": list(ENEMY_CELL),
+            "foot_baseline_y": 148,
+            "center_x": 80,
+        },
+    }
+    metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    source_record_path.write_text(
+        json.dumps(
+            {
+                "asset_id": asset_id,
+                "source_asset_id": CHARGER_SOURCE_ID,
+                "source": relative(source_path),
+                "source_sha256": sha256(source_path),
+                "process": "stage17_deterministic_cycle_to_telegraph_charge_recover",
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return {key: value for key, value in metadata.items() if key != "frames"}
+
+
+def build_enemies() -> None:
+    ENEMY_DIR.mkdir(parents=True, exist_ok=True)
+    entries = [build_enemy_defeat(spec) for spec in ENEMY_DEFEAT_SPECS]
+    entries.append(build_ground_charger_action())
+    update_enemy_candidate_manifest(entries)
+    print(f"Built Stage17 regular enemy assets: {len(entries)} sheets")
 
 
 # 候选清单把旧 jump 资源转为归档引用，并把 ai04 设为唯一 live jump-state 候选。
@@ -278,7 +615,10 @@ def main() -> None:
     if args.jump:
         build_jump()
         return
-    raise SystemExit("Choose an asset group, for example --jump")
+    if args.enemies:
+        build_enemies()
+        return
+    raise SystemExit("Choose an asset group, for example --jump or --enemies")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,7 @@
+{
+  "asset_id": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02",
+  "source_asset_id": "enemy_aerial_sentinel_runtime_sheet_ai01",
+  "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.png",
+  "source_sha256": "1b658111e8afb5cea98ca58937733228beb01eb6a2ce741f16287f20fa5a4ffe",
+  "process": "stage17_deterministic_cycle_to_non_gory_defeat"
+}

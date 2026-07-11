@@ -1,0 +1,7 @@
+{
+  "asset_id": "enemy_miasma_caster_defeat_runtime_sheet_ai02",
+  "source_asset_id": "enemy_miasma_caster_runtime_sheet_ai01",
+  "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.png",
+  "source_sha256": "a7862d9fbf0efdbbfbc5d4b90b4b1c5f7764faadaad8e3534b45eb367a2c3bed",
+  "process": "stage17_deterministic_cycle_to_non_gory_defeat"
+}

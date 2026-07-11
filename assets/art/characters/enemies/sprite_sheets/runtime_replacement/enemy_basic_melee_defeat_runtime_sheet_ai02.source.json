@@ -1,0 +1,7 @@
+{
+  "asset_id": "enemy_basic_melee_defeat_runtime_sheet_ai02",
+  "source_asset_id": "enemy_basic_melee_runtime_sheet_ai01",
+  "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_basic_melee_runtime_sheet_ai01.png",
+  "source_sha256": "551d5b2f79e754ca1c38b05633cf669c242c3727e428f6e3c783f63ec7a200c3",
+  "process": "stage17_deterministic_cycle_to_non_gory_defeat"
+}

@@ -1,0 +1,196 @@
+{
+  "id": "enemy_miasma_caster_defeat_runtime_sheet_ai02",
+  "source_asset_id": "enemy_miasma_caster_runtime_sheet_ai01",
+  "kind": "sprite_sheet",
+  "batch": "ARP-17",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_defeat_runtime_sheet_ai02.png",
+  "metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_defeat_runtime_sheet_ai02.frames.json",
+  "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_defeat_runtime_sheet_ai02.spriteframes.tres",
+  "cell": [
+    160,
+    160
+  ],
+  "columns": 4,
+  "rows": 1,
+  "frame_count": 4,
+  "animation": {
+    "name": "miasma_caster_defeat",
+    "speed": 12.0,
+    "loop": false
+  },
+  "animations": [
+    {
+      "name": "miasma_caster_defeat",
+      "indexes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "speed": 12.0,
+      "loop": false
+    }
+  ],
+  "anchor": "foot",
+  "frames": [
+    {
+      "index": 0,
+      "name": "enemy_miasma_caster_defeat_runtime_sheet_ai02_miasma_caster_defeat_01",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.png",
+      "source_frame_index": 4,
+      "region": [
+        0,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        41,
+        44,
+        119,
+        152
+      ],
+      "normalized_size": [
+        78,
+        108
+      ],
+      "paste": [
+        41,
+        40
+      ],
+      "scale": 1.0,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 1.0,
+      "tint": [
+        1.0,
+        0.96,
+        0.96
+      ]
+    },
+    {
+      "index": 1,
+      "name": "enemy_miasma_caster_defeat_runtime_sheet_ai02_miasma_caster_defeat_02",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.png",
+      "source_frame_index": 5,
+      "region": [
+        160,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        36,
+        44,
+        124,
+        152
+      ],
+      "normalized_size": [
+        83,
+        102
+      ],
+      "paste": [
+        38,
+        46
+      ],
+      "scale": 0.94,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 0.88,
+      "tint": [
+        0.96,
+        0.88,
+        0.88
+      ]
+    },
+    {
+      "index": 2,
+      "name": "enemy_miasma_caster_defeat_runtime_sheet_ai02_miasma_caster_defeat_03",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.png",
+      "source_frame_index": 6,
+      "region": [
+        320,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        36,
+        45,
+        124,
+        152
+      ],
+      "normalized_size": [
+        76,
+        92
+      ],
+      "paste": [
+        42,
+        56
+      ],
+      "scale": 0.86,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 0.72,
+      "tint": [
+        0.88,
+        0.76,
+        0.76
+      ]
+    },
+    {
+      "index": 3,
+      "name": "enemy_miasma_caster_defeat_runtime_sheet_ai02_miasma_caster_defeat_04",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.png",
+      "source_frame_index": 7,
+      "region": [
+        480,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        36,
+        44,
+        123,
+        152
+      ],
+      "normalized_size": [
+        68,
+        84
+      ],
+      "paste": [
+        46,
+        64
+      ],
+      "scale": 0.78,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 0.56,
+      "tint": [
+        0.78,
+        0.64,
+        0.64
+      ]
+    }
+  ],
+  "normalization": {
+    "process": "reuse_cycle_frames_with_progressive_collapse_and_fade",
+    "source_cell": [
+      160,
+      160
+    ],
+    "selected_source_frames": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "foot_baseline_y": 148,
+    "center_x": 80
+  }
+}

@@ -8,6 +8,7 @@ patrol_distance = 18.0
 patrol_speed = 2.4
 touch_damage = 1
 trigger_distance = 108.0
+telegraph_duration = 0.12
 charge_speed = 260.0
 charge_duration = 0.38
 recovery_duration = 0.5

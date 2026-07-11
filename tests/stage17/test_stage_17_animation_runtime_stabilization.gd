@@ -162,8 +162,8 @@ func test_all_regular_enemy_cycles_start_and_advance() -> void:
 
 		assert_eq(visual.animation, enemy_case.get("cycle"))
 		assert_true(visual.is_playing(), "%s 的默认 cycle 未启动。" % enemy_case.get("scene"))
-		await _advance_process_frames(10)
-		assert_ne(visual.frame, frame_before, "%s 的默认 cycle 没有推进帧。" % enemy_case.get("scene"))
+		var frame_advanced := await _wait_for_animation_frame_change(visual, frame_before, 30)
+		assert_true(frame_advanced, "%s 的默认 cycle 没有推进帧。" % enemy_case.get("scene"))
 
 
 # 普通敌人击败后应立即解除门控碰撞，但保留可见 defeat 反馈。
@@ -328,6 +328,15 @@ func _advance_physics_frames(frame_count: int) -> void:
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
+
+
+# 动画帧率低于测试进程帧率时按状态等待，避免固定帧数在不同机器上产生假失败。
+func _wait_for_animation_frame_change(visual: AnimatedSprite2D, initial_frame: int, max_frames: int) -> bool:
+	for _i in range(max_frames):
+		await get_tree().process_frame
+		if visual.frame != initial_frame:
+			return true
+	return false
 
 
 # 输入清理覆盖当前玩家动作，避免 GUT 测试之间共享按键状态。

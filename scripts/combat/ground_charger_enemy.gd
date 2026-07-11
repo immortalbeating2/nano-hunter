@@ -7,6 +7,9 @@ extends "res://scripts/combat/base_enemy.gd"
 
 # 配置资源集中记录冲锋敌的巡逻、触发、冲刺和恢复数值。
 const GroundChargerEnemyConfig := preload("res://scripts/configs/ground_charger_enemy_config.gd")
+const CYCLE_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_runtime_sheet_ai01.spriteframes.tres")
+const ACTION_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_action_runtime_sheet_ai02.spriteframes.tres")
+const DEFEAT_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_defeat_runtime_sheet_ai02.spriteframes.tres")
 
 # 场景实例通过该字段选择调参资源；脚本运行中只读取一次。
 @export var config: GroundChargerEnemyConfig
@@ -16,6 +19,7 @@ var _patrol_distance: float = 24.0
 var _patrol_speed: float = 2.0
 var _touch_damage: int = 1
 var _trigger_distance: float = 96.0
+var _telegraph_duration: float = 0.12
 var _charge_speed: float = 220.0
 var _charge_duration: float = 0.35
 var _recovery_duration: float = 0.45
@@ -24,10 +28,12 @@ var _recovery_duration: float = 0.45
 var _player: CharacterBody2D
 var _spawn_position := Vector2.ZERO
 var _patrol_elapsed := 0.0
+var _telegraph_remaining := 0.0
 var _charge_elapsed := 0.0
 var _recovery_remaining := 0.0
 var _charge_direction := 1.0
 var _charge_active := false
+var _charge_trigger_armed := true
 
 
 # 冲锋敌人的主循环要么处在冲锋 / 恢复中，要么回到巡逻并等待下一次触发。
@@ -42,29 +48,47 @@ func _physics_process(delta: float) -> void:
 	if is_defeated():
 		return
 
-	if _charge_active:
+	if _telegraph_remaining > 0.0:
+		# 读招期只锁定冲锋方向和播放姿态，不移动，也不产生触碰伤害。
+		_telegraph_remaining = maxf(_telegraph_remaining - delta, 0.0)
+		if _telegraph_remaining <= 0.0:
+			_begin_charge()
+	elif _charge_active:
 		# 冲锋期不重新追踪玩家，保留“看准时机躲开”的可学习性。
 		_charge_elapsed += delta
 		position.x += _charge_direction * _charge_speed * delta
 		if _charge_elapsed >= _charge_duration:
 			_charge_active = false
 			_recovery_remaining = _recovery_duration
+			_play_runtime_animation(
+				ACTION_FRAMES,
+				&"ground_charger_recover",
+				"enemy_ground_charger_action_runtime_sheet_ai02",
+				true
+			)
 	elif _recovery_remaining > 0.0:
 		_recovery_remaining = maxf(_recovery_remaining - delta, 0.0)
+		if _recovery_remaining <= 0.0:
+			_play_patrol_animation()
 	else:
 		# 巡逻段围绕出生点轻微摆动，既能表现活物，也不改变房间布局读值。
 		_patrol_elapsed += delta
 		position.x = _spawn_position.x + sin(_patrol_elapsed * _patrol_speed) * _patrol_distance
+		if not _charge_trigger_armed and not _is_player_in_charge_range():
+			_charge_trigger_armed = true
 		if _can_start_charge():
-			_start_charge()
+			_start_telegraph()
 
-	_deal_touch_damage(_touch_damage)
+	if _telegraph_remaining <= 0.0:
+		_deal_touch_damage(_touch_damage)
 
 
 # 接收房间注入的玩家引用，供冲锋触发和方向判定使用。
 func bind_player(player: CharacterBody2D) -> void:
 	# 房间或 Main 在玩家生成后注入引用，敌人本身不主动查找全局玩家。
 	_player = player
+	if _can_start_charge():
+		_start_telegraph()
 
 
 # 公开当前是否正在冲锋，供测试和调试确认行为窗口。
@@ -102,6 +126,7 @@ func _apply_config() -> void:
 	_patrol_speed = config.patrol_speed
 	_touch_damage = config.touch_damage
 	_trigger_distance = config.trigger_distance
+	_telegraph_duration = config.telegraph_duration
 	_charge_speed = config.charge_speed
 	_charge_duration = config.charge_duration
 	_recovery_duration = config.recovery_duration
@@ -109,6 +134,13 @@ func _apply_config() -> void:
 
 # 判断玩家是否进入同高度、近距离的冲锋触发带。
 func _can_start_charge() -> bool:
+	if not _charge_trigger_armed:
+		return false
+	return _is_player_in_charge_range()
+
+
+# 触发带只判断玩家相对位置；重新武装与状态切换由调用方负责。
+func _is_player_in_charge_range() -> bool:
 	if _player == null:
 		return false
 
@@ -120,9 +152,52 @@ func _can_start_charge() -> bool:
 	return absf(offset.x) <= _trigger_distance
 
 
-# 冲锋方向只取玩家相对位置的水平符号，不在阶段 9 引入更复杂的预判或转向系统。
-func _start_charge() -> void:
-	_charge_active = true
-	_charge_elapsed = 0.0
+# 触发时先锁定方向并进入短读招，保持原冲锋速度、持续时间和伤害边界不变。
+func _start_telegraph() -> void:
+	_charge_trigger_armed = false
+	_telegraph_remaining = _telegraph_duration
 	var direction_to_player := signf(_player.global_position.x - global_position.x)
 	_charge_direction = direction_to_player if absf(direction_to_player) > 0.01 else 1.0
+	if _runtime_animation_visual != null:
+		_runtime_animation_visual.flip_h = _charge_direction < 0.0
+	_play_runtime_animation(
+		ACTION_FRAMES,
+		&"ground_charger_telegraph",
+		"enemy_ground_charger_action_runtime_sheet_ai02",
+		true
+	)
+
+
+# Telegraph 到期后才正式开始位移冲锋，保证读招期间 is_charge_active 仍为 false。
+func _begin_charge() -> void:
+	_charge_active = true
+	_charge_elapsed = 0.0
+	_play_runtime_animation(
+		ACTION_FRAMES,
+		&"ground_charger_charge",
+		"enemy_ground_charger_action_runtime_sheet_ai02",
+		true
+	)
+
+
+# 恢复结束回到原有 cycle；该 helper 只负责视觉，不改巡逻和触发判定。
+func _play_patrol_animation() -> void:
+	_play_runtime_animation(
+		CYCLE_FRAMES,
+		&"ground_charger_cycle",
+		"enemy_ground_charger_runtime_sheet_ai01",
+		true
+	)
+
+
+# 冲锋敌被击败时立即退出行为状态并切可见 defeat，门控信号仍由 BaseEnemy 同帧发出。
+func _play_defeat_animation() -> void:
+	_telegraph_remaining = 0.0
+	_charge_active = false
+	_recovery_remaining = 0.0
+	_play_runtime_animation(
+		DEFEAT_FRAMES,
+		&"ground_charger_defeat",
+		"enemy_ground_charger_defeat_runtime_sheet_ai02",
+		true
+	)

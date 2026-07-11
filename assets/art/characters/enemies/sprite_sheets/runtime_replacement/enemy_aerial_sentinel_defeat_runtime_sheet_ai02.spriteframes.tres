@@ -1,0 +1,27 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_defeat_runtime_sheet_ai02.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_001"]
+atlas = ExtResource("1")
+region = Rect2(160, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_002"]
+atlas = ExtResource("1")
+region = Rect2(320, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_003"]
+atlas = ExtResource("1")
+region = Rect2(480, 0, 160, 160)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_002")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_enemy_aerial_sentinel_defeat_runtime_sheet_ai02_003")}],
+"loop": false,
+"name": &"aerial_sentinel_defeat",
+"speed": 12.0
+}]

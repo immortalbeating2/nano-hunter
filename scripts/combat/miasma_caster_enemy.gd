@@ -6,6 +6,7 @@ extends "res://scripts/combat/base_enemy.gd"
 
 # 配置资源保存 Stage13 远程压制的可调半径、脉冲节奏和触碰伤害。
 const MiasmaCasterEnemyConfig := preload("res://scripts/configs/miasma_caster_enemy_config.gd")
+const DEFEAT_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_defeat_runtime_sheet_ai02.spriteframes.tres")
 
 # 场景实例通过该字段绑定配置；脚本不会在运行中修改资源。
 @export var config: MiasmaCasterEnemyConfig
@@ -90,3 +91,14 @@ func _hide_pressure_visuals() -> void:
 		pressure_visual.visible = false
 	if pressure_vfx != null:
 		pressure_vfx.visible = false
+
+
+# 施法者清除时同步移除压力范围，并播放可见 defeat；真实投射物仍不属于 Stage17。
+func _play_defeat_animation() -> void:
+	_hide_pressure_visuals()
+	_play_runtime_animation(
+		DEFEAT_FRAMES,
+		&"miasma_caster_defeat",
+		"enemy_miasma_caster_defeat_runtime_sheet_ai02",
+		true
+	)
