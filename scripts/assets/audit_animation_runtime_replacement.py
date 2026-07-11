@@ -7,6 +7,7 @@ import argparse
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from statistics import median
 from typing import Any
 
 from PIL import Image
@@ -292,6 +293,134 @@ def duplicate_groups(frames: list[dict[str, Any]]) -> list[list[int]]:
     return [indexes for indexes in by_hash.values() if len(indexes) > 1]
 
 
+def audit_model_lock(
+    texture_path: Path,
+    metadata: dict[str, Any],
+    audited_frames: list[dict[str, Any]],
+) -> tuple[dict[str, Any], list[str], list[str]]:
+    """验证 Stage17 Luna Model Lock 的相位基线和 canonical 体量。"""
+    lock = metadata.get("model_lock")
+    if not isinstance(lock, dict):
+        return {}, [], []
+
+    blockers: list[str] = []
+    warnings: list[str] = []
+    expected_center = float(lock.get("center_x", 96))
+    center_tolerance = float(lock.get("center_tolerance_px", 2))
+    expected_foot = int(lock.get("ground_foot_y", 176))
+    foot_tolerance = int(lock.get("ground_foot_tolerance_px", 2))
+    expected_height = int(lock.get("standing_reference_height", 140))
+    height_tolerance = int(lock.get("standing_height_tolerance_px", 6))
+    standing_indexes = {int(index) for index in lock.get("standing_frame_indices", [])}
+    grounded_phases = {str(phase) for phase in lock.get("grounded_phases", [])}
+    metadata_by_index = {
+        int(frame.get("index", -1)): frame
+        for frame in metadata.get("frames", [])
+        if isinstance(frame, dict)
+    }
+
+    center_failures = [
+        int(frame["index"])
+        for frame in audited_frames
+        if not frame["empty"] and abs(float(frame["center"][0]) - expected_center) > center_tolerance
+    ]
+    grounded_frames = [
+        frame
+        for frame in audited_frames
+        if (
+            not frame["empty"]
+            and str(metadata_by_index.get(int(frame["index"]), {}).get("phase", "")) in grounded_phases
+        )
+    ]
+    foot_failures = [
+        int(frame["index"])
+        for frame in grounded_frames
+        if abs(int(frame["foot_y"]) - expected_foot) > foot_tolerance
+    ]
+    standing_frames = [
+        frame for frame in audited_frames
+        if not frame["empty"] and int(frame["index"]) in standing_indexes
+    ]
+    standing_heights = [int(frame["content_size"][1]) for frame in standing_frames]
+    standing_height_failures = [
+        int(frame["index"])
+        for frame in standing_frames
+        if abs(int(frame["content_size"][1]) - expected_height) > height_tolerance
+    ]
+
+    canonical_id = str(lock.get("canonical_reference", ""))
+    canonical_metadata_path = texture_path.parent / f"{canonical_id}.frames.json"
+    canonical_texture_path = texture_path.parent / f"{canonical_id}.png"
+    canonical_median_height: float | None = None
+    standing_median_height: float | None = float(median(standing_heights)) if standing_heights else None
+    cross_action_deviation: float | None = None
+    if canonical_id and canonical_metadata_path.exists() and canonical_texture_path.exists():
+        canonical_metadata = load_json(canonical_metadata_path)
+        canonical_cell = [int(value) for value in canonical_metadata.get("cell", [192, 192])]
+        canonical_image = Image.open(canonical_texture_path).convert("RGBA")
+        canonical_frames = [
+            audit_frame(canonical_image, frame, canonical_cell)
+            for frame in canonical_metadata.get("frames", [])
+            if isinstance(frame, dict)
+        ]
+        canonical_heights = [
+            int(frame["content_size"][1])
+            for frame in canonical_frames
+            if not frame["empty"]
+        ]
+        if canonical_heights:
+            canonical_median_height = float(median(canonical_heights))
+    else:
+        blockers.append("model_lock_missing_canonical_reference")
+
+    if canonical_median_height and standing_median_height is not None:
+        cross_action_deviation = abs(standing_median_height - canonical_median_height) / canonical_median_height
+        max_deviation = float(lock.get("max_cross_action_median_height_deviation_ratio", 0.08))
+        if cross_action_deviation > max_deviation:
+            blockers.append("model_lock_cross_action_height_drift")
+
+    if str(lock.get("model_id", "")) != "luna_model_v1":
+        blockers.append("model_lock_id_mismatch")
+    if center_failures:
+        blockers.append("model_lock_center_line_drift")
+    if not grounded_frames or foot_failures:
+        blockers.append("model_lock_grounded_foot_baseline_drift")
+    if not standing_frames or standing_height_failures:
+        blockers.append("model_lock_standing_height_drift")
+    if center_failures:
+        warnings.append(f"model_lock_center_failures={center_failures}")
+    if foot_failures:
+        warnings.append(f"model_lock_foot_failures={foot_failures}")
+    if standing_height_failures:
+        warnings.append(f"model_lock_standing_height_failures={standing_height_failures}")
+
+    return (
+        {
+            "model_id": str(lock.get("model_id", "")),
+            "canonical_reference": canonical_id,
+            "center_x": expected_center,
+            "center_tolerance_px": center_tolerance,
+            "center_failures": center_failures,
+            "ground_foot_y": expected_foot,
+            "ground_foot_tolerance_px": foot_tolerance,
+            "grounded_frame_count": len(grounded_frames),
+            "foot_failures": foot_failures,
+            "standing_reference_height": expected_height,
+            "standing_height_tolerance_px": height_tolerance,
+            "standing_frame_indices": sorted(standing_indexes),
+            "standing_heights": standing_heights,
+            "standing_height_failures": standing_height_failures,
+            "canonical_median_height": canonical_median_height,
+            "standing_median_height": standing_median_height,
+            "cross_action_median_height_deviation_ratio": (
+                round(cross_action_deviation, 4) if cross_action_deviation is not None else None
+            ),
+        },
+        blockers,
+        warnings,
+    )
+
+
 def audit_asset(root: Path, item: dict[str, Any]) -> dict[str, Any]:
     asset_id = str(item["id"])
     profile = profile_for(asset_id)
@@ -348,6 +477,15 @@ def audit_asset(root: Path, item: dict[str, Any]) -> dict[str, Any]:
     image = Image.open(texture_path).convert("RGBA")
     audited_frames = [audit_frame(image, frame, cell) for frame in frames]
     report["frames"] = audited_frames
+    model_lock_report, model_lock_blockers, model_lock_warnings = audit_model_lock(
+        texture_path,
+        metadata,
+        audited_frames,
+    )
+    if model_lock_report:
+        report["model_lock"] = model_lock_report
+        report["blockers"].extend(model_lock_blockers)
+        report["warnings"].extend(model_lock_warnings)
 
     if not audited_frames:
         report["blockers"].append("no_frames")
@@ -437,7 +575,7 @@ def audit_asset(root: Path, item: dict[str, Any]) -> dict[str, Any]:
             report["warnings"].append(f"edge_padding_failures={edge_padding_failures}")
         if horizontal_padding_warnings:
             report["warnings"].append(f"horizontal_padding_below_recommended={horizontal_padding_warnings}")
-        if anchor_mode != "body_center" and foot_variance > profile.max_foot_baseline_variance_px:
+        if anchor_mode not in {"body_center", "phase_locked"} and foot_variance > profile.max_foot_baseline_variance_px:
             report["blockers"].append("unstable_foot_baseline")
         if center_x_variance > profile.max_center_variance_px:
             report["blockers"].append("unstable_center_x")

@@ -1,0 +1,445 @@
+{
+  "id": "luna_jump_state_runtime_sheet_ai04",
+  "kind": "sprite_sheet",
+  "source_asset_id": "luna_jump_fall_runtime_sheet_ai03",
+  "output": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_state_runtime_sheet_ai04.png",
+  "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_state_runtime_sheet_ai04.frames.json",
+  "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_state_runtime_sheet_ai04.spriteframes.tres",
+  "cell": [
+    192,
+    192
+  ],
+  "columns": 4,
+  "rows": 3,
+  "frame_count": 11,
+  "animation": {
+    "name": "jump_state",
+    "speed": 12.0,
+    "loop": false
+  },
+  "animations": [
+    {
+      "name": "jump_start",
+      "indexes": [
+        0,
+        1,
+        2
+      ],
+      "speed": 12.0,
+      "loop": false
+    },
+    {
+      "name": "rise_hold",
+      "indexes": [
+        3,
+        4
+      ],
+      "speed": 8.0,
+      "loop": true
+    },
+    {
+      "name": "fall_hold",
+      "indexes": [
+        5,
+        6
+      ],
+      "speed": 8.0,
+      "loop": true
+    },
+    {
+      "name": "land",
+      "indexes": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "speed": 14.0,
+      "loop": false
+    }
+  ],
+  "anchor": "phase_locked",
+  "model_lock": {
+    "model_id": "luna_model_v1",
+    "canonical_reference": "luna_idle_runtime_sheet_ai03",
+    "center_x": 96,
+    "center_tolerance_px": 2,
+    "ground_foot_y": 176,
+    "ground_foot_tolerance_px": 2,
+    "standing_reference_height": 140,
+    "standing_height_tolerance_px": 6,
+    "standing_frame_indices": [
+      9,
+      10
+    ],
+    "grounded_phases": [
+      "jump_start",
+      "land"
+    ],
+    "max_cross_action_median_height_deviation_ratio": 0.08
+  },
+  "frames": [
+    {
+      "index": 0,
+      "name": "luna_jump_state_runtime_sheet_ai04_jump_start_01",
+      "phase": "jump_start",
+      "grounded": true,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 0,
+      "source_bbox": [
+        51,
+        62,
+        141,
+        130
+      ],
+      "region": [
+        0,
+        0,
+        192,
+        192
+      ],
+      "normalized_size": [
+        131,
+        99
+      ],
+      "paste": [
+        30,
+        77
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 176
+    },
+    {
+      "index": 1,
+      "name": "luna_jump_state_runtime_sheet_ai04_jump_start_02",
+      "phase": "jump_start",
+      "grounded": true,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 1,
+      "source_bbox": [
+        52,
+        61,
+        139,
+        131
+      ],
+      "region": [
+        192,
+        0,
+        192,
+        192
+      ],
+      "normalized_size": [
+        127,
+        102
+      ],
+      "paste": [
+        32,
+        74
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 176
+    },
+    {
+      "index": 2,
+      "name": "luna_jump_state_runtime_sheet_ai04_jump_start_03",
+      "phase": "jump_start",
+      "grounded": true,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 2,
+      "source_bbox": [
+        54,
+        54,
+        138,
+        137
+      ],
+      "region": [
+        384,
+        0,
+        192,
+        192
+      ],
+      "normalized_size": [
+        122,
+        121
+      ],
+      "paste": [
+        35,
+        55
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 176
+    },
+    {
+      "index": 3,
+      "name": "luna_jump_state_runtime_sheet_ai04_rise_hold_04",
+      "phase": "rise_hold",
+      "grounded": false,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 3,
+      "source_bbox": [
+        54,
+        38,
+        139,
+        153
+      ],
+      "region": [
+        576,
+        0,
+        192,
+        192
+      ],
+      "normalized_size": [
+        124,
+        168
+      ],
+      "paste": [
+        34,
+        12
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 180
+    },
+    {
+      "index": 4,
+      "name": "luna_jump_state_runtime_sheet_ai04_rise_hold_05",
+      "phase": "rise_hold",
+      "grounded": false,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 4,
+      "source_bbox": [
+        58,
+        42,
+        134,
+        151
+      ],
+      "region": [
+        0,
+        192,
+        192,
+        192
+      ],
+      "normalized_size": [
+        111,
+        159
+      ],
+      "paste": [
+        40,
+        16
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 175
+    },
+    {
+      "index": 5,
+      "name": "luna_jump_state_runtime_sheet_ai04_fall_hold_06",
+      "phase": "fall_hold",
+      "grounded": false,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 12,
+      "source_bbox": [
+        59,
+        44,
+        133,
+        148
+      ],
+      "region": [
+        192,
+        192,
+        192,
+        192
+      ],
+      "normalized_size": [
+        108,
+        152
+      ],
+      "paste": [
+        42,
+        20
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 172
+    },
+    {
+      "index": 6,
+      "name": "luna_jump_state_runtime_sheet_ai04_fall_hold_07",
+      "phase": "fall_hold",
+      "grounded": false,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 13,
+      "source_bbox": [
+        60,
+        44,
+        132,
+        149
+      ],
+      "region": [
+        384,
+        192,
+        192,
+        192
+      ],
+      "normalized_size": [
+        105,
+        153
+      ],
+      "paste": [
+        44,
+        20
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 173
+    },
+    {
+      "index": 7,
+      "name": "luna_jump_state_runtime_sheet_ai04_land_08",
+      "phase": "land",
+      "grounded": true,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 18,
+      "source_bbox": [
+        54,
+        56,
+        138,
+        135
+      ],
+      "region": [
+        576,
+        192,
+        192,
+        192
+      ],
+      "normalized_size": [
+        122,
+        115
+      ],
+      "paste": [
+        35,
+        61
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 176
+    },
+    {
+      "index": 8,
+      "name": "luna_jump_state_runtime_sheet_ai04_land_09",
+      "phase": "land",
+      "grounded": true,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 19,
+      "source_bbox": [
+        54,
+        62,
+        139,
+        131
+      ],
+      "region": [
+        0,
+        384,
+        192,
+        192
+      ],
+      "normalized_size": [
+        124,
+        101
+      ],
+      "paste": [
+        34,
+        75
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 176
+    },
+    {
+      "index": 9,
+      "name": "luna_jump_state_runtime_sheet_ai04_land_10",
+      "phase": "land",
+      "grounded": true,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 21,
+      "source_bbox": [
+        58,
+        48,
+        134,
+        144
+      ],
+      "region": [
+        192,
+        384,
+        192,
+        192
+      ],
+      "normalized_size": [
+        111,
+        140
+      ],
+      "paste": [
+        40,
+        36
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 176
+    },
+    {
+      "index": 10,
+      "name": "luna_jump_state_runtime_sheet_ai04_land_11",
+      "phase": "land",
+      "grounded": true,
+      "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "source_frame_index": 22,
+      "source_bbox": [
+        60,
+        48,
+        131,
+        144
+      ],
+      "region": [
+        384,
+        384,
+        192,
+        192
+      ],
+      "normalized_size": [
+        104,
+        140
+      ],
+      "paste": [
+        44,
+        36
+      ],
+      "scale": 1.458333,
+      "center_x": 96,
+      "foot_y": 176
+    }
+  ],
+  "normalization": {
+    "single_scale": 1.458333,
+    "transparent_png": true,
+    "source_cell": [
+      192,
+      192
+    ],
+    "selected_source_frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      12,
+      13,
+      18,
+      19,
+      21,
+      22
+    ]
+  }
+}

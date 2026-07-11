@@ -26,10 +26,16 @@ const FLOOR_VELOCITY_TOLERANCE := 0.5
 const RECOVERY_CHARGE_PER_HIT := 0.35
 const RECOVERY_CHARGE_DEFEAT_BONUS := 0.65
 
+# 短动作不自然播放完整长素材，而是由 gameplay phase 选择可读关键帧。
+const LUNA_ATTACK_KEYFRAMES := [4, 6, 7, 8, 10, 12]
+const LUNA_AIR_DASH_KEYFRAMES := [0, 2, 4, 6, 7, 8]
+const LUNA_HIT_REACT_KEYFRAMES := [0, 2, 4, 5]
+const LUNA_ATTACK_VFX_KEYFRAMES := [0, 1, 3, 5, 6, 7]
+
 const DEFAULT_PLAYER_CONFIG := preload("res://scenes/player/player_placeholder_config.tres")
 const LUNA_IDLE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_RUN_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai03.spriteframes.tres")
-const LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.spriteframes.tres")
+const LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_state_runtime_sheet_ai04.spriteframes.tres")
 const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres")
@@ -65,6 +71,7 @@ var dash_cooldown: float = 0.22
 var dash_body_color: Color = Color(0.901961, 0.956863, 1.0, 1.0)
 var max_health: int = 3
 var damage_invulnerability_duration: float = 0.35
+var hit_react_visual_duration: float = 0.20
 var damage_knockback_speed: float = 260.0
 var damage_knockback_lift: float = -150.0
 var damage_flash_color: Color = Color(1.0, 0.756863, 0.756863, 1.0)
@@ -86,6 +93,7 @@ var recovery_charge_heal_amount: int = 1
 var _coyote_timer := 0.0
 var _jump_buffer_timer := 0.0
 var _landing_state_timer := 0.0
+var _jump_visual_elapsed := 0.0
 var _was_on_floor := false
 var _facing_direction := 1.0
 var _attack_elapsed := 0.0
@@ -99,6 +107,7 @@ var _air_dash_available := false
 var _current_dash_started_in_air := false
 var _body_idle_color := Color(1.0, 1.0, 1.0, 1.0)
 var _damage_invulnerability_remaining := 0.0
+var _hit_react_visual_remaining := 0.0
 var _is_defeated := false
 var _dash_feedback_active := false
 var _recovery_charge_amount := 0.0
@@ -147,6 +156,7 @@ func _apply_player_config() -> void:
 	dash_body_color = resolved_config.dash_body_color
 	max_health = resolved_config.max_health
 	damage_invulnerability_duration = resolved_config.damage_invulnerability_duration
+	hit_react_visual_duration = resolved_config.hit_react_visual_duration
 	damage_knockback_speed = resolved_config.damage_knockback_speed
 	damage_knockback_lift = resolved_config.damage_knockback_lift
 	damage_flash_color = resolved_config.damage_flash_color
@@ -168,6 +178,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_update_damage_invulnerability(delta)
+	_update_hit_react_visual(delta)
 
 	var jump_pressed := Input.is_action_just_pressed("jump")
 	var jump_released := Input.is_action_just_released("jump")
@@ -207,6 +218,7 @@ func _physics_process(delta: float) -> void:
 	var is_grounded := is_on_floor()
 	_update_landing_state(delta, was_grounded, is_grounded)
 	_update_current_state(is_grounded)
+	_update_jump_visual_time(delta, is_grounded)
 	_update_runtime_animation_visual()
 	_sync_air_dash_trail_visual()
 	_was_on_floor = is_grounded
@@ -292,6 +304,7 @@ func _start_jump() -> void:
 	_jump_buffer_timer = 0.0
 	_coyote_timer = 0.0
 	_landing_state_timer = 0.0
+	_jump_visual_elapsed = 0.0
 	current_state = STATE_JUMP_RISE
 
 
@@ -303,7 +316,7 @@ func _start_attack() -> void:
 	_landing_state_timer = 0.0
 	_jump_buffer_timer = 0.0
 	current_state = STATE_ATTACK if is_on_floor() else STATE_AIR_ATTACK
-	_show_attack_vfx_visuals()
+	_hide_attack_vfx_visuals()
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * 0.02)
 
@@ -436,8 +449,15 @@ func _finish_dash() -> void:
 	_set_dash_feedback_active(false)
 
 
-# 显示正式攻击 VFX 视觉层，朝向和位置跟随当前攻击判定中心。
-func _show_attack_vfx_visuals() -> void:
+# 按攻击 active + recovery 的统一进度显示正式 VFX 关键帧；startup 保持隐藏。
+func _sync_attack_vfx_visuals() -> void:
+	if _attack_elapsed < attack_startup_duration:
+		_hide_attack_vfx_visuals()
+		return
+
+	var visual_elapsed := _attack_elapsed - attack_startup_duration
+	var visual_duration := attack_active_duration + attack_recovery_duration
+	var target_frame := _select_keyframe(LUNA_ATTACK_VFX_KEYFRAMES, visual_elapsed, visual_duration)
 	_hide_legacy_stage12_slash_visual()
 	_sync_attack_vfx_visual(
 		_attack_slash_vfx_visual,
@@ -445,6 +465,7 @@ func _show_attack_vfx_visuals() -> void:
 		&"attack_slash",
 		"luna_attack_slash_vfx_runtime_ai01",
 		Vector2(absf(attack_hitbox_offset.x) + 20.0, attack_hitbox_offset.y - 8.0),
+		target_frame,
 	)
 	_sync_attack_vfx_visual(
 		_attack_seal_arc_vfx_visual,
@@ -452,6 +473,7 @@ func _show_attack_vfx_visuals() -> void:
 		&"attack_seal_arc",
 		"luna_attack_seal_arc_vfx_runtime_ai01",
 		Vector2(absf(attack_hitbox_offset.x) + 12.0, attack_hitbox_offset.y - 8.0),
+		target_frame,
 	)
 
 
@@ -461,7 +483,8 @@ func _sync_attack_vfx_visual(
 	sprite_frames: SpriteFrames,
 	animation_name: StringName,
 	asset_id: String,
-	base_offset: Vector2
+	base_offset: Vector2,
+	target_frame: int
 ) -> void:
 	if visual == null:
 		return
@@ -473,8 +496,8 @@ func _sync_attack_vfx_visual(
 	visual.set_meta("asset_id", asset_id)
 	visual.set_meta("gameplay_collision", false)
 	visual.set_meta("damage_source", false)
-	visual.frame = 0
-	visual.play(animation_name)
+	visual.pause()
+	visual.frame = target_frame
 
 
 # 隐藏正式攻击 VFX，并保持旧 Stage12 SVG 不参与运行态攻击表现。
@@ -542,6 +565,12 @@ func _update_current_state(is_grounded: bool) -> void:
 		current_state = STATE_JUMP_FALL
 
 
+# 跳跃视觉计时只服务 jump_start 到 rise_hold 的切换；每次起跳重新归零。
+func _update_jump_visual_time(delta: float, is_grounded: bool) -> void:
+	if not is_grounded and (current_state == STATE_JUMP_RISE or current_state == STATE_JUMP_FALL):
+		_jump_visual_elapsed += delta
+
+
 # 根据当前玩家状态绑定已通过正式替换审计的 Luna movement / dash / attack / hit / death SpriteFrames。
 # Air Dash body 与拖尾分层显示：body 走 runtime SpriteFrames，trail 走独立纯视觉 VFX。
 func _update_runtime_animation_visual() -> void:
@@ -551,39 +580,63 @@ func _update_runtime_animation_visual() -> void:
 	var target_frames: SpriteFrames = null
 	var target_animation: StringName = &"idle"
 	var target_asset_id := "luna_idle_runtime_sheet_ai03"
+	var manual_frame := -1
 
 	if _is_defeated:
 		target_frames = LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES
 		target_animation = &"death_idle"
 		target_asset_id = "luna_death_idle_runtime_sheet_ai03"
-	elif _damage_invulnerability_remaining > 0.0:
+	elif _hit_react_visual_remaining > 0.0:
 		target_frames = LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES
 		target_animation = &"hit_react"
 		target_asset_id = "luna_hit_react_runtime_sheet_ai03"
+		manual_frame = _select_keyframe(
+			LUNA_HIT_REACT_KEYFRAMES,
+			hit_react_visual_duration - _hit_react_visual_remaining,
+			hit_react_visual_duration
+		)
 	elif current_state == STATE_DASH:
 		target_frames = LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES
 		target_animation = &"air_dash_body"
 		target_asset_id = "luna_air_dash_body_runtime_sheet_ai03"
+		manual_frame = _select_keyframe(LUNA_AIR_DASH_KEYFRAMES, _dash_elapsed, dash_duration)
 	elif current_state == STATE_RUN:
 		target_frames = LUNA_RUN_RUNTIME_SPRITEFRAMES
 		target_animation = &"run"
 		target_asset_id = "luna_run_runtime_sheet_ai03"
-	elif current_state == STATE_JUMP_RISE or current_state == STATE_JUMP_FALL:
-		target_frames = LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES
-		target_animation = &"jump_fall"
-		target_asset_id = "luna_jump_fall_runtime_sheet_ai03"
+	elif current_state == STATE_JUMP_RISE:
+		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
+		target_animation = &"jump_start" if _jump_visual_elapsed < 0.25 else &"rise_hold"
+		target_asset_id = "luna_jump_state_runtime_sheet_ai04"
+	elif current_state == STATE_JUMP_FALL:
+		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
+		target_animation = &"fall_hold"
+		target_asset_id = "luna_jump_state_runtime_sheet_ai04"
 	elif current_state == STATE_ATTACK or current_state == STATE_AIR_ATTACK:
 		target_frames = LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES
 		target_animation = &"attack_body"
 		target_asset_id = "luna_attack_body_runtime_sheet_ai03"
-	elif current_state == STATE_IDLE or current_state == STATE_LAND:
+		manual_frame = _get_attack_body_keyframe()
+	elif current_state == STATE_LAND:
+		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
+		target_animation = &"land"
+		target_asset_id = "luna_jump_state_runtime_sheet_ai04"
+		manual_frame = _select_keyframe(
+			[0, 1, 2, 3],
+			landing_state_duration - _landing_state_timer,
+			landing_state_duration
+		)
+	elif current_state == STATE_IDLE:
 		target_frames = LUNA_IDLE_RUNTIME_SPRITEFRAMES
 	else:
 		_runtime_animation_visual.visible = false
 		return
 
 	_runtime_animation_visual.visible = true
-	var animation_changed := _runtime_animation_visual.animation != target_animation
+	var animation_changed := (
+		_runtime_animation_visual.sprite_frames != target_frames
+		or _runtime_animation_visual.animation != target_animation
+	)
 	if _runtime_animation_visual.sprite_frames != target_frames:
 		_runtime_animation_visual.sprite_frames = target_frames
 	if animation_changed:
@@ -593,8 +646,37 @@ func _update_runtime_animation_visual() -> void:
 	_runtime_animation_visual.flip_h = _facing_direction < 0.0
 	_runtime_animation_visual.modulate = _get_runtime_animation_modulate()
 	_runtime_animation_visual.set_meta("asset_id", target_asset_id)
-	if animation_changed or not _runtime_animation_visual.is_playing():
+	if manual_frame >= 0:
+		_runtime_animation_visual.pause()
+		_runtime_animation_visual.frame = manual_frame
+		if current_state == STATE_ATTACK or current_state == STATE_AIR_ATTACK:
+			_sync_attack_vfx_visuals()
+	elif animation_changed or not _runtime_animation_visual.is_playing():
 		_runtime_animation_visual.play(target_animation)
+
+
+# 攻击 body 按 startup / active / recovery 三段分别选择关键帧，命中窗口仍由原逻辑结算。
+func _get_attack_body_keyframe() -> int:
+	if _attack_elapsed < attack_startup_duration:
+		return int(LUNA_ATTACK_KEYFRAMES[0])
+
+	var active_end := attack_startup_duration + attack_active_duration
+	if _attack_elapsed < active_end:
+		return _select_keyframe([LUNA_ATTACK_KEYFRAMES[1], LUNA_ATTACK_KEYFRAMES[2]], _attack_elapsed - attack_startup_duration, attack_active_duration)
+
+	return _select_keyframe(
+		[LUNA_ATTACK_KEYFRAMES[3], LUNA_ATTACK_KEYFRAMES[4], LUNA_ATTACK_KEYFRAMES[5]],
+		_attack_elapsed - active_end,
+		attack_recovery_duration
+	)
+
+
+# 把动作内归一化进度映射到少量可读关键帧，避免长素材被短 gameplay 状态截断。
+func _select_keyframe(keyframes: Array, elapsed: float, duration: float) -> int:
+	if keyframes.is_empty():
+		return 0
+	var progress := clampf(elapsed / maxf(duration, 0.0001), 0.0, 0.9999)
+	return int(keyframes[mini(int(progress * keyframes.size()), keyframes.size() - 1)])
 
 
 # Air Dash 拖尾只跟随 dash 状态显示，不参与碰撞、伤害、能力消耗或速度计算。
@@ -686,6 +768,7 @@ func receive_damage(amount: int, hit_direction: Vector2 = Vector2.ZERO) -> void:
 
 	current_health = maxi(current_health - amount, 0)
 	_damage_invulnerability_remaining = damage_invulnerability_duration
+	_hit_react_visual_remaining = hit_react_visual_duration
 	_hide_attack_vfx_visuals()
 	_apply_damage_knockback(hit_direction)
 	_refresh_body_color()
@@ -702,6 +785,7 @@ func restore_full_health() -> void:
 	current_health = max_health
 	_is_defeated = false
 	_damage_invulnerability_remaining = 0.0
+	_hit_react_visual_remaining = 0.0
 	_hide_attack_vfx_visuals()
 	_refresh_body_color()
 	_update_runtime_animation_visual()
@@ -807,6 +891,11 @@ func _update_damage_invulnerability(delta: float) -> void:
 	_damage_invulnerability_remaining = maxf(_damage_invulnerability_remaining - delta, 0.0)
 	if _damage_invulnerability_remaining <= 0.0:
 		_refresh_body_color()
+
+
+# 受击动作计时独立于无敌时间，动作结束后仍保留剩余无敌与闪色反馈。
+func _update_hit_react_visual(delta: float) -> void:
+	_hit_react_visual_remaining = maxf(_hit_react_visual_remaining - delta, 0.0)
 
 
 # 根据受击方向施加击退；方向缺失时用玩家朝向反推，保证反馈可读。

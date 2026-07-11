@@ -28,6 +28,7 @@ dash_cooldown = 0.22
 dash_body_color = Color(0.901961, 0.956863, 1, 1)
 max_health = 3
 damage_invulnerability_duration = 0.35
+hit_react_visual_duration = 0.2
 damage_knockback_speed = 260.0
 damage_knockback_lift = -150.0
 damage_flash_color = Color(1, 0.756863, 0.756863, 1)

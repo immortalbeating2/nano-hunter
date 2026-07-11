@@ -28,7 +28,7 @@ const LUNA_ATTACK_01_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sp
 const LUNA_IDLE_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres"
 const LUNA_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.spriteframes.tres"
 const LUNA_JUMP_FALL_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres"
-const LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.spriteframes.tres"
+const LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_state_runtime_sheet_ai04.spriteframes.tres"
 const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres"
 const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres"
 const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres"
@@ -421,9 +421,9 @@ func test_stage14_player_runtime_animation_visual_switches_idle_run_and_jump_fal
 		or player.call("get_current_state_id") == &"jump_fall"
 	)
 	assert_true(runtime_visual.visible)
-	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_jump_fall_runtime_sheet_ai03")
+	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_jump_state_runtime_sheet_ai04")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES_PATH)
-	assert_eq(runtime_visual.animation, &"jump_fall")
+	assert_eq(runtime_visual.animation, &"jump_start")
 	assert_true(runtime_visual.is_playing())
 
 
@@ -453,12 +453,17 @@ func test_stage14_player_runtime_animation_visual_uses_attack_body_candidate() -
 	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_attack_body_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"attack_body")
-	assert_true(runtime_visual.is_playing())
+	assert_false(runtime_visual.is_playing())
+	assert_eq(runtime_visual.frame, 4)
+	assert_false(attack_slash_vfx.visible)
+	assert_false(attack_seal_arc_vfx.visible)
+
+	await _advance_physics_frames(3)
 	assert_true(attack_slash_vfx.visible)
 	assert_eq(attack_slash_vfx.get_meta("asset_id", ""), "luna_attack_slash_vfx_runtime_ai01")
 	assert_eq(attack_slash_vfx.sprite_frames.resource_path, LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES_PATH)
 	assert_eq(attack_slash_vfx.animation, &"attack_slash")
-	assert_true(attack_slash_vfx.is_playing())
+	assert_false(attack_slash_vfx.is_playing())
 	assert_eq(attack_slash_vfx.position, LUNA_ATTACK_SLASH_VFX_POSITION)
 	assert_gte(attack_slash_vfx.scale.x, 0.42)
 	assert_false(attack_slash_vfx.get_meta("gameplay_collision", true))
@@ -468,7 +473,7 @@ func test_stage14_player_runtime_animation_visual_uses_attack_body_candidate() -
 	assert_eq(attack_seal_arc_vfx.get_meta("asset_id", ""), "luna_attack_seal_arc_vfx_runtime_ai01")
 	assert_eq(attack_seal_arc_vfx.sprite_frames.resource_path, LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES_PATH)
 	assert_eq(attack_seal_arc_vfx.animation, &"attack_seal_arc")
-	assert_true(attack_seal_arc_vfx.is_playing())
+	assert_false(attack_seal_arc_vfx.is_playing())
 	assert_eq(attack_seal_arc_vfx.position, LUNA_ATTACK_SEAL_ARC_VFX_POSITION)
 	assert_gte(attack_seal_arc_vfx.scale.x, 0.34)
 	assert_false(attack_seal_arc_vfx.get_meta("gameplay_collision", true))
@@ -503,7 +508,8 @@ func test_stage14_player_runtime_animation_visual_uses_clean_air_dash_body_candi
 	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_air_dash_body_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"air_dash_body")
-	assert_true(runtime_visual.is_playing())
+	assert_false(runtime_visual.is_playing())
+	assert_true(runtime_visual.frame in [0, 2, 4, 6, 7, 8])
 	assert_ne(runtime_visual.sprite_frames.resource_path, LUNA_AIR_DASH_SPRITEFRAMES_PATH)
 	assert_true(air_dash_trail.visible)
 	assert_eq(air_dash_trail.get_meta("asset_id", ""), "stage14_air_dash_trail_ai01")
@@ -534,7 +540,8 @@ func test_stage14_player_runtime_animation_visual_uses_hit_and_death_candidates(
 	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_hit_react_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"hit_react")
-	assert_true(runtime_visual.is_playing())
+	assert_false(runtime_visual.is_playing())
+	assert_true(runtime_visual.frame in [0, 2, 4, 5])
 
 	var lethal_player := await _spawn_player_with_floor(Vector2(120.0, 0.0))
 	var lethal_visual := lethal_player.get_node_or_null("LunaRuntimeAnimationVisual") as AnimatedSprite2D
@@ -763,7 +770,12 @@ func _jump_until_airborne(player: CharacterBody2D) -> void:
 # 等待玩家稳定落地，避免刚接触地面的一帧误判空中冲刺已恢复。
 func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> void:
 	for _i in range(max_frames):
-		if player.is_on_floor() and absf(player.velocity.x) <= 0.1 and absf(player.velocity.y) <= 0.1:
+		if (
+			player.is_on_floor()
+			and absf(player.velocity.x) <= 0.1
+			and absf(player.velocity.y) <= 0.1
+			and player.call("get_current_state_id") == &"idle"
+		):
 			await _advance_physics_frames(2)
 			return
 		await _advance_physics_frames(1)

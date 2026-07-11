@@ -45,6 +45,7 @@ class_name PlayerConfig
 
 # 受击无敌帧和击退参数决定失败重试前的容错感。
 @export var damage_invulnerability_duration: float = 0.35
+@export var hit_react_visual_duration: float = 0.20
 @export var damage_knockback_speed: float = 260.0
 @export var damage_knockback_lift: float = -150.0
 @export var damage_flash_color: Color = Color(1.0, 0.756863, 0.756863, 1.0)
