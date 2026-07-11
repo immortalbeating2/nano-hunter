@@ -4,6 +4,11 @@
 
 ## 2026-07-11
 
+- **AGENTS repository contract slimming**：把根代理说明从阶段手册和工具知识库收敛为稳定的仓库执行契约。
+  结果：`AGENTS.md` 从 `530` 行缩减为 `108` 行；保留北极星、中文协作、任务分级、项目接口、文档门禁、验证和 Git 安全原则，移除动态阶段、端口、Batch、插件候选、worktree 操作手册和单次故障经验。
+  关键验证或结论：八段式结构成立；`9` 个专题引用路径全部存在，陈旧词和常见乱码扫描均为 `0`，`git diff --check` 退出码为 `0`；本轮不修改 Stage17 运行时代码。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；设计：`spec-design/2026-07-11-agents-md-slimming-design.md`；执行清单：`docs/implementation-plans/2026-07-11-agents-md-slimming.md`。
+
 - **Stage17 preflight and Formal Demo rollback point**：在动作运行态实现前收口当前大规模未提交工作树，并冻结可回退基线。
   结果：Formal Demo 39 房重排、资产接入、运行态脚本与文档范围形成同一份本地回退提交；Stage17 专用分支从该验证基线分叉。修正 TileSet 包审计仍按旧资源数计数、运行态资产表仍宣称 4 个已替换独立资产直接引用的陈旧口径，没有把旧资产重新接回场景。
   关键验证或结论：全量 GUT `31` scripts、`219/219` tests、`6105` asserts；Godot import 通过；39 房 OpenGL 运行态构图复核 `P0=0 / P1=0 / P2=0`；动作候选 `15/15 active ready`；最终美术审计 `5/5 FP batches, 2/2 final gates`；资产包、source safety、provenance、background alpha 和 runtime map 严格审计全部通过；`git diff --check` 通过。

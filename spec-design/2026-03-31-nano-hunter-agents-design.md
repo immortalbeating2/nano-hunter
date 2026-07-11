@@ -1,5 +1,7 @@
 # Nano Hunter — AGENTS.md 设计规范 (2026-03-31)
 
+> 历史基线：本文记录项目初始原型期的治理设计。当前 `AGENTS.md` 的瘦身定位与内容准入规则，以 `spec-design/2026-07-11-agents-md-slimming-design.md` 为准。
+
 ## 文档定位说明
 
 本文档用于记录 `nano-hunter` 项目级 `AGENTS.md` 的设计依据、取舍过程与阶段性判断，回答“为什么这样制定这份规范”。

@@ -4,6 +4,7 @@ Last Updated: 2026-07-11
 
 ## Current Status
 
+- 2026-07-11 完成根 `AGENTS.md` 治理瘦身：从 `530` 行收敛为 `108` 行的仓库执行契约，只保留跨阶段硬规则、事实来源、最短流程和完成门禁；阶段历史、MCP 端口、插件候选、资产 Batch、worktree 操作手册和单次故障经验退出根文件，继续由现有专题文档与 Git 历史负责。本轮不修改 Stage17 动画运行时代码。
 - 2026-07-11 完成 Stage17 分支前置收口：当前 Formal Demo 候选以本次提交建立本地可回退点，`codex/stage-17-animation-runtime-stabilization` 从同一验证基线分叉，尚未开始动作运行代码修改。提交前重新执行全量 GUT `31` scripts、`219/219` tests、`6105` asserts，Godot import、39 房运行态构图复核和全部严格资产审计通过；构图问题为 `P0=0 / P1=0 / P2=0`。同时修正两处陈旧审计口径：TileSet 包审计改为当前 `5` 个资源 / `3` 份规则，运行态资产表改为 `51` 个场景引用已验证、`4` 个旧独立资产被正式图集替换，不把旧资产错误接回运行时。
 - 2026-07-11 完成角色 / 敌人 / Boss 动作、39 房内容和北极星实现度审计。关键修正：Luna 节点 scale 固定，视觉变大变小来自跨动作模型与时序未统一；Attack `0.23s` 对应 16 帧 / 18fps、Air Dash `0.24s` 对应 16 帧 / 20fps，均会截断大部分帧；Jump/Fall 是时间顺播而非物理相位映射。运行探针确认四类普通敌人 cycle 均未播放，Boss 在 staggered 状态隐藏。39 房当前有 `16` 个战斗房、`24` 个普通敌人实例、`1` 个 Boss；空间职责已明确，敌人行为和动作仍是原型级。北极星完整实现约 `25-30%`，独特核心“元素 + 姿态 + 序列连锁”约 `0-10%`。
 - 2026-07-11 已确认 Stage17 `动作运行态稳定化` 的设计、正式阶段计划和执行清单：保留玩家攻击 `0.23s` 与 Air Dash `0.24s` 手感，用玩法相位映射关键帧；Luna Jump 按 Model Lock v1 重做为 start / rise / fall / land；普通敌人共享播放根修复并补最小死亡动作；Boss 拆分 recovery 与 staggered。元素 / 姿态 / 两步序列明确留给下一独立阶段。本轮只落计划，不修改运行代码。
@@ -113,12 +114,19 @@ Last Updated: 2026-07-11
 
 ## Recent Status Changes
 
+### 2026-07-11 - AGENTS repository contract slimmed
+
+- 状态：根 `AGENTS.md` 已从阶段手册和工具知识库收敛为稳定的仓库执行契约。
+- 范围：保留北极星、中文协作、任务分级、代码契约、文档门禁、验证和 Git 安全原则；动态状态与操作细节改读现有专题文档。
+- 验证：根文件 `108` 行、`8` 个章节；陈旧阶段、端口、Batch、旧主场景说明和 UTF-8 单次故障词扫描无匹配。
+- 边界：不改变 Stage17 设计、动画、玩法、资产或测试范围。
+
 ### 2026-07-11 - Stage17 animation runtime stabilization plan confirmed
 
 - 状态：已批准 Stage17 动作运行态稳定化边界，形成设计文档、正式阶段计划和逐任务执行清单。
 - 方案：不拉长玩家攻击 / Dash，不暴力倍速完整长动画；改为 gameplay phase -> keyframe contract。普通敌人共享入口一次启动 cycle，Boss 新增 recovery 并把 guard-break stagger 独立出来。
 - 文档：`spec-design/2026-07-11-stage-17-animation-runtime-stabilization-design.md`、`plan/2026-07-11-stage-17-animation-runtime-stabilization.md`、`docs/implementation-plans/2026-07-11-stage-17-animation-runtime-stabilization.md`。
-- 边界：当前 `codex/demo-level-formal-remap` 仍有大量未提交现场；必须先形成可回退提交点，再创建 Stage17 分支。本轮没有修改玩法代码，也没有声称动作问题已修复。
+- 边界：Formal Demo 本地回退点 `985ec28` 已建立，当前已位于干净的 `codex/stage-17-animation-runtime-stabilization`；Stage17 动作代码仍未开始修改。
 
 ### 2026-07-11 - Animation, room content and North Star audit
 
