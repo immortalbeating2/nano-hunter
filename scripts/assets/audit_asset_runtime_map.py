@@ -11,6 +11,11 @@ from typing import Any
 
 DEFAULT_REPORT = "docs/assets/asset-runtime-integration-map.json"
 
+ALLOWED_INTEGRATION_STATUSES = {
+    "binding_map_ready_manual_replacement_required",
+    "scene_reference_verified",
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -83,8 +88,19 @@ def main() -> int:
         for scene in existing_scenes:
             if not resolve_path(root, str(scene)).exists():
                 errors.append(f"{asset_id}: declared existing scene missing {scene}")
-        if entry.get("integration_status") != "binding_map_ready_manual_replacement_required":
-            errors.append(f"{asset_id}: unexpected integration_status")
+        status = str(entry.get("integration_status", ""))
+        if status not in ALLOWED_INTEGRATION_STATUSES:
+            errors.append(f"{asset_id}: unexpected integration_status {status}")
+        direct_references = entry.get("direct_scene_references", [])
+        if status == "scene_reference_verified" and not direct_references:
+            errors.append(f"{asset_id}: scene_reference_verified without direct_scene_references")
+        for scene in direct_references:
+            if scene not in existing_scenes:
+                errors.append(f"{asset_id}: direct scene reference not in existing candidates {scene}")
+            scene_text = resolve_path(root, str(scene)).read_text(encoding="utf-8")
+            output_res_path = "res://" + str(entry.get("output_path", "")).replace("\\", "/")
+            if asset_id not in scene_text and output_res_path not in scene_text:
+                errors.append(f"{asset_id}: direct scene reference missing asset id or path in {scene}")
 
     summary = report.get("summary", {})
     if int(summary.get("entry_count", -1)) != len(queue_ids):
@@ -93,6 +109,9 @@ def main() -> int:
         errors.append("missing_output_count must be 0")
     if int(summary.get("missing_target_scene_candidate_count", -1)) != 0:
         errors.append("missing_target_scene_candidate_count must be 0")
+    status_counts = summary.get("status_counts", {})
+    if int(summary.get("directly_referenced_entry_count", -1)) != int(status_counts.get("scene_reference_verified", -2)):
+        errors.append("directly_referenced_entry_count must match scene_reference_verified status count")
 
     if errors:
         for error in errors:

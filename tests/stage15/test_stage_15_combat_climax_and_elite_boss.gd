@@ -13,6 +13,7 @@ const STAGE15_BOSS_ROOM_PATH := "res://scenes/rooms/stage15_seal_guardian_boss_r
 const STAGE15_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage15_challenge_branch_room.tscn"
 const STAGE15_COMPLETE_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
+const SHRINE_TILESET_RESOURCE_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
 const BASIC_MELEE_ENEMY_SCENE_PATH := "res://scenes/combat/basic_melee_enemy.tscn"
 const GROUND_CHARGER_ENEMY_SCENE_PATH := "res://scenes/combat/ground_charger_enemy.tscn"
 const AERIAL_SENTINEL_ENEMY_SCENE_PATH := "res://scenes/combat/aerial_sentinel_enemy.tscn"
@@ -30,6 +31,10 @@ const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/charac
 const SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres"
 const VFX_SEAL_MAGIC_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
 const VFX_COMBAT_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres"
+const MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres"
+const STAGE15_PRESSURE_FOCUS_ART_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/010_shrine_gate_prop_atlas_ai01_auto_011_c02.atlas_texture.tres"
+const EQUIPMENT_REWARD_ORB_ATLAS_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/009_equipment_pickup_atlas_ai01_auto_010_c01.atlas_texture.tres"
+const EQUIPMENT_BOSS_CORE_SHARD_ATLAS_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/019_equipment_pickup_atlas_ai01_auto_020_c02.atlas_texture.tres"
 
 # defeated 信号单独计数，确保 Boss 归零后只发出一次完成事件。
 var _stage15_boss_defeated_signal_count := 0
@@ -149,6 +154,101 @@ func test_stage15_rooms_exist_and_stage14_loop_links_to_ante_room() -> void:
 	assert_eq(transitions[0].get("spawn"), &"stage15_seal_pressure_start")
 
 
+# 保护 Stage15 正常主线路径：地面覆盖到出口前，挑战支路不挡在右移必经线上。
+func test_stage15_reachable_room_floors_and_optional_branch_route_are_playable() -> void:
+	for room_path: String in [STAGE15_ANTE_ROOM_PATH, STAGE15_MIXED_GAUNTLET_ROOM_PATH, STAGE15_CHALLENGE_ROOM_PATH, STAGE15_COMPLETE_ROOM_PATH]:
+		var room := await _spawn_room(room_path)
+		_assert_floor_reaches_exit(room)
+
+	var gauntlet := await _spawn_room(STAGE15_MIXED_GAUNTLET_ROOM_PATH)
+	var branch_zone := gauntlet.get_node_or_null("ChallengeBranchZone") as Area2D
+	assert_not_null(branch_zone)
+	if branch_zone != null:
+		assert_lt(branch_zone.position.x, -120.0)
+		_assert_sprite_references_asset(
+			gauntlet,
+			"ChallengeBranchZone/ChallengeMarkerArt",
+			"equipment_pickup_atlas_ai01",
+			EQUIPMENT_BOSS_CORE_SHARD_ATLAS_TEXTURE_PATH
+		)
+		var challenge_visual := gauntlet.get_node_or_null("ChallengeBranchZone/ChallengeVisual") as Polygon2D
+		assert_not_null(challenge_visual, "Stage15 挑战支路触发区只保留隐藏编辑参考，运行态读值交给 ChallengeMarkerArt。")
+		if challenge_visual != null:
+			assert_false(challenge_visual.visible)
+
+
+# 保护 Stage15 pressure 房运行态读值：封印压力提示不应继续显示大块 Polygon 占位。
+func test_stage15_pressure_room_uses_vfx_asset_for_pressure_sigil() -> void:
+	var room := await _spawn_room(STAGE15_ANTE_ROOM_PATH)
+	var legacy_sigil := room.get_node_or_null("PressureSigil") as Polygon2D
+
+	assert_not_null(legacy_sigil)
+	assert_false(legacy_sigil.visible)
+	_assert_sprite_references_asset(
+		room,
+		"PressureFocusArt",
+		"shrine_gate_prop_atlas_ai01",
+		STAGE15_PRESSURE_FOCUS_ART_PATH
+	)
+	var pressure_focus := room.get_node_or_null("PressureFocusArt") as Sprite2D
+	assert_not_null(pressure_focus)
+	if pressure_focus != null:
+		assert_eq(pressure_focus.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_pillar_intact")
+		assert_eq(pressure_focus.position, Vector2(128, 120))
+		assert_gte(pressure_focus.z_index, 1)
+		assert_lte(pressure_focus.scale.x, 0.4)
+	_assert_animated_sprite_references_asset(
+		room,
+		"PressureSigilArt",
+		"vfx_seal_magic_atlas_ai01",
+		VFX_SEAL_MAGIC_SPRITEFRAMES_PATH,
+		&"seal_magic"
+	)
+	var pressure_sigil_art := room.get_node_or_null("PressureSigilArt") as AnimatedSprite2D
+	assert_not_null(pressure_sigil_art)
+	if pressure_sigil_art != null:
+		assert_lt(pressure_sigil_art.modulate.a, 0.51)
+		assert_lt(pressure_sigil_art.scale.x, 0.46)
+		assert_lt(pressure_sigil_art.scale.y, 0.46)
+		if pressure_focus != null:
+			assert_gt(pressure_sigil_art.z_index, pressure_focus.z_index)
+
+
+# 保护 Stage15 支路腐瘴危险读值：不继续显示绿色几何 SVG / Polygon 占位。
+func test_stage15_challenge_hazard_warning_uses_miasma_purge_vfx_asset() -> void:
+	var room := await _spawn_room(STAGE15_CHALLENGE_ROOM_PATH)
+	var warning_polygon := room.get_node_or_null("MiasmaHazard/WarningVisual") as Polygon2D
+	var warning_svg := room.get_node_or_null("MiasmaHazard/MiasmaWarningArt") as Sprite2D
+	var reward_marker := room.get_node_or_null("Stage13Reward") as Marker2D
+
+	assert_not_null(warning_polygon)
+	assert_not_null(warning_svg)
+	assert_not_null(reward_marker)
+	if warning_polygon != null:
+		assert_false(warning_polygon.visible)
+	if warning_svg != null:
+		assert_false(warning_svg.visible)
+	_assert_animated_sprite_references_asset(
+		room,
+		"MiasmaHazard/MiasmaWarningVfxArt",
+		"miasma_purge_warning_vfx_runtime_ai01",
+		MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH,
+		&"miasma_purge_warning"
+	)
+	var warning_vfx := room.get_node_or_null("MiasmaHazard/MiasmaWarningVfxArt") as AnimatedSprite2D
+	assert_not_null(warning_vfx)
+	if warning_vfx != null:
+		assert_between(warning_vfx.modulate.a, 0.5, 0.8)
+		assert_between(warning_vfx.scale.x, 0.6, 0.85)
+		assert_between(warning_vfx.scale.y, 0.3, 0.45)
+	_assert_sprite_references_asset(
+		room,
+		"Stage13RewardArt",
+		"equipment_pickup_atlas_ai01",
+		EQUIPMENT_REWARD_ORB_ATLAS_TEXTURE_PATH
+	)
+
+
 # 保护 Stage15 Boss 方向稿与攻击预警资产：Boss 场景和 Boss 房都应直接引用当前项目内 image gen 资源。
 func test_stage15_boss_scene_and_room_reference_boss_art_assets() -> void:
 	var boss := await _spawn_seal_guardian()
@@ -226,6 +326,12 @@ func test_stage15_boss_scene_and_room_reference_boss_art_assets() -> void:
 		SEAL_GUARDIAN_SPRITEFRAMES_PATH,
 		&"attack"
 	)
+	_assert_tileset_preview_references_asset(
+		room,
+		"SealGuardianTilesetPreview",
+		"shrine_trial_tileset_ai01",
+		SHRINE_TILESET_RESOURCE_PATH
+	)
 
 	var enemy_scene := load(BASIC_MELEE_ENEMY_SCENE_PATH) as PackedScene
 	assert_not_null(enemy_scene)
@@ -293,12 +399,35 @@ func test_enemy_runtime_visuals_reference_single_enemy_clips() -> void:
 			str(enemy_case.get("resource")),
 			enemy_case.get("animation") as StringName
 		)
+		if str(enemy_case.get("scene")) == MIASMA_CASTER_ENEMY_SCENE_PATH:
+			var pressure_polygon := enemy.get_node_or_null("MiasmaPressureVisual") as Polygon2D
+			assert_not_null(pressure_polygon)
+			if pressure_polygon != null:
+				assert_false(pressure_polygon.visible)
+			var pressure_vfx := enemy.get_node_or_null("MiasmaPressureVfxVisual") as AnimatedSprite2D
+			_assert_animated_sprite_references_asset(
+				enemy,
+				"MiasmaPressureVfxVisual",
+				"miasma_purge_warning_vfx_runtime_ai01",
+				MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH,
+				&"miasma_purge_warning"
+			)
+			if pressure_vfx != null:
+				assert_false(pressure_vfx.get_meta("gameplay_collision", true))
+				assert_false(pressure_vfx.get_meta("damage_source", true))
+				assert_lt(pressure_vfx.modulate.a, 0.22)
+				assert_lt(pressure_vfx.scale.x, 0.37)
+				assert_lt(pressure_vfx.scale.y, 0.24)
 		var visual := enemy.get_node_or_null("EnemyRuntimeAnimationVisual") as AnimatedSprite2D
 		assert_not_null(visual)
 		if visual == null:
 			continue
 
 		assert_true(visual.visible)
+		assert_gte(visual.scale.x, 0.5)
+		assert_gte(visual.scale.y, 0.5)
+		assert_gte(visual.modulate.a, 0.95)
+		_assert_enemy_runtime_visual_not_mixed_with_legacy_layers(enemy)
 		enemy.call("receive_attack", Vector2.RIGHT, 120.0)
 		assert_true(enemy.call("is_defeated"))
 		assert_false(visual.visible)
@@ -315,6 +444,7 @@ func test_seal_guardian_runtime_visual_uses_ready_clips_only() -> void:
 		return
 
 	assert_true(visual.visible)
+	_assert_seal_guardian_runtime_visual_not_mixed_with_legacy_layers(boss)
 	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_idle_runtime_sheet_ai01")
 	assert_not_null(visual.sprite_frames)
 	if visual.sprite_frames != null:
@@ -442,7 +572,7 @@ func test_stage15_boss_room_retry_victory_and_main_snapshot() -> void:
 	assert_eq(_get_room_path(main_scene), STAGE15_COMPLETE_ROOM_PATH)
 
 
-# 保护 Stage15 HUD：混合遭遇显示恢复充能，Boss 房显示恢复充能和 Boss 状态。
+# 保护 Stage15 HUD：混合遭遇显示恢复充能条，Boss 房显示恢复充能条和 Boss 血条。
 func test_stage15_hud_displays_recovery_charge_and_boss_status() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -450,8 +580,14 @@ func test_stage15_hud_displays_recovery_charge_and_boss_status() -> void:
 	await _advance_process_frames(4)
 
 	var progress_label := main_scene.get_node("HUD/TutorialHUD/BattlePanel/ProgressLabel") as Label
+	var recovery_bar_back := main_scene.get_node("HUD/TutorialHUD/BattlePanel/RecoveryBarBack") as ColorRect
+	var recovery_bar_fill := main_scene.get_node("HUD/TutorialHUD/BattlePanel/RecoveryBarFill") as ColorRect
+	var boss_label := main_scene.get_node("HUD/TutorialHUD/BattlePanel/BossLabel") as Label
+	var boss_bar_fill := main_scene.get_node("HUD/TutorialHUD/BattlePanel/BossBarFill") as ColorRect
 	assert_not_null(progress_label)
-	assert_string_contains(progress_label.text, "恢复充能")
+	assert_true(recovery_bar_back.visible)
+	assert_true(recovery_bar_fill.visible)
+	assert_false(boss_bar_fill.visible)
 	assert_eq(progress_label.text.find("收集："), -1)
 
 	main_scene.call("transition_to_room", STAGE15_BOSS_ROOM_PATH, &"stage15_boss_start")
@@ -461,7 +597,11 @@ func test_stage15_hud_displays_recovery_charge_and_boss_status() -> void:
 	player.call("add_recovery_charge", 1.0)
 	await _advance_process_frames(2)
 
-	assert_string_contains(progress_label.text, "恢复充能")
+	assert_gt(recovery_bar_fill.size.x, 0.0)
+	assert_true(boss_label.visible)
+	assert_true(boss_bar_fill.visible)
+	assert_gt(boss_bar_fill.size.x, 0.0)
+	assert_string_contains(boss_label.text, "封印守卫")
 	assert_string_contains(progress_label.text, "封印守卫")
 
 
@@ -537,6 +677,7 @@ func _drive_stage15_loop(main_scene: Node2D) -> bool:
 			STAGE14_LOOP_RETURN_ROOM_PATH:
 				player.global_position = room.get_node("GoalZone").global_position
 			STAGE15_ANTE_ROOM_PATH:
+				_defeat_room_enemies(room)
 				player.global_position = room.get_node("ExitZone").global_position
 			STAGE15_MIXED_GAUNTLET_ROOM_PATH:
 				_defeat_room_enemies(room)
@@ -609,6 +750,38 @@ func _spawn_room(scene_path: String) -> Node2D:
 	add_child_autofree(room)
 	await get_tree().process_frame
 	return room
+
+
+# 地面覆盖 helper：防止正式可达房间在出口前留下空白断路。
+func _assert_floor_reaches_exit(room: Node2D) -> void:
+	var exit_zone := room.get_node_or_null("ExitZone") as Area2D
+	assert_not_null(exit_zone)
+	if exit_zone == null:
+		return
+
+	var terrain := room.get_node_or_null("TerrainCollisionVisual") as TileMapLayer
+	if terrain != null and bool(terrain.get("collision_enabled")) and not terrain.get_used_cells().is_empty():
+		var tile_width := float(terrain.tile_set.tile_size.x) * absf(terrain.global_scale.x)
+		var floor_right_edge := -INF
+		for cell: Vector2i in terrain.get_used_cells():
+			var cell_left := terrain.to_global(terrain.map_to_local(cell)).x
+			floor_right_edge = maxf(floor_right_edge, cell_left + tile_width)
+		assert_gte(floor_right_edge, exit_zone.position.x - 36.0)
+		return
+
+	var floor := room.get_node_or_null("Floor") as StaticBody2D
+	var floor_shape := room.get_node_or_null("Floor/CollisionShape2D") as CollisionShape2D
+	assert_not_null(floor)
+	assert_not_null(floor_shape)
+	if floor == null or floor_shape == null:
+		return
+	var rectangle := floor_shape.shape as RectangleShape2D
+	assert_not_null(rectangle)
+	if rectangle == null:
+		return
+
+	var floor_right_edge := floor.position.x + rectangle.size.x * 0.5
+	assert_gte(floor_right_edge, exit_zone.position.x - 36.0)
 
 
 # Boss fixture 支持挂到独立 world 或测试根节点，便于分别验证命中和 Boss 公开契约。
@@ -729,3 +902,50 @@ func _assert_animated_sprite_references_asset(parent: Node, node_path: String, a
 		assert_true(animated_sprite.sprite_frames.has_animation(animation_name))
 		assert_gt(animated_sprite.sprite_frames.get_frame_count(animation_name), 0)
 	assert_eq(animated_sprite.animation, animation_name)
+
+
+# 正式运行时动画存在时，旧灰盒 body、Stage12/13 轮廓和低透明 source sprite 不应继续叠在怪物身上。
+func _assert_enemy_runtime_visual_not_mixed_with_legacy_layers(enemy: Node) -> void:
+	for node_name: String in [
+		"Body",
+		"Stage12Silhouette",
+		"Stage12ThreatMark",
+		"Stage12ChargeMark",
+		"Stage12AirMark",
+		"Stage12AssetSprite",
+		"Stage13Silhouette",
+		"Stage13AssetSprite",
+		"MiasmaPressureVisual",
+	]:
+		var legacy_visual := enemy.get_node_or_null(node_name) as CanvasItem
+		if legacy_visual != null:
+			assert_false(legacy_visual.visible, "旧敌人视觉层仍在运行态显示：%s" % node_name)
+
+
+func _assert_seal_guardian_runtime_visual_not_mixed_with_legacy_layers(boss: Node) -> void:
+	for node_name: String in [
+		"Body",
+		"SealHalo",
+		"GuardianMask",
+		"Stage15SealMark",
+		"SealGuardianArt",
+	]:
+		var legacy_visual := boss.get_node_or_null(node_name) as CanvasItem
+		if legacy_visual != null:
+			assert_false(legacy_visual.visible, "旧 Boss 视觉层仍在运行态显示：%s" % node_name)
+
+
+# TileSet 预览断言 helper：样板房只绑定视觉层，正式碰撞仍由灰盒 StaticBody2D 控制。
+func _assert_tileset_preview_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String) -> void:
+	var layer := parent.get_node_or_null(NodePath(node_path)) as TileMapLayer
+	assert_not_null(layer, "缺少 TileMapLayer 资产节点：%s" % node_path)
+	if layer == null:
+		return
+
+	assert_eq(layer.get_meta("asset_id", ""), asset_id)
+	assert_not_null(layer.tile_set, "TileMapLayer 没有 TileSet：%s" % node_path)
+	if layer.tile_set != null:
+		assert_eq(layer.tile_set.resource_path, resource_path)
+		assert_gt(layer.tile_set.get_source_count(), 0)
+	assert_gt(layer.get_used_cells().size(), 0)
+	assert_false(layer.visible, "TileSet 预览层只能保留资源引用，不能作为正式道路上屏：%s" % node_path)

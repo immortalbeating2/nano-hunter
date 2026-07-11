@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/combat/miasma_caster_enemy.gd" id="1"]
 [ext_resource type="Resource" path="res://scripts/configs/miasma_caster_enemy_config.tres" id="2"]
 [ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage13_miasma_caster_silhouette.svg" id="3"]
 [ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.spriteframes.tres" id="4"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/enemy_hit_spark_vfx_runtime_ai01.spriteframes.tres" id="5"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(28, 36)
@@ -38,17 +39,29 @@ texture = ExtResource("3")
 
 [node name="EnemyRuntimeAnimationVisual" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -18)
-scale = Vector2(0.42, 0.42)
-modulate = Color(1, 1, 1, 0.82)
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("4")
 animation = &"miasma_caster_cycle"
 metadata/asset_id = "enemy_miasma_caster_runtime_sheet_ai01"
 metadata/asset_binding_note = "runtime_visual_only_no_projectile_timing_change"
 
 [node name="MiasmaPressureVisual" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(0, -18)
-color = Color(0.694118, 0.929412, 0.560784, 0.18)
+color = Color(0.454902, 0.839216, 0.690196, 0.055)
 polygon = PackedVector2Array(-56, 0, -40, -40, 0, -56, 40, -40, 56, 0, 40, 40, 0, 56, -40, 40)
+metadata/asset_binding_note = "dac_subtle_enemy_pressure_aura"
+
+[node name="MiasmaPressureVfxVisual" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -18)
+scale = Vector2(0.34, 0.22)
+modulate = Color(1, 1, 1, 0.18)
+sprite_frames = ExtResource("6")
+animation = &"miasma_purge_warning"
+metadata/asset_id = "miasma_purge_warning_vfx_runtime_ai01"
+metadata/runtime_source = "miasma_purge_warning_vfx_runtime_ai01.miasma_pressure_aura"
+metadata/gameplay_collision = false
+metadata/damage_source = false
 
 [node name="EnemyHitSparkVfxVisual" type="AnimatedSprite2D" parent="."]
 visible = false

@@ -14,10 +14,10 @@
 [ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres" id="12"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres" id="13"]
 [ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres" id="14"]
-[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai01.spriteframes.tres" id="15"]
-[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai01.spriteframes.tres" id="16"]
-[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai02.spriteframes.tres" id="17"]
-[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai02.spriteframes.tres" id="18"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.spriteframes.tres" id="15"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai03.spriteframes.tres" id="16"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres" id="17"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres" id="18"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/luna_attack_slash_vfx_runtime_ai01.spriteframes.tres" id="19"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/luna_attack_seal_arc_vfx_runtime_ai01.spriteframes.tres" id="20"]
 
@@ -25,27 +25,33 @@
 size = Vector2(24, 40)
 
 [node name="PlayerPlaceholder" type="CharacterBody2D"]
+z_index = 3
 script = ExtResource("1")
 player_config = ExtResource("2")
 
 [node name="Body" type="Polygon2D" parent="."]
+visible = false
 color = Color(0.298039, 0.831373, 0.956863, 1)
 polygon = PackedVector2Array(-12, 20, 12, 20, 12, -20, -12, -20)
 
 [node name="Stage12Silhouette" type="Polygon2D" parent="."]
+visible = false
 color = Color(0.839216, 0.984314, 1, 0.42)
 polygon = PackedVector2Array(-16, 22, 16, 22, 14, -20, 6, -24, -6, -24, -14, -20)
 
 [node name="Stage12HelmetMark" type="Polygon2D" parent="."]
+visible = false
 color = Color(0.964706, 1, 0.529412, 0.9)
 polygon = PackedVector2Array(-8, -22, 8, -22, 6, -28, -6, -28)
 
 [node name="Stage12AssetSprite" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.18)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3")
 
 [node name="LunaReadabilityArt" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 scale = Vector2(0.05, 0.05)
 modulate = Color(1, 1, 1, 0.32)
@@ -53,13 +59,14 @@ texture = ExtResource("5")
 metadata/asset_id = "stage16_luna_player_readability_ai01"
 
 [node name="LunaRuntimeAnimationVisual" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -16)
 scale = Vector2(0.45, 0.45)
 modulate = Color(1, 1, 1, 0.88)
 sprite_frames = ExtResource("15")
 animation = &"idle"
-metadata/asset_id = "luna_idle_runtime_sheet_ai01"
+metadata/asset_id = "luna_idle_runtime_sheet_ai03"
 metadata/note = "runtime_replacement_ready_idle_run_jump_air_dash_body_attack_body_hit_death"
+metadata/baseline_note = "ai03_alpha_foot_bottom_aligned_to_collision_bottom"
 
 [node name="AirDashTrailArt" type="Sprite2D" parent="."]
 visible = false
@@ -155,8 +162,8 @@ metadata/note = "vfx_preview_only_no_collision_no_damage"
 
 [node name="AttackSealArcVfxVisual" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(30, -14)
-scale = Vector2(0.24, 0.24)
+position = Vector2(38, -12)
+scale = Vector2(0.38, 0.38)
 modulate = Color(1, 1, 1, 0.58)
 z_index = 1
 sprite_frames = ExtResource("20")
@@ -169,8 +176,8 @@ metadata/damage_source = false
 
 [node name="AttackSlashVfxVisual" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(36, -6)
-scale = Vector2(0.3, 0.3)
+position = Vector2(46, -12)
+scale = Vector2(0.46, 0.46)
 modulate = Color(1, 1, 1, 0.76)
 z_index = 3
 sprite_frames = ExtResource("19")

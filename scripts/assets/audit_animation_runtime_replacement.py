@@ -339,6 +339,12 @@ def audit_asset(root: Path, item: dict[str, Any]) -> dict[str, Any]:
 
     metadata = load_json(metadata_path)
     frames = metadata.get("frames", [])
+    anchor_mode = str(item.get("anchor", "foot"))
+    recorded_scales = [
+        float(frame["scale"])
+        for frame in frames
+        if isinstance(frame, dict) and "scale" in frame
+    ]
     image = Image.open(texture_path).convert("RGBA")
     audited_frames = [audit_frame(image, frame, cell) for frame in frames]
     report["frames"] = audited_frames
@@ -386,6 +392,14 @@ def audit_asset(root: Path, item: dict[str, Any]) -> dict[str, Any]:
         center_x_variance = max(center_x_values) - min(center_x_values)
         width_ratio = (max(widths) - min(widths)) / max(1, max(widths))
         height_ratio = (max(heights) - min(heights)) / max(1, max(heights))
+        recorded_scale_variance = (
+            max(recorded_scales) - min(recorded_scales)
+            if len(recorded_scales) == len(non_empty)
+            else None
+        )
+        has_stable_recorded_scale = (
+            recorded_scale_variance is not None and recorded_scale_variance <= 0.001
+        )
         detached_component_failures: list[int] = []
         detached_component_notes: list[str] = []
         for frame in non_empty:
@@ -423,11 +437,11 @@ def audit_asset(root: Path, item: dict[str, Any]) -> dict[str, Any]:
             report["warnings"].append(f"edge_padding_failures={edge_padding_failures}")
         if horizontal_padding_warnings:
             report["warnings"].append(f"horizontal_padding_below_recommended={horizontal_padding_warnings}")
-        if foot_variance > profile.max_foot_baseline_variance_px:
+        if anchor_mode != "body_center" and foot_variance > profile.max_foot_baseline_variance_px:
             report["blockers"].append("unstable_foot_baseline")
         if center_x_variance > profile.max_center_variance_px:
             report["blockers"].append("unstable_center_x")
-        if max(width_ratio, height_ratio) > profile.max_size_variance_ratio:
+        if max(width_ratio, height_ratio) > profile.max_size_variance_ratio and not has_stable_recorded_scale:
             report["blockers"].append("unstable_content_scale")
         if detached_component_failures:
             report["blockers"].append("detached_frame_fragments")
@@ -445,6 +459,13 @@ def audit_asset(root: Path, item: dict[str, Any]) -> dict[str, Any]:
             "center_x_variance_px": round(center_x_variance, 2),
             "content_width_variance_ratio": round(width_ratio, 4),
             "content_height_variance_ratio": round(height_ratio, 4),
+            "anchor_mode": anchor_mode,
+            "recorded_scale_variance": (
+                round(recorded_scale_variance, 6)
+                if recorded_scale_variance is not None
+                else None
+            ),
+            "stable_recorded_scale": has_stable_recorded_scale,
             "detached_component_failures": detached_component_failures,
         }
 

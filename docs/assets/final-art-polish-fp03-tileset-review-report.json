@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "status": "ok",
+  "boundary": "FP-03 TileSet semantic and collision-readiness audit. Passing means current TileSet rules are coherent for conservative editor use; it does not approve final autotile painting, hand-fitted collision polygons, or runtime hazard damage Areas.",
+  "summary": {
+    "tileset_count": 2,
+    "ready_count": 2,
+    "error_count": 0,
+    "warning_count": 0
+  },
+  "tilesets": [
+    {
+      "asset_id": "miasma_marsh_tileset_ai01",
+      "status": "tileset_semantics_ready",
+      "rules": "assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset_rules.json",
+      "tileset_resource": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
+      "tile_count": 48,
+      "tile_size": [
+        64,
+        64
+      ],
+      "physics_layer_count": 1,
+      "terrain_set_count": 1,
+      "counts": {
+        "decorative_visual_only": 8,
+        "hazard_visual_only": 8,
+        "one_way_platform": 8,
+        "solid": 24,
+        "unclassified_visual_only": 0
+      },
+      "role_counts_from_rules": {
+        "solid": 24,
+        "one_way_platform": 8,
+        "decorative_visual_only": 8,
+        "hazard_visual_only": 8
+      },
+      "requires_hazard_visuals": true,
+      "manual_review_required": true,
+      "boundary": "Conservative first-pass TileSet rules. Collision and hazard boundaries must be reviewed before runtime TileMap replacement.",
+      "sample_semantic_names": [
+        "miasma_marsh_ground_01_01",
+        "miasma_marsh_ground_01_02",
+        "miasma_marsh_ground_01_03",
+        "miasma_marsh_ground_01_04",
+        "miasma_marsh_ground_01_05",
+        "miasma_marsh_ground_01_06",
+        "miasma_marsh_ground_01_07",
+        "miasma_marsh_ground_01_08"
+      ],
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "asset_id": "shrine_trial_tileset_ai01",
+      "status": "tileset_semantics_ready",
+      "rules": "assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset_rules.json",
+      "tileset_resource": "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres",
+      "tile_count": 48,
+      "tile_size": [
+        64,
+        64
+      ],
+      "physics_layer_count": 1,
+      "terrain_set_count": 1,
+      "counts": {
+        "decorative_visual_only": 16,
+        "hazard_visual_only": 0,
+        "one_way_platform": 8,
+        "solid": 24,
+        "unclassified_visual_only": 0
+      },
+      "role_counts_from_rules": {
+        "solid": 24,
+        "one_way_platform": 8,
+        "decorative_visual_only": 16
+      },
+      "requires_hazard_visuals": false,
+      "manual_review_required": true,
+      "boundary": "Conservative first-pass TileSet rules. Collision and hazard boundaries must be reviewed before runtime TileMap replacement.",
+      "sample_semantic_names": [
+        "shrine_trial_ground_01_01",
+        "shrine_trial_ground_01_02",
+        "shrine_trial_ground_01_03",
+        "shrine_trial_ground_01_04",
+        "shrine_trial_ground_01_05",
+        "shrine_trial_ground_01_06",
+        "shrine_trial_ground_01_07",
+        "shrine_trial_ground_01_08"
+      ],
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

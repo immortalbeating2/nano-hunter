@@ -10,9 +10,13 @@ signal hud_context_changed(step_title: String, prompt_text: String)
 
 const STEP_COMBAT: StringName = &"combat"
 const STEP_CLEAR: StringName = &"clear"
+const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
 const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
-const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
+const CAMERA_LIMITS := Rect2i(-384, -192, 1152, 384)
 const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
+const GateStateVfx := preload("res://scripts/rooms/gate_state_vfx.gd")
+const SEAL_GATE_LOCKED_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres")
+const SEAL_GATE_OPEN_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres")
 
 const STEP_TITLES := {
 	STEP_COMBAT: "实战 1/1 · 击败敌人",
@@ -25,13 +29,15 @@ const STEP_PROMPTS := {
 }
 
 const SPAWN_POSITIONS := {
-	&"combat_entry": Vector2(-64, 120),
-	&"combat_retry": Vector2(-64, 120),
+	&"combat_entry": Vector2(-256, 140),
+	&"combat_retry": Vector2(-256, 140),
+	&"combat_return": Vector2(640, 140),
 }
 
 @onready var basic_melee_enemy: StaticBody2D = $BasicMeleeEnemy
 @onready var exit_barrier_shape: CollisionShape2D = $ExitBarrier/CollisionShape2D
 @onready var exit_barrier_visual: Polygon2D = $ExitBarrier/BarrierVisual
+@onready var exit_barrier_art: Sprite2D = $ExitBarrier/BarrierArt
 
 var _player: CharacterBody2D
 var _current_step: StringName = STEP_COMBAT
@@ -39,6 +45,8 @@ var _exit_unlocked := false
 var _transition_requested := false
 
 @export var flow_config: RoomFlowConfig
+@export var previous_room_path := TUTORIAL_ROOM_PATH
+@export var previous_spawn_id: StringName = &"tutorial_return"
 
 
 # 初始化时先把唯一敌人与出口门控接起来，再同步第一条 HUD 提示。
@@ -57,7 +65,13 @@ func bind_player(player: CharacterBody2D) -> void:
 
 # 战斗房的运行态逻辑非常单一：只有清房后才允许进入下一个房间。
 func _process(_delta: float) -> void:
-	if _player == null or not _exit_unlocked or _transition_requested:
+	if _player == null or _transition_requested:
+		return
+
+	if _try_request_previous_room():
+		return
+
+	if not _exit_unlocked:
 		return
 
 	if _player.global_position.x >= $ExitZone.global_position.x - 36.0:
@@ -106,10 +120,15 @@ func is_dash_available_in_hud() -> bool:
 
 # 返回战斗房出生点，支持首次进入和失败重试复用同一默认点。
 func get_spawn_position(spawn_id: StringName = &"combat_entry") -> Vector2:
-	if flow_config != null:
-		return flow_config.get_spawn_position(spawn_id, SPAWN_POSITIONS[&"combat_entry"])
+	var fallback: Vector2 = SPAWN_POSITIONS[&"combat_entry"]
+	var configured: Variant = SPAWN_POSITIONS.get(spawn_id, fallback)
+	if configured is Vector2:
+		fallback = configured
 
-	return SPAWN_POSITIONS.get(spawn_id, SPAWN_POSITIONS[&"combat_entry"])
+	if flow_config != null:
+		return flow_config.get_spawn_position(spawn_id, fallback)
+
+	return fallback
 
 
 # 汇总战斗房 HUD 上下文，供 TutorialHUD 统一翻译显示。
@@ -135,15 +154,39 @@ func _on_basic_melee_enemy_defeated() -> void:
 	_emit_hud_context()
 
 
+# 战斗房是普通房间，允许从左侧回教程房；Boss 锁门不使用这套逻辑。
+func _try_request_previous_room() -> bool:
+	if previous_room_path.is_empty():
+		return false
+
+	var left_exit_zone := get_node_or_null("LeftExitZone") as Node2D
+	if left_exit_zone == null:
+		return false
+
+	if _player.global_position.x > left_exit_zone.global_position.x + 36.0:
+		return false
+
+	_transition_requested = true
+	room_transition_requested.emit(previous_room_path, previous_spawn_id)
+	return true
+
+
 # 广播当前标题和提示，驱动 HUD 在清房时立即刷新。
 func _emit_hud_context() -> void:
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
-# 按出口解锁状态同步碰撞和占位颜色。
+# 按出口解锁状态同步碰撞、旧占位颜色和正式门贴图。
 func _apply_exit_lock_state() -> void:
 	if exit_barrier_shape != null:
 		exit_barrier_shape.disabled = _exit_unlocked
 
 	if exit_barrier_visual != null:
 		exit_barrier_visual.color = Color(0.258824, 0.694118, 0.478431, 1.0) if _exit_unlocked else Color(0.776471, 0.321569, 0.262745, 1.0)
+
+	if exit_barrier_art != null:
+		exit_barrier_art.texture = SEAL_GATE_OPEN_TEXTURE if _exit_unlocked else SEAL_GATE_LOCKED_TEXTURE
+		exit_barrier_art.set_meta("asset_id", "shrine_gate_prop_atlas_ai01")
+		exit_barrier_art.set_meta("runtime_source", "shrine_gate_prop_atlas_ai01.seal_gate_open" if _exit_unlocked else "shrine_gate_prop_atlas_ai01.seal_gate_locked")
+
+	GateStateVfx.sync_unlock_feedback(get_node_or_null("ExitBarrier"), _exit_unlocked)

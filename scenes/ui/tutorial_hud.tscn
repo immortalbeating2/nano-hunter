@@ -1,19 +1,43 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tutorial_hud.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/stage12_checkpoint_gate_goal_icons.svg" id="2"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/hud_core_ui_atlas_ai01/011_hud_core_ui_atlas_ai01_auto_012_c01.atlas_texture.tres" id="2"]
 [ext_resource type="Theme" path="res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres" id="3"]
 [ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres" id="4"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/stage14_air_dash_icon_ai01.png" id="5"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/stage15_recovery_charge_icon_ai01.png" id="6"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres" id="5"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/icon_sheet_core_ai01/001_icon_sheet_core_ai01_auto_002_c01.atlas_texture.tres" id="6"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage14_ability_status_hud_ai01.png" id="7"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage15_boss_hud_frame_ai01.png" id="8"]
 [ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres" id="9"]
 [ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres" id="10"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/icon_sheet_core_ai01/009_icon_sheet_core_ai01_auto_010_c02.atlas_texture.tres" id="11"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/hud_core_ui_atlas_ai01/008_hud_core_ui_atlas_ai01_auto_009.atlas_texture.tres" id="12"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai01_auto_002_c01.atlas_texture.tres" id="13"]
+[ext_resource type="AtlasTexture" path="res://assets/art/editor_resources/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai01_auto_003_c01.atlas_texture.tres" id="14"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_objective_icon"]
-atlas = ExtResource("2")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_strip"]
+bg_color = Color(0.027451, 0.0431373, 0.0470588, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.552941, 0.45098, 0.258824, 0.82)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt_toast"]
+bg_color = Color(0.0313726, 0.0470588, 0.054902, 0.72)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.384314, 0.619608, 0.635294, 0.68)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="TutorialHUD" type="Control"]
 layout_mode = 3
@@ -27,42 +51,64 @@ theme = ExtResource("3")
 script = ExtResource("1")
 
 [node name="PromptPanel" type="Panel" parent="."]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 364.0
-offset_bottom = 116.0
-theme_override_styles/panel = ExtResource("4")
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -78.0
+offset_top = 10.0
+offset_right = 238.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_prompt_toast")
+
+[node name="PromptPanelArt" type="TextureRect" parent="PromptPanel"]
+modulate = Color(1, 1, 1, 0.72)
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("14")
+expand_mode = 1
+metadata/asset_id = "menu_ninepatch_ui_ai01.hud_prompt_panel_art"
 
 [node name="StepLabel" type="Label" parent="PromptPanel"]
 offset_left = 12.0
-offset_top = 10.0
-offset_right = 300.0
-offset_bottom = 28.0
-theme_override_font_sizes/font_size = 16
+offset_top = 6.0
+offset_right = 304.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0.941176, 0.843137, 0.6, 1)
+theme_override_font_sizes/font_size = 9
 text = "教程 1/4 · 移动与跳跃"
 
 [node name="PromptLabel" type="Label" parent="PromptPanel"]
 offset_left = 12.0
-offset_top = 36.0
-offset_right = 340.0
-offset_bottom = 90.0
-theme_override_font_sizes/font_size = 18
-text = "按 A/D 或 ←/→ 移动，再按 Space、W 或 ↑ 跳到上方平台。"
+offset_top = 22.0
+offset_right = 304.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(0.870588, 0.917647, 0.901961, 1)
+theme_override_font_sizes/font_size = 8
+text = "A/D 或 ←/→ 移动，Space/W/↑ 跳上平台。"
 autowrap_mode = 3
 
 [node name="BattlePanel" type="Panel" parent="."]
-offset_left = 386.0
-offset_top = 16.0
-offset_right = 624.0
-offset_bottom = 220.0
-theme_override_styles/panel = ExtResource("4")
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 206.0
+offset_bottom = 74.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_strip")
+
+[node name="BattlePanelArt" type="TextureRect" parent="BattlePanel"]
+modulate = Color(1, 1, 1, 0.58)
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("13")
+expand_mode = 1
+metadata/asset_id = "menu_ninepatch_ui_ai01.hud_battle_panel_art"
 
 [node name="AbilityStatusFrameArt" type="TextureRect" parent="BattlePanel"]
 visible = false
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 232.0
-offset_bottom = 198.0
+offset_right = 178.0
+offset_bottom = 98.0
 mouse_filter = 2
 texture = ExtResource("7")
 expand_mode = 1
@@ -73,8 +119,8 @@ metadata/asset_id = "stage14_ability_status_hud_ai01"
 visible = false
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 232.0
-offset_bottom = 198.0
+offset_right = 208.0
+offset_bottom = 136.0
 mouse_filter = 2
 texture = ExtResource("8")
 expand_mode = 1
@@ -84,79 +130,215 @@ metadata/asset_id = "stage15_boss_hud_frame_ai01"
 [node name="HudCoreAtlasPreview" type="TextureRect" parent="BattlePanel"]
 visible = false
 offset_left = 12.0
-offset_top = 130.0
+offset_top = 108.0
 offset_right = 40.0
-offset_bottom = 158.0
+offset_bottom = 136.0
 mouse_filter = 2
 texture = ExtResource("9")
+expand_mode = 1
 stretch_mode = 5
 metadata/asset_id = "hud_core_ui_atlas_ai01"
 
 [node name="IconSheetCorePreview" type="TextureRect" parent="BattlePanel"]
 visible = false
 offset_left = 44.0
-offset_top = 130.0
+offset_top = 108.0
 offset_right = 72.0
-offset_bottom = 158.0
+offset_bottom = 136.0
 mouse_filter = 2
 texture = ExtResource("10")
+expand_mode = 1
 stretch_mode = 5
 metadata/asset_id = "icon_sheet_core_ai01"
 
-[node name="HealthIcon" type="ColorRect" parent="BattlePanel"]
+[node name="HealthIcon" type="TextureRect" parent="BattlePanel"]
 offset_left = 12.0
-offset_top = 12.0
-offset_right = 24.0
-offset_bottom = 24.0
-color = Color(0.886275, 0.286275, 0.337255, 1)
+offset_top = 11.0
+offset_right = 22.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = ExtResource("11")
+expand_mode = 1
+stretch_mode = 5
+metadata/asset_id = "icon_sheet_core_ai01.health"
 
 [node name="StatusLabel" type="Label" parent="BattlePanel"]
-offset_left = 32.0
-offset_top = 10.0
-offset_right = 220.0
-offset_bottom = 28.0
-theme_override_font_sizes/font_size = 18
-text = "生命：■■■"
+offset_left = 26.0
+offset_top = 9.0
+offset_right = 58.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.929412, 0.901961, 0.784314, 1)
+theme_override_font_sizes/font_size = 8
+text = "生命"
+
+[node name="HealthBarBack" type="ColorRect" parent="BattlePanel"]
+offset_left = 66.0
+offset_top = 14.0
+offset_right = 184.0
+offset_bottom = 20.0
+color = Color(0.102, 0.053, 0.063, 0.92)
+
+[node name="HealthBarFill" type="ColorRect" parent="BattlePanel"]
+offset_left = 67.0
+offset_top = 15.0
+offset_right = 183.0
+offset_bottom = 19.0
+color = Color(0.886275, 0.286275, 0.337255, 1)
+
+[node name="HealthMeterFrameArt" type="TextureRect" parent="BattlePanel"]
+modulate = Color(1, 1, 1, 0.78)
+offset_left = 61.0
+offset_top = 7.0
+offset_right = 190.0
+offset_bottom = 25.0
+mouse_filter = 2
+texture = ExtResource("12")
+expand_mode = 1
+metadata/asset_id = "hud_core_ui_atlas_ai01.meter_rail"
 
 [node name="DashIcon" type="TextureRect" parent="BattlePanel"]
-offset_left = 12.0
-offset_top = 36.0
-offset_right = 28.0
-offset_bottom = 56.0
+offset_left = 10.0
+offset_top = 29.0
+offset_right = 22.0
+offset_bottom = 41.0
 texture = ExtResource("5")
+expand_mode = 1
 stretch_mode = 5
-metadata/asset_id = "stage14_air_dash_icon_ai01"
+metadata/asset_id = "icon_sheet_core_ai01.air_dash"
 
 [node name="DashLabel" type="Label" parent="BattlePanel"]
-offset_left = 32.0
-offset_top = 38.0
-offset_right = 220.0
-offset_bottom = 56.0
-theme_override_font_sizes/font_size = 18
-text = "冲刺：未开放"
+offset_left = 26.0
+offset_top = 27.0
+offset_right = 58.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(0.929412, 0.901961, 0.784314, 1)
+theme_override_font_sizes/font_size = 8
+text = "冲刺"
+
+[node name="DashBarBack" type="ColorRect" parent="BattlePanel"]
+offset_left = 66.0
+offset_top = 32.0
+offset_right = 184.0
+offset_bottom = 38.0
+color = Color(0.045, 0.09, 0.105, 0.92)
+
+[node name="DashBarFill" type="ColorRect" parent="BattlePanel"]
+offset_left = 67.0
+offset_top = 33.0
+offset_right = 183.0
+offset_bottom = 37.0
+color = Color(0.224, 0.784, 0.725, 1)
+
+[node name="DashMeterFrameArt" type="TextureRect" parent="BattlePanel"]
+modulate = Color(1, 1, 1, 0.72)
+offset_left = 61.0
+offset_top = 25.0
+offset_right = 190.0
+offset_bottom = 43.0
+mouse_filter = 2
+texture = ExtResource("12")
+expand_mode = 1
+metadata/asset_id = "hud_core_ui_atlas_ai01.meter_rail"
 
 [node name="ObjectiveIcon" type="TextureRect" parent="BattlePanel"]
-offset_left = 12.0
-offset_top = 72.0
-offset_right = 26.0
-offset_bottom = 86.0
-texture = SubResource("AtlasTexture_objective_icon")
+visible = false
+offset_left = 11.0
+offset_top = 48.0
+offset_right = 21.0
+offset_bottom = 58.0
+texture = ExtResource("2")
+expand_mode = 1
 stretch_mode = 5
+metadata/asset_id = "hud_core_ui_atlas_ai01.room_goal_marker"
 
 [node name="RecoveryChargeIcon" type="TextureRect" parent="BattlePanel"]
-offset_left = 12.0
-offset_top = 104.0
-offset_right = 30.0
-offset_bottom = 122.0
+offset_left = 10.0
+offset_top = 47.0
+offset_right = 22.0
+offset_bottom = 59.0
 texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 5
-metadata/asset_id = "stage15_recovery_charge_icon_ai01"
+metadata/asset_id = "icon_sheet_core_ai01.recovery_charge"
+
+[node name="RecoveryLabel" type="Label" parent="BattlePanel"]
+offset_left = 26.0
+offset_top = 45.0
+offset_right = 58.0
+offset_bottom = 59.0
+theme_override_colors/font_color = Color(0.929412, 0.901961, 0.784314, 1)
+theme_override_font_sizes/font_size = 8
+text = "恢复"
+
+[node name="RecoveryBarBack" type="ColorRect" parent="BattlePanel"]
+offset_left = 66.0
+offset_top = 50.0
+offset_right = 184.0
+offset_bottom = 56.0
+color = Color(0.071, 0.075, 0.055, 0.92)
+
+[node name="RecoveryBarFill" type="ColorRect" parent="BattlePanel"]
+offset_left = 67.0
+offset_top = 51.0
+offset_right = 67.0
+offset_bottom = 55.0
+color = Color(0.922, 0.729, 0.306, 1)
+
+[node name="RecoveryMeterFrameArt" type="TextureRect" parent="BattlePanel"]
+modulate = Color(1, 1, 1, 0.72)
+offset_left = 61.0
+offset_top = 43.0
+offset_right = 190.0
+offset_bottom = 61.0
+mouse_filter = 2
+texture = ExtResource("12")
+expand_mode = 1
+metadata/asset_id = "hud_core_ui_atlas_ai01.meter_rail"
+
+[node name="BossLabel" type="Label" parent="BattlePanel"]
+visible = false
+offset_left = 11.0
+offset_top = 63.0
+offset_right = 58.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0.929412, 0.901961, 0.784314, 1)
+theme_override_font_sizes/font_size = 8
+text = "首领"
+
+[node name="BossBarBack" type="ColorRect" parent="BattlePanel"]
+visible = false
+offset_left = 66.0
+offset_top = 68.0
+offset_right = 184.0
+offset_bottom = 74.0
+color = Color(0.09, 0.047, 0.04, 0.92)
+
+[node name="BossBarFill" type="ColorRect" parent="BattlePanel"]
+visible = false
+offset_left = 67.0
+offset_top = 69.0
+offset_right = 183.0
+offset_bottom = 73.0
+color = Color(0.82, 0.196, 0.145, 1)
+
+[node name="BossMeterFrameArt" type="TextureRect" parent="BattlePanel"]
+visible = false
+modulate = Color(1, 1, 1, 0.72)
+offset_left = 61.0
+offset_top = 61.0
+offset_right = 190.0
+offset_bottom = 79.0
+mouse_filter = 2
+texture = ExtResource("12")
+expand_mode = 1
+metadata/asset_id = "hud_core_ui_atlas_ai01.meter_rail"
 
 [node name="ProgressLabel" type="Label" parent="BattlePanel"]
-offset_left = 44.0
-offset_top = 66.0
-offset_right = 226.0
-offset_bottom = 200.0
-theme_override_font_sizes/font_size = 15
+offset_left = 11.0
+offset_top = 45.0
+offset_right = 184.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.858824, 0.92549, 0.890196, 1)
+theme_override_font_sizes/font_size = 8
 text = "成长：未发现"
 autowrap_mode = 3

@@ -1,6 +1,16 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage11_demo_end_room.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_blv2g"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="8_hbklt"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="9_s251g"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="10_bc1ba"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="11_t4p0w"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/011_equipment_pickup_atlas_ai01_auto_012_c02.atlas_texture.tres" id="continue_icon"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/023_equipment_pickup_atlas_ai01_auto_024_c02.atlas_texture.tres" id="goal_icon"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="nh_bg"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/material_texture_atlas_ai01.png" id="nh_mat"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/003_equipment_pickup_atlas_ai01_auto_004_c01.atlas_texture.tres" id="replay_icon"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -11,73 +21,210 @@ size = Vector2(512, 32)
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(96, 128)
 
-[node name="Stage11DemoEndRoom" type="Node2D"]
+[node name="Stage11DemoEndRoom" type="Node2D" unique_id=920702238]
 script = ExtResource("1")
 
-[node name="Backdrop" type="Polygon2D" parent="."]
+[node name="Backdrop" type="Polygon2D" parent="." unique_id=1152495036]
+z_index = -4
 color = Color(0.109804, 0.145098, 0.145098, 1)
-polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+polygon = PackedVector2Array(-409.92004, -338.76, 793.92004, -338.76, 793.92004, 338.76, -409.92004, 338.76)
 
-[node name="LeftWall" type="StaticBody2D" parent="."]
+[node name="DemoBackgroundArt" type="Sprite2D" parent="." unique_id=1657636109]
+modulate = Color(1, 1, 1, 0.5)
+z_index = -3
+position = Vector2(192, 0)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("nh_bg")
+metadata/asset_binding_note = "dac_background_camera_coverage_scaled"
+
+[node name="MaterialTextureArt" type="Sprite2D" parent="." unique_id=605429924]
+visible = false
+modulate = Color(1, 1, 1, 0.18)
+position = Vector2(160, 144)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("nh_mat")
+metadata/asset_id = "material_texture_atlas_ai01"
+metadata/asset_binding_note = "full_content_demo_terrain_material_decor"
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=464363778]
 position = Vector2(-304, 0)
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1647401764]
+visible = false
 shape = SubResource("1")
+disabled = true
 
-[node name="RightWall" type="StaticBody2D" parent="."]
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=1028988620]
 position = Vector2(624, 0)
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1172731540]
+visible = false
 shape = SubResource("1")
+disabled = true
 
-[node name="Floor" type="StaticBody2D" parent="."]
+[node name="Floor" type="StaticBody2D" parent="." unique_id=2145323989]
 position = Vector2(96, 160)
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1024150600]
+visible = false
 shape = SubResource("2")
+disabled = true
 
-[node name="FloorVisual" type="Polygon2D" parent="Floor"]
-color = Color(0.223529, 0.305882, 0.301961, 1)
+[node name="FloorVisual" type="Polygon2D" parent="Floor" unique_id=1701758207]
+visible = false
+texture_repeat = 2
+color = Color(1, 1, 1, 0.08)
+texture = ExtResource("4_blv2g")
 polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
+metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="ReplayZone" type="Area2D" parent="."]
-position = Vector2(-176, 96)
+[node name="ReplayZone" type="Area2D" parent="." unique_id=1685709729]
+position = Vector2(-256, 160)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ReplayZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReplayZone" unique_id=1709772372]
 shape = SubResource("3")
 
-[node name="ReplayVisual" type="Polygon2D" parent="ReplayZone"]
-color = Color(0.929412, 0.854902, 0.486275, 0.25)
+[node name="ReplayVisual" type="Polygon2D" parent="ReplayZone" unique_id=1438564614]
+visible = false
+color = Color(0.929412, 0.854902, 0.486275, 0.025)
 polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+metadata/asset_binding_note = "dac_subtle_trigger_readability_marker"
 
-[node name="Stage12ReplayArrow" type="Polygon2D" parent="ReplayZone"]
+[node name="Stage12ReplayArrow" type="Polygon2D" parent="ReplayZone" unique_id=986691145]
+visible = false
 color = Color(0.964706, 0.92549, 0.552941, 0.8)
 polygon = PackedVector2Array(20, -18, -20, 0, 20, 18, 8, 0)
+metadata/asset_binding_note = "legacy_direction_arrow_hidden_after_dac_manual_review"
 
-[node name="GoalZone" type="Area2D" parent="."]
-position = Vector2(448, 96)
+[node name="ReplayMarkerArt" type="Sprite2D" parent="ReplayZone" unique_id=1801097115]
+scale = Vector2(0.46, 0.46)
+texture = ExtResource("replay_icon")
+metadata/asset_id = "equipment_pickup_atlas_ai01"
+metadata/runtime_source = "equipment_pickup_atlas_ai01.bronze_bell"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalZone"]
+[node name="GoalZone" type="Area2D" parent="." unique_id=30036610]
+position = Vector2(480, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalZone" unique_id=452253631]
 shape = SubResource("3")
 
-[node name="GoalVisual" type="Polygon2D" parent="GoalZone"]
-color = Color(0.258824, 0.694118, 0.478431, 0.35)
+[node name="GoalVisual" type="Polygon2D" parent="GoalZone" unique_id=1988815172]
+visible = false
+color = Color(0.258824, 0.694118, 0.478431, 0.025)
 polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+metadata/asset_binding_note = "dac_subtle_trigger_readability_marker"
 
-[node name="Stage12GoalArrow" type="Polygon2D" parent="GoalZone"]
+[node name="Stage12GoalArrow" type="Polygon2D" parent="GoalZone" unique_id=1391000374]
+visible = false
 color = Color(0.517647, 0.941176, 0.670588, 0.85)
 polygon = PackedVector2Array(-20, -18, 20, 0, -20, 18, -8, 0)
+metadata/asset_binding_note = "legacy_direction_arrow_hidden_after_dac_manual_review"
 
-[node name="ContinueZone" type="Area2D" parent="."]
-position = Vector2(560, 96)
+[node name="GoalMarkerArt" type="Sprite2D" parent="GoalZone" unique_id=1419382618]
+scale = Vector2(0.46, 0.46)
+texture = ExtResource("goal_icon")
+metadata/asset_id = "equipment_pickup_atlas_ai01"
+metadata/runtime_source = "equipment_pickup_atlas_ai01.demo_completion_token"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContinueZone"]
+[node name="ContinueZone" type="Area2D" parent="." unique_id=817621522]
+position = Vector2(672, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContinueZone" unique_id=199218001]
 shape = SubResource("3")
 
-[node name="ContinueVisual" type="Polygon2D" parent="ContinueZone"]
-color = Color(0.564706, 0.784314, 0.737255, 0.35)
+[node name="ContinueVisual" type="Polygon2D" parent="ContinueZone" unique_id=1672940004]
+visible = false
+color = Color(0.564706, 0.784314, 0.737255, 0.025)
 polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+metadata/asset_binding_note = "dac_subtle_trigger_readability_marker"
 
-[node name="Stage13ContinueArrow" type="Polygon2D" parent="ContinueZone"]
+[node name="Stage13ContinueArrow" type="Polygon2D" parent="ContinueZone" unique_id=797753800]
+visible = false
 color = Color(0.690196, 0.941176, 0.870588, 0.85)
 polygon = PackedVector2Array(-20, -18, 20, 0, -20, 18, -8, 0)
+metadata/asset_binding_note = "legacy_direction_arrow_hidden_after_dac_manual_review"
+
+[node name="ContinueMarkerArt" type="Sprite2D" parent="ContinueZone" unique_id=343739609]
+scale = Vector2(0.46, 0.46)
+texture = ExtResource("continue_icon")
+metadata/asset_id = "equipment_pickup_atlas_ai01"
+metadata/runtime_source = "equipment_pickup_atlas_ai01.shrine_key_token"
+
+[node name="FormalTerrainTilemapDecor" type="TileMapLayer" parent="." unique_id=1090265369]
+visible = false
+modulate = Color(1, 1, 1, 0.92)
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD9/wIAAAAAAAMAAAD+/wIAAAABAAMAAAD//wIAAAACAAMAAAAAAAIAAAADAAMAAAABAAIAAAAEAAMAAAACAAIAAAAFAAMAAAADAAIAAAAGAAMAAAAEAAIAAAAHAAMAAAAFAAIAAAAAAAQAAAA=")
+tile_set = ExtResource("8_hbklt")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_imagegen_tileset_terrain_decor"
+
+[node name="FormalForegroundEdgeDecor" type="TileMapLayer" parent="." unique_id=2133828527]
+visible = false
+modulate = Color(1, 1, 1, 0.46)
+z_index = 2
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD//wEA//////////8DAAEAAAAEAAQAAAD9/wEAAAADAAQAAAA=")
+tile_set = ExtResource("8_hbklt")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_foreground_edge_decor"
+
+[node name="TerrainCollisionVisual" type="TileMapLayer" parent="." unique_id=66241505]
+modulate = Color(1, 1, 1, 0.08)
+z_index = 1
+scale = Vector2(0.16666667, 0.16666667)
+tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAABAAAAAAD+/wMAAAAAAAAAAAD//wMAAAABAAAAAAAAAAMAAAAAAAAAAAABAAMAAAABAAAAAAACAAMAAAAAAAAAAAADAAMAAAABAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAABAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAABAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAABAAAAAAAKAAMAAAAAAAAAAAALAAMAAAADAAAAAAA=")
+tile_set = ExtResource("9_s251g")
+
+[node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=1561875920]
+modulate = Color(1, 1, 1, 0.08)
+z_index = 2
+position = Vector2(0, -16)
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("9_s251g")
+
+[node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1177490884]
+modulate = Color(0.74, 0.84, 0.78, 0.92)
+z_index = 2
+position = Vector2(0, -7)
+tile_map_data = PackedByteArray("AAD6/wMAAAAAAAAAAAD7/wMAAAABAAAAAAD8/wMAAAABAAAAAAD9/wMAAAABAAAAAAD+/wMAAAABAAAAAAD//wMAAAABAAAAAAAAAAMAAAABAAAAAAABAAMAAAABAAAAAAACAAMAAAABAAAAAAADAAMAAAABAAAAAAAEAAMAAAABAAAAAAAFAAMAAAABAAAAAAAGAAMAAAABAAAAAAAHAAMAAAABAAAAAAAIAAMAAAABAAAAAAAJAAMAAAABAAAAAAAKAAMAAAABAAAAAAALAAMAAAACAAAAAAA=")
+tile_set = ExtResource("10_bc1ba")
+collision_enabled = false
+
+[node name="ThinPlatformSurfaceVisual" type="TileMapLayer" parent="." unique_id=902137391]
+modulate = Color(0.7, 0.82, 0.75, 0.92)
+z_index = 2
+tile_set = ExtResource("11_t4p0w")
+collision_enabled = false
+
+[node name="DoorVisual" type="TileMapLayer" parent="." unique_id=851021510]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("9_s251g")
+collision_enabled = false
+
+[node name="BackgroundVisual" type="TileMapLayer" parent="." unique_id=917257420]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("9_s251g")
+collision_enabled = false
+
+[node name="DecorVisual" type="TileMapLayer" parent="." unique_id=1471875619]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("9_s251g")
+collision_enabled = false
+
+[node name="ForegroundVisual" type="TileMapLayer" parent="." unique_id=678936565]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("9_s251g")
+collision_enabled = false

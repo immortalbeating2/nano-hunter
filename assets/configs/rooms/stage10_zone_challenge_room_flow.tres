@@ -17,6 +17,7 @@ step_dash_visibility = {
 &"room": true
 }
 spawn_positions = {
-&"stage10_challenge_start": Vector2(-128, 96)
+&"stage10_challenge_return": Vector2(1088, 268),
+&"stage10_challenge_start": Vector2(-256, 268)
 }
 thresholds = {}

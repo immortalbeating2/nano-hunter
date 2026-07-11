@@ -23,12 +23,14 @@ var _pulse_elapsed := 0.0
 # 初始化时同步远程压制配置，保证直接实例化和场景加载表现一致。
 func _ready() -> void:
 	# 初始化时同步配置，保证测试直接实例化也能读到场景期望数值。
+	super._ready()
 	_apply_config()
 
 
 # 物理帧更新瘴气压力视觉并沿用触碰伤害，当前阶段不生成真实弹体。
 func _physics_process(delta: float) -> void:
 	if is_defeated():
+		_hide_pressure_visuals()
 		return
 
 	# 当前阶段先用脉冲视觉表达远程压制范围，不生成真实弹体，避免把普通敌人扩成弹幕系统。
@@ -66,12 +68,25 @@ func get_miasma_pressure_radius() -> float:
 	return _miasma_pressure_radius
 
 
-# 更新占位压力范围视觉；缺少节点时允许静默跳过，避免旧场景加载失败。
+# 更新压力范围视觉；旧 Polygon 只保留为隐藏调试层，正式读值走腐瘴专用 VFX 子资源。
 func _update_pressure_visual() -> void:
 	var pressure_visual := get_node_or_null("MiasmaPressureVisual") as Polygon2D
-	if pressure_visual == null:
-		return
+	var pressure_vfx := get_node_or_null("MiasmaPressureVfxVisual") as AnimatedSprite2D
 
-	# alpha 轻微呼吸即可提示危险半径；实际伤害仍走 BaseEnemy 的触碰伤害契约。
 	var t := _pulse_elapsed / maxf(_pulse_interval, 0.01)
-	pressure_visual.color = Color(0.619608, 0.858824, 0.321569, 0.22 + 0.18 * sin(t * TAU))
+	if pressure_visual != null:
+		pressure_visual.visible = false
+		pressure_visual.color = Color(0.454902, 0.839216, 0.690196, 0.055 + 0.035 * sin(t * TAU))
+	if pressure_vfx != null:
+		pressure_vfx.visible = true
+		pressure_vfx.modulate = Color(1.0, 1.0, 1.0, 0.17 + 0.03 * sin(t * TAU))
+
+
+# 敌人被击败后清理压制提示，避免房间门控已清除但视觉还残留。
+func _hide_pressure_visuals() -> void:
+	var pressure_visual := get_node_or_null("MiasmaPressureVisual") as CanvasItem
+	var pressure_vfx := get_node_or_null("MiasmaPressureVfxVisual") as AnimatedSprite2D
+	if pressure_visual != null:
+		pressure_visual.visible = false
+	if pressure_vfx != null:
+		pressure_vfx.visible = false

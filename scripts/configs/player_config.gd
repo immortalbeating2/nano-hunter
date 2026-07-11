@@ -12,7 +12,7 @@ class_name PlayerConfig
 @export var air_acceleration: float = 700.0
 
 # 跳跃参数覆盖起跳、短跳、上升 / 下落重力和最大下落速度。
-@export var jump_velocity: float = -340.0
+@export var jump_velocity: float = -420.0
 @export_range(0.1, 1.0, 0.05) var jump_cut_ratio: float = 0.25
 @export var rise_gravity: float = 950.0
 @export var fall_gravity: float = 1350.0

@@ -122,6 +122,8 @@ Last Updated: 2026-05-14
 - `Batch 04 - 音频资产`：最小 SFX、人声候选、怪物声和 BGM loop。
 - `Batch 05 - 动画参考与宣传素材`：动作参考、Boss 入场和 Alpha Demo trailer 草案。
 
+Batch 04 具体 prompt、命令、全量分类矩阵与落盘地址见 `docs/assets/audio-asset-prompt-reference.md`；当前世界观无现代载具，载具 / 机械音效统一按古代机关、石门、封印链和机括锁处理。
+
 ## 存储与命名
 
 - 原始候选：`assets/source/ai_generated/batch_XX/<asset_id>_candidate_01.png`

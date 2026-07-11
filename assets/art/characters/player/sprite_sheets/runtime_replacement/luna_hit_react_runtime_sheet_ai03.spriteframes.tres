@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_001"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_002"]
+atlas = ExtResource("1")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_003"]
+atlas = ExtResource("1")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_004"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_005"]
+atlas = ExtResource("1")
+region = Rect2(192, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_006"]
+atlas = ExtResource("1")
+region = Rect2(384, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_hit_react_runtime_sheet_ai03_007"]
+atlas = ExtResource("1")
+region = Rect2(576, 192, 192, 192)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_002")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_003")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_004")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_005")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_006")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_hit_react_runtime_sheet_ai03_007")}],
+"loop": false,
+"name": &"hit_react",
+"speed": 14.0
+}]

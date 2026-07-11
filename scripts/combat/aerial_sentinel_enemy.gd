@@ -24,6 +24,7 @@ var _hover_elapsed := 0.0
 
 # 运行态保持单一节奏：围绕出生点做悬浮摆动，并持续转发触碰伤害。
 func _ready() -> void:
+	super._ready()
 	_apply_config()
 	_spawn_position = position
 

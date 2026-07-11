@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "status": "ok",
+  "boundary": "FP-05 animation / VFX final polish audit. Passing means active runtime animation candidates, first-pass animation rules, VFX no-collision/no-damage rules, and key runtime references are coherent. It does not replace live playtest timing, hitbox/hurtbox or final hand-authored animation polish.",
+  "summary": {
+    "section_count": 4,
+    "error_count": 0,
+    "warning_count": 0
+  },
+  "animation_candidates": {
+    "status": "ready",
+    "report": "docs/assets/animation-runtime-replacement-candidate-audit-report.json",
+    "active_asset_count": 15,
+    "ready_count": 15,
+    "blocked_count": 0,
+    "archived_reference_count": 8,
+    "archived_reference_error_count": 0,
+    "sample_active_assets": [
+      "luna_idle_runtime_sheet_ai01",
+      "luna_run_runtime_sheet_ai01",
+      "luna_jump_fall_runtime_sheet_ai01",
+      "luna_hit_react_runtime_sheet_ai01",
+      "luna_death_idle_runtime_sheet_ai01",
+      "enemy_basic_melee_runtime_sheet_ai01",
+      "enemy_ground_charger_runtime_sheet_ai01",
+      "enemy_aerial_sentinel_runtime_sheet_ai01"
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "animation_rules": {
+    "status": "ready",
+    "index": "assets/art/characters/animation_rules/animation_rules.index.json",
+    "asset_count": 8,
+    "frame_rule_count": 172,
+    "errors": [],
+    "warnings": []
+  },
+  "vfx_rules": {
+    "status": "ready",
+    "index": "assets/art/vfx/vfx_rules/vfx_rules.index.json",
+    "asset_count": 7,
+    "frame_rule_count": 86,
+    "collision_disabled_count": 86,
+    "damage_disabled_count": 86,
+    "errors": [],
+    "warnings": []
+  },
+  "runtime_references": {
+    "status": "ready",
+    "scenes": [
+      {
+        "scene": "scripts/player/player_placeholder.gd",
+        "status": "references_ready",
+        "required_count": 6,
+        "missing": []
+      },
+      {
+        "scene": "scenes/player/player_placeholder.tscn",
+        "status": "references_ready",
+        "required_count": 5,
+        "missing": []
+      },
+      {
+        "scene": "scripts/combat/seal_guardian_boss.gd",
+        "status": "references_ready",
+        "required_count": 2,
+        "missing": []
+      },
+      {
+        "scene": "scenes/enemies/seal_guardian_boss.tscn",
+        "status": "references_ready",
+        "required_count": 3,
+        "missing": []
+      },
+      {
+        "scene": "scenes/combat/basic_melee_enemy.tscn",
+        "status": "references_ready",
+        "required_count": 2,
+        "missing": []
+      },
+      {
+        "scene": "scripts/combat/base_enemy.gd",
+        "status": "references_ready",
+        "required_count": 2,
+        "missing": []
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,377 @@
+{
+  "source": "assets/art/tilesets/formal_terrain_kit/formal_terrain_flat_edges_ai01.png",
+  "output": "assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png",
+  "columns": 4,
+  "rows": 3,
+  "cell_size": [
+    384,
+    384
+  ],
+  "canvas_size": [
+    1536,
+    1152
+  ],
+  "extraction_mode": "components",
+  "cells": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "cell_rect": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        76,
+        78,
+        232,
+        227
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        232,
+        227
+      ],
+      "source_component_area": 52519,
+      "source_component_bbox": [
+        59,
+        145,
+        232,
+        227
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "cell_rect": [
+        384,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        461,
+        78,
+        230,
+        227
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        230,
+        227
+      ],
+      "source_component_area": 51999,
+      "source_component_bbox": [
+        368,
+        145,
+        230,
+        227
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "cell_rect": [
+        768,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        840,
+        105,
+        240,
+        174
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        240,
+        174
+      ],
+      "source_component_area": 32975,
+      "source_component_bbox": [
+        663,
+        199,
+        240,
+        174
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "cell_rect": [
+        1152,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        1223,
+        105,
+        241,
+        174
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        241,
+        174
+      ],
+      "source_component_area": 33042,
+      "source_component_bbox": [
+        958,
+        199,
+        241,
+        174
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "cell_rect": [
+        0,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        87,
+        481,
+        210,
+        190
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        210,
+        190
+      ],
+      "source_component_area": 28150,
+      "source_component_bbox": [
+        59,
+        536,
+        210,
+        190
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "cell_rect": [
+        384,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        473,
+        481,
+        205,
+        190
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        205,
+        190
+      ],
+      "source_component_area": 27582,
+      "source_component_bbox": [
+        393,
+        536,
+        205,
+        190
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "cell_rect": [
+        768,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        850,
+        491,
+        219,
+        169
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        219,
+        169
+      ],
+      "source_component_area": 26066,
+      "source_component_bbox": [
+        670,
+        554,
+        219,
+        169
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "cell_rect": [
+        1152,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        1232,
+        491,
+        223,
+        170
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        223,
+        170
+      ],
+      "source_component_area": 26389,
+      "source_component_bbox": [
+        960,
+        554,
+        223,
+        170
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "cell_rect": [
+        0,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        56,
+        895,
+        272,
+        129
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        272,
+        129
+      ],
+      "source_component_area": 21922,
+      "source_component_bbox": [
+        49,
+        934,
+        272,
+        129
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "cell_rect": [
+        384,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        470,
+        896,
+        212,
+        128
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        212,
+        128
+      ],
+      "source_component_area": 16703,
+      "source_component_bbox": [
+        388,
+        934,
+        212,
+        128
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "cell_rect": [
+        768,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        851,
+        890,
+        218,
+        140
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        218,
+        140
+      ],
+      "source_component_area": 17384,
+      "source_component_bbox": [
+        665,
+        934,
+        218,
+        140
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "cell_rect": [
+        1152,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        1229,
+        852,
+        229,
+        216
+      ],
+      "source_visible_rect": [
+        0,
+        0,
+        229,
+        216
+      ],
+      "source_component_area": 48994,
+      "source_component_bbox": [
+        958,
+        866,
+        229,
+        216
+      ]
+    }
+  ]
+}

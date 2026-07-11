@@ -13,11 +13,18 @@ signal goal_completed
 # Stage9 系列房间共享一套相机范围和流程配置资源类型。
 const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
 const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
+const GateStateVfx := preload("res://scripts/rooms/gate_state_vfx.gd")
+const SEAL_GATE_LOCKED_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres")
+const SEAL_GATE_OPEN_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres")
 
 # 导出字段由场景配置，用来描述当前房间的下一房、出生点、HUD 阶段和 checkpoint 行为。
 @export var flow_config: RoomFlowConfig
+@export var camera_limits: Rect2i = CAMERA_LIMITS
 @export var next_room_path := ""
 @export var next_spawn_id: StringName = &""
+@export var previous_room_path := ""
+@export var previous_spawn_id: StringName = &""
+@export var spawn_positions: Dictionary = {}
 @export var checkpoint_spawn_id: StringName = &""
 @export var default_step_id: StringName = &"room"
 @export var cleared_step_id: StringName = &"clear"
@@ -50,6 +57,9 @@ func _process(_delta: float) -> void:
 	if _player == null or _transition_requested:
 		return
 
+	if _try_request_previous_room():
+		return
+
 	if not _gate_unlocked:
 		return
 
@@ -74,7 +84,7 @@ func bind_player(player: CharacterBody2D) -> void:
 # 返回 Stage9 系列房间统一相机边界。
 func get_camera_limits() -> Rect2i:
 	# Main 通过该接口同步相机边界，保持房间脚本不直接操作 Camera2D。
-	return CAMERA_LIMITS
+	return camera_limits
 
 
 # 公开当前 HUD 步骤 ID，供测试和 HUD 上下文读取。
@@ -104,10 +114,11 @@ func get_current_prompt_text() -> String:
 # 根据 spawn_id 返回房间出生点，配置缺失时回落到左侧安全区。
 func get_spawn_position(spawn_id: StringName) -> Vector2:
 	# 出生点由配置资源提供，回退点保持在房间左侧安全区域。
+	var fallback := _get_scene_spawn_position(spawn_id, Vector2(-224, 96))
 	if flow_config != null:
-		return flow_config.get_spawn_position(spawn_id, Vector2(-224, 96))
+		return flow_config.get_spawn_position(spawn_id, fallback)
 
-	return Vector2(-224, 96)
+	return fallback
 
 
 # 汇总 Stage9 基础 HUD 上下文，后续阶段基类会在此基础上追加字段。
@@ -182,6 +193,32 @@ func _handle_exit_reached() -> void:
 	goal_completed.emit()
 
 
+# 普通房间允许玩家从左侧返回上一房；Boss 锁门等例外不放 LeftExitZone 或不配置 previous_room_path。
+func _try_request_previous_room() -> bool:
+	if previous_room_path.is_empty():
+		return false
+
+	var left_exit_zone := get_node_or_null("LeftExitZone") as Node2D
+	if left_exit_zone == null:
+		return false
+
+	if _player.global_position.x > left_exit_zone.global_position.x + 36.0:
+		return false
+
+	_transition_requested = true
+	room_transition_requested.emit(previous_room_path, previous_spawn_id)
+	return true
+
+
+# 读取场景直接声明的出生点；后段房间不一定都有独立 RoomFlowConfig。
+func _get_scene_spawn_position(spawn_id: StringName, fallback: Vector2) -> Vector2:
+	var value: Variant = spawn_positions.get(spawn_id, fallback)
+	if value is Vector2:
+		return value
+
+	return fallback
+
+
 # 连接房间内敌人的 defeated 信号，让门控解锁逻辑集中在房间基类。
 func _bind_enemy_signals() -> void:
 	# 当前小区域只需要“一只或多只敌人被击败后开门”的最小规则；
@@ -208,9 +245,9 @@ func _emit_hud_context() -> void:
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
-# 根据门控状态同步碰撞与占位颜色，保证可玩和可看状态一致。
+# 根据门控状态同步碰撞与正式门贴图，保证可玩和可看状态一致。
 func _apply_gate_lock_state() -> void:
-	# 碰撞与颜色一起更新，确保自动化和人工复核读到同一个门控状态。
+	# 碰撞、旧占位颜色和正式门贴图一起更新，确保自动化和人工复核读到同一个门控状态。
 	var gate_shape := _get_gate_shape()
 	if gate_shape != null:
 		gate_shape.disabled = _gate_unlocked
@@ -218,6 +255,15 @@ func _apply_gate_lock_state() -> void:
 	var gate_visual := _get_gate_visual()
 	if gate_visual != null:
 		gate_visual.color = Color(0.258824, 0.694118, 0.478431, 1.0) if _gate_unlocked else Color(0.776471, 0.321569, 0.262745, 1.0)
+
+	var gate_art := _get_gate_art()
+	if gate_art != null:
+		gate_art.texture = SEAL_GATE_OPEN_TEXTURE if _gate_unlocked else SEAL_GATE_LOCKED_TEXTURE
+		if str(gate_art.get_meta("asset_id", "")).is_empty():
+			gate_art.set_meta("asset_id", "shrine_gate_prop_atlas_ai01")
+		gate_art.set_meta("runtime_source", "shrine_gate_prop_atlas_ai01.seal_gate_open" if _gate_unlocked else "shrine_gate_prop_atlas_ai01.seal_gate_locked")
+
+	GateStateVfx.sync_unlock_feedback(get_node_or_null("GateBarrier"), _gate_unlocked)
 
 
 # 查找可选门控碰撞节点；缺失时房间视为无门默认可通行。
@@ -230,3 +276,12 @@ func _get_gate_shape() -> CollisionShape2D:
 func _get_gate_visual() -> Polygon2D:
 	# 门控视觉同样是可选节点，方便早期房间逐步补齐占位资产。
 	return get_node_or_null("GateBarrier/BarrierVisual") as Polygon2D
+
+
+# 查找正式门禁贴图节点；历史房间里命名有 BarrierArt 和 GateArt 两种。
+func _get_gate_art() -> Sprite2D:
+	var barrier_art := get_node_or_null("GateBarrier/BarrierArt") as Sprite2D
+	if barrier_art != null:
+		return barrier_art
+
+	return get_node_or_null("GateBarrier/GateArt") as Sprite2D

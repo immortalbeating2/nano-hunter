@@ -32,6 +32,7 @@ var _charge_active := false
 
 # 冲锋敌人的主循环要么处在冲锋 / 恢复中，要么回到巡逻并等待下一次触发。
 func _ready() -> void:
+	super._ready()
 	_apply_config()
 	_spawn_position = position
 

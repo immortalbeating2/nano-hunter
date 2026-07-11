@@ -1,0 +1,841 @@
+{
+	"asset_id": "formal_terrain_kit_ai01",
+	"boundary": "Collision roles are conservative candidates; approved room templates may make TileMapLayer collision authoritative for static terrain.",
+	"counts": {
+		"decorative_visual_only": 18,
+		"hazard_visual_only": 1,
+		"one_way_platform": 4,
+		"solid": 24,
+		"thin_solid": 1
+	},
+	"manual_review_required": true,
+	"physics_layer_count": 1,
+	"rules": [
+		{
+			"atlas_coords": [
+				0,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 0,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_flat_ground_center_a",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				1,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 1,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_flat_ground_center_b",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				2,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 2,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_flat_ground_left_cap",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				3,
+				0
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 3,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_flat_ground_right_cap",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				0,
+				1
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 4,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_outer_corner_top_left",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				1,
+				1
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 5,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_outer_corner_top_right",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				2,
+				1
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 6,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_inner_corner_bottom_left",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				3,
+				1
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 7,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_inner_corner_bottom_right",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				0,
+				2
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 8,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "flat_edges_one_way_platform_center",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				1,
+				2
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 9,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "flat_edges_one_way_platform_left_cap",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				2,
+				2
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 10,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "flat_edges_one_way_platform_right_cap",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				3,
+				2
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 11,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "flat_edges_floor_medallion_slab",
+			"source_id": 0
+		},
+		{
+			"atlas_coords": [
+				0,
+				0
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 12,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_stair_ramp_ascending_right",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				1,
+				0
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 13,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_stair_ramp_ascending_left",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				2,
+				0
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 14,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_short_stair_right",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				3,
+				0
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 15,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_short_stair_left",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				0,
+				1
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 16,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_cliff_face_center",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				1,
+				1
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 17,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_cliff_face_alt",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				2,
+				1
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 18,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_cliff_edge_left",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				3,
+				1
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 19,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_cliff_edge_right",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				0,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 20,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_left_wall_side",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				1,
+				2
+			],
+			"category": "wall",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 21,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "stairs_cliffs_right_wall_side",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				2,
+				2
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 22,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "stairs_cliffs_underside_support_trim",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				3,
+				2
+			],
+			"category": "platform_edge",
+			"collision_polygon_count": 1,
+			"collision_role": "one_way_platform",
+			"index": 23,
+			"manual_review_required": true,
+			"notes": [
+				"top_strip_one_way_collision_candidate",
+				"manual_jump_through_review_required"
+			],
+			"semantic_name": "stairs_cliffs_broken_floating_platform",
+			"source_id": 1
+		},
+		{
+			"atlas_coords": [
+				0,
+				0
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 24,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "door_transitions_left_room_doorway_jamb",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				1,
+				0
+			],
+			"category": "transition",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 25,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "door_transitions_right_room_doorway_jamb",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				2,
+				0
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 26,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "door_transitions_sealed_gate_inactive",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				3,
+				0
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 27,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "door_transitions_sealed_gate_active",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				0,
+				1
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 28,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "door_transitions_left_doorway_floor_transition",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				1,
+				1
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 29,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "door_transitions_right_doorway_floor_transition",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				2,
+				1
+			],
+			"category": "thin_solid_ceiling",
+			"collision_polygon_count": 1,
+			"collision_role": "thin_solid",
+			"index": 30,
+			"manual_review_required": true,
+			"notes": [
+				"thin_ceiling_collision_candidate",
+				"manual_gate_clearance_review_required"
+			],
+			"semantic_name": "door_transitions_broken_arch_top_trim",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				3,
+				1
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 31,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "door_transitions_broken_arch_vertical_side",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				0,
+				2
+			],
+			"category": "ground",
+			"collision_polygon_count": 1,
+			"collision_role": "solid",
+			"index": 32,
+			"manual_review_required": true,
+			"notes": [
+				"full_cell_collision_candidate",
+				"manual_edge_fit_required"
+			],
+			"semantic_name": "door_transitions_doorway_safe_landing_pad",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				1,
+				2
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 33,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "door_transitions_return_path_marker_base",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				2,
+				2
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 34,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "door_transitions_door_control_pedestal_inactive",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				3,
+				2
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 35,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "door_transitions_door_control_pedestal_active",
+			"source_id": 2
+		},
+		{
+			"atlas_coords": [
+				0,
+				0
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 36,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_small_moss_tuft",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				1,
+				0
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 37,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_medium_moss_vines",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				2,
+				0
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 38,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_broken_stone_rubble",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				3,
+				0
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 39,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_cracked_stone_shards",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				0,
+				1
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 40,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_spirit_lantern",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				1,
+				1
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 41,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_stone_incense_burner",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				2,
+				1
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 42,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_talisman_stake",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				3,
+				1
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 43,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_hanging_cloth_chain_trim",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				0,
+				2
+			],
+			"category": "hazard",
+			"collision_polygon_count": 0,
+			"collision_role": "hazard_visual_only",
+			"index": 44,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"damage_area_must_be_authored_in_runtime_scene"
+			],
+			"semantic_name": "decor_props_miasma_puddle_edge",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				1,
+				2
+			],
+			"category": "ornament",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 45,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_seal_glyph_floor_decal",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				2,
+				2
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 46,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_short_shrine_plinth",
+			"source_id": 3
+		},
+		{
+			"atlas_coords": [
+				3,
+				2
+			],
+			"category": "decor",
+			"collision_polygon_count": 0,
+			"collision_role": "decorative_visual_only",
+			"index": 47,
+			"manual_review_required": true,
+			"notes": [
+				"no_physics_collision",
+				"safe_for_visual_decoration_after_review"
+			],
+			"semantic_name": "decor_props_broken_pillar_stump",
+			"source_id": 3
+		}
+	],
+	"source_count": 4,
+	"source_semantics": "res://assets/art/tilesets/formal_terrain_kit/formal_terrain_kit_ai01.semantics.json",
+	"terrain_set_count": 1,
+	"tile_count": 48,
+	"tile_size": [
+		384,
+		384
+	],
+	"tileset_resource": "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres",
+	"version": 1
+}

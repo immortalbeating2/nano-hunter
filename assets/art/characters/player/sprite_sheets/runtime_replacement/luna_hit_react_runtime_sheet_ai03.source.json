@@ -1,0 +1,17 @@
+{
+  "asset_id": "luna_hit_react_runtime_sheet_ai03",
+  "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc4873788196a3f159bc0054b41a.png",
+  "source_sha256": "32b2be17cc705f0783c0cec6c085e25f30e3c0fdbd36e3df8433fa91e574ee9f",
+  "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_runtime_body_sheet",
+  "constraints": [
+    "transparent_png",
+    "no_green_background",
+    "no_white_background",
+    "no_checkerboard_background",
+    "fixed_grid",
+    "one_action_per_sheet",
+    "stable_scale",
+    "stable_anchor"
+  ],
+  "anchor": "foot"
+}

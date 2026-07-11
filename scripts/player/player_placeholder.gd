@@ -27,13 +27,13 @@ const RECOVERY_CHARGE_PER_HIT := 0.35
 const RECOVERY_CHARGE_DEFEAT_BONUS := 0.65
 
 const DEFAULT_PLAYER_CONFIG := preload("res://scenes/player/player_placeholder_config.tres")
-const LUNA_IDLE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai01.spriteframes.tres")
-const LUNA_RUN_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai01.spriteframes.tres")
-const LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai01.spriteframes.tres")
-const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai02.spriteframes.tres")
-const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai02.spriteframes.tres")
-const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai01.spriteframes.tres")
-const LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai01.spriteframes.tres")
+const LUNA_IDLE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.spriteframes.tres")
+const LUNA_RUN_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai03.spriteframes.tres")
+const LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.spriteframes.tres")
+const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres")
+const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres")
+const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres")
+const LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES := preload("res://assets/art/vfx/atlases/luna_attack_slash_vfx_runtime_ai01.spriteframes.tres")
 const LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES := preload("res://assets/art/vfx/atlases/luna_attack_seal_arc_vfx_runtime_ai01.spriteframes.tres")
 
@@ -45,7 +45,7 @@ var max_run_speed: float = 180.0
 var ground_acceleration: float = 900.0
 var ground_deceleration: float = 1200.0
 var air_acceleration: float = 700.0
-var jump_velocity: float = -340.0
+var jump_velocity: float = -420.0
 var jump_cut_ratio: float = 0.25
 var rise_gravity: float = 950.0
 var fall_gravity: float = 1350.0
@@ -164,6 +164,9 @@ func _get_resolved_player_config() -> PlayerConfig:
 # 每帧更新顺序固定为：先处理无敌时间，再采样输入，再做状态专属逻辑，最后统一 move_and_slide。
 # 这个顺序保证测试与人工调参时，状态切换来源比较稳定可追。
 func _physics_process(delta: float) -> void:
+	if not is_inside_tree() or PhysicsServer2D.body_get_space(get_rid()) == RID():
+		return
+
 	_update_damage_invulnerability(delta)
 
 	var jump_pressed := Input.is_action_just_pressed("jump")
@@ -194,6 +197,10 @@ func _physics_process(delta: float) -> void:
 
 	if jump_released and velocity.y < 0.0:
 		velocity.y *= jump_cut_ratio
+
+	# 攻击命中或失败信号可能同步切房；旧玩家会在同一帧被移出 physics space。
+	if PhysicsServer2D.body_get_space(get_rid()) == RID():
+		return
 
 	move_and_slide()
 
@@ -437,14 +444,14 @@ func _show_attack_vfx_visuals() -> void:
 		LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES,
 		&"attack_slash",
 		"luna_attack_slash_vfx_runtime_ai01",
-		Vector2(absf(attack_hitbox_offset.x) + 10.0, attack_hitbox_offset.y - 2.0),
+		Vector2(absf(attack_hitbox_offset.x) + 20.0, attack_hitbox_offset.y - 8.0),
 	)
 	_sync_attack_vfx_visual(
 		_attack_seal_arc_vfx_visual,
 		LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES,
 		&"attack_seal_arc",
 		"luna_attack_seal_arc_vfx_runtime_ai01",
-		Vector2(absf(attack_hitbox_offset.x) + 4.0, attack_hitbox_offset.y - 10.0),
+		Vector2(absf(attack_hitbox_offset.x) + 12.0, attack_hitbox_offset.y - 8.0),
 	)
 
 
@@ -543,32 +550,32 @@ func _update_runtime_animation_visual() -> void:
 
 	var target_frames: SpriteFrames = null
 	var target_animation: StringName = &"idle"
-	var target_asset_id := "luna_idle_runtime_sheet_ai01"
+	var target_asset_id := "luna_idle_runtime_sheet_ai03"
 
 	if _is_defeated:
 		target_frames = LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES
 		target_animation = &"death_idle"
-		target_asset_id = "luna_death_idle_runtime_sheet_ai01"
+		target_asset_id = "luna_death_idle_runtime_sheet_ai03"
 	elif _damage_invulnerability_remaining > 0.0:
 		target_frames = LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES
 		target_animation = &"hit_react"
-		target_asset_id = "luna_hit_react_runtime_sheet_ai01"
+		target_asset_id = "luna_hit_react_runtime_sheet_ai03"
 	elif current_state == STATE_DASH:
 		target_frames = LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES
 		target_animation = &"air_dash_body"
-		target_asset_id = "luna_air_dash_body_runtime_sheet_ai02"
+		target_asset_id = "luna_air_dash_body_runtime_sheet_ai03"
 	elif current_state == STATE_RUN:
 		target_frames = LUNA_RUN_RUNTIME_SPRITEFRAMES
 		target_animation = &"run"
-		target_asset_id = "luna_run_runtime_sheet_ai01"
+		target_asset_id = "luna_run_runtime_sheet_ai03"
 	elif current_state == STATE_JUMP_RISE or current_state == STATE_JUMP_FALL:
 		target_frames = LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES
 		target_animation = &"jump_fall"
-		target_asset_id = "luna_jump_fall_runtime_sheet_ai01"
+		target_asset_id = "luna_jump_fall_runtime_sheet_ai03"
 	elif current_state == STATE_ATTACK or current_state == STATE_AIR_ATTACK:
 		target_frames = LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES
 		target_animation = &"attack_body"
-		target_asset_id = "luna_attack_body_runtime_sheet_ai02"
+		target_asset_id = "luna_attack_body_runtime_sheet_ai03"
 	elif current_state == STATE_IDLE or current_state == STATE_LAND:
 		target_frames = LUNA_IDLE_RUNTIME_SPRITEFRAMES
 	else:
@@ -778,6 +785,7 @@ func get_hud_status_snapshot() -> Dictionary:
 		"max_health": max_health,
 		"dash_ready": is_dash_ready(),
 		"dash_cooldown_remaining": _dash_cooldown_remaining,
+		"dash_cooldown": dash_cooldown,
 		"air_dash_unlocked": _air_dash_unlocked,
 		"air_dash_available": is_air_dash_available(),
 		"recovery_charge_ratio": get_recovery_charge_ratio(),

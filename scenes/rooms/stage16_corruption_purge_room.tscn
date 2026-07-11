@@ -1,8 +1,16 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage16_seal_chain_room_base.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_talisman_relay_ai01.png" id="2"]
 [ext_resource type="Texture2D" path="res://assets/art/vfx/stage16_corruption_purge_ai01.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="3_2j5ac"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="4"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="6_gate"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/017_shrine_gate_prop_atlas_ai01_auto_018_c02.atlas_texture.tres" id="7_purge_base"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="9_lh2lv"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="10_o26so"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="11_fyduc"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -10,62 +18,126 @@ size = Vector2(32, 384)
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(960, 32)
 
-[sub_resource type="RectangleShape2D" id="3"]
-size = Vector2(24, 144)
+[sub_resource type="RectangleShape2D" id="5"]
+size = Vector2(208, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o26so"]
+size = Vector2(24, 128)
 
 [sub_resource type="RectangleShape2D" id="4"]
 size = Vector2(96, 128)
 
-[node name="Stage16CorruptionPurgeRoom" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyduc"]
+size = Vector2(96, 128)
+
+[node name="Stage16CorruptionPurgeRoom" type="Node2D" unique_id=1444239375]
 script = ExtResource("1")
-next_room_path = "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
-next_spawn_id = &"stage16_alpha_demo_end_start"
-checkpoint_spawn_id = &"stage16_corruption_purge_start"
-default_step_id = &"stage16_corruption_purge"
 stage16_room_role = "corruption_purge"
 seal_chain_step = &"stage16_corruption_purge"
+camera_limits = Rect2i(-384, -320, 1536, 576)
+next_room_path = "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
+next_spawn_id = &"stage16_alpha_demo_end_start"
+previous_room_path = "res://scenes/rooms/stage16_backtrack_confirmation_room.tscn"
+previous_spawn_id = &"stage16_backtrack_return"
+spawn_positions = {
+&"stage16_corruption_purge_start": Vector2(-256, 204),
+&"stage16_purge_return": Vector2(960, 204)
+}
+checkpoint_spawn_id = &"stage16_corruption_purge_start"
+default_step_id = &"stage16_corruption_purge"
 
-[node name="Backdrop" type="Polygon2D" parent="."]
+[node name="Backdrop" type="Polygon2D" parent="." unique_id=395750553]
+z_index = -4
 color = Color(0.0862745, 0.0862745, 0.101961, 1)
-polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+polygon = PackedVector2Array(-401.84003, -458.27, 1169.8401, -458.27, 1169.8401, 426.27, -401.84003, 426.27)
 
-[node name="LeftWall" type="StaticBody2D" parent="."]
+[node name="CorruptionPurgeBackgroundArt" type="Sprite2D" parent="." unique_id=1841818817]
+modulate = Color(1, 1, 1, 0.56)
+z_index = -3
+position = Vector2(384, -16)
+scale = Vector2(0.94, 0.94)
+texture = ExtResource("5")
+metadata/asset_id = "biome01_shrine_trial_background_ai01"
+metadata/asset_binding_note = "dac_background_camera_coverage_scaled"
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1117499320]
 position = Vector2(-304, 0)
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1016366857]
+visible = false
 shape = SubResource("1")
+disabled = true
 
-[node name="Floor" type="StaticBody2D" parent="."]
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1658505795]
 position = Vector2(128, 160)
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=773741816]
+visible = false
 shape = SubResource("2")
+disabled = true
 
-[node name="FloorVisual" type="Polygon2D" parent="Floor"]
-color = Color(0.188235, 0.219608, 0.258824, 1)
+[node name="FloorVisual" type="Polygon2D" parent="Floor" unique_id=1401412885]
+visible = false
+texture_repeat = 2
+color = Color(1, 1, 1, 0.08)
+texture = ExtResource("3_2j5ac")
 polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
+metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="CorruptionMiasma" type="Polygon2D" parent="."]
-position = Vector2(128, 116)
-color = Color(0.482353, 0.223529, 0.529412, 0.28)
+[node name="ShrineTrialTilesetPreview" type="TileMapLayer" parent="." unique_id=2034575055]
+visible = false
+position = Vector2(-192, 128)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
+tile_set = ExtResource("4")
+collision_enabled = false
+metadata/asset_id = "shrine_trial_tileset_ai01"
+metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
+
+[node name="CorruptionMiasma" type="Polygon2D" parent="." unique_id=1445825702]
+position = Vector2(448, 212)
+color = Color(0.482353, 0.223529, 0.529412, 0.045)
 polygon = PackedVector2Array(-88, -40, 88, -40, 104, 40, -104, 40)
+metadata/asset_binding_note = "dac_subtle_purge_hazard_floor_tint"
 
-[node name="PurgeArt" type="Sprite2D" parent="CorruptionMiasma"]
+[node name="PurgeArt" type="Sprite2D" parent="CorruptionMiasma" unique_id=2097253968]
+modulate = Color(1, 1, 1, 0.62)
 position = Vector2(0, -6)
 scale = Vector2(0.08, 0.08)
-modulate = Color(1, 1, 1, 0.62)
 texture = ExtResource("3")
 region_enabled = true
 region_rect = Rect2(512, 512, 512, 512)
 metadata/asset_id = "stage16_corruption_purge_ai01"
 metadata/vfx_frame = "lotus_seal_purification_burst"
 
-[node name="CorruptionPurgeNode" type="Polygon2D" parent="."]
-position = Vector2(160, 96)
-color = Color(0.67451, 0.866667, 0.839216, 0.58)
-polygon = PackedVector2Array(-44, 0, -16, -48, 32, -36, 44, 0, 16, 48, -32, 36)
+[node name="CorruptionMiasmaHazardArea" type="Area2D" parent="CorruptionMiasma" unique_id=355653001]
+monitoring = false
+metadata/authoring_role = "layout_hazard_area"
+metadata/authoring_note = "LL-04 visual hazard bounds only; current purge gameplay still uses CorruptionPurgeNode proximity."
 
-[node name="TalismanRelayEchoArt" type="Sprite2D" parent="CorruptionPurgeNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CorruptionMiasma/CorruptionMiasmaHazardArea" unique_id=2069428157]
+shape = SubResource("5")
+
+[node name="CorruptionPurgeNode" type="Polygon2D" parent="." unique_id=364014006]
+position = Vector2(640, 56)
+color = Color(0.67451, 0.866667, 0.839216, 0)
+polygon = PackedVector2Array(-44, 0, -16, -48, 32, -36, 44, 0, 16, 48, -32, 36)
+metadata/asset_binding_note = "dac_subtle_prop_base_marker"
+
+[node name="PurgeFocusBaseArt" type="Sprite2D" parent="CorruptionPurgeNode" unique_id=473621795]
+z_index = 1
+position = Vector2(0, 29)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("7_purge_base")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.miasma_ward_purged"
+metadata/asset_binding_note = "formal_demo_purge_focus_prop"
+
+[node name="TalismanRelayEchoArt" type="Sprite2D" parent="CorruptionPurgeNode" unique_id=460262729]
+z_index = 2
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2")
 region_enabled = true
@@ -73,22 +145,113 @@ region_rect = Rect2(512, 512, 512, 512)
 metadata/asset_id = "stage16_talisman_relay_ai01"
 metadata/vfx_frame = "relay_confirmation_burst"
 
-[node name="GateBarrier" type="StaticBody2D" parent="."]
-position = Vector2(392, 88)
+[node name="GateBarrier" type="StaticBody2D" parent="." unique_id=1506105097]
+position = Vector2(1024, 168)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier"]
-shape = SubResource("3")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier" unique_id=894329821]
+shape = SubResource("RectangleShape2D_o26so")
 
-[node name="BarrierVisual" type="Polygon2D" parent="GateBarrier"]
+[node name="BarrierVisual" type="Polygon2D" parent="GateBarrier" unique_id=1807691167]
+visible = false
 color = Color(0.776471, 0.321569, 0.262745, 1)
 polygon = PackedVector2Array(-12, -72, 12, -72, 12, 72, -12, 72)
 
-[node name="ExitZone" type="Area2D" parent="."]
-position = Vector2(544, 96)
+[node name="GateArt" type="Sprite2D" parent="GateBarrier" unique_id=1668323582]
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("6_gate")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
+metadata/asset_binding_note = "dac_gate_art_replaces_red_barrier_visual"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+[node name="ExitZone" type="Area2D" parent="." unique_id=347191662]
+position = Vector2(1120, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=630641249]
 shape = SubResource("4")
 
-[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
-color = Color(0.67451, 0.866667, 0.839216, 0.24)
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone" unique_id=1282985703]
+visible = false
+color = Color(0.67451, 0.866667, 0.839216, 0.025)
 polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+metadata/asset_binding_note = "dac_subtle_trigger_readability_marker"
+
+[node name="FormalTerrainTilemapDecor" type="TileMapLayer" parent="." unique_id=2118233739]
+visible = false
+modulate = Color(1, 1, 1, 0.92)
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD6/wIAAAAAAAMAAAD7/wIAAAABAAMAAAD8/wIAAAACAAMAAAD9/wIAAAADAAMAAAD+/wIAAAAEAAMAAAD//wIAAAAFAAMAAAAAAAIAAAAGAAMAAAABAAIAAAAHAAMAAAACAAIAAAAAAAQAAAADAAIAAAABAAQAAAAEAAIAAAACAAQAAAAFAAIAAAAAAAMAAAAGAAIAAAABAAMAAAAHAAIAAAACAAMAAAAIAAIAAAADAAMAAAAJAAIAAAAEAAMAAAA=")
+tile_set = ExtResource("9_lh2lv")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_imagegen_tileset_terrain_decor"
+
+[node name="FormalForegroundEdgeDecor" type="TileMapLayer" parent="." unique_id=1805632633]
+visible = false
+modulate = Color(1, 1, 1, 0.46)
+z_index = 2
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD7/wEA/////////////wEA//////////8DAAEA//////////8HAAEA///////////6/wEAAAADAAQAAAAAAAEAAAAEAAQAAAAGAAEAAAAFAAQAAAA=")
+tile_set = ExtResource("9_lh2lv")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_foreground_edge_decor"
+
+[node name="TerrainCollisionVisual" type="TileMapLayer" parent="." unique_id=1860935152]
+modulate = Color(1, 1, 1, 0.08)
+z_index = 1
+scale = Vector2(0.16666667, 0.16666667)
+tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAABAAAAAAD+/wMAAAAAAAAAAAD//wMAAAABAAAAAAAAAAMAAAAAAAAAAAABAAMAAAABAAAAAAACAAMAAAAAAAAAAAADAAMAAAABAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAABAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAABAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAABAAAAAAAKAAMAAAAAAAAAAAALAAMAAAABAAAAAAAMAAMAAAAAAAAAAAANAAMAAAABAAAAAAAOAAMAAAAAAAAAAAAPAAMAAAABAAAAAAAQAAMAAAAAAAAAAAARAAMAAAADAAAAAAA=")
+tile_set = ExtResource("10_o26so")
+
+[node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=1320641078]
+modulate = Color(1, 1, 1, 0.08)
+z_index = 2
+position = Vector2(0, -16)
+scale = Vector2(0.16666667, 0.16666667)
+tile_map_data = PackedByteArray("AAABAAIAAAABAAIAAAACAAIAAAAAAAIAAAADAAIAAAAAAAIAAAAEAAIAAAACAAIAAAAIAAEAAAABAAIAAAAJAAEAAAAAAAIAAAAKAAEAAAAAAAIAAAALAAEAAAACAAIAAAAOAAIAAAABAAIAAAAPAAIAAAAAAAIAAAAQAAIAAAAAAAIAAAARAAIAAAACAAIAAAA=")
+tile_set = ExtResource("10_o26so")
+
+[node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1132702801]
+modulate = Color(0.8, 0.8, 0.86, 0.94)
+z_index = 2
+position = Vector2(0, -7)
+tile_map_data = PackedByteArray("AAD6/wMAAAAAAAAAAAD7/wMAAAABAAAAAAD8/wMAAAABAAAAAAD9/wMAAAABAAAAAAD+/wMAAAABAAAAAAD//wMAAAABAAAAAAAAAAMAAAABAAAAAAABAAMAAAABAAAAAAACAAMAAAABAAAAAAADAAMAAAABAAAAAAAEAAMAAAABAAAAAAAFAAMAAAABAAAAAAAGAAMAAAABAAAAAAAHAAMAAAABAAAAAAAIAAMAAAABAAAAAAAJAAMAAAABAAAAAAAKAAMAAAABAAAAAAALAAMAAAABAAAAAAAMAAMAAAABAAAAAAANAAMAAAABAAAAAAAOAAMAAAABAAAAAAAPAAMAAAABAAAAAAAQAAMAAAABAAAAAAARAAMAAAACAAAAAAA=")
+tile_set = ExtResource("4")
+collision_enabled = false
+
+[node name="ThinPlatformSurfaceVisual" type="TileMapLayer" parent="." unique_id=258745431]
+modulate = Color(0.76, 0.8, 0.86, 0.94)
+z_index = 2
+tile_map_data = PackedByteArray("AAABAAIAAAAAAAAAAAACAAIAAAABAAAAAAADAAIAAAABAAAAAAAEAAIAAAACAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAABAAAAAAAKAAEAAAABAAAAAAALAAEAAAACAAAAAAAOAAIAAAAAAAAAAAAPAAIAAAABAAAAAAAQAAIAAAABAAAAAAARAAIAAAACAAAAAAA=")
+tile_set = ExtResource("11_fyduc")
+collision_enabled = false
+
+[node name="DoorVisual" type="TileMapLayer" parent="." unique_id=1966256191]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("10_o26so")
+collision_enabled = false
+
+[node name="BackgroundVisual" type="TileMapLayer" parent="." unique_id=532079059]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("10_o26so")
+collision_enabled = false
+
+[node name="DecorVisual" type="TileMapLayer" parent="." unique_id=2119696735]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("10_o26so")
+collision_enabled = false
+
+[node name="ForegroundVisual" type="TileMapLayer" parent="." unique_id=1879368177]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("10_o26so")
+collision_enabled = false
+
+[node name="LeftExitZone" type="Area2D" parent="." unique_id=1773843266]
+position = Vector2(-352, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=1673650105]
+shape = SubResource("RectangleShape2D_fyduc")

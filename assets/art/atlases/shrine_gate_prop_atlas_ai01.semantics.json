@@ -45,7 +45,7 @@
     },
     {
       "index": 2,
-      "semantic_name": "air_dash_shrine_claimed",
+      "semantic_name": "seal_gate_locked",
       "category": "atlas",
       "group": "props",
       "role": "prop_region",
@@ -62,7 +62,7 @@
     },
     {
       "index": 3,
-      "semantic_name": "seal_gate_locked",
+      "semantic_name": "seal_gate_open",
       "category": "atlas",
       "group": "props",
       "role": "prop_region",
@@ -79,7 +79,7 @@
     },
     {
       "index": 4,
-      "semantic_name": "seal_gate_unlocking",
+      "semantic_name": "seal_tower_unlit",
       "category": "atlas",
       "group": "props",
       "role": "prop_region",
@@ -96,7 +96,7 @@
     },
     {
       "index": 5,
-      "semantic_name": "seal_gate_open",
+      "semantic_name": "seal_lantern_lit",
       "category": "atlas",
       "group": "props",
       "role": "prop_region",

@@ -8,7 +8,7 @@ signal hud_context_changed(step_title: String, prompt_text: String)
 signal checkpoint_requested(room_path: String, spawn_id: StringName)
 signal goal_completed
 
-const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
+const CAMERA_LIMITS := Rect2i(-384, -256, 1152, 512)
 const STEP_FINISH: StringName = &"finish"
 const STEP_COMPLETE: StringName = &"complete"
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
@@ -85,9 +85,11 @@ func get_camera_limits() -> Rect2i:
 # 返回终点房出生点；当前只有一个稳定起点。
 func get_spawn_position(spawn_id: StringName = DEMO_END_SPAWN_ID) -> Vector2:
 	if spawn_id == DEMO_END_SPAWN_ID:
-		return Vector2(-128, 96)
+		return Vector2(-128, 204)
+	if spawn_id == &"stage11_demo_end_return":
+		return Vector2(560, 204)
 
-	return Vector2(-128, 96)
+	return Vector2(-128, 204)
 
 
 # 汇总终点房 HUD 上下文，展示完成前后不同目标文案。

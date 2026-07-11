@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "status": "complete",
+  "boundary": "Final-art polish completion evidence for FP-01 through FP-05. Completion means the planned final-polish audits and structural/runtime gates passed; it does not claim commercial-release hand paint, typography cleanup, final autotile authoring, or full playtest art direction signoff.",
+  "summary": {
+    "fp_batch_count": 5,
+    "complete_fp_batch_count": 5,
+    "final_gate_count": 2,
+    "complete_final_gate_count": 2,
+    "error_count": 0
+  },
+  "fp_reports": {
+    "status": "complete",
+    "batches": [
+      {
+        "batch": "FP-01",
+        "path": "tests/artifacts/local/final-art-polish/fp01_runtime_readability/fp01_runtime_readability_report.json",
+        "status": "complete",
+        "observed": true,
+        "expected": true,
+        "errors": []
+      },
+      {
+        "batch": "FP-02",
+        "path": "docs/assets/final-art-polish-fp02-atlas-split-report.json",
+        "status": "complete",
+        "observed": "ok",
+        "expected": "ok",
+        "errors": []
+      },
+      {
+        "batch": "FP-03",
+        "path": "docs/assets/final-art-polish-fp03-tileset-review-report.json",
+        "status": "complete",
+        "observed": "ok",
+        "expected": "ok",
+        "errors": []
+      },
+      {
+        "batch": "FP-04",
+        "path": "docs/assets/final-art-polish-fp04-ui-small-readability-report.json",
+        "status": "complete",
+        "observed": "ok",
+        "expected": "ok",
+        "errors": []
+      },
+      {
+        "batch": "FP-05",
+        "path": "docs/assets/final-art-polish-fp05-animation-vfx-report.json",
+        "status": "complete",
+        "observed": "ok",
+        "expected": "ok",
+        "errors": []
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "final_gates": {
+    "status": "complete",
+    "gates": [
+      {
+        "id": "art_readiness",
+        "path": "docs/assets/art-readiness-audit-report.json",
+        "status": "complete",
+        "observed": {
+          "ok": true
+        },
+        "errors": []
+      },
+      {
+        "id": "asset_package",
+        "path": "docs/assets/asset-package-audit-report.json",
+        "status": "complete",
+        "observed": {
+          "ok": true
+        },
+        "errors": []
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "errors": [],
+  "warnings": []
+}

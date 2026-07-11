@@ -69,6 +69,7 @@ var _last_knockback_force := 0.0
 # 场景实例化后统一初始化 Boss 状态，保证测试直接实例化和房间加载一致。
 func _ready() -> void:
 	# 场景实例化后统一走 reset_boss，保证测试直接实例化和房间加载获得同一份初始状态。
+	_prepare_runtime_visual_stack()
 	reset_boss()
 
 
@@ -127,6 +128,23 @@ func reset_boss() -> void:
 	health_changed.emit(current_health, max_health)
 	guard_changed.emit(current_guard, max_guard)
 	phase_changed.emit(_phase_index)
+
+
+# Boss 使用正式 runtime sheet 后，旧 polygon 构图和静态方向图只作为隐藏编辑参照，避免运行时与正式动画重叠。
+func _prepare_runtime_visual_stack() -> void:
+	if _runtime_animation_visual == null:
+		return
+
+	for node_name: String in [
+		"Body",
+		"SealHalo",
+		"GuardianMask",
+		"Stage15SealMark",
+		"SealGuardianArt",
+	]:
+		var legacy_visual := get_node_or_null(node_name) as CanvasItem
+		if legacy_visual != null:
+			legacy_visual.visible = false
 
 
 # 公开 Boss 是否已击败，房间胜利流程只依赖该稳定读值。

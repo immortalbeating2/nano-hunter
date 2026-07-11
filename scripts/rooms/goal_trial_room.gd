@@ -12,10 +12,14 @@ signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 const STEP_GOAL_GATE: StringName = &"goal_gate"
 const STEP_GOAL_REACH: StringName = &"goal_reach"
 const STEP_COMPLETE: StringName = &"complete"
-const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
+const CAMERA_LIMITS := Rect2i(-384, -256, 1280, 512)
 const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
+const GateStateVfx := preload("res://scripts/rooms/gate_state_vfx.gd")
+const COMBAT_TRIAL_ROOM_PATH := "res://scenes/rooms/combat_trial_room.tscn"
 const STAGE9_ENTRY_ROOM_PATH := "res://scenes/rooms/stage9_zone_entry_room.tscn"
 const STAGE9_ENTRY_SPAWN_ID: StringName = &"zone_entry_start"
+const SEAL_GATE_LOCKED_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres")
+const SEAL_GATE_OPEN_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres")
 
 const STEP_TITLES := {
 	STEP_GOAL_GATE: "目标 1/2 · 解除门控",
@@ -30,21 +34,26 @@ const STEP_PROMPTS := {
 }
 
 const SPAWN_POSITIONS := {
-	&"goal_entry": Vector2(-96, 120),
-	&"goal_retry": Vector2(-96, 120),
+	&"goal_entry": Vector2(-256, 204),
+	&"goal_retry": Vector2(-256, 204),
+	&"goal_return": Vector2(704, 124),
 }
 
 @onready var basic_melee_enemy: StaticBody2D = $BasicMeleeEnemy
 @onready var goal_barrier_shape: CollisionShape2D = $GoalBarrier/CollisionShape2D
 @onready var goal_barrier_visual: Polygon2D = $GoalBarrier/BarrierVisual
+@onready var goal_barrier_art: Sprite2D = $GoalBarrier/BarrierArt
 @onready var goal_zone: Area2D = $GoalZone
 
 var _player: CharacterBody2D
 var _current_step: StringName = STEP_GOAL_GATE
 var _goal_unlocked := false
 var _goal_finished := false
+var _transition_requested := false
 
 @export var flow_config: RoomFlowConfig
+@export var previous_room_path := COMBAT_TRIAL_ROOM_PATH
+@export var previous_spawn_id: StringName = &"combat_return"
 
 
 # 初始化先接守门敌人的 defeated 信号，再把当前门控状态同步给 HUD。
@@ -58,10 +67,16 @@ func _ready() -> void:
 
 # 目标房只关心“门是否已开”和“玩家是否真正到达终点区”。
 func _process(_delta: float) -> void:
-	if _player == null or not _goal_unlocked or _goal_finished:
+	if _player == null or _transition_requested:
 		return
 
-	if _player.global_position.x >= goal_zone.global_position.x - 24.0:
+	if _try_request_previous_room():
+		return
+
+	if not _goal_unlocked or _goal_finished:
+		return
+
+	if _player.global_position.distance_to(goal_zone.global_position) <= 48.0:
 		_complete_goal()
 
 
@@ -98,10 +113,15 @@ func get_current_prompt_text() -> String:
 
 # 返回目标房出生点，支持首次进入和失败后回到上游时的稳定读值。
 func get_spawn_position(spawn_id: StringName = &"goal_entry") -> Vector2:
-	if flow_config != null:
-		return flow_config.get_spawn_position(spawn_id, SPAWN_POSITIONS[&"goal_entry"])
+	var fallback: Vector2 = SPAWN_POSITIONS[&"goal_entry"]
+	var configured: Variant = SPAWN_POSITIONS.get(spawn_id, fallback)
+	if configured is Vector2:
+		fallback = configured
 
-	return SPAWN_POSITIONS.get(spawn_id, SPAWN_POSITIONS[&"goal_entry"])
+	if flow_config != null:
+		return flow_config.get_spawn_position(spawn_id, fallback)
+
+	return fallback
 
 
 # 目标房失败不自重置，交由 Main 和上游 checkpoint 策略处理。
@@ -142,14 +162,32 @@ func _on_basic_melee_enemy_defeated() -> void:
 
 # 完成短链路目标，并把主线推进到 Stage9 入口房。
 func _complete_goal() -> void:
-	if _goal_finished:
+	if _goal_finished or _transition_requested:
 		return
 
 	_goal_finished = true
+	_transition_requested = true
 	_current_step = STEP_COMPLETE
 	_emit_hud_context()
 	goal_completed.emit()
 	room_transition_requested.emit(STAGE9_ENTRY_ROOM_PATH, STAGE9_ENTRY_SPAWN_ID)
+
+
+# 目标房不是 Boss 锁门房，玩家应能从左侧回到战斗房复查路线。
+func _try_request_previous_room() -> bool:
+	if previous_room_path.is_empty():
+		return false
+
+	var left_exit_zone := get_node_or_null("LeftExitZone") as Node2D
+	if left_exit_zone == null:
+		return false
+
+	if _player.global_position.x > left_exit_zone.global_position.x + 36.0:
+		return false
+
+	_transition_requested = true
+	room_transition_requested.emit(previous_room_path, previous_spawn_id)
+	return true
 
 
 # 广播当前目标房 HUD 文案，供 TutorialHUD 立即刷新。
@@ -157,10 +195,17 @@ func _emit_hud_context() -> void:
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
-# 按当前目标解锁状态同步终点门控碰撞和占位颜色。
+# 按当前目标解锁状态同步终点门控碰撞、旧占位颜色和正式门贴图。
 func _apply_goal_lock_state() -> void:
 	if goal_barrier_shape != null:
 		goal_barrier_shape.disabled = _goal_unlocked
 
 	if goal_barrier_visual != null:
 		goal_barrier_visual.color = Color(0.258824, 0.694118, 0.478431, 1.0) if _goal_unlocked else Color(0.776471, 0.321569, 0.262745, 1.0)
+
+	if goal_barrier_art != null:
+		goal_barrier_art.texture = SEAL_GATE_OPEN_TEXTURE if _goal_unlocked else SEAL_GATE_LOCKED_TEXTURE
+		goal_barrier_art.set_meta("asset_id", "shrine_gate_prop_atlas_ai01")
+		goal_barrier_art.set_meta("runtime_source", "shrine_gate_prop_atlas_ai01.seal_gate_open" if _goal_unlocked else "shrine_gate_prop_atlas_ai01.seal_gate_locked")
+
+	GateStateVfx.sync_unlock_feedback(get_node_or_null("GoalBarrier"), _goal_unlocked)

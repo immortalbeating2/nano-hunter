@@ -4,7 +4,8 @@
   "boundary": "Structural audit only. Passing this report proves files, counts and editor resource descriptors exist; it does not prove final art polish, semantic cleanup, runtime integration, license readiness or gameplay readability.",
   "queue": {
     "item_count": 55,
-    "candidate_png_count": 133,
+    "candidate_png_count": 0,
+    "candidate_storage_policy": "raw_candidates_optional_outside_git",
     "unique_output_path_count": 55,
     "target_kind_counts": {
       "boss_direction": 1,
@@ -54,7 +55,63 @@
       "Batch 12": 4,
       "Batch 13": 3
     },
-    "missing_candidates": [],
+    "missing_candidates": [
+      "style_board_global_ai01",
+      "stage16_luna_player_readability_ai01",
+      "stage14_air_dash_icon_ai01",
+      "stage14_air_dash_trail_ai01",
+      "stage14_air_dash_shrine_ai01",
+      "stage14_air_dash_gate_ai01",
+      "stage15_seal_guardian_ai01",
+      "stage15_boss_attack_warning_ai01",
+      "stage15_recovery_charge_icon_ai01",
+      "luna_run_sheet_ai01",
+      "luna_air_dash_sheet_ai01",
+      "luna_attack_01_sheet_ai01",
+      "luna_idle_sheet_ai01",
+      "seal_guardian_boss_sheet_ai01",
+      "miasma_marsh_tileset_ai01",
+      "shrine_trial_tileset_ai01",
+      "material_texture_atlas_ai01",
+      "hud_core_ui_atlas_ai01",
+      "icon_sheet_core_ai01",
+      "menu_ninepatch_ui_ai01",
+      "shrine_gate_prop_atlas_ai01",
+      "equipment_pickup_atlas_ai01",
+      "vfx_seal_magic_atlas_ai01",
+      "vfx_combat_atlas_ai01",
+      "luna_spine_parts_ai01",
+      "seal_guardian_spine_parts_ai01",
+      "promo_key_art_sheet_ai01",
+      "nano_hunter_logo_direction_ai01",
+      "capsule_art_alpha_demo_ai01",
+      "cg_seal_guardian_reveal_ai01",
+      "storyboard_narrative_sheet_ai01",
+      "storyboard_intro_bounty_ai01",
+      "storyboard_miasma_marsh_ai01",
+      "stage16_title_background_ai01",
+      "stage16_demo_menu_icons_ai01",
+      "stage16_seal_release_threshold_ai01",
+      "stage16_talisman_relay_ai01",
+      "stage16_corruption_purge_ai01",
+      "stage16_alpha_demo_completion_ai01",
+      "biome01_shrine_trial_tiles_ai01",
+      "biome01_shrine_trial_background_ai01",
+      "biome02_miasma_marsh_tiles_ai01",
+      "biome02_miasma_marsh_background_ai01",
+      "reusable_seal_props_ai01",
+      "luna_jump_fall_sheet_ai01",
+      "luna_hit_death_sheet_ai01",
+      "enemies_core_sheet_ai01",
+      "biome01_shrine_trial_room_parallax_ai01",
+      "biome01_air_dash_shrine_room_ai01",
+      "biome02_miasma_hazard_room_ai01",
+      "stage15_seal_guardian_boss_room_ai01",
+      "stage16_pause_panel_ui_ai01",
+      "stage16_completion_panel_ui_ai01",
+      "stage15_boss_hud_frame_ai01",
+      "stage14_ability_status_hud_ai01"
+    ],
     "missing_outputs": [],
     "missing_target_families": []
   },
@@ -67,11 +124,11 @@
       "tileset_sheet": 2
     },
     "selected_counts": {
-      "selected_frames": 236,
-      "selected_items": 122,
-      "selected_tiles": 96,
-      "selected_parts": 48,
-      "selected_panels": 36
+      "selected_frames": 0,
+      "selected_items": 0,
+      "selected_tiles": 0,
+      "selected_parts": 0,
+      "selected_panels": 0
     },
     "missing_outputs": [],
     "missing_metadata": [],
@@ -85,17 +142,30 @@
       "missing_resources": []
     },
     "tilesets": {
-      "resource_count": 2,
+      "resource_count": 5,
       "resources": [
-        "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
-        "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
+        "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres",
+        "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres",
+        "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
+        "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres",
+        "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
       ],
       "missing_expected": [],
-      "rule_file_count": 2,
+      "rule_file_count": 3,
       "rules": [
         {
+          "asset_id": "formal_terrain_kit_ai01",
+          "path": "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset_rules.json",
+          "tile_count": 48,
+          "physics_layer_count": 1,
+          "terrain_set_count": 1,
+          "collision_ready_count": 28,
+          "hazard_visual_only_count": 1,
+          "manual_review_required": true
+        },
+        {
           "asset_id": "miasma_marsh_tileset_ai01",
-          "path": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset_rules.json",
+          "path": "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset_rules.json",
           "tile_count": 48,
           "physics_layer_count": 1,
           "terrain_set_count": 1,
@@ -105,7 +175,7 @@
         },
         {
           "asset_id": "shrine_trial_tileset_ai01",
-          "path": "C:/Users/peng8/.codex/worktrees/3073/nano-hunter/assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset_rules.json",
+          "path": "C:/Users/peng8/.codex/worktrees/d7ef/nano-hunter/assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset_rules.json",
           "tile_count": 48,
           "physics_layer_count": 1,
           "terrain_set_count": 1,
@@ -115,10 +185,10 @@
         }
       ],
       "missing_expected_rules": [],
-      "total_rule_tiles": 96,
-      "total_collision_ready": 64,
-      "total_hazard_visual_only": 8,
-      "manual_review_rule_files": 2
+      "total_rule_tiles": 144,
+      "total_collision_ready": 92,
+      "total_hazard_visual_only": 9,
+      "manual_review_rule_files": 3
     },
     "styleboxes": {
       "present": true,
@@ -480,8 +550,8 @@
     "summary": {
       "queue_item_count": 55,
       "candidate_png_count": 133,
-      "selected_source_count": 548,
-      "unselected_candidate_count": 102,
+      "selected_source_count": 463,
+      "unselected_candidate_count": 104,
       "review_required_item_count": 55,
       "review_required_items": [
         "style_board_global_ai01",
@@ -641,17 +711,18 @@
     "summary": {
       "queue_item_count": 55,
       "candidate_count": 133,
+      "candidate_storage_policy": "raw_candidates_optional_outside_git",
       "classification_counts": {
-        "project_session_confirmed": 35,
+        "project_session_confirmed": 0,
         "explicit_mapping_confirmed": 0,
-        "explicit_mapping_review_required": 30,
-        "workspace_provenance_recorded_review_required": 68,
+        "explicit_mapping_review_required": 0,
+        "workspace_provenance_recorded_review_required": 133,
         "unknown_or_unsafe": 0
       },
-      "review_required_candidate_count": 98,
+      "review_required_candidate_count": 133,
       "unsafe_candidate_count": 0,
-      "session_recovery_candidate_count": 35,
-      "ledger_mapped_candidate_count": 30,
+      "session_recovery_candidate_count": 0,
+      "ledger_mapped_candidate_count": 0,
       "global_generated_images_latest_allowed": false,
       "errors": []
     },
@@ -660,39 +731,18 @@
   "runtime_source_safety": {
     "present": true,
     "markdown_exists": true,
-    "status": "runtime_source_review_required",
+    "status": "runtime_sources_confirmed",
     "summary": {
       "runtime_asset_count": 30,
       "runtime_source_gate_counts": {
-        "runtime_reference_source_confirmed": 12,
-        "runtime_reference_source_review_required": 18
+        "runtime_reference_source_confirmed": 30
       },
       "source_status_counts": {
-        "selected_source_confirmed": 3,
-        "selected_source_review_required": 18,
+        "selected_source_confirmed": 21,
         "single_candidate_confirmed": 9
       },
-      "runtime_review_required_count": 18,
-      "runtime_review_required_items": [
-        "luna_run_sheet_ai01",
-        "luna_air_dash_sheet_ai01",
-        "luna_attack_01_sheet_ai01",
-        "luna_idle_sheet_ai01",
-        "seal_guardian_boss_sheet_ai01",
-        "icon_sheet_core_ai01",
-        "menu_ninepatch_ui_ai01",
-        "vfx_seal_magic_atlas_ai01",
-        "stage16_demo_menu_icons_ai01",
-        "stage16_talisman_relay_ai01",
-        "stage16_alpha_demo_completion_ai01",
-        "luna_jump_fall_sheet_ai01",
-        "luna_hit_death_sheet_ai01",
-        "enemies_core_sheet_ai01",
-        "stage16_pause_panel_ui_ai01",
-        "stage16_completion_panel_ui_ai01",
-        "stage15_boss_hud_frame_ai01",
-        "stage14_ability_status_hud_ai01"
-      ],
+      "runtime_review_required_count": 0,
+      "runtime_review_required_items": [],
       "unsafe_item_count": 0,
       "unsafe_items": [],
       "errors": []
@@ -702,15 +752,11 @@
   "runtime_source_review_queue": {
     "present": true,
     "markdown_exists": true,
-    "status": "runtime_source_review_required",
+    "status": "ready",
     "summary": {
-      "runtime_review_required_count": 18,
+      "runtime_review_required_count": 0,
       "unsafe_item_count": 0,
-      "strategy_counts": {
-        "confirmed_candidate_rebuild_candidate": 7,
-        "manual_compare_selected_mix": 2,
-        "manual_source_review_or_regenerate": 9
-      },
+      "strategy_counts": {},
       "errors": []
     },
     "errors": []
@@ -733,6 +779,12 @@
         "stage16_alpha_demo_completion_ai01"
       ]
     },
+    "missing_local_evidence": [
+      "contact_sheet_missing:tests/artifacts/local/asset-finalization-pass-01/runtime-source-review-contact-sheet-1.png",
+      "contact_sheet_missing:tests/artifacts/local/asset-finalization-pass-01/runtime-source-review-contact-sheet-2.png",
+      "contact_sheet_missing:tests/artifacts/local/asset-finalization-pass-01/runtime-source-review-contact-sheet-3.png",
+      "contact_sheet_manifest_missing:tests/artifacts/local/asset-finalization-pass-01/runtime-source-review-contact-sheets.json"
+    ],
     "errors": []
   },
   "asset_finalization_reviews": {
@@ -740,8 +792,8 @@
     "markdown_exists": true,
     "status": "finalization_batch_26_promo_story_sources_approved",
     "summary": {
-      "record_count": 55,
-      "approved_for_final_ready_count": 55,
+      "record_count": 56,
+      "approved_for_final_ready_count": 56,
       "final_ready_scope": "alpha_demo_full_imagegen_source_package_final_ready_with_runtime_environment_props_texture_promo_story_direction_boundaries",
       "approved_asset_ids": [
         "stage14_air_dash_icon_ai01",
@@ -798,7 +850,8 @@
         "promo_key_art_sheet_ai01",
         "storyboard_intro_bounty_ai01",
         "storyboard_miasma_marsh_ai01",
-        "storyboard_narrative_sheet_ai01"
+        "storyboard_narrative_sheet_ai01",
+        "enemy_hit_spark_vfx_runtime_ai01"
       ]
     },
     "errors": []
@@ -811,6 +864,7 @@
       "asset_count": 9,
       "errors": []
     },
+    "stale_prompt_packet_allowed": true,
     "errors": []
   },
   "runtime_source_regeneration_landing": {
@@ -874,7 +928,7 @@
   },
   "asset_runtime_map": {
     "present": true,
-    "status": "binding_map_ready_manual_replacement_required",
+    "status": "runtime_map_scene_reference_split_ready",
     "summary": {
       "entry_count": 55,
       "track_counts": {
@@ -888,6 +942,11 @@
         "runtime_ui": 12,
         "runtime_vfx": 6
       },
+      "status_counts": {
+        "binding_map_ready_manual_replacement_required": 4,
+        "scene_reference_verified": 51
+      },
+      "directly_referenced_entry_count": 51,
       "missing_output_count": 0,
       "missing_target_scene_candidate_count": 0
     },
@@ -937,12 +996,12 @@
     "missing": []
   },
   "file_counts": {
-    "art_png": 85,
-    "art_import": 99,
-    "metadata_json": 139,
-    "spriteframes_tres": 36,
-    "atlas_texture_tres": 318,
-    "tileset_tres": 2,
+    "art_png": 104,
+    "art_import": 118,
+    "metadata_json": 162,
+    "spriteframes_tres": 45,
+    "atlas_texture_tres": 324,
+    "tileset_tres": 5,
     "stylebox_texture_tres": 8,
     "spine_export_files": 7
   },

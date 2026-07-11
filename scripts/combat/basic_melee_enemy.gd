@@ -22,6 +22,7 @@ var _patrol_elapsed := 0.0
 
 # 近战模板的运行态只有两层：读配置，然后按固定正弦巡逻。
 func _ready() -> void:
+	super._ready()
 	_apply_config()
 	_spawn_position = position
 

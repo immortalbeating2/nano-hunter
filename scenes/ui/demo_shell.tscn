@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/demo_shell.gd" id="1"]
 [ext_resource type="Theme" path="res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres" id="2"]
@@ -7,6 +7,73 @@
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage16_pause_panel_ui_ai01.png" id="5"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage16_completion_panel_ui_ai01.png" id="6"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage16_demo_menu_icons_ai01.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/001_stage16_demo_menu_icons_ai01_continue_play.atlas_texture.tres" id="8"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/002_stage16_demo_menu_icons_ai01_restart.atlas_texture.tres" id="9"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/004_stage16_demo_menu_icons_ai01_back.atlas_texture.tres" id="10"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main_button_normal"]
+content_margin_left = 28.0
+content_margin_top = 4.0
+content_margin_right = 28.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0196078, 0.0784314, 0.0823529, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.552941, 0.45098, 0.258824, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main_button_hover"]
+content_margin_left = 28.0
+content_margin_top = 4.0
+content_margin_right = 28.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0313726, 0.14902, 0.152941, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.839216, 0.67451, 0.317647, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main_button_pressed"]
+content_margin_left = 28.0
+content_margin_top = 5.0
+content_margin_right = 28.0
+content_margin_bottom = 3.0
+bg_color = Color(0.0117647, 0.0470588, 0.054902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.666667, 0.501961, 0.227451, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main_button_focus"]
+content_margin_left = 28.0
+content_margin_top = 4.0
+content_margin_right = 28.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0313726, 0.14902, 0.152941, 0.32)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.384314, 0.85098, 0.858824, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="DemoShell" type="Control"]
 process_mode = 3
@@ -32,18 +99,27 @@ metadata/asset_id = "stage16_title_background_ai01"
 
 [node name="MainMenu" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 196.0
-offset_top = 82.0
-offset_right = 444.0
-offset_bottom = 234.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -120.0
+offset_right = 170.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = ExtResource("3")
 
 [node name="MenuIconStrip" type="TextureRect" parent="MainMenu"]
+visible = false
 layout_mode = 0
-offset_left = 12.0
-offset_top = 108.0
-offset_right = 236.0
-offset_bottom = 140.0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 300.0
+offset_right = 150.0
+offset_bottom = 326.0
 mouse_filter = 2
 texture = ExtResource("7")
 expand_mode = 1
@@ -52,51 +128,209 @@ metadata/asset_id = "stage16_demo_menu_icons_ai01"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 14.0
-offset_right = 234.0
-offset_bottom = 138.0
-theme_override_constants/margin_left = 10
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = 26.0
+offset_right = -34.0
+offset_bottom = -26.0
+theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 6
+alignment = 1
 
 [node name="TitleLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 17
 text = "Nano Hunter Alpha Demo"
 horizontal_alignment = 1
 
 [node name="StatusLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 11
 text = "从教程起点开始"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="StartButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(232, 28)
 layout_mode = 2
-text = "开始"
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
+text = "开始游戏"
+
+[node name="ContinueButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(232, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
+text = "继续游戏"
+
+[node name="LevelSelectButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(232, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
+text = "选择关卡"
+
+[node name="SettingsButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(232, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
+text = "设置"
+
+[node name="ControlsButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(232, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
+text = "控制说明"
+
+[node name="QuitButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(232, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
+text = "退出游戏"
+
+[node name="DetailPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -104.0
+offset_right = 190.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3")
+
+[node name="MarginContainer" type="MarginContainer" parent="DetailPanel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = 24.0
+offset_right = -34.0
+offset_bottom = -22.0
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DetailPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DetailTitleLabel" type="Label" parent="DetailPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 16
+text = "控制说明"
+horizontal_alignment = 1
+
+[node name="DetailBodyLabel" type="Label" parent="DetailPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 124)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 12
+text = "移动 A/D 或 方向键\n跳跃 Space / W / ↑\n攻击 J\n冲刺 Shift\n暂停 Esc"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="DetailBackButton" type="Button" parent="DetailPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+icon = ExtResource("10")
+expand_icon = true
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
+theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
+text = "返回"
 
 [node name="PauseMenu" type="Panel" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 214.0
-offset_top = 92.0
-offset_right = 426.0
-offset_bottom = 218.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -90.0
+offset_right = 130.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = ExtResource("3")
 
 [node name="PausePanelArt" type="TextureRect" parent="PauseMenu"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 204.0
-offset_bottom = 118.0
+offset_right = 212.0
+offset_bottom = 176.0
 mouse_filter = 2
 texture = ExtResource("5")
 expand_mode = 1
@@ -105,10 +339,12 @@ metadata/asset_id = "stage16_pause_panel_ui_ai01"
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 14.0
-offset_right = 198.0
-offset_bottom = 112.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 22.0
+offset_right = -26.0
+offset_bottom = -22.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -120,27 +356,71 @@ theme_override_constants/separation = 8
 
 [node name="TitleLabel" type="Label" parent="PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 14
 text = "暂停"
 horizontal_alignment = 1
 
 [node name="ResumeButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
+icon = ExtResource("8")
+expand_icon = true
 text = "继续"
 
 [node name="RestartButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
+icon = ExtResource("9")
+expand_icon = true
 text = "重开"
+
+[node name="FailurePanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 200.0
+offset_top = 100.0
+offset_right = 440.0
+offset_bottom = 268.0
+theme_override_styles/panel = ExtResource("3")
+
+[node name="MarginContainer" type="MarginContainer" parent="FailurePanel"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = 226.0
+offset_bottom = 150.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FailurePanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FailureLabel" type="Label" parent="FailurePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 10
+text = "已跌落，回到最近检查点。"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="FailureContinueButton" type="Button" parent="FailurePanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+icon = ExtResource("8")
+expand_icon = true
+text = "继续"
 
 [node name="CompletionPanel" type="Panel" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 166.0
-offset_top = 238.0
+offset_top = 248.0
 offset_right = 474.0
-offset_bottom = 334.0
+offset_bottom = 326.0
 theme_override_styles/panel = ExtResource("3")
 
 [node name="CompletionPanelArt" type="TextureRect" parent="CompletionPanel"]
@@ -148,7 +428,7 @@ layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 300.0
-offset_bottom = 88.0
+offset_bottom = 70.0
 mouse_filter = 2
 texture = ExtResource("6")
 expand_mode = 1
@@ -158,9 +438,9 @@ metadata/asset_id = "stage16_completion_panel_ui_ai01"
 [node name="MarginContainer" type="MarginContainer" parent="CompletionPanel"]
 layout_mode = 0
 offset_left = 18.0
-offset_top = 18.0
+offset_top = 14.0
 offset_right = 290.0
-offset_bottom = 78.0
+offset_bottom = 64.0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
@@ -168,7 +448,8 @@ theme_override_constants/margin_bottom = 8
 
 [node name="CompletionLabel" type="Label" parent="CompletionPanel/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 12
 text = "Alpha Demo 已完成"
 horizontal_alignment = 1
 vertical_alignment = 1

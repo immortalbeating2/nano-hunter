@@ -10,6 +10,17 @@ const MIASMA_CASTER_SCENE_PATH := "res://scenes/combat/miasma_caster_enemy.tscn"
 const MIASMA_CASTER_CONFIG_SCRIPT_PATH := "res://scripts/configs/miasma_caster_enemy_config.gd"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
 const MIASMA_TILESET_RESOURCE_PATH := "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres"
+const VFX_COMBAT_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres"
+const MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres"
+const SHRINE_GATE_LOCKED_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
+const SHRINE_GATE_OPEN_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres"
+const STAGE13_GOAL_DEVICE_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/016_shrine_gate_prop_atlas_ai01_auto_017_c02.atlas_texture.tres"
+const STAGE13_CHECKPOINT_ACTIVE_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/015_shrine_gate_prop_atlas_ai01_auto_016_c02.atlas_texture.tres"
+const BRANCH_RESOURCE_MARKER_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/008_equipment_pickup_atlas_ai01_auto_009_c01.atlas_texture.tres"
+const BRANCH_CHALLENGE_MARKER_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/019_equipment_pickup_atlas_ai01_auto_020_c02.atlas_texture.tres"
+const BRANCH_EXIT_MARKER_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/022_equipment_pickup_atlas_ai01_auto_023_c02.atlas_texture.tres"
+const STAGE13_RESOURCE_BRANCH_REWARD_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/005_equipment_pickup_atlas_ai01_auto_006_c01.atlas_texture.tres"
+const STAGE13_CHALLENGE_BRANCH_REWARD_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/009_equipment_pickup_atlas_ai01_auto_010_c01.atlas_texture.tres"
 
 const STAGE13_MAIN_ROOM_PATHS := [
 	"res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
@@ -26,6 +37,17 @@ const STAGE13_MAIN_ROOM_PATHS := [
 
 const STAGE13_RESOURCE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"
 const STAGE13_CHALLENGE_BRANCH_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn"
+const MIASMA_BACKGROUND_RESOURCE_PATH := "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png"
+const MIASMA_TILE_SHEET_RESOURCE_PATH := "res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png"
+const STAGE13_MIASMA_VISUAL_PASS_ROOM_PATHS := [
+	"res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_return_room.tscn",
+	"res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn",
+]
 
 
 # 保护 Stage13 内容范围：10 个主线房和 2 条支路必须全部存在并完成入口配置。
@@ -87,6 +109,23 @@ func test_miasma_caster_enemy_uses_config_and_exposes_ranged_pressure_contract()
 	assert_gt(enemy.call("get_projectile_range"), 120.0)
 	assert_gt(enemy.call("get_miasma_pressure_radius"), 32.0)
 	assert_eq(enemy.call("get_touch_damage"), config.get("touch_damage"))
+	var pressure_polygon := enemy.get_node_or_null("MiasmaPressureVisual") as Polygon2D
+	assert_not_null(pressure_polygon)
+	if pressure_polygon != null:
+		assert_false(pressure_polygon.visible)
+	_assert_animated_sprite_references_asset(
+		enemy,
+		"MiasmaPressureVfxVisual",
+		"miasma_purge_warning_vfx_runtime_ai01",
+		MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH,
+		&"miasma_purge_warning"
+	)
+	var pressure_vfx := enemy.get_node_or_null("MiasmaPressureVfxVisual") as AnimatedSprite2D
+	assert_not_null(pressure_vfx)
+	if pressure_vfx != null:
+		assert_lt(pressure_vfx.modulate.a, 0.22)
+		assert_lt(pressure_vfx.scale.x, 0.37)
+		assert_lt(pressure_vfx.scale.y, 0.24)
 
 
 # 保护瘴气危险：触发瘴气应造成伤害，同时房间仍保留失败重试契约。
@@ -103,6 +142,34 @@ func test_miasma_hazard_damages_player_without_breaking_checkpoint_recovery() ->
 	assert_true(room.call("should_reset_on_player_defeat"))
 
 
+# 保护腐瘴危险的正式运行态读值：hazard 不应继续显示绿色几何 SVG / Polygon 占位。
+func test_miasma_hazard_warning_uses_miasma_purge_vfx_asset() -> void:
+	for room_path: String in [STAGE13_MAIN_ROOM_PATHS[2], STAGE13_MAIN_ROOM_PATHS[6]]:
+		var room := await _spawn_room(room_path)
+		var warning_polygon := room.get_node_or_null("MiasmaHazard/WarningVisual") as Polygon2D
+		var warning_svg := room.get_node_or_null("MiasmaHazard/MiasmaWarningArt") as Sprite2D
+
+		assert_not_null(warning_polygon)
+		assert_not_null(warning_svg)
+		if warning_polygon != null:
+			assert_false(warning_polygon.visible)
+		if warning_svg != null:
+			assert_false(warning_svg.visible)
+		_assert_animated_sprite_references_asset(
+			room,
+			"MiasmaHazard/MiasmaWarningVfxArt",
+			"miasma_purge_warning_vfx_runtime_ai01",
+			MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH,
+			&"miasma_purge_warning"
+		)
+		var warning_vfx := room.get_node_or_null("MiasmaHazard/MiasmaWarningVfxArt") as AnimatedSprite2D
+		assert_not_null(warning_vfx)
+		if warning_vfx != null:
+			assert_between(warning_vfx.modulate.a, 0.25, 0.8)
+			assert_between(warning_vfx.scale.x, 0.35, 0.85)
+			assert_between(warning_vfx.scale.y, 0.2, 0.45)
+
+
 # 保护封印门控：带镇妖印节点的房间默认锁门，触发节点后解锁。
 func test_seal_gate_starts_locked_and_unlocks_after_node_activation() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[3])
@@ -112,12 +179,29 @@ func test_seal_gate_starts_locked_and_unlocks_after_node_activation() -> void:
 
 	assert_false(room.call("is_gate_unlocked"))
 	assert_true(room.call("has_seal_gate"))
+	_assert_sprite_references_asset(
+		room,
+		"GateBarrier/GateArt",
+		"shrine_gate_prop_atlas_ai01",
+		SHRINE_GATE_LOCKED_TEXTURE_PATH
+	)
+	var gate_art := room.get_node_or_null("GateBarrier/GateArt") as Sprite2D
+	if gate_art != null:
+		assert_eq(gate_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_locked")
 
 	player.global_position = room.get_node("SealNode").global_position
 	await _advance_process_frames(3)
 
 	assert_true(room.call("is_gate_unlocked"))
 	assert_true(room.call("is_seal_node_activated"))
+	_assert_sprite_references_asset(
+		room,
+		"GateBarrier/GateArt",
+		"shrine_gate_prop_atlas_ai01",
+		SHRINE_GATE_OPEN_TEXTURE_PATH
+	)
+	if gate_art != null:
+		assert_eq(gate_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_open")
 
 
 # 保护两条支路的收益角色：资源支路与挑战支路都能计数奖励并回到主线。
@@ -139,6 +223,77 @@ func test_stage13_branches_provide_distinct_reward_roles_and_return_to_mainline(
 	assert_eq(challenge_room.call("get_stage13_progress_snapshot").get("branch_reward_count"), 1)
 	assert_eq(resource_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[8])
 	assert_eq(challenge_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[8])
+
+	var branch_reward_specs := [
+		{
+			"room": resource_room,
+			"texture": STAGE13_RESOURCE_BRANCH_REWARD_TEXTURE_PATH,
+			"source": "equipment_pickup_atlas_ai01.seal_fragment",
+		},
+		{
+			"room": challenge_room,
+			"texture": STAGE13_CHALLENGE_BRANCH_REWARD_TEXTURE_PATH,
+			"source": "equipment_pickup_atlas_ai01.reward_orb_large",
+		},
+	]
+
+	for spec: Dictionary in branch_reward_specs:
+		var branch_room := spec.room as Node2D
+		_assert_sprite_references_asset(
+			branch_room,
+			"Stage13Reward/RewardArt",
+			"equipment_pickup_atlas_ai01",
+			str(spec.texture)
+		)
+		var reward_art := branch_room.get_node_or_null("Stage13Reward/RewardArt") as Sprite2D
+		if reward_art != null:
+			assert_eq(reward_art.get_meta("runtime_source", ""), spec.source)
+			assert_gte(reward_art.z_index, 2)
+			assert_lte(reward_art.scale.x, 0.35)
+			assert_lte(reward_art.scale.y, 0.35)
+
+
+# 保护支路枢纽读值：三条路线不能只依赖低透明触发区色块。
+func test_stage13_branch_hub_uses_formal_route_marker_art() -> void:
+	var hub_room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[7])
+	var marker_specs := [
+		{
+			"path": "ResourceBranchZone/ResourceMarkerArt",
+			"visual": "ResourceBranchZone/ResourceVisual",
+			"texture": BRANCH_RESOURCE_MARKER_TEXTURE_PATH,
+			"source": "equipment_pickup_atlas_ai01.reward_orb_small",
+		},
+		{
+			"path": "ChallengeBranchZone/ChallengeMarkerArt",
+			"visual": "ChallengeBranchZone/ChallengeVisual",
+			"texture": BRANCH_CHALLENGE_MARKER_TEXTURE_PATH,
+			"source": "equipment_pickup_atlas_ai01.boss_core_shard",
+		},
+		{
+			"path": "ExitZone/ExitMarkerArt",
+			"visual": "ExitZone/ZoneVisual",
+			"texture": BRANCH_EXIT_MARKER_TEXTURE_PATH,
+			"source": "equipment_pickup_atlas_ai01.map_scrap",
+		},
+	]
+
+	for spec: Dictionary in marker_specs:
+		_assert_sprite_references_asset(
+			hub_room,
+			str(spec.path),
+			"equipment_pickup_atlas_ai01",
+			str(spec.texture)
+		)
+		var marker := hub_room.get_node_or_null(NodePath(str(spec.path))) as Sprite2D
+		if marker != null:
+			assert_eq(marker.get_meta("runtime_source", ""), spec.source)
+			assert_gte(marker.z_index, 2)
+			assert_lte(marker.scale.x, 0.34)
+			assert_lte(marker.scale.y, 0.34)
+		var legacy_visual := hub_room.get_node_or_null(NodePath(str(spec.visual))) as Polygon2D
+		assert_not_null(legacy_visual, "支路枢纽旧触发区底板必须保留为隐藏编辑参考：%s" % str(spec.visual))
+		if legacy_visual != null:
+			assert_false(legacy_visual.visible)
 
 
 # 保护资产规划：Stage13 瘴泽妖域关键视觉需求必须写入 manifest。
@@ -162,6 +317,98 @@ func test_stage13_asset_manifest_contains_miasma_marsh_requirements() -> void:
 func test_stage13_entry_room_references_miasma_marsh_tileset_preview() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[0])
 	_assert_tileset_preview_references_asset(room, "MiasmaTilesetPreview")
+
+
+# 保护 Stage13 可达性：每个正式可达房间的地面必须覆盖到出口或目标点前。
+func test_stage13_reachable_room_floors_reach_exit_or_goal_trigger() -> void:
+	for room_path: String in STAGE13_MAIN_ROOM_PATHS + [STAGE13_RESOURCE_BRANCH_ROOM_PATH, STAGE13_CHALLENGE_BRANCH_ROOM_PATH]:
+		var room := await _spawn_room(room_path)
+		_assert_floor_reaches_exit_or_goal(room)
+
+
+# 地面覆盖 helper 防止只修入口、漏掉后续主线或支线房间。
+func _assert_floor_reaches_exit_or_goal(room: Node2D) -> void:
+	var exit_zone := room.get_node_or_null("ExitZone") as Area2D
+	var goal_zone := room.get_node_or_null("GoalZone") as Area2D
+	var target_zone := goal_zone if goal_zone != null else exit_zone
+	assert_not_null(target_zone)
+	if target_zone == null:
+		return
+
+	var terrain := room.get_node_or_null("TerrainCollisionVisual") as TileMapLayer
+	if terrain != null and bool(terrain.get("collision_enabled")) and not terrain.get_used_cells().is_empty():
+		var used := terrain.get_used_rect()
+		var last_cell := Vector2i(used.end.x - 1, used.position.y)
+		var floor_right_edge := terrain.to_global(terrain.map_to_local(last_cell)).x + 32.0
+		assert_gte(floor_right_edge, target_zone.position.x - 36.0)
+		return
+
+	var floor := room.get_node_or_null("Floor") as StaticBody2D
+	var floor_shape := room.get_node_or_null("Floor/CollisionShape2D") as CollisionShape2D
+	assert_not_null(floor)
+	assert_not_null(floor_shape)
+	if floor == null or floor_shape == null:
+		return
+	var rectangle := floor_shape.shape as RectangleShape2D
+	assert_not_null(rectangle)
+	if rectangle == null:
+		return
+
+	var floor_right_edge := floor.position.x + rectangle.size.x * 0.5
+	var exit_trigger_x := target_zone.position.x - 36.0
+	assert_gte(floor_right_edge, exit_trigger_x)
+
+
+# 保护 Stage13 visual replacement：P2 房间统一接入瘴泽背景、tile sheet 和 TileSet 预览。
+func test_stage13_p2_visual_replacement_rooms_reference_miasma_visual_stack() -> void:
+	for room_path: String in STAGE13_MIASMA_VISUAL_PASS_ROOM_PATHS:
+		var room: Node2D = await _spawn_room(room_path)
+		_assert_sprite_references_asset(
+			room,
+			"MiasmaBackgroundArt",
+			"biome02_miasma_marsh_background_ai01",
+			MIASMA_BACKGROUND_RESOURCE_PATH
+		)
+		_assert_sprite_references_asset(
+			room,
+			"MiasmaTileSheetArt",
+			"biome02_miasma_marsh_tiles_ai01",
+			MIASMA_TILE_SHEET_RESOURCE_PATH
+		)
+		_assert_tileset_preview_references_asset(room, "MiasmaTilesetPreview")
+
+	var goal_room: Node2D = await _spawn_room(STAGE13_MAIN_ROOM_PATHS[9])
+	assert_null(goal_room.get_node_or_null("GoalDevice") as Polygon2D, "Stage13 目标装置不能退回亮色 Polygon2D 占位。")
+	_assert_sprite_references_asset(
+		goal_room,
+		"GoalDevice",
+		"shrine_gate_prop_atlas_ai01",
+		STAGE13_GOAL_DEVICE_TEXTURE_PATH
+	)
+	var goal_device := goal_room.get_node_or_null("GoalDevice") as Sprite2D
+	if goal_device != null:
+		assert_eq(goal_device.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.miasma_ward_idle")
+		assert_gte(goal_device.z_index, 1, "目标装置必须压在地形装饰上方，避免被 TileMap 前景盖住。")
+		assert_lte(goal_device.scale.x, 0.36)
+		assert_lte(goal_device.scale.y, 0.36)
+	var goal_visual := goal_room.get_node_or_null("GoalZone/GoalVisual") as Polygon2D
+	assert_not_null(goal_visual, "Stage13 目标触发区只保留隐藏编辑参考，运行态读值交给 GoalDevice。")
+	if goal_visual != null:
+		assert_false(goal_visual.visible)
+
+	var checkpoint_room: Node2D = await _spawn_room(STAGE13_MAIN_ROOM_PATHS[5])
+	_assert_sprite_references_asset(
+		checkpoint_room,
+		"RecoveryPoint/CheckpointArt",
+		"shrine_gate_prop_atlas_ai01",
+		STAGE13_CHECKPOINT_ACTIVE_TEXTURE_PATH
+	)
+	var checkpoint_art := checkpoint_room.get_node_or_null("RecoveryPoint/CheckpointArt") as Sprite2D
+	if checkpoint_art != null:
+		assert_eq(checkpoint_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.checkpoint_active")
+		assert_gte(checkpoint_art.z_index, 3)
+		assert_lte(checkpoint_art.scale.x, 0.32)
+		assert_lte(checkpoint_art.scale.y, 0.32)
 
 
 # 保护灰盒主路径：从 Main 进入 Stage11 终点后应能自动推进到 Stage13 目标房。
@@ -269,6 +516,35 @@ func _read_text_file(path: String) -> String:
 	return file.get_as_text() if file != null else ""
 
 
+# 资产接入断言 helper：保护 Sprite2D 节点、asset_id metadata 和实际资源路径三者一致。
+func _assert_sprite_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String) -> void:
+	var sprite := parent.get_node_or_null(NodePath(node_path)) as Sprite2D
+	assert_not_null(sprite, "缺少 Sprite2D 资产节点：%s" % node_path)
+	if sprite == null:
+		return
+
+	assert_eq(sprite.get_meta("asset_id", ""), asset_id)
+	assert_not_null(sprite.texture, "Sprite2D 没有纹理：%s" % node_path)
+	if sprite.texture != null:
+		assert_eq(sprite.texture.resource_path, resource_path)
+
+
+# 资产接入断言 helper：保护 AnimatedSprite2D 节点、asset_id metadata 和 SpriteFrames 路径。
+func _assert_animated_sprite_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String, animation_name: StringName) -> void:
+	var animated_sprite := parent.get_node_or_null(NodePath(node_path)) as AnimatedSprite2D
+	assert_not_null(animated_sprite, "缺少 AnimatedSprite2D 资产节点：%s" % node_path)
+	if animated_sprite == null:
+		return
+
+	assert_eq(animated_sprite.get_meta("asset_id", ""), asset_id)
+	assert_not_null(animated_sprite.sprite_frames, "AnimatedSprite2D 没有 SpriteFrames：%s" % node_path)
+	if animated_sprite.sprite_frames != null:
+		assert_eq(animated_sprite.sprite_frames.resource_path, resource_path)
+		assert_true(animated_sprite.sprite_frames.has_animation(animation_name))
+		assert_gt(animated_sprite.sprite_frames.get_frame_count(animation_name), 0)
+	assert_eq(animated_sprite.animation, animation_name)
+
+
 # TileSet 预览断言 helper：只证明场景可加载项目内 TileSet 并放置可见 tile，不代表最终碰撞清稿。
 func _assert_tileset_preview_references_asset(parent: Node, node_path: String) -> void:
 	var layer := parent.get_node_or_null(NodePath(node_path)) as TileMapLayer
@@ -282,3 +558,4 @@ func _assert_tileset_preview_references_asset(parent: Node, node_path: String) -
 		assert_eq(layer.tile_set.resource_path, MIASMA_TILESET_RESOURCE_PATH)
 		assert_gt(layer.tile_set.get_source_count(), 0)
 	assert_gt(layer.get_used_cells().size(), 0)
+	assert_false(layer.visible, "TileSet 预览层只能保留资源引用，不能作为正式道路上屏：%s" % node_path)

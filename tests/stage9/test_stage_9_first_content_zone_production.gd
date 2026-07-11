@@ -13,6 +13,11 @@ const ZONE_SWITCH_ROOM_SCENE_PATH := "res://scenes/rooms/stage9_zone_switch_room
 const ZONE_FINAL_ROOM_SCENE_PATH := "res://scenes/rooms/stage9_zone_final_room.tscn"
 const CHARGER_ENEMY_SCENE_PATH := "res://scenes/combat/ground_charger_enemy.tscn"
 const CHARGER_ENEMY_CONFIG_SCRIPT_PATH := "res://scripts/configs/ground_charger_enemy_config.gd"
+const SWITCH_IDLE_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/006_shrine_gate_prop_atlas_ai01_auto_007_c01.atlas_texture.tres"
+const SWITCH_LIT_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/007_shrine_gate_prop_atlas_ai01_auto_008_c01.atlas_texture.tres"
+const GATE_LOCKED_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
+const GATE_OPEN_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres"
+const GATE_UNLOCK_VFX_FRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
 
 
 # 输入环境清理：保证区域推进和 checkpoint 测试不受前一条输入影响。
@@ -67,8 +72,25 @@ func test_ground_charger_enemy_uses_config_resource_and_exposes_charge_state() -
 func test_switch_room_unlocks_gate_after_switch_activation() -> void:
 	var room := await _spawn_room(ZONE_SWITCH_ROOM_SCENE_PATH)
 	var gate_shape: CollisionShape2D = room.get_node_or_null("GateBarrier/CollisionShape2D") as CollisionShape2D
+	var switch_visual: Polygon2D = room.get_node_or_null("GateSwitch/SwitchVisual") as Polygon2D
+	var legacy_marker: Sprite2D = room.get_node_or_null("GateSwitch/Stage12CheckpointMarker") as Sprite2D
+	var gate_art: Sprite2D = room.get_node_or_null("GateBarrier/BarrierArt") as Sprite2D
+	var switch_art: Sprite2D = room.get_node_or_null("GateSwitch/SwitchArt") as Sprite2D
 
 	assert_not_null(gate_shape)
+	assert_not_null(gate_art)
+	if gate_art != null:
+		assert_eq(gate_art.texture.resource_path, GATE_LOCKED_TEXTURE_PATH)
+		assert_eq(gate_art.get_meta("asset_id", ""), "shrine_gate_prop_atlas_ai01")
+		assert_eq(gate_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_locked")
+	assert_not_null(switch_visual)
+	assert_false(switch_visual.visible)
+	assert_not_null(legacy_marker)
+	assert_false(legacy_marker.visible)
+	assert_not_null(switch_art)
+	assert_eq(switch_art.texture.resource_path, SWITCH_IDLE_TEXTURE_PATH)
+	assert_eq(switch_art.get_meta("asset_id", ""), "shrine_gate_prop_atlas_ai01")
+	assert_eq(switch_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.talisman_stake_idle")
 	assert_false(room.call("is_gate_unlocked"))
 	assert_false(gate_shape.disabled)
 
@@ -77,6 +99,27 @@ func test_switch_room_unlocks_gate_after_switch_activation() -> void:
 
 	assert_true(room.call("is_gate_unlocked"))
 	assert_true(gate_shape.disabled)
+	if switch_art != null:
+		assert_eq(switch_art.texture.resource_path, SWITCH_LIT_TEXTURE_PATH)
+		assert_eq(switch_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.talisman_stake_lit")
+	var switch_vfx := room.get_node_or_null("GateSwitch/SwitchActivateVfxArt") as AnimatedSprite2D
+	assert_not_null(switch_vfx)
+	if switch_vfx != null:
+		assert_not_null(switch_vfx.sprite_frames)
+		assert_eq(switch_vfx.sprite_frames.resource_path, GATE_UNLOCK_VFX_FRAMES_PATH)
+		assert_eq(switch_vfx.animation, &"seal_magic")
+		assert_eq(switch_vfx.get_meta("runtime_source", ""), "vfx_seal_magic_atlas_ai01.switch_activate_feedback")
+		assert_true(switch_vfx.visible)
+	if gate_art != null:
+		assert_eq(gate_art.texture.resource_path, GATE_OPEN_TEXTURE_PATH)
+		assert_eq(gate_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_open")
+	var gate_vfx := room.get_node_or_null("GateBarrier/GateUnlockVfxArt") as AnimatedSprite2D
+	assert_not_null(gate_vfx)
+	if gate_vfx != null:
+		assert_not_null(gate_vfx.sprite_frames)
+		assert_eq(gate_vfx.sprite_frames.resource_path, GATE_UNLOCK_VFX_FRAMES_PATH)
+		assert_eq(gate_vfx.get_meta("runtime_source", ""), "vfx_seal_magic_atlas_ai01.gate_unlock_feedback")
+		assert_true(gate_vfx.visible)
 
 
 # 保护 Stage9 checkpoint：进入后续房间死亡时应回到最近的 charger checkpoint 房。
@@ -160,6 +203,8 @@ func _spawn_player(parent: Node, spawn_position: Vector2) -> CharacterBody2D:
 func _defeat_player(player: CharacterBody2D) -> void:
 	for _i in range(3):
 		await _advance_physics_frames(24)
+		if not is_instance_valid(player):
+			return
 		player.call("receive_damage", 1, Vector2.RIGHT)
 		await _advance_physics_frames(2)
 

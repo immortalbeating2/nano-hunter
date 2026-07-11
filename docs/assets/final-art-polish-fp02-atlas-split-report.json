@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "status": "ok",
+  "boundary": "FP-02 atlas / large-sheet semantic split audit. Passing means existing region, semantic, and editor AtlasTexture resources are coherent enough for controlled runtime use; it does not replace human art-quality review.",
+  "summary": {
+    "asset_count": 4,
+    "split_ready_count": 3,
+    "standalone_preview_ready_count": 1,
+    "error_count": 0,
+    "warning_count": 0
+  },
+  "assets": [
+    {
+      "asset_id": "shrine_gate_prop_atlas_ai01",
+      "kind": "prop_atlas",
+      "status": "split_ready",
+      "output": "assets/art/atlases/shrine_gate_prop_atlas_ai01.png",
+      "regions": "assets/art/atlases/shrine_gate_prop_atlas_ai01.regions.json",
+      "semantics": "assets/art/atlases/shrine_gate_prop_atlas_ai01.semantics.json",
+      "editor_dir": "assets/art/editor_resources/shrine_gate_prop_atlas_ai01",
+      "region_count": 24,
+      "semantic_count": 24,
+      "editor_atlas_texture_count": 24,
+      "sample_semantic_names": [
+        "air_dash_shrine_inactive",
+        "air_dash_shrine_active",
+        "seal_gate_locked",
+        "seal_gate_open",
+        "seal_tower_unlit",
+        "seal_lantern_lit",
+        "talisman_stake_idle",
+        "talisman_stake_lit"
+      ],
+      "manual_review_required": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "asset_id": "equipment_pickup_atlas_ai01",
+      "kind": "equipment_atlas",
+      "status": "split_ready",
+      "output": "assets/art/atlases/equipment_pickup_atlas_ai01.png",
+      "regions": "assets/art/atlases/equipment_pickup_atlas_ai01.regions.json",
+      "semantics": "assets/art/atlases/equipment_pickup_atlas_ai01.semantics.json",
+      "editor_dir": "assets/art/editor_resources/equipment_pickup_atlas_ai01",
+      "region_count": 24,
+      "semantic_count": 24,
+      "editor_atlas_texture_count": 24,
+      "sample_semantic_names": [
+        "luna_blade",
+        "talisman_paper",
+        "prayer_beads",
+        "bronze_bell",
+        "demon_bureau_token",
+        "seal_fragment",
+        "recovery_charm",
+        "air_dash_charm"
+      ],
+      "manual_review_required": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "asset_id": "material_texture_atlas_ai01",
+      "kind": "texture_atlas",
+      "status": "split_ready",
+      "output": "assets/art/textures/material_texture_atlas_ai01.png",
+      "regions": "assets/art/textures/material_texture_atlas_ai01.regions.json",
+      "semantics": "assets/art/textures/material_texture_atlas_ai01.semantics.json",
+      "editor_dir": "assets/art/editor_resources/material_texture_atlas_ai01",
+      "region_count": 16,
+      "semantic_count": 16,
+      "editor_atlas_texture_count": 16,
+      "sample_semantic_names": [
+        "shrine_stone",
+        "weathered_wood",
+        "talisman_paper",
+        "miasma_mud",
+        "corrupted_water",
+        "cloth_sash",
+        "bronze_trim",
+        "carved_jade"
+      ],
+      "manual_review_required": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "asset_id": "reusable_seal_props_ai01",
+      "kind": "prop_sheet",
+      "status": "standalone_preview_ready",
+      "output": "assets/art/props/reusable_seal_props_ai01.png",
+      "runtime_catalog_status": "standalone_texture_preview",
+      "split_policy": "No atlas split is required for current visual preview use; add regions only when individual prop runtime use is needed.",
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

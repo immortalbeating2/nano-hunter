@@ -4,15 +4,15 @@ extends GutTest
 # 后续重构 Main、Room、Camera 或基础场景结构时，至少要继续满足这里的启动基线。
 
 
-# 保护基础显示配置：首屏分辨率、整数缩放和清屏色是后续所有视觉复核的共同前提。
+# 保护基础显示配置：当前正式 Demo 使用 2K 视口和画布扩展策略，后续视觉复核都依赖该基线。
 func test_project_uses_stage_1_display_scaling_defaults() -> void:
-	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_width", 0), 640)
-	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_height", 0), 360)
-	assert_eq(ProjectSettings.get_setting("display/window/size/window_width_override", 0), 1280)
-	assert_eq(ProjectSettings.get_setting("display/window/size/window_height_override", 0), 720)
-	assert_eq(ProjectSettings.get_setting("display/window/stretch/mode", ""), "viewport")
-	assert_eq(ProjectSettings.get_setting("display/window/stretch/aspect", ""), "keep")
-	assert_eq(ProjectSettings.get_setting("display/window/stretch/scale_mode", ""), "integer")
+	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_width", 0), 2560)
+	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_height", 0), 1440)
+	assert_eq(ProjectSettings.get_setting("display/window/size/window_width_override", 0), 0)
+	assert_eq(ProjectSettings.get_setting("display/window/size/window_height_override", 0), 0)
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/mode", ""), "canvas_items")
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/aspect", ""), "expand")
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/scale_mode", ""), "fractional")
 	assert_eq(
 		ProjectSettings.get_setting(
 			"rendering/environment/defaults/default_clear_color",
@@ -170,6 +170,28 @@ func test_main_scene_applies_main_room_camera_limits_to_placeholder_camera() -> 
 	assert_eq(camera.limit_top, camera_limits.position.y)
 	assert_eq(camera.limit_right, camera_limits.end.x)
 	assert_eq(camera.limit_bottom, camera_limits.end.y)
+
+
+# 保护正式 Demo 高分辨率适配：同 16:9 大窗口只放大相机，不额外暴露未清稿背景。
+func test_main_scene_scales_camera_zoom_for_large_16_9_viewport() -> void:
+	var previous_root_size := get_tree().root.size
+	get_tree().root.size = Vector2i(2048, 1152)
+	var packed_scene: PackedScene = load("res://scenes/main/main.tscn") as PackedScene
+
+	assert_not_null(packed_scene)
+
+	var main_scene: Node = packed_scene.instantiate()
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+
+	var player: CharacterBody2D = main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
+	assert_not_null(player)
+	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+	assert_not_null(camera)
+	assert_almost_eq(camera.zoom.x, 3.2, 0.01)
+	assert_almost_eq(camera.zoom.y, 3.2, 0.01)
+
+	get_tree().root.size = previous_root_size
 
 
 # 保护房间平移后的相机换算：房间局部边界必须转换成世界坐标再写给 Camera2D。

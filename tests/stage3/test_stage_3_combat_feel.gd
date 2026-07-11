@@ -6,6 +6,7 @@ extends GutTest
 
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const TEST_ROOM_SCENE_PATH := "res://scenes/rooms/test_room.tscn"
+const TRAINING_DUMMY_FORMAL_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/006_shrine_gate_prop_atlas_ai01_auto_007_c01.atlas_texture.tres"
 
 
 class DummyTarget:
@@ -111,9 +112,15 @@ func test_test_room_contains_training_dummy_with_receive_attack_contract() -> vo
 	add_child_autofree(room)
 
 	var training_dummy: Node = room.get_node_or_null("TrainingDummy")
+	var dummy_art := room.get_node_or_null("TrainingDummy/DummyArt") as Sprite2D
 
 	assert_not_null(training_dummy)
 	assert_true(training_dummy.has_method("receive_attack"))
+	assert_not_null(dummy_art)
+	assert_eq(dummy_art.texture.resource_path, TRAINING_DUMMY_FORMAL_TEXTURE_PATH)
+	assert_eq(dummy_art.get_meta("asset_id", ""), "shrine_gate_prop_atlas_ai01")
+	assert_eq(dummy_art.get_meta("runtime_source", ""), "manual_review_index_06_tutorial_trial_stele_idle")
+	assert_eq(dummy_art.get_meta("terrain_landmark_role", ""), "training_attack_target")
 
 
 # 测试辅助：统一生成玩家、世界和木桩目标，保持各条攻击测试的铺场一致。

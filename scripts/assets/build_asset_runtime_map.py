@@ -248,6 +248,46 @@ def rule_for(asset_id: str, target_kind: str) -> dict[str, Any]:
     return rule
 
 
+def read_scene_text(root: Path, scene: str) -> str:
+    path = resolve_path(root, scene)
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8")
+
+
+def find_direct_scene_references(root: Path, scenes: list[str], asset_id: str, output_path: str) -> list[str]:
+    references: list[str] = []
+    res_path = "res://" + output_path.replace("\\", "/")
+    for scene in scenes:
+        text = read_scene_text(root, scene)
+        if not text:
+            continue
+        if asset_id in text or res_path in text:
+            references.append(scene)
+    return references
+
+
+def integration_status_for(direct_references: list[str]) -> str:
+    if direct_references:
+        return "scene_reference_verified"
+    return "binding_map_ready_manual_replacement_required"
+
+
+def manual_gates_for(status: str) -> list[str]:
+    if status == "scene_reference_verified":
+        return [
+            "art_quality_review",
+            "scale_and_readability_review",
+            "scene_or_release_context_review",
+        ]
+    return [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "runtime_reference_replacement",
+        "scene_or_release_context_review",
+    ]
+
+
 def main() -> int:
     args = parse_args()
     root = Path.cwd().resolve()
@@ -270,6 +310,9 @@ def main() -> int:
             if resolve_path(root, scene).exists()
         ]
         provenance_record = provenance_by_id.get(asset_id, {})
+        output_rel = normalize_rel(output_path, root)
+        direct_scene_references = find_direct_scene_references(root, candidate_scenes, asset_id, output_rel)
+        integration_status = integration_status_for(direct_scene_references)
         entries.append(
             {
                 "asset_id": asset_id,
@@ -279,27 +322,26 @@ def main() -> int:
                 "track": rule["track"],
                 "target_system": rule["target_system"],
                 "recommended_resource_type": rule["resource_type"],
-                "output_path": normalize_rel(output_path, root),
+                "output_path": output_rel,
                 "output_exists": output_path.exists(),
                 "output_sha256": provenance_record.get("output_sha256", ""),
                 "target_scene_candidates": rule["target_scene_candidates"],
                 "existing_target_scene_candidates": candidate_scenes,
-                "integration_status": "binding_map_ready_manual_replacement_required",
-                "manual_gates": [
-                    "art_quality_review",
-                    "scale_and_readability_review",
-                    "runtime_reference_replacement",
-                    "scene_or_release_context_review",
-                ],
+                "direct_scene_references": direct_scene_references,
+                "integration_status": integration_status,
+                "manual_gates": manual_gates_for(integration_status),
             }
         )
 
     track_counts: dict[str, int] = {}
+    status_counts: dict[str, int] = {}
     missing_outputs: list[str] = []
     missing_target_scene_candidates: list[str] = []
     for entry in entries:
         track = str(entry["track"])
         track_counts[track] = track_counts.get(track, 0) + 1
+        status = str(entry["integration_status"])
+        status_counts[status] = status_counts.get(status, 0) + 1
         if not entry["output_exists"]:
             missing_outputs.append(entry["asset_id"])
         if not entry["existing_target_scene_candidates"]:
@@ -307,14 +349,17 @@ def main() -> int:
 
     report = {
         "version": 1,
-        "status": "binding_map_ready_manual_replacement_required",
+        "status": "runtime_map_scene_reference_split_ready",
         "boundary": (
             "Runtime/release integration map only. It assigns generated assets to target systems, "
-            "resource types and candidate scenes; it does not replace scene references or approve final art."
+            "resource types and candidate scenes, and records direct scene references when they already exist; "
+            "it does not approve final art quality."
         ),
         "summary": {
             "entry_count": len(entries),
             "track_counts": dict(sorted(track_counts.items())),
+            "status_counts": dict(sorted(status_counts.items())),
+            "directly_referenced_entry_count": status_counts.get("scene_reference_verified", 0),
             "missing_output_count": len(missing_outputs),
             "missing_target_scene_candidate_count": len(missing_target_scene_candidates),
         },

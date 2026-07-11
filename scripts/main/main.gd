@@ -18,6 +18,7 @@ const STAGE15_ROOM_PREFIX := "res://scenes/rooms/stage15_"
 const STAGE15_COMPLETION_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
 const STAGE16_ROOM_PREFIX := "res://scenes/rooms/stage16_"
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
+const FALL_RESET_MARGIN := 96.0
 
 # 默认输入绑定由 Main 兜底创建，保证独立运行测试或新机器启动时输入契约完整。
 const INPUT_BINDINGS := {
@@ -55,11 +56,18 @@ var _stage16_qa_checklist_ready := false
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
 func _ready() -> void:
 	_configure_window_defaults()
+	if not get_viewport().size_changed.is_connected(_update_runtime_camera_zoom):
+		get_viewport().size_changed.connect(_update_runtime_camera_zoom)
 	_ensure_default_input_bindings()
 	room = get_node_or_null("Room") as Node2D
 	if demo_shell != null and demo_shell.has_method("bind_main"):
 		demo_shell.call("bind_main", self)
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
+
+
+# 主流程每帧只做跨房间安全检查；房间内教学、战斗和门控仍由房间脚本负责。
+func _process(_delta: float) -> void:
+	_check_player_fall_out_of_bounds()
 
 
 # 固定窗口最小尺寸，保证灰盒 HUD 与房间构图在桌面运行时不被压得不可读。
@@ -117,6 +125,31 @@ func _apply_room_camera_limits(player: CharacterBody2D) -> void:
 	camera.limit_top = world_camera_limits.position.y
 	camera.limit_right = world_camera_limits.end.x
 	camera.limit_bottom = world_camera_limits.end.y
+	_apply_camera_zoom(camera)
+
+
+# 正式 Demo 仍按 640x360 设计房间构图；高分屏只放大相机，不额外暴露未清稿背景。
+func _apply_camera_zoom(camera: Camera2D) -> void:
+	var viewport_size := Vector2(get_tree().root.size)
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		viewport_size = get_viewport_rect().size
+	var scale_x := viewport_size.x / float(BASE_VIEWPORT_SIZE.x)
+	var scale_y := viewport_size.y / float(BASE_VIEWPORT_SIZE.y)
+	var scale_value: float = maxf(1.0, minf(scale_x, scale_y))
+	camera.zoom = Vector2(scale_value, scale_value)
+
+
+# ponytail: 单玩家主入口直接更新当前 Camera2D；多玩家或分屏时再抽专门相机管理。
+func _update_runtime_camera_zoom() -> void:
+	var player := _get_runtime_player()
+	if player == null:
+		return
+
+	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+	if camera == null:
+		return
+
+	_apply_camera_zoom(camera)
 
 
 # 把跨房间状态注入新玩家，并把当前 Room / Player / Main 三方重新挂到 HUD。
@@ -150,6 +183,29 @@ func transition_to_room(room_path: String, spawn_id: StringName) -> void:
 
 # Demo 重开只清理本轮推进状态，保留全局输入和场景结构，方便终点房反复试玩。
 func restart_demo() -> void:
+	_reset_demo_runtime_state()
+	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
+
+
+# 测试选关入口：仍走生产 Main 的房间、玩家、HUD 和相机装配，只跳过手动主线推进。
+func start_demo_at_room(room_path: String, spawn_id: StringName, debug_progress: Dictionary = {}) -> bool:
+	if room_path.is_empty() or not ResourceLoader.exists(room_path):
+		return false
+
+	_reset_demo_runtime_state()
+	if bool(debug_progress.get("air_dash_unlocked", false)):
+		_air_dash_unlocked = true
+	var reward_count := int(debug_progress.get("stage14_backtrack_reward_count", 0))
+	for reward_index in range(reward_count):
+		_stage14_backtrack_reward_ids[StringName("debug_stage14_reward_%d" % reward_index)] = true
+	_stage15_boss_defeated = bool(debug_progress.get("stage15_boss_defeated", false))
+	_change_room(room_path, spawn_id)
+	get_tree().paused = false
+	return true
+
+
+# 重置一轮试玩的跨房间状态；正式重开和测试选关复用同一份清理语义。
+func _reset_demo_runtime_state() -> void:
 	_is_short_chain_completed = false
 	_is_demo_completed = false
 	_air_dash_unlocked = false
@@ -160,7 +216,6 @@ func restart_demo() -> void:
 	_stage16_qa_checklist_ready = false
 	_checkpoint_room_path = ""
 	_checkpoint_spawn_id = &""
-	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
 
 
 # 从 Demo 壳或测试入口开始试玩；Main 只负责转发并保留无 UI 时的回退路径。
@@ -289,7 +344,7 @@ func is_stage16_qa_checklist_ready() -> bool:
 
 
 # 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
-func _change_room(room_path: String, spawn_id: StringName) -> void:
+func _change_room(room_path: String, spawn_id: StringName, force_reload := false) -> void:
 	var room_scene: PackedScene = load(room_path) as PackedScene
 	if room_scene == null:
 		return
@@ -300,7 +355,7 @@ func _change_room(room_path: String, spawn_id: StringName) -> void:
 	_current_room_path = room_path
 	_current_spawn_id = spawn_id
 
-	if room != null and room.scene_file_path == room_path:
+	if not force_reload and room != null and room.scene_file_path == room_path:
 		_bind_room_signals()
 		_spawn_placeholder_player(spawn_id)
 		return
@@ -373,15 +428,51 @@ func _on_room_transition_requested(target_room_path: String, spawn_id: StringNam
 
 # 玩家失败后优先回 checkpoint，没有 checkpoint 时按当前房间的失败规则决定是否重置。
 func _on_player_defeated() -> void:
+	_handle_player_failure("已战败，回到最近检查点。")
+
+
+# 玩家跌出当前房间相机下边界时，按失败处理，防止落入空白区域后无法恢复。
+func _check_player_fall_out_of_bounds() -> void:
+	var player := _get_runtime_player()
+	if player == null:
+		return
+
+	var camera_limits := _get_current_room_camera_limits()
+	if player.global_position.y <= float(camera_limits.end.y) + FALL_RESET_MARGIN:
+		return
+
+	_handle_player_failure("已跌落，回到最近检查点。")
+
+
+func _handle_player_failure(message: String) -> void:
 	if not _checkpoint_room_path.is_empty():
-		_change_room(_checkpoint_room_path, _checkpoint_spawn_id)
+		_change_room(_checkpoint_room_path, _checkpoint_spawn_id, true)
+		_show_failure_notice(message)
 		return
 
 	if room == null:
 		return
 
 	if room.has_method("should_reset_on_player_defeat") and room.call("should_reset_on_player_defeat"):
+		_change_room(_current_room_path, _current_spawn_id, true)
+	else:
 		_change_room(_current_room_path, _current_spawn_id)
+
+	_show_failure_notice(message)
+
+
+func _get_current_room_camera_limits() -> Rect2i:
+	if room != null and room.has_method("get_camera_limits"):
+		var camera_limits: Rect2i = room.call("get_camera_limits")
+		var room_world_offset := Vector2i(room.global_position.round())
+		return Rect2i(camera_limits.position + room_world_offset, camera_limits.size)
+
+	return Rect2i(Vector2i(-BASE_VIEWPORT_SIZE.x / 2, -BASE_VIEWPORT_SIZE.y / 2), BASE_VIEWPORT_SIZE)
+
+
+func _show_failure_notice(message: String) -> void:
+	if demo_shell != null and demo_shell.has_method("show_failure_notice"):
+		demo_shell.call("show_failure_notice", message)
 
 
 # 从 Runtime 容器取当前玩家实例；每次换房都会生成新实例，因此不能长期缓存。
@@ -429,60 +520,60 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 func _get_demo_goal_text() -> String:
 	# Stage 13 已回收到瘴泽妖域语境；这里保持玩家目标可读，不额外引入剧情系统。
 	if _stage16_alpha_demo_completed:
-		return "Alpha Demo 已完成：终局封印链已闭合，可重开试玩或查看发布说明"
+		return "Alpha Demo 已完成"
 
 	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
-		return "主目标：完成终局封印链并形成 Alpha Demo 候选"
+		return "目标：完成封印链"
 
 	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
 		return "Stage15 已完成：封印守卫已击败，战斗高潮闭环成立"
 
 	if room != null and room.scene_file_path.begins_with(STAGE15_ROOM_PREFIX):
-		return "主目标：击败封印守卫并稳定完成战斗高潮"
+		return "目标：击败封印守卫"
 
 	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
-		return "主目标：取得空中二段冲刺并回头打开能力门"
+		return "目标：取得空中冲刺"
 
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
-		return "主目标：探索瘴泽妖域并抵达第二小区域终点"
+		return "目标：抵达二区终点"
 
 	if _is_demo_completed:
 		return "Demo 已完成：可向左返回并重开试玩"
 
 	if room == null:
-		return "主目标：正在加载 Demo"
+		return "目标：加载 Demo"
 
 	match room.scene_file_path:
 		STAGE10_BRANCH_ROOM_PATH:
-			return "主目标：带着支路收益返回主线"
+			return "目标：返回主线"
 		STAGE10_CHALLENGE_ROOM_PATH:
-			return "主目标：完成挑战并前往 Demo 终点"
+			return "目标：完成挑战"
 		STAGE11_DEMO_END_ROOM_PATH:
-			return "主目标：抵达终点并完成 Demo"
+			return "目标：完成 Demo"
 		_:
-			return "主目标：继续向右推进并完成 Demo"
+			return "目标：推进 Demo"
 
 
 # 按当前阶段和房间给 HUD 生成一条短提示，帮助玩家理解当下最关键的操作。
 func _get_demo_goal_hint_text() -> String:
 	# 提示文案只标注当前房间最可能卡住玩家的点，不在 HUD 里写完整教程。
 	if _stage16_alpha_demo_completed:
-		return "提示：暂停菜单可重开 Demo；QA checklist 与 release notes 状态会在 HUD 中同步"
+		return "提示：可重开或查看发布项"
 
 	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
-		return "提示：确认符印节点、回溯收益和封印净化反馈"
+		return "提示：符印/回溯/净化"
 
 	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
-		return "提示：阶段完成反馈已触发，后续可进入 Alpha Demo 打包候选复核"
+		return "提示：可进入打包复核"
 
 	if room != null and room.scene_file_path.begins_with(STAGE15_ROOM_PREFIX):
-		return "提示：攻击积累恢复充能，满后按 L 恢复 1 点生命"
+		return "提示：攻击充能，L 恢复"
 
 	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
-		return "提示：空中按冲刺可越过能力门，落地后恢复一次空中冲刺"
+		return "提示：空中冲刺过门"
 
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
-		return "提示：留意瘴气、瘴气妖术投射者和封印门控"
+		return "提示：瘴气/投射/门控"
 
 	if _is_demo_completed:
 		return "提示：向左回到重开入口后，可从教程重新开始"

@@ -17,6 +17,7 @@ step_dash_visibility = {
 &"room": true
 }
 spawn_positions = {
-&"zone_charger_start": Vector2(-224, 96)
+&"zone_charger_return": Vector2(768, 204),
+&"zone_charger_start": Vector2(-256, 204)
 }
 thresholds = {}

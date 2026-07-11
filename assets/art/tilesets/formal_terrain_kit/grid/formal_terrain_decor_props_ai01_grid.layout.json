@@ -1,0 +1,365 @@
+{
+  "source": "assets/art/tilesets/formal_terrain_kit/formal_terrain_decor_props_ai01.png",
+  "output": "assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png",
+  "columns": 4,
+  "rows": 3,
+  "cell_size": [
+    384,
+    384
+  ],
+  "canvas_size": [
+    1536,
+    1152
+  ],
+  "extraction_mode": "source_cells",
+  "cells": [
+    {
+      "index": 0,
+      "row": 0,
+      "column": 0,
+      "cell_rect": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        96,
+        129,
+        192,
+        126
+      ],
+      "source_visible_rect": [
+        92,
+        175,
+        192,
+        126
+      ],
+      "source_cell_rect": [
+        0,
+        0,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 1,
+      "row": 0,
+      "column": 1,
+      "cell_rect": [
+        384,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        457,
+        94,
+        238,
+        195
+      ],
+      "source_visible_rect": [
+        55,
+        136,
+        238,
+        195
+      ],
+      "source_cell_rect": [
+        362,
+        0,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 2,
+      "row": 0,
+      "column": 2,
+      "cell_rect": [
+        768,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        811,
+        128,
+        297,
+        128
+      ],
+      "source_visible_rect": [
+        28,
+        175,
+        297,
+        128
+      ],
+      "source_cell_rect": [
+        724,
+        0,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 3,
+      "row": 0,
+      "column": 3,
+      "cell_rect": [
+        1152,
+        0,
+        384,
+        384
+      ],
+      "visible_rect": [
+        1239,
+        107,
+        210,
+        170
+      ],
+      "source_visible_rect": [
+        60,
+        138,
+        210,
+        170
+      ],
+      "source_cell_rect": [
+        1086,
+        0,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 0,
+      "cell_rect": [
+        0,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        111,
+        474,
+        161,
+        203
+      ],
+      "source_visible_rect": [
+        107,
+        80,
+        161,
+        203
+      ],
+      "source_cell_rect": [
+        0,
+        362,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 1,
+      "cell_rect": [
+        384,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        468,
+        509,
+        216,
+        134
+      ],
+      "source_visible_rect": [
+        69,
+        141,
+        216,
+        134
+      ],
+      "source_cell_rect": [
+        362,
+        362,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 2,
+      "cell_rect": [
+        768,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        928,
+        461,
+        63,
+        230
+      ],
+      "source_visible_rect": [
+        136,
+        69,
+        63,
+        230
+      ],
+      "source_cell_rect": [
+        724,
+        362,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 3,
+      "cell_rect": [
+        1152,
+        384,
+        384,
+        384
+      ],
+      "visible_rect": [
+        1208,
+        486,
+        271,
+        179
+      ],
+      "source_visible_rect": [
+        14,
+        104,
+        271,
+        179
+      ],
+      "source_cell_rect": [
+        1086,
+        362,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 0,
+      "cell_rect": [
+        0,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        71,
+        899,
+        241,
+        121
+      ],
+      "source_visible_rect": [
+        65,
+        91,
+        241,
+        121
+      ],
+      "source_cell_rect": [
+        0,
+        724,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 1,
+      "cell_rect": [
+        384,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        441,
+        906,
+        269,
+        107
+      ],
+      "source_visible_rect": [
+        40,
+        109,
+        269,
+        107
+      ],
+      "source_cell_rect": [
+        362,
+        724,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 2,
+      "cell_rect": [
+        768,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        839,
+        893,
+        242,
+        133
+      ],
+      "source_visible_rect": [
+        54,
+        96,
+        242,
+        133
+      ],
+      "source_cell_rect": [
+        724,
+        724,
+        362,
+        362
+      ]
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 3,
+      "cell_rect": [
+        1152,
+        768,
+        384,
+        384
+      ],
+      "visible_rect": [
+        1259,
+        851,
+        170,
+        218
+      ],
+      "source_visible_rect": [
+        66,
+        38,
+        170,
+        218
+      ],
+      "source_cell_rect": [
+        1086,
+        724,
+        362,
+        362
+      ]
+    }
+  ]
+}

@@ -1,0 +1,635 @@
+{
+	"asset_id": "formal_terrain_kit_ai01",
+	"entries": [
+		{
+			"index": 0,
+			"name": "flat_edges_flat_ground_center_a",
+			"region": [
+				0,
+				0,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 1,
+			"name": "flat_edges_flat_ground_center_b",
+			"region": [
+				384,
+				0,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 2,
+			"name": "flat_edges_flat_ground_left_cap",
+			"region": [
+				768,
+				0,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 3,
+			"name": "flat_edges_flat_ground_right_cap",
+			"region": [
+				1152,
+				0,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 4,
+			"name": "flat_edges_outer_corner_top_left",
+			"region": [
+				0,
+				384,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 5,
+			"name": "flat_edges_outer_corner_top_right",
+			"region": [
+				384,
+				384,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 6,
+			"name": "flat_edges_inner_corner_bottom_left",
+			"region": [
+				768,
+				384,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 7,
+			"name": "flat_edges_inner_corner_bottom_right",
+			"region": [
+				1152,
+				384,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 8,
+			"name": "flat_edges_one_way_platform_center",
+			"region": [
+				0,
+				768,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 9,
+			"name": "flat_edges_one_way_platform_left_cap",
+			"region": [
+				384,
+				768,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 10,
+			"name": "flat_edges_one_way_platform_right_cap",
+			"region": [
+				768,
+				768,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 11,
+			"name": "flat_edges_floor_medallion_slab",
+			"region": [
+				1152,
+				768,
+				384,
+				384
+			],
+			"source_id": 0,
+			"source_name": "flat_edges",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_flat_edges_ai01_grid.png"
+		},
+		{
+			"index": 12,
+			"name": "stairs_cliffs_stair_ramp_ascending_right",
+			"region": [
+				0,
+				0,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 13,
+			"name": "stairs_cliffs_stair_ramp_ascending_left",
+			"region": [
+				384,
+				0,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 14,
+			"name": "stairs_cliffs_short_stair_right",
+			"region": [
+				768,
+				0,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 15,
+			"name": "stairs_cliffs_short_stair_left",
+			"region": [
+				1152,
+				0,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 16,
+			"name": "stairs_cliffs_cliff_face_center",
+			"region": [
+				0,
+				384,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 17,
+			"name": "stairs_cliffs_cliff_face_alt",
+			"region": [
+				384,
+				384,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 18,
+			"name": "stairs_cliffs_cliff_edge_left",
+			"region": [
+				768,
+				384,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 19,
+			"name": "stairs_cliffs_cliff_edge_right",
+			"region": [
+				1152,
+				384,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 20,
+			"name": "stairs_cliffs_left_wall_side",
+			"region": [
+				0,
+				768,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 21,
+			"name": "stairs_cliffs_right_wall_side",
+			"region": [
+				384,
+				768,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 22,
+			"name": "stairs_cliffs_underside_support_trim",
+			"region": [
+				768,
+				768,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 23,
+			"name": "stairs_cliffs_broken_floating_platform",
+			"region": [
+				1152,
+				768,
+				384,
+				384
+			],
+			"source_id": 1,
+			"source_name": "stairs_cliffs",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_stairs_cliffs_ai01_grid.png"
+		},
+		{
+			"index": 24,
+			"name": "door_transitions_left_room_doorway_jamb",
+			"region": [
+				0,
+				0,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 25,
+			"name": "door_transitions_right_room_doorway_jamb",
+			"region": [
+				384,
+				0,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 26,
+			"name": "door_transitions_sealed_gate_inactive",
+			"region": [
+				768,
+				0,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 27,
+			"name": "door_transitions_sealed_gate_active",
+			"region": [
+				1152,
+				0,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 28,
+			"name": "door_transitions_left_doorway_floor_transition",
+			"region": [
+				0,
+				384,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 29,
+			"name": "door_transitions_right_doorway_floor_transition",
+			"region": [
+				384,
+				384,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 30,
+			"name": "door_transitions_broken_arch_top_trim",
+			"region": [
+				768,
+				384,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 31,
+			"name": "door_transitions_broken_arch_vertical_side",
+			"region": [
+				1152,
+				384,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 32,
+			"name": "door_transitions_doorway_safe_landing_pad",
+			"region": [
+				0,
+				768,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 33,
+			"name": "door_transitions_return_path_marker_base",
+			"region": [
+				384,
+				768,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 34,
+			"name": "door_transitions_door_control_pedestal_inactive",
+			"region": [
+				768,
+				768,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 35,
+			"name": "door_transitions_door_control_pedestal_active",
+			"region": [
+				1152,
+				768,
+				384,
+				384
+			],
+			"source_id": 2,
+			"source_name": "door_transitions",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_door_transitions_ai01_grid.png"
+		},
+		{
+			"index": 36,
+			"name": "decor_props_small_moss_tuft",
+			"region": [
+				0,
+				0,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 37,
+			"name": "decor_props_medium_moss_vines",
+			"region": [
+				384,
+				0,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 38,
+			"name": "decor_props_broken_stone_rubble",
+			"region": [
+				768,
+				0,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 39,
+			"name": "decor_props_cracked_stone_shards",
+			"region": [
+				1152,
+				0,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 40,
+			"name": "decor_props_spirit_lantern",
+			"region": [
+				0,
+				384,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 41,
+			"name": "decor_props_stone_incense_burner",
+			"region": [
+				384,
+				384,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 42,
+			"name": "decor_props_talisman_stake",
+			"region": [
+				768,
+				384,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 43,
+			"name": "decor_props_hanging_cloth_chain_trim",
+			"region": [
+				1152,
+				384,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 44,
+			"name": "decor_props_miasma_puddle_edge",
+			"region": [
+				0,
+				768,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 45,
+			"name": "decor_props_seal_glyph_floor_decal",
+			"region": [
+				384,
+				768,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 46,
+			"name": "decor_props_short_shrine_plinth",
+			"region": [
+				768,
+				768,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		},
+		{
+			"index": 47,
+			"name": "decor_props_broken_pillar_stump",
+			"region": [
+				1152,
+				768,
+				384,
+				384
+			],
+			"source_id": 3,
+			"source_name": "decor_props",
+			"texture": "res://assets/art/tilesets/formal_terrain_kit/grid/formal_terrain_decor_props_ai01_grid.png"
+		}
+	],
+	"entry_count": 48,
+	"tile_size": [
+		384,
+		384
+	],
+	"version": 1
+}

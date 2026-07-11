@@ -2,6 +2,490 @@
 
 本文件只记录项目里程碑级事件。每日细节、命令输出、MCP 复核过程、分支操作原因和误判修正过程保存在 `docs/progress/logs/YYYY-MM-DD.md`。每条里程碑默认包含范围、结果、关键验证、详情日志；重要阶段收口或工具链修复可补提交 hash 与遗留风险。
 
+## 2026-07-11
+
+- **Stage17 preflight and Formal Demo rollback point**：在动作运行态实现前收口当前大规模未提交工作树，并冻结可回退基线。
+  结果：Formal Demo 39 房重排、资产接入、运行态脚本与文档范围形成同一份本地回退提交；Stage17 专用分支从该验证基线分叉。修正 TileSet 包审计仍按旧资源数计数、运行态资产表仍宣称 4 个已替换独立资产直接引用的陈旧口径，没有把旧资产重新接回场景。
+  关键验证或结论：全量 GUT `31` scripts、`219/219` tests、`6105` asserts；Godot import 通过；39 房 OpenGL 运行态构图复核 `P0=0 / P1=0 / P2=0`；动作候选 `15/15 active ready`；最终美术审计 `5/5 FP batches, 2/2 final gates`；资产包、source safety、provenance、background alpha 和 runtime map 严格审计全部通过；`git diff --check` 通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；分支：`codex/stage-17-animation-runtime-stabilization`；边界：未合并 `main`、未推送远端，Stage17 动作缺陷尚未进入实现。
+
+- **Stage17 animation runtime stabilization planning**：把动作审计结论升级为正式阶段边界和可执行修复计划。
+  结果：确定采用“保留玩法时长、按状态映射关键帧”的方案；Luna 固定 Model Lock v1，Jump 拆 start / rise / fall / land；普通敌人在 BaseEnemy 共享入口启动播放并补最小死亡动作；Boss 拆分 recovery 与 guard-break staggered。最小 `2 元素 + 2 姿态 + 2 步序列` 明确留给下一独立阶段。
+  关键验证或结论：计划直接对应现有代码根因——玩家状态已有 startup / active / recovery、普通敌人共同经过 `BaseEnemy`、Boss 当前 `stagger_duration` 未独立使用；本轮只完成设计和计划，不修改运行代码。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；设计：`spec-design/2026-07-11-stage-17-animation-runtime-stabilization-design.md`；正式计划：`plan/2026-07-11-stage-17-animation-runtime-stabilization.md`；执行清单：`docs/implementation-plans/2026-07-11-stage-17-animation-runtime-stabilization.md`；前置：先收口当前脏工作树并建立 Stage17 分支。
+
+- **Animation / room content / North Star implementation audit**：纠正“资源已生成或几何审计通过即代表动作和玩法完成”的口径。
+  结果：确认 Luna 跨动作比例与状态时序未锁定；四类普通敌人运行态不播放 cycle；Seal Guardian attack / VFX 被状态截断且 staggered 隐藏；完成 39 房敌人、机关、奖励和门控目录；北极星完整实现估算约 `25-30%`，元素 / 姿态 / 序列核心约 `0-10%`。
+  关键验证或结论：runtime probe 记录四类普通敌人 `frame 0 -> 0 / is_playing=false`、Boss `staggered / visible=false`；runtime candidate geometry audit 为 Luna `7/7`、综合候选 `15/15`，证明问题位于跨动作与运行绑定层。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；动作审计：`docs/assets/2026-07-11-character-enemy-animation-runtime-audit.md`；房间目录：`spec-design/2026-07-11-alpha-demo-room-content-catalog.md`；北极星审计：`spec-design/2026-07-11-north-star-implementation-audit.md`。
+
+- **Formal Demo Map Redesign 39-room closure**：完成 Stage16 Batch 9，并收口当前全部 39 个可运行房间的正式 Demo 排版。
+  结果：三类样板与 Batch 1-9 全部完成；Stage16 五房形成释放、中继、回溯确认、净化和终局大厅；其余 38 房使用正式 TileMap collision / visual surface，`test_room` 保留精确 shape 机制沙盒契约。
+  关键验证或结论：全量 GUT `31` scripts、`219/219` tests、`6105` asserts；39 房 Windows/OpenGL 截图审计 `P0=0 / P1=0 / P2=0`；Stage16 自动主线到达 Alpha Demo End；Godot import 通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；正式计划：`plan/2026-07-10-formal-demo-map-redesign.md`；Batch9：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-09-stage16.md`；遗留：尚未合并 `main`，仍需真人连续试玩和最终美术签核。
+
+- **Formal Demo map Batch 8 Stage15 remaining rooms**：完成 Pressure、Challenge、Boss、Completion，Stage15 战斗高潮链收口。
+  结果：双敌前置清场、危险挑战支路、宽 Boss arena 和封印完成大厅成立；正式进度推进到 `34/39` 房。
+  关键验证或结论：Batch8 `5/5` / `193` asserts；Stage15/16 + formal remap `45/45` / `1106` asserts；六图运行态 `ok=true`；Boss 到 Completion、Completion 到 Stage16 真实切房；Godot import 通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-08-stage15-remaining.md`。
+
+- **Formal Demo map Batch 7 Stage14 remaining rooms**：完成 Shrine、Backtrack Hub、Loop Return，Stage14 能力与回溯链收口。
+  结果：能力获得、Air Dash Gate、三收益回溯和进入 Stage15 的上层目标形成完整链路；正式进度推进到 `30/39` 房。
+  关键验证或结论：Batch7 `4/4` / `137` asserts；Stage14-16 + formal remap `61/61` / `1504` asserts；五图运行态 `ok=true`；Loop Goal 高度误配经运行图拒绝后修正；Godot import 通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-07-stage14-remaining.md`。
+
+- **Formal Demo map Batch 6 Stage13 branches and goal**：完成瘴泽区域剩余五房，Stage13 正式重排收口。
+  结果：Hub 三路高低分叉、资源支路两级上行、挑战支路清敌门、Return 汇流降压和 Goal 上层祭器成立；正式进度推进到 `27/39` 房。
+  关键验证或结论：Batch6 `5/5` / `214` asserts；Stage13/manual/Stage14/Stage16/formal remap `58/58` / `1464` asserts；六图运行态 `ok=true`；Goal 真实切入 Stage14；Godot import 通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-06-stage13-branches-goal.md`。
+
+- **Formal Demo map Batch 5 Stage13 mid chain**：完成 Gate、Crossfire、Checkpoint、Pressure 四房正式重排。
+  结果：四房分别形成符印门控、三层交叉火力、恢复缓冲和瘴气绕行职责；补齐双向连接、安全 spawn 和正式 TileMap collision / surface；Gate 的不可见 SealNode 补现有符印桩运行资产。
+  关键验证或结论：Batch5 `4/4` / `197` asserts；Stage13/manual/Stage14/Stage16/formal remap `58/58` / `1479` asserts；七图运行态 `ok=true`；Checkpoint 背景空白边经拒绝和修正后通过；Godot import 通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-05-stage13-mid.md`。
+
+- **Formal Demo map Batch 4 Stage11 end and Stage13 entry chain**：把 Demo 终点与瘴泽入口前三房推进为正式房间构图。
+  结果：Stage11 三选择大厅、Stage13 checkpoint 揭示、三层 Caster 清敌房和 hazard bypass 房成立；Caster 补正式门，Miasma 警示 VFX 达到可读范围。
+  关键验证或结论：Batch4 与相关 Stage11-16 回归共 `67/67` tests、`1698` asserts，六图运行态报告 `ok=true`，Godot import 通过；地面覆盖与 hazard 测试已改读正式运行层。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-04-stage11-stage13-entry.md`；遗留：下一批继续 Stage13 中段 4 房。
+
+- **Formal Demo map Batch 3 Stage10 vertical route set**：把三间同规格单层房重排为主线空中战、奖励支路和全清挑战房。
+  结果：Aerial / Branch / Challenge 分别采用 `24x9 / 18x8 / 26x10`；支路 return spawn、反向连接和全清门规则成立，奖励与恢复点位于可达上行路线。
+  关键验证或结论：Batch3 与 Stage10/11/12/16 共 `49/49` tests、`1066` asserts，五图运行态报告 `ok=true`，Godot import 通过；支路初版 `16x8` 因运行态露出大块空底色被拒绝并扩大为 `18x8`。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-03-stage10.md`；遗留：下一批处理 Stage11 终点与 Stage13 入口链。
+
+- **Formal Demo map Batch 2 Stage9 five-room zone**：把五间同规格单层房重排为第一个具有连续节拍差异的小区域。
+  结果：Entry / Combat / Charger / Switch / Final 分别采用 `18x6 / 20x8 / 22x8 / 20x9 / 24x9`，形成区域揭示、双层首战、冲锋长廊、两级机关和上下层混合终点；双向连接、安全 spawn、checkpoint 表现和每房相机边界已补齐。
+  关键验证或结论：Batch2 与 Stage9-16 相关回归共 `94/94` tests、`2362` asserts，七图运行态报告 `ok=true`，Godot import 通过；`miasma_marsh_tileset_ai01` 继续保持 source-only，不进入正式道路。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-02-stage9.md`；遗留：下一批进入 Stage10 三房。
+
+- **Formal Demo map Batch 1 first-chain promotion**：把机制沙盒、首战房和目标房按已验收样板规则重新接入。
+  结果：`test_room` 的精确 shape bounds 获得可读顶沿 / cap；`combat_trial_room` 成为 `18x6` 单敌锁门房；`goal_trial_room` 成为 `20x8` 下层战斗 + 上层目标房；背景硬边、旧随机 tile 和错误 spawn 坐标已修正。
+  关键验证或结论：Batch 1、Stage1/3/4/6/7、formal remap 共 `47/47` tests 通过，运行态五图报告 `ok=true`，Godot import 通过；首战短链的碰撞、重试、门控、目标和返回契约未回归。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；实施计划：`docs/implementation-plans/2026-07-11-formal-demo-map-redesign-batch-01.md`；遗留：下一批进入 Stage9 五房区域级推广。
+
+- **Stage15 mixed gauntlet formal combat-room sample**：把单层三敌横排房推进为第三类正式房间样板。
+  结果：房间扩为 `26x9`；Basic Melee、Ground Charger、Aerial Sentinel 分别占据近战区、冲锋通道和空中层；新增上层规避台与空中接敌平台，挑战支路移到左上可选路径，清场门前后保持连续地面；单张 Boss arena 背景覆盖完整房间。
+  关键验证或结论：gauntlet template GUT `5/5` tests / `309` asserts；Stage15 GUT `17/17` / `402` asserts；Godot import 通过；四视角运行态报告 `ok=true`，支路不误触、冲锋高度带、空中层、三敌全清开门和门前安全区均通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；遗留：区域专用平台吊挂 / 支撑视觉仍待后续清稿；三类样板完成后进入首批 `3-5` 房推广。
+
+- **Stage14 Air Dash gate formal ability-room sample**：把旧门房从碰撞跟随素材试铺推进为第二类正式房间样板。
+  结果：房间扩为 `24x9` 显式蓝图，包含下层失败回落、两段起跳、`192px` Air Dash 缺口、右侧连续崖台和门前后安全区；随机视觉 tile 清空，单张背景覆盖完整房间，崖体采用低对比石质 underlay；入口 spawn 避开左出口，双向连接和能力门流程字段由生成器与测试共同守护。
+  关键验证或结论：gate template GUT `5/5` tests / `555` asserts；formal remap GUT `8/8` / `189` asserts；Stage14 GUT `16/16` / `389` asserts；Godot import 通过；四状态运行态报告 `ok=true`，普通跳失败回落、Air Dash 落地、脚底对齐、锁门 / 开门和门前后安全区均通过。
+  详情日志链接：`docs/progress/logs/2026-07-11.md`；遗留：现有 underlay 满足样板可读性但不等于最终区域 cliff-side 清稿；下一样板为 Stage15 mixed gauntlet。
+
+## 2026-07-10
+
+- **Tutorial room formal composition and pixel-grounding sample**：把教学房从“网格正确但仍像素材试排”推进到首个房间级正式构图样板。
+  结果：保留 `24x6` 四段教学节拍；重复背景收敛为单张完整房间覆盖；路面随机石物删除，入口灯弱化，跳跃平台自身承担地标，Air Dash 神龛安装在实体低顶上方；共享训练目标从误标链门切片改为人工复核试炼碑。通过 Atlas alpha bounds 和运行态坐标将 `GroundSurfaceVisual` 上移 `7px`，统一 Luna、入口灯和训练目标的 `y=160` 落地基线。
+  关键验证或结论：tutorial template GUT `6/6` tests / `502` asserts；Stage3 GUT `5/5` / `18` asserts；Stage5 GUT `9/9` / `100` asserts；Godot import 通过；四点运行态截图复核 `ok=true`，且 `background_coverage_ok=true`、`landmark_layout_ok=true`、`start_ground_alignment_ok=true`、`training_target_ok=true`。目检确认背景无接缝 / 露空，Luna 和试炼碑脚底与可见地表一致。
+  详情日志链接：`docs/progress/logs/2026-07-10.md`；遗留：当前仍是碰撞层与可见表面层分离的过渡结构，三类样板验证后再决定正式 TileSet 单层整合；下一样板为 Stage14 Air Dash gate。
+
+- **Tutorial room thin platform visual replacement**：把教学房两段空中平台从厚石梁视觉换成薄平台上沿。
+  结果：新增 `tutorial_thin_platform_visual_ai01`，从既有 `shrine_trial_tileset_ai01` 平台件裁出 24px 高薄上沿；`tutorial_room.tscn` 新增 / 刷新 `ThinPlatformSurfaceVisual`，只覆盖跳台与 dash 门低顶；`GroundSurfaceVisual` 只保留主路地面；碰撞仍由 `TerrainCollisionVisual` / `PlatformCollisionVisual` 承担。
+  关键验证或结论：tutorial template GUT `3/3` tests / `452` asserts；Stage5 GUT `9/9` tests / `100` asserts；运行态截图复核 `ok=true`，且 `thin_platform_surface_visible=true`、`surface_visual_ok=true`、`platform_floor_ok=true`、`gate_blocks_without_dash=true`；Godot import 和 `git diff --check` 通过。
+  详情日志链接：`docs/progress/logs/2026-07-10.md`；遗留：本轮未使用 image gen 重生整套平台资产，先采用同源裁薄方案。
+
+## 2026-07-09
+
+- **Tutorial room 64px grid blueprint demo layout**：把真正第一关从碰撞块试铺推进为 64px 网格驱动的正式 demo 样板房。
+  结果：`tutorial_room.tscn` 由 `apply_formal_terrain_kit_tutorial_trial.gd` 按固定蓝图铺设：主路 `x=-7..15, y=2` 连续 23 格，跳台收紧为 `x=-4..-3, y=1` 连续 2 格，dash 门低顶 `x=2..3, y=1`，出口安全落点 `x=10..14, y=2`；新增 `GroundSurfaceVisual` 复用 `shrine_trial_tileset_ai01` 的 left / center / right 地面件做 visual-only 连续主路视觉，带格线的 `GroundUnderlayVisual` 已隐藏退役；本房 `DoorVisual` / `BackgroundVisual` / `DecorVisual` / `ForegroundVisual` 保持空 TileMap，避免孤立门柱、重复墙件、地面下碎石和漂浮小台座误读；保留 `ExitBarrier` / `ExitZone` / `TutorialDummy` 独立逻辑碰撞。
+  关键验证或结论：tutorial template GUT `3/3` tests / `432` asserts；Stage5 GUT `9/9` tests / `100` asserts；运行态截图复核 `ok=true`，且 `grid_blueprint_ok=true`、`surface_visual_ok=true`、`ground_underlay_retired=true`、`start_floor_ok=true`、`platform_floor_ok=true`、`gate_blocks_without_dash=true`；Godot import 和 `git diff --check` 通过。
+  详情日志链接：`docs/progress/logs/2026-07-09.md`；遗留：本轮只把 `tutorial_room` 做成样板房，不全图推广，不新建通用关卡生成器。
+
+- **Stage14 gate terrain template copy validation**：把 tutorial_room 已验证的房间级 Terrain 模板复制到 Stage14 Air Dash gate 房间。
+  结果：`stage14_air_dash_gate_room.tscn` 新增 / 刷新 `TerrainCollisionVisual`、`DoorVisual`、`BackgroundVisual`、`DecorVisual`、`ForegroundVisual`；`LeftWall` / `Floor` 的真实地形碰撞迁移到 `TerrainCollisionVisual`，旧试铺层隐藏并显式禁用碰撞，门框 / 背景 / 装饰 / 前景保持 visual-only；`GateBarrier` / `ExitZone` / `LeftExitZone` / `AirDashGateSensor` 保持独立逻辑节点。
+  关键验证或结论：Stage14 gate template GUT `3/3` tests / `200` asserts；Stage14 GUT `16/16` tests / `389` asserts；运行态截图复核 `ok=true`，确认 layer authority、visual-only layers、旧碰撞禁用、出生点落地和 Air Dash 解锁过门均通过。
+  详情日志链接：`docs/progress/logs/2026-07-09.md`；遗留：本轮不全图推广，不处理 Stage14 其它房间，也不处理房间长度 / 层级扩展。
+
+- **Tutorial room terrain template rebuild**：把真正第一关从视觉试铺升级为房间级 Terrain 模板。
+  结果：`tutorial_room.tscn` 新增 / 更新 `TerrainCollisionVisual`、`PlatformCollisionVisual`、`DoorVisual`、`BackgroundVisual`、`DecorVisual`、`ForegroundVisual` 六层；地形和薄平台由 `formal_terrain_kit_ai01` TileSet collision 承担权威碰撞，门、背景、装饰、前景保持 visual-only；旧地形 StaticBody2D 碰撞禁用但保留 authoring bounds，`ExitBarrier` / `ExitZone` / `TutorialDummy` 保持独立节点。同步冻结房间元素清单和 TileSet 语义清洗表。
+  关键验证或结论：formal terrain kit GUT `3/3` tests / `183` asserts；tutorial template GUT `3/3` tests / `300` asserts；Stage5 GUT `9/9` tests / `100` asserts；运行态截图复核 `ok=true`；Godot import 通过。排障结论：隐藏 TileMapLayer 仍会参与碰撞，`ShrineTrialTilesetPreview` 必须显式 `collision_enabled=false`，窄落点至少两格才能避免 dash 门前空气墙。
+  详情日志链接：`docs/progress/logs/2026-07-09.md`；遗留：本轮不全图推广，不处理 Stage14 gate，不处理房间长度 / 层级扩展；这些进入后续独立 pass。
+
+## 2026-07-05
+
+- **DemoShell main menu composition correction**：把标题主菜单从中心大弹窗收敛为左侧紧凑导航面板。
+  结果：`DemoShell` 主菜单改为按 viewport 动态计算的左侧面板，宽度限制在 `300-420`，按钮高度约 `31`，保留六项入口但不再遮住标题背景主体；不改开始、暂停、详情页、失败提示或完成提示流程。
+  关键验证或结论：Stage16 GUT `18/18` tests、`463` asserts；Godot import 通过；`capture_demo_shell_layout_hover_review.gd` 与 `capture_demo_shell_start_review.gd` 均为 `ok=true`；`menu_normal_2048x1152.png` / `menu_hover_2048x1152.png` 目检确认背景成为主视觉，hover 不压扁按钮。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于正式标题 Logo、完整设置 / 选关系统或主菜单动效完成。
+
+- **Stage14 backtrack reward pedestal runtime replacement**：把 Stage14 回溯 hub 的三个漂浮奖励晶体落到现有 prop atlas 的小型奖励标识上。
+  结果：`stage14_backtrack_hub_room.tscn` 的 `BacktrackRewardOne/Two/Three` 均新增 `RewardPedestalArt`，绑定 `shrine_gate_prop_atlas_ai01.reward_marker_idle` AtlasTexture；`RewardArt` 保持为上层奖励晶体；不改奖励计数、收集距离、隐藏逻辑、出口或玩家路线。
+  关键验证或结论：Stage14 GUT `16/16` tests、`379` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage14_backtrack_hub.png` 目检确认奖励点不再只是孤立漂浮晶体，且未遮挡 Luna、HUD、地面、平台或出口路线。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于正式奖励经济、拾取动画、拾取音效、背包 UI 或 Stage14 回溯链路终稿完成。
+
+- **Stage16 purge focus base runtime replacement**：把 Stage16 purge 房的净化确认光点落到现有 prop atlas 的小型符印器物上。
+  结果：`stage16_corruption_purge_room.tscn` 的 `CorruptionPurgeNode` 新增 `PurgeFocusBaseArt`，并从远景较弱的 `shrine_gate_prop_atlas_ai01.seal_ring_active` 收敛为 `shrine_gate_prop_atlas_ai01.miasma_ward_purged` AtlasTexture；`TalismanRelayEchoArt` 保持为上层确认 VFX；不改妖瘴危险 Area、净化接近距离、门控、出口或玩家路线。
+  关键验证或结论：Stage16 GUT `18/18` tests、`462` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage16_purge.png` 目检确认净化点有石质机关底座和上层净化光效，且未遮挡 Luna、HUD、地面、门禁或出口路线。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于专用净化激活动画、危险区 VFX 全套清稿、净化音效或 Stage16 终局演出完成。
+
+- **Stage16 relay focus base runtime replacement**：把 Stage16 relay 房的三枚悬浮符印光点落到现有 prop atlas 的小型符印器物上。
+  结果：`stage16_talisman_relay_room.tscn` 的 `TalismanRelayA/B/C` 均新增 `RelayFocusBaseArt`，绑定 `shrine_gate_prop_atlas_ai01.seal_ring_idle` AtlasTexture；`RelayArt` 保持为上层符印 VFX；不改 `required_talisman_relay_count`、接近距离、门控、出口或玩家路线。
+  关键验证或结论：Stage16 GUT `18/18` tests、`452` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage16_relay.png` 目检确认 relay 不再只是孤立光点，且未遮挡 Luna、HUD、地面、门禁或出口路线。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于专用 relay 激活动画、三段收集音效、完整终局演出或 Stage16 关卡终稿完成。
+
+- **Stage15 pressure focus prop runtime replacement**：把 Stage15 pressure 房的悬浮封印 VFX 标记落到现有 prop atlas 的场景机关底座上。
+  结果：`stage15_seal_pressure_room.tscn` 新增 `PressureFocusArt`，绑定 `shrine_gate_prop_atlas_ai01.seal_pillar_intact` AtlasTexture；`PressureSigilArt` 保持为上层能量 VFX；不改压力逻辑、敌人、出口、碰撞或房间推进。
+  关键验证或结论：Stage15 GUT `17/17` tests、`404` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage15_pressure.png` 目检确认压力点不再像悬浮 UI 标记，且未遮挡 Luna、HUD、敌人、路线或出口。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于专用封印压力动画、机关交互音效、完整危险 VFX sheet、Boss 前压迫演出或 Stage15 关卡终稿完成。
+
+- **Luna runtime render layer correction**：修正玩家运行态身体被正式前景边缘压住、读成嵌入地面的层级问题。
+  结果：`scenes/player/player_placeholder.tscn` 的 `PlayerPlaceholder.z_index` 设为 `3`，高于全房间 `FormalForegroundEdgeDecor.z_index=2`；不改碰撞体、动作帧、相机、房间地形或门禁资源。
+  关键验证或结论：Stage14 GUT `16/16` tests、`352` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；2K 专项复核 `ok=true`、`camera_zoom=[3.2, 3.2]`；`stage14_gate.png` 与 `stage16_threshold.png` 目检确认 Luna 不再被前景边缘盖脚，当前 `seal_gate_locked` 图集切片为石质封印门。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整角色动作二次清稿、碰撞盒重制、手工 autotile 终稿或门禁新资产重生。
+
+- **Marker-backed trigger visual cleanup batch**：清理已经由正式 marker / GoalDevice 覆盖的目标点和支路入口弱触发区底板。
+  结果：隐藏 Stage10 `BranchZone/BranchVisual`、Stage13 branch hub 三块 route visual、Stage13 goal `GoalZone/GoalVisual`、Stage14 loop return `GoalZone/GoalVisual`、Stage15 gauntlet `ChallengeBranchZone/ChallengeVisual`；不改 Area2D 碰撞、支路跳转、目标推进、奖励或敌人逻辑。
+  关键验证或结论：Stage10 GUT `11/11` tests、`108` asserts；Stage13 GUT `13/13` tests、`368` asserts；Stage14 GUT `16/16` tests、`351` asserts；Stage15 GUT `17/17` tests、`394` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮只处理已有 marker / GoalDevice 覆盖的目标与支路入口，不处理普通房间边界 `ExitZone`，也不等于小地图、正式选关 UI、奖励经济、目标动画或音效完成。
+
+- **Stage11 endpoint trigger visual cleanup**：把终点房三处低透明触发区底板从运行态画面中清掉，只保留正式 marker 承担重开 / 完成 / 继续读值。
+  结果：`stage11_demo_end_room.tscn` 的 `ReplayVisual`、`GoalVisual`、`ContinueVisual` 均设为隐藏；不改 `ReplayZone` / `GoalZone` / `ContinueZone` 碰撞、重开、完成或继续逻辑。
+  关键验证或结论：Stage12 GUT `10/10` tests、`243` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage11_end.png` 目检确认三枚 marker 仍可读，弱触发区底板不再显示。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于正式结算页、入口动画、音效、可选路线 UI 或完整 Demo 终局演出完成。
+
+- **GoalTrial target marker runtime replacement**：把战斗试炼目标区从低透明触发区推进到可见目标 token。
+  结果：`goal_trial_room.tscn/GoalZone` 新增 / 调整 `GoalMarkerArt`，绑定 `equipment_pickup_atlas_ai01.demo_completion_token` AtlasTexture，并隐藏 `GoalZone/ZoneVisual`；不改 `GoalZone` 碰撞、战斗清敌、门禁、左侧返回或 Stage9 入口推进。
+  关键验证或结论：formal remap GUT `6/6` tests、`142` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；formal remap 运行态复核 `P0=0 / P1=0 / P2=0`；本地聚焦图 `goal_trial_target_focus.png` 目检确认目标 token 可读且不再显示弱触发区底板。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于正式拾取逻辑、目标动画、目标音效、小地图、选关系统或 Stage9 后续关卡终稿完成。
+
+- **Stage10 main optional branch marker runtime replacement**：把 Stage10 主房左侧可选奖励支路入口从低透明触发区推进到现有 equipment atlas 的可见收益标识。
+  结果：`stage10_zone_aerial_room.tscn/BranchZone` 新增 `BranchMarkerArt`，绑定 `equipment_pickup_atlas_ai01.reward_orb_small` AtlasTexture；不改 `BranchZone` 碰撞、可选支路跳转、空中攻击价值点、敌人遭遇或 HUD 读值。
+  关键验证或结论：Stage10 GUT `11/11` tests、`106` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage10_aerial.png` 目检确认可选支路标识可读且未遮挡 Luna、HUD、空中价值标识、敌人、平台或主线出口。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整小地图、选关系统、支路奖励经济、入口动画、音效或 Stage10 关卡终稿完成。
+
+- **Stage15 gauntlet challenge branch marker runtime replacement**：把 Stage15 mixed gauntlet 左侧挑战支路入口从低透明触发区推进到现有 equipment atlas 的可见挑战标识。
+  结果：`stage15_mixed_gauntlet_room.tscn/ChallengeBranchZone` 新增 `ChallengeMarkerArt`，绑定 `equipment_pickup_atlas_ai01.boss_core_shard` AtlasTexture；不改 `ChallengeBranchZone` 碰撞、支路跳转、敌人遭遇、Boss 门控或 HUD 读值。
+  关键验证或结论：Stage15 GUT `17/17` tests、`392` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage15_gauntlet.png` 目检确认挑战支路标识可读且未遮挡 Luna、HUD、敌人、地面或右侧 Boss 门路线。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整挑战房系统、支路奖励经济、入口动画、门禁音效或 Stage15 关卡终稿完成。
+
+- **Stage14 loop return goal marker runtime replacement**：把 Stage14 回环房右侧目标入口从低透明触发区推进到现有 equipment atlas 的可见路线标识。
+  结果：`stage14_loop_return_room.tscn/GoalZone` 新增 `GoalMarkerArt`，绑定 `equipment_pickup_atlas_ai01.map_scrap` AtlasTexture；不改 `GoalZone` 碰撞、Stage14 到 Stage15 的房间推进、checkpoint 或 HUD 读值。
+  关键验证或结论：Stage14 GUT `16/16` tests、`349` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage14_loop_return.png` 目检确认目标标识未遮挡 Luna、HUD、地面、右侧门槛或出口路线。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整小地图、选关系统、出口动画、门禁音效或 Stage14 关卡终稿完成。
+
+- **Stage10 value / recovery / reward marker runtime replacement**：把 Stage10 空中攻击价值点、恢复点和奖励点从不可见逻辑 Marker 推进到现有 atlas 的可见运行态标识。
+  结果：`stage10_zone_aerial_room.tscn/AirAttackValueMarker` 新增 `ValueArt` 并绑定 `equipment_pickup_atlas_ai01.air_dash_charm`；`stage10_zone_branch_room.tscn/RecoveryPoint` 新增 `CheckpointArt` 并绑定 `shrine_gate_prop_atlas_ai01.checkpoint_active`；`BranchCollectible` 新增 `CollectibleArt` 并绑定 `equipment_pickup_atlas_ai01.reward_orb_small`；`stage10_zone_challenge_room.tscn/ChallengeCollectible` 新增 `CollectibleArt` 并绑定 `equipment_pickup_atlas_ai01.boss_core_shard`；不改触发距离、收集计数、恢复逻辑、支路跳转或挑战房推进。
+  关键验证或结论：Stage10 GUT `11/11` tests、`98` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage10_aerial.png`、`stage10_branch.png` 与 `stage10_challenge.png` 目检确认新增标识可读且不遮挡 Luna、HUD、敌人、平台、门禁或出口。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于正式奖励经济、拾取动画、拾取音效、checkpoint 激活动画、空中攻击专用教学演出或背包 UI 完成。
+
+- **Stage13 checkpoint runtime prop replacement**：把 Stage13 checkpoint 从纯逻辑恢复点推进到现有 prop atlas 的可见恢复点标识。
+  结果：`stage13_miasma_marsh_checkpoint_room.tscn/RecoveryPoint` 下新增 `CheckpointArt`，绑定 `shrine_gate_prop_atlas_ai01.checkpoint_active` AtlasTexture；不改 checkpoint 信号、重生、碰撞、出口或房间推进。
+  关键验证或结论：Stage13 GUT `13/13` tests、`360` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage13_checkpoint.png` 目检确认 checkpoint prop 可读且不遮挡 Luna、HUD、平台或出口。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于正式存档系统、保存 UI、checkpoint 音效或激活动画完成。
+
+- **Stage13 branch reward marker runtime replacement**：把 Stage13 资源 / 挑战支路的逻辑奖励点推进到现有 equipment atlas 的可见奖励标识。
+  结果：`stage13_miasma_marsh_resource_branch_room.tscn` 与 `stage13_miasma_marsh_challenge_branch_room.tscn` 的 `Stage13Reward` 下新增 `RewardArt`；资源支路绑定 `equipment_pickup_atlas_ai01.seal_fragment`，挑战支路绑定 `equipment_pickup_atlas_ai01.reward_orb_large`；挑战支路奖励点轻微左移，避免贴近运行态截图右边缘；不改奖励计数、支路返回、碰撞或房间推进。
+  关键验证或结论：Stage13 GUT `13/13` tests、`351` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage13_resource_branch.png` 与 `stage13_challenge_branch.png` 目检确认奖励点可读且不遮挡 Luna、HUD、平台或出口。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于正式奖励经济、拾取动画、拾取音效、背包 UI 或奖励平衡完成。
+
+- **Stage13 branch hub route marker runtime replacement**：把 Stage13 支路枢纽从弱触发区读值推进到现有 equipment atlas 的路线标识。
+  结果：`stage13_miasma_marsh_branch_hub_room.tscn` 的 `ResourceBranchZone`、`ChallengeBranchZone`、`ExitZone` 分别新增 `ResourceMarkerArt`、`ChallengeMarkerArt`、`ExitMarkerArt`，绑定 `equipment_pickup_atlas_ai01.reward_orb_small`、`boss_core_shard` 和 `map_scrap` AtlasTexture；不改 Area2D 碰撞、支路跳转、主线出口或 checkpoint。
+  关键验证或结论：Stage13 GUT `13/13` tests、`335` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage13_branch_hub.png` 目检确认标识不遮挡 Luna、HUD、平台或出口。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整小地图、正式选关系统、支路奖励经济、专用拾取动画或音效完成。
+
+- **Stage15/16 seal-chain split foreground prop expansion**：把已验证的拆分链锚 prop 从 Stage16 threshold 扩展到同一封印链上的 Stage15 completion 和 Stage16 backtrack。
+  结果：`stage15_completion_room.tscn/CompletionSeal` 与 `stage16_backtrack_confirmation_room.tscn/BacktrackConfirmationNode` 新增 `SealChainAnchorLeftArt` / `SealChainAnchorRightArt`，继续绑定 `shrine_gate_prop_atlas_ai01.chain_anchor_left/right` AtlasTexture；对应 `ReusableSealPropsPreviewArt` 仍隐藏，不改 Stage15 到 Stage16 接入、backtrack 门禁、ExitZone、checkpoint 或房间推进。
+  关键验证或结论：Stage16 GUT `18/18` tests、`422` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage15_completion.png` 与 `stage16_backtrack.png` 目检确认链锚 prop 不遮挡路线、HUD、敌人或门禁。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整区域前景装饰包、手工 autotile、专用门禁动画或音效完成。
+
+- **Stage16 threshold split foreground prop integration**：把 Stage16 第一房从“隐藏整张 reusable seal source sheet”推进到“可见拆分单件前景 prop”。
+  结果：`stage16_seal_release_threshold_room.tscn/SealReleaseNode` 新增 `SealChainAnchorLeftArt` 和 `SealChainAnchorRightArt`，分别绑定 `shrine_gate_prop_atlas_ai01.chain_anchor_left/right` AtlasTexture；`ReusableSealPropsPreviewArt` 继续隐藏，不改门禁碰撞、ExitZone、checkpoint 或房间推进。
+  关键验证或结论：Stage16 GUT `18/18` tests、`378` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage16_threshold.png` 目检确认链锚 prop 不遮挡路线、HUD 或门禁。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整区域前景装饰包、手工 autotile、专用门禁动画或音效完成。
+
+- **TutorialHUD core icon, objective marker and panel art unification**：把常驻 HUD 小图标从混用 standalone PNG 收敛为同一 core icon atlas，把普通目标行徽标从旧 SVG 切到 HUD atlas，并给 HUD / 提示面板补现有 UI atlas 贴图层。
+  结果：`DashIcon` 改用 `icon_sheet_core_ai01.air_dash`，`RecoveryChargeIcon` 改用 `icon_sheet_core_ai01.recovery_charge`，与既有 `HealthIcon` 的 `icon_sheet_core_ai01.health` 保持同一图集和 64px 单元；`ObjectiveIcon` 改用 `hud_core_ui_atlas_ai01.room_goal_marker`，只在普通目标行显示，恢复 / Boss 行隐藏；`PromptPanelArt` / `BattlePanelArt` 复用 `menu_ninepatch_ui_ai01` 深色 atlas 贴图层，不改 HUD 数值、恢复机制或 Boss 条。
+  关键验证或结论：Stage12 GUT `10/10` tests、`237` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`tutorial_room.png`、`stage13_entry.png`、`stage15_pressure.png` 与 `stage15_boss.png` 目检确认图标和面板贴图统一、未变形、未遮挡。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整 HUD 设计系统、Boss / 能力 HUD 清稿、设置 / 选关 UI 或音频完成。
+
+- **Stage13 goal device runtime prop replacement**：把 Stage13 目标房的亮色几何目标装置替换为现有正式 prop atlas。
+  结果：`stage13_miasma_marsh_goal_room.tscn/GoalDevice` 从 `Polygon2D` 改为 `Sprite2D`，绑定 `shrine_gate_prop_atlas_ai01.miasma_ward_idle` / `016_shrine_gate_prop_atlas_ai01_auto_017_c02`，并设置 `z_index=1`；不改 `GoalZone` 碰撞、主线跳转或 checkpoint。
+  关键验证或结论：Stage13 GUT `13/13` tests、`332` asserts；Godot import 通过；全内容流程截图证据 `P0=0 / P1=0 / P2=0`；全 `39` 房 DAC `P0=0 / P1=0 / P2=0`；`stage13_goal_device.png` 目检确认不再是亮色几何块。
+  详情日志链接：`docs/progress/logs/2026-07-05.md`；遗留：本轮不等于完整区域前景装饰包、手工 autotile、专用目标交互动画或音效完成。
+
+## 2026-07-04
+
+- **DemoShell semantic button icon polish**：把菜单 icon sheet 从“隐藏整图预览”推进到语义匹配按钮图标的最小运行态接入。
+  结果：新增 `continue_play`、`restart`、`back` 三个 AtlasTexture editor resource，并只接入暂停继续、暂停重开、失败继续和详情返回按钮；主菜单六项因现有 icon sheet 缺少准确语义而暂不硬套图标。`capture_demo_shell_layout_hover_review.gd` 增加 `2048x1152` 复核 case，保留 normal / hover 截图证据。
+  关键验证或结论：Stage16 GUT `18/18` tests、`356` asserts；Godot import 通过；DemoShell 启动四态截图复核 `ok=true`；菜单布局 / hover 复核覆盖 `640x360`、`1024x576`、`2048x1152` 三档并返回 `ok=true`。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不等于完整主菜单 icon set、正式设置 / 选关系统、UI 动效或最终按钮清稿完成。
+
+- **Stage16 seal release prop readability polish**：把三状态封印释放 prop 从“已接入但远景像噪点”收敛到运行态可读尺寸。
+  结果：Stage15 completion、Stage16 threshold、Stage16 backtrack 继续复用 `stage16_seal_release_threshold_ai01` locked / active / released 三个 AtlasTexture，只把对应 Sprite2D 从 `scale=0.055 / y=-12` 调到 `scale=0.085 / y=8`；不新增图片、不改变门控、碰撞、房间推进或 source sheet 隐藏策略。
+  关键验证或结论：Stage16 GUT `18/18` tests、`341` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；三张目标截图目检确认 prop 可读且未遮挡路径或门禁。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不等于专用开门动画、门禁 SFX、完整机关状态机或最终 prop 清稿完成。
+
+- **Stage16 completion art safe-area polish**：把终点房完成反馈从“有正式图但贴右边裁切”收敛到 640 基准镜头安全区内。
+  结果：`stage16_alpha_demo_end_room.tscn` 继续复用 `stage16_alpha_demo_completion_ai01` 与 `stage16_completion_panel_ui_ai01`，只把 `AlphaDemoCompletionArt` 从 `position=(256,30) / scale=0.26` 调到 `position=(150,30) / scale=0.18`，并同步移动文字牌；不新增图片、不改变完成触发、ExitZone、HUD 完成态或房间推进。
+  关键验证或结论：Stage16 GUT `18/18` tests、`326` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage16_end.png` 目检确认完成图完整留在右侧区域内，文案可读且未遮挡玩家路径。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不等于结算页、完成动画、音效或最终 UI 清稿完成。
+
+- **Stage16 talisman relay readability polish**：把终局符印中继从“已接入但运行态太小”收敛到 640 基准镜头下可读。
+  结果：`stage16_talisman_relay_room.tscn` 的三个 `RelayArt` 继续复用 `stage16_talisman_relay_ai01` region-bound VFX，只把视觉层 `scale` 从 `0.045` 调到 `0.065`；Stage16 测试新增可读性上下限，避免回退成微小几何点或过大遮挡门禁。
+  关键验证或结论：Stage16 GUT `18/18` tests、`322` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage16_relay.png` 目检确认中继可读，未遮挡路径、门禁或 HUD。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不新增图片、不改门控 / 碰撞 / 房间推进，也不等于专用机关动画或门禁音效完成。
+
+- **TutorialHUD meter rail runtime polish**：把每局稳定可见的 HUD 条形读值从裸 ColorRect 收敛为正式 HUD atlas 轨道装饰。
+  结果：`TutorialHUD/BattlePanel` 新增生命、冲刺、恢复和 Boss 四个 `*MeterFrameArt` TextureRect，统一绑定 `hud_core_ui_atlas_ai01.meter_rail`；恢复 / Boss 轨道复用原有显隐逻辑，只在 Stage15 / Boss 房显示；不改变血量、冲刺冷却、恢复充能或 Boss 生命计算。
+  关键验证或结论：Stage12 GUT `10/10` tests、`221` asserts；Godot import 通过；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`test_room.png` 原图目检确认红 / 青条上有细金线轨道，不遮挡文字和目标面板；`git diff --check` 通过但仍有既有 CRLF warning。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不等于完整 HUD icon set、Boss HUD 专用清稿、字体清稿、设置 / 选关系统或音频完成。
+
+- **FP-01 visible runtime asset review gate**：补强最终美术 FP-01 运行态读值复核，避免隐藏 source preview 误当作可见资产替换完成。
+  结果：`capture_final_art_polish_fp01_review.gd` 的目标清单改为检查当前真实可见的背景、TileMap、Stage14 shrine / gate prop、Stage15 Boss runtime visual 和 Stage16 gate / threshold prop；Stage14 shrine / gate 显式覆盖 `shrine_gate_prop_atlas_ai01` 的 `ShrineArt`、`GatePreviewArt`、`ShrineEchoArt`、`GateArt`，并要求资源路径有效、`asset_id` 精确匹配、节点可见、无碰撞子节点。
+  关键验证或结论：FP-01 非 headless 截图复核 `ok=true`；Demo remap GUT `5/5` tests、Stage14 GUT `16/16` tests、Godot import、全 `39` 房 DAC `P0=0 / P1=0 / P2=0`、`git diff --check` 均通过。该复核确认红绿门禁不是当前 Stage14 运行态资产状态，剩余正式 Demo 缺口转向音频、完整 UI 系统、手工 autotile / 前景装饰和发布级清稿。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不新增图片、不改碰撞、不实现门禁动画 / SFX 或完整机关系统。
+
+- **DAC player grounded capture gate**：修正全房间运行态截图验收证据，避免把切房下落帧误判为 Luna 默认姿态或动作资产问题。
+  结果：`capture_demo_art_composition_review.gd` 切房后等待玩家物理落地再截图，并在报告表新增 `Player` 姿态列；玩家未落地或静态截图仍处于 dash / jump / air attack 时会进入 P2；本地 `dac03_contact_sheet.png` 已刷新。
+  关键验证或结论：全 `39` 房 DAC 复核仍为 `P0=0 / P1=0 / P2=0`，报告中所有房间均为 `floor`；`stage13_entry.png`、`tutorial_room.png`、`stage16_end.png` 与 contact sheet 目检确认 Luna 落地、idle、脚底贴合，不再以空中 / dash 姿态作为静态签核证据。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不新增动作帧、不改玩家控制、碰撞、房间布局或相机，只修正运行态视觉验收口径。
+
+- **Stage15/16 reusable seal source sheet cleanup**：清理正式流程房间中可见的 reusable seal source sheet。
+  结果：`stage15_completion_room.tscn`、`stage16_seal_release_threshold_room.tscn`、`stage16_backtrack_confirmation_room.tscn` 的 `ReusableSealPropsPreviewArt` 改为隐藏并标记为 `hidden_source_sheet_not_runtime_prop`；Stage16 测试从“引用整图”改为“source sheet 只能隐藏保留”，DAC 新增 `reusable_seal_props_ai01` 可见 source sheet 检查。
+  关键验证或结论：Stage16 GUT `18/18` tests、`313` asserts；Stage15 GUT `17/17` tests、`388` asserts；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage15_completion.png`、`stage16_threshold.png`、`stage16_backtrack.png` 目检确认小型 props sheet 不再上屏；Godot import 和 `git diff --check` 通过。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不拆分 reusable seal props 单件、不新增 prop atlas、碰撞、动画或音效。
+
+- **Stage14 shrine source preview and trigger rectangle cleanup**：清理 Air Dash 神龛房右侧硬边矩形。
+  结果：`stage14_air_dash_shrine_room.tscn` 隐藏 `ShrineTrialParallaxArt`、`AirDashShrineRoomArt` 和已有正式门禁 prop 覆盖的 `ExitZone/ZoneVisual`，保留主背景、TileSet、神龛、门禁 prop、Air Dash trail、碰撞和房间切换逻辑。
+  关键验证或结论：Stage14 GUT `16/16` tests、`345` asserts；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage14_shrine.png` 目检确认源图 / 触发区硬边块收敛。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不等于正式 parallax split、完整背景清稿、宽屏背景资产包或最终美术签核。
+
+- **TutorialHUD compact prompt panel polish**：收紧房间标题-only 状态下的右上 HUD 空提示面板。
+  结果：`TutorialHUD/PromptPanel` 根据提示正文是否为空自动切换完整高度 / 宽度和紧凑高度 / 宽度；正文为空时隐藏 `PromptLabel`，只保留窄标题条，不再在运行态截图中留下大块空黑框或长黑条；有正文时恢复完整提示框；不改变房间上下文、教程推进、玩家控制或 HUD 资产绑定。
+  关键验证或结论：Stage12 GUT `10/10` tests、`197` asserts；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage13_entry.png` 目检确认右上提示区已收紧，`tutorial_room.png` 目检确认教程正文未被挤压。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不实现完整 HUD icon set、字体清稿、设置页或控制说明系统。
+
+- **Stage16 completion room text overlay**：补齐终点房完成反馈牌面的运行态文案。
+  结果：`stage16_alpha_demo_end_room.tscn` 在现有 `AlphaDemoCompletionArt` / `CompletionPanelEchoArt` 上新增 `CompletionMessageLabel`，显示 `Alpha Demo 已完成`，使用浅金字与 1px 深色描边适配深色牌面；不改完成触发、ExitZone、房间切换或交付物。
+  关键验证或结论：Stage16 GUT `18/18` tests、`303` asserts；全 `39` 房 DAC 截图复核 `P0=0 / P1=0 / P2=0`；`stage16_end.png` 目检确认完成文字在牌面安全区内可读。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不实现结算页、完成动画、音效或最终 UI 清稿。
+
+- **DemoShell main menu and prompt panel polish**：把主菜单中仍像占位提示的次级入口收敛为可读详情页，并修正提示面板文字可读性。
+  结果：新增 `DemoShell/DetailPanel`，`继续游戏`、`选择关卡`、`设置`、`控制说明` 复用同一个详情页和返回按钮；主菜单 / 详情页 / 暂停 / 失败 / 完成提示的羊皮纸文字改为深色，失败提示面板加高以完整包住当前按钮视觉和遮挡层。
+  关键验证或结论：Stage16 GUT `18/18` tests、`298` asserts；`capture_demo_shell_start_review.gd` 输出 `ok=true`，并记录 `controls_detail_text_ok=true`、`pause_text_ok=true`、`failure_text_ok=true`；Godot import 通过，截图目检确认控制说明、暂停提示和失败提示文字可读，失败提示不再露出角色身体。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不实现真实存档、选关、音量设置或按键重绑定，只完成正式 Demo 菜单读值和说明页。
+
+- **Stage16 relay gate asset semantic correction**：根据用户运行态截图复核修正 Stage16 relay 右侧门禁误读。
+  结果：`stage16_talisman_relay_room.tscn` 的 `GateBarrier/GateArt` 从容易读成红绿竖杆的 `boss_gate_locked` 特殊切片改回通用 `seal_gate_locked` 关闭石门切片；`Stage9RoomBase._apply_gate_lock_state()` 移除对 `boss_gate_locked` 的特殊保留逻辑，Stage16 relay 现在跟其它常规封印门统一走 locked / open 状态口径。
+  关键验证或结论：Godot import 通过；Stage14 GUT `16/16` tests、`339` asserts；Stage16 GUT `18/18` tests、`269` asserts；formal remap 运行态复核 `P0=0 / P1=0 / P2=0`；全 `39` 房 DAC `P0=0 / P1=0 / P2=0`；2K 专项复核 `ok=true`、`camera_zoom=[3.2, 3.2]`；`stage16_relay_to_threshold_entry.png` 目检确认不再出现红绿竖杆门禁。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮修正的是错误切片 / 语义选择，不等于专用 Boss 门动画、门禁 SFX、正式机关状态机或完整门禁资产包完成。
+
+- **DemoShell pause panel preview hidden**：清理暂停菜单中错位叠显的整图面板预览。
+  结果：`DemoShell/PauseMenu/PausePanelArt` 改为隐藏，保留 `stage16_pause_panel_ui_ai01` 纹理资源引用供后续清稿；Stage16 测试新增断言，防止带预制槽位的整图再次覆盖当前“继续 / 重开”按钮；`capture_demo_shell_start_review.gd` 扩展为 menu / started / pause / failure 四态截图复核。
+  关键验证或结论：Godot import 通过；Stage16 GUT `18/18` tests、`269` asserts；四态 DemoShell 截图复核 `ok=true`；`demo_shell_pause.png` 目检确认预制横向槽位已消失。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮只隐藏错误预览，不等于正式暂停菜单图标、设置页、控制说明页或完整 UI 设计系统完成。
+
+- **DemoShell menu icon sheet preview hidden**：清理主菜单中误上屏的整张菜单图标 source sheet 预览。
+  结果：`DemoShell/MainMenu/MenuIconStrip` 改为隐藏，保留 `stage16_demo_menu_icons_ai01` 纹理资源引用供后续正式切图；Stage16 测试新增断言，防止 2x3 source sheet 再被压缩成运行态底部装饰条。
+  关键验证或结论：Godot import 通过；Stage16 GUT `18/18` tests、`267` asserts；菜单 hover 复核 `ok=true`；2K 专项复核 `ok=true`、`camera_zoom=[3.2, 3.2]`；`demo_shell_menu_2k.png` 目检确认按钮间的小图标条已消失。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮只隐藏错误预览，不等于完整主菜单 icon set、设置页、选关页或控制说明页完成。
+
+- **TutorialHUD health icon runtime polish**：清理运行态 HUD 中每局可见的生命图标色块。
+  结果：`TutorialHUD/BattlePanel/HealthIcon` 从红色 `ColorRect` 改为 `TextureRect`，绑定 `icon_sheet_core_ai01.health` / `009_icon_sheet_core_ai01_auto_010_c02.atlas_texture.tres`，保持 `12x12` HUD 小尺寸；Stage12 测试新增资源路径、asset_id 和尺寸断言，防止回退为调试色块或原图拉伸。
+  关键验证或结论：Godot import 通过；Stage12 / Stage14 / Stage15 / Stage16 GUT `61/61` tests、`1181` asserts；全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；`tutorial_room.png` 与 `stage15_pressure.png` 目检确认生命图标未拉伸或遮挡。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮只处理生命图标，不等于完整 HUD icon set、设置页、控制说明或最终 UI 设计系统完成。
+
+- **Miasma purge warning VFX runtime subresource pass**：把腐瘴危险 / 压制提示从整段通用 combat VFX 收敛为腐瘴专用运行态子资源。
+  结果：新增 `miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres`，复用 `vfx_combat_atlas_ai01.png` 后 8 个 `purge` 语义帧；Stage13 miasma / pressure、Stage15 challenge branch 和 MiasmaCaster 压制环改用 `miasma_purge_warning` 动画，不改变伤害 Area、敌人 AI、碰撞、房间推进或音效。
+  关键验证或结论：Godot import 通过；Stage13 / Stage15 GUT `30/30` tests、`710` asserts；全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；`stage13_miasma.png`、`stage13_pressure.png`、`stage15_challenge_branch.png` 目检确认没有回退为大色块、绿底或几何占位。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮是现有 atlas 子资源拆分，不等于全新腐瘴专用 VFX sheet、粒子系统、完整 timing 或危险音效。
+
+- **Gate and switch unlock VFX feedback pass**：给已完成 atlas 替换的门禁 / 机关补第一轮运行态状态反馈。
+  结果：新增 `GateStateVfx` helper，复用 `vfx_seal_magic_atlas_ai01` 的 `seal_magic` 动画；教程门、战斗门、目标门、Stage9+ 通用门和 Stage9 switch 激活后会播放 visual-only 短封印 VFX，不改变碰撞、门控状态机、房间推进或音效。
+  关键验证或结论：Godot import 通过；Stage5 / Stage6 / Stage7 / Stage9 / Stage13 / Stage14 / Stage15 / Stage16 GUT `87/87` tests、`1598` asserts；全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；本地门禁聚焦脚本 `17` 个门禁用例 `ok=true`。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不等于专用门体开合逐帧动画、正式机关多状态、钥匙系统或门禁 SFX。
+
+- **FormalForegroundEdgeDecor foreground edge pass**：继续补全全房间地表与背景之间的前景边缘融合。
+  结果：复用现有 `shrine_trial_tileset_ai01` / `miasma_marsh_tileset_ai01`，为全 `39` 房新增 / 重刷 `FormalForegroundEdgeDecor` TileMapLayer，共 `149` 个稀疏 edge tile；该层只做视觉，`collision_enabled=false`，不改变房间拓扑、碰撞或跳跃落点；DAC 新增 `missing_foreground_edge_decor` P2 gate，并把该层从普通 sparse tilemap 误报中排除。
+  关键验证或结论：`apply_dac_formal_terrain_tilemaps.gd` 成功重写 `39` 房；全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；`stage9_switch.png`、`stage14_gate.png`、`stage16_threshold.png` 目检确认地表顶边增加断石 / 草根 / 破损边缘层，未遮挡 Luna、门禁、机关、HUD 或出口提示。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮仍不等于手工 autotile、区域前景 prop 包、完整 parallax split 或美术总监最终签核。
+
+- **FormalTerrain underlay visual weight pass**：继续收敛全房间连续地形承托层的灰盒读值。
+  结果：全 `39` 房 `dac_continuous_stone_underlay.png` 视觉层从 `alpha=0.20` 降到 `0.12`；`apply_dac_formal_terrain_tilemaps.gd` 与 `apply_dac_terrain_texture.gd` 同步默认值；DAC 的 `heavy_textured_underlay` 阈值从 `0.24` 收紧到 `0.16`；Stage13 门禁测试同步补齐 `002` locked / `003` open 两态断言。
+  关键验证或结论：Godot import 通过；formal remap + Stage9 / Stage13 / Stage14 / Stage15 / Stage16 GUT `73/73` tests、`1485` asserts 通过；全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；`stage9_switch.png`、`stage14_gate.png` 与 `stage16_threshold.png` 目检确认暗色矩形底板退为弱材质过渡。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不改碰撞、房间拓扑、TileSet 选择、相机或背景；正式手工 autotile、前景融合和完整 parallax split 仍属后续 polish。
+
+- **All-content seal gate runtime prop atlas binding**：统一清理主流程旧封印门 SVG 运行态绑定。
+  结果：教程、战斗试炼、GoalTrial、Stage9、Stage10、Stage13、Stage15、Stage16 常规门禁统一使用 `shrine_gate_prop_atlas_ai01` 状态切片；锁定态为关闭石门 `002_shrine_gate_prop_atlas_ai01_auto_003_c01` / `seal_gate_locked`，开启态为 `003_shrine_gate_prop_atlas_ai01_auto_004_c01` / `seal_gate_open`；同步修正 `shrine_gate_prop_atlas_ai01.semantics.json` 中 `002` / `003` 的旧机器语义；DAC 新增 `visible_legacy_gate_sprite` P1 检查，防止 legacy SVG 封印门再次进入运行态。后续同日复核发现 Stage16 relay 保留的 `boss_gate_locked` 特殊切片在运行态距离下误读，已由上方 `Stage16 relay gate asset semantic correction` 改回通用 `seal_gate_locked`。
+  关键验证或结论：Godot import 通过；Stage3 / Stage5 / Stage6 / Stage7 / Stage9 / Stage13 / Stage14 / Stage15 / Stage16 GUT `91/91` tests、`1518` asserts 通过；状态复核补跑 Stage5 / Stage6 / Stage7 / Stage9 / Stage14 / Stage16 GUT `57/57` tests、`850` asserts；FP-02 atlas split audit `0` errors；asset semantics audit `26` assets、`538/538` entries；全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；本地门禁聚焦脚本 `17` 个门禁用例 `ok=true`；`scenes/rooms` 中旧 `stage13_seal_gate_01.svg` 运行态绑定检索为 `0`。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不改门禁状态机、碰撞、开门动画、SFX 或正式钥匙系统，只完成正式 Demo 当前运行态门禁视觉统一。
+
+- **Formal Demo 2K runtime adaptation, camera zoom, and menu hover correction**：复核修正运行态分辨率、相机高分屏视野、主菜单交互和 Luna 脚底视觉锚点。
+  结果：项目显示适配从 `viewport / keep / integer` 改为 `canvas_items / expand / fractional`；`Main` 按 `640x360` 基准给当前玩家 Camera2D 补高分屏 zoom，2048x1152 下 zoom 为 `Vector2(3.2, 3.2)`，不再一次暴露 3.2 倍设计视野和背景拼接缝；`DemoShell` 主菜单收敛为 640x360 基准内的 `520x336` 居中面板，六项主菜单按钮改为 `360x32` 左右的 StyleBoxFlat 交互态，不再 hover 变扁；`LunaRuntimeAnimationVisual.position` 调整为 `Vector2(0, -32)`，按可见地表顶面对齐。
+  关键验证或结论：Godot import 通过；Stage1 GUT `11/11` tests、`73` asserts；formal remap GUT `5/5` tests、`128` asserts；Stage14 GUT `16/16` tests、`335` asserts；Stage16 GUT `18/18` tests、`260` asserts；全房间 DAC OpenGL 复核 `39` 房间、`P0=0 / P1=0 / P2=0`；主菜单 hover 复核 `ok=true`；2K 专项运行态复核 `ok=true`。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮没有生成真正的超宽屏无缝背景或 parallax split，后续若要支持 21:9 大幅横向视野仍需独立资产批次。
+
+- **Stage16 seal release threshold state-sliced runtime prop binding**：修正三状态封印柱源图被整张缩小上屏的问题。
+  结果：新增 `stage16_seal_release_threshold_ai01` 的 locked / active / released 三个 `AtlasTexture` editor resource；Stage16 threshold、Stage15 completion 和 Stage16 backtrack confirmation 分别引用单状态切片，不再显示三枚并排样张。
+  关键验证或结论：Godot import 通过；Stage16 GUT `18/18` tests、`256` asserts 通过；Stage15 GUT `17/17` tests、`376` asserts 通过；全房间 DAC OpenGL 复核 `39` 房间、`P0=0 / P1=0 / P2=0`；`stage15_completion.png`、`stage16_threshold.png`、`stage16_backtrack.png` 目检确认无整图上屏或绿底。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不改封印链逻辑、回溯收益计数、碰撞、门禁、音效或正式状态动画。
+
+- **TrainingDummy and Stage11 endpoint marker runtime prop replacement**：清理训练目标绿色十字占位与 Stage11 终点房高亮箭头占位。
+  结果：`TrainingDummy/DummyArt` 从 `stage13_seal_node_01.svg` 改为 `shrine_gate_prop_atlas_ai01.seal_pillar_cracked` editor AtlasTexture；Stage11 终点房隐藏 `Stage12ReplayArrow`、`Stage12GoalArrow`、`Stage13ContinueArrow`，新增 `ReplayMarkerArt`、`GoalMarkerArt`、`ContinueMarkerArt`，复用 `equipment_pickup_atlas_ai01` 的 bronze bell / demo token / shrine key AtlasTexture；DAC 新增可见高 alpha `*Arrow` Polygon 检查。
+  关键验证或结论：Godot import 通过；Stage3 GUT `5/5` tests、`17` asserts 通过；Stage5 GUT `9/9` tests、`82` asserts 通过；Stage12 GUT `10/10` tests、`184` asserts 通过；全房间 DAC OpenGL 复核 `39` 房间、`P0=0 / P1=0 / P2=0`；`test_room.png` 与 `stage11_end.png` 目检确认目标占位已消失。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不改训练目标攻击契约、Stage11 replay / goal / continue 逻辑、碰撞、教程推进、音效或正式入口动画，只完成运行态视觉替换。
+
+- **Stage14 / Stage15 reward and Stage16 purge runtime visual cleanup**：把 Stage14 回溯收益点、Stage15 支路奖励黄菱形和 Stage16 purge 大紫色危险块收敛到正式图集 / 弱氛围读值。
+  结果：`BacktrackRewardOne/Two/Three` 的 `RewardVisual` 已隐藏，新增 `RewardArt` 引用 `equipment_pickup_atlas_ai01.reward_orb_large`；Stage15 支路 `Stage13Reward` 从 `Polygon2D` 改为 `Marker2D`，新增 `Stage13RewardArt` 引用同一 reward orb AtlasTexture；`CorruptionMiasma` alpha 从 `0.28` 降为 `0.045`，`stage16_corruption_purge_ai01` 的 `PurgeArt` 承担主视觉；DAC 高 alpha gameplay warning Polygon 检查新增 `CorruptionMiasma` 覆盖。
+  关键验证或结论：Godot import 通过；Stage14 GUT `16/16` tests、`334` asserts 通过；Stage15 GUT `17/17` tests、`372` asserts 通过；Stage16 GUT `18/18` tests、`256` asserts 通过；全房间 DAC OpenGL 复核 `39` 房间、`P0=0 / P1=0 / P2=0`；`stage14_backtrack_hub.png`、`stage15_challenge_branch.png` 与 `stage16_purge.png` 目检通过。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不改奖励逻辑、净化触发、碰撞、伤害、门控、音效或正式 pickup 经济，只处理运行态高可见视觉。
+
+- **Stage15 pressure and miasma warning runtime VFX replacement**：把 Stage15 压力房、Stage13 / Stage15 腐瘴危险和 MiasmaCaster 压制范围的几何占位提示替换并收敛为正式 VFX 读值。
+  结果：`PressureSigil`、腐瘴 `WarningVisual` / `MiasmaWarningArt` 和 MiasmaCaster `MiasmaPressureVisual` 在运行态隐藏；新增并收敛 `PressureSigilArt`、低 alpha / 小缩放 `MiasmaWarningVfxArt` 和低 alpha / 小缩放 `MiasmaPressureVfxVisual`，首轮分别引用 `vfx_seal_magic_atlas_ai01.spriteframes.tres` 与 `vfx_combat_atlas_ai01.spriteframes.tres`，后续已由 `Miasma purge warning VFX runtime subresource pass` 把腐瘴 / 压制绑定收敛到专用子资源；敌人脚本同步降低压制环脉冲 alpha，DAC 新增过亮 / 过大 gameplay warning VFX 检查。
+  关键验证或结论：Godot import 通过；Stage13 + Stage15 GUT `29/29` tests、`666` asserts 通过；全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；`stage13_caster.png`、`stage13_miasma.png`、`stage13_pressure.png`、`stage15_challenge_branch.png` 目检确认高可见几何占位消失，黄色地面环、施法者压制环和压力符印不再读作大面积调试范围圈。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不改敌人配置、AI 半径、伤害来源、碰撞、hitbox、VFX 时序、音效或 Boss 流程，只完成运行态危险 / 压制提示视觉替换与强度收敛。
+
+- **GoalTrial gate and Stage9 switch controller runtime prop replacement**：把 GoalTrial 红绿门禁读值和 Stage9 残留测试色块控制器替换为正式 prop atlas 读值。
+  结果：`GoalBarrier/BarrierArt` 改为 `shrine_gate_prop_atlas_ai01.seal_gate_locked` editor AtlasTexture；`GateSwitch/SwitchVisual` 黄色 Polygon 和旧 `Stage12CheckpointMarker` 绿色图标在运行态隐藏；新增 `GateSwitch/SwitchArt` 并接入 idle / lit 两态，默认 `006_shrine_gate_prop_atlas_ai01_auto_007_c01` / `talisman_stake_idle`，触发后切到 `007_shrine_gate_prop_atlas_ai01_auto_008_c01` / `talisman_stake_lit`。
+  关键验证或结论：Godot import 通过；Stage9 GUT `4/4` tests、`43` asserts 通过；Stage7 + formal remap GUT `7/7` tests、`168` asserts 通过；全房间 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；`goal_trial.png` 与 `stage9_switch.png` 目检确认红绿 / 黄绿测试色块已消失，Stage9 开关默认不再读作已激活。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮不做逐帧机关动画、正式交互按钮、通用门禁系统、SFX 或完整开关系统，只完成运行态视觉和单控制器两态替换。
+
+- **Formal Demo remaining runtime asset gap review**：按当前运行态截图和资产文档复核剩余待生成资产量。
+  结果：新增 `docs/assets/formal-demo-runtime-asset-gap-review-2026-07-04.md`；当前新增 image-gen 运行态阻断数为 `0`，正式 Demo polish 仍建议保留 `6` 个视觉资产包和 `1` 个音频资产包，高标准公开试玩可扩到 `8-10` 个资产包。
+  关键验证或结论：依据全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`、资产族 coverage、final-art polish completion 和当前截图目检；门禁 / 机关和腐瘴 / 压制 VFX 已完成第一轮运行态反馈，后续优先转向最小 SFX / BGM、UI / HUD 小图标、手工 autotile 与区域前景装饰 polish。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：该复核不替代真人试玩、美术总监签核、授权复核、音频接入或商业级清稿。
+
+- **FormalTerrainTilemapDecor edge-tile refresh**：收敛全房间地形装饰层的大方砖重复感。
+  结果：复用现有 `dac_formal_terrain_tileset_ai01_64`，将普通 `FloorVisual` 的视觉 tile 映射从大方砖行改为地表边缘行；用现有脚本重刷全 `39` 房 `FormalTerrainTilemapDecor`，共更新 `620` 个视觉 tile；DAC 新增 `blocky_floor_tilemap` P2 检查。
+  关键验证或结论：全 `39` 房 DAC OpenGL 复核 `P0=0 / P1=0 / P2=0`；formal remap + Stage9-16 GUT `98/98` tests、`1715` asserts 通过；Godot import 和 `git diff --check` 通过；`stage9_switch.png`、`stage13_miasma.png`、`stage15_challenge_branch.png` 目检确认地面读值从方砖拼块转向破损地表边缘。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮仍是 tileset 装配层，不等同商业级手工 autotile、逐房间地貌清稿、前景层或最终美术签核。
+
+- **P0 runtime visual acceptance pass 01**：修复用户运行态截图暴露的首批正式 Demo 视觉验收问题。
+  结果：首轮曾恢复 Godot `640x360` viewport + `viewport/keep/integer` stretch 契约并修正 Luna ai03 body 运行态脚底基线；同日后续 2K 复核确认该分辨率策略不适合当前正式 Demo 大图资产，已由上方 `Formal Demo 2K runtime adaptation, camera zoom, and menu hover correction` 改为 `canvas_items / expand / fractional`，并将 Luna 视觉锚点进一步调整到可见地表顶面对齐。Stage14 Air Dash shrine / gate 运行态改用 `shrine_gate_prop_atlas_ai01` 的正式 AtlasTexture，移除样本链路中的红绿调试门禁读值。
+  关键验证或结论：`godot --headless --path . --import` 通过；Stage1 + Stage14 + Stage16 GUT `44/44` tests、`638` asserts 通过；formal remap headless 与 OpenGL 运行态复核均为 `P0=0 / P1=0 / P2=0`；`stage14_gate_to_shrine_gate_focus.png` 人工目检通过；`git diff --check` 通过但仍有既有 CRLF warning。
+  详情日志链接：`docs/progress/logs/2026-07-04.md`；遗留：本轮是 P0 运行态观感修复，不等同全部 Demo 资产完成，完整音频、敌人 / Boss 清稿、门禁状态动画和全房间审美签核仍属后续资产生产线。
+
+## 2026-07-03
+
+- **Luna unified runtime body ai03 replacement**：用 image_gen 生成并接入 Luna 当前运行态 body 全套动作帧。
+  结果：新增 `idle`、`run`、`jump_fall`、`attack_body`、`air_dash_body`、`hit_react`、`death_idle` 7 张单动作透明 PNG sprite sheet，共 `128` 帧、统一 `192x192` 固定格；玩家运行态 SpriteFrames、Stage14 资产断言和 Luna attack / air dash 本地复核脚本均切到 `luna_*_runtime_sheet_ai03`。
+  关键验证或结论：像素检查确认角落 alpha、格边 alpha、下半部孤立残线均为 `0`；专项动作替换严格审计 `7/7 active ready, 0 active blocked`；`godot --headless --path . --import` 通过；Stage12 / Stage14 / Stage15 / Stage16 GUT `57/57` tests、`1013` asserts 通过；`git diff --check` 通过。
+  详情日志链接：`docs/progress/logs/2026-07-03.md`；遗留：本轮是 Alpha Demo 运行态 body 替换，不改变玩法 timing、碰撞、VFX 伤害或商业最终清稿；release 前仍需人工复核生成式资产授权条款。
+
+## 2026-07-02
+
+- **Alpha Demo formal level remap execution closure**：按正式 Demo 级横版类银河城关卡逻辑完成运行态重排修复。
+  结果：普通非锁门房间补双向返回、反向 spawn 和安全落点；`Stage9RoomBase`、`CombatTrialRoom`、`GoalTrialRoom` 支持 previous-room / scene-level spawn 契约；Combat / Goal / Stage9 entry / Stage13 caster / Stage14 gate / Stage16 relay 等样本链路均可从下个房间返回上个房间；Goal 绿色悬浮台阶改为正式石质平台读值；新增 Phase 6 运行态复核脚本 `scripts/dev/capture_demo_formal_remap_review.gd`。
+  关键验证或结论：Godot import 通过；formal remap GUT `4/4` tests、`125` asserts；Stage5、Stage9-16 GUT `97/97` tests、`1476` asserts；formal remap Phase 6 报告覆盖 `6` 条链路，`bidirectional_pass_count=6`、`route_end_safety_issues=0`、`visual_readability_issues=0`、`P0=0 / P1=0 / P2=0`；DAC strict gate、full-flow evidence 和 input replay 均为 `P0=0 / P1=0 / P2=0`，input replay `rooms_seen=37`；`git diff --check` 通过但仍有既有 CRLF warning。
+  详情日志链接：`docs/progress/logs/2026-07-02.md`；遗留：本轮是 Alpha Demo 级关卡读值和拓扑修复，不等同商业最终 autotile、完整小地图、全部支路真人录屏或美术总监级清稿；Codex 直连 MCP 工具仍返回 editor 未连接，Phase 6 采用 Godot MCP CLI / 生产脚本证据闭环。
+
+- **Alpha Demo formal level remap planning**：根据运行态截图复核修正关卡完成口径，生成正式 Demo 级横版类银河城关卡重排计划。
+  结果：新增 `spec-design/2026-07-02-demo-level-formal-remap.md`、`plan/2026-07-02-demo-level-formal-remap.md`、`docs/implementation-plans/2026-07-02-demo-level-formal-remap-plan.md`；明确普通房间默认双向通行、连接处必须有安全落点、红绿封印门和绿色台阶不得误导玩家、关键房间长度由玩法节奏决定、背景通过可延展层适配；阶段六指定 Godot MCP Pro 运行态复核，图形缺口允许按边界使用 image_gen。
+  关键验证或结论：本轮只生成正式计划和实施文档，尚未修改运行态关卡；后续执行必须先写正式 remap 契约测试，再分阶段改共享房间契约、场景拓扑、资产读值和 MCP 运行态证据。
+  详情日志链接：`docs/progress/logs/2026-07-02.md`；后续：已在同日按该计划完成执行收口，见上方 `Alpha Demo formal level remap execution closure`。
+
+- **Strict environment art kit closure**：复核修正全内容场景美术完成口径，并完成 Alpha Demo 级场景资产配置收口。
+  结果：新增 `docs/assets/environment-art-kit-spec.md`；`scripts/dev/capture_demo_art_composition_review.gd` 加严背景覆盖、visible preview-only、visible graybox、无纹理 Polygon 地形、触发区色块、道具底板、HUD 大面积贴图、缺少正式 TileMap 装饰层和高 alpha gameplay warning Polygon 检查；修复 `39` 房间背景覆盖 / preview / graybox / 连续地形 underlay / 触发区 / prop 底板问题；使用内置 `image_gen` 生成透明规则网格地形 kit，规范化为 `64x64` sheet 和 Godot TileSet，并为 `39` 房间接入 `FormalTerrainTilemapDecor` / `607` 个视觉 tile；瘴气敌人压力圈和 hazard warning 改为低 alpha aura / 正式 warning SVG。
+  关键验证或结论：初始 strict gate 为 `P0=0 / P1=61 / P2=0`；修复后 OpenGL DAC-03 覆盖 `39` 房间且截图均为 `captured`，结果为 `P0=0 / P1=0 / P2=0`，且没有 `visible_tilemap_count=0` 的房间；contact sheet 保存到 `tests/artifacts/local/full-content-demo-qa/dac03_all_content_visual_gate/dac03_contact_sheet.png`；full-flow 生产流程证据 `P0=0 / P1=0 / P2=0`；输入式 replay wrapper `rooms_seen=35`、`P0=0 / P1=0 / P2=0`；Stage5、Stage9-16、Stage12 GUT `97/97` tests、`1476` asserts 通过；追加瘴气敌人 / hazard 视觉修正后 Stage13 / Stage15 GUT `27/27` tests、`593` asserts 通过；`git diff --check` 通过但仍有既有 CRLF warning。
+  详情日志链接：`docs/progress/logs/2026-07-02.md`；遗留：本轮达到 Alpha Demo 级资产配置验收，不等同最终商业清稿、手工 autotile、完整 parallax split、真人录屏或美术总监级审美签核；Codex MCP 直连工具侧仍未恢复，不宣称 MCP 工具连接已修好。
+
+## 2026-07-01
+
+- **Full content Demo QA closure**：将 Demo 级视觉验收从 27 个关键房间扩展到全部 39 个房间，并补全从主菜单开始的 MCP 输入式主线 replay。
+  结果：`scripts/dev/capture_demo_art_composition_review.gd` 输出到 `tests/artifacts/local/full-content-demo-qa/dac03_all_content_visual_gate/`，覆盖全部 `scenes/rooms/*.tscn` 并检测可见源图 / 图集预览、高不透明纯色地形 underlay、出口 / 目标可见性和地表材质过渡；`scripts/dev/capture_full_content_flow_evidence.gd` 沿生产 `Main.tscn` 捕获 `34` 个主线房与 `5` 个支路 / 内部房；`scripts/dev/mcp_player_input_replay_probe.gd` 从主菜单点击 `开始` 后只用输入动作跑到 Stage16 完成；补修 Stage13 地面覆盖 / checkpoint、Stage15 地面覆盖 / 支路触发位置 / gauntlet checkpoint，并让 headless 证据脚本在 dummy renderer 下不再卡住或误报截图。
+  关键验证或结论：Godot import 通过；全 Stage1-16 GUT `142/142` tests、`1716` asserts 通过；Stage13 专项 `12/12`、Stage15 专项 `15/15` 通过；LL-00 审计 `27` 房间、`P0=0 / P1=0 / P2=0`；DAC-03 全内容视觉门禁为 `39` 房间、`P0=0 / P1=0 / P2=0`；full-flow 证据为 `34+5` 房间、`P0=0 / P1=0 / P2=0`；MCP 输入式 replay 为 `rooms_seen=35`、`elapsed=269.6s`、`stage16_alpha_demo_completed=true`、`P0=0 / P1=0 / P2=0`；`git diff --check` 通过但仍有既有 CRLF warning。
+  详情日志链接：`docs/progress/logs/2026-07-01.md`；遗留：当前达到 Alpha Demo 级主线可玩和资产配置验收，不等于商业最终清稿或真人录屏；支路 / 内部房由 full-flow 证据覆盖，不宣称每条支路都有逐步手操视频。
+
+## 2026-06-30
+
+- **DAC-02 branch art signoff audit**：扩展 Alpha Demo 支路审计，并推进发布级美术签核口径。
+  结果：`scripts/dev/capture_demo_art_composition_review.gd` 从 `20` 房扩到 `27` 房，新增 `Decor` / `Signoff` 字段；Stage13 caster / pressure / crossfire / challenge branch 补瘴泽背景、TileSheet 和 TileMap decor；Stage15 pressure / gauntlet / challenge branch、Stage16 relay 补地表材质过渡层；Stage15 challenge branch 以封印门图替换红色占位门。
+  关键验证或结论：`godot --headless --path . --import` 通过；DAC-02 报告 `P0=0 / P1=0 / P2=0`；`dac02_contact_sheet.png` 人工目检未发现明显背景空洞、红色占位、材质带遮挡或 HUD 遮挡；Stage13 / Stage15 / Stage16 GUT `43/43` tests、`698` asserts 通过；`git diff --check` 通过但仍有既有 CRLF warning。
+  详情日志链接：`docs/progress/logs/2026-06-30.md`；遗留：本轮是 Alpha Demo 级运行态截图 + 人工目检签核，不等于商业最终清稿或正式 autotile / terrain author 完成。
+
+- **DAC-01 main route asset composition repair**：完成 Alpha Demo 主路线第一轮 Demo 级资产配置修复。
+  结果：Stage13 entry 和五个 P3 样板房恢复连续地形 underlay、背景相机覆盖和可见出口 / 目标标记；Stage13 / Stage14 / Stage15 / Stage16 主路线缺背景房间补入同区域背景；主路线可见红色 `BarrierVisual` 封印柱替换为现有封印门图；新增 `scripts/dev/capture_demo_art_composition_review.gd`，运行态截图审计覆盖 `20` 个关键房间并检测可见 `BarrierVisual`。
+  关键验证或结论：`godot --headless --path . --import` 通过；DAC-01 报告 `P0=0 / P1=0 / P2=0`；Stage5 / Stage13 / Stage14 / Stage15 / Stage16 GUT `67/67` tests、`1069` asserts 通过；`git diff --check` 通过但仍有既有 CRLF warning。MCP 工具入口已暴露，但编辑器桥接未连接，本轮没有 MCP 截图证据。
+  详情日志链接：`docs/progress/logs/2026-06-30.md`；遗留：正式 autotile / terrain 清稿、支路房间扩展审计和 MCP 桥接排障仍待后续推进。
+
+- **Demo Art Composition audit correction**：修正关卡美术配置完成口径，并生成 DAC 整体资产配置方案。
+  结果：新增 `docs/implementation-plans/2026-06-30-demo-art-composition-asset-configuration-plan.md`，明确旧 `P2=0` 只代表资源绑定 / 结构审计清零，不代表 Demo 级背景覆盖、道路连续、脚底贴合、视觉碰撞一致和路线末端安全完成。
+  关键验证或结论：用户运行态截图证明普通通关测试、GUT 和 asset reference 审计不能检测资产配置合理性；后续需要 DAC-00 到 DAC-07 的运行态截图审计、背景修正、连续地形修正、碰撞 / hazard / 出口对齐和人工式 QA。
+  详情日志链接：`docs/progress/logs/2026-06-30.md`；遗留：下一步先修 Stage13 entry 和五个 P3 样板房，再扩展到 Alpha Demo 主路线。
+
+- **P1 / P2 / P3 sample art polish**：完成 UI、教程首屏和五个样板房的第一轮正式化闭环。
+  结果：主菜单 / 暂停 / 失败 / 完成面板和 HUD 文案收紧；训练木桩替换为封印训练靶；教程出口红色多边形改为封印门视觉；Tutorial、Stage13 entry、Stage14 gate、Stage15 boss、Stage16 end 的主要灰盒地形视觉隐藏，TileMapLayer 承担主要地形视觉。
+  关键验证或结论：Godot import 通过；Stage5 / Stage6 / Stage12 / Stage13 / Stage14 / Stage15 / Stage16 GUT `83/83` tests、`1290` asserts 通过；LL-00 审计 `P0=0 / P1=0 / P2=0`；当前文件树截图保存到 `tests/artifacts/local/p1-p3-sample-polish-2026-06-30/current_tree/`。
+  详情日志链接：`docs/progress/logs/2026-06-30.md`；遗留：本轮不是全 `39` 房最终美术替换，后续进入 P4 全房间地形替换和 P5 物件 / 敌人正式化。
+
+## 2026-06-29
+
+- **Broad Art P2 visual replacement Pass 01-05**：完成广义美术资产管线后续运行场景 P2 视觉替换收口。
+  结果：Tutorial、Stage13、Stage14、Stage15、Stage16 剩余 P2 房间补入 miasma / shrine / seal / UI 方向 asset-bound visual；新增 Stage13 / Stage14 / Stage16 资源绑定回归；`docs/implementation-plans/2026-06-29-broad-art-p2-visual-replacement-pass-01.md` 更新为 Pass 01-05 收口记录；新增 RoleMux / agy 交叉核验任务。
+  关键验证或结论：Godot import 通过；Stage5 / Stage13 / Stage14 / Stage15 / Stage16 GUT `65/65` tests、`1035` asserts 通过；LL-00 审计从 `P0=0 / P1=0 / P2=21` 改善为 `P0=0 / P1=0 / P2=0`；Godot MCP Pro 抽样读取 Stage13 / Stage14 / Stage16 TileMap info 并保存 editor screenshot；RoleMux / agy reviewer 交叉核验 `PASS`。本轮不触发 image_gen。
+  详情日志链接：`docs/progress/logs/2026-06-29.md`；遗留：当前完成口径为自动审计和第一轮抽样复核，不替代商业发布级细节审美签核。
+
+- **Level layout LL-00 to LL-06 first execution**：完成关卡场景和地图布置第一轮执行。
+  结果：新增逐房审计脚本，审计 `27` 个关键房间并生成本地报告 / 截图；`P0` 与 `P1` 清零；`stage14_air_dash_shrine_room`、`stage15_seal_guardian_boss_room`、`stage16_seal_release_threshold_room` 补 visual-only TileMapLayer；`stage16_corruption_purge_room` 补 `CorruptionMiasmaHazardArea`。
+  关键验证或结论：LL-00 最终审计为 `P0=0 / P1=0 / P2=21`；Godot import 通过；Stage5 / Stage13 / Stage14 / Stage15 / Stage16 GUT 合计 `61/61` tests、`832` asserts 通过；Godot MCP Pro 抽样确认 Stage14 gate 的 scene tree、collision info、TileMap info 和 editor screenshot。
+  详情日志链接：`docs/progress/logs/2026-06-29.md`；遗留：剩余 P2 为灰盒视觉和未接入 asset-bound visuals，后续按现有资产复用 / 批量 visual replacement 推进。
+
+- **Level layout and map polish planning**：生成系统性关卡场景和地图布置整体计划与 LL-00 到 LL-06 分计划。
+  结果：新增 `spec-design/2026-06-29-level-layout-map-polish-direction.md`、`plan/2026-06-29-level-layout-map-polish.md`、`docs/implementation-plans/2026-06-29-level-layout-map-polish-ll00-ll06.md`；明确 Godot MCP Pro 用于审计、截图、TileMap 小批调整和运行态验证，image_gen 只在真实地图资产缺口出现时触发。
+  关键验证或结论：计划对齐当前 Stage16 Alpha Demo、现有 `miasma_marsh_tileset_ai01` / `shrine_trial_tileset_ai01` 资源状态、final-art polish 边界和 LL-00 到 LL-06 退出条件；本轮不改运行态场景。
+  详情日志链接：`docs/progress/logs/2026-06-29.md`；遗留：下一步执行 LL-00 逐房截图审计。
+
+## 2026-06-28
+
+- **Tutorial attack barrier and compact HUD fix**：修复教程攻击步骤红色封印柱不可攻击解锁，以及教程 / 状态 HUD 过大和文案压框问题。
+  结果：`ExitBarrier` 挂接教程专用攻击接收脚本，攻击教学阶段命中训练假人或红色封印柱均会打开出口；教程提示文案缩短，`TutorialHUD` 左右面板缩小并给九宫格装饰保留文字安全区。
+  关键验证或结论：Godot MCP Pro 点击“开始”进入游戏，运行态真实 `attack` 输入命中红柱后返回 `step=exit; unlocked=true; barrier_collision_disabled=true; barrier_hit_count=1`；截图保存到 `tests/artifacts/local/tutorial-gate-ui-review/`；Stage5 GUT `8/8` 通过，Stage12 + Stage16 GUT `23/23` 通过。
+  详情日志链接：`docs/progress/logs/2026-06-28.md`；遗留：本轮只修教程卡点和明显 HUD 越界，不替代发布级 HUD 重设计和 typography。
+
+- **Godot MCP Pro full UI smoke and layout cleanup**：完成 Godot MCP Pro 运行态 UI / 主流程 smoke，并修复明显布局问题。
+  结果：通过 MCP 启动主场景、点击开始、打开暂停、临时显示完成面板并截图；教程提示字号降为 `15`，避免明显裁切；暂停菜单加高，`PausePanelArt` / `CompletionPanelArt` 默认隐藏但保留资源引用，避免候选面板图与九宫格面板叠加产生破碎边缘。
+  关键验证或结论：MCP 截图保存到 `tests/artifacts/local/mcp-full-game-review/`；MCP 压力输入 5 秒发送 `294` 个事件，未崩溃、无新错误；Stage1 / Stage2 / Stage5 / Stage12 / Stage14 / Stage16 GUT 合计 `62/62` tests、`727` asserts 通过。
+  详情日志链接：`docs/progress/logs/2026-06-28.md`；遗留：本轮只处理明显 UI 布局问题，不替代发布级 UI 清稿和 typography。
+
+- **Tutorial placeholder cleanup and jump step fix**：修复玩家旧占位视觉与正式 Luna 动画叠加，并调整教程第一跳平台可达性和下方通行。
+  结果：玩家场景保留旧 `Body` / Stage12 / readability 节点作为历史资产和测试契约，但默认隐藏；运行态只显示正式 `LunaRuntimeAnimationVisual`。`JumpGuidePlatform` 调整为 `Vector2(-144, 84)`，玩家 `jump_velocity` 调整为 `-420.0`，教程 `move_jump_goal_y` 调整为 `64.0`，让玩家能从平台下方通过，也能跳到平台上方推进 dash 教程；`project.godot` 恢复 `640x360` 基准 viewport 与 `1280x720` 窗口契约。
+  关键验证或结论：Stage1 GUT 通过，确认显示缩放契约；Stage5 GUT 包含真实物理跳跃和平台下方通行回归；Stage12 / Stage14 GUT 通过；运行态截图确认旧蓝色身体块和黄色头标不再覆盖 Luna。
+  详情日志链接：`docs/progress/logs/2026-06-28.md`；遗留：本轮不改变玩家全局跳跃手感，后续如重做地形表现应继续用真实物理回归保护可达性。
+
+- **DemoShell start UI fix**：修复开始界面错位和开始后标题背景遮挡游戏的问题。
+  结果：`TitleBackground` 现在只在主菜单显示，点击开始 / 重开进入运行态后隐藏；主菜单面板加宽并调整标题、状态文案、开始按钮和装饰图位置；新增 Stage16 回归测试和运行态截图复核脚本。
+  关键验证或结论：Stage16 GUT 通过 `14/14`、`137` asserts；`capture_demo_shell_start_review.gd` 通过并输出主菜单 / 开始后截图和 JSON 报告，确认开始后标题背景和主菜单均隐藏且玩家实例存在。
+  详情日志链接：`docs/progress/logs/2026-06-28.md`；遗留：完整发布级 UI typography / 按钮状态 / 动效仍属于后续 polish。
+
+## 2026-06-27
+
+- **Batch 04 full audio prompt reference**：完成全量音频资产族生成参考文档。
+  结果：`docs/assets/audio-asset-prompt-reference.md` 从 Stage16 最小音频包扩展为全量参考，覆盖角色动作、战斗、UI、环境 / 氛围、物品交互、古代机关 / 机械、怪物 / NPC、BGM、语音、系统反馈和音频配置资产；同步 `asset-production-roadmap.md`、`asset-generation-brief.md` 与 `asset-manifest.md`。
+  关键验证或结论：文档对齐 `assets/source/ai_generated/batch_04/audio/` 原始候选路径、`assets/audio/sfx/`、`assets/audio/ambient/`、`assets/audio/voice/`、`assets/audio/music/` 与 `assets/audio/config/` 目标路径，并提供 PowerShell 建目录、`ffmpeg` 转 OGG / 响度统一和 Godot import 命令；本轮不生成实际音频、不接入运行时代码。
+  详情日志链接：`docs/progress/logs/2026-06-27.md`；参考文档：`docs/assets/audio-asset-prompt-reference.md`；遗留：真实生成前需确认工具授权，接入时再补 AudioStreamPlayer / 音量策略 / 运行态验证。
+
+- **Final Art Polish FP-05 animation / VFX audit and completion**：完成动作帧 / VFX 第一轮最终复核，并通过 FP-01 到 FP-05 完成审计。
+  结果：新增 `scripts/assets/audit_final_art_polish_fp05_animation_vfx.py`、`scripts/assets/audit_final_art_polish_completion.py` 和对应 `docs/assets/final-art-polish-fp05-animation-vfx-report.*`、`docs/assets/final-art-polish-completion-audit-report.*`；active animation candidates 为 `15/15 active ready`，VFX rules 为 `7 assets / 86 frame rules`，animation rules 为 `8 assets / 172 frame rules`。
+  关键验证或结论：Luna attack / Air Dash、Seal Guardian attack VFX、enemy hit spark 四个运行态截图复核均通过；Stage14 / Stage15 GUT 分别通过 `15/15`、`14/14`；最终完成审计通过 `5/5 FP batches, 2/2 final gates, 0 errors`。本轮 FP-01 到 FP-05 均没有触发 image_gen 重生成。
+  详情日志链接：`docs/progress/logs/2026-06-27.md`；报告：`docs/assets/final-art-polish-fp05-animation-vfx-report.md`、`docs/assets/final-art-polish-completion-audit-report.md`；遗留：商业发布级手工清稿、最终 typography、正式 autotile / hazard Area author 和完整人工审美签核仍属于后续 polish。
+
+- **Final Art Polish FP-04 UI small readability audit**：完成 UI / NinePatch / HUD 小尺寸第一轮自动审计。
+  结果：新增 `scripts/assets/audit_final_art_polish_fp04_ui_small_readability.py` 和 `docs/assets/final-art-polish-fp04-ui-small-readability-report.*`；`menu_ninepatch_ui_ai01` 的 `8` 个 StyleBoxTexture、`9` 个 Theme mappings、DemoShell / TutorialHUD runtime references、`4` 个 standalone UI panel rules、`2` 个小图标源图与 `3` 个 UI atlas regions 均通过结构和引用审计。
+  关键验证或结论：FP-04 审计通过，输出 `0 errors, 0 warnings`；editor StyleBox、editor UI skin 与 runtime UI skin binding 三个 Godot 审计通过；Stage12 / Stage14 / Stage15 / Stage16 GUT 分别通过 `9/9`、`15/15`、`14/14`、`13/13`；asset package strict 与 art readiness strict 通过。本轮没有发现必须进入 P2 重生图的 UI / HUD 失败项。
+  详情日志链接：`docs/progress/logs/2026-06-27.md`；报告：`docs/assets/final-art-polish-fp04-ui-small-readability-report.md`；遗留：不替代最终伪文字清理、字体排版和人工审美；下一步进入 FP-05 动作帧和 VFX 最终复核。
+
+- **Final Art Polish FP-03 TileSet semantics audit**：完成 TileSet 语义和 collision 第一轮自动审计。
+  结果：新增 `scripts/assets/audit_final_art_polish_fp03_tileset_semantics.py` 和 `docs/assets/final-art-polish-fp03-tileset-review-report.*`；`miasma_marsh_tileset_ai01` 与 `shrine_trial_tileset_ai01` 均为 `tileset_semantics_ready`。
+  关键验证或结论：FP-03 审计通过，输出 `2/2 ready, 0 errors, 0 warnings`；Godot TileSet audit 通过 `Editor TileSet resources OK: 2`；Stage13 GUT 通过 `9/9` 与 `1/1`，Stage14 GUT 通过 `15/15`；asset package strict 与 art readiness strict 通过。本轮没有发现必须进入 P2 重生图的 TileSet 失败项。
+  详情日志链接：`docs/progress/logs/2026-06-27.md`；报告：`docs/assets/final-art-polish-fp03-tileset-review-report.md`；遗留：正式 runtime TileMap 替换前仍需人工边缘拟合、autotile / terrain 复核和 hazard damage Area author；下一步进入 FP-04 UI / NinePatch / HUD 小尺寸复核。
+
+- **Final Art Polish FP-02 atlas split audit**：完成 atlas / 大图语义拆分第一轮自动审计。
+  结果：新增 `scripts/assets/audit_final_art_polish_fp02_atlas_split.py` 和 `docs/assets/final-art-polish-fp02-atlas-split-report.*`；`shrine_gate_prop_atlas_ai01`、`equipment_pickup_atlas_ai01`、`material_texture_atlas_ai01` 均为 `split_ready`；`reusable_seal_props_ai01` 明确为 `standalone_preview_ready`。
+  关键验证或结论：FP-02 审计通过，输出 `3 split-ready atlases, 1 standalone preview-ready sheets, 0 errors`；asset package strict 与 art readiness strict 通过。本轮没有发现必须进入 P2 重生图的 atlas 失败项。
+  详情日志链接：`docs/progress/logs/2026-06-27.md`；报告：`docs/assets/final-art-polish-fp02-atlas-split-report.md`；遗留：下一步进入 FP-03 TileSet 语义和 collision 复核。
+
+- **Final Art Polish FP-01 runtime readability smoke**：完成最终美术精修第一批运行态读值截图 / JSON 复核。
+  结果：新增 `scripts/dev/capture_final_art_polish_fp01_review.gd`；对 Stage13 entry、Stage14 shrine、Stage14 gate、Stage15 Boss room、Stage16 seal release threshold 保存本地截图和 JSON 报告，确认目标 visual preview 节点可见、资源和 `asset_id` 正确，且没有误挂 Area / Collision 子节点。
+  关键验证或结论：capture 脚本通过；Stage13 / Stage14 / Stage15 / Stage16 GUT 分别通过 `9/9`、`15/15`、`14/14`、`13/13`；asset runtime map strict 与 asset package strict 通过。本轮没有发现必须进入 P2 重生图的失败项。
+  详情日志链接：`docs/progress/logs/2026-06-27.md`；实施计划：`docs/implementation-plans/2026-06-27-final-art-polish-execution-order.md`；遗留：下一步进入 FP-02 atlas / 大图语义拆分精修。
+
+- **Remaining Art Asset Pipeline P0 / P1 收束**：处理剩余美术资产管线的第一轮证据链和已接入资源验证。
+  结果：资产包 / provenance / source safety 审计已区分 Git 可重放资产包与 ordinary Git 外 raw candidate 原始证据；promo / CG / storyboard opaque preview evidence 已重建；13 个环境 / TileSet / 材质 / prop atlas 条目以 visual preview 接入目标场景；runtime integration map 已推进为 `55/55 scene_reference_verified`；P2 未触发，本轮没有新增 image_gen 输出；后续动作帧生成规则锁定为透明背景、标准规则网格、固定格子、角色比例 / 视角 / 根部锚点稳定的单动作 sprite sheet。
+  关键验证或结论：asset provenance strict 通过 `55 records, 133 candidate hashes, 55 output hashes`；imagegen source safety strict 通过 `133 candidates, 0 unsafe`；final art acceptance gates strict 通过 `55 assets, 0 blocked assets, 55 final-ready assets`；asset runtime map strict 通过；asset package strict 通过；Godot import 通过；TileSet editor audit 通过 `Editor TileSet resources OK: 2`；Stage13 / Stage14 / Stage15 / Stage16 GUT 分别通过 `9/9`、`15/15`、`14/14`、`13/13`。
+  详情日志链接：`docs/progress/logs/2026-06-27.md`；实施计划：`docs/implementation-plans/2026-06-27-remaining-art-asset-pipeline-plan.md`；遗留：后续仍需按资产族做遮挡复核、TileSet 语义 / collision 复核、atlas 拆区和运行态截图读值检查。
+
 ## 2026-06-24
 
 - **Animation Runtime Replacement Pass ARP-19 Enemy hit spark runtime VFX binding**：把普通敌人受击 spark 从 Stage12 占位迁移到独立 runtime VFX visual。

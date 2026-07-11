@@ -1,0 +1,75 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_001"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_002"]
+atlas = ExtResource("1")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_003"]
+atlas = ExtResource("1")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_004"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_005"]
+atlas = ExtResource("1")
+region = Rect2(192, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_006"]
+atlas = ExtResource("1")
+region = Rect2(384, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_007"]
+atlas = ExtResource("1")
+region = Rect2(576, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_008"]
+atlas = ExtResource("1")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_009"]
+atlas = ExtResource("1")
+region = Rect2(192, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_010"]
+atlas = ExtResource("1")
+region = Rect2(384, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_011"]
+atlas = ExtResource("1")
+region = Rect2(576, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_012"]
+atlas = ExtResource("1")
+region = Rect2(0, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_013"]
+atlas = ExtResource("1")
+region = Rect2(192, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_014"]
+atlas = ExtResource("1")
+region = Rect2(384, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_idle_runtime_sheet_ai03_015"]
+atlas = ExtResource("1")
+region = Rect2(576, 576, 192, 192)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_002")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_003")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_004")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_005")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_006")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_007")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_009")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_010")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_011")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_012")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_013")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_014")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_idle_runtime_sheet_ai03_015")}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
