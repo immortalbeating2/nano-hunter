@@ -2,7 +2,7 @@
   "version": 1,
   "status": "runtime_candidate_archived_references_split",
   "pass": "mixed",
-  "asset_count": 30,
+  "asset_count": 31,
   "outputs": [
     {
       "id": "luna_idle_runtime_sheet_ai01",
@@ -1774,9 +1774,41 @@
         "foot_baseline_y": 148,
         "center_x": 80
       }
+    },
+    {
+      "id": "seal_guardian_stagger_runtime_sheet_ai01",
+      "source_asset_id": "seal_guardian_attack_body_runtime_sheet_ai02",
+      "kind": "sprite_sheet",
+      "batch": "ARP-17",
+      "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.png",
+      "metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.spriteframes.tres",
+      "cell": [
+        256,
+        192
+      ],
+      "columns": 4,
+      "rows": 1,
+      "frame_count": 4,
+      "animation": {
+        "name": "staggered",
+        "speed": 10.0,
+        "loop": false
+      },
+      "anchor": "foot",
+      "normalization": {
+        "process": "reuse_clean_attack_recovery_frames_with_guard_break_tint",
+        "selected_source_frames": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "geometry_change": false
+      }
     }
   ],
   "boundary": "Active runtime-normalized geometry candidates plus archived failed references. Archived references are retained as evidence/regeneration inputs and must declare superseded_by replacements.",
-  "active_asset_count": 20,
+  "active_asset_count": 21,
   "archived_reference_count": 10
 }

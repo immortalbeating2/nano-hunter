@@ -19,6 +19,7 @@ ENEMY_DIR = Path("assets/art/characters/enemies/sprite_sheets/runtime_replacemen
 CANDIDATE_MANIFEST = Path("docs/assets/animation-runtime-replacement-candidates.json")
 CELL = (192, 192)
 ENEMY_CELL = (160, 160)
+BOSS_CELL = (256, 192)
 JUMP_ASSET_ID = "luna_jump_state_runtime_sheet_ai04"
 JUMP_SOURCE_ID = "luna_jump_fall_runtime_sheet_ai03"
 JUMP_SOURCE = PLAYER_DIR / f"{JUMP_SOURCE_ID}.png"
@@ -71,12 +72,15 @@ CHARGER_ACTION_ANIMATIONS = [
     {"name": "ground_charger_charge", "indexes": [3, 4, 5], "speed": 10.0, "loop": True},
     {"name": "ground_charger_recover", "indexes": [6, 7, 8], "speed": 8.0, "loop": False},
 ]
+BOSS_STAGGER_ASSET_ID = "seal_guardian_stagger_runtime_sheet_ai01"
+BOSS_STAGGER_SOURCE_ID = "seal_guardian_attack_body_runtime_sheet_ai02"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="构建 Stage17 动作运行态资产。")
     parser.add_argument("--jump", action="store_true", help="构建 Luna Model Lock jump-state sheet。")
     parser.add_argument("--enemies", action="store_true", help="构建普通敌人 action / defeat sheets。")
+    parser.add_argument("--boss", action="store_true", help="构建 Seal Guardian stagger sheet。")
     return parser.parse_args()
 
 
@@ -505,6 +509,121 @@ def build_enemies() -> None:
     print(f"Built Stage17 regular enemy assets: {len(entries)} sheets")
 
 
+# Boss stagger 使用独立 256x192 资源，避免 guard-break 再落入 attack recovery 或隐藏分支。
+def write_boss_stagger_spriteframes(path: Path, texture_path: Path) -> None:
+    frame_count = 4
+    lines = [
+        f'[gd_resource type="SpriteFrames" load_steps={frame_count + 2} format=3]',
+        "",
+        f'[ext_resource type="Texture2D" path="{resource_path(texture_path)}" id="1"]',
+        "",
+    ]
+    for index in range(frame_count):
+        lines.extend(
+            [
+                f'[sub_resource type="AtlasTexture" id="AtlasTexture_{BOSS_STAGGER_ASSET_ID}_{index:03d}"]',
+                'atlas = ExtResource("1")',
+                f"region = Rect2({index * BOSS_CELL[0]}, 0, {BOSS_CELL[0]}, {BOSS_CELL[1]})",
+                "",
+            ]
+        )
+    frames = [
+        '{"duration": 1.0, "texture": SubResource("AtlasTexture_%s_%03d")}'
+        % (BOSS_STAGGER_ASSET_ID, index)
+        for index in range(frame_count)
+    ]
+    lines.extend(
+        [
+            "[resource]",
+            "animations = [{\n"
+            f'"frames": [{", ".join(frames)}],\n'
+            '"loop": false,\n'
+            '"name": &"staggered",\n'
+            '"speed": 10.0\n'
+            "}]",
+        ]
+    )
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+# 从 clean attack body 的后四帧派生冷色护印击破反馈，几何不变且与普通 recovery 资源语义分离。
+def build_boss_stagger() -> None:
+    source_path = ENEMY_DIR / f"{BOSS_STAGGER_SOURCE_ID}.png"
+    source_sheet = Image.open(source_path).convert("RGBA")
+    selected_indexes = [4, 5, 6, 7]
+    tints = [
+        (0.82, 0.96, 1.12),
+        (0.76, 0.94, 1.16),
+        (0.72, 0.90, 1.14),
+        (0.78, 0.88, 1.08),
+    ]
+    output = Image.new("RGBA", (4 * BOSS_CELL[0], BOSS_CELL[1]), (0, 0, 0, 0))
+    frames: list[dict[str, Any]] = []
+    for index, source_index in enumerate(selected_indexes):
+        frame = source_cell(source_sheet, source_index, 8, BOSS_CELL)
+        tinted = tint_image(frame, tints[index], 1.0)
+        output.alpha_composite(tinted, (index * BOSS_CELL[0], 0))
+        frames.append(
+            {
+                "index": index,
+                "name": f"{BOSS_STAGGER_ASSET_ID}_staggered_{index + 1:02d}",
+                "phase": "staggered",
+                "source": relative(source_path),
+                "source_frame_index": source_index,
+                "source_bbox": list(alpha_bbox(frame)),
+                "region": [index * BOSS_CELL[0], 0, *BOSS_CELL],
+                "tint": list(tints[index]),
+                "scale": 1.0,
+            }
+        )
+
+    output_path = ENEMY_DIR / f"{BOSS_STAGGER_ASSET_ID}.png"
+    metadata_path = ENEMY_DIR / f"{BOSS_STAGGER_ASSET_ID}.frames.json"
+    source_record_path = ENEMY_DIR / f"{BOSS_STAGGER_ASSET_ID}.source.json"
+    spriteframes_path = ENEMY_DIR / f"{BOSS_STAGGER_ASSET_ID}.spriteframes.tres"
+    output.save(output_path)
+    write_boss_stagger_spriteframes(spriteframes_path, output_path)
+    metadata = {
+        "id": BOSS_STAGGER_ASSET_ID,
+        "source_asset_id": BOSS_STAGGER_SOURCE_ID,
+        "kind": "sprite_sheet",
+        "batch": "ARP-17",
+        "output": relative(output_path),
+        "metadata": relative(metadata_path),
+        "sprite_frames": relative(spriteframes_path),
+        "cell": list(BOSS_CELL),
+        "columns": 4,
+        "rows": 1,
+        "frame_count": len(frames),
+        "animation": {"name": "staggered", "speed": 10.0, "loop": False},
+        "anchor": "foot",
+        "frames": frames,
+        "normalization": {
+            "process": "reuse_clean_attack_recovery_frames_with_guard_break_tint",
+            "selected_source_frames": selected_indexes,
+            "geometry_change": False,
+        },
+    }
+    metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    source_record_path.write_text(
+        json.dumps(
+            {
+                "asset_id": BOSS_STAGGER_ASSET_ID,
+                "source_asset_id": BOSS_STAGGER_SOURCE_ID,
+                "source": relative(source_path),
+                "source_sha256": sha256(source_path),
+                "process": "stage17_deterministic_guard_break_tint_without_geometry_change",
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    update_enemy_candidate_manifest([{key: value for key, value in metadata.items() if key != "frames"}])
+    print(f"Built {BOSS_STAGGER_ASSET_ID}: {len(frames)} frames")
+
+
 # 候选清单把旧 jump 资源转为归档引用，并把 ai04 设为唯一 live jump-state 候选。
 def update_candidate_manifest(entry: dict[str, Any]) -> None:
     manifest = json.loads(CANDIDATE_MANIFEST.read_text(encoding="utf-8"))
@@ -618,7 +737,10 @@ def main() -> None:
     if args.enemies:
         build_enemies()
         return
-    raise SystemExit("Choose an asset group, for example --jump or --enemies")
+    if args.boss:
+        build_boss_stagger()
+        return
+    raise SystemExit("Choose an asset group, for example --jump, --enemies or --boss")
 
 
 if __name__ == "__main__":

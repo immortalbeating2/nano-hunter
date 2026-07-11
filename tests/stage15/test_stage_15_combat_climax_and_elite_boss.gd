@@ -23,6 +23,10 @@ const ENEMY_BASIC_MELEE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/character
 const ENEMY_GROUND_CHARGER_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_runtime_sheet_ai01.spriteframes.tres"
 const ENEMY_AERIAL_SENTINEL_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.spriteframes.tres"
 const ENEMY_MIASMA_CASTER_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.spriteframes.tres"
+const ENEMY_BASIC_MELEE_DEFEAT_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_basic_melee_defeat_runtime_sheet_ai02.spriteframes.tres"
+const ENEMY_GROUND_CHARGER_DEFEAT_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_defeat_runtime_sheet_ai02.spriteframes.tres"
+const ENEMY_AERIAL_SENTINEL_DEFEAT_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_defeat_runtime_sheet_ai02.spriteframes.tres"
+const ENEMY_MIASMA_CASTER_DEFEAT_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_defeat_runtime_sheet_ai02.spriteframes.tres"
 const SEAL_GUARDIAN_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres"
 const SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres"
 const SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_warning_runtime_sheet_ai01.spriteframes.tres"
@@ -361,25 +365,37 @@ func test_enemy_runtime_visuals_reference_single_enemy_clips() -> void:
 			"scene": BASIC_MELEE_ENEMY_SCENE_PATH,
 			"asset_id": "enemy_basic_melee_runtime_sheet_ai01",
 			"resource": ENEMY_BASIC_MELEE_RUNTIME_SPRITEFRAMES_PATH,
-			"animation": &"basic_melee_cycle"
+			"animation": &"basic_melee_cycle",
+			"defeat_asset_id": "enemy_basic_melee_defeat_runtime_sheet_ai02",
+			"defeat_resource": ENEMY_BASIC_MELEE_DEFEAT_SPRITEFRAMES_PATH,
+			"defeat_animation": &"basic_melee_defeat"
 		},
 		{
 			"scene": GROUND_CHARGER_ENEMY_SCENE_PATH,
 			"asset_id": "enemy_ground_charger_runtime_sheet_ai01",
 			"resource": ENEMY_GROUND_CHARGER_RUNTIME_SPRITEFRAMES_PATH,
-			"animation": &"ground_charger_cycle"
+			"animation": &"ground_charger_cycle",
+			"defeat_asset_id": "enemy_ground_charger_defeat_runtime_sheet_ai02",
+			"defeat_resource": ENEMY_GROUND_CHARGER_DEFEAT_SPRITEFRAMES_PATH,
+			"defeat_animation": &"ground_charger_defeat"
 		},
 		{
 			"scene": AERIAL_SENTINEL_ENEMY_SCENE_PATH,
 			"asset_id": "enemy_aerial_sentinel_runtime_sheet_ai01",
 			"resource": ENEMY_AERIAL_SENTINEL_RUNTIME_SPRITEFRAMES_PATH,
-			"animation": &"aerial_sentinel_cycle"
+			"animation": &"aerial_sentinel_cycle",
+			"defeat_asset_id": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02",
+			"defeat_resource": ENEMY_AERIAL_SENTINEL_DEFEAT_SPRITEFRAMES_PATH,
+			"defeat_animation": &"aerial_sentinel_defeat"
 		},
 		{
 			"scene": MIASMA_CASTER_ENEMY_SCENE_PATH,
 			"asset_id": "enemy_miasma_caster_runtime_sheet_ai01",
 			"resource": ENEMY_MIASMA_CASTER_RUNTIME_SPRITEFRAMES_PATH,
-			"animation": &"miasma_caster_cycle"
+			"animation": &"miasma_caster_cycle",
+			"defeat_asset_id": "enemy_miasma_caster_defeat_runtime_sheet_ai02",
+			"defeat_resource": ENEMY_MIASMA_CASTER_DEFEAT_SPRITEFRAMES_PATH,
+			"defeat_animation": &"miasma_caster_defeat"
 		}
 	]
 
@@ -430,7 +446,12 @@ func test_enemy_runtime_visuals_reference_single_enemy_clips() -> void:
 		_assert_enemy_runtime_visual_not_mixed_with_legacy_layers(enemy)
 		enemy.call("receive_attack", Vector2.RIGHT, 120.0)
 		assert_true(enemy.call("is_defeated"))
-		assert_false(visual.visible)
+		assert_true(visual.visible)
+		assert_eq(visual.get_meta("asset_id", ""), enemy_case.get("defeat_asset_id"))
+		assert_not_null(visual.sprite_frames)
+		if visual.sprite_frames != null:
+			assert_eq(visual.sprite_frames.resource_path, enemy_case.get("defeat_resource"))
+		assert_eq(visual.animation, enemy_case.get("defeat_animation"))
 
 
 # 保护 Boss 正式替换动作边界：运行态只接入通过审查的 body clips，不使用旧 blocked attack VFX frames。
