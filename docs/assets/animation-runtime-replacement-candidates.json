@@ -1508,6 +1508,38 @@
       ]
     },
     {
+      "id": "seal_guardian_stagger_runtime_sheet_ai01",
+      "source_asset_id": "seal_guardian_attack_body_runtime_sheet_ai02",
+      "kind": "sprite_sheet",
+      "batch": "ARP-17",
+      "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.png",
+      "metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.frames.json",
+      "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.spriteframes.tres",
+      "cell": [
+        256,
+        192
+      ],
+      "columns": 4,
+      "rows": 1,
+      "frame_count": 4,
+      "animation": {
+        "name": "staggered",
+        "speed": 10.0,
+        "loop": false
+      },
+      "anchor": "foot",
+      "normalization": {
+        "process": "reuse_clean_attack_recovery_frames_with_guard_break_tint",
+        "selected_source_frames": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "geometry_change": false
+      }
+    },
+    {
       "id": "enemy_basic_melee_defeat_runtime_sheet_ai02",
       "source_asset_id": "enemy_basic_melee_runtime_sheet_ai01",
       "kind": "sprite_sheet",
@@ -1773,38 +1805,6 @@
         ],
         "foot_baseline_y": 148,
         "center_x": 80
-      }
-    },
-    {
-      "id": "seal_guardian_stagger_runtime_sheet_ai01",
-      "source_asset_id": "seal_guardian_attack_body_runtime_sheet_ai02",
-      "kind": "sprite_sheet",
-      "batch": "ARP-17",
-      "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.png",
-      "metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.frames.json",
-      "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.spriteframes.tres",
-      "cell": [
-        256,
-        192
-      ],
-      "columns": 4,
-      "rows": 1,
-      "frame_count": 4,
-      "animation": {
-        "name": "staggered",
-        "speed": 10.0,
-        "loop": false
-      },
-      "anchor": "foot",
-      "normalization": {
-        "process": "reuse_clean_attack_recovery_frames_with_guard_break_tint",
-        "selected_source_frames": [
-          4,
-          5,
-          6,
-          7
-        ],
-        "geometry_change": false
       }
     }
   ],

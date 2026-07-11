@@ -324,13 +324,13 @@ def build_enemy_defeat(spec: dict[str, str]) -> dict[str, Any]:
     source_path = ENEMY_DIR / f"{source_id}.png"
     source_sheet = Image.open(source_path).convert("RGBA")
     selected_indexes = [4, 5, 6, 7]
-    scale_multipliers = [1.0, 0.94, 0.86, 0.78]
-    alpha_factors = [1.0, 0.88, 0.72, 0.56]
+    scale_multipliers = [1.0, 0.96, 0.90, 0.84]
+    alpha_factors = [1.0, 1.0, 0.95, 0.90]
     tints = [
-        (1.0, 0.96, 0.96),
-        (0.96, 0.88, 0.88),
-        (0.88, 0.76, 0.76),
-        (0.78, 0.64, 0.64),
+        (1.05, 1.0, 1.0),
+        (1.05, 0.96, 0.96),
+        (1.0, 0.90, 0.90),
+        (0.95, 0.84, 0.84),
     ]
     columns = 4
     output = Image.new("RGBA", (columns * ENEMY_CELL[0], ENEMY_CELL[1]), (0, 0, 0, 0))
