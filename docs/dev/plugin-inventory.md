@@ -13,7 +13,7 @@ Last Updated: 2026-04-27
 
 之前“一进入 Godot 项目就有多个报错”的高置信度原因不是“插件目录存在就会报错”，而是多种历史状态叠加：
 
-- `project.godot` 早期曾残留 `BetterTerrain` autoload / UID 引用，而 `better-terrain` 在当前 Godot 4.6 环境下有解析和兼容性风险。
+- `project.godot` 早期曾残留 `BetterTerrain` autoload / UID 引用，而 `better-terrain` 在当前 Godot 4.6.3 环境下有解析和兼容性风险。
 - `DialogueManager` 与 `ControllerIcons` 虽然没有在 `[editor_plugins]` 启用，但曾作为 `[autoload]` 默认加载；任何 autoload 都会在项目启动时参与加载。
 - 清理 `.godot` 缓存后，历史 UID 引用容易重新暴露为 `Unrecognized UID`。
 - `godot_mcp` 在 headless import 中会启动并停止 MCP bridge，这类日志不是错误；真正需要警惕的是旧 bridge 占用 `6505-6509` 导致当前会话错连。

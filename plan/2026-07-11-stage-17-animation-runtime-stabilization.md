@@ -169,6 +169,6 @@ Stage 17 修复 Luna、四类普通敌人与 Seal Guardian 的动作运行态：
 ## Assumptions
 
 - 现有玩家攻击、Dash、生命、门控和 Boss 伤害数值保持当前基线。
-- Godot 4.6.x、GUT、godot_mcp 继续可用。
+- Godot 4.6.3、GUT、godot_mcp 继续可用。
 - 当前 ai03 / enemy ai01 / Boss runtime 资源可继续作为合法源资产；只补确实缺失或违反 Model Lock 的动作。
 - 下一玩法阶段会单独规划最小 `2 元素 + 2 姿态 + 2 步序列`，不在 Stage17 偷跑。

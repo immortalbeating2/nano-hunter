@@ -2,7 +2,7 @@
 
 ## 作用与边界
 
-- 项目是 Godot `4.6.x` 的 2D 类银河恶魔城，主要使用 GDScript，主场景为 `res://scenes/main/main.tscn`。
+- 项目当前验证基线是 Godot `4.6.3` 的 2D 类银河恶魔城，主要使用 GDScript，主场景为 `res://scenes/main/main.tscn`。
 - 本文件只保存跨阶段稳定的仓库硬规则、阅读入口和完成门禁。
 - 当前阶段、分支、测试数量、资产批次和临时风险统一读取 `docs/progress/status.md`，不在本文件复制。
 - 优先做小而准、可验证、可追溯的改动，不为未来需求提前铺设框架。

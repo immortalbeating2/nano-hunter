@@ -6,7 +6,7 @@
 
 **Architecture:** 继续复用现有 GDScript 状态、`AnimatedSprite2D` 和 SpriteFrames。玩家短动作由玩法计时映射到关键帧；普通敌人共享播放与死亡入口放在 `BaseEnemy`；Boss 把 post-attack recovery 与 guard-break stagger 拆成两个状态。动画层只读取玩法状态，不反向驱动伤害或房间流程。
 
-**Tech Stack:** Godot 4.6.x、GDScript、GUT、Python 资产审计、现有 Image Gen / Batch06 资产流程。
+**Tech Stack:** Godot 4.6.3、GDScript、GUT、Python 资产审计、现有 Image Gen / Batch06 资产流程。
 
 **执行状态（2026-07-11）：** 开发实现、自动化回归、严格审计、OpenGL 运行探针、键盘 / synthetic Joypad smoke 和 input-only Demo 全链路重放均已完成。仅保留实体手柄 / 真人体验签核，以及合并 `main` 后的阶段指针更新；这两项不由当前分支自动宣称。
 

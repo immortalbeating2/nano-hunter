@@ -287,7 +287,10 @@ function Get-GodotEditorProcessInfos {
     $workspace = Resolve-GodotMcpWorkspacePath -WorkspacePath $WorkspacePath
     $workspaceForwardSlash = $workspace -replace "\\", "/"
     $godotProcesses = Get-CimInstance Win32_Process |
-        Where-Object { $_.Name -in @("Godot_v4.6.2-stable_win64.exe", "godot.exe") }
+        Where-Object {
+            $_.Name -eq "godot.exe" -or
+            $_.Name -like "Godot_v4*-stable_win64*.exe"
+        }
 
     foreach ($processInfo in $godotProcesses) {
         $runtimeProcess = Get-Process -Id $processInfo.ProcessId -ErrorAction SilentlyContinue
@@ -479,13 +482,14 @@ function Get-GodotMcpRecommendedAction {
 
 function Resolve-GodotExecutablePath {
     # 解析 Godot 可执行文件路径。
-    # 优先级：显式 -GodotExe、GODOT_EXE 环境变量、项目当前默认安装路径。
+    # 优先级：显式 -GodotExe、GODOT_EXE 环境变量、PATH 中的 godot 命令。
     param([string]$GodotExe)
 
     $candidates = @()
     if ($GodotExe) { $candidates += $GodotExe }
     if ($env:GODOT_EXE) { $candidates += $env:GODOT_EXE }
-    $candidates += "C:\AITOOL\Godot\Godot Engine\Godot_v4.6.2-stable_win64.exe"
+    $godotCommand = Get-Command godot -ErrorAction SilentlyContinue
+    if ($godotCommand -and $godotCommand.Source) { $candidates += $godotCommand.Source }
 
     foreach ($candidate in $candidates) {
         if ($candidate -and (Test-Path -LiteralPath $candidate)) {
@@ -493,7 +497,7 @@ function Resolve-GodotExecutablePath {
         }
     }
 
-    throw "Could not find a Godot executable. Pass -GodotExe or set GODOT_EXE."
+    throw "Could not find a Godot executable. Pass -GodotExe, set GODOT_EXE, or put godot on PATH."
 }
 
 function Write-GodotMcpSection {
