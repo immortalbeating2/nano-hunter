@@ -14,7 +14,7 @@ const OLD := ["FormalTerrainTilemapDecor", "FormalForegroundEdgeDecor"]
 const SPECS := [
 	{
 		"path": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "limits": Rect2i(-384, -320, 1536, 576),
-		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(0, 2), "length": 4}, {"start": Vector2i(6, 1), "length": 4}],
+		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(0, 2), "length": 4}, {"start": Vector2i(5, 1), "length": 4}],
 		"background": Vector2(384, -16), "background_scale": Vector2(0.94, 0.94),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn", "previous_spawn": &"stage13_pressure_return", "left_exit": Vector2(-352, 160),
 		"spawns": {&"stage13_branch_hub_start": Vector2(-256, 204), &"stage13_resource_branch_return": Vector2(768, 204), &"stage13_challenge_branch_return": Vector2(832, 204), &"stage13_branch_hub_return": Vector2(896, 204)},
@@ -26,20 +26,22 @@ const SPECS := [
 		"background": Vector2(192, 0), "background_scale": Vector2(0.78, 0.78),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "previous_spawn": &"stage13_resource_branch_return", "left_exit": Vector2(-352, 160),
 		"spawns": {&"stage13_resource_branch_start": Vector2(-256, 204)},
+		"next": "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn", "next_spawn": &"stage13_checkpoint_from_resource_branch", "persistent_reward": &"marsh_relic",
 		"nodes": {"Stage13Reward": Vector2(512, 56), "ExitZone": Vector2(736, 160)},
 	},
 	{
 		"path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "limits": Rect2i(-384, -320, 1536, 576),
-		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(0, 2), "length": 4}, {"start": Vector2i(6, 1), "length": 4}, {"start": Vector2i(12, 2), "length": 4}],
+		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(0, 2), "length": 4}, {"start": Vector2i(5, 1), "length": 4}, {"start": Vector2i(12, 2), "length": 4}],
 		"background": Vector2(384, -16), "background_scale": Vector2(0.94, 0.94),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "previous_spawn": &"stage13_challenge_branch_return", "left_exit": Vector2(-352, 160),
 		"spawns": {&"stage13_challenge_branch_start": Vector2(-256, 204)},
+		"next": "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn", "next_spawn": &"stage13_goal_from_challenge_branch", "persistent_reward": &"warden_sigil",
 		"nodes": {"MiasmaCasterEnemy": Vector2(512, 56), "Stage13Reward": Vector2(1040, 192), "ExitZone": Vector2(1120, 160)},
 		"gate": Vector2(960, 168), "require_all": true,
 	},
 	{
 		"path": "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn", "limits": Rect2i(-384, -256, 1280, 512),
-		"floor": Vector2i(-6, 3), "length": 20, "platforms": [{"start": Vector2i(2, 1), "length": 4}, {"start": Vector2i(8, 2), "length": 4}],
+		"floor": Vector2i(-6, 3), "length": 20, "platforms": [{"start": Vector2i(2, 2), "length": 4}, {"start": Vector2i(8, 2), "length": 4}],
 		"background": Vector2(256, 0), "background_scale": Vector2(0.82, 0.82),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "previous_spawn": &"stage13_branch_hub_return", "left_exit": Vector2(-352, 160),
 		"spawns": {&"stage13_return_start": Vector2(-256, 204), &"stage13_return_return": Vector2(640, 204)},
@@ -50,7 +52,7 @@ const SPECS := [
 		"floor": Vector2i(-6, 3), "length": 20, "platforms": [{"start": Vector2i(8, 2), "length": 5}],
 		"background": Vector2(256, 0), "background_scale": Vector2(0.82, 0.82),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn", "previous_spawn": &"stage13_return_return", "left_exit": Vector2(-352, 160),
-		"spawns": {&"stage13_goal_start": Vector2(-256, 204)},
+		"spawns": {&"stage13_goal_start": Vector2(-256, 204), &"stage13_goal_return": Vector2(640, 204), &"stage13_goal_from_challenge_branch": Vector2(640, 204)},
 		"nodes": {"GoalDevice": Vector2(640, 112), "GoalZone": Vector2(704, 96)},
 	},
 ]
@@ -81,6 +83,11 @@ func _apply(spec: Dictionary, terrain_set: TileSet, surface_set: TileSet, thin_s
 	root.set("previous_room_path", spec.previous)
 	root.set("previous_spawn_id", spec.previous_spawn)
 	root.set("spawn_positions", spec.spawns)
+	if spec.has("next"):
+		root.set("next_room_path", spec.next)
+		root.set("next_spawn_id", spec.next_spawn)
+	if spec.has("persistent_reward"):
+		root.set("persistent_reward_id", spec.persistent_reward)
 	if spec.has("require_all"):
 		root.set("require_all_enemies_defeated", bool(spec.require_all))
 	_hide_old(root)
@@ -137,14 +144,10 @@ func _hide_old(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt", "MiasmaTileSheetArt"]:
+	for name: String in ["MaterialTextureArt", "MiasmaTileSheetArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false
-	var preview := root.get_node_or_null("MiasmaTilesetPreview") as TileMapLayer
-	if preview != null:
-		preview.visible = false
-		preview.set("collision_enabled", false)
 
 
 func _disable_legacy(root: Node) -> void:

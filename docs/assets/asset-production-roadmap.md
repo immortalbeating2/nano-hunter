@@ -215,6 +215,7 @@ Prompt、命令、全量分类矩阵与存放地址参考：`docs/assets/audio-a
 - HUD 血量、能力状态、Boss 状态、Recovery Charge。
 - Air Dash、checkpoint、门控、终点、奖励图标。
 - 九宫格面板和按钮背景。
+- 发现式世界地图底板；只生成宣纸、外框和非语义气氛，动态房间与路线不得烘焙进图片。
 
 输出：
 

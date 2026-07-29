@@ -190,7 +190,7 @@ func _hide_old_visuals(root: Node) -> void:
 			layer.visible = false
 			layer.set("collision_enabled", false)
 			layer.set_meta(&"asset_binding_note", "hidden_after_stage15_gauntlet_formal_blueprint")
-	for node_name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt"]:
+	for node_name: String in ["MaterialTextureArt"]:
 		var item := root.get_node_or_null(NodePath(node_name)) as CanvasItem
 		if item != null:
 			item.visible = false

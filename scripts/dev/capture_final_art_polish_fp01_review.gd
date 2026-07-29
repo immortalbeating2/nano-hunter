@@ -16,7 +16,6 @@ const SCENE_SPECS := [
 		"path": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
 		"visuals": [
 			{"node": "MiasmaBackgroundArt", "asset_id": "biome02_miasma_marsh_background_ai01"},
-			{"node": "MiasmaTilesetPreview", "asset_id": "miasma_marsh_tileset_ai01", "visible": false},
 			{"node": "FormalTerrainTilemapDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
 			{"node": "FormalForegroundEdgeDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
 		],
@@ -26,10 +25,9 @@ const SCENE_SPECS := [
 		"path": "res://scenes/rooms/stage14_air_dash_shrine_room.tscn",
 		"visuals": [
 			{"node": "ShrineTrialBackgroundArt", "asset_id": "biome01_shrine_trial_background_ai01"},
-			{"node": "ShrineTrialTilesetPreview", "asset_id": "shrine_trial_tileset_ai01", "visible": false},
 			{"node": "AirDashShrine/ShrineArt", "asset_id": "shrine_gate_prop_atlas_ai01"},
-			{"node": "AirDashShrine/GatePreviewArt", "asset_id": "shrine_gate_prop_atlas_ai01"},
-			{"node": "AirDashShrine/AirDashTrailPreviewArt", "asset_id": "stage14_air_dash_trail_ai01"},
+			{"node": "AirDashShrine/GateEchoArt", "asset_id": "shrine_gate_prop_atlas_ai01"},
+			{"node": "AirDashShrine/AirDashTrailArt", "asset_id": "stage14_air_dash_trail_ai01"},
 			{"node": "FormalTerrainTilemapDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
 			{"node": "FormalForegroundEdgeDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
 		],
@@ -39,8 +37,6 @@ const SCENE_SPECS := [
 		"path": "res://scenes/rooms/stage14_air_dash_gate_room.tscn",
 		"visuals": [
 			{"node": "ShrineGateBackgroundArt", "asset_id": "biome01_shrine_trial_background_ai01"},
-			{"node": "MiasmaTilesetPreview", "asset_id": "miasma_marsh_tileset_ai01", "visible": false},
-			{"node": "ShrineTrialTilesetPreview", "asset_id": "shrine_trial_tileset_ai01", "visible": false},
 			{"node": "AirDashGateSensor/ShrineEchoArt", "asset_id": "shrine_gate_prop_atlas_ai01"},
 			{"node": "GateBarrier/GateArt", "asset_id": "shrine_gate_prop_atlas_ai01"},
 			{"node": "FormalTerrainTilemapDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
@@ -52,7 +48,6 @@ const SCENE_SPECS := [
 		"path": "res://scenes/rooms/stage15_seal_guardian_boss_room.tscn",
 		"visuals": [
 			{"node": "SealGuardianBossRoomBackgroundArt", "asset_id": "stage15_seal_guardian_boss_room_ai01"},
-			{"node": "SealGuardianTilesetPreview", "asset_id": "shrine_trial_tileset_ai01", "visible": false},
 			{"node": "SealGuardianBoss/SealGuardianRuntimeAnimationVisual", "asset_id": "seal_guardian_idle_runtime_sheet_ai01"},
 			{"node": "FormalTerrainTilemapDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
 			{"node": "FormalForegroundEdgeDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
@@ -63,7 +58,6 @@ const SCENE_SPECS := [
 		"path": "res://scenes/rooms/stage16_seal_release_threshold_room.tscn",
 		"visuals": [
 			{"node": "SealReleaseBackgroundArt", "asset_id": "biome01_shrine_trial_background_ai01"},
-			{"node": "ShrineTrialTilesetPreview", "asset_id": "shrine_trial_tileset_ai01", "visible": false},
 			{"node": "SealReleaseNode/SealReleaseThresholdArt", "asset_id": "stage16_seal_release_threshold_ai01"},
 			{"node": "GateBarrier/GateArt", "asset_id": "shrine_gate_prop_atlas_ai01"},
 			{"node": "FormalTerrainTilemapDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},

@@ -1,9 +1,16 @@
 # Nano Hunter Status
 
-Last Updated: 2026-07-11
+Last Updated: 2026-07-28
 
 ## Current Status
 
+- 2026-07-28 完成 Stage20 六类银河城缺口闭环：Stage9 Switch 的 SC-01 改为首轮可用第二路线，Stage10 Branch 授予风印；Stage10 Challenge / Stage14 Gate 接入循环封印脉冲；Caster 发射可被风印斩散的定向腐瘴弹；新增风印 + Air Dash 的 SC-06（Stage13 Gate ↔ Stage14 Gate）；`marsh_relic` / `warden_sigil` 成为可切换的恢复 / 攻击距离 Build；Stage11 首次确认触发一次正式剧情事件。世界图现为 `38` 房、`3` 区域环、`6` 条远端连接，拓扑和条件仍由 JSON 驱动。Stage20 `6/6` / `60` assertions、邻近回归 `104/104` / `3332`、递归全量 GUT `36` scripts / `269/269` tests / `8213` assertions；Godot `4.6.3` import / smoke、世界图 JSON、资产包 strict audit、Windows/OpenGL MCP 六项运行态复核和 `git diff --check` 通过，`project.godot` 无临时 autoload diff。该结果闭环的是 Alpha Demo 六项最小生产切片，不等于完整商业银河城；尚无正式存档 / 快速旅行、多组交叉门、完整装备树、多角色剧情链或真人连续试玩签核。未提交 / 合并 / push。
+- 2026-07-28 完成 Stage19 发现式地图美术与可维护性重构：使用 Image Generation 生成无文字 / 无拓扑宣纸铜框底板和非运行时组件母版；`38` 房、五区域、4 支路和 SC-01 至 SC-05 迁入独立归一化 JSON，旧五行蛇形矩形图改为佛龛符印节点、弧形墨线、金色断续捷径和相邻墨雾。DemoShell 按底板比例响应式扩展，`2560x1440` 运行态约 `1597x1100`；后续移动或改连房间只改 JSON，不需要重新生图。Stage19 `6/6` / `207` asserts、Stage16 `20/20` / `484`、递归全量 GUT `35` scripts / `263/263` tests / `8128` asserts，Godot import / smoke、asset package / provenance / source-safety strict、Windows/OpenGL 初始与全展开复核通过，编辑器错误 `0`；未提交 / 合并 / push。
+- 2026-07-28 完成 Stage19 房间蓝图与探索地图收口：新增 `38/38` 正式房间八项核对矩阵，覆盖职责 / 平台、出入口、敌人、陷阱、门控、奖励和叙事；暂停菜单加入发现式地图，显示当前房、已发现房、相邻轮廓及 SC-01 至 SC-05 状态；Stage11 从旧 Demo 终点修正为左返 Stage10、右进 Stage13 的镇妖驿厅，完整 Demo 完成态只属于 Stage16。Windows/OpenGL 已复核完整地图和首次发现态；Stage19 `5/5` / `83` asserts，Stage11/13/16/18 专项全绿，递归全量 GUT `35` scripts / `262/262` tests / `8004` asserts，Godot import、主场景 smoke 与 `git diff --check` 通过。Stage19 收口时仍缺早期路线分叉、第二类环境危险、第二能力交叉门控、奖励 Build 深度和正式剧情事件，已由上方 Stage20 最小切片继续处理；本阶段本身未为填空新增敌人或陷阱，未提交 / 合并 / push。
+- 2026-07-25 新增 Alpha Demo 世界地图组成与路线蓝图 `spec-design/2026-07-25-alpha-demo-world-map-blueprint.md` 及 `spec-design/images/2026-07-25-alpha-demo-room-route-blueprint.jpg`：将当前实装的 34 房首次通关骨架、4 个可选房、3 个区域闭环、SC-01 至 SC-05、Air Dash / `marsh_relic` / `warden_sigil` 回访顺序整理为房间截图总图、区域级、全房间级和解锁级视图。正式图中每张卡片都是当前运行房间，Stage 只作分组；生图仅提供无文字制图底板，房间与路线由工程事实确定性合成。结论是宏观拓扑已不再是纯单链，但首次安全路线仍为长骨架，能力取得偏晚且早期分支偏少；当时缺少的正式地图 UI 已由 Stage19 补入，本轮本身未修改运行时地图连接。
+- 2026-07-18 完成宏观银河城世界图重构：不新增大批房间，将 34 房首次通关长链重接为镇妖试炼、瘴泽分流、神龛至封妖禁地 3 个区域环路，并加入 SC-01 至 SC-05 共 5 条远端连接。Air Dash 重新开启 Stage9 / Stage10 旧上层路线；Stage13 资源 / 挑战支路分别改为回到 Checkpoint / 前送 Goal，并授予 `marsh_relic` / `warden_sigil` 两个跨房持久收益；12 组锚点房补入秘密墙、叙事碑、危险机关和区域地标。Stage18 `12/12` / `1711` asserts，全量 GUT `34` scripts / `257/257` tests / `7919` asserts，39 房 DAC `P0/P1/P2=0`，input-only 首次通关 replay 自 Tutorial 自然经过 34 房到 Stage16 终点且 `P0/P1/P2=0`，Godot import / smoke 通过。当前仍在 `codex/stage-17-animation-runtime-stabilization`，未合并 / push，既有 Stage17 资产处置与平台校正改动均保留。
+- 2026-07-16 完成正式平台视觉 / 碰撞与上行可达性校正：共享 `tutorial_thin_platform_visual_ai01.tileset.tres` 的 3 个切片统一增加 `texture_origin.y=14`，将 38/38 个正式房间的薄平台可见顶沿对齐到 `PlatformCollisionVisual` 的 one-way 碰撞顶沿；Stage10 三房与 Stage13 五处上行台阶各收紧为最多一格净空，Stage13 Return 高台降为可由单跳到达的高度，并补回 `stage13_goal_return` 生成契约。新增真实 Luna 物理回归覆盖 Stage10 三房、Stage13 六房和共享切片 alpha 顶沿。验证：全量 GUT `33` scripts / `245/245` tests / `6207` asserts、Godot import、主场景 smoke、Stage10/Stage13/教程及 Batch4-6 Windows 运行态截图报告均通过；未合并 / push。
+- 2026-07-12 完成 Stage17 后的最终资产处置：正式场景 `52` 个 Preview 命名节点收敛为 `0`（删除 `50` 个隐藏历史节点、重命名 `2` 个真实运行节点），另移除 `7` 个 source-only 方向稿绑定；在删除前零引用、import、Stage12-17 与 Demo GUT 门禁通过后，物理删除 `14` 个 Stage12/13 旧 SVG 与 `14` 个 `.import`。runtime map 现为 `55` 项，处置为 `26 runtime_keep / 20 source_dev_keep / 9 archive_keep`；P0 正式运行计划为 `11` 项并同步收敛 rehearsal `11` 节点、target matrix `12` 场景 / `23` 引用、`6` 个批次。最终 runtime source safety 为 `11` 项、`0` review-required、`0` unsafe，final acceptance 为 `55/55 final-ready`；Godot import、全量 GUT `33` scripts / `240/240` tests / `6147` asserts、asset package strict audit、动画替换 `21/21 active ready` 与项目隔离审计均通过。当前结果仍在 `codex/stage-17-animation-runtime-stabilization`，未合并 / push。
 - 2026-07-11 Stage17 `动作运行态稳定化` 开发与自动化收口完成：Luna 保持固定 runtime transform，Attack / Air Dash / Hit React 由 gameplay phase 映射关键帧，Jump 使用 Model Lock v1 四物理相位；四类普通敌人 cycle 会播放、defeat 可见，Ground Charger 具备 telegraph / charge / recover；Seal Guardian 拆分 strike / recovery / staggered，body / VFX 到达后半帧且单次攻击只结算一次伤害。最终验证为 Stage17 `10/10` / `118` asserts、全量 GUT `229/229` / `6245` asserts、strict audit `21/21 active ready`、OpenGL runtime probe 十一项全真、键盘 / synthetic Joypad smoke `ok=true`，以及无调试注入的 input-only Demo 重放 `34` 次主线房间进入、最终完成标记 `true`、`P0/P1/P2=0`。
 - 2026-07-11 完成根 `AGENTS.md` 治理瘦身：从 `530` 行收敛为 `108` 行的仓库执行契约，只保留跨阶段硬规则、事实来源、最短流程和完成门禁；阶段历史、MCP 端口、插件候选、资产 Batch、worktree 操作手册和单次故障经验退出根文件，继续由现有专题文档与 Git 历史负责。本轮不修改 Stage17 动画运行时代码。
 - 2026-07-11 完成角色 / 敌人 / Boss 动作、39 房内容和北极星实现度审计。关键修正：Luna 节点 scale 固定，视觉变大变小来自跨动作模型与时序未统一；Attack `0.23s` 对应 16 帧 / 18fps、Air Dash `0.24s` 对应 16 帧 / 20fps，均会截断大部分帧；Jump/Fall 是时间顺播而非物理相位映射。运行探针确认四类普通敌人 cycle 均未播放，Boss 在 staggered 状态隐藏。39 房当前有 `16` 个战斗房、`24` 个普通敌人实例、`1` 个 Boss；空间职责已明确，敌人行为和动作仍是原型级。北极星完整实现约 `25-30%`，独特核心“元素 + 姿态 + 序列连锁”约 `0-10%`。
@@ -33,9 +40,9 @@ Last Updated: 2026-07-11
 
 ## Current Stable Baseline
 
-- 当前分支候选：`codex/stage-17-animation-runtime-stabilization` 已完成 Stage17 动作运行态实现、回归和本地验证收口；`codex/demo-level-formal-remap` / `985ec28` 仍是其正式地图回退基线。当前分支尚未合并 `main` 或推送远端。
+- 当前分支候选：`codex/stage-17-animation-runtime-stabilization` 当前同时包含 Stage17 动作运行态收口、正式平台校正、Stage18 宏观银河城世界图重构、Stage19 房间蓝图 / 发现式地图和 Stage20 六类银河城缺口闭环；`codex/demo-level-formal-remap` / `985ec28` 仍是正式地图回退基线。当前分支尚未合并 `main` 或推送远端。
 - `main` 稳定基线：Stage16 Alpha Demo 打包候选已合并，主线验证通过。
-- 当前可试玩方向：Stage16 Alpha Demo 内容加上 Stage17 动作运行态稳定化已形成分支候选；合并前先做实体手柄 / 真人体验签核，合并后再独立规划最小 `2 元素 + 2 姿态 + 2 步序列` 北极星战斗切片。
+- 当前可试玩方向：Stage16 Alpha Demo 内容、Stage17 动作运行态稳定化、Stage18–20 的三环路 / 六远端连接、发现式地图与六类关卡缺口闭环已形成分支候选；合并前先做实体手柄、真人首次通关和能力回访路线签核，合并后再独立规划最小 `2 元素 + 2 姿态 + 2 步序列` 北极星战斗切片。
 - 当前设计约束：后续阶段继续向南北朝东方奇幻、封妖禁地、瘴泽、妖域、符印机关等语境回收灰盒命名，不继续扩大现代实验室表达。
 - 当前资产方向：围绕 Alpha Demo 候选补强 Luna、Air Dash、Seal Guardian、Stage16 UI / 终局反馈、区域表现、最小 SFX / BGM 和动画参考，不追求完整商业版资产量。
 - 当前资产补齐目标已扩展为长期完整资产族：角色、关卡地图场景、UI / 界面、图标、道具与装备、特效、动画帧 / 序列帧、贴图、宣传运营、LOGO、CG、分镜和叙事剧情资产，并最终整理为 Godot 可用的 Sprite Sheet、Texture Atlas、Tile Set、Spine 拆件图集、UI 图集、特效图集和九宫格图片。
@@ -112,6 +119,14 @@ Last Updated: 2026-07-11
 - 2026-06-25 复核结论：动作正式替换批次的活跃候选严格审计已通过，runtime source review queue 清零；当前剩余历史 blocked reference 仅作为归档证据保留，不再构成活跃替换阻塞。
 
 ## Recent Status Changes
+
+### 2026-07-18 - Macro Metroidvania world graph established
+
+- 将线性 34 房主线保留为安全首次通关路径，同时以 3 个闭合区域环路和 5 条远端连接建立真实回访结构；捷径继续复用 `room_transition_requested` 与独立 spawn，不引入第二套地图管理器。
+- `Stage9RoomBase` 提供通用能力 / 奖励门控捷径与叙事碑；Main 持久保存 `marsh_relic`、`warden_sigil`；Stage13 两条支路在出口、危险和长期收益上均已分离。
+- 12 组锚点房加入秘密墙、机关、碑文和区域地标；秘密墙可见实体与碰撞尺寸一致，全房正式薄平台逐格确认 one-way 且缩放后厚度不超过 `4px`。
+- 验证：Stage18 `12/12` / `1711` asserts；全量 GUT `257/257` / `7919` asserts；39 房 DAC 与 34 房 input-only 首次通关 replay 均为 `P0/P1/P2=0`；Godot import / smoke 通过。
+- 详情：`spec-design/2026-07-18-macro-metroidvania-world-graph-design.md`、`plan/2026-07-18-macro-metroidvania-world-graph.md`、`docs/implementation-plans/2026-07-18-macro-metroidvania-world-graph.md`、`docs/progress/logs/2026-07-18.md`。当前分支未合并 / push。
 
 ### 2026-07-11 - Stage17 animation runtime stabilization completed on branch
 
@@ -289,6 +304,7 @@ Last Updated: 2026-07-11
 
 ## Current Risks
 
+- Stage18 已建立自动可达与门控证据，但尚无正式地图 UI、存档式探索状态或真人路线发现测试；当前主要设计风险是玩家是否能自然记住 SC-01 / SC-02 / SC-05 的前置地标，以及两条 Stage13 支路的奖励吸引力是否足以支撑回访。
 - Stage17 的脏工作树前置风险已由 Formal Demo 回退点 `985ec28` 和专用阶段分支解除；当前主要交付风险转为“尚未合并 / push，以及实体手柄与真人体验尚未签核”，不再是动作运行代码缺失。
 - 2026-07-04 2K 同 16:9 运行态已通过 Camera2D zoom 收回到 640x360 设计视野，不再直接暴露上一轮截图中的明显竖向背景拼接缝；但这不等于背景商业清稿完成。若后续要支持 21:9、自由缩放镜头或大幅横向可视范围，仍需要背景无缝化、parallax split、可延展边缘或逐房宽屏构图 polish。
 - 2026-06-19 内置 `image_gen` 已生成 Batch00 / Batch01 / Batch02 / Batch03 / Batch06-Batch13 的 `55/55` 个候选 PNG；2026-06-20 已追加补充候选用于 duplicate clearance；2026-06-21 已追加当前项目确认候选用于 `luna_jump_fall_sheet_ai01` 和 `stage16_seal_release_threshold_ai01`，并追加 `stage16_demo_menu_icons_ai01_candidate_02` 与 `stage14_air_dash_icon_ai01_candidate_02` 两个评审候选；9 个 standalone runtime UI / VFX / prop PNG 已补齐带 `project_key = nano-hunter` 的 `.source.json`，`hud_core_ui_atlas_ai01` 已从 `candidate_01` 重建 selected source 与 atlas。同日继续为 15 个 runtime review-required 资产追加统一风格重生候选，当前候选池为 `120` raw candidates、`547` selected sources、`82` unselected candidates；source safety 为 `0` unsafe，runtime source safety 仍有 `15` 个 runtime assets 需来源 / 派生复核。当前已生成 target-count `assets/art` 候选 sheet / atlas / standalone PNG，`26/26` 个 atlas-linked outputs 已达到 `expected_target` 且全部 `duplicates=0`；非 SpriteFrames atlas-linked 输出已生成 `302` 个 Godot `AtlasTexture` editor resources，Batch07 两套 TileSet sheet 已生成 `2` 个 Godot `TileSet` `.tileset.tres`、`2` 个 `.tileset_rules.json`、`96` 个 tile rules、`64` 个 collision-ready tiles 和 `8` 个 hazard visual-only tiles，Batch08 `menu_ninepatch_ui_ai01` 已生成 `8` 个 Godot `StyleBoxTexture` 资源骨架、`1` 个 Godot `Theme` 候选、`9` 个 Theme stylebox mappings 和 `4` 个 standalone UI skin panel rules，Batch10 / standalone VFX 已生成 `6` 个 VFX rule sidecars 与 `73` 条 anchor-blend rules，Batch06 角色 / 敌人 Sprite Sheet 已生成 `8` 个 animation rule sidecars 与 `172` 条 frame rules，Batch11 已生成 `2` 个 Spine-style cutout exports / `48` 个 part descriptors；P0 runtime replacement plan 当前为 `28/28` already referenced，final-art `runtime_replacement` gate 为 `37 passed / 18 blocked`；Art readiness 报告确认 `55/55` structural-ready、`13/55` final-ready；综合资产包审计报告 `ok=true`。风险转为“剩余 42 个资产的候选质量、授权记录、15 个 runtime review-required 来源复核、TileSet 碰撞 / terrain 人工复核、正式危险 Area author、UI Theme 最终套用和读值、VFX mask / timing / runtime hookup、角色动画帧序 / 基线 / timing 复核、NinePatch 清稿、Spine parts 语义绑定和游戏内正式接入仍未完成”；`stage16_talisman_relay_ai01` 只批准为当前 Stage16 region-bound visual VFX。
@@ -317,6 +333,7 @@ Last Updated: 2026-07-11
 
 ## Next Steps
 
+- Stage18 下一步：用真人连续试玩分别验证安全首次通关、取得 Air Dash 后的 Stage10 回访、取得 `marsh_relic` 后的 Stage9 回访、Stage13 两支路选择和 `warden_sigil` 高风险捷径；只按明确证据调整地标、提示和收益节奏，不扩成地图 UI 或快速旅行系统。
 - Stage17 下一步：审查并合并 `codex/stage-17-animation-runtime-stabilization`，在实体手柄 / 真人体验签核后更新 `AGENTS.md` 主线阶段指针；随后为最小 `2 元素 + 2 姿态 + 2 步序列` 另做 brainstorming、设计和正式阶段计划。
 - Formal Demo map 下一步：先做提交前差异审查和真人连续试玩；若发现具体房间读值问题，按房间证据局部修正，不再回到随机全图替换。当前 39 房截图脚本已经覆盖主线、支路和非主线机制沙盒。
 - 下一步建议转入人工美术签核 / 发布级 polish 清单：伪文字清理、最终 typography、正式 autotile / hazard Area author、TileMap 手工边缘拟合、UI 细节清稿和完整试玩审美反馈；若后续新增或重做动作帧，继续按透明背景规则网格 sprite sheet 规格使用 image_gen。

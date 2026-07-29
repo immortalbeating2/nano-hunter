@@ -45,7 +45,11 @@ next_room_path = "res://scenes/rooms/stage10_zone_challenge_room.tscn"
 next_spawn_id = &"stage10_challenge_start"
 previous_room_path = "res://scenes/rooms/stage9_zone_final_room.tscn"
 previous_spawn_id = &"zone_final_return"
+shortcut_room_path = "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn"
+shortcut_spawn_id = &"stage13_entry_from_stage10_shortcut"
+shortcut_requires_air_dash = true
 spawn_positions = {
+&"stage10_aerial_from_stage13_shortcut": Vector2(960, 204),
 &"stage10_aerial_return": Vector2(256, 204),
 &"stage10_aerial_start": Vector2(-256, 204)
 }
@@ -215,7 +219,7 @@ modulate = Color(1, 1, 1, 0.08)
 z_index = 2
 position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
-tile_map_data = PackedByteArray("AAD+/wIAAAABAAIAAAD//wIAAAAAAAIAAAAAAAIAAAAAAAIAAAABAAIAAAACAAIAAAAEAAEAAAABAAIAAAAFAAEAAAAAAAIAAAAGAAEAAAAAAAIAAAAHAAEAAAACAAIAAAAKAAIAAAABAAIAAAALAAIAAAAAAAIAAAAMAAIAAAAAAAIAAAANAAIAAAACAAIAAAA=")
+tile_map_data = PackedByteArray("AAD+/wIAAAABAAIAAAD//wIAAAAAAAIAAAAAAAIAAAAAAAIAAAABAAIAAAACAAIAAAAEAAEAAAAAAAIAAAAFAAEAAAAAAAIAAAAGAAEAAAACAAIAAAAHAAEA//////////8KAAIAAAABAAIAAAALAAIAAAAAAAIAAAAMAAIAAAAAAAIAAAANAAIAAAACAAIAAAADAAEAAAABAAIAAAA=")
 tile_set = ExtResource("16_vjv41")
 metadata/terrain_template_layer = true
 
@@ -231,7 +235,7 @@ metadata/terrain_template_layer = true
 [node name="ThinPlatformSurfaceVisual" type="TileMapLayer" parent="." unique_id=1934299537]
 modulate = Color(0.72, 0.82, 0.76, 0.92)
 z_index = 2
-tile_map_data = PackedByteArray("AAD+/wIAAAAAAAAAAAD//wIAAAABAAAAAAAAAAIAAAABAAAAAAABAAIAAAACAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAABAAAAAAAGAAEAAAABAAAAAAAHAAEAAAACAAAAAAAKAAIAAAAAAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAAAAAANAAIAAAACAAAAAAA=")
+tile_map_data = PackedByteArray("AAD+/wIAAAAAAAAAAAD//wIAAAABAAAAAAAAAAIAAAABAAAAAAABAAIAAAACAAAAAAAEAAEAAAABAAAAAAAFAAEAAAABAAAAAAAGAAEAAAACAAAAAAAHAAEA//////////8KAAIAAAAAAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAAAAAANAAIAAAACAAAAAAADAAEAAAAAAAAAAAA=")
 tile_set = ExtResource("18_nvj7g")
 collision_enabled = false
 metadata/terrain_template_layer = true
@@ -269,3 +273,15 @@ position = Vector2(-352, 160)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=405142414]
 shape = SubResource("RectangleShape2D_vjv41")
+
+[node name="ShortcutZone" type="Area2D" parent="."]
+position = Vector2(896, 56)
+metadata/route_role = "air_dash_cross_region_shortcut"
+
+[node name="ShortcutMarkerArt" type="Sprite2D" parent="ShortcutZone"]
+z_index = 4
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("nh_air_value")
+metadata/asset_id = "equipment_pickup_atlas_ai01"
+metadata/runtime_source = "equipment_pickup_atlas_ai01.air_dash_charm"
+metadata/anchor_role = "stage10_upper_shortcut"

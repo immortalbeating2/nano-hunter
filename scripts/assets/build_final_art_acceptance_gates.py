@@ -11,6 +11,7 @@ from typing import Any
 READINESS_PATH = Path("docs/assets/art-readiness-audit-report.json")
 REVIEW_QUEUE_PATH = Path("docs/assets/final-art-review-queue.json")
 WORKBENCH_MANIFEST_PATH = Path("docs/assets/final-art-review-workbench-manifest.json")
+RUNTIME_SOURCE_SAFETY_PATH = Path("docs/assets/runtime-source-safety-report.json")
 OUT_JSON = Path("docs/assets/final-art-acceptance-gates.json")
 OUT_MD = Path("docs/assets/final-art-acceptance-gates.md")
 
@@ -53,6 +54,10 @@ def review_by_asset(review_queue: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {str(entry["asset_id"]): entry for entry in review_queue.get("entries", [])}
 
 
+def runtime_source_by_asset(runtime_source_report: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {str(item["asset_id"]): item for item in runtime_source_report.get("items", [])}
+
+
 def gate(status: str, evidence: list[str], blockers: list[str] | None = None) -> dict[str, Any]:
     return {
         "status": status,
@@ -61,17 +66,35 @@ def gate(status: str, evidence: list[str], blockers: list[str] | None = None) ->
     }
 
 
-def build_entry(asset_id: str, readiness_item: dict[str, Any], review_entry: dict[str, Any], workbench_present: bool) -> dict[str, Any]:
+def build_entry(
+    asset_id: str,
+    readiness_item: dict[str, Any],
+    review_entry: dict[str, Any],
+    runtime_source_item: dict[str, Any],
+    workbench_present: bool,
+) -> dict[str, Any]:
     blockers = list(review_entry.get("blockers", []))
     output_path = str(readiness_item.get("output_path") or review_entry.get("output_path", ""))
     provenance = readiness_item.get("provenance") or {}
     runtime_catalog = readiness_item.get("runtime_catalog") or {}
 
-    source_ok = (
+    provenance_ok = (
         provenance.get("source_status") == "source_recorded"
         and bool(provenance.get("prompt_sha256"))
         and bool(provenance.get("output_sha256"))
     )
+    runtime_source_gate = str(runtime_source_item.get("runtime_source_gate", "not_runtime_bound"))
+    runtime_source_ok = runtime_source_gate in {
+        "not_runtime_bound",
+        "runtime_reference_source_confirmed",
+        "planned_replacement_source_confirmed",
+    }
+    source_blockers: list[str] = []
+    if not provenance_ok:
+        source_blockers.append("source_or_hash_record_missing")
+    if not runtime_source_ok:
+        source_blockers.append("runtime_source_safety_review_required")
+    source_ok = not source_blockers
     structural_ok = bool(readiness_item.get("structural_ready")) and Path(output_path).exists()
     editor_card_ok = workbench_present and bool(output_path)
 
@@ -85,9 +108,10 @@ def build_entry(asset_id: str, readiness_item: dict[str, Any], review_entry: dic
             "passed" if source_ok else "blocked",
             [
                 "docs/assets/asset-provenance-records.json",
+                "docs/assets/runtime-source-safety-report.json",
                 output_path,
             ],
-            [] if source_ok else ["source_or_hash_record_missing"],
+            source_blockers,
         ),
         "license_terms": gate(
             "blocked" if "license_terms_manual_review" in blockers else "passed",
@@ -130,15 +154,25 @@ def build_entry(asset_id: str, readiness_item: dict[str, Any], review_entry: dic
             ],
             polish_blockers,
         ),
-        "final_approval": gate(
-            "passed" if bool(readiness_item.get("final_ready", False)) else "blocked",
-            [
-                "docs/assets/art-readiness-audit-report.json",
-                "docs/assets/final-art-review-queue.json",
-            ],
-            [] if bool(readiness_item.get("final_ready", False)) else ["final_ready_false"],
-        ),
     }
+
+    readiness_final_ready = bool(readiness_item.get("final_ready", False))
+    upstream_blocked = [name for name in GATE_ORDER if name != "final_approval" and gates[name]["status"] != "passed"]
+    approval_blockers: list[str] = []
+    if not readiness_final_ready:
+        approval_blockers.append("readiness_final_ready_false")
+    if upstream_blocked:
+        approval_blockers.append("upstream_acceptance_gate_blocked")
+    final_ready = not approval_blockers
+    gates["final_approval"] = gate(
+        "passed" if final_ready else "blocked",
+        [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json",
+        ],
+        approval_blockers,
+    )
 
     blocked_gate_count = sum(1 for name in GATE_ORDER if gates[name]["status"] != "passed")
     return {
@@ -147,7 +181,8 @@ def build_entry(asset_id: str, readiness_item: dict[str, Any], review_entry: dic
         "family": review_entry.get("family", "unknown"),
         "priority": review_entry.get("priority", "unknown"),
         "output_path": output_path,
-        "final_ready": bool(readiness_item.get("final_ready", False)),
+        "readiness_final_ready": readiness_final_ready,
+        "final_ready": final_ready,
         "blocked_gate_count": blocked_gate_count,
         "gates": gates,
     }
@@ -219,12 +254,20 @@ def main() -> int:
     readiness = load_json(READINESS_PATH)
     review_queue = load_json(REVIEW_QUEUE_PATH)
     workbench_manifest = load_json(WORKBENCH_MANIFEST_PATH)
+    runtime_source_report = load_json(RUNTIME_SOURCE_SAFETY_PATH)
     workbench_present = bool(workbench_manifest.get("scene")) and int(workbench_manifest.get("counts", {}).get("entry_count", 0)) == 55
 
     readiness_items = readiness_by_asset(readiness)
     review_entries = review_by_asset(review_queue)
+    runtime_source_items = runtime_source_by_asset(runtime_source_report)
     entries = [
-        build_entry(asset_id, readiness_items[asset_id], review_entries[asset_id], workbench_present)
+        build_entry(
+            asset_id,
+            readiness_items[asset_id],
+            review_entries[asset_id],
+            runtime_source_items.get(asset_id, {}),
+            workbench_present,
+        )
         for asset_id in sorted(review_entries)
     ]
     report = {
@@ -232,6 +275,7 @@ def main() -> int:
         "status": "acceptance_gates_ready",
         "boundary": (
             "Acceptance gates are review requirements for moving structural image-gen assets toward final-ready. "
+            "Runtime source safety is an upstream gate, so review-required runtime sources cannot remain final-ready. "
             "Passing this report only proves the gates are explicit and auditable; it does not approve final art."
         ),
         "gate_order": GATE_ORDER,

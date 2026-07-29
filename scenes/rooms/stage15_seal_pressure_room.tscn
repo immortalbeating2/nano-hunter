@@ -100,17 +100,6 @@ texture = ExtResource("4_ath7a")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="MaterialTexturePreviewArt" type="Sprite2D" parent="." unique_id=2020921869]
-visible = false
-modulate = Color(1, 1, 1, 0.22)
-position = Vector2(160, 145)
-scale = Vector2(1.25, 0.08)
-texture = ExtResource("nh_mat")
-region_enabled = true
-region_rect = Rect2(0, 0, 512, 512)
-metadata/asset_id = "material_texture_atlas_ai01"
-metadata/asset_binding_note = "dac_terrain_material_transition_decor_only"
-
 [node name="PressureSigil" type="Polygon2D" parent="." unique_id=575048395]
 visible = false
 position = Vector2(128, 106)

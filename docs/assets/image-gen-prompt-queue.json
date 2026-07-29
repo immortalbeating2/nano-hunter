@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-19",
+  "updated": "2026-07-28",
   "purpose": "Concrete image_gen production queue for Nano Hunter core art completion.",
   "style_anchor": "2D side-view metroidvania game asset for Nano Hunter, Northern and Southern Dynasties inspired Chinese dark fantasy, demon-suppressing bureau bounty hunter world, Buddhist talisman seal magic, Shanhaijing monster mythology, ink wash and gongbi-inspired color accents, soft Ori-like glow, clean readable silhouette, high gameplay readability at 640x360, moon white, ink teal, cyan-white spiritual glow, vermilion talisman accents, no watermark.",
   "negative_anchor": "Avoid photorealistic rendering, 3D render, modern laboratory, biotech facility, sci-fi armor, cyberpunk, futuristic UI, modern warning sign, excessive tiny detail, blurry edges, noisy background, gore, watermark, and readable text unless the asset is explicitly a logo direction.",
@@ -580,6 +580,16 @@
       "source_dir": "assets/source/ai_generated/batch_08/stage14_ability_status_hud_ai01/candidates",
       "output_path": "assets/art/ui/stage14_ability_status_hud_ai01.png",
       "prompt": "Use case: stylized-concept. Asset type: player ability and recovery HUD status source for Nano Hunter. Create compact HUD components for Air Dash availability, Recovery Charge readiness, checkpoint status, and small talisman cooldown pips. Visual language: Buddhist talisman circles, moon-white paper chips, ink-teal outlines, cyan-white active glow, muted gold trim, vermilion seal accent for spent / locked state. Background: perfectly flat solid #00ff00 chroma-key for removal. Composition: separate HUD widgets with generous padding, no readable text, no letters, no numbers, no labels. Style: crisp 2D Chinese dark fantasy metroidvania UI, readable at 32x32 and 640x360. Constraints: no modern app icons, no medical cross, no battery symbol, no sci-fi UI, no watermark, do not use #00ff00 in the artwork."
+    },
+    {
+      "asset_id": "stage19_discovery_map_base_ai01",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "ui_map_foundation",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_08/stage19_discovery_map_base_ai01/candidates",
+      "output_path": "assets/art/ui/stage19_discovery_map_base_ai01.png",
+      "prompt": "Use case: ui-mockup\nAsset type: production runtime foundation for a Metroidvania discovery-map panel, landscape 3:2 canvas\nPrimary request: create a beautiful, restrained Eastern-fantasy map board for Nano Hunter. This is the background and ornamental frame ONLY; live room nodes, paths, fog-of-war, labels, icons and interactions will be drawn separately by Godot.\nScene/backdrop: an ancient dark xuan-paper map suspended in a blackened bronze and lacquer frame, with very subtle ink-wash silhouettes suggesting mountain ridges, marsh water, ruined shrine roofs and sealed forbidden land. Keep the central 82% open and calm for a dynamic 38-room graph overlay.\nStyle/medium: premium hand-painted Chinese fantasy game UI, Southern and Northern Dynasties atmosphere, Shan Hai Jing ink-wash restraint, fine gongbi ornament, compatible with the visible Nano Hunter pause-panel and title-background references.\nComposition/framing: perfectly straight-on orthographic UI plate, wide rectangular 3:2 layout, even safe margins, crisp ornate frame, slightly darker corners, no perspective distortion. Sparse non-semantic terrain washes only; they must not imply fixed room positions or fixed routes.\nLighting/mood: moonlit charcoal, muted teal ghost-light, aged ivory ink paper, restrained antique gold highlights.\nMaterials/textures: fibrous xuan paper, worn black lacquer, oxidized bronze, thin talisman ribbons and lotus/seal motifs confined to the outer frame.\nConstraints: opaque complete rectangular asset; strong readability at 900x620; center remains low-noise; future nodes and route lines must remain legible; no characters.\nAvoid: any text, Chinese characters, pseudo-writing, letters, numbers, captions, title, legend, compass labels, room boxes, dots, route lines, arrows, grid, map pins, icons, buttons, UI callouts, watermark, logo, baked gameplay topology, bright white parchment, chunky Western fantasy scroll styling."
     }
   ]
 }

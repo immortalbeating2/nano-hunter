@@ -20,8 +20,6 @@ const THIN_SURFACE_LAYER_NAME := "ThinPlatformSurfaceVisual"
 const CLIFF_ROOT_NAME := "CliffMassVisual"
 const VISUAL_ONLY_TILE_LAYERS := ["DoorVisual", "BackgroundVisual", "DecorVisual", "ForegroundVisual"]
 const OLD_LAYER_NAMES := [
-	"MiasmaTilesetPreview",
-	"ShrineTrialTilesetPreview",
 	"FormalTerrainTilemapDecor",
 	"FormalForegroundEdgeDecor",
 	"FormalTerrainKitSemanticTrial",

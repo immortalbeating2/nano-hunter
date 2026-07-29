@@ -25,9 +25,7 @@ const SHRINE_CHAIN_ANCHOR_LEFT_TEXTURE_PATH := "res://assets/art/editor_resource
 const SHRINE_CHAIN_ANCHOR_RIGHT_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/019_shrine_gate_prop_atlas_ai01_auto_020_c02.atlas_texture.tres"
 const SHRINE_RELAY_FOCUS_BASE_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/020_shrine_gate_prop_atlas_ai01_auto_021_c02.atlas_texture.tres"
 const SHRINE_PURGE_FOCUS_BASE_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/017_shrine_gate_prop_atlas_ai01_auto_018_c02.atlas_texture.tres"
-const REUSABLE_SEAL_PROPS_ART_PATH := "res://assets/art/props/reusable_seal_props_ai01.png"
 const STAGE16_COMPLETION_PANEL_UI_ART_PATH := "res://assets/art/ui/stage16_completion_panel_ui_ai01.png"
-const SHRINE_TILESET_RESOURCE_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
 
 const STAGE16_ROOM_PATHS := [
 	STAGE16_SEAL_RELEASE_THRESHOLD_ROOM_PATH,
@@ -343,12 +341,16 @@ func test_demo_shell_pause_menu_uses_centered_runtime_layout() -> void:
 	var pause_menu := demo_shell.get_node_or_null("PauseMenu") as Panel
 	var pause_margin_container := demo_shell.get_node_or_null("PauseMenu/MarginContainer") as MarginContainer
 	var resume_button := demo_shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/ResumeButton") as Button
+	var map_button := demo_shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/MapButton") as Button
+	var build_button := demo_shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/BuildButton") as Button
 	var restart_button := demo_shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/RestartButton") as Button
 	assert_not_null(pause_menu)
 	assert_not_null(pause_margin_container)
 	assert_not_null(resume_button)
+	assert_not_null(map_button)
+	assert_not_null(build_button)
 	assert_not_null(restart_button)
-	if pause_menu == null or pause_margin_container == null or resume_button == null or restart_button == null:
+	if pause_menu == null or pause_margin_container == null or resume_button == null or map_button == null or build_button == null or restart_button == null:
 		return
 
 	main_scene.call("start_demo")
@@ -369,13 +371,17 @@ func test_demo_shell_pause_menu_uses_centered_runtime_layout() -> void:
 	var pause_height := pause_menu.offset_bottom - pause_menu.offset_top
 	assert_gte(pause_width, 260.0)
 	assert_lte(pause_width, 370.0)
-	assert_gte(pause_height, 180.0)
-	assert_lte(pause_height, 250.0)
+	assert_gte(pause_height, 280.0)
+	assert_lte(pause_height, 360.0)
 	assert_eq(pause_margin_container.anchor_right, 1.0)
 	assert_eq(pause_margin_container.anchor_bottom, 1.0)
 	assert_gte(resume_button.custom_minimum_size.x, 176.0)
+	assert_eq(resume_button.custom_minimum_size, map_button.custom_minimum_size)
+	assert_eq(resume_button.custom_minimum_size, build_button.custom_minimum_size)
 	assert_eq(resume_button.custom_minimum_size, restart_button.custom_minimum_size)
 	assert_eq(resume_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
+	assert_eq(map_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
+	assert_eq(build_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
 	assert_eq(restart_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
 
 
@@ -541,12 +547,7 @@ func test_stage16_end_room_references_alpha_demo_completion_art() -> void:
 		assert_gt(completion_message.get_theme_color("font_color").r, 0.8)
 		assert_gte(completion_message.offset_right - completion_message.offset_left, 180.0)
 		assert_lte(completion_message.offset_top, 90.0)
-	_assert_tileset_preview_references_asset(
-		room,
-		"ShrineTrialTilesetPreview",
-		"shrine_trial_tileset_ai01",
-		SHRINE_TILESET_RESOURCE_PATH
-	)
+	assert_null(room.get_node_or_null("ShrineTrialTilesetPreview"))
 
 
 # 保护 Stage16 符印 relay VFX 资源：relay / purge 房间应引用同一套符印传递候选图。
@@ -644,12 +645,7 @@ func test_stage16_corruption_purge_room_references_corruption_purge_art() -> voi
 		"CorruptionMiasma/PurgeArt",
 		Rect2(512, 512, 512, 512)
 	)
-	_assert_tileset_preview_references_asset(
-		purge_room,
-		"ShrineTrialTilesetPreview",
-		"shrine_trial_tileset_ai01",
-		SHRINE_TILESET_RESOURCE_PATH
-	)
+	assert_null(purge_room.get_node_or_null("ShrineTrialTilesetPreview"))
 
 
 # 保护 Stage16 腐化雾 author：视觉危险必须有独立 Area 边界，避免后续只剩不可调图片。
@@ -674,7 +670,7 @@ func test_stage16_corruption_miasma_declares_hazard_author_area() -> void:
 	assert_eq(rectangle_shape.size, Vector2(208, 80))
 
 
-# 保护 Stage16 第一房封印阈值道具：只接入 visual preview，不改变碰撞或门控。
+# 保护 Stage16 第一房封印阈值道具：只保留拆分后的运行态道具，不改变碰撞或门控。
 func test_stage16_seal_release_threshold_room_references_threshold_art() -> void:
 	var threshold_room := await _spawn_room(STAGE16_SEAL_RELEASE_THRESHOLD_ROOM_PATH)
 	_assert_sprite_references_asset(
@@ -684,12 +680,7 @@ func test_stage16_seal_release_threshold_room_references_threshold_art() -> void
 		STAGE16_SEAL_RELEASE_LOCKED_TEXTURE_PATH
 	)
 	_assert_seal_release_prop_readable(threshold_room, "SealReleaseNode/SealReleaseThresholdArt")
-	_assert_source_sheet_runtime_hidden(
-		threshold_room,
-		"SealReleaseNode/ReusableSealPropsPreviewArt",
-		"reusable_seal_props_ai01",
-		REUSABLE_SEAL_PROPS_ART_PATH
-	)
+	assert_null(threshold_room.get_node_or_null("SealReleaseNode/ReusableSealPropsPreviewArt"))
 	_assert_split_chain_anchor_prop(
 		threshold_room,
 		"SealReleaseNode/SealChainAnchorLeftArt",
@@ -702,12 +693,7 @@ func test_stage16_seal_release_threshold_room_references_threshold_art() -> void
 		"shrine_gate_prop_atlas_ai01.chain_anchor_right",
 		SHRINE_CHAIN_ANCHOR_RIGHT_TEXTURE_PATH
 	)
-	_assert_tileset_preview_references_asset(
-		threshold_room,
-		"ShrineTrialTilesetPreview",
-		"shrine_trial_tileset_ai01",
-		SHRINE_TILESET_RESOURCE_PATH
-	)
+	assert_null(threshold_room.get_node_or_null("ShrineTrialTilesetPreview"))
 
 
 # 保护 Stage15 completion 和 Stage16 回溯确认房 visual replacement：补封印道具与神龛 TileSet，不改变门控。
@@ -720,12 +706,7 @@ func test_stage15_completion_and_stage16_backtrack_confirmation_reference_visual
 		STAGE16_SEAL_RELEASE_ACTIVE_TEXTURE_PATH
 	)
 	_assert_seal_release_prop_readable(completion_room, "CompletionSeal/SealCompletionArt")
-	_assert_source_sheet_runtime_hidden(
-		completion_room,
-		"CompletionSeal/ReusableSealPropsPreviewArt",
-		"reusable_seal_props_ai01",
-		REUSABLE_SEAL_PROPS_ART_PATH
-	)
+	assert_null(completion_room.get_node_or_null("CompletionSeal/ReusableSealPropsPreviewArt"))
 	_assert_split_chain_anchor_prop(
 		completion_room,
 		"CompletionSeal/SealChainAnchorLeftArt",
@@ -738,12 +719,7 @@ func test_stage15_completion_and_stage16_backtrack_confirmation_reference_visual
 		"shrine_gate_prop_atlas_ai01.chain_anchor_right",
 		SHRINE_CHAIN_ANCHOR_RIGHT_TEXTURE_PATH
 	)
-	_assert_tileset_preview_references_asset(
-		completion_room,
-		"ShrineTrialTilesetPreview",
-		"shrine_trial_tileset_ai01",
-		SHRINE_TILESET_RESOURCE_PATH
-	)
+	assert_null(completion_room.get_node_or_null("ShrineTrialTilesetPreview"))
 
 	var backtrack_room := await _spawn_room(STAGE16_BACKTRACK_CONFIRMATION_ROOM_PATH)
 	_assert_sprite_references_asset(
@@ -753,12 +729,7 @@ func test_stage15_completion_and_stage16_backtrack_confirmation_reference_visual
 		STAGE16_SEAL_RELEASE_RELEASED_TEXTURE_PATH
 	)
 	_assert_seal_release_prop_readable(backtrack_room, "BacktrackConfirmationNode/BacktrackConfirmationArt")
-	_assert_source_sheet_runtime_hidden(
-		backtrack_room,
-		"BacktrackConfirmationNode/ReusableSealPropsPreviewArt",
-		"reusable_seal_props_ai01",
-		REUSABLE_SEAL_PROPS_ART_PATH
-	)
+	assert_null(backtrack_room.get_node_or_null("BacktrackConfirmationNode/ReusableSealPropsPreviewArt"))
 	_assert_split_chain_anchor_prop(
 		backtrack_room,
 		"BacktrackConfirmationNode/SealChainAnchorLeftArt",
@@ -771,12 +742,7 @@ func test_stage15_completion_and_stage16_backtrack_confirmation_reference_visual
 		"shrine_gate_prop_atlas_ai01.chain_anchor_right",
 		SHRINE_CHAIN_ANCHOR_RIGHT_TEXTURE_PATH
 	)
-	_assert_tileset_preview_references_asset(
-		backtrack_room,
-		"ShrineTrialTilesetPreview",
-		"shrine_trial_tileset_ai01",
-		SHRINE_TILESET_RESOURCE_PATH
-	)
+	assert_null(backtrack_room.get_node_or_null("ShrineTrialTilesetPreview"))
 
 
 # 保护 HUD 完成态优先级：Alpha Demo 完成后不应继续显示旧 Boss 目标、旧收集行或旧恢复充能行。
@@ -965,21 +931,6 @@ func _assert_sprite_references_asset(parent: Node, node_path: String, asset_id: 
 		assert_eq(sprite.texture.resource_path, resource_path)
 
 
-# source sheet 可以保留在场景里作为编辑期线索，但不能作为正式运行态装饰可见上屏。
-func _assert_source_sheet_runtime_hidden(parent: Node, node_path: String, asset_id: String, resource_path: String) -> void:
-	var sprite := parent.get_node_or_null(NodePath(node_path)) as Sprite2D
-	assert_not_null(sprite, "缺少 source sheet 保护节点：%s" % node_path)
-	if sprite == null:
-		return
-
-	assert_eq(sprite.get_meta("asset_id", ""), asset_id)
-	assert_not_null(sprite.texture, "source sheet 节点没有纹理：%s" % node_path)
-	if sprite.texture != null:
-		assert_eq(sprite.texture.resource_path, resource_path)
-	assert_false(sprite.visible, "source sheet 不能作为正式运行态装饰可见：%s" % node_path)
-	assert_eq(sprite.get_meta("asset_binding_note", ""), "hidden_source_sheet_not_runtime_prop")
-
-
 # 封印链前景装饰只允许使用已拆分 AtlasTexture，不能退回整张 reusable source sheet。
 func _assert_split_chain_anchor_prop(parent: Node, node_path: String, runtime_source: String, resource_path: String) -> void:
 	_assert_sprite_references_asset(parent, node_path, "shrine_gate_prop_atlas_ai01", resource_path)
@@ -1028,19 +979,3 @@ func _assert_sprite_uses_region(parent: Node, node_path: String, expected_region
 
 	assert_true(sprite.region_enabled, "Sprite2D 未启用 region：%s" % node_path)
 	assert_eq(sprite.region_rect, expected_region)
-
-
-# TileSet 预览断言 helper：Stage16 样板房先接视觉 TileMap，不改变灰盒碰撞。
-func _assert_tileset_preview_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String) -> void:
-	var layer := parent.get_node_or_null(NodePath(node_path)) as TileMapLayer
-	assert_not_null(layer, "缺少 TileMapLayer 资产节点：%s" % node_path)
-	if layer == null:
-		return
-
-	assert_eq(layer.get_meta("asset_id", ""), asset_id)
-	assert_not_null(layer.tile_set, "TileMapLayer 没有 TileSet：%s" % node_path)
-	if layer.tile_set != null:
-		assert_eq(layer.tile_set.resource_path, resource_path)
-		assert_gt(layer.tile_set.get_source_count(), 0)
-	assert_gt(layer.get_used_cells().size(), 0)
-	assert_false(layer.visible, "TileSet 预览层只能保留资源引用，不能作为正式道路上屏：%s" % node_path)

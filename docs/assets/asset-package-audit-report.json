@@ -3,10 +3,10 @@
   "status": "placeholder_ready",
   "boundary": "Structural audit only. Passing this report proves files, counts and editor resource descriptors exist; it does not prove final art polish, semantic cleanup, runtime integration, license readiness or gameplay readability.",
   "queue": {
-    "item_count": 55,
-    "candidate_png_count": 0,
+    "item_count": 56,
+    "candidate_png_count": 1,
     "candidate_storage_policy": "raw_candidates_optional_outside_git",
-    "unique_output_path_count": 55,
+    "unique_output_path_count": 56,
     "target_kind_counts": {
       "boss_direction": 1,
       "cg_illustration": 1,
@@ -35,6 +35,7 @@
       "tileset_sheet": 2,
       "title_background": 1,
       "ui_atlas": 1,
+      "ui_map_foundation": 1,
       "ui_panel": 2,
       "vfx_atlas": 2,
       "vfx_direction": 1,
@@ -48,7 +49,7 @@
       "Batch 03": 9,
       "Batch 06": 8,
       "Batch 07": 3,
-      "Batch 08": 7,
+      "Batch 08": 8,
       "Batch 09": 2,
       "Batch 10": 2,
       "Batch 11": 2,
@@ -461,25 +462,21 @@
     "markdown_exists": true,
     "status": "p0_runtime_replacement_plan_ready",
     "summary": {
-      "asset_count": 30,
+      "asset_count": 11,
       "planned_manual_replacement_count": 0,
-      "already_referenced_count": 30,
+      "already_referenced_count": 11,
       "missing_resource_count": 0,
       "missing_target_scene_count": 0,
       "track_counts": {
-        "art_direction": 1,
-        "runtime_animation": 8,
-        "runtime_environment": 1,
-        "runtime_gameplay": 5,
-        "runtime_ui": 11,
-        "runtime_vfx": 4
+        "runtime_gameplay": 1,
+        "runtime_ui": 7,
+        "runtime_vfx": 3
       },
       "resource_type_counts": {
         "AtlasTexture": 2,
-        "CompressedTexture2D": 17,
-        "SpriteFrames": 9,
-        "StyleBoxTexture": 1,
-        "TileSet": 1
+        "CompressedTexture2D": 7,
+        "SpriteFrames": 1,
+        "StyleBoxTexture": 1
       },
       "missing_resources": [],
       "missing_target_scenes": []
@@ -492,10 +489,10 @@
     "scene": "res://scenes/dev/p0_runtime_replacement_rehearsal.tscn",
     "manifest": "docs/assets/p0-runtime-replacement-rehearsal-manifest.json",
     "counts": {
-      "entry_count": 30,
-      "texture2d_nodes": 17,
-      "spriteframes_nodes": 9,
-      "tileset_nodes": 1,
+      "entry_count": 11,
+      "texture2d_nodes": 7,
+      "spriteframes_nodes": 1,
+      "tileset_nodes": 0,
       "stylebox_nodes": 1,
       "atlastexture_nodes": 2
     },
@@ -506,13 +503,13 @@
     "markdown_exists": true,
     "status": "p0_target_scene_replacement_matrix_ready",
     "summary": {
-      "scene_count": 14,
-      "unique_asset_count": 30,
-      "scene_asset_reference_count": 60,
-      "high_impact_scene_count": 5,
+      "scene_count": 12,
+      "unique_asset_count": 11,
+      "scene_asset_reference_count": 23,
+      "high_impact_scene_count": 2,
       "missing_scene_count": 0,
-      "already_referenced_scene_asset_count": 38,
-      "planned_scene_asset_replacement_count": 22
+      "already_referenced_scene_asset_count": 17,
+      "planned_scene_asset_replacement_count": 6
     },
     "errors": []
   },
@@ -521,15 +518,15 @@
     "markdown_exists": true,
     "status": "p0_scene_replacement_batches_ready",
     "summary": {
-      "batch_count": 9,
-      "scene_count": 14,
-      "unique_asset_count": 30,
-      "scene_asset_reference_count": 60,
-      "planned_scene_asset_replacement_count": 22,
-      "already_referenced_scene_asset_count": 38,
+      "batch_count": 6,
+      "scene_count": 12,
+      "unique_asset_count": 11,
+      "scene_asset_reference_count": 23,
+      "planned_scene_asset_replacement_count": 6,
+      "already_referenced_scene_asset_count": 17,
       "missing_scene_count": 0,
       "unbatched_scene_count": 0,
-      "blocked_batch_count": 5
+      "blocked_batch_count": 0
     },
     "errors": []
   },
@@ -548,9 +545,9 @@
     "present": true,
     "status": "review_required",
     "summary": {
-      "queue_item_count": 55,
-      "candidate_png_count": 133,
-      "selected_source_count": 463,
+      "queue_item_count": 56,
+      "candidate_png_count": 134,
+      "selected_source_count": 464,
       "unselected_candidate_count": 104,
       "review_required_item_count": 55,
       "review_required_items": [
@@ -638,6 +635,7 @@
         "tileset_sheet": 2,
         "title_background": 1,
         "ui_atlas": 1,
+        "ui_map_foundation": 1,
         "ui_panel": 2,
         "vfx_atlas": 2,
         "vfx_direction": 1,
@@ -651,7 +649,7 @@
         "Batch 03": 9,
         "Batch 06": 43,
         "Batch 07": 3,
-        "Batch 08": 19,
+        "Batch 08": 20,
         "Batch 09": 8,
         "Batch 10": 10,
         "Batch 11": 11,
@@ -697,10 +695,10 @@
     "present": true,
     "status": "source_recorded_review_required",
     "summary": {
-      "record_count": 55,
-      "candidate_hash_count": 133,
-      "output_hash_count": 55,
-      "prompt_hash_count": 55,
+      "record_count": 56,
+      "candidate_hash_count": 134,
+      "output_hash_count": 56,
+      "prompt_hash_count": 56,
       "recovery_ledger_count": 1
     },
     "errors": []
@@ -709,11 +707,11 @@
     "present": true,
     "status": "review_required",
     "summary": {
-      "queue_item_count": 55,
-      "candidate_count": 133,
+      "queue_item_count": 56,
+      "candidate_count": 134,
       "candidate_storage_policy": "raw_candidates_optional_outside_git",
       "classification_counts": {
-        "project_session_confirmed": 0,
+        "project_session_confirmed": 1,
         "explicit_mapping_confirmed": 0,
         "explicit_mapping_review_required": 0,
         "workspace_provenance_recorded_review_required": 133,
@@ -721,7 +719,7 @@
       },
       "review_required_candidate_count": 133,
       "unsafe_candidate_count": 0,
-      "session_recovery_candidate_count": 0,
+      "session_recovery_candidate_count": 1,
       "ledger_mapped_candidate_count": 0,
       "global_generated_images_latest_allowed": false,
       "errors": []
@@ -733,13 +731,12 @@
     "markdown_exists": true,
     "status": "runtime_sources_confirmed",
     "summary": {
-      "runtime_asset_count": 30,
+      "runtime_asset_count": 11,
       "runtime_source_gate_counts": {
-        "runtime_reference_source_confirmed": 30
+        "runtime_reference_source_confirmed": 11
       },
       "source_status_counts": {
-        "selected_source_confirmed": 21,
-        "single_candidate_confirmed": 9
+        "asset_finalization_review_confirmed": 11
       },
       "runtime_review_required_count": 0,
       "runtime_review_required_items": [],
@@ -933,20 +930,23 @@
       "entry_count": 55,
       "track_counts": {
         "animation_pipeline": 2,
+        "archive": 9,
         "art_direction": 1,
         "narrative_or_release": 4,
         "release_promo": 3,
-        "runtime_animation": 8,
-        "runtime_environment": 11,
-        "runtime_gameplay": 8,
-        "runtime_ui": 12,
-        "runtime_vfx": 6
+        "runtime_environment": 10,
+        "runtime_gameplay": 4,
+        "runtime_ui": 8,
+        "runtime_vfx": 4,
+        "source_dev": 10
       },
       "status_counts": {
-        "binding_map_ready_manual_replacement_required": 4,
-        "scene_reference_verified": 51
+        "binding_map_ready_manual_replacement_required": 1,
+        "not_runtime_target": 29,
+        "scene_reference_verified": 25
       },
-      "directly_referenced_entry_count": 51,
+      "directly_referenced_entry_count": 25,
+      "development_referenced_entry_count": 55,
       "missing_output_count": 0,
       "missing_target_scene_candidate_count": 0
     },
@@ -996,10 +996,10 @@
     "missing": []
   },
   "file_counts": {
-    "art_png": 104,
-    "art_import": 118,
-    "metadata_json": 162,
-    "spriteframes_tres": 45,
+    "art_png": 112,
+    "art_import": 112,
+    "metadata_json": 177,
+    "spriteframes_tres": 52,
     "atlas_texture_tres": 324,
     "tileset_tres": 5,
     "stylebox_texture_tres": 8,

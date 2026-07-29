@@ -13,6 +13,7 @@ from typing import Any
 PROJECT_KEY = "nano-hunter"
 DEFAULT_REPORT = Path("docs/assets/runtime-source-safety-report.json")
 DEFAULT_MARKDOWN = Path("docs/assets/runtime-source-safety-report.md")
+DEFAULT_FINALIZATION_REVIEWS = Path("docs/assets/asset-finalization-review-records.json")
 CONFIRMED_STATUSES = {"project_session_confirmed", "explicit_mapping_confirmed"}
 
 
@@ -34,6 +35,11 @@ def parse_args() -> argparse.Namespace:
         "--provenance",
         default="docs/assets/asset-provenance-records.json",
         help="Path to asset provenance records.",
+    )
+    parser.add_argument(
+        "--finalization-reviews",
+        default=str(DEFAULT_FINALIZATION_REVIEWS),
+        help="Path to asset-scoped manual finalization review records.",
     )
     parser.add_argument("--out", default=str(DEFAULT_REPORT), help="JSON report output path.")
     parser.add_argument("--md", default=str(DEFAULT_MARKDOWN), help="Markdown report output path.")
@@ -98,7 +104,20 @@ def build_provenance_lookup(provenance: dict[str, Any]) -> dict[str, dict[str, A
     }
 
 
-def selected_status(asset_id: str, source: dict[str, Any], provenance: dict[str, Any]) -> dict[str, Any]:
+def build_finalization_lookup(finalization_reviews: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        str(record.get("asset_id", "")): record
+        for record in finalization_reviews.get("records", [])
+        if record.get("asset_id")
+    }
+
+
+def selected_status(
+    asset_id: str,
+    source: dict[str, Any],
+    provenance: dict[str, Any],
+    finalization: dict[str, Any],
+) -> dict[str, Any]:
     selected_indices = [int(index) for index in provenance.get("selected_candidate_indices", [])]
     all_statuses = list(source.get("statuses", []))
     by_index = source.get("by_index", {})
@@ -112,6 +131,28 @@ def selected_status(asset_id: str, source: dict[str, Any], provenance: dict[str,
             "selected_candidate_statuses": [],
             "project_session_candidate_count": project_candidate_count,
             "reason": "one or more candidates are unknown_or_unsafe",
+        }
+
+    provenance_output = str(provenance.get("output_path", "")).replace("\\", "/")
+    finalization_output = str(finalization.get("output_path", "")).replace("\\", "/")
+    finalization_confirmed = (
+        finalization.get("review_status") == "approved_for_final_ready"
+        and finalization.get("final_approval_status") == "approved"
+        and bool(provenance.get("output_sha256"))
+        and bool(provenance_output)
+        and provenance_output == finalization_output
+    )
+    if finalization_confirmed:
+        return {
+            "status": "asset_finalization_review_confirmed",
+            "selected_candidate_indices": selected_indices,
+            "selected_candidate_statuses": [
+                str(by_index.get(index, {}).get("status", "missing_from_source_safety"))
+                for index in selected_indices
+            ],
+            "project_session_candidate_count": project_candidate_count,
+            "reason": f"asset-scoped finalization review {finalization.get('review_id', '')} approved the traced output",
+            "finalization_review_id": finalization.get("review_id", ""),
         }
 
     if selected_indices:
@@ -161,7 +202,11 @@ def selected_status(asset_id: str, source: dict[str, Any], provenance: dict[str,
 def runtime_gate_status(entry: dict[str, Any], source_status: str) -> str:
     referenced = int(entry.get("current_scene_reference_count", 0)) > 0
     planned = str(entry.get("runtime_replacement_status", "")) == "planned_manual_replacement"
-    confirmed = source_status in {"selected_source_confirmed", "single_candidate_confirmed"}
+    confirmed = source_status in {
+        "selected_source_confirmed",
+        "single_candidate_confirmed",
+        "asset_finalization_review_confirmed",
+    }
     unverified = source_status == "project_candidate_exists_output_derivation_unverified"
     if referenced and confirmed:
         return "runtime_reference_source_confirmed"
@@ -178,18 +223,28 @@ def runtime_gate_status(entry: dict[str, Any], source_status: str) -> str:
     return "not_runtime_bound"
 
 
-def build_report(root: Path, runtime_plan_path: Path, source_safety_path: Path, provenance_path: Path) -> dict[str, Any]:
+def build_report(
+    root: Path,
+    runtime_plan_path: Path,
+    source_safety_path: Path,
+    provenance_path: Path,
+    finalization_reviews_path: Path,
+) -> dict[str, Any]:
     runtime_plan = load_json(runtime_plan_path)
     source_safety = load_json(source_safety_path)
     provenance = load_json(provenance_path)
+    finalization_reviews = load_json(finalization_reviews_path)
     source_lookup = build_source_lookup(source_safety)
     provenance_lookup = build_provenance_lookup(provenance)
+    finalization_lookup = build_finalization_lookup(finalization_reviews)
 
     errors: list[str] = []
     if source_safety.get("project_key") != PROJECT_KEY:
         errors.append(f"source safety project_key must be {PROJECT_KEY}")
     if provenance.get("project_key") != PROJECT_KEY:
         errors.append(f"provenance project_key must be {PROJECT_KEY}")
+    if finalization_reviews.get("project_key") != PROJECT_KEY:
+        errors.append(f"finalization reviews project_key must be {PROJECT_KEY}")
 
     items: list[dict[str, Any]] = []
     counts: dict[str, int] = {}
@@ -198,7 +253,7 @@ def build_report(root: Path, runtime_plan_path: Path, source_safety_path: Path, 
         asset_id = str(entry.get("asset_id", ""))
         source = source_lookup.get(asset_id, {"candidate_count": 0, "statuses": [], "by_index": {}})
         record = provenance_lookup.get(asset_id, {})
-        selected = selected_status(asset_id, source, record)
+        selected = selected_status(asset_id, source, record, finalization_lookup.get(asset_id, {}))
         gate = runtime_gate_status(entry, selected["status"])
         counts[gate] = counts.get(gate, 0) + 1
         source_counts[selected["status"]] = source_counts.get(selected["status"], 0) + 1
@@ -214,6 +269,7 @@ def build_report(root: Path, runtime_plan_path: Path, source_safety_path: Path, 
                 "selected_candidate_statuses": selected["selected_candidate_statuses"],
                 "project_session_candidate_count": selected["project_session_candidate_count"],
                 "reason": selected["reason"],
+                "finalization_review_id": selected.get("finalization_review_id", ""),
                 "target_scenes": [
                     scene.get("scene", "")
                     for scene in entry.get("target_scene_status", [])
@@ -241,12 +297,14 @@ def build_report(root: Path, runtime_plan_path: Path, source_safety_path: Path, 
         "boundary": (
             "Runtime source safety audit for P0 image_gen assets. It checks whether assets already referenced "
             "by Godot scenes, or planned for immediate replacement, are backed by selected project-session-confirmed "
-            "sources. It does not judge visual quality, animation polish, license terms or final approval."
+            "sources or an asset-scoped finalization review tied to the same traced output. It does not approve "
+            "future edits outside that reviewed output."
         ),
         "sources": {
             "runtime_plan": runtime_plan_path.relative_to(root).as_posix(),
             "source_safety": source_safety_path.relative_to(root).as_posix(),
             "provenance": provenance_path.relative_to(root).as_posix(),
+            "finalization_reviews": finalization_reviews_path.relative_to(root).as_posix(),
         },
         "summary": {
             "runtime_asset_count": len(items),
@@ -318,6 +376,7 @@ def main() -> int:
         resolve_path(root, args.runtime_plan),
         resolve_path(root, args.source_safety),
         resolve_path(root, args.provenance),
+        resolve_path(root, args.finalization_reviews),
     )
     if args.write_report:
         out_path = resolve_path(root, args.out)

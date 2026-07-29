@@ -30,7 +30,6 @@ const LANDMARK_ROOT_NAME := "TutorialLandmarks"
 const BACKGROUND_PRIMARY_NAME := "TutorialShrineBackgroundArt"
 const BACKGROUND_REPEAT_NAME := "TutorialShrineBackgroundArtLeft"
 const OLD_LAYER_NAMES := [
-	"ShrineTrialTilesetPreview",
 	"FormalTerrainTilemapDecor",
 	"FormalForegroundEdgeDecor",
 	"FormalTerrainKitTutorialTrial",

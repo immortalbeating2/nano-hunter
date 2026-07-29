@@ -10,7 +10,6 @@
 [ext_resource type="Resource" path="res://scripts/configs/miasma_caster_enemy_config.tres" id="6_y66tj"]
 [ext_resource type="Script" path="res://scripts/combat/aerial_sentinel_enemy.gd" id="8_g8ffl"]
 [ext_resource type="Resource" path="res://scripts/configs/aerial_sentinel_enemy_config.tres" id="9_dxjt2"]
-[ext_resource type="Texture2D" path="res://assets/art/vfx/stage13_miasma_hazard_warning_01.svg" id="10_warning"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres" id="13_combatvfx"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/009_equipment_pickup_atlas_ai01_auto_010_c01.atlas_texture.tres" id="14_reward"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="15_bcj81"]
@@ -43,9 +42,10 @@ challenge_reward_branch = true
 camera_limits = Rect2i(-384, -320, 1664, 640)
 next_room_path = "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn"
 next_spawn_id = &"stage15_mixed_gauntlet_return"
-previous_room_path = "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn"
-previous_spawn_id = &"stage15_mixed_gauntlet_return"
+previous_room_path = "res://scenes/rooms/stage14_backtrack_hub_room.tscn"
+previous_spawn_id = &"stage14_hub_from_stage15_shortcut"
 spawn_positions = {
+&"stage15_challenge_from_stage14_shortcut": Vector2(-256, 268),
 &"stage15_challenge_start": Vector2(-256, 268)
 }
 default_step_id = &"stage15_challenge_branch"
@@ -71,6 +71,7 @@ z_index = -3
 position = Vector2(448, 0)
 scale = Vector2(1.02, 1.02)
 texture = ExtResource("4_bg")
+metadata/anchor_role = "stage15_forbidden_ground_landmark"
 metadata/asset_id = "stage15_seal_guardian_boss_room_ai01"
 metadata/asset_binding_note = "dac_background_camera_coverage_scaled"
 
@@ -102,17 +103,6 @@ texture = ExtResource("4_y66tj")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="MaterialTexturePreviewArt" type="Sprite2D" parent="." unique_id=1920471478]
-visible = false
-modulate = Color(1, 1, 1, 0.22)
-position = Vector2(160, 145)
-scale = Vector2(1.2, 0.08)
-texture = ExtResource("nh_mat")
-region_enabled = true
-region_rect = Rect2(512, 0, 512, 512)
-metadata/asset_id = "material_texture_atlas_ai01"
-metadata/asset_binding_note = "dac_terrain_material_transition_decor_only"
-
 [node name="MiasmaHazard" type="Area2D" parent="." unique_id=670646041]
 position = Vector2(448, 276)
 
@@ -124,13 +114,6 @@ visible = false
 color = Color(0.933333, 0.772549, 0.360784, 0.09)
 polygon = PackedVector2Array(-80, -16, 80, -16, 80, 16, -80, 16)
 metadata/asset_binding_note = "dac_subtle_hazard_underlay"
-
-[node name="MiasmaWarningArt" type="Sprite2D" parent="MiasmaHazard" unique_id=599964679]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-texture = ExtResource("10_warning")
-metadata/asset_id = "stage13_miasma_hazard_warning_01"
-metadata/asset_binding_note = "dac_hazard_warning_art_no_collision"
 
 [node name="MiasmaWarningVfxArt" type="AnimatedSprite2D" parent="MiasmaHazard" unique_id=1581719527]
 modulate = Color(1, 1, 1, 0.72)

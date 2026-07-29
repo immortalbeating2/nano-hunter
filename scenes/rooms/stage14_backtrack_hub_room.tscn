@@ -30,8 +30,12 @@ next_room_path = "res://scenes/rooms/stage14_loop_return_room.tscn"
 next_spawn_id = &"stage14_loop_return_start"
 previous_room_path = "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
 previous_spawn_id = &"stage14_gate_return"
+shortcut_room_path = "res://scenes/rooms/stage15_challenge_branch_room.tscn"
+shortcut_spawn_id = &"stage15_challenge_from_stage14_shortcut"
+shortcut_required_reward_id = &"warden_sigil"
 spawn_positions = {
 &"stage14_backtrack_hub_start": Vector2(-256, 268),
+&"stage14_hub_from_stage15_shortcut": Vector2(1088, 268),
 &"stage14_hub_return": Vector2(1088, 268)
 }
 checkpoint_spawn_id = &"stage14_backtrack_hub_start"
@@ -87,16 +91,6 @@ color = Color(1, 1, 1, 0.08)
 texture = ExtResource("4_0bd0u")
 polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
-
-[node name="ShrineTrialTilesetPreview" type="TileMapLayer" parent="." unique_id=1262054028]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-position = Vector2(-192, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("4")
-collision_enabled = false
-metadata/asset_id = "shrine_trial_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
 
 [node name="BacktrackRewardOne" type="Marker2D" parent="." unique_id=1985898193]
 position = Vector2(128, 184)
@@ -262,3 +256,16 @@ position = Vector2(-352, 224)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=1254057566]
 shape = SubResource("RectangleShape2D_xwxlq")
+
+[node name="ShortcutZone" type="Area2D" parent="."]
+position = Vector2(1088, 56)
+metadata/route_role = "warden_sigil_high_risk_shortcut"
+
+[node name="ShortcutMarkerArt" type="Sprite2D" parent="ShortcutZone"]
+z_index = 4
+position = Vector2(0, 12)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("8_reward_base")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.reward_marker_idle"
+metadata/anchor_role = "stage14_to_stage15_challenge_shortcut"

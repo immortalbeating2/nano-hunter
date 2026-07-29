@@ -24,7 +24,6 @@ const ENTRY_LANDMARK_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_g
 const DASH_LANDMARK_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/001_shrine_gate_prop_atlas_ai01_auto_002_c01.atlas_texture.tres"
 const TRAINING_TARGET_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/006_shrine_gate_prop_atlas_ai01_auto_007_c01.atlas_texture.tres"
 const OLD_LAYER_NAMES := [
-	"ShrineTrialTilesetPreview",
 	"FormalTerrainTilemapDecor",
 	"FormalForegroundEdgeDecor",
 	"FormalTerrainKitTutorialTrial",
@@ -165,6 +164,7 @@ func test_tutorial_grid_blueprint_has_continuous_ground_platform_caps_and_safe_e
 	_assert_door_layer(door)
 	_assert_ground_underlay_retired(room)
 	_assert_visual_layers_do_not_look_walkable(room)
+	assert_null(room.get_node_or_null("ShrineTrialTilesetPreview"))
 	_assert_old_trial_layers_hidden(room)
 
 

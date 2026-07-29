@@ -1,7 +1,7 @@
 extends Node2D
 
-# Stage11DemoEndRoom 负责把前面已验证成立的主线收成“可完成、可反馈、可重开”的最小 demo 终点。
-# 它只处理终点触发、终点房 checkpoint 与完成后重开入口，不扩展成剧情系统或正式结算界面。
+# Stage11DemoEndRoom 保留历史场景句柄，但运行职责已改为连接 Stage10 与 Stage13 的镇妖驿厅。
+# 它只处理封印回响确认、checkpoint 和左右双向出口，不再提前结束完整 Demo。
 
 signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 signal hud_context_changed(step_title: String, prompt_text: String)
@@ -11,18 +11,18 @@ signal goal_completed
 const CAMERA_LIMITS := Rect2i(-384, -256, 1152, 512)
 const STEP_FINISH: StringName = &"finish"
 const STEP_COMPLETE: StringName = &"complete"
-const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
+const STAGE10_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
 const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn"
 const DEMO_END_SPAWN_ID: StringName = &"stage11_demo_end_start"
 
 const STEP_TITLES := {
-	STEP_FINISH: "Demo 终点 · 抵达右侧终点",
-	STEP_COMPLETE: "Demo 终点 · 已完成",
+	STEP_FINISH: "镇妖驿厅 · 确认封印回响",
+	STEP_COMPLETE: "镇妖驿厅 · 双向通路已确认",
 }
 
 const STEP_PROMPTS := {
-	STEP_FINISH: "穿出挑战房后，向右抵达终点光标。完成后可向左走回试玩入口，重新开始一遍。",
-	STEP_COMPLETE: "Demo 已完成。向左走回试玩入口，可以从教程房间重新开始。",
+	STEP_FINISH: "触碰中央封印标记，确认镇妖驿厅与瘴泽通路。",
+	STEP_COMPLETE: "通路已确认：向左返回镇妖试炼，向右进入瘴泽妖域。",
 }
 
 @onready var replay_zone: Area2D = $ReplayZone
@@ -37,19 +37,19 @@ var _continue_requested := false
 var _checkpoint_activated := false
 
 
-# 终点房一进入就应注册最近的回到点，确保失败后仍在同一个 demo 终点节点内重来。
+# 驿厅一进入就注册最近恢复点，确保失败后仍从安全位置重来。
 func _ready() -> void:
 	_activate_checkpoint()
 	_emit_hud_context()
 
 
-# 这个房间只有两条运行时逻辑：没完成时向右触发终点，完成后向左触发重开。
+# 未确认封印回响前锁住出口；确认后开放左返 Stage10、右进 Stage13。
 func _process(_delta: float) -> void:
 	if _player == null:
 		return
 
 	if not _goal_finished:
-		# 未完成前只允许向右完成 demo，避免玩家提前从左侧重开导致状态含混。
+		# 未完成前先确认中央封印标记，避免玩家绕过本房 checkpoint 与 HUD 状态。
 		if _player.global_position.x >= goal_zone.global_position.x - 24.0:
 			_complete_demo()
 		return
@@ -58,26 +58,26 @@ func _process(_delta: float) -> void:
 		return
 
 	if _player.global_position.x <= replay_zone.global_position.x + 24.0:
-		# replay 入口仍通过 Main 的普通切房契约重回教程房，不直接重置 Main 内部字段。
+		# 左侧历史 ReplayZone 复用为 Stage10 返回口，节点名保持兼容但不再执行重开。
 		_replay_requested = true
-		room_transition_requested.emit(TUTORIAL_ROOM_PATH, &"tutorial_start")
+		room_transition_requested.emit(STAGE10_CHALLENGE_ROOM_PATH, &"stage10_challenge_return")
 		return
 
 	if _continue_requested:
 		return
 
 	if _player.global_position.x >= continue_zone.global_position.x - 24.0:
-		# continue 入口用于 Stage13 之后的内容扩展，不影响 Stage11 “已完成 demo”的语义。
+		# 右侧继续进入瘴泽主线；完整 Demo 完成态仍只属于 Stage16。
 		_continue_requested = true
 		room_transition_requested.emit(STAGE13_ENTRY_ROOM_PATH, &"stage13_entry_start")
 
 
-# 接收 Main 注入的玩家实例，用于终点、重开和继续入口的位置判定。
+# 接收 Main 注入的玩家实例，用于封印标记与左右出口的位置判定。
 func bind_player(player: CharacterBody2D) -> void:
 	_player = player
 
 
-# 返回终点房相机边界，保证完成反馈和重开入口都在可见范围。
+# 返回驿厅相机边界，保证中央标记和左右出口都在可见范围。
 func get_camera_limits() -> Rect2i:
 	return CAMERA_LIMITS
 
@@ -92,27 +92,27 @@ func get_spawn_position(spawn_id: StringName = DEMO_END_SPAWN_ID) -> Vector2:
 	return Vector2(-128, 204)
 
 
-# 汇总终点房 HUD 上下文，展示完成前后不同目标文案。
+# 汇总驿厅 HUD 上下文，展示封印确认前后的路线提示。
 func get_hud_context() -> Dictionary:
 	return {
 		"step_id": _current_step,
-		"step_title": STEP_TITLES.get(_current_step, "Demo 终点"),
+		"step_title": STEP_TITLES.get(_current_step, "镇妖驿厅"),
 		"prompt_text": STEP_PROMPTS.get(_current_step, ""),
 		"dash_available": true,
 	}
 
 
-# 终点房失败允许 Main 回到最近 checkpoint，保证 demo 终点可重试。
+# 驿厅失败允许 Main 回到本房 checkpoint。
 func should_reset_on_player_defeat() -> bool:
 	return true
 
 
-# 公开 demo 目标是否完成，供测试和 Main 快照核对。
+# 保留历史读值接口，表示本房封印回响是否已确认。
 func is_demo_goal_finished() -> bool:
 	return _goal_finished
 
 
-# 激活终点房 checkpoint，只触发一次，避免重复覆盖 Main 恢复点。
+# 激活驿厅 checkpoint，只触发一次，避免重复覆盖 Main 恢复点。
 func _activate_checkpoint() -> void:
 	if _checkpoint_activated:
 		return
@@ -121,9 +121,9 @@ func _activate_checkpoint() -> void:
 	checkpoint_requested.emit(scene_file_path, DEMO_END_SPAWN_ID)
 
 
-# 完成 demo 终点，只触发一次 HUD 更新和 goal_completed 信号。
+# 确认驿厅封印回响，只触发一次 HUD 更新和 goal_completed 信号。
 func _complete_demo() -> void:
-	# 完成态只发一次，避免玩家停在 GoalZone 内时重复改 HUD 和重复发 goal_completed。
+	# 确认态只发一次，避免玩家停在 GoalZone 内时重复改 HUD 和重复发信号。
 	if _goal_finished:
 		return
 
@@ -133,9 +133,9 @@ func _complete_demo() -> void:
 	goal_completed.emit()
 
 
-# 广播终点房当前 HUD 文案，供完成状态切换后立即刷新。
+# 广播驿厅当前 HUD 文案，供确认状态切换后立即刷新。
 func _emit_hud_context() -> void:
 	hud_context_changed.emit(
-		STEP_TITLES.get(_current_step, "Demo 终点"),
+		STEP_TITLES.get(_current_step, "镇妖驿厅"),
 		STEP_PROMPTS.get(_current_step, "")
 	)

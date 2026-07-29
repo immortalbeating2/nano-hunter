@@ -128,7 +128,6 @@ func _build_report(image: Image, player: CharacterBody2D) -> Dictionary:
 	var runtime_visual := player.get_node_or_null("LunaRuntimeAnimationVisual") as AnimatedSprite2D
 	var slash_vfx := player.get_node_or_null("AttackSlashVfxVisual") as AnimatedSprite2D
 	var seal_arc_vfx := player.get_node_or_null("AttackSealArcVfxVisual") as AnimatedSprite2D
-	var legacy_slash := player.get_node_or_null("Stage12SlashPreview") as Sprite2D
 	var state := String(player.call("get_current_state_id")) if player.has_method("get_current_state_id") else ""
 	var runtime_report := _inspect_runtime_visual(runtime_visual)
 	var slash_report := _inspect_attack_vfx(
@@ -145,7 +144,6 @@ func _build_report(image: Image, player: CharacterBody2D) -> Dictionary:
 		&"attack_seal_arc",
 		LUNA_ATTACK_SEAL_ARC_VFX_POSITION
 	)
-	var legacy_report := _inspect_legacy_slash(legacy_slash)
 	var slash_has_collision_child := _has_collision_or_area_child(slash_vfx)
 	var seal_arc_has_collision_child := _has_collision_or_area_child(seal_arc_vfx)
 	var image_stats := _analyze_image(image)
@@ -162,7 +160,6 @@ func _build_report(image: Image, player: CharacterBody2D) -> Dictionary:
 		and bool(seal_arc_report.get("resource_ok", false))
 		and bool(seal_arc_report.get("metadata_ok", false))
 		and bool(seal_arc_report.get("placement_ok", false))
-		and not bool(legacy_report.get("visible", true))
 		and not slash_has_collision_child
 		and not seal_arc_has_collision_child
 		and bool(image_stats.get("ok", false))
@@ -178,7 +175,6 @@ func _build_report(image: Image, player: CharacterBody2D) -> Dictionary:
 		"runtime_visual": runtime_report,
 		"attack_slash_vfx_visual": slash_report,
 		"attack_seal_arc_vfx_visual": seal_arc_report,
-		"legacy_stage12_slash_visual": legacy_report,
 		"attack_slash_has_collision_or_area_child": slash_has_collision_child,
 		"attack_seal_arc_has_collision_or_area_child": seal_arc_has_collision_child,
 		"image_stats": image_stats,
@@ -248,19 +244,6 @@ func _inspect_attack_vfx(
 		"metadata_ok": metadata_ok,
 		"expected_position": [expected_position.x, expected_position.y],
 		"placement_ok": placement_ok,
-	}
-
-
-# 旧 Stage12 SVG 只允许作为隐藏历史预览资源存在。
-func _inspect_legacy_slash(visual: Sprite2D) -> Dictionary:
-	if visual == null:
-		return {"exists": false, "visible": true}
-	return {
-		"exists": true,
-		"visible": visual.visible,
-		"asset_id": str(visual.get_meta("asset_id", "")),
-		"gameplay_collision": bool(visual.get_meta("gameplay_collision", true)),
-		"damage_source": bool(visual.get_meta("damage_source", true)),
 	}
 
 

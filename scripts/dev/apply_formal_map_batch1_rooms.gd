@@ -176,7 +176,7 @@ func _hide_old_tile_layers(root: Node) -> void:
 
 
 func _hide_material_art(root: Node) -> void:
-	for node_name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt"]:
+	for node_name: String in ["MaterialTextureArt"]:
 		var item := root.get_node_or_null(NodePath(node_name)) as CanvasItem
 		if item != null:
 			item.visible = false

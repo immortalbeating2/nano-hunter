@@ -24,7 +24,8 @@ const SPECS := [
 		"floor": Vector2i(-6, 4), "length": 26, "platforms": [{"start": Vector2i(0, 3), "length": 4}, {"start": Vector2i(6, 2), "length": 4}, {"start": Vector2i(12, 1), "length": 4}],
 		"background": Vector2(448, 0), "background_scale": Vector2(1.02, 1.02),
 		"previous": "res://scenes/rooms/stage14_air_dash_gate_room.tscn", "previous_spawn": &"stage14_gate_return", "left_exit": Vector2(-352, 224),
-		"spawns": {&"stage14_backtrack_hub_start": Vector2(-256, 268), &"stage14_hub_return": Vector2(1088, 268)},
+		"spawns": {&"stage14_backtrack_hub_start": Vector2(-256, 268), &"stage14_hub_return": Vector2(1088, 268), &"stage14_hub_from_stage15_shortcut": Vector2(1088, 268)},
+		"shortcut": "res://scenes/rooms/stage15_challenge_branch_room.tscn", "shortcut_spawn": &"stage15_challenge_from_stage14_shortcut", "shortcut_reward": &"warden_sigil",
 		"nodes": {"BacktrackRewardOne": Vector2(128, 184), "BacktrackRewardTwo": Vector2(512, 120), "BacktrackRewardThree": Vector2(896, 56), "ExitZone": Vector2(1248, 224)},
 	},
 	{
@@ -68,6 +69,10 @@ func _apply(spec: Dictionary, terrain_set: TileSet, surface_set: TileSet, thin_s
 	root.set("previous_room_path", spec.previous)
 	root.set("previous_spawn_id", spec.previous_spawn)
 	root.set("spawn_positions", spec.spawns)
+	if spec.has("shortcut"):
+		root.set("shortcut_room_path", spec.shortcut)
+		root.set("shortcut_spawn_id", spec.shortcut_spawn)
+		root.set("shortcut_required_reward_id", spec.shortcut_reward)
 	_hide_old(root)
 	var terrain := _layer(root, "TerrainCollisionVisual", terrain_set, Vector2.ZERO, SCALE, true, 1)
 	var platform := _layer(root, "PlatformCollisionVisual", terrain_set, PLATFORM_OFFSET, SCALE, true, 2)
@@ -134,14 +139,10 @@ func _hide_old(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt", "ShrineTrialTileSheetArt", "AirDashShrineRoomArt", "MiasmaHazardRoomArt", "ShrineTrialParallaxArt"]:
+	for name: String in ["MaterialTextureArt", "ShrineTrialTileSheetArt", "AirDashShrineRoomArt", "MiasmaHazardRoomArt", "ShrineTrialParallaxArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false
-	var preview := root.get_node_or_null("ShrineTrialTilesetPreview") as TileMapLayer
-	if preview != null:
-		preview.visible = false
-		preview.set("collision_enabled", false)
 
 
 func _disable_legacy(root: Node) -> void:

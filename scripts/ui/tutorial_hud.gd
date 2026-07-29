@@ -284,6 +284,11 @@ func _update_progress_status() -> void:
 	elif lines.is_empty():
 		lines.append("目标：继续推进 Demo")
 
+	var wind_seal_text := "已获得" if bool(demo_snapshot.get("wind_seal_unlocked", false)) else ""
+	var build_label := str(demo_snapshot.get("active_build_label", ""))
+	if not wind_seal_text.is_empty() or (not build_label.is_empty() and build_label != "尚未调谐"):
+		lines.append("风印：%s  圣物：%s" % [wind_seal_text if not wind_seal_text.is_empty() else "未获得", build_label])
+
 	progress_label.text = "\n".join(lines)
 
 

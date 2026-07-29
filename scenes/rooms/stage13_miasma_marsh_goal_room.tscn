@@ -1,7 +1,6 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="2_f1m3a"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_imyh1"]
@@ -31,6 +30,7 @@ next_spawn_id = &"stage14_air_dash_shrine_start"
 previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn"
 previous_spawn_id = &"stage13_return_return"
 spawn_positions = {
+&"stage13_goal_from_challenge_branch": Vector2(640, 204),
 &"stage13_goal_return": Vector2(640, 204),
 &"stage13_goal_start": Vector2(-256, 204)
 }
@@ -88,16 +88,6 @@ color = Color(1, 1, 1, 0.08)
 texture = ExtResource("4_imyh1")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
-
-[node name="MiasmaTilesetPreview" type="TileMapLayer" parent="." unique_id=1936470628]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-position = Vector2(-160, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("2_f1m3a")
-collision_enabled = false
-metadata/asset_id = "miasma_marsh_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
 
 [node name="GoalDevice" type="Sprite2D" parent="." unique_id=2024217544]
 z_index = 1

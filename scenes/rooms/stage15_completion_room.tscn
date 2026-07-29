@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/stage16_seal_release_threshold_ai01/001_stage16_seal_release_threshold_ai01_state_active.atlas_texture.tres" id="2"]
-[ext_resource type="Texture2D" path="res://assets/art/props/reusable_seal_props_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="3_pg6lp"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="5"]
@@ -81,15 +80,6 @@ texture = ExtResource("3_pg6lp")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="ShrineTrialTilesetPreview" type="TileMapLayer" parent="." unique_id=1024439094]
-visible = false
-position = Vector2(-192, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("4")
-collision_enabled = false
-metadata/asset_id = "shrine_trial_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="CompletionSeal" type="Polygon2D" parent="." unique_id=954267862]
 position = Vector2(320, 112)
 color = Color(0.933333, 0.843137, 0.431373, 0)
@@ -103,15 +93,6 @@ scale = Vector2(0.085, 0.085)
 texture = ExtResource("2")
 metadata/asset_id = "stage16_seal_release_threshold_ai01"
 metadata/asset_binding_note = "dac_completion_seal_runtime_prop_art"
-
-[node name="ReusableSealPropsPreviewArt" type="Sprite2D" parent="CompletionSeal" unique_id=675386032]
-visible = false
-modulate = Color(1, 1, 1, 0.28)
-position = Vector2(92, 14)
-scale = Vector2(0.048, 0.048)
-texture = ExtResource("3")
-metadata/asset_id = "reusable_seal_props_ai01"
-metadata/asset_binding_note = "hidden_source_sheet_not_runtime_prop"
 
 [node name="SealChainAnchorLeftArt" type="Sprite2D" parent="CompletionSeal" unique_id=353847879]
 z_index = 1

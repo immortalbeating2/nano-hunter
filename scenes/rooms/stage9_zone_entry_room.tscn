@@ -197,6 +197,7 @@ metadata/terrain_template_layer = true
 
 [node name="RegionCheckpoint" type="Marker2D" parent="." unique_id=22327684]
 position = Vector2(-160, 128)
+metadata/anchor_role = "stage9_region_reveal_and_upper_route_foreshadow"
 
 [node name="CheckpointArt" type="Sprite2D" parent="RegionCheckpoint" unique_id=634206896]
 z_index = 4

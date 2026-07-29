@@ -1,11 +1,9 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="2_f1m3a"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_djv56"]
-[ext_resource type="Texture2D" path="res://assets/art/vfx/stage13_miasma_hazard_warning_01.svg" id="7_warning"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres" id="8_combatvfx"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="8_xid1c"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="9_wnjsn"]
@@ -91,16 +89,6 @@ texture = ExtResource("4_djv56")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="MiasmaTilesetPreview" type="TileMapLayer" parent="." unique_id=1763683224]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-position = Vector2(-160, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("2_f1m3a")
-collision_enabled = false
-metadata/asset_id = "miasma_marsh_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="MiasmaHazard" type="Area2D" parent="." unique_id=1883280577]
 position = Vector2(320, 212)
 
@@ -112,13 +100,6 @@ visible = false
 color = Color(0.772549, 0.933333, 0.294118, 0.09)
 polygon = PackedVector2Array(-80, -16, 80, -16, 80, 16, -80, 16)
 metadata/asset_binding_note = "dac_subtle_hazard_underlay"
-
-[node name="MiasmaWarningArt" type="Sprite2D" parent="MiasmaHazard" unique_id=1148602214]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-texture = ExtResource("7_warning")
-metadata/asset_id = "stage13_miasma_hazard_warning_01"
-metadata/asset_binding_note = "dac_hazard_warning_art_no_collision"
 
 [node name="MiasmaWarningVfxArt" type="AnimatedSprite2D" parent="MiasmaHazard" unique_id=1107404048]
 modulate = Color(1, 1, 1, 0.72)

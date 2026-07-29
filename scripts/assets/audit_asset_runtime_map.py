@@ -13,6 +13,7 @@ DEFAULT_REPORT = "docs/assets/asset-runtime-integration-map.json"
 
 ALLOWED_INTEGRATION_STATUSES = {
     "binding_map_ready_manual_replacement_required",
+    "not_runtime_target",
     "scene_reference_verified",
 }
 
@@ -95,9 +96,13 @@ def main() -> int:
         if status == "scene_reference_verified" and not direct_references:
             errors.append(f"{asset_id}: scene_reference_verified without direct_scene_references")
         for scene in direct_references:
-            if scene not in existing_scenes:
-                errors.append(f"{asset_id}: direct scene reference not in existing candidates {scene}")
-            scene_text = resolve_path(root, str(scene)).read_text(encoding="utf-8")
+            scene_path = resolve_path(root, str(scene))
+            if not scene_path.exists():
+                errors.append(f"{asset_id}: direct scene reference missing {scene}")
+                continue
+            if str(scene).startswith("scenes/dev/"):
+                errors.append(f"{asset_id}: development scene leaked into production references {scene}")
+            scene_text = scene_path.read_text(encoding="utf-8")
             output_res_path = "res://" + str(entry.get("output_path", "")).replace("\\", "/")
             if asset_id not in scene_text and output_res_path not in scene_text:
                 errors.append(f"{asset_id}: direct scene reference missing asset id or path in {scene}")

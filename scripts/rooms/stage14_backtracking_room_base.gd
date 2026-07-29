@@ -8,16 +8,9 @@ extends "res://scripts/rooms/stage13_miasma_marsh_room_base.gd"
 @export var air_dash_shrine_room := false
 @export var air_dash_gate_room := false
 
-# Main 是能力持久化权威，房间本地状态只用于单房间即时反馈和测试。
-var _main: Node
+# Main 引用由 Stage9RoomBase 统一保存；本层只保留能力与收益的房间即时状态。
 var _air_dash_granted := false
 var _stage14_reward_ids: Dictionary = {}
-
-
-# 接收 Main 引用，用于写入跨房间能力解锁和回溯收益计数。
-func bind_main(main: Node) -> void:
-	# Main 在换房后注入自身引用，让房间能写入能力解锁和回溯收益。
-	_main = main
 
 
 # 公开本房是否已经触发过空中冲刺授予。

@@ -228,24 +228,9 @@ func _drive_room_objective(delta: float) -> bool:
 	var switch_node := room.get_node_or_null("GateSwitch") as Node2D
 	if switch_node == null:
 		return false
-	Input.action_release("attack")
-	Input.action_release("dash")
-	_tap_active["attack"] = false
-	_tap_active["dash"] = false
 
-	var player_local := room.to_local(player.global_position)
-	var target_x := switch_node.position.x
-	if player_local.y > 150.0:
-		target_x = 96.0
-	elif player_local.y > 86.0:
-		target_x = 288.0
-	var delta_x := target_x - player_local.x
-	if absf(delta_x) > 24.0:
-		_set_horizontal_input(signf(delta_x))
-	else:
-		_set_horizontal_input(0.0)
-	_tick_objective_jump(delta)
-	return true
+	# 先在低台右缘站稳并清空上一跳冷却，再从平台间隙完整起跳；避免连续向右输入让角色先跌回下层。
+	return _drive_two_level_trigger_ascent(delta, room, player, switch_node, 96.0, 176.0, 1.0, false)
 
 
 # 教程按公开 step_id 一次只发送一种目标动作，避免 Dash/Attack 抢占必须发生的跳跃输入。

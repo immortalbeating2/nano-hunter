@@ -2,7 +2,7 @@
 
 ## 目的
 
-本目录固定 39 房的关卡职责、敌人、机关、物品和门控意图。精确坐标与碰撞仍以对应 `.tscn` 为真源；本表不复制坐标，避免场景调整后双重维护。
+本目录记录 `38` 个正式地图房间与 `1` 个内部机制沙盒的关卡职责、敌人、机关、物品和门控意图。精确坐标与碰撞仍以对应 `.tscn` 为真源；正式房间的出入口、陷阱、奖励和叙事逐房核对见 `spec-design/2026-07-28-alpha-demo-room-blueprint-matrix.md`。
 
 当前统计：`39` 房，`16` 个战斗房，普通敌人实例 `24` 个（Melee 6 / Charger 6 / Aerial 5 / Caster 7），Boss `1` 个，训练 Dummy `3` 个。
 
@@ -22,7 +22,7 @@
 | `stage9_zone_entry_room` | 安全区域揭示 | - | Region checkpoint、双向出口 |
 | `stage9_zone_combat_room` | 双层基础战 | 1 Melee | 清敌门 |
 | `stage9_zone_charger_room` | 长直冲锋教学带 | 1 Charger | 清敌后开门并激活 checkpoint |
-| `stage9_zone_switch_room` | 两级机关路线 | - | GateSwitch、封印门、checkpoint marker |
+| `stage9_zone_switch_room` | 两级机关路线与早期第二路线入口 | - | GateSwitch、封印门、checkpoint marker；SC-01 首轮可进入 Stage10 Branch |
 | `stage9_zone_final_room` | 上下层混合终点战 | 1 Melee + 1 Charger | 全清门、进入 Stage10 |
 
 ## Stage10 战斗变化与奖励支路
@@ -30,24 +30,24 @@
 | 房间 | 职责 / 空间节拍 | 敌人 | 机关、物品与门控 |
 | --- | --- | --- | --- |
 | `stage10_zone_aerial_room` | 三层空中价值主房 | 1 Charger + 1 Aerial | 可选 BranchZone、清敌门、主线出口 |
-| `stage10_zone_branch_room` | 两级上行奖励房 | 1 Aerial | RecoveryPoint、BranchCollectible、返回主线门 |
-| `stage10_zone_challenge_room` | 三层三敌挑战 arena | 1 Melee + 1 Charger + 1 Aerial | ChallengeCollectible、全清门、进入 Stage11 |
-| `stage11_demo_end_room` | 旧 Demo 节点与 Stage13 接口 | - | Replay / Goal / Continue 三选择、运行期 checkpoint |
+| `stage10_zone_branch_room` | 两级上行奖励房 | 1 Aerial | RecoveryPoint、BranchCollectible 授予风印、返回主线门 |
+| `stage10_zone_challenge_room` | 三层三敌挑战 arena | 1 Melee + 1 Charger + 1 Aerial | 循环 SealPulseHazard、ChallengeCollectible、全清门、进入 Stage11 |
+| `stage11_demo_end_room` | 连接 Stage10 / Stage13 的镇妖驿厅 | - | 中央封印回响确认、首次触发一次正式剧情事件、左返 Stage10 Challenge、右进 Stage13 Entry、运行期 checkpoint；不再提前完成完整 Demo |
 
 ## Stage13 瘴泽区域
 
 | 房间 | 职责 / 空间节拍 | 敌人 | 机关、物品与门控 |
 | --- | --- | --- | --- |
 | `stage13_miasma_marsh_entry_room` | 区域揭示与安全落点 | - | RegionCheckpoint |
-| `stage13_miasma_marsh_caster_room` | 三层远程压制教学 | 1 Caster | 清敌门 |
+| `stage13_miasma_marsh_caster_room` | 三层定向弹体教学 | 1 Caster | 可被风印攻击斩散的腐瘴弹体、清敌门 |
 | `stage13_miasma_marsh_miasma_room` | 下层危险、上层绕行 | - | MiasmaHazard、危险提示 VFX |
-| `stage13_miasma_marsh_gate_room` | 两级上行触符印后回到下层过门 | - | SealNode、GateBarrier |
-| `stage13_miasma_marsh_crossfire_room` | 三层交叉火力 | 2 Caster | 双向出口，无额外奖励 |
+| `stage13_miasma_marsh_gate_room` | 两级上行触符印后回到下层过门 | - | SealNode、GateBarrier；SC-06 以风印 + Air Dash 往返 Stage14 Gate |
+| `stage13_miasma_marsh_crossfire_room` | 三层交叉弹体火力 | 2 Caster | 双向定向腐瘴弹体、双向出口，无额外奖励 |
 | `stage13_miasma_marsh_checkpoint_room` | 降压恢复大厅 | - | RecoveryPoint / CheckpointArt |
-| `stage13_miasma_marsh_pressure_room` | 危险绕行加右侧远程压制 | 1 Caster | MiasmaHazard、上层 bypass |
+| `stage13_miasma_marsh_pressure_room` | 危险绕行加右侧弹体压制 | 1 Caster | MiasmaHazard、定向腐瘴弹体、上层 bypass |
 | `stage13_miasma_marsh_branch_hub_room` | 资源、挑战、主线三路分叉 | - | ResourceBranchZone、ChallengeBranchZone、主线 ExitZone |
-| `stage13_miasma_marsh_resource_branch_room` | 低风险两级奖励路线 | - | Stage13Reward，返回 Hub |
-| `stage13_miasma_marsh_challenge_branch_room` | 三层法师挑战 | 1 Caster | 全清门、门后 Stage13Reward，返回 Hub |
+| `stage13_miasma_marsh_resource_branch_room` | 低风险两级奖励路线 | - | SecretWall、`marsh_relic` Build（恢复充能获取量 ×1.5），SC-03 单向回到 Checkpoint |
+| `stage13_miasma_marsh_challenge_branch_room` | 三层法师挑战 | 1 Caster | 定向腐瘴弹体、MiasmaHazard、全清门、`warden_sigil` Build（攻击横向判定 +16px），SC-04 单向前送 Goal |
 | `stage13_miasma_marsh_return_room` | 支路 / 主线汇流降压 | - | 双向出口 |
 | `stage13_miasma_marsh_goal_room` | 区域终点与 Stage14 入口 | - | GoalDevice、GoalZone |
 
@@ -56,7 +56,7 @@
 | 房间 | 职责 / 空间节拍 | 敌人 | 机关、物品与门控 |
 | --- | --- | --- | --- |
 | `stage14_air_dash_shrine_room` | 单一能力授予焦点 | - | AirDashShrine、能力解锁 |
-| `stage14_air_dash_gate_room` | 起跳、Air Dash 缺口、安全回落 | - | AirDashGateSensor、GateBarrier、门前后安全落点 |
+| `stage14_air_dash_gate_room` | 起跳、Air Dash 缺口、安全回落 | - | 循环 SealPulseHazard、AirDashGateSensor、GateBarrier、门前后安全落点；SC-06 以风印 + Air Dash 往返 Stage13 Gate |
 | `stage14_backtrack_hub_room` | 三层回溯收益 | - | BacktrackReward 1 / 2 / 3 |
 | `stage14_loop_return_room` | 两段上行后的回环确认 | - | 上层 GoalZone，进入 Stage15 |
 
@@ -64,9 +64,9 @@
 
 | 房间 | 职责 / 空间节拍 | 敌人 | 机关、物品与门控 |
 | --- | --- | --- | --- |
-| `stage15_seal_pressure_room` | 三高度双敌前置战 | 1 Charger + 1 Caster | 压力焦点、全清门 |
+| `stage15_seal_pressure_room` | 三高度双敌前置战 | 1 Charger + 1 Caster | 冲锋 + 定向腐瘴弹体压力焦点、全清门 |
 | `stage15_mixed_gauntlet_room` | 近战区、冲锋通道、空中层混合战 | 1 Melee + 1 Charger + 1 Aerial | ChallengeBranchZone、全清 Boss 门 |
-| `stage15_challenge_branch_room` | 危险绕行双敌奖励支路 | 1 Caster + 1 Aerial | MiasmaHazard、全清门、Stage13Reward |
+| `stage15_challenge_branch_room` | 危险绕行双敌奖励支路 | 1 Caster + 1 Aerial | 定向腐瘴弹体、MiasmaHazard、全清门、Stage13Reward |
 | `stage15_seal_guardian_boss_room` | 宽 Boss arena 与左右规避平台 | 1 Seal Guardian | Boss 门、胜利出口 |
 | `stage15_completion_room` | 战后降压和封印完成 | - | CompletionSeal、进入 Stage16 |
 
@@ -83,9 +83,9 @@
 ## 当前内容风险
 
 - 房间空间分布已经明确，但普通敌人仍是一击清除和触碰伤害原型，当前数量不能代表成熟遭遇深度。
-- Stage13 的 Caster 占普通敌人实例 `7/24`，但尚无真实弹体，多个“远程压制房”目前主要靠位置和 VFX 区分。
+- Stage13 的 Caster 占普通敌人实例 `7/24`，现已发射有伤害、射程和速度配置的单向腐瘴弹体；尚无弧线、蓄力或区域控制型第二施法职责。
 - Stage14 与 Stage16 刻意偏能力 / 机关链，整段无普通敌人；是否需要追加战斗必须由节奏试玩决定，不能仅因房间空而加怪。
-- Stage10 / Stage13 / Stage14 的奖励目前主要是计数与 HUD 标记，没有进入北极星中的圣物、组件、装备或 Build 系统。
+- `marsh_relic` / `warden_sigil` 已形成暂停菜单可切换的两种最小 Build，但尚无装备栏、词条组合、套装或技能树。
 
 ## 维护规则
 

@@ -78,16 +78,6 @@ texture = ExtResource("3_nyxd7")
 polygon = PackedVector2Array(-416, -16, 416, -16, 416, 16, -416, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="ShrineTrialTilesetPreview" type="TileMapLayer" parent="." unique_id=427564663]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-position = Vector2(-320, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEA//////////8BAAEA//////////8CAAEA//////////8DAAEA//////////8EAAAAAAAEAAAAAAAFAAAAAAAFAAAAAAAGAAAAAAAGAAAAAAAHAAAAAAAHAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAABAAAAAAAKAAAAAAACAAAAAAALAAAAAAADAAAAAAAMAAAAAAAEAAAAAAA=")
-tile_set = ExtResource("4")
-collision_enabled = false
-metadata/asset_id = "shrine_trial_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="AlphaDemoSeal" type="Polygon2D" parent="." unique_id=1149656375]
 position = Vector2(320, 112)
 color = Color(0.933333, 0.843137, 0.431373, 0)

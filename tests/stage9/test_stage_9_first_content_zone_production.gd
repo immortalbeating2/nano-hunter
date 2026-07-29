@@ -73,7 +73,6 @@ func test_switch_room_unlocks_gate_after_switch_activation() -> void:
 	var room := await _spawn_room(ZONE_SWITCH_ROOM_SCENE_PATH)
 	var gate_shape: CollisionShape2D = room.get_node_or_null("GateBarrier/CollisionShape2D") as CollisionShape2D
 	var switch_visual: Polygon2D = room.get_node_or_null("GateSwitch/SwitchVisual") as Polygon2D
-	var legacy_marker: Sprite2D = room.get_node_or_null("GateSwitch/Stage12CheckpointMarker") as Sprite2D
 	var gate_art: Sprite2D = room.get_node_or_null("GateBarrier/BarrierArt") as Sprite2D
 	var switch_art: Sprite2D = room.get_node_or_null("GateSwitch/SwitchArt") as Sprite2D
 
@@ -85,8 +84,7 @@ func test_switch_room_unlocks_gate_after_switch_activation() -> void:
 		assert_eq(gate_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_locked")
 	assert_not_null(switch_visual)
 	assert_false(switch_visual.visible)
-	assert_not_null(legacy_marker)
-	assert_false(legacy_marker.visible)
+	assert_null(room.get_node_or_null("GateSwitch/Stage12CheckpointMarker"))
 	assert_not_null(switch_art)
 	assert_eq(switch_art.texture.resource_path, SWITCH_IDLE_TEXTURE_PATH)
 	assert_eq(switch_art.get_meta("asset_id", ""), "shrine_gate_prop_atlas_ai01")

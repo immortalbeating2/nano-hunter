@@ -9,7 +9,6 @@ const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_r
 const MIASMA_CASTER_SCENE_PATH := "res://scenes/combat/miasma_caster_enemy.tscn"
 const MIASMA_CASTER_CONFIG_SCRIPT_PATH := "res://scripts/configs/miasma_caster_enemy_config.gd"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
-const MIASMA_TILESET_RESOURCE_PATH := "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres"
 const VFX_COMBAT_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres"
 const MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres"
 const SHRINE_GATE_LOCKED_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
@@ -150,11 +149,9 @@ func test_miasma_hazard_warning_uses_miasma_purge_vfx_asset() -> void:
 		var warning_svg := room.get_node_or_null("MiasmaHazard/MiasmaWarningArt") as Sprite2D
 
 		assert_not_null(warning_polygon)
-		assert_not_null(warning_svg)
+		assert_null(warning_svg)
 		if warning_polygon != null:
 			assert_false(warning_polygon.visible)
-		if warning_svg != null:
-			assert_false(warning_svg.visible)
 		_assert_animated_sprite_references_asset(
 			room,
 			"MiasmaHazard/MiasmaWarningVfxArt",
@@ -221,8 +218,10 @@ func test_stage13_branches_provide_distinct_reward_roles_and_return_to_mainline(
 
 	assert_eq(resource_room.call("get_stage13_progress_snapshot").get("branch_reward_count"), 1)
 	assert_eq(challenge_room.call("get_stage13_progress_snapshot").get("branch_reward_count"), 1)
-	assert_eq(resource_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[8])
-	assert_eq(challenge_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[8])
+	assert_eq(resource_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[5])
+	assert_eq(challenge_room.get("next_room_path"), STAGE13_MAIN_ROOM_PATHS[9])
+	assert_eq(resource_room.get("persistent_reward_id"), &"marsh_relic")
+	assert_eq(challenge_room.get("persistent_reward_id"), &"warden_sigil")
 
 	var branch_reward_specs := [
 		{
@@ -313,10 +312,10 @@ func test_stage13_asset_manifest_contains_miasma_marsh_requirements() -> void:
 		assert_string_contains(manifest, term)
 
 
-# 保护瘴泽 TileSet 预览接入：入口房先引用 Godot TileSet，但碰撞仍由灰盒 StaticBody 负责。
-func test_stage13_entry_room_references_miasma_marsh_tileset_preview() -> void:
+# 保护正式地形接入：入口房必须使用运行态碰撞与表面层，不再保留隐藏 TileSet 预览。
+func test_stage13_entry_room_uses_formal_runtime_terrain_without_preview() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[0])
-	_assert_tileset_preview_references_asset(room, "MiasmaTilesetPreview")
+	_assert_formal_runtime_terrain_without_preview(room)
 
 
 # 保护 Stage13 可达性：每个正式可达房间的地面必须覆盖到出口或目标点前。
@@ -359,7 +358,7 @@ func _assert_floor_reaches_exit_or_goal(room: Node2D) -> void:
 	assert_gte(floor_right_edge, exit_trigger_x)
 
 
-# 保护 Stage13 visual replacement：P2 房间统一接入瘴泽背景、tile sheet 和 TileSet 预览。
+# 保护 Stage13 visual replacement：P2 房间统一接入瘴泽背景、tile sheet 和正式地形层。
 func test_stage13_p2_visual_replacement_rooms_reference_miasma_visual_stack() -> void:
 	for room_path: String in STAGE13_MIASMA_VISUAL_PASS_ROOM_PATHS:
 		var room: Node2D = await _spawn_room(room_path)
@@ -375,7 +374,7 @@ func test_stage13_p2_visual_replacement_rooms_reference_miasma_visual_stack() ->
 			"biome02_miasma_marsh_tiles_ai01",
 			MIASMA_TILE_SHEET_RESOURCE_PATH
 		)
-		_assert_tileset_preview_references_asset(room, "MiasmaTilesetPreview")
+		_assert_formal_runtime_terrain_without_preview(room)
 
 	var goal_room: Node2D = await _spawn_room(STAGE13_MAIN_ROOM_PATHS[9])
 	assert_null(goal_room.get_node_or_null("GoalDevice") as Polygon2D, "Stage13 目标装置不能退回亮色 Polygon2D 占位。")
@@ -430,6 +429,59 @@ func test_stage13_graybox_driver_can_reach_second_zone_goal_from_main_scene() ->
 	assert_eq((main_scene.get_node("Room") as Node2D).scene_file_path, STAGE13_MAIN_ROOM_PATHS[9])
 
 
+# Stage14 空中冲刺解锁前，Stage13 的所有上行台阶都必须能用当前正常跑跳到达。
+func test_stage13_platform_routes_are_reachable_before_air_dash_unlock() -> void:
+	var cases: Array[Dictionary] = [
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn", "spawn": Vector2(228, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": ["MiasmaCasterEnemy"]},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn", "spawn": Vector2(228, 160), "start_foot": 208.0, "target_foot": 144.0, "enemies": ["MiasmaCasterEnemyA"]},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn", "spawn": Vector2(484, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": ["MiasmaCasterEnemy"]},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "spawn": Vector2(228, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": []},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "spawn": Vector2(228, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": ["MiasmaCasterEnemy"]},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn", "spawn": Vector2(116, 160), "start_foot": 224.0, "target_foot": 144.0, "enemies": []},
+	]
+	for case: Dictionary in cases:
+		await _assert_normal_jump_reaches_step(case)
+
+
+func _assert_normal_jump_reaches_step(case: Dictionary) -> void:
+	Input.action_release("move_right")
+	Input.action_release("jump")
+	var room := await _spawn_room(str(case.path))
+	for enemy_name: String in case.enemies:
+		room.get_node(enemy_name).call("receive_attack", Vector2.RIGHT, 120.0)
+	await get_tree().process_frame
+	var player := await _spawn_player(case.spawn)
+	room.call("bind_player", player)
+	for _frame: int in range(90):
+		await get_tree().physics_frame
+		if player.is_on_floor() and absf(player.velocity.y) <= 0.1:
+			break
+
+	assert_true(player.is_on_floor())
+	assert_almost_eq(player.global_position.y + 20.0, float(case.start_foot), 0.6)
+	player.velocity.x = float(player.get("max_run_speed"))
+	Input.action_press("move_right")
+	Input.action_press("jump")
+	var landed_target := false
+	var max_x := player.global_position.x
+	var min_y := player.global_position.y
+	for frame: int in range(90):
+		if frame == 32:
+			Input.action_release("jump")
+		await get_tree().physics_frame
+		max_x = maxf(max_x, player.global_position.x)
+		min_y = minf(min_y, player.global_position.y)
+		if player.is_on_floor() and absf(player.global_position.y + 20.0 - float(case.target_foot)) <= 0.6:
+			landed_target = true
+			break
+	Input.action_release("move_right")
+	Input.action_release("jump")
+	assert_true(landed_target, "%s 正常跑跳不可达：max_x=%s min_y=%s final=%s" % [case.path, max_x, min_y, player.global_position])
+	player.queue_free()
+	room.queue_free()
+	await get_tree().process_frame
+
+
 # 灰盒 driver 按当前房间状态选择最小推进动作，保护 Stage13 主线不会断链。
 func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 	# Stage13 driver 按当前房间状态选择最小推进动作：清敌、解门、走出口。
@@ -452,6 +504,12 @@ func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 				return false
 			player.global_position = goal_zone.global_position
 			await _advance_process_frames(4)
+			var story_continue := main_scene.get_node_or_null(
+				"HUD/DemoShell/DetailPanel/MarginContainer/VBoxContainer/DetailBackButton"
+			) as Button
+			if story_continue != null and get_tree().paused:
+				story_continue.pressed.emit()
+				await _advance_process_frames(1)
 			player.global_position = continue_zone.global_position
 			await _advance_process_frames(4)
 			continue
@@ -545,17 +603,16 @@ func _assert_animated_sprite_references_asset(parent: Node, node_path: String, a
 	assert_eq(animated_sprite.animation, animation_name)
 
 
-# TileSet 预览断言 helper：只证明场景可加载项目内 TileSet 并放置可见 tile，不代表最终碰撞清稿。
-func _assert_tileset_preview_references_asset(parent: Node, node_path: String) -> void:
-	var layer := parent.get_node_or_null(NodePath(node_path)) as TileMapLayer
-	assert_not_null(layer, "缺少 TileMapLayer 资产节点：%s" % node_path)
-	if layer == null:
+# 正式地形断言 helper：碰撞和可见表面都必须有实际 tile，旧 Preview 节点必须不存在。
+func _assert_formal_runtime_terrain_without_preview(parent: Node) -> void:
+	assert_null(parent.get_node_or_null("MiasmaTilesetPreview"))
+	var terrain := parent.get_node_or_null("TerrainCollisionVisual") as TileMapLayer
+	var surface := parent.get_node_or_null("GroundSurfaceVisual") as TileMapLayer
+	assert_not_null(terrain)
+	assert_not_null(surface)
+	if terrain == null or surface == null:
 		return
-
-	assert_eq(layer.get_meta("asset_id", ""), "miasma_marsh_tileset_ai01")
-	assert_not_null(layer.tile_set, "TileMapLayer 没有 TileSet：%s" % node_path)
-	if layer.tile_set != null:
-		assert_eq(layer.tile_set.resource_path, MIASMA_TILESET_RESOURCE_PATH)
-		assert_gt(layer.tile_set.get_source_count(), 0)
-	assert_gt(layer.get_used_cells().size(), 0)
-	assert_false(layer.visible, "TileSet 预览层只能保留资源引用，不能作为正式道路上屏：%s" % node_path)
+	assert_true(bool(terrain.get("collision_enabled")))
+	assert_false(bool(surface.get("collision_enabled")))
+	assert_gt(terrain.get_used_cells().size(), 0)
+	assert_gt(surface.get_used_cells().size(), 0)

@@ -22,11 +22,12 @@ const SPECS := [
 		"path": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn", "limits": Rect2i(-384, -256, 1280, 512),
 		"floor": Vector2i(-6, 3), "length": 20, "platforms": [{"start": Vector2i(4, 2), "length": 4}], "background": Vector2(256, 0), "background_scale": Vector2(0.78, 0.78),
 		"previous": "res://scenes/rooms/stage11_demo_end_room.tscn", "previous_spawn": &"stage11_demo_end_return", "left_exit": Vector2(-352, 160),
-		"spawns": {&"stage13_entry_start": Vector2(-256, 204), &"stage13_entry_return": Vector2(640, 204)}, "nodes": {"ExitZone": Vector2(800, 160)}, "checkpoint": Vector2(-160, 192),
+		"spawns": {&"stage13_entry_start": Vector2(-256, 204), &"stage13_entry_return": Vector2(640, 204), &"stage13_entry_from_stage10_shortcut": Vector2(640, 204)}, "nodes": {"ExitZone": Vector2(800, 160)}, "checkpoint": Vector2(-160, 192),
+		"shortcut": "res://scenes/rooms/stage10_zone_aerial_room.tscn", "shortcut_spawn": &"stage10_aerial_from_stage13_shortcut", "shortcut_air_dash": true,
 	},
 	{
 		"path": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn", "limits": Rect2i(-384, -320, 1536, 576),
-		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(0, 2), "length": 4}, {"start": Vector2i(6, 1), "length": 4}, {"start": Vector2i(12, 2), "length": 4}], "background": Vector2(384, -16), "background_scale": Vector2(0.94, 0.94),
+		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(0, 2), "length": 4}, {"start": Vector2i(5, 1), "length": 4}, {"start": Vector2i(12, 2), "length": 4}], "background": Vector2(384, -16), "background_scale": Vector2(0.94, 0.94),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn", "previous_spawn": &"stage13_entry_return", "left_exit": Vector2(-352, 160),
 		"spawns": {&"stage13_miasma_start": Vector2(-256, 204), &"stage13_caster_return": Vector2(960, 204)},
 		"nodes": {"MiasmaCasterEnemy": Vector2(448, 56), "ExitZone": Vector2(1120, 160)}, "gate": Vector2(1024, 168),
@@ -69,6 +70,10 @@ func _apply(spec: Dictionary, terrain_set: TileSet, surface_set: TileSet, thin_s
 		root.set("previous_room_path", spec.previous)
 		root.set("previous_spawn_id", spec.previous_spawn)
 		root.set("spawn_positions", spec.spawns)
+	if spec.has("shortcut"):
+		root.set("shortcut_room_path", spec.shortcut)
+		root.set("shortcut_spawn_id", spec.shortcut_spawn)
+		root.set("shortcut_requires_air_dash", bool(spec.shortcut_air_dash))
 	_hide_old(root)
 	var terrain := _layer(root, "TerrainCollisionVisual", terrain_set, Vector2.ZERO, SCALE, true, 1)
 	var platform := _layer(root, "PlatformCollisionVisual", terrain_set, PLATFORM_OFFSET, SCALE, true, 2)
@@ -130,14 +135,10 @@ func _hide_old(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt", "MiasmaTileSheetArt"]:
+	for name: String in ["MaterialTextureArt", "MiasmaTileSheetArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false
-	var preview := root.get_node_or_null("MiasmaTilesetPreview") as TileMapLayer
-	if preview != null:
-		preview.visible = false
-		preview.set("collision_enabled", false)
 
 
 func _disable_legacy(root: Node) -> void:

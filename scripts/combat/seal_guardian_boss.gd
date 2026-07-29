@@ -147,7 +147,6 @@ func _prepare_runtime_visual_stack() -> void:
 		"SealHalo",
 		"GuardianMask",
 		"Stage15SealMark",
-		"SealGuardianArt",
 	]:
 		var legacy_visual := get_node_or_null(node_name) as CanvasItem
 		if legacy_visual != null:

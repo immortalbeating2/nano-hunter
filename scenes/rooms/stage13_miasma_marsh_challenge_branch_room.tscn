@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/combat/miasma_caster_enemy.tscn" id="2"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="3_tileset"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="4_bg"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_p3ndy"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="5_tiles"]
@@ -14,6 +13,7 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="12_sgtmd"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="13_kh15a"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="14_tjcuv"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres" id="stage18_hazard_vfx"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -30,12 +30,16 @@ size = Vector2(96, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tdxm"]
 size = Vector2(24, 128)
 
+[sub_resource type="RectangleShape2D" id="stage18_hazard_shape"]
+size = Vector2(160, 32)
+
 [node name="Stage13MiasmaMarshChallengeBranchRoom" type="Node2D" unique_id=2024057405]
 script = ExtResource("1")
 challenge_reward_branch = true
+persistent_reward_id = &"warden_sigil"
 camera_limits = Rect2i(-384, -320, 1536, 576)
-next_room_path = "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn"
-next_spawn_id = &"stage13_return_start"
+next_room_path = "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
+next_spawn_id = &"stage13_goal_from_challenge_branch"
 previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn"
 previous_spawn_id = &"stage13_challenge_branch_return"
 spawn_positions = {
@@ -95,20 +99,30 @@ texture = ExtResource("4_p3ndy")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="MiasmaTilesetPreview" type="TileMapLayer" parent="." unique_id=1118235498]
-visible = false
-modulate = Color(1, 1, 1, 0.78)
-position = Vector2(-160, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("3_tileset")
-collision_enabled = false
-metadata/asset_id = "miasma_marsh_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="MiasmaCasterEnemy" type="StaticBody2D" parent="." unique_id=967478201 instance=ExtResource("2")]
 position = Vector2(512, 56)
 script = ExtResource("7_i47ja")
 config = ExtResource("8_g7sui")
+
+[node name="MiasmaHazard" type="Area2D" parent="."]
+position = Vector2(768, 212)
+metadata/anchor_role = "stage13_challenge_risk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MiasmaHazard"]
+shape = SubResource("stage18_hazard_shape")
+
+[node name="WarningVisual" type="Polygon2D" parent="MiasmaHazard"]
+visible = false
+color = Color(0.772549, 0.933333, 0.294118, 0.09)
+polygon = PackedVector2Array(-80, -16, 80, -16, 80, 16, -80, 16)
+
+[node name="MiasmaWarningVfxArt" type="AnimatedSprite2D" parent="MiasmaHazard"]
+modulate = Color(1, 1, 1, 0.64)
+scale = Vector2(0.84, 0.34)
+sprite_frames = ExtResource("stage18_hazard_vfx")
+animation = &"miasma_purge_warning"
+metadata/asset_id = "miasma_purge_warning_vfx_runtime_ai01"
+metadata/runtime_source = "miasma_purge_warning_vfx_runtime_ai01.miasma_ground_warning"
 
 [node name="Stage13Reward" type="Marker2D" parent="." unique_id=124459701]
 position = Vector2(1040, 192)
@@ -165,7 +179,7 @@ modulate = Color(1, 1, 1, 0.08)
 z_index = 2
 position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
-tile_map_data = PackedByteArray("AAAAAAIAAAABAAIAAAABAAIAAAAAAAIAAAACAAIAAAAAAAIAAAADAAIAAAACAAIAAAAGAAEAAAABAAIAAAAHAAEAAAAAAAIAAAAIAAEAAAAAAAIAAAAJAAEAAAACAAIAAAAMAAIAAAABAAIAAAANAAIAAAAAAAIAAAAOAAIAAAAAAAIAAAAPAAIAAAACAAIAAAA=")
+tile_map_data = PackedByteArray("AAAAAAIAAAABAAIAAAABAAIAAAAAAAIAAAACAAIAAAAAAAIAAAADAAIAAAACAAIAAAAGAAEAAAAAAAIAAAAHAAEAAAAAAAIAAAAIAAEAAAACAAIAAAAJAAEA//////////8MAAIAAAABAAIAAAANAAIAAAAAAAIAAAAOAAIAAAAAAAIAAAAPAAIAAAACAAIAAAAFAAEAAAABAAIAAAA=")
 tile_set = ExtResource("11_6gfm3")
 
 [node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=248285859]
@@ -179,7 +193,7 @@ collision_enabled = false
 [node name="ThinPlatformSurfaceVisual" type="TileMapLayer" parent="." unique_id=752301079]
 modulate = Color(0.7, 0.82, 0.75, 0.92)
 z_index = 2
-tile_map_data = PackedByteArray("AAAAAAIAAAAAAAAAAAABAAIAAAABAAAAAAACAAIAAAABAAAAAAADAAIAAAACAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAABAAAAAAAIAAEAAAABAAAAAAAJAAEAAAACAAAAAAAMAAIAAAAAAAAAAAANAAIAAAABAAAAAAAOAAIAAAABAAAAAAAPAAIAAAACAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAIAAAAAAAAAAAABAAIAAAABAAAAAAACAAIAAAABAAAAAAADAAIAAAACAAAAAAAGAAEAAAABAAAAAAAHAAEAAAABAAAAAAAIAAEAAAACAAAAAAAJAAEA//////////8MAAIAAAAAAAAAAAANAAIAAAABAAAAAAAOAAIAAAABAAAAAAAPAAIAAAACAAAAAAAFAAEAAAAAAAAAAAA=")
 tile_set = ExtResource("13_kh15a")
 collision_enabled = false
 

@@ -52,7 +52,7 @@ func test_pressure_is_24x9_hazard_bypass_and_ranged_pressure_room() -> void:
 	assert_eq(room.call("get_spawn_position", &"stage13_pressure_start"), Vector2(-256, 204))
 	assert_eq(room.call("get_spawn_position", &"stage13_pressure_return"), Vector2(960, 204))
 	assert_eq(room.get_node("MiasmaHazard").position, Vector2(384, 212))
-	assert_eq(room.get_node("MiasmaCasterEnemy").position, Vector2(832, 56))
+	assert_eq(room.get_node("MiasmaCasterEnemy").position, Vector2(800, 56))
 	assert_eq(room.get_node("ExitZone").position, Vector2(1120, 160))
 
 

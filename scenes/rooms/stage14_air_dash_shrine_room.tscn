@@ -35,6 +35,8 @@ next_room_path = "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
 next_spawn_id = &"stage14_air_dash_gate_start"
 previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
 previous_spawn_id = &"stage13_goal_return"
+narrative_stele_title = "风行符印碑"
+narrative_stele_text = "佛门残偈：身不离地者守旧路，借风越隙者方见旧门重开。"
 spawn_positions = {
 &"stage14_air_dash_shrine_start": Vector2(-256, 204),
 &"stage14_shrine_return": Vector2(640, 204)
@@ -120,16 +122,6 @@ texture = ExtResource("7_a331g")
 polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="ShrineTrialTilesetPreview" type="TileMapLayer" parent="." unique_id=614011369]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-position = Vector2(-192, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("10")
-collision_enabled = false
-metadata/asset_id = "shrine_trial_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="AirDashShrine" type="Marker2D" parent="." unique_id=12780695]
 position = Vector2(320, 120)
 
@@ -146,7 +138,7 @@ texture = ExtResource("13_shrine")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
 
-[node name="GatePreviewArt" type="Sprite2D" parent="AirDashShrine" unique_id=2144288090]
+[node name="GateEchoArt" type="Sprite2D" parent="AirDashShrine" unique_id=2144288090]
 modulate = Color(1, 1, 1, 0.52)
 position = Vector2(124, -20)
 scale = Vector2(0.4, 0.4)
@@ -154,7 +146,7 @@ texture = ExtResource("14_gate")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
 
-[node name="AirDashTrailPreviewArt" type="Sprite2D" parent="AirDashShrine" unique_id=620901803]
+[node name="AirDashTrailArt" type="Sprite2D" parent="AirDashShrine" unique_id=620901803]
 modulate = Color(1, 1, 1, 0.54)
 position = Vector2(46, -34)
 scale = Vector2(0.045, 0.045)
@@ -254,3 +246,16 @@ position = Vector2(-352, 160)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=2113400173]
 shape = SubResource("RectangleShape2D_6am06")
+
+[node name="NarrativeStele" type="Marker2D" parent="."]
+position = Vector2(128, 120)
+metadata/lore_id = "stage14_air_dash_doctrine"
+
+[node name="SteleArt" type="Sprite2D" parent="NarrativeStele"]
+z_index = 3
+position = Vector2(0, 12)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("13_shrine")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
+metadata/anchor_role = "stage14_ability_narrative"

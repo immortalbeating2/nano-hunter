@@ -2,6 +2,34 @@
 
 本文件只记录项目里程碑级事件。每日细节、命令输出、MCP 复核过程、分支操作原因和误判修正过程保存在 `docs/progress/logs/YYYY-MM-DD.md`。每条里程碑默认包含范围、结果、关键验证、详情日志；重要阶段收口或工具链修复可补提交 hash 与遗留风险。
 
+## 2026-07-28
+
+- **Stage20 Metroidvania six-gap closure**：把房间蓝图中确认的早期路线、环境危险、Caster、交叉门控、奖励 Build 与剧情事件六项缺口接入同一个可试玩 Alpha 切片。
+  结果：SC-01 成为首轮第二路线并授予风印；两房接入循环封印脉冲；Caster 发射可斩散定向腐瘴弹；SC-06 以风印 + Air Dash 双向连接 Stage13 / 14 Gate；两件 Stage13 奖励形成恢复 / 攻击距离 Build；Stage11 触发一次正式封印回响事件。世界图为 `38` 房、`3` 环、`6` 条远端连接，继续由 JSON 驱动。
+  关键验证或结论：Stage20 `6/6` / `60` assertions、邻近组合 `104/104` / `3332`、递归全量 GUT `36` scripts / `269/269` tests / `8213` assertions；Godot import / smoke、世界图 JSON、资产包 strict audit、Windows/OpenGL 六项运行态复核与 `git diff --check` 通过。边界：这是 Alpha Demo 的最小生产闭环，不是完整商业银河城；未提交 / 合并 / push。
+  详情日志链接：`docs/progress/logs/2026-07-28.md`；设计：`spec-design/2026-07-28-stage20-metroidvania-six-gap-closure-design.md`；正式计划：`plan/2026-07-28-stage20-metroidvania-six-gap-closure.md`；执行清单：`docs/implementation-plans/2026-07-28-stage20-metroidvania-six-gap-closure.md`。
+- **Stage19 discovery-map art and maintainability refinement**：把功能正确但仍像调试图的五行蛇形地图重构为正式发现式地图，同时保留后续改图能力。
+  结果：Image Generation 只提供无拓扑宣纸铜框底板和视觉母版；38 房布局与展示连接迁入独立 JSON，运行时以佛龛符印、弧形墨线、金色捷径和相邻墨雾动态绘制；2K 面板扩展到约 `1597x1100`，普通路线调整不再触发生图。
+  关键验证或结论：Stage19 `6/6` / `207` asserts、Stage16 `20/20` / `484`、全量 GUT `35` scripts / `263/263` tests / `8128` asserts；Godot import / smoke、asset package / provenance / source-safety strict、Windows/OpenGL 初始与 38 房全展开复核通过，编辑器错误 `0`。
+- **Stage19 room blueprint and exploration map closure**：把 38 房内容、连接和玩家导航收成同一套可核对蓝图，并清除 Stage11 旧 Demo 终点语义。
+  结果：建立 `38/38` 房职责 / 平台、出入口、敌人、陷阱、门控、奖励和叙事矩阵；暂停菜单加入发现式地图，呈现当前房、已发现房、相邻轮廓和五条远端连接状态；Stage11 改为左返 Stage10、右进 Stage13 的镇妖驿厅，完整完成态只在 Stage16 写入。
+  关键验证或结论：矩阵与运行时地图路径一一对应；Windows/OpenGL 完整地图和首次发现态通过；Stage19 `5/5` / `83` asserts，Stage11/13/16/18 专项全绿；全量 GUT `35` scripts、`262/262` tests、`8004` asserts；Godot import、主场景 smoke、`git diff --check` 通过，`project.godot` 无临时 MCP autoload diff。
+  详情日志链接：`docs/progress/logs/2026-07-28.md`；逐房蓝图：`spec-design/2026-07-28-alpha-demo-room-blueprint-matrix.md`；设计：`spec-design/2026-07-25-stage19-room-blueprint-exploration-map-design.md`；正式计划：`plan/2026-07-25-stage19-room-blueprint-exploration-map.md`；边界：未提交 / 合并 / push，早期分支、第二类危险、第二能力交叉门控、Build 深度和正式剧情事件仍待独立阶段。
+
+## 2026-07-18
+
+- **Macro Metroidvania world graph closure**：把微观房间已完成、宏观仍是一条长链的 Alpha Demo 重接为可回访的银河城结构。
+  结果：保留 34 房安全首次通关路线，同时建立 3 个区域闭环和 SC-01 至 SC-05 共 5 条远端连接；Air Dash 重新打开 Stage9 / Stage10 已见封闭路线；Stage13 资源 / 挑战支路分别回环到 Checkpoint / 前送 Goal，并授予 `marsh_relic` / `warden_sigil`；12 组锚点房获得秘密墙、环境危险、叙事碑或区域地标。
+  关键验证或结论：Stage18 `12/12` tests / `1711` asserts；全量 GUT `34` scripts、`257/257` tests、`7919` asserts；逐房薄平台碰撞均为 one-way 且缩放后厚度不超过 `4px`；39 房 DAC `P0=0 / P1=0 / P2=0`；input-only 首次通关 replay 自 Tutorial 自然经过 34 房到 Stage16 终点、完成标记为真、`P0=0 / P1=0 / P2=0`；Godot import / smoke 通过。
+  详情日志链接：`docs/progress/logs/2026-07-18.md`；设计：`spec-design/2026-07-18-macro-metroidvania-world-graph-design.md`；正式计划：`plan/2026-07-18-macro-metroidvania-world-graph.md`；执行清单：`docs/implementation-plans/2026-07-18-macro-metroidvania-world-graph.md`；边界：当前分支未合并 / push，既有 Stage17 资产处置和平台校正改动未被清理或覆盖。
+
+## 2026-07-12
+
+- **Final asset disposition and hidden Preview retirement**：在 Stage17 动作运行态收口后，统一清理正式场景的伪接入证据，并让运行接入、来源安全和最终门禁读取同一轮当前事实。
+  结果：正式场景 `52` 个 Preview 命名节点收敛为 `0`，其中删除 `50` 个隐藏节点、重命名 `2` 个真实运行节点；另移除 `7` 个 source-only 方向稿绑定。通过删除前门禁后删除 `14` 个旧 SVG 与 `14` 个 `.import`。runtime map 的 `55` 项分为 `26 runtime_keep / 20 source_dev_keep / 9 archive_keep`；P0 运行计划和全部下游收敛为 `11` 项、`11` 个 rehearsal 节点、`12` 个 target scenes / `23` 个引用、`6` 个 batches。
+  关键验证或结论：Godot import 通过；递归全量 GUT `33` scripts、`240/240` tests、`6147` asserts；runtime source safety `11 assets / 0 review-required / 0 unsafe`；final acceptance `55/55 final-ready`；asset package strict audit 通过；animation replacement `21/21 active ready / 10 archived / 0 archive errors`；project isolation `839 files / 0 forbidden / 0 outside`。Image Gen 来源候选、selected frames、editor 资源、provenance 和 dev workbench 未被扩大删除。
+  详情日志链接：`docs/progress/logs/2026-07-12.md`；最终清单：`docs/assets/2026-07-12-final-asset-disposition.md`；执行计划：`docs/implementation-plans/2026-07-12-final-asset-disposition-cleanup.md`；边界：当前分支未合并 / push。
+
 ## 2026-07-11
 
 - **Stage17 animation runtime stabilization branch closure**：完成 Luna、四类普通敌人与 Seal Guardian 的动作运行态稳定化，并建立可重放的输入式验收链路。

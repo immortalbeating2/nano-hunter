@@ -506,6 +506,13 @@ def runtime_map_summary(entry: dict[str, Any] | None) -> dict[str, Any] | None:
 def apply_runtime_map_blocker_status(polish_blockers: list[str], summary: dict[str, Any] | None) -> list[str]:
     if not summary:
         return polish_blockers
+    if not str(summary.get("track", "")).startswith("runtime_"):
+        runtime_blockers = {
+            "runtime_reference_not_replaced",
+            "runtime_binding_map_ready_manual_replacement",
+            "runtime_catalog_ready_manual_replacement",
+        }
+        return [blocker for blocker in polish_blockers if blocker not in runtime_blockers]
     if summary.get("integration_status") != "binding_map_ready_manual_replacement_required":
         return polish_blockers
     if not summary.get("existing_target_scene_candidates"):

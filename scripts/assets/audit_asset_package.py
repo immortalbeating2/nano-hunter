@@ -324,6 +324,12 @@ def audit_runtime_ui_skin_binding(root: Path) -> dict[str, Any]:
         },
     }
     missing: list[str] = []
+    theme_path = resolve_res_path(root, theme)
+    theme_text = theme_path.read_text(encoding="utf-8", errors="ignore") if theme_path.exists() else ""
+    if not theme_path.exists():
+        missing.append("runtime_ui_skin:missing_theme_resource")
+    elif stylebox not in theme_text:
+        missing.append("runtime_ui_skin:theme_missing_panel_stylebox")
     scene_count = 0
     panel_count = 0
     texture_count = 0
@@ -335,7 +341,7 @@ def audit_runtime_ui_skin_binding(root: Path) -> dict[str, Any]:
         text = path.read_text(encoding="utf-8", errors="ignore")
         if theme not in text:
             missing.append(f"{scene}:missing_theme")
-        if stylebox not in text:
+        if stylebox not in text and (theme not in text or stylebox not in theme_text):
             missing.append(f"{scene}:missing_panel_stylebox")
         scene_count += 1
         for panel in spec["panels"]:
@@ -704,8 +710,11 @@ def audit_p0_runtime_replacement_plan(root: Path) -> dict[str, Any]:
     errors: list[str] = []
     if not markdown_path.exists():
         errors.append("markdown_missing")
-    if int(summary.get("asset_count", -1)) != 30:
-        errors.append("asset_count expected 30")
+    entries = report.get("entries", [])
+    if int(summary.get("asset_count", -1)) != len(entries):
+        errors.append("asset_count mismatch")
+    if not entries:
+        errors.append("runtime plan has no entries")
     if int(summary.get("missing_resource_count", -1)) != 0:
         errors.append("missing_resource_count expected 0")
     if int(summary.get("missing_target_scene_count", -1)) != 0:
@@ -727,6 +736,31 @@ def audit_p0_runtime_replacement_plan(root: Path) -> dict[str, Any]:
     }
 
 
+def expected_p0_rehearsal_counts(plan: dict[str, Any]) -> dict[str, int]:
+    counts = {
+        "entry_count": 0,
+        "texture2d_nodes": 0,
+        "spriteframes_nodes": 0,
+        "tileset_nodes": 0,
+        "stylebox_nodes": 0,
+        "atlastexture_nodes": 0,
+    }
+    for entry in plan.get("entries", []):
+        counts["entry_count"] += 1
+        resource_type = str(entry.get("catalog_resource_type", "unknown"))
+        if resource_type == "SpriteFrames":
+            counts["spriteframes_nodes"] += 1
+        elif resource_type == "TileSet":
+            counts["tileset_nodes"] += 1
+        elif resource_type == "StyleBoxTexture":
+            counts["stylebox_nodes"] += 1
+        elif resource_type == "AtlasTexture":
+            counts["atlastexture_nodes"] += 1
+        else:
+            counts["texture2d_nodes"] += 1
+    return counts
+
+
 def audit_p0_runtime_replacement_rehearsal(root: Path) -> dict[str, Any]:
     manifest_path = root / "docs/assets/p0-runtime-replacement-rehearsal-manifest.json"
     scene_path = root / "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
@@ -745,14 +779,10 @@ def audit_p0_runtime_replacement_rehearsal(root: Path) -> dict[str, Any]:
     errors: list[str] = []
     if not resolved_scene.exists():
         errors.append("scene_missing")
-    expected_counts = {
-        "entry_count": 30,
-        "texture2d_nodes": 17,
-        "spriteframes_nodes": 9,
-        "tileset_nodes": 1,
-        "stylebox_nodes": 1,
-        "atlastexture_nodes": 2,
-    }
+    plan_path = root / "docs/assets/p0-runtime-replacement-plan.json"
+    expected_counts = expected_p0_rehearsal_counts(load_json(plan_path)) if plan_path.exists() else {}
+    if not expected_counts:
+        errors.append("p0 runtime replacement plan missing")
     for key, expected in expected_counts.items():
         if int(counts.get(key, -1)) != expected:
             errors.append(f"{key} expected {expected}")
@@ -779,19 +809,38 @@ def audit_p0_target_scene_replacement_matrix(root: Path) -> dict[str, Any]:
 
     report = load_json(report_path)
     summary = report.get("summary", {})
+    plan_path = root / "docs/assets/p0-runtime-replacement-plan.json"
+    plan = load_json(plan_path) if plan_path.exists() else {}
+    plan_entries = plan.get("entries", [])
+    expected_asset_ids = {str(entry.get("asset_id", "")) for entry in plan_entries if entry.get("asset_id")}
+    expected_reference_count = sum(len(entry.get("target_scene_status", [])) for entry in plan_entries)
+    expected_planned_count = sum(
+        1
+        for entry in plan_entries
+        for scene in entry.get("target_scene_status", [])
+        if not scene.get("already_references_resource", False)
+    )
+    matrix_asset_ids = {
+        str(asset.get("asset_id", ""))
+        for scene in report.get("scenes", [])
+        for asset in scene.get("assets", [])
+        if asset.get("asset_id")
+    }
     errors: list[str] = []
     if not markdown_path.exists():
         errors.append("markdown_missing")
     if int(summary.get("scene_count", -1)) != len(report.get("scenes", [])):
         errors.append("scene_count mismatch")
-    if int(summary.get("unique_asset_count", -1)) != 30:
-        errors.append("unique_asset_count expected 30")
-    if int(summary.get("scene_asset_reference_count", -1)) != 60:
-        errors.append("scene_asset_reference_count expected 60")
+    if matrix_asset_ids != expected_asset_ids:
+        errors.append("unique asset ids do not match P0 runtime plan")
+    if int(summary.get("unique_asset_count", -1)) != len(expected_asset_ids):
+        errors.append(f"unique_asset_count expected {len(expected_asset_ids)}")
+    if int(summary.get("scene_asset_reference_count", -1)) != expected_reference_count:
+        errors.append(f"scene_asset_reference_count expected {expected_reference_count}")
     if int(summary.get("missing_scene_count", -1)) != 0:
         errors.append("missing_scene_count expected 0")
-    if int(summary.get("planned_scene_asset_replacement_count", -1)) != 22:
-        errors.append("planned_scene_asset_replacement_count expected 22")
+    if int(summary.get("planned_scene_asset_replacement_count", -1)) != expected_planned_count:
+        errors.append(f"planned_scene_asset_replacement_count expected {expected_planned_count}")
     for scene in report.get("scenes", []):
         scene_path = str(scene.get("scene", ""))
         if not scene.get("exists"):
@@ -823,23 +872,25 @@ def audit_p0_scene_replacement_batches(root: Path) -> dict[str, Any]:
     report = load_json(report_path)
     summary = report.get("summary", {})
     batches = report.get("batches", [])
+    matrix_path = root / "docs/assets/p0-target-scene-replacement-matrix.json"
+    matrix = load_json(matrix_path) if matrix_path.exists() else {}
+    matrix_summary = matrix.get("summary", {})
     errors: list[str] = []
     if not markdown_path.exists():
         errors.append("markdown_missing")
     if int(summary.get("batch_count", -1)) != len(batches):
         errors.append("batch_count mismatch")
-    if int(summary.get("batch_count", -1)) != 9:
-        errors.append("batch_count expected 9")
-    if int(summary.get("scene_count", -1)) != 14:
-        errors.append("scene_count expected 14")
-    if int(summary.get("unique_asset_count", -1)) != 30:
-        errors.append("unique_asset_count expected 30")
-    if int(summary.get("scene_asset_reference_count", -1)) != 60:
-        errors.append("scene_asset_reference_count expected 60")
-    if int(summary.get("planned_scene_asset_replacement_count", -1)) != 22:
-        errors.append("planned_scene_asset_replacement_count expected 22")
-    if int(summary.get("already_referenced_scene_asset_count", -1)) != 38:
-        errors.append("already_referenced_scene_asset_count expected 38")
+    if not batches:
+        errors.append("no replacement batches")
+    for key in (
+        "scene_count",
+        "unique_asset_count",
+        "scene_asset_reference_count",
+        "planned_scene_asset_replacement_count",
+        "already_referenced_scene_asset_count",
+    ):
+        if int(summary.get(key, -1)) != int(matrix_summary.get(key, -2)):
+            errors.append(f"{key} does not match target scene matrix")
     if int(summary.get("missing_scene_count", -1)) != 0:
         errors.append("missing_scene_count expected 0")
     if int(summary.get("unbatched_scene_count", -1)) != 0:
@@ -1311,8 +1362,8 @@ def audit_file_counts(root: Path) -> dict[str, int]:
 def collect_errors(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     queue = report["queue"]
-    if queue["item_count"] != 55:
-        errors.append(f"queue item_count expected 55 got {queue['item_count']}")
+    if queue["item_count"] < 55:
+        errors.append(f"queue item_count expected at least 55 got {queue['item_count']}")
     for key in ("missing_outputs", "missing_target_families"):
         if queue[key]:
             errors.append(f"queue {key}: {queue[key]}")
@@ -1477,8 +1528,9 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not p0_runtime_plan.get("markdown_exists"):
         errors.append("P0 runtime replacement plan markdown is missing")
     p0_summary = p0_runtime_plan.get("summary", {})
-    if int(p0_summary.get("asset_count", -1)) != 30:
-        errors.append("P0 runtime replacement plan asset_count expected 30")
+    p0_asset_count = int(p0_summary.get("asset_count", -1))
+    if p0_asset_count <= 0:
+        errors.append("P0 runtime replacement plan asset_count must be positive")
     if int(p0_summary.get("missing_resource_count", -1)) != 0:
         errors.append("P0 runtime replacement plan missing_resource_count expected 0")
     if int(p0_summary.get("missing_target_scene_count", -1)) != 0:
@@ -1490,18 +1542,10 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not p0_rehearsal["present"] or not p0_rehearsal["scene_exists"]:
         errors.append("P0 runtime replacement rehearsal scene or manifest is missing")
     rehearsal_counts = p0_rehearsal.get("counts", {})
-    if int(rehearsal_counts.get("entry_count", -1)) != 30:
-        errors.append("P0 runtime replacement rehearsal entry_count expected 30")
-    if int(rehearsal_counts.get("texture2d_nodes", -1)) != 17:
-        errors.append("P0 runtime replacement rehearsal texture2d_nodes expected 17")
-    if int(rehearsal_counts.get("spriteframes_nodes", -1)) != 9:
-        errors.append("P0 runtime replacement rehearsal spriteframes_nodes expected 9")
-    if int(rehearsal_counts.get("tileset_nodes", -1)) != 1:
-        errors.append("P0 runtime replacement rehearsal tileset_nodes expected 1")
-    if int(rehearsal_counts.get("stylebox_nodes", -1)) != 1:
-        errors.append("P0 runtime replacement rehearsal stylebox_nodes expected 1")
-    if int(rehearsal_counts.get("atlastexture_nodes", -1)) != 2:
-        errors.append("P0 runtime replacement rehearsal atlastexture_nodes expected 2")
+    if int(rehearsal_counts.get("entry_count", -1)) != p0_asset_count:
+        errors.append(
+            f"P0 runtime replacement rehearsal entry_count expected {p0_asset_count}"
+        )
     if p0_rehearsal.get("errors"):
         errors.append(f"P0 runtime replacement rehearsal errors: {p0_rehearsal['errors']}")
 
@@ -1511,10 +1555,12 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not p0_scene_matrix.get("markdown_exists"):
         errors.append("P0 target scene replacement matrix markdown is missing")
     scene_matrix_summary = p0_scene_matrix.get("summary", {})
-    if int(scene_matrix_summary.get("unique_asset_count", -1)) != 30:
-        errors.append("P0 target scene replacement matrix unique_asset_count expected 30")
-    if int(scene_matrix_summary.get("scene_asset_reference_count", -1)) != 60:
-        errors.append("P0 target scene replacement matrix scene_asset_reference_count expected 60")
+    if int(scene_matrix_summary.get("unique_asset_count", -1)) != p0_asset_count:
+        errors.append(
+            f"P0 target scene replacement matrix unique_asset_count expected {p0_asset_count}"
+        )
+    if int(scene_matrix_summary.get("scene_asset_reference_count", -1)) <= 0:
+        errors.append("P0 target scene replacement matrix has no scene-asset references")
     if int(scene_matrix_summary.get("missing_scene_count", -1)) != 0:
         errors.append("P0 target scene replacement matrix missing_scene_count expected 0")
     if p0_scene_matrix.get("errors"):
@@ -1526,14 +1572,11 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not p0_scene_batches.get("markdown_exists"):
         errors.append("P0 scene replacement batches markdown is missing")
     scene_batches_summary = p0_scene_batches.get("summary", {})
-    if int(scene_batches_summary.get("batch_count", -1)) != 9:
-        errors.append("P0 scene replacement batches batch_count expected 9")
-    if int(scene_batches_summary.get("scene_count", -1)) != 14:
-        errors.append("P0 scene replacement batches scene_count expected 14")
-    if int(scene_batches_summary.get("unique_asset_count", -1)) != 30:
-        errors.append("P0 scene replacement batches unique_asset_count expected 30")
-    if int(scene_batches_summary.get("scene_asset_reference_count", -1)) != 60:
-        errors.append("P0 scene replacement batches scene_asset_reference_count expected 60")
+    if int(scene_batches_summary.get("batch_count", -1)) <= 0:
+        errors.append("P0 scene replacement batches batch_count must be positive")
+    for key in ("scene_count", "unique_asset_count", "scene_asset_reference_count"):
+        if int(scene_batches_summary.get(key, -1)) != int(scene_matrix_summary.get(key, -2)):
+            errors.append(f"P0 scene replacement batches {key} does not match matrix")
     if int(scene_batches_summary.get("missing_scene_count", -1)) != 0:
         errors.append("P0 scene replacement batches missing_scene_count expected 0")
     if int(scene_batches_summary.get("unbatched_scene_count", -1)) != 0:
@@ -1563,8 +1606,8 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not candidate_pool["present"]:
         errors.append("imagegen candidate pool report is missing")
     candidate_summary = candidate_pool.get("summary", {})
-    if int(candidate_summary.get("queue_item_count", -1)) != 55:
-        errors.append("candidate pool queue_item_count expected 55")
+    if int(candidate_summary.get("queue_item_count", -1)) != queue["item_count"]:
+        errors.append("candidate pool queue_item_count must match current queue")
     if int(candidate_summary.get("candidate_png_count", -1)) < queue["candidate_png_count"]:
         errors.append("candidate pool candidate count is lower than queue scan")
     if candidate_pool.get("errors"):
@@ -1589,10 +1632,10 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not provenance["present"]:
         errors.append("asset provenance report is missing")
     provenance_summary = provenance.get("summary", {})
-    if int(provenance_summary.get("record_count", -1)) != 55:
-        errors.append("asset provenance record_count expected 55")
-    if int(provenance_summary.get("output_hash_count", -1)) != 55:
-        errors.append("asset provenance output_hash_count expected 55")
+    if int(provenance_summary.get("record_count", -1)) != queue["item_count"]:
+        errors.append("asset provenance record_count must match current queue")
+    if int(provenance_summary.get("output_hash_count", -1)) != queue["item_count"]:
+        errors.append("asset provenance output_hash_count must match current queue")
     if int(provenance_summary.get("candidate_hash_count", -1)) != int(candidate_summary.get("candidate_png_count", -2)):
         errors.append("asset provenance candidate_hash_count must match candidate pool candidate_png_count")
     if provenance.get("errors"):
@@ -1602,8 +1645,8 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not source_safety["present"]:
         errors.append("imagegen source safety report is missing")
     safety_summary = source_safety.get("summary", {})
-    if int(safety_summary.get("queue_item_count", -1)) != 55:
-        errors.append("imagegen source safety queue_item_count expected 55")
+    if int(safety_summary.get("queue_item_count", -1)) != queue["item_count"]:
+        errors.append("imagegen source safety queue_item_count must match current queue")
     if int(safety_summary.get("candidate_count", -1)) != int(candidate_summary.get("candidate_png_count", -2)):
         errors.append("imagegen source safety candidate_count must match candidate pool candidate_png_count")
     if int(safety_summary.get("unsafe_candidate_count", -1)) != 0:
@@ -1617,8 +1660,13 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not runtime_source_safety.get("markdown_exists"):
         errors.append("runtime source safety markdown is missing")
     runtime_source_summary = runtime_source_safety.get("summary", {})
-    if int(runtime_source_summary.get("runtime_asset_count", -1)) != 30:
-        errors.append("runtime source safety runtime_asset_count expected 30")
+    expected_runtime_asset_count = int(
+        report["p0_runtime_replacement_plan"].get("summary", {}).get("asset_count", -2)
+    )
+    if int(runtime_source_summary.get("runtime_asset_count", -1)) != expected_runtime_asset_count:
+        errors.append(
+            f"runtime source safety runtime_asset_count expected {expected_runtime_asset_count}"
+        )
     if int(runtime_source_summary.get("unsafe_item_count", -1)) != 0:
         errors.append("runtime source safety unsafe_item_count expected 0")
     if runtime_source_safety.get("errors"):

@@ -49,11 +49,12 @@ def gates_by_asset(gates: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {str(entry["asset_id"]): entry for entry in gates.get("entries", [])}
 
 
-def scene_references_resource(scene_path: Path, resource_path: str, output_path: str) -> bool:
+def scene_references_resource(scene_path: Path, asset_id: str, resource_path: str, output_path: str) -> bool:
     if not scene_path.exists():
         return False
     text = scene_path.read_text(encoding="utf-8", errors="ignore")
     tokens = {
+        asset_id,
         resource_path,
         output_path,
         "res://" + output_path.replace("\\", "/"),
@@ -66,12 +67,21 @@ def build_entry(entry: dict[str, Any], catalog_entry: dict[str, Any], gate_entry
     resource_path = str(catalog_entry.get("resource_path", ""))
     output_path = str(entry.get("output_path", ""))
     resource_type = str(catalog_entry.get("catalog_resource_type") or entry.get("recommended_resource_type", "unknown"))
-    target_scenes = [str(path) for path in entry.get("existing_target_scene_candidates", [])]
+    direct_references = [str(path) for path in entry.get("direct_scene_references", [])]
+    target_scenes = list(dict.fromkeys([
+        *[str(path) for path in entry.get("existing_target_scene_candidates", [])],
+        *direct_references,
+    ]))
     target_scene_status = []
     reference_count = 0
     for scene in target_scenes:
         scene_path = res_to_path(scene)
-        referenced = scene_references_resource(scene_path, resource_path, output_path)
+        referenced = scene in direct_references or scene_references_resource(
+            scene_path,
+            asset_id,
+            resource_path,
+            output_path,
+        )
         if referenced:
             reference_count += 1
         target_scene_status.append(
@@ -189,12 +199,12 @@ def main() -> int:
     entries = [
         build_entry(entry, catalog_entries[str(entry["asset_id"])], gate_entries[str(entry["asset_id"])])
         for entry in runtime_map.get("entries", [])
-        if entry.get("priority") == "P0"
+        if entry.get("priority") == "P0" and str(entry.get("track", "")).startswith("runtime_")
     ]
     report = {
         "version": 1,
         "status": "p0_runtime_replacement_plan_ready",
-        "boundary": "Planning report only. It maps P0 image-gen assets to target scenes and replacement modes; it does not replace runtime scene references or approve final art.",
+        "boundary": "Planning report only. It maps P0 runtime-track image-gen assets to production target scenes and replacement modes; development-only and art-direction tracks are excluded.",
         "sources": {
             "runtime_map": str(RUNTIME_MAP_PATH),
             "runtime_catalog": str(RUNTIME_CATALOG_PATH),

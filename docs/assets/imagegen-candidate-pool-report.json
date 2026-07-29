@@ -3,9 +3,9 @@
   "status": "review_required",
   "boundary": "Candidate pool audit only. It proves raw PNG candidates exist and tracks whether selected sources already use them; it does not approve art quality or runtime replacement.",
   "summary": {
-    "queue_item_count": 55,
-    "candidate_png_count": 133,
-    "selected_source_count": 463,
+    "queue_item_count": 56,
+    "candidate_png_count": 134,
+    "selected_source_count": 464,
     "unselected_candidate_count": 104,
     "review_required_item_count": 55,
     "review_required_items": [
@@ -93,6 +93,7 @@
       "tileset_sheet": 2,
       "title_background": 1,
       "ui_atlas": 1,
+      "ui_map_foundation": 1,
       "ui_panel": 2,
       "vfx_atlas": 2,
       "vfx_direction": 1,
@@ -106,7 +107,7 @@
       "Batch 03": 9,
       "Batch 06": 43,
       "Batch 07": 3,
-      "Batch 08": 19,
+      "Batch 08": 20,
       "Batch 09": 8,
       "Batch 10": 10,
       "Batch 11": 11,
@@ -2627,6 +2628,38 @@
           "sha256": "5ecf9e2e04975b4dad996dc1380dba706ddf72a0b205bca895f4084279ffc6b1",
           "width": 1672,
           "height": 941,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage19_discovery_map_base_ai01",
+      "batch": "Batch 08",
+      "target_kind": "ui_map_foundation",
+      "candidate_dir": "assets/source/ai_generated/batch_08/stage19_discovery_map_base_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/ui/stage19_discovery_map_base_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_08/stage19_discovery_map_base_ai01/candidates/stage19_discovery_map_base_ai01_candidate_01.png",
+          "sha256": "2f28b02f8f21b7cdedf3d017fa153eae10592ff76a4207a61109202e8fc61a35",
+          "width": 1511,
+          "height": 1041,
           "mode": "RGB"
         }
       ]

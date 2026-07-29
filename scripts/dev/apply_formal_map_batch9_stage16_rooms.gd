@@ -105,10 +105,6 @@ func _apply(spec: Dictionary, terrain_set: TileSet, surface_set: TileSet, thin_s
 		_gate(root, (root.get_node("GateBarrier") as Node2D).position, gate_texture)
 	for zone_name: String in ["ExitZone", "LeftExitZone"]:
 		_hide_zone(root, zone_name)
-	for preview_path: String in ["SealReleaseNode/EquipmentPickupAtlasPreviewArt", "SealReleaseNode/ReusableSealPropsPreviewArt", "BacktrackConfirmationNode/ReusableSealPropsPreviewArt"]:
-		var preview := root.get_node_or_null(NodePath(preview_path)) as CanvasItem
-		if preview != null:
-			preview.visible = false
 	var output := PackedScene.new()
 	var result := output.pack(root)
 	root.free()
@@ -138,14 +134,10 @@ func _hide_old(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt"]:
+	for name: String in ["MaterialTextureArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false
-	var preview := root.get_node_or_null("ShrineTrialTilesetPreview") as TileMapLayer
-	if preview != null:
-		preview.visible = false
-		preview.set("collision_enabled", false)
 
 
 func _disable_legacy(root: Node) -> void:

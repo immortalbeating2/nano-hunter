@@ -6,141 +6,99 @@
     "p0_runtime_replacement_plan": "docs\\assets\\p0-runtime-replacement-plan.json"
   },
   "summary": {
-    "scene_count": 14,
-    "unique_asset_count": 30,
-    "scene_asset_reference_count": 60,
-    "high_impact_scene_count": 5,
+    "scene_count": 12,
+    "unique_asset_count": 11,
+    "scene_asset_reference_count": 23,
+    "high_impact_scene_count": 2,
     "missing_scene_count": 0,
-    "already_referenced_scene_asset_count": 38,
-    "planned_scene_asset_replacement_count": 22
+    "already_referenced_scene_asset_count": 17,
+    "planned_scene_asset_replacement_count": 6
   },
   "scenes": [
     {
-      "scene": "scenes/combat/basic_melee_enemy.tscn",
+      "scene": "scenes/enemies/seal_guardian_boss.tscn",
       "exists": true,
       "bucket": "combat",
-      "asset_count": 8,
-      "already_referenced_count": 1,
-      "planned_replacement_count": 7,
+      "asset_count": 1,
+      "already_referenced_count": 0,
+      "planned_replacement_count": 1,
       "risk_counts": {
-        "blocked_by_family_polish": 1,
-        "requires_runtime_review": 7
+        "requires_runtime_review": 1
       },
       "resource_type_counts": {
-        "SpriteFrames": 8
+        "SpriteFrames": 1
       },
       "validation_commands": [
         "godot --headless --path . --import",
-        "Run closest enemy / combat focused GUT after real replacement.",
+        "Run Stage15 Seal Guardian focused GUT after real replacement.",
         "python scripts\\assets\\audit_asset_package.py --strict --write-report"
       ],
       "assets": [
         {
-          "asset_id": "luna_run_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
+          "asset_id": "vfx_seal_magic_atlas_ai01",
+          "track": "runtime_vfx",
+          "target_kind": "vfx_atlas",
+          "target_system": "VFX atlas animation replacement",
           "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
+          "resource_path": "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
           "runtime_replacement_status": "already_referenced",
           "already_references_resource": false,
           "family_polish_blockers": [],
           "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_air_dash_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_attack_01_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_idle_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "seal_guardian_boss_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_jump_fall_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_hit_death_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "enemies_core_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [
-            "frame_order_manual_review",
-            "foot_baseline_and_anchor_manual_review",
-            "animation_timing_manual_review"
-          ],
-          "replacement_risk": "blocked_by_family_polish"
         }
       ]
     },
     {
-      "scene": "scenes/dev/imagegen_asset_gallery.tscn",
+      "scene": "scenes/player/player_placeholder.tscn",
       "exists": true,
-      "bucket": "dev",
+      "bucket": "player",
+      "asset_count": 2,
+      "already_referenced_count": 1,
+      "planned_replacement_count": 1,
+      "risk_counts": {
+        "already_referenced_reference_only": 1,
+        "requires_runtime_review": 1
+      },
+      "resource_type_counts": {
+        "CompressedTexture2D": 1,
+        "SpriteFrames": 1
+      },
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "Run player movement / combat focused GUT after real replacement.",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report"
+      ],
+      "assets": [
+        {
+          "asset_id": "stage14_air_dash_trail_ai01",
+          "track": "runtime_vfx",
+          "target_kind": "vfx_direction",
+          "target_system": "Air Dash VFX direction replacement",
+          "catalog_resource_type": "CompressedTexture2D",
+          "resource_path": "res://assets/art/vfx/stage14_air_dash_trail_ai01.png",
+          "runtime_replacement_status": "already_referenced",
+          "already_references_resource": true,
+          "family_polish_blockers": [],
+          "replacement_risk": "already_referenced_reference_only"
+        },
+        {
+          "asset_id": "vfx_seal_magic_atlas_ai01",
+          "track": "runtime_vfx",
+          "target_kind": "vfx_atlas",
+          "target_system": "VFX atlas animation replacement",
+          "catalog_resource_type": "SpriteFrames",
+          "resource_path": "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
+          "runtime_replacement_status": "already_referenced",
+          "already_references_resource": false,
+          "family_polish_blockers": [],
+          "replacement_risk": "requires_runtime_review"
+        }
+      ]
+    },
+    {
+      "scene": "scenes/rooms/stage14_air_dash_shrine_room.tscn",
+      "exists": true,
+      "bucket": "stage14",
       "asset_count": 1,
       "already_referenced_count": 1,
       "planned_replacement_count": 0,
@@ -152,218 +110,10 @@
       },
       "validation_commands": [
         "godot --headless --path . --import",
-        "Run the closest focused GUT after real replacement.",
+        "Run Stage14 focused GUT and manual Air Dash room review after real replacement.",
         "python scripts\\assets\\audit_asset_package.py --strict --write-report"
       ],
       "assets": [
-        {
-          "asset_id": "style_board_global_ai01",
-          "track": "art_direction",
-          "target_kind": "style_board",
-          "target_system": "style lock reference",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/promo/style_board_global_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        }
-      ]
-    },
-    {
-      "scene": "scenes/enemies/seal_guardian_boss.tscn",
-      "exists": true,
-      "bucket": "combat",
-      "asset_count": 11,
-      "already_referenced_count": 4,
-      "planned_replacement_count": 7,
-      "risk_counts": {
-        "already_referenced_reference_only": 2,
-        "blocked_by_family_polish": 1,
-        "requires_runtime_review": 8
-      },
-      "resource_type_counts": {
-        "CompressedTexture2D": 2,
-        "SpriteFrames": 9
-      },
-      "validation_commands": [
-        "godot --headless --path . --import",
-        "Run Stage15 Seal Guardian focused GUT after real replacement.",
-        "python scripts\\assets\\audit_asset_package.py --strict --write-report"
-      ],
-      "assets": [
-        {
-          "asset_id": "stage15_seal_guardian_ai01",
-          "track": "runtime_gameplay",
-          "target_kind": "boss_direction",
-          "target_system": "Seal Guardian boss readability direction",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage15_boss_attack_warning_ai01",
-          "track": "runtime_vfx",
-          "target_kind": "vfx_warning",
-          "target_system": "boss warning VFX replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "luna_run_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_air_dash_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_attack_01_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_idle_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "seal_guardian_boss_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "vfx_seal_magic_atlas_ai01",
-          "track": "runtime_vfx",
-          "target_kind": "vfx_atlas",
-          "target_system": "VFX atlas animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_jump_fall_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_hit_death_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "enemies_core_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [
-            "frame_order_manual_review",
-            "foot_baseline_and_anchor_manual_review",
-            "animation_timing_manual_review"
-          ],
-          "replacement_risk": "blocked_by_family_polish"
-        }
-      ]
-    },
-    {
-      "scene": "scenes/player/player_placeholder.tscn",
-      "exists": true,
-      "bucket": "player",
-      "asset_count": 11,
-      "already_referenced_count": 9,
-      "planned_replacement_count": 2,
-      "risk_counts": {
-        "already_referenced_reference_only": 2,
-        "blocked_by_family_polish": 1,
-        "requires_runtime_review": 8
-      },
-      "resource_type_counts": {
-        "CompressedTexture2D": 2,
-        "SpriteFrames": 9
-      },
-      "validation_commands": [
-        "godot --headless --path . --import",
-        "Run player movement / combat focused GUT after real replacement.",
-        "python scripts\\assets\\audit_asset_package.py --strict --write-report"
-      ],
-      "assets": [
-        {
-          "asset_id": "stage16_luna_player_readability_ai01",
-          "track": "runtime_gameplay",
-          "target_kind": "character_direction",
-          "target_system": "player visual readability direction",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/characters/player/stage16_luna_player_readability_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
         {
           "asset_id": "stage14_air_dash_trail_ai01",
           "track": "runtime_vfx",
@@ -375,273 +125,35 @@
           "already_references_resource": true,
           "family_polish_blockers": [],
           "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "luna_run_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_air_dash_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_attack_01_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_idle_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "seal_guardian_boss_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "vfx_seal_magic_atlas_ai01",
-          "track": "runtime_vfx",
-          "target_kind": "vfx_atlas",
-          "target_system": "VFX atlas animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_jump_fall_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "luna_hit_death_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "requires_runtime_review"
-        },
-        {
-          "asset_id": "enemies_core_sheet_ai01",
-          "track": "runtime_animation",
-          "target_kind": "sprite_sheet",
-          "target_system": "player/enemy/boss animation replacement",
-          "catalog_resource_type": "SpriteFrames",
-          "resource_path": "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [
-            "frame_order_manual_review",
-            "foot_baseline_and_anchor_manual_review",
-            "animation_timing_manual_review"
-          ],
-          "replacement_risk": "blocked_by_family_polish"
         }
       ]
     },
     {
-      "scene": "scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
+      "scene": "scenes/rooms/stage15_completion_room.tscn",
       "exists": true,
-      "bucket": "stage13",
+      "bucket": "stage15",
       "asset_count": 1,
       "already_referenced_count": 1,
       "planned_replacement_count": 0,
       "risk_counts": {
-        "blocked_by_family_polish": 1
+        "already_referenced_reference_only": 1
       },
       "resource_type_counts": {
-        "TileSet": 1
+        "CompressedTexture2D": 1
       },
       "validation_commands": [
         "godot --headless --path . --import",
-        "Run Stage13 / TileSet room review after real replacement.",
+        "Run Stage15 focused GUT and boss room manual review after real replacement.",
         "python scripts\\assets\\audit_asset_package.py --strict --write-report"
       ],
       "assets": [
         {
-          "asset_id": "miasma_marsh_tileset_ai01",
-          "track": "runtime_environment",
-          "target_kind": "tileset_sheet",
-          "target_system": "TileMapLayer visual/collision replacement",
-          "catalog_resource_type": "TileSet",
-          "resource_path": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [
-            "collision_and_terrain_manual_review",
-            "hazard_safe_boundary_manual_review",
-            "alpha_padding_policy_manual_review",
-            "semantic_labels_manual_review"
-          ],
-          "replacement_risk": "blocked_by_family_polish"
-        }
-      ]
-    },
-    {
-      "scene": "scenes/rooms/stage14_air_dash_gate_room.tscn",
-      "exists": true,
-      "bucket": "stage14",
-      "asset_count": 3,
-      "already_referenced_count": 3,
-      "planned_replacement_count": 0,
-      "risk_counts": {
-        "already_referenced_reference_only": 2,
-        "blocked_by_family_polish": 1
-      },
-      "resource_type_counts": {
-        "CompressedTexture2D": 2,
-        "TileSet": 1
-      },
-      "validation_commands": [
-        "godot --headless --path . --import",
-        "Run Stage14 focused GUT and manual Air Dash room review after real replacement.",
-        "python scripts\\assets\\audit_asset_package.py --strict --write-report"
-      ],
-      "assets": [
-        {
-          "asset_id": "stage14_air_dash_shrine_ai01",
+          "asset_id": "stage16_seal_release_threshold_ai01",
           "track": "runtime_gameplay",
           "target_kind": "prop",
           "target_system": "room prop visual replacement",
           "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/props/stage14_air_dash_shrine_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage14_air_dash_gate_ai01",
-          "track": "runtime_gameplay",
-          "target_kind": "prop",
-          "target_system": "room prop visual replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/props/stage14_air_dash_gate_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "miasma_marsh_tileset_ai01",
-          "track": "runtime_environment",
-          "target_kind": "tileset_sheet",
-          "target_system": "TileMapLayer visual/collision replacement",
-          "catalog_resource_type": "TileSet",
-          "resource_path": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [
-            "collision_and_terrain_manual_review",
-            "hazard_safe_boundary_manual_review",
-            "alpha_padding_policy_manual_review",
-            "semantic_labels_manual_review"
-          ],
-          "replacement_risk": "blocked_by_family_polish"
-        }
-      ]
-    },
-    {
-      "scene": "scenes/rooms/stage14_air_dash_shrine_room.tscn",
-      "exists": true,
-      "bucket": "stage14",
-      "asset_count": 3,
-      "already_referenced_count": 3,
-      "planned_replacement_count": 0,
-      "risk_counts": {
-        "already_referenced_reference_only": 3
-      },
-      "resource_type_counts": {
-        "CompressedTexture2D": 3
-      },
-      "validation_commands": [
-        "godot --headless --path . --import",
-        "Run Stage14 focused GUT and manual Air Dash room review after real replacement.",
-        "python scripts\\assets\\audit_asset_package.py --strict --write-report"
-      ],
-      "assets": [
-        {
-          "asset_id": "stage14_air_dash_trail_ai01",
-          "track": "runtime_vfx",
-          "target_kind": "vfx_direction",
-          "target_system": "Air Dash VFX direction replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/vfx/stage14_air_dash_trail_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage14_air_dash_shrine_ai01",
-          "track": "runtime_gameplay",
-          "target_kind": "prop",
-          "target_system": "room prop visual replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/props/stage14_air_dash_shrine_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage14_air_dash_gate_ai01",
-          "track": "runtime_gameplay",
-          "target_kind": "prop",
-          "target_system": "room prop visual replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/props/stage14_air_dash_gate_ai01.png",
+          "resource_path": "res://assets/art/props/stage16_seal_release_threshold_ai01.png",
           "runtime_replacement_status": "already_referenced",
           "already_references_resource": true,
           "family_polish_blockers": [],
@@ -650,9 +162,42 @@
       ]
     },
     {
-      "scene": "scenes/rooms/stage15_seal_guardian_boss_room.tscn",
+      "scene": "scenes/rooms/stage15_seal_pressure_room.tscn",
       "exists": true,
       "bucket": "stage15",
+      "asset_count": 1,
+      "already_referenced_count": 1,
+      "planned_replacement_count": 0,
+      "risk_counts": {
+        "requires_runtime_review": 1
+      },
+      "resource_type_counts": {
+        "SpriteFrames": 1
+      },
+      "validation_commands": [
+        "godot --headless --path . --import",
+        "Run Stage15 focused GUT and boss room manual review after real replacement.",
+        "python scripts\\assets\\audit_asset_package.py --strict --write-report"
+      ],
+      "assets": [
+        {
+          "asset_id": "vfx_seal_magic_atlas_ai01",
+          "track": "runtime_vfx",
+          "target_kind": "vfx_atlas",
+          "target_system": "VFX atlas animation replacement",
+          "catalog_resource_type": "SpriteFrames",
+          "resource_path": "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
+          "runtime_replacement_status": "already_referenced",
+          "already_references_resource": true,
+          "family_polish_blockers": [],
+          "replacement_risk": "requires_runtime_review"
+        }
+      ]
+    },
+    {
+      "scene": "scenes/rooms/stage16_alpha_demo_end_room.tscn",
+      "exists": true,
+      "bucket": "stage16",
       "asset_count": 2,
       "already_referenced_count": 2,
       "planned_replacement_count": 0,
@@ -664,30 +209,29 @@
       },
       "validation_commands": [
         "godot --headless --path . --import",
-        "Run Stage15 Seal Guardian focused GUT after real replacement.",
-        "Run Stage15 focused GUT and boss room manual review after real replacement.",
+        "Run Stage16 focused GUT and Alpha Demo flow review after real replacement.",
         "python scripts\\assets\\audit_asset_package.py --strict --write-report"
       ],
       "assets": [
         {
-          "asset_id": "stage15_seal_guardian_ai01",
-          "track": "runtime_gameplay",
-          "target_kind": "boss_direction",
-          "target_system": "Seal Guardian boss readability direction",
+          "asset_id": "stage16_alpha_demo_completion_ai01",
+          "track": "runtime_ui",
+          "target_kind": "completion_ui",
+          "target_system": "Alpha Demo completion feedback",
           "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png",
+          "resource_path": "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png",
           "runtime_replacement_status": "already_referenced",
           "already_references_resource": true,
           "family_polish_blockers": [],
           "replacement_risk": "already_referenced_reference_only"
         },
         {
-          "asset_id": "stage15_boss_attack_warning_ai01",
-          "track": "runtime_vfx",
-          "target_kind": "vfx_warning",
-          "target_system": "boss warning VFX replacement",
+          "asset_id": "stage16_completion_panel_ui_ai01",
+          "track": "runtime_ui",
+          "target_kind": "ui_panel",
+          "target_system": "pause/completion panel replacement",
           "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png",
+          "resource_path": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
           "runtime_replacement_status": "already_referenced",
           "already_references_resource": true,
           "family_polish_blockers": [],
@@ -696,7 +240,7 @@
       ]
     },
     {
-      "scene": "scenes/rooms/stage16_alpha_demo_end_room.tscn",
+      "scene": "scenes/rooms/stage16_backtrack_confirmation_room.tscn",
       "exists": true,
       "bucket": "stage16",
       "asset_count": 1,
@@ -715,12 +259,12 @@
       ],
       "assets": [
         {
-          "asset_id": "stage16_alpha_demo_completion_ai01",
-          "track": "runtime_ui",
-          "target_kind": "completion_ui",
-          "target_system": "Alpha Demo completion feedback",
+          "asset_id": "stage16_seal_release_threshold_ai01",
+          "track": "runtime_gameplay",
+          "target_kind": "prop",
+          "target_system": "room prop visual replacement",
           "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/ui/stage16_alpha_demo_completion_ai01.png",
+          "resource_path": "res://assets/art/props/stage16_seal_release_threshold_ai01.png",
           "runtime_replacement_status": "already_referenced",
           "already_references_resource": true,
           "family_polish_blockers": [],
@@ -831,16 +375,16 @@
       "scene": "scenes/ui/demo_shell.tscn",
       "exists": true,
       "bucket": "ui",
-      "asset_count": 9,
+      "asset_count": 7,
       "already_referenced_count": 4,
-      "planned_replacement_count": 5,
+      "planned_replacement_count": 3,
       "risk_counts": {
-        "already_referenced_reference_only": 8,
+        "already_referenced_reference_only": 6,
         "requires_runtime_review": 1
       },
       "resource_type_counts": {
         "AtlasTexture": 2,
-        "CompressedTexture2D": 6,
+        "CompressedTexture2D": 4,
         "StyleBoxTexture": 1
       },
       "validation_commands": [
@@ -932,30 +476,6 @@
           "already_references_resource": true,
           "family_polish_blockers": [],
           "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage15_boss_hud_frame_ai01",
-          "track": "runtime_ui",
-          "target_kind": "hud_frame",
-          "target_system": "HUD frame or status panel visual replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/ui/stage15_boss_hud_frame_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage14_ability_status_hud_ai01",
-          "track": "runtime_ui",
-          "target_kind": "hud_frame",
-          "target_system": "HUD frame or status panel visual replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/ui/stage14_ability_status_hud_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
         }
       ]
     },
@@ -963,15 +483,17 @@
       "scene": "scenes/ui/tutorial_hud.tscn",
       "exists": true,
       "bucket": "ui",
-      "asset_count": 7,
-      "already_referenced_count": 6,
+      "asset_count": 4,
+      "already_referenced_count": 3,
       "planned_replacement_count": 1,
       "risk_counts": {
-        "already_referenced_reference_only": 7
+        "already_referenced_reference_only": 3,
+        "requires_runtime_review": 1
       },
       "resource_type_counts": {
         "AtlasTexture": 2,
-        "CompressedTexture2D": 5
+        "CompressedTexture2D": 1,
+        "StyleBoxTexture": 1
       },
       "validation_commands": [
         "godot --headless --path . --import",
@@ -979,30 +501,6 @@
         "python scripts\\assets\\audit_asset_package.py --strict --write-report"
       ],
       "assets": [
-        {
-          "asset_id": "stage14_air_dash_icon_ai01",
-          "track": "runtime_ui",
-          "target_kind": "icon",
-          "target_system": "ability/status HUD icon replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/ui/stage14_air_dash_icon_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage15_recovery_charge_icon_ai01",
-          "track": "runtime_ui",
-          "target_kind": "icon",
-          "target_system": "ability/status HUD icon replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
         {
           "asset_id": "hud_core_ui_atlas_ai01",
           "track": "runtime_ui",
@@ -1028,6 +526,18 @@
           "replacement_risk": "already_referenced_reference_only"
         },
         {
+          "asset_id": "menu_ninepatch_ui_ai01",
+          "track": "runtime_ui",
+          "target_kind": "ninepatch_sheet",
+          "target_system": "menu/panel NinePatch theme replacement",
+          "catalog_resource_type": "StyleBoxTexture",
+          "resource_path": "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres",
+          "runtime_replacement_status": "already_referenced",
+          "already_references_resource": true,
+          "family_polish_blockers": [],
+          "replacement_risk": "requires_runtime_review"
+        },
+        {
           "asset_id": "stage16_demo_menu_icons_ai01",
           "track": "runtime_ui",
           "target_kind": "icon_sheet",
@@ -1036,30 +546,6 @@
           "resource_path": "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
           "runtime_replacement_status": "already_referenced",
           "already_references_resource": false,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage15_boss_hud_frame_ai01",
-          "track": "runtime_ui",
-          "target_kind": "hud_frame",
-          "target_system": "HUD frame or status panel visual replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/ui/stage15_boss_hud_frame_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
-          "family_polish_blockers": [],
-          "replacement_risk": "already_referenced_reference_only"
-        },
-        {
-          "asset_id": "stage14_ability_status_hud_ai01",
-          "track": "runtime_ui",
-          "target_kind": "hud_frame",
-          "target_system": "HUD frame or status panel visual replacement",
-          "catalog_resource_type": "CompressedTexture2D",
-          "resource_path": "res://assets/art/ui/stage14_ability_status_hud_ai01.png",
-          "runtime_replacement_status": "already_referenced",
-          "already_references_resource": true,
           "family_polish_blockers": [],
           "replacement_risk": "already_referenced_reference_only"
         }

@@ -211,14 +211,14 @@
         "horizontal_padding": 24,
         "vertical_padding": 8
       },
-      "archival_reason": "Failed full attack source retained as evidence; live attack now uses clean body plus Stage12 slash visual.",
+      "archival_reason": "Failed full attack source retained as evidence; live attack now uses the clean body sheet plus the independent runtime slash SpriteFrames.",
       "superseded_by": [
         {
           "id": "luna_attack_body_runtime_sheet_ai02"
         },
         {
-          "id": "stage12_slash_vfx",
-          "path": "assets/art/vfx/stage12_slash_vfx.svg"
+          "id": "luna_attack_slash_vfx_runtime_ai01",
+          "path": "assets/art/vfx/atlases/luna_attack_slash_vfx_runtime_ai01.spriteframes.tres"
         }
       ]
     },

@@ -1,7 +1,6 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="2_f1m3a"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_uesoj"]
@@ -86,15 +85,6 @@ texture = ExtResource("4_uesoj")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="MiasmaTilesetPreview" type="TileMapLayer" parent="." unique_id=1841905599]
-visible = false
-position = Vector2(-160, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("2_f1m3a")
-collision_enabled = false
-metadata/asset_id = "miasma_marsh_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="ExitZone" type="Area2D" parent="." unique_id=739773980]
 position = Vector2(800, 160)
 
@@ -140,7 +130,7 @@ modulate = Color(1, 1, 1, 0.08)
 z_index = 2
 position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
-tile_map_data = PackedByteArray("AAACAAEAAAABAAIAAAADAAEAAAAAAAIAAAAEAAEAAAAAAAIAAAAFAAEAAAACAAIAAAAIAAIAAAABAAIAAAAJAAIAAAAAAAIAAAAKAAIAAAAAAAIAAAALAAIAAAACAAIAAAA=")
+tile_map_data = PackedByteArray("AAACAAEA//////////8DAAEA//////////8EAAEA//////////8FAAEA//////////8IAAIAAAABAAIAAAAJAAIAAAAAAAIAAAAKAAIAAAAAAAIAAAALAAIAAAACAAIAAAACAAIAAAABAAIAAAADAAIAAAAAAAIAAAAEAAIAAAAAAAIAAAAFAAIAAAACAAIAAAA=")
 tile_set = ExtResource("7_7gcsj")
 
 [node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1909732674]
@@ -154,7 +144,7 @@ collision_enabled = false
 [node name="ThinPlatformSurfaceVisual" type="TileMapLayer" parent="." unique_id=38046380]
 modulate = Color(0.7, 0.82, 0.75, 0.92)
 z_index = 2
-tile_map_data = PackedByteArray("AAACAAEAAAAAAAAAAAADAAEAAAABAAAAAAAEAAEAAAABAAAAAAAFAAEAAAACAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAACAAAAAAA=")
+tile_map_data = PackedByteArray("AAACAAEA//////////8DAAEA//////////8EAAEA//////////8FAAEA//////////8IAAIAAAAAAAAAAAAJAAIAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAACAAAAAAACAAIAAAAAAAAAAAADAAIAAAABAAAAAAAEAAIAAAABAAAAAAAFAAIAAAACAAAAAAA=")
 tile_set = ExtResource("9_cjtoh")
 collision_enabled = false
 

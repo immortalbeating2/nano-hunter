@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/rooms/stage9_zone_switch_room.gd" id="1"]
 [ext_resource type="Resource" path="res://assets/configs/rooms/stage9_zone_switch_room_flow.tres" id="2"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/stage12_checkpoint_gate_goal_icons.svg" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="5_dtus2"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="9_thsr1"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="10_u5atq"]
@@ -39,7 +38,11 @@ next_room_path = "res://scenes/rooms/stage9_zone_final_room.tscn"
 next_spawn_id = &"zone_final_start"
 previous_room_path = "res://scenes/rooms/stage9_zone_charger_room.tscn"
 previous_spawn_id = &"zone_charger_return"
+shortcut_room_path = "res://scenes/rooms/stage10_zone_branch_room.tscn"
+shortcut_spawn_id = &"stage10_branch_from_stage9_shortcut"
+shortcut_requires_air_dash = false
 spawn_positions = {
+&"zone_switch_from_stage10_shortcut": Vector2(640, 204),
 &"zone_switch_return": Vector2(640, 204),
 &"zone_switch_start": Vector2(-256, 204)
 }
@@ -122,12 +125,6 @@ texture = ExtResource("nh_gate")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
 
-[node name="Stage12GateHint" type="Sprite2D" parent="GateBarrier" unique_id=1542560135]
-modulate = Color(1, 0.92, 0.52, 0.55)
-position = Vector2(0, -76)
-scale = Vector2(0.28, 0.28)
-texture = ExtResource("3")
-
 [node name="GateSwitch" type="Area2D" parent="." unique_id=440354528]
 position = Vector2(352, 56)
 
@@ -138,13 +135,6 @@ shape = SubResource("4")
 visible = false
 color = Color(0.92549, 0.752941, 0.298039, 1)
 polygon = PackedVector2Array(-32, -16, 32, -16, 32, 16, -32, 16)
-
-[node name="Stage12CheckpointMarker" type="Sprite2D" parent="GateSwitch" unique_id=1114573718]
-visible = false
-modulate = Color(0.6, 1, 0.76, 0.55)
-position = Vector2(0, -34)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("3")
 
 [node name="SwitchArt" type="Sprite2D" parent="GateSwitch" unique_id=1949012687]
 modulate = Color(1, 1, 1, 0.88)
@@ -254,3 +244,16 @@ position = Vector2(-352, 160)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=1228713615]
 shape = SubResource("RectangleShape2D_uiyyy")
+
+[node name="ShortcutZone" type="Area2D" parent="."]
+position = Vector2(544, 56)
+metadata/route_role = "early_optional_route_to_wind_seal"
+
+[node name="ShortcutMarkerArt" type="Sprite2D" parent="ShortcutZone"]
+z_index = 4
+position = Vector2(0, -8)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("switch_stake")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.talisman_stake_idle"
+metadata/anchor_role = "stage9_early_second_branch"

@@ -4,11 +4,11 @@
   "status": "review_required",
   "boundary": "Source safety audit only. It checks multi-project image_gen import risk by classifying candidate PNGs against session recovery summaries, recovery ledgers, provenance records and project path boundaries. It does not approve final art quality, legal terms or runtime use.",
   "summary": {
-    "queue_item_count": 55,
-    "candidate_count": 133,
+    "queue_item_count": 56,
+    "candidate_count": 134,
     "candidate_storage_policy": "raw_candidates_optional_outside_git",
     "classification_counts": {
-      "project_session_confirmed": 0,
+      "project_session_confirmed": 1,
       "explicit_mapping_confirmed": 0,
       "explicit_mapping_review_required": 0,
       "workspace_provenance_recorded_review_required": 133,
@@ -16,7 +16,7 @@
     },
     "review_required_candidate_count": 133,
     "unsafe_candidate_count": 0,
-    "session_recovery_candidate_count": 0,
+    "session_recovery_candidate_count": 1,
     "ledger_mapped_candidate_count": 0,
     "global_generated_images_latest_allowed": false,
     "errors": []
@@ -1843,6 +1843,23 @@
           "notes": [
             "candidate file is not in ordinary Git; raw candidates may be stored outside the repo"
           ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage19_discovery_map_base_ai01",
+      "batch": "Batch 08",
+      "target_kind": "ui_map_foundation",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_08/stage19_discovery_map_base_ai01/candidates/stage19_discovery_map_base_ai01_candidate_01.png",
+          "status": "project_session_confirmed",
+          "reasons": [
+            "candidate listed in session_recovery summary"
+          ],
+          "notes": []
         }
       ],
       "errors": []

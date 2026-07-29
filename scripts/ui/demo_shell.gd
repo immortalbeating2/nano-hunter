@@ -1,10 +1,11 @@
 extends Control
 
 # DemoShell 是 Stage16 Alpha Demo 的最小外壳。
-# 它只持有主菜单 / 暂停菜单显示状态，并通过 Main 的公开接口开始或重开试玩。
+# 它持有主菜单、暂停菜单和探索地图显示状态，并通过 Main 的公开接口读写试玩流程。
 
 @onready var main_menu: Panel = $MainMenu
 @onready var pause_menu: Panel = $PauseMenu
+@onready var world_map_panel: Panel = $WorldMapPanel
 @onready var detail_panel: Panel = $DetailPanel
 @onready var completion_panel: Panel = $CompletionPanel
 @onready var failure_panel: Panel = $FailurePanel
@@ -27,17 +28,24 @@ extends Control
 @onready var controls_button: Button = $MainMenu/MarginContainer/VBoxContainer/ControlsButton
 @onready var quit_button: Button = $MainMenu/MarginContainer/VBoxContainer/QuitButton
 @onready var resume_button: Button = $PauseMenu/MarginContainer/VBoxContainer/ResumeButton
+@onready var map_button: Button = $PauseMenu/MarginContainer/VBoxContainer/MapButton
+@onready var build_button: Button = $PauseMenu/MarginContainer/VBoxContainer/BuildButton
 @onready var restart_button: Button = $PauseMenu/MarginContainer/VBoxContainer/RestartButton
+@onready var world_map_view: Control = $WorldMapPanel/WorldMapView
+@onready var map_current_room_label: Label = $WorldMapPanel/CurrentRoomLabel
+@onready var map_back_button: Button = $WorldMapPanel/MapBackButton
 @onready var failure_label: Label = $FailurePanel/MarginContainer/VBoxContainer/FailureLabel
 @onready var failure_continue_button: Button = $FailurePanel/MarginContainer/VBoxContainer/FailureContinueButton
 
 # DemoShell 只缓存 Main 引用并读取快照；Stage16 进度状态仍由 Main 负责。
 var _main: Node
 var _is_pause_menu_open := false
+var _detail_returns_to_game := false
 var _main_menu_buttons: Array[Button] = []
 var _level_select_scroll: ScrollContainer
 var _level_select_list: VBoxContainer
 
+const WORLD_MAP_ASPECT := 1511.0 / 1041.0
 const LEVEL_SELECT_ENTRIES := [
 	{"label": "01 教程起点", "path": "res://scenes/rooms/tutorial_room.tscn", "spawn": "tutorial_start"},
 	{"label": "02 战斗试炼", "path": "res://scenes/rooms/combat_trial_room.tscn", "spawn": "combat_entry"},
@@ -49,7 +57,7 @@ const LEVEL_SELECT_ENTRIES := [
 	{"label": "08 Stage9 终点房", "path": "res://scenes/rooms/stage9_zone_final_room.tscn", "spawn": "zone_final_start"},
 	{"label": "09 Stage10 空战主线", "path": "res://scenes/rooms/stage10_zone_aerial_room.tscn", "spawn": "stage10_aerial_start"},
 	{"label": "10 Stage10 挑战房", "path": "res://scenes/rooms/stage10_zone_challenge_room.tscn", "spawn": "stage10_challenge_start"},
-	{"label": "11 Stage11 Demo 终点", "path": "res://scenes/rooms/stage11_demo_end_room.tscn", "spawn": "stage11_demo_end_start"},
+	{"label": "11 Stage11 镇妖驿厅", "path": "res://scenes/rooms/stage11_demo_end_room.tscn", "spawn": "stage11_demo_end_start"},
 	{"label": "12 Stage13 瘴泽入口", "path": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn", "spawn": "stage13_entry_start"},
 	{"label": "13 Stage13 远程敌房", "path": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn", "spawn": "stage13_caster_start"},
 	{"label": "14 Stage13 瘴气房", "path": "res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn", "spawn": "stage13_miasma_start"},
@@ -88,6 +96,8 @@ func _ready() -> void:
 	resized.connect(_layout_title_menu)
 	_layout_title_menu()
 	_connect_buttons()
+	for button: Button in [resume_button, map_button, build_button, restart_button]:
+		_copy_button_skin(button)
 	_open_main_menu()
 
 
@@ -106,7 +116,13 @@ func _layout_title_menu() -> void:
 	var detail_width := minf(panel_width + 40.0, 460.0)
 	var detail_height := minf(panel_height, 300.0)
 	var pause_width := clampf(viewport_size.x * 0.22, 260.0, 360.0)
-	var pause_height := clampf(viewport_size.y * 0.26, 180.0, 240.0)
+	var pause_height := clampf(viewport_size.y * 0.38, 280.0, 340.0)
+	var world_map_width := clampf(viewport_size.x * 0.86, 520.0, 1600.0)
+	var world_map_height := clampf(viewport_size.y * 0.82, 358.0, 1100.0)
+	if world_map_width / world_map_height > WORLD_MAP_ASPECT:
+		world_map_width = world_map_height * WORLD_MAP_ASPECT
+	else:
+		world_map_height = world_map_width / WORLD_MAP_ASPECT
 	var failure_width := clampf(viewport_size.x * 0.24, 300.0, 460.0)
 	var failure_height := clampf(viewport_size.y * 0.20, 180.0, 260.0)
 
@@ -136,6 +152,15 @@ func _layout_title_menu() -> void:
 		pause_menu.offset_right = pause_width * 0.5
 		pause_menu.offset_top = -pause_height * 0.5
 		pause_menu.offset_bottom = pause_height * 0.5
+	if world_map_panel != null:
+		world_map_panel.anchor_left = 0.5
+		world_map_panel.anchor_top = 0.5
+		world_map_panel.anchor_right = 0.5
+		world_map_panel.anchor_bottom = 0.5
+		world_map_panel.offset_left = -world_map_width * 0.5
+		world_map_panel.offset_right = world_map_width * 0.5
+		world_map_panel.offset_top = -world_map_height * 0.5
+		world_map_panel.offset_bottom = world_map_height * 0.5
 	if failure_panel != null:
 		failure_panel.anchor_left = 0.5
 		failure_panel.anchor_top = 0.5
@@ -191,7 +216,7 @@ func _layout_title_menu() -> void:
 		failure_continue_button.custom_minimum_size = Vector2(clampf(failure_width - 120.0, 180.0, 280.0), button_height)
 		failure_continue_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		failure_continue_button.add_theme_font_size_override("font_size", button_font_size)
-	for button: Button in [resume_button, restart_button]:
+	for button: Button in [resume_button, map_button, build_button, restart_button]:
 		if button == null:
 			continue
 		button.custom_minimum_size = Vector2(clampf(pause_width - 96.0, 176.0, 280.0), button_height)
@@ -209,9 +234,13 @@ func _layout_title_menu() -> void:
 			button.add_theme_font_size_override("font_size", max(11, button_font_size - 2))
 
 
-# Esc / pause 输入只切换暂停菜单；主菜单显示时不再叠加暂停层。
+# Esc / pause 输入在地图内先返回暂停菜单；主菜单显示时不叠加暂停层。
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
+		if world_map_panel.visible:
+			_on_map_back_pressed()
+			return
+
 		if detail_panel.visible:
 			_close_detail_panel()
 			return
@@ -264,7 +293,10 @@ func _connect_buttons() -> void:
 	quit_button.pressed.connect(_on_quit_pressed)
 	detail_back_button.pressed.connect(_close_detail_panel)
 	resume_button.pressed.connect(_on_resume_pressed)
+	map_button.pressed.connect(_on_map_pressed)
+	build_button.pressed.connect(_on_build_pressed)
 	restart_button.pressed.connect(_on_restart_pressed)
+	map_back_button.pressed.connect(_on_map_back_pressed)
 	failure_continue_button.pressed.connect(_on_failure_continue_pressed)
 
 
@@ -312,8 +344,11 @@ func _open_main_menu() -> void:
 	main_menu.visible = true
 	detail_panel.visible = false
 	pause_menu.visible = false
+	world_map_panel.visible = false
 	failure_panel.visible = false
 	_is_pause_menu_open = false
+	_detail_returns_to_game = false
+	detail_back_button.text = "返回"
 	# 主菜单保持可见覆盖层，但不暂停场景树；这样既保留开始入口，也不破坏既有灰盒 driver 从 Main.tscn 直接推进的自动化。
 	get_tree().paused = false
 	_refresh_status_text()
@@ -329,6 +364,7 @@ func _on_start_pressed() -> void:
 	main_menu.visible = false
 	detail_panel.visible = false
 	pause_menu.visible = false
+	world_map_panel.visible = false
 	failure_panel.visible = false
 	_is_pause_menu_open = false
 	get_tree().paused = false
@@ -345,6 +381,8 @@ func _open_level_select_panel() -> void:
 
 
 func _open_detail_panel(title: String, body: String, show_level_select := false) -> void:
+	_detail_returns_to_game = false
+	detail_back_button.text = "返回"
 	detail_title_label.text = title
 	detail_body_label.text = body
 	detail_body_label.custom_minimum_size = Vector2(0.0, 36.0 if show_level_select else 124.0)
@@ -358,6 +396,13 @@ func _close_detail_panel() -> void:
 	if _level_select_scroll != null:
 		_level_select_scroll.visible = false
 	detail_panel.visible = false
+	if _detail_returns_to_game:
+		_detail_returns_to_game = false
+		detail_back_button.text = "返回"
+		title_background.visible = false
+		main_menu.visible = false
+		get_tree().paused = false
+		return
 	main_menu.visible = true
 	_refresh_status_text()
 
@@ -379,8 +424,10 @@ func _on_level_select_entry_pressed(entry: Dictionary) -> void:
 	main_menu.visible = false
 	detail_panel.visible = false
 	pause_menu.visible = false
+	world_map_panel.visible = false
 	failure_panel.visible = false
 	_is_pause_menu_open = false
+	_detail_returns_to_game = false
 	get_tree().paused = false
 	_refresh_completion_panel()
 
@@ -394,15 +441,60 @@ func _open_pause_menu() -> void:
 	title_background.visible = false
 	detail_panel.visible = false
 	pause_menu.visible = true
+	world_map_panel.visible = false
 	failure_panel.visible = false
 	_is_pause_menu_open = true
 	get_tree().paused = true
+	_refresh_build_button()
 	_refresh_completion_panel()
 
 
 # 继续按钮恢复当前运行态，不修改 Main 进度。
 func _on_resume_pressed() -> void:
 	_resume_demo()
+
+
+# 地图入口只读取 Main 的探索快照，并保持场景树暂停。
+func _on_map_pressed() -> void:
+	if _main == null or not _main.has_method("get_world_map_snapshot"):
+		return
+
+	var snapshot: Variant = _main.call("get_world_map_snapshot")
+	if not (snapshot is Dictionary):
+		return
+
+	if world_map_view != null and world_map_view.has_method("set_map_snapshot"):
+		world_map_view.call("set_map_snapshot", snapshot)
+	if map_current_room_label != null:
+		var room_label := "未知房间"
+		if world_map_view != null and world_map_view.has_method("get_current_room_label"):
+			room_label = str(world_map_view.call("get_current_room_label"))
+		map_current_room_label.text = "当前位置：%s  ·  已发现 %d / 38" % [room_label, Array(snapshot.get("visited_room_paths", [])).size()]
+
+	pause_menu.visible = false
+	world_map_panel.visible = true
+	failure_panel.visible = false
+	completion_panel.visible = false
+	_is_pause_menu_open = true
+	get_tree().paused = true
+	map_back_button.grab_focus()
+
+
+# 从地图回到暂停菜单，不恢复游戏模拟。
+func _on_map_back_pressed() -> void:
+	world_map_panel.visible = false
+	pause_menu.visible = true
+	_is_pause_menu_open = true
+	get_tree().paused = true
+	map_button.grab_focus()
+	_refresh_completion_panel()
+
+
+# 暂停菜单用单按钮在已取得圣物间循环，避免为两项选择建立装备页面。
+func _on_build_pressed() -> void:
+	if _main != null and _main.has_method("cycle_active_build"):
+		_main.call("cycle_active_build")
+	_refresh_build_button()
 
 
 # 重开按钮调用 Main.restart_demo，并回到可操作状态。
@@ -414,6 +506,7 @@ func _on_restart_pressed() -> void:
 	main_menu.visible = false
 	detail_panel.visible = false
 	pause_menu.visible = false
+	world_map_panel.visible = false
 	failure_panel.visible = false
 	_is_pause_menu_open = false
 	get_tree().paused = false
@@ -423,6 +516,7 @@ func _on_restart_pressed() -> void:
 # 从暂停菜单回到试玩；主菜单流程不走这里，避免开始前误恢复模拟。
 func _resume_demo() -> void:
 	pause_menu.visible = false
+	world_map_panel.visible = false
 	failure_panel.visible = false
 	_is_pause_menu_open = false
 	get_tree().paused = false
@@ -435,12 +529,34 @@ func show_failure_notice(message: String) -> void:
 	main_menu.visible = false
 	detail_panel.visible = false
 	pause_menu.visible = false
+	world_map_panel.visible = false
 	failure_panel.visible = true
 	_is_pause_menu_open = false
 	get_tree().paused = false
 	if failure_label != null:
 		failure_label.text = message
 	_refresh_completion_panel()
+
+
+# 复用主菜单详情面板显示一次性剧情；关闭后回到运行态而不是主菜单。
+func show_story_event(title: String, body: String) -> void:
+	_detail_returns_to_game = true
+	detail_back_button.text = "继续"
+	detail_title_label.text = title
+	detail_body_label.text = body
+	detail_body_label.custom_minimum_size = Vector2(0.0, 164.0)
+	if _level_select_scroll != null:
+		_level_select_scroll.visible = false
+	title_background.visible = false
+	main_menu.visible = false
+	pause_menu.visible = false
+	world_map_panel.visible = false
+	failure_panel.visible = false
+	completion_panel.visible = false
+	detail_panel.visible = true
+	_is_pause_menu_open = false
+	get_tree().paused = true
+	detail_back_button.grab_focus()
 
 
 func _on_failure_continue_pressed() -> void:
@@ -486,3 +602,17 @@ func _refresh_completion_panel_from_snapshot(snapshot: Dictionary) -> void:
 	if completion_panel == null:
 		return
 	completion_panel.visible = bool(snapshot.get("stage16_alpha_demo_completed", false))
+
+
+func _refresh_build_button() -> void:
+	if build_button == null:
+		return
+	if _main == null or not _main.has_method("get_active_build_label"):
+		build_button.text = "圣物：尚未调谐"
+		build_button.disabled = true
+		return
+
+	var build_label := str(_main.call("get_active_build_label"))
+	var available_count := int(_main.call("get_available_build_count")) if _main.has_method("get_available_build_count") else 0
+	build_button.text = "圣物：%s" % build_label
+	build_button.disabled = available_count < 2

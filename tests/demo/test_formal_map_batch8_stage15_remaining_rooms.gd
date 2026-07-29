@@ -26,7 +26,7 @@ func test_pressure_is_24x9_two_enemy_clear_room() -> void:
 func test_challenge_is_26x10_hazard_two_enemy_reward_room() -> void:
 	var room := _room(CHALLENGE)
 	_assert_layout(room, Rect2i(-384, -320, 1664, 640), Vector2i(-6, 4), 26, 12)
-	_assert_previous(room, GAUNTLET, &"stage15_mixed_gauntlet_return", 224.0)
+	_assert_previous(room, "res://scenes/rooms/stage14_backtrack_hub_room.tscn", &"stage14_hub_from_stage15_shortcut", 224.0)
 	assert_eq(room.call("get_spawn_position", &"stage15_challenge_start"), Vector2(-256, 268))
 	assert_eq(room.get_node("MiasmaHazard").position, Vector2(448, 276))
 	assert_eq(room.get_node("MiasmaCasterEnemy").position, Vector2(128, 184))
@@ -45,8 +45,9 @@ func test_boss_is_28x10_wide_arena() -> void:
 	assert_eq(room.get_node("SealGuardianBoss").position, Vector2(512, 248))
 	assert_eq(room.get_node("GateBarrier").position, Vector2(1280, 232))
 	assert_eq(room.get_node("ExitZone").position, Vector2(1376, 224))
-	for source_art: String in ["SealGuardianRoomArt", "BossWarningRoomArt", "SealGuardianRoomAnimationPreview"]:
-		assert_false(bool(room.get_node(source_art).visible))
+	assert_null(room.get_node_or_null("SealGuardianRoomArt"))
+	assert_null(room.get_node_or_null("BossWarningRoomArt"))
+	assert_null(room.get_node_or_null("SealGuardianRoomAnimationPreview"))
 
 
 func test_completion_is_18x8_ceremonial_hall() -> void:
@@ -57,7 +58,7 @@ func test_completion_is_18x8_ceremonial_hall() -> void:
 	assert_eq(room.call("get_spawn_position", &"stage15_completion_return"), Vector2(576, 204))
 	assert_eq(room.get_node("CompletionSeal").position, Vector2(320, 112))
 	assert_eq(room.get_node("ExitZone").position, Vector2(736, 160))
-	assert_false(bool(room.get_node("CompletionSeal/ReusableSealPropsPreviewArt").visible))
+	assert_null(room.get_node_or_null("CompletionSeal/ReusableSealPropsPreviewArt"))
 
 
 func test_gauntlet_exposes_boss_return_spawn() -> void:

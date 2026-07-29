@@ -25,8 +25,8 @@ const SPECS := [
 		"path": "res://scenes/rooms/stage15_challenge_branch_room.tscn", "limits": Rect2i(-384, -320, 1664, 640),
 		"floor": Vector2i(-6, 4), "length": 26, "platforms": [{"start": Vector2i(0, 3), "length": 4}, {"start": Vector2i(6, 2), "length": 4}, {"start": Vector2i(12, 1), "length": 4}],
 		"background": Vector2(448, 0), "background_scale": Vector2(1.02, 1.02), "background_name": "ChallengeBackgroundArt",
-		"previous": "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn", "previous_spawn": &"stage15_mixed_gauntlet_return", "left_exit": Vector2(-352, 224),
-		"spawns": {&"stage15_challenge_start": Vector2(-256, 268)},
+		"previous": "res://scenes/rooms/stage14_backtrack_hub_room.tscn", "previous_spawn": &"stage14_hub_from_stage15_shortcut", "left_exit": Vector2(-352, 224),
+		"spawns": {&"stage15_challenge_start": Vector2(-256, 268), &"stage15_challenge_from_stage14_shortcut": Vector2(-256, 268)},
 		"nodes": {"MiasmaHazard": Vector2(448, 276), "MiasmaCasterEnemy": Vector2(128, 184), "AerialSentinelEnemy": Vector2(768, 120), "Stage13Reward": Vector2(1088, 256), "Stage13RewardArt": Vector2(1088, 256), "GateBarrier": Vector2(1152, 232), "ExitZone": Vector2(1248, 224)},
 	},
 	{
@@ -110,8 +110,6 @@ func _apply(spec: Dictionary, terrain_set: TileSet, surface_set: TileSet, thin_s
 		var warning := root.get_node("MiasmaHazard/MiasmaWarningVfxArt") as AnimatedSprite2D
 		warning.modulate = Color(1, 1, 1, 0.72)
 		warning.scale = Vector2(0.78, 0.38)
-	if root.has_node("CompletionSeal/ReusableSealPropsPreviewArt"):
-		(root.get_node("CompletionSeal/ReusableSealPropsPreviewArt") as CanvasItem).visible = false
 	var output := PackedScene.new()
 	var result := output.pack(root)
 	root.free()
@@ -155,15 +153,10 @@ func _hide_old(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt", "SealGuardianRoomArt", "BossWarningRoomArt", "SealGuardianRoomAnimationPreview"]:
+	for name: String in ["MaterialTextureArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false
-	for preview_name: String in ["ShrineTrialTilesetPreview", "SealGuardianTilesetPreview"]:
-		var preview := root.get_node_or_null(NodePath(preview_name)) as TileMapLayer
-		if preview != null:
-			preview.visible = false
-			preview.set("collision_enabled", false)
 
 
 func _disable_legacy(root: Node, boss: bool) -> void:

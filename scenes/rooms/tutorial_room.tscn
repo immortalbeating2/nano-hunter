@@ -124,16 +124,6 @@ texture = ExtResource("5_dtchm")
 polygon = PackedVector2Array(-240, -16, 240, -16, 240, 16, -240, 16)
 metadata/asset_binding_note = "hidden_after_tilemap_collision_template"
 
-[node name="ShrineTrialTilesetPreview" type="TileMapLayer" parent="." unique_id=145454956]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-position = Vector2(-512, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEA//////////8BAAEA//////////8CAAEA//////////8DAAEA//////////8EAAAAAAAEAAAAAAAFAAAAAAAFAAAAAAAGAAAAAAAGAAAAAAAHAAAAAAAHAAAAAAAEAP//AAAEAAEAAAAFAP//AAAFAAEAAAAGAP//AAAGAAEAAAAJAAAAAAABAAAAAAAKAAAAAAACAAAAAAALAAAAAAADAAAAAAAMAAAAAAAEAAAAAAANAAAAAAAFAAAAAAAOAAAAAAAGAAAAAAAPAAAAAAAHAAAAAAAQAAAAAAAAAAAAAAARAAAAAAABAAAAAAASAAAAAAACAAAAAAAUAAAAAAAEAAAAAAAVAAAAAAAFAAAAAAA=")
-tile_set = ExtResource("7")
-collision_enabled = false
-metadata/asset_id = "shrine_trial_tileset_ai01"
-metadata/asset_binding_note = "hidden_after_tutorial_room_terrain_template"
-
 [node name="JumpGuidePlatform" type="StaticBody2D" parent="." unique_id=1595268256]
 position = Vector2(-144, 84)
 collision_layer = 0
@@ -447,3 +437,18 @@ metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
 metadata/terrain_landmark_role = "dash_gate_marker"
 metadata/gameplay_collision = false
 metadata/asset_binding_note = "tutorial_room_visual_only_grounded_landmark"
+
+[node name="NarrativeStele" type="Marker2D" parent="."]
+position = Vector2(-160, 112)
+metadata/lore_id = "tutorial_hunter_oath"
+metadata/lore_title = "镇妖卫试炼碑"
+metadata/lore_text = "奉印巡狩，见妖不逐其形，先辨其气；见门不强破，先察其印。"
+
+[node name="SteleArt" type="Sprite2D" parent="NarrativeStele"]
+z_index = 2
+position = Vector2(0, 20)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_quffy")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "manual_review_index_17_stone_lantern_unlit"
+metadata/anchor_role = "tutorial_narrative_stele"

@@ -2,13 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/combat/miasma_caster_enemy.tscn" id="2"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres" id="3_tileset"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="4_bg"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_gknig"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="5_tiles"]
 [ext_resource type="Script" path="res://scripts/combat/miasma_caster_enemy.gd" id="7_pdkv3"]
 [ext_resource type="Resource" path="res://scripts/configs/miasma_caster_enemy_config.tres" id="8_vyljq"]
-[ext_resource type="Texture2D" path="res://assets/art/vfx/stage13_miasma_hazard_warning_01.svg" id="10_warning"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres" id="11_combatvfx"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="11_ulqp8"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="12_yer86"]
@@ -94,16 +92,6 @@ texture = ExtResource("4_gknig")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="MiasmaTilesetPreview" type="TileMapLayer" parent="." unique_id=849527207]
-visible = false
-modulate = Color(1, 1, 1, 0.78)
-position = Vector2(-160, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("3_tileset")
-collision_enabled = false
-metadata/asset_id = "miasma_marsh_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="MiasmaHazard" type="Area2D" parent="." unique_id=642250272]
 position = Vector2(384, 212)
 
@@ -116,13 +104,6 @@ color = Color(0.772549, 0.933333, 0.294118, 0.09)
 polygon = PackedVector2Array(-64, -16, 64, -16, 64, 16, -64, 16)
 metadata/asset_binding_note = "dac_subtle_hazard_underlay"
 
-[node name="MiasmaWarningArt" type="Sprite2D" parent="MiasmaHazard" unique_id=1872089921]
-visible = false
-modulate = Color(1, 1, 1, 0.72)
-texture = ExtResource("10_warning")
-metadata/asset_id = "stage13_miasma_hazard_warning_01"
-metadata/asset_binding_note = "dac_hazard_warning_art_no_collision"
-
 [node name="MiasmaWarningVfxArt" type="AnimatedSprite2D" parent="MiasmaHazard" unique_id=472829711]
 modulate = Color(1, 1, 1, 0.72)
 scale = Vector2(0.78, 0.38)
@@ -132,7 +113,7 @@ metadata/asset_id = "miasma_purge_warning_vfx_runtime_ai01"
 metadata/runtime_source = "miasma_purge_warning_vfx_runtime_ai01.miasma_ground_warning"
 
 [node name="MiasmaCasterEnemy" type="StaticBody2D" parent="." unique_id=1308315132 instance=ExtResource("2")]
-position = Vector2(832, 56)
+position = Vector2(800, 56)
 script = ExtResource("7_pdkv3")
 config = ExtResource("8_vyljq")
 
@@ -181,7 +162,7 @@ modulate = Color(1, 1, 1, 0.08)
 z_index = 2
 position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
-tile_map_data = PackedByteArray("AAADAAIAAAABAAIAAAAEAAIAAAAAAAIAAAAFAAIAAAAAAAIAAAAGAAIAAAAAAAIAAAAHAAIAAAACAAIAAAALAAEAAAABAAIAAAAMAAEAAAAAAAIAAAANAAEAAAAAAAIAAAAOAAEAAAACAAIAAAA=")
+tile_map_data = PackedByteArray("AAADAAIAAAABAAIAAAAEAAIAAAAAAAIAAAAFAAIAAAAAAAIAAAAGAAIAAAAAAAIAAAAHAAIAAAACAAIAAAALAAEAAAAAAAIAAAAMAAEAAAACAAIAAAANAAEA//////////8OAAEA//////////8JAAEAAAABAAIAAAAKAAEAAAAAAAIAAAA=")
 tile_set = ExtResource("12_yer86")
 
 [node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1793101148]
@@ -195,7 +176,7 @@ collision_enabled = false
 [node name="ThinPlatformSurfaceVisual" type="TileMapLayer" parent="." unique_id=1711843047]
 modulate = Color(0.7, 0.82, 0.75, 0.92)
 z_index = 2
-tile_map_data = PackedByteArray("AAADAAIAAAAAAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAACAAAAAAALAAEAAAAAAAAAAAAMAAEAAAABAAAAAAANAAEAAAABAAAAAAAOAAEAAAACAAAAAAA=")
+tile_map_data = PackedByteArray("AAADAAIAAAAAAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAACAAAAAAALAAEAAAABAAAAAAAMAAEAAAACAAAAAAANAAEA//////////8OAAEA//////////8JAAEAAAAAAAAAAAAKAAEAAAABAAAAAAA=")
 tile_set = ExtResource("14_6p6h5")
 collision_enabled = false
 

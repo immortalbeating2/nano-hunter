@@ -121,12 +121,9 @@ func is_defeated() -> bool:
 	return _is_defeated
 
 
-# 敌人受击命中特效通过可选节点接入，缺节点时不影响早期敌人场景。
+# 敌人受击命中特效通过正式 runtime 节点接入；缺节点时只跳过视觉，不回退旧占位资源。
 func _show_enemy_hit_spark_vfx() -> void:
 	if _hit_spark_vfx_visual == null:
-		var legacy_hit_spark := get_node_or_null("Stage12HitSpark") as CanvasItem
-		if legacy_hit_spark != null:
-			legacy_hit_spark.visible = true
 		return
 
 	_hit_spark_vfx_visual.visible = true
@@ -145,10 +142,6 @@ func _hide_enemy_hit_spark_vfx() -> void:
 	if _hit_spark_vfx_visual != null:
 		_hit_spark_vfx_visual.visible = false
 		_hit_spark_vfx_visual.stop()
-
-	var legacy_hit_spark := get_node_or_null("Stage12HitSpark") as CanvasItem
-	if legacy_hit_spark != null:
-		legacy_hit_spark.visible = false
 
 
 func _hide_enemy_hit_spark_vfx_after_timeout() -> void:

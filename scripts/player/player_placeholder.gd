@@ -25,6 +25,10 @@ const FLOOR_VELOCITY_TOLERANCE := 0.5
 # 命中与击败奖励拆开，便于 Stage15 调整 Boss 容错节奏而不触碰攻击判定本身。
 const RECOVERY_CHARGE_PER_HIT := 0.35
 const RECOVERY_CHARGE_DEFEAT_BONUS := 0.65
+const BUILD_MARSH_RELIC: StringName = &"marsh_relic"
+const BUILD_WARDEN_SIGIL: StringName = &"warden_sigil"
+const MARSH_RELIC_RECOVERY_MULTIPLIER := 1.5
+const WARDEN_SIGIL_REACH_BONUS := 16.0
 
 # 短动作不自然播放完整长素材，而是由 gameplay phase 选择可读关键帧。
 const LUNA_ATTACK_KEYFRAMES := [4, 6, 7, 8, 10, 12]
@@ -84,7 +88,6 @@ var recovery_charge_heal_amount: int = 1
 # 场景节点缓存只服务玩家自身表现，不作为外部系统入口。
 @onready var _body_polygon: Polygon2D = $Body
 @onready var _runtime_animation_visual: AnimatedSprite2D = get_node_or_null("LunaRuntimeAnimationVisual") as AnimatedSprite2D
-@onready var _stage12_slash_visual: Sprite2D = get_node_or_null("Stage12SlashPreview") as Sprite2D
 @onready var _attack_slash_vfx_visual: AnimatedSprite2D = get_node_or_null("AttackSlashVfxVisual") as AnimatedSprite2D
 @onready var _attack_seal_arc_vfx_visual: AnimatedSprite2D = get_node_or_null("AttackSealArcVfxVisual") as AnimatedSprite2D
 @onready var _air_dash_trail_visual: Sprite2D = get_node_or_null("AirDashTrailArt") as Sprite2D
@@ -104,6 +107,8 @@ var _dash_cooldown_remaining := 0.0
 var _dash_direction := 1.0
 var _air_dash_unlocked := false
 var _air_dash_available := false
+var _wind_seal_unlocked := false
+var _active_build_id: StringName = &""
 var _current_dash_started_in_air := false
 var _body_idle_color := Color(1.0, 1.0, 1.0, 1.0)
 var _damage_invulnerability_remaining := 0.0
@@ -308,7 +313,7 @@ func _start_jump() -> void:
 	current_state = STATE_JUMP_RISE
 
 
-# 进入攻击动作窗口，清空上一次命中缓存并启动 Stage12 slash 视觉反馈。
+# 进入攻击动作窗口，清空上一次命中缓存并启动正式攻击视觉反馈。
 func _start_attack() -> void:
 	_attack_elapsed = 0.0
 	_attack_was_active = false
@@ -378,12 +383,13 @@ func _update_dash_state(delta: float, was_grounded: bool) -> void:
 func _perform_attack_hits() -> void:
 	var space_state := get_world_2d().direct_space_state
 	var hit_shape := RectangleShape2D.new()
-	hit_shape.size = attack_hitbox_size
+	hit_shape.size = get_effective_attack_hitbox_size()
 
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = hit_shape
 	query.transform = Transform2D(0.0, get_attack_hitbox_center())
-	query.collide_with_areas = false
+	# 风印的战斗价值是让同一记普通攻击可查询并斩散敌方 Area2D 弹体。
+	query.collide_with_areas = _wind_seal_unlocked
 	query.collide_with_bodies = true
 	query.exclude = [get_rid()]
 
@@ -406,11 +412,13 @@ func _perform_attack_hits() -> void:
 			Vector2(_facing_direction, 0.0),
 			attack_knockback_force
 		)
+		if not receiver.has_method("is_defeated"):
+			continue
 		# 恢复充能跟随真实命中结算，避免空挥也能获得 Stage15 容错资源。
 		var charge_gain := RECOVERY_CHARGE_PER_HIT
 		if receiver.has_method("is_defeated") and bool(receiver.call("is_defeated")):
 			charge_gain += RECOVERY_CHARGE_DEFEAT_BONUS
-		add_recovery_charge(charge_gain)
+		add_recovery_charge(charge_gain * get_recovery_charge_gain_multiplier())
 
 
 # 从物理查询命中的对象解析真正能接收攻击的节点，兼容敌人父子节点结构。
@@ -458,7 +466,6 @@ func _sync_attack_vfx_visuals() -> void:
 	var visual_elapsed := _attack_elapsed - attack_startup_duration
 	var visual_duration := attack_active_duration + attack_recovery_duration
 	var target_frame := _select_keyframe(LUNA_ATTACK_VFX_KEYFRAMES, visual_elapsed, visual_duration)
-	_hide_legacy_stage12_slash_visual()
 	_sync_attack_vfx_visual(
 		_attack_slash_vfx_visual,
 		LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES,
@@ -500,9 +507,8 @@ func _sync_attack_vfx_visual(
 	visual.frame = target_frame
 
 
-# 隐藏正式攻击 VFX，并保持旧 Stage12 SVG 不参与运行态攻击表现。
+# 隐藏正式攻击 VFX，确保动作窗口结束后不残留视觉伤害提示。
 func _hide_attack_vfx_visuals() -> void:
-	_hide_legacy_stage12_slash_visual()
 	for visual in [_attack_slash_vfx_visual, _attack_seal_arc_vfx_visual]:
 		if visual == null:
 			continue
@@ -510,14 +516,6 @@ func _hide_attack_vfx_visuals() -> void:
 		visual.stop()
 		visual.set_meta("gameplay_collision", false)
 		visual.set_meta("damage_source", false)
-
-
-# Stage12 SVG 只保留为历史预览资源，正式运行态攻击不再触发它。
-func _hide_legacy_stage12_slash_visual() -> void:
-	if _stage12_slash_visual != null:
-		_stage12_slash_visual.visible = false
-
-
 # 维护落地反馈和空中 dash 恢复；落地是 Stage14 能力循环的恢复节点。
 func _update_landing_state(delta: float, was_grounded: bool, is_grounded: bool) -> void:
 	if _air_dash_unlocked and is_grounded and not _is_dashing():
@@ -739,14 +737,15 @@ func _get_attack_total_duration() -> float:
 # 返回当前攻击判定中心；空中攻击会略微上移以覆盖空中威胁。
 func get_attack_hitbox_center() -> Vector2:
 	# 空中攻击的判定中心略微上移，用来体现 Stage 10 “空中攻击打空中威胁”的价值。
+	var build_offset := WARDEN_SIGIL_REACH_BONUS * 0.5 if _active_build_id == BUILD_WARDEN_SIGIL else 0.0
 	if current_state == STATE_AIR_ATTACK:
 		return global_position + Vector2(
-			attack_hitbox_offset.x * _facing_direction,
+			(attack_hitbox_offset.x + build_offset) * _facing_direction,
 			attack_hitbox_offset.y - 14.0
 		)
 
 	return global_position + Vector2(
-		attack_hitbox_offset.x * _facing_direction,
+		(attack_hitbox_offset.x + build_offset) * _facing_direction,
 		attack_hitbox_offset.y
 	)
 
@@ -823,6 +822,42 @@ func is_air_dash_available() -> bool:
 	return _air_dash_unlocked and _air_dash_available and not _is_dashing() and not _is_defeated
 
 
+# 注入风印解锁状态；当前能力只扩展攻击查询，不增加新按键或资源条。
+func set_wind_seal_unlocked(is_unlocked: bool) -> void:
+	_wind_seal_unlocked = is_unlocked
+
+
+# 查询普通攻击是否可斩散敌方弹体。
+func is_wind_seal_unlocked() -> bool:
+	return _wind_seal_unlocked
+
+
+# 注入当前圣物调谐；未知 ID 回落为空，避免调试数据污染玩家数值。
+func set_active_build_id(build_id: StringName) -> void:
+	if build_id != StringName() and build_id != BUILD_MARSH_RELIC and build_id != BUILD_WARDEN_SIGIL:
+		_active_build_id = &""
+		return
+	_active_build_id = build_id
+
+
+# 返回当前圣物 Build ID。
+func get_active_build_id() -> StringName:
+	return _active_build_id
+
+
+# 镇妖挑战符只增加横向攻击距离，不改变高度、伤害或攻击节奏。
+func get_effective_attack_hitbox_size() -> Vector2:
+	var effective_size := attack_hitbox_size
+	if _active_build_id == BUILD_WARDEN_SIGIL:
+		effective_size.x += WARDEN_SIGIL_REACH_BONUS
+	return effective_size
+
+
+# 瘴泽遗物只影响真实命中产生的恢复充能，不放大测试或奖励节点的直接注入。
+func get_recovery_charge_gain_multiplier() -> float:
+	return MARSH_RELIC_RECOVERY_MULTIPLIER if _active_build_id == BUILD_MARSH_RELIC else 1.0
+
+
 # 增加 Stage15 恢复充能，并在比例或 ready 状态变化时通知 HUD。
 func add_recovery_charge(amount: float) -> void:
 	# 公开入口供真实命中、测试 fixture 和未来奖励节点增加充能；死亡时不再积累资源。
@@ -872,6 +907,10 @@ func get_hud_status_snapshot() -> Dictionary:
 		"dash_cooldown": dash_cooldown,
 		"air_dash_unlocked": _air_dash_unlocked,
 		"air_dash_available": is_air_dash_available(),
+		"wind_seal_unlocked": _wind_seal_unlocked,
+		"active_build_id": _active_build_id,
+		"effective_attack_hitbox_size": get_effective_attack_hitbox_size(),
+		"recovery_charge_gain_multiplier": get_recovery_charge_gain_multiplier(),
 		"recovery_charge_ratio": get_recovery_charge_ratio(),
 		"recovery_charge_ready": can_spend_recovery_charge(),
 		"current_state": String(current_state),

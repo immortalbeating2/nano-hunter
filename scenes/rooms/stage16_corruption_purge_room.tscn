@@ -88,15 +88,6 @@ texture = ExtResource("3_2j5ac")
 polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="ShrineTrialTilesetPreview" type="TileMapLayer" parent="." unique_id=2034575055]
-visible = false
-position = Vector2(-192, 128)
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAFAAAAAAACAAEAAAAGAAAAAAADAAEAAAAHAAAAAAA=")
-tile_set = ExtResource("4")
-collision_enabled = false
-metadata/asset_id = "shrine_trial_tileset_ai01"
-metadata/asset_binding_note = "hidden_runtime_tileset_reference_not_terrain"
-
 [node name="CorruptionMiasma" type="Polygon2D" parent="." unique_id=1445825702]
 position = Vector2(448, 212)
 color = Color(0.482353, 0.223529, 0.529412, 0.045)

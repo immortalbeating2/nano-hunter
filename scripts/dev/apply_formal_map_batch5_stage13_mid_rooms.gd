@@ -22,7 +22,7 @@ const SPECS := [
 	},
 	{
 		"path": "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn", "limits": Rect2i(-384, -320, 1664, 640),
-		"floor": Vector2i(-6, 4), "length": 26, "platforms": [{"start": Vector2i(0, 3), "length": 4}, {"start": Vector2i(6, 2), "length": 4}, {"start": Vector2i(12, 3), "length": 4}],
+		"floor": Vector2i(-6, 4), "length": 26, "platforms": [{"start": Vector2i(0, 3), "length": 4}, {"start": Vector2i(5, 2), "length": 4}, {"start": Vector2i(12, 3), "length": 4}],
 		"background": Vector2(448, 0), "background_scale": Vector2(1.02, 1.02),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn", "previous_spawn": &"stage13_gate_return", "left_exit": Vector2(-352, 224),
 		"spawns": {&"stage13_crossfire_start": Vector2(-256, 268), &"stage13_crossfire_return": Vector2(1088, 268)},
@@ -33,16 +33,16 @@ const SPECS := [
 		"floor": Vector2i(-6, 3), "length": 18, "platforms": [{"start": Vector2i(5, 2), "length": 3}],
 		"background": Vector2(192, 0), "background_scale": Vector2(0.78, 0.78),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn", "previous_spawn": &"stage13_crossfire_return", "left_exit": Vector2(-352, 160),
-		"spawns": {&"stage13_checkpoint_start": Vector2(-256, 204), &"stage13_checkpoint_return": Vector2(576, 204)},
+		"spawns": {&"stage13_checkpoint_start": Vector2(-256, 204), &"stage13_checkpoint_return": Vector2(576, 204), &"stage13_checkpoint_from_resource_branch": Vector2(576, 204)},
 		"nodes": {"RecoveryPoint": Vector2(128, 192), "ExitZone": Vector2(736, 160)},
 	},
 	{
 		"path": "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn", "limits": Rect2i(-384, -320, 1536, 576),
-		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(3, 2), "length": 5}, {"start": Vector2i(11, 1), "length": 4}],
+		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(3, 2), "length": 5}, {"start": Vector2i(9, 1), "length": 4}],
 		"background": Vector2(384, -16), "background_scale": Vector2(0.94, 0.94),
 		"previous": "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn", "previous_spawn": &"stage13_checkpoint_return", "left_exit": Vector2(-352, 160),
 		"spawns": {&"stage13_pressure_start": Vector2(-256, 204), &"stage13_pressure_return": Vector2(960, 204)},
-		"nodes": {"MiasmaHazard": Vector2(384, 212), "MiasmaCasterEnemy": Vector2(832, 56), "ExitZone": Vector2(1120, 160)},
+		"nodes": {"MiasmaHazard": Vector2(384, 212), "MiasmaCasterEnemy": Vector2(800, 56), "ExitZone": Vector2(1120, 160)},
 	},
 ]
 
@@ -130,14 +130,10 @@ func _hide_old(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt", "MiasmaTileSheetArt"]:
+	for name: String in ["MaterialTextureArt", "MiasmaTileSheetArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false
-	var preview := root.get_node_or_null("MiasmaTilesetPreview") as TileMapLayer
-	if preview != null:
-		preview.visible = false
-		preview.set("collision_enabled", false)
 
 
 func _disable_legacy(root: Node) -> void:

@@ -190,6 +190,31 @@ ASSET_ID_RULE_OVERRIDES = {
     },
 }
 
+SOURCE_DEV_ASSET_IDS = {
+    "stage16_luna_player_readability_ai01",
+    "stage14_air_dash_icon_ai01",
+    "stage14_air_dash_shrine_ai01",
+    "stage14_air_dash_gate_ai01",
+    "stage15_seal_guardian_ai01",
+    "stage15_boss_attack_warning_ai01",
+    "stage15_recovery_charge_icon_ai01",
+    "miasma_marsh_tileset_ai01",
+    "stage15_boss_hud_frame_ai01",
+    "stage14_ability_status_hud_ai01",
+}
+
+ARCHIVE_ASSET_IDS = {
+    "luna_run_sheet_ai01",
+    "luna_air_dash_sheet_ai01",
+    "luna_attack_01_sheet_ai01",
+    "luna_idle_sheet_ai01",
+    "seal_guardian_boss_sheet_ai01",
+    "luna_jump_fall_sheet_ai01",
+    "luna_hit_death_sheet_ai01",
+    "enemies_core_sheet_ai01",
+    "vfx_combat_atlas_ai01",
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -235,16 +260,25 @@ def normalize_rel(path: Path, root: Path) -> str:
 def rule_for(asset_id: str, target_kind: str) -> dict[str, Any]:
     if target_kind in TARGET_KIND_RULES:
         rule = dict(TARGET_KIND_RULES[target_kind])
-        rule.update(ASSET_ID_RULE_OVERRIDES.get(asset_id, {}))
-        return rule
-    release_track = RELEASE_RULES.get(target_kind, "manual_review")
-    rule = {
-        "track": release_track,
-        "resource_type": "Texture2D",
-        "target_system": "release/narrative asset binding",
-        "target_scene_candidates": ["scenes/dev/imagegen_asset_gallery.tscn"],
-    }
+    else:
+        release_track = RELEASE_RULES.get(target_kind, "manual_review")
+        rule = {
+            "track": release_track,
+            "resource_type": "Texture2D",
+            "target_system": "release/narrative asset binding",
+            "target_scene_candidates": ["scenes/dev/imagegen_asset_gallery.tscn"],
+        }
     rule.update(ASSET_ID_RULE_OVERRIDES.get(asset_id, {}))
+    if asset_id in SOURCE_DEV_ASSET_IDS:
+        rule["track"] = "source_dev"
+        rule["disposition"] = "source_dev_keep"
+    elif asset_id in ARCHIVE_ASSET_IDS:
+        rule["track"] = "archive"
+        rule["disposition"] = "archive_keep"
+    elif str(rule["track"]).startswith("runtime_"):
+        rule["disposition"] = "runtime_keep"
+    else:
+        rule["disposition"] = "source_dev_keep"
     return rule
 
 
@@ -253,6 +287,15 @@ def read_scene_text(root: Path, scene: str) -> str:
     if not path.exists():
         return ""
     return path.read_text(encoding="utf-8")
+
+
+def scene_paths(root: Path, development: bool) -> list[str]:
+    paths: list[str] = []
+    for path in (root / "scenes").rglob("*.tscn"):
+        relative = normalize_rel(path, root)
+        if relative.startswith("scenes/dev/") == development:
+            paths.append(relative)
+    return sorted(paths)
 
 
 def find_direct_scene_references(root: Path, scenes: list[str], asset_id: str, output_path: str) -> list[str]:
@@ -267,13 +310,17 @@ def find_direct_scene_references(root: Path, scenes: list[str], asset_id: str, o
     return references
 
 
-def integration_status_for(direct_references: list[str]) -> str:
+def integration_status_for(direct_references: list[str], track: str) -> str:
+    if not track.startswith("runtime_"):
+        return "not_runtime_target"
     if direct_references:
         return "scene_reference_verified"
     return "binding_map_ready_manual_replacement_required"
 
 
 def manual_gates_for(status: str) -> list[str]:
+    if status == "not_runtime_target":
+        return ["art_quality_review", "scene_or_release_context_review"]
     if status == "scene_reference_verified":
         return [
             "art_quality_review",
@@ -297,6 +344,8 @@ def main() -> int:
         record["asset_id"]: record
         for record in provenance.get("records", [])
     }
+    production_scenes = scene_paths(root, development=False)
+    development_scenes = scene_paths(root, development=True)
 
     entries: list[dict[str, Any]] = []
     for item in queue.get("items", []):
@@ -311,8 +360,9 @@ def main() -> int:
         ]
         provenance_record = provenance_by_id.get(asset_id, {})
         output_rel = normalize_rel(output_path, root)
-        direct_scene_references = find_direct_scene_references(root, candidate_scenes, asset_id, output_rel)
-        integration_status = integration_status_for(direct_scene_references)
+        direct_scene_references = find_direct_scene_references(root, production_scenes, asset_id, output_rel)
+        development_scene_references = find_direct_scene_references(root, development_scenes, asset_id, output_rel)
+        integration_status = integration_status_for(direct_scene_references, str(rule["track"]))
         entries.append(
             {
                 "asset_id": asset_id,
@@ -320,6 +370,7 @@ def main() -> int:
                 "priority": item.get("priority", ""),
                 "target_kind": target_kind,
                 "track": rule["track"],
+                "disposition": rule["disposition"],
                 "target_system": rule["target_system"],
                 "recommended_resource_type": rule["resource_type"],
                 "output_path": output_rel,
@@ -328,6 +379,7 @@ def main() -> int:
                 "target_scene_candidates": rule["target_scene_candidates"],
                 "existing_target_scene_candidates": candidate_scenes,
                 "direct_scene_references": direct_scene_references,
+                "development_scene_references": development_scene_references,
                 "integration_status": integration_status,
                 "manual_gates": manual_gates_for(integration_status),
             }
@@ -337,6 +389,7 @@ def main() -> int:
     status_counts: dict[str, int] = {}
     missing_outputs: list[str] = []
     missing_target_scene_candidates: list[str] = []
+    development_reference_count = 0
     for entry in entries:
         track = str(entry["track"])
         track_counts[track] = track_counts.get(track, 0) + 1
@@ -346,13 +399,15 @@ def main() -> int:
             missing_outputs.append(entry["asset_id"])
         if not entry["existing_target_scene_candidates"]:
             missing_target_scene_candidates.append(entry["asset_id"])
+        if entry["development_scene_references"]:
+            development_reference_count += 1
 
     report = {
         "version": 1,
         "status": "runtime_map_scene_reference_split_ready",
         "boundary": (
             "Runtime/release integration map only. It assigns generated assets to target systems, "
-            "resource types and candidate scenes, and records direct scene references when they already exist; "
+            "resource types and candidate scenes, and records production and development references separately; "
             "it does not approve final art quality."
         ),
         "summary": {
@@ -360,6 +415,7 @@ def main() -> int:
             "track_counts": dict(sorted(track_counts.items())),
             "status_counts": dict(sorted(status_counts.items())),
             "directly_referenced_entry_count": status_counts.get("scene_reference_verified", 0),
+            "development_referenced_entry_count": development_reference_count,
             "missing_output_count": len(missing_outputs),
             "missing_target_scene_candidate_count": len(missing_target_scene_candidates),
         },

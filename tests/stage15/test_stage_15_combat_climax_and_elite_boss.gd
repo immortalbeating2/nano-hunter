@@ -13,12 +13,10 @@ const STAGE15_BOSS_ROOM_PATH := "res://scenes/rooms/stage15_seal_guardian_boss_r
 const STAGE15_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage15_challenge_branch_room.tscn"
 const STAGE15_COMPLETE_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
-const SHRINE_TILESET_RESOURCE_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
 const BASIC_MELEE_ENEMY_SCENE_PATH := "res://scenes/combat/basic_melee_enemy.tscn"
 const GROUND_CHARGER_ENEMY_SCENE_PATH := "res://scenes/combat/ground_charger_enemy.tscn"
 const AERIAL_SENTINEL_ENEMY_SCENE_PATH := "res://scenes/combat/aerial_sentinel_enemy.tscn"
 const MIASMA_CASTER_ENEMY_SCENE_PATH := "res://scenes/combat/miasma_caster_enemy.tscn"
-const ENEMIES_CORE_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres"
 const ENEMY_BASIC_MELEE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_basic_melee_runtime_sheet_ai01.spriteframes.tres"
 const ENEMY_GROUND_CHARGER_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_runtime_sheet_ai01.spriteframes.tres"
 const ENEMY_AERIAL_SENTINEL_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.spriteframes.tres"
@@ -34,7 +32,6 @@ const SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/c
 const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres"
 const SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres"
 const VFX_SEAL_MAGIC_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
-const VFX_COMBAT_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres"
 const MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres"
 const STAGE15_PRESSURE_FOCUS_ART_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/010_shrine_gate_prop_atlas_ai01_auto_011_c02.atlas_texture.tres"
 const EQUIPMENT_REWARD_ORB_ATLAS_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/009_equipment_pickup_atlas_ai01_auto_010_c01.atlas_texture.tres"
@@ -226,12 +223,10 @@ func test_stage15_challenge_hazard_warning_uses_miasma_purge_vfx_asset() -> void
 	var reward_marker := room.get_node_or_null("Stage13Reward") as Marker2D
 
 	assert_not_null(warning_polygon)
-	assert_not_null(warning_svg)
+	assert_null(warning_svg)
 	assert_not_null(reward_marker)
 	if warning_polygon != null:
 		assert_false(warning_polygon.visible)
-	if warning_svg != null:
-		assert_false(warning_svg.visible)
 	_assert_animated_sprite_references_asset(
 		room,
 		"MiasmaHazard/MiasmaWarningVfxArt",
@@ -253,28 +248,12 @@ func test_stage15_challenge_hazard_warning_uses_miasma_purge_vfx_asset() -> void
 	)
 
 
-# 保护 Stage15 Boss 方向稿与攻击预警资产：Boss 场景和 Boss 房都应直接引用当前项目内 image gen 资源。
-func test_stage15_boss_scene_and_room_reference_boss_art_assets() -> void:
+# 保护 Stage15 Boss 正式运行资产：方向稿与静态预警绑定退出正式场景。
+func test_stage15_boss_scene_and_room_use_runtime_boss_art_assets() -> void:
 	var boss := await _spawn_seal_guardian()
-	_assert_sprite_references_asset(
-		boss,
-		"SealGuardianArt",
-		"stage15_seal_guardian_ai01",
-		"res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png"
-	)
-	_assert_sprite_references_asset(
-		boss,
-		"AttackWarningArt",
-		"stage15_boss_attack_warning_ai01",
-		"res://assets/art/vfx/stage15_boss_attack_warning_ai01.png"
-	)
-	_assert_animated_sprite_references_asset(
-		boss,
-		"SealGuardianAnimationPreview",
-		"seal_guardian_boss_sheet_ai01",
-		SEAL_GUARDIAN_SPRITEFRAMES_PATH,
-		&"attack"
-	)
+	assert_null(boss.get_node_or_null("SealGuardianArt"))
+	assert_null(boss.get_node_or_null("AttackWarningArt"))
+	assert_null(boss.get_node_or_null("SealGuardianAnimationPreview"))
 	_assert_animated_sprite_references_asset(
 		boss,
 		"SealGuardianRuntimeAnimationVisual",
@@ -295,59 +274,20 @@ func test_stage15_boss_scene_and_room_reference_boss_art_assets() -> void:
 	assert_false(attack_vfx_visual.visible)
 	assert_false(attack_vfx_visual.get_meta("gameplay_collision", true))
 	assert_false(attack_vfx_visual.get_meta("damage_source", true))
-	_assert_animated_sprite_references_asset(
-		boss,
-		"SealMagicVfxPreview",
-		"vfx_seal_magic_atlas_ai01",
-		VFX_SEAL_MAGIC_SPRITEFRAMES_PATH,
-		&"seal_magic"
-	)
-	_assert_animated_sprite_references_asset(
-		boss,
-		"CombatVfxPreview",
-		"vfx_combat_atlas_ai01",
-		VFX_COMBAT_SPRITEFRAMES_PATH,
-		&"combat_vfx"
-	)
+	assert_null(boss.get_node_or_null("SealMagicVfxPreview"))
+	assert_null(boss.get_node_or_null("CombatVfxPreview"))
 
 	var room := await _spawn_room(STAGE15_BOSS_ROOM_PATH)
-	_assert_sprite_references_asset(
-		room,
-		"SealGuardianRoomArt",
-		"stage15_seal_guardian_ai01",
-		"res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png"
-	)
-	_assert_sprite_references_asset(
-		room,
-		"BossWarningRoomArt",
-		"stage15_boss_attack_warning_ai01",
-		"res://assets/art/vfx/stage15_boss_attack_warning_ai01.png"
-	)
-	_assert_animated_sprite_references_asset(
-		room,
-		"SealGuardianRoomAnimationPreview",
-		"seal_guardian_boss_sheet_ai01",
-		SEAL_GUARDIAN_SPRITEFRAMES_PATH,
-		&"attack"
-	)
-	_assert_tileset_preview_references_asset(
-		room,
-		"SealGuardianTilesetPreview",
-		"shrine_trial_tileset_ai01",
-		SHRINE_TILESET_RESOURCE_PATH
-	)
+	assert_null(room.get_node_or_null("SealGuardianRoomArt"))
+	assert_null(room.get_node_or_null("BossWarningRoomArt"))
+	assert_null(room.get_node_or_null("SealGuardianRoomAnimationPreview"))
+	assert_null(room.get_node_or_null("SealGuardianTilesetPreview"))
 
 	var enemy_scene := load(BASIC_MELEE_ENEMY_SCENE_PATH) as PackedScene
 	assert_not_null(enemy_scene)
 	var enemy := enemy_scene.instantiate()
 	add_child(enemy)
-	_assert_animated_sprite_references_asset(
-		enemy,
-		"EnemiesCoreAnimationPreview",
-		"enemies_core_sheet_ai01",
-		ENEMIES_CORE_SPRITEFRAMES_PATH,
-		&"enemy_core_cycle"
-	)
+	assert_null(enemy.get_node_or_null("EnemiesCoreAnimationPreview"))
 	_assert_animated_sprite_references_asset(
 		enemy,
 		"EnemyRuntimeAnimationVisual",
@@ -933,9 +873,7 @@ func _assert_enemy_runtime_visual_not_mixed_with_legacy_layers(enemy: Node) -> v
 		"Stage12ThreatMark",
 		"Stage12ChargeMark",
 		"Stage12AirMark",
-		"Stage12AssetSprite",
 		"Stage13Silhouette",
-		"Stage13AssetSprite",
 		"MiasmaPressureVisual",
 	]:
 		var legacy_visual := enemy.get_node_or_null(node_name) as CanvasItem
@@ -949,24 +887,7 @@ func _assert_seal_guardian_runtime_visual_not_mixed_with_legacy_layers(boss: Nod
 		"SealHalo",
 		"GuardianMask",
 		"Stage15SealMark",
-		"SealGuardianArt",
 	]:
 		var legacy_visual := boss.get_node_or_null(node_name) as CanvasItem
 		if legacy_visual != null:
 			assert_false(legacy_visual.visible, "旧 Boss 视觉层仍在运行态显示：%s" % node_name)
-
-
-# TileSet 预览断言 helper：样板房只绑定视觉层，正式碰撞仍由灰盒 StaticBody2D 控制。
-func _assert_tileset_preview_references_asset(parent: Node, node_path: String, asset_id: String, resource_path: String) -> void:
-	var layer := parent.get_node_or_null(NodePath(node_path)) as TileMapLayer
-	assert_not_null(layer, "缺少 TileMapLayer 资产节点：%s" % node_path)
-	if layer == null:
-		return
-
-	assert_eq(layer.get_meta("asset_id", ""), asset_id)
-	assert_not_null(layer.tile_set, "TileMapLayer 没有 TileSet：%s" % node_path)
-	if layer.tile_set != null:
-		assert_eq(layer.tile_set.resource_path, resource_path)
-		assert_gt(layer.tile_set.get_source_count(), 0)
-	assert_gt(layer.get_used_cells().size(), 0)
-	assert_false(layer.visible, "TileSet 预览层只能保留资源引用，不能作为正式道路上屏：%s" % node_path)

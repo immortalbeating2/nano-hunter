@@ -55,7 +55,8 @@ const SPECS := [
 		"limits": Rect2i(-384, -320, 1280, 576), "floor": Vector2i(-6, 3), "length": 20,
 		"platforms": [{"start": Vector2i(0, 2), "length": 3}, {"start": Vector2i(4, 1), "length": 4}], "background": Vector2(256, -16), "background_scale": Vector2(0.78, 0.78),
 		"previous": "res://scenes/rooms/stage9_zone_charger_room.tscn", "previous_spawn": &"zone_charger_return",
-		"spawns": {&"zone_switch_start": Vector2(-256, 204), &"zone_switch_return": Vector2(640, 204)},
+		"spawns": {&"zone_switch_start": Vector2(-256, 204), &"zone_switch_return": Vector2(640, 204), &"zone_switch_from_stage10_shortcut": Vector2(640, 204)},
+		"shortcut": "res://scenes/rooms/stage10_zone_branch_room.tscn", "shortcut_spawn": &"stage10_branch_from_stage9_shortcut", "shortcut_air_dash": true, "shortcut_reward": &"marsh_relic",
 		"left_exit": Vector2(-352, 160), "exit": Vector2(800, 160), "gate": Vector2(704, 168),
 		"nodes": {"GateSwitch": Vector2(352, 56)},
 	},
@@ -97,6 +98,11 @@ func _apply_room(spec: Dictionary, terrain_set: TileSet, surface_set: TileSet, t
 	root.set("previous_room_path", spec.previous)
 	root.set("previous_spawn_id", spec.previous_spawn)
 	root.set("spawn_positions", spec.spawns)
+	if spec.has("shortcut"):
+		root.set("shortcut_room_path", spec.shortcut)
+		root.set("shortcut_spawn_id", spec.shortcut_spawn)
+		root.set("shortcut_requires_air_dash", bool(spec.shortcut_air_dash))
+		root.set("shortcut_required_reward_id", spec.shortcut_reward)
 	_hide_old_content(root)
 	var terrain := _layer(root, "TerrainCollisionVisual", terrain_set, Vector2.ZERO, TERRAIN_SCALE, true, 1)
 	var platform := _layer(root, "PlatformCollisionVisual", terrain_set, PLATFORM_OFFSET, TERRAIN_SCALE, true, 2)
@@ -158,7 +164,7 @@ func _hide_old_content(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt"]:
+	for name: String in ["MaterialTextureArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false

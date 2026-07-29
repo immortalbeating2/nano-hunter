@@ -17,8 +17,6 @@ const THIN_SURFACE_LAYER_NAME := "ThinPlatformSurfaceVisual"
 const CLIFF_ROOT_NAME := "CliffMassVisual"
 const VISUAL_ONLY_TILE_LAYERS := ["DoorVisual", "BackgroundVisual", "DecorVisual", "ForegroundVisual"]
 const OLD_LAYER_NAMES := [
-	"MiasmaTilesetPreview",
-	"ShrineTrialTilesetPreview",
 	"FormalTerrainTilemapDecor",
 	"FormalForegroundEdgeDecor",
 	"FormalTerrainKitSemanticTrial",
@@ -123,6 +121,8 @@ func test_stage14_gate_preserves_logic_nodes_and_disables_legacy_terrain() -> vo
 			assert_false(shape.disabled)
 
 	assert_not_null(room.get_node_or_null("AirDashGateSensor"))
+	assert_null(room.get_node_or_null("MiasmaTilesetPreview"))
+	assert_null(room.get_node_or_null("ShrineTrialTilesetPreview"))
 	_assert_old_layers_hidden(room)
 
 

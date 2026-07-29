@@ -14,25 +14,26 @@ const VISUAL_ONLY := ["DoorVisual", "BackgroundVisual", "DecorVisual", "Foregrou
 const SPECS := [
 	{
 		"path": "res://scenes/rooms/stage10_zone_aerial_room.tscn", "limits": Rect2i(-384, -320, 1536, 576),
-		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(-2, 2), "length": 4}, {"start": Vector2i(4, 1), "length": 4}, {"start": Vector2i(10, 2), "length": 4}],
+		"floor": Vector2i(-6, 3), "length": 24, "platforms": [{"start": Vector2i(-2, 2), "length": 4}, {"start": Vector2i(3, 1), "length": 4}, {"start": Vector2i(10, 2), "length": 4}],
 		"background": Vector2(384, -16), "background_scale": Vector2(0.94, 0.94),
 		"previous": "res://scenes/rooms/stage9_zone_final_room.tscn", "previous_spawn": &"zone_final_return", "left_exit": Vector2(-352, 160),
-		"spawns": {&"stage10_aerial_start": Vector2(-256, 204), &"stage10_aerial_return": Vector2(256, 204)},
+		"spawns": {&"stage10_aerial_start": Vector2(-256, 204), &"stage10_aerial_return": Vector2(256, 204), &"stage10_aerial_from_stage13_shortcut": Vector2(960, 204)},
+		"shortcut": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn", "shortcut_spawn": &"stage13_entry_from_stage10_shortcut", "shortcut_air_dash": true,
 		"exit": Vector2(1120, 160), "gate": Vector2(1024, 168),
 		"nodes": {"BranchZone": Vector2(-96, 124), "AerialSentinelEnemy": Vector2(384, 56), "GroundChargerEnemy": Vector2(640, 200), "AirAttackValueMarker": Vector2(384, 24)},
 	},
 	{
 		"path": "res://scenes/rooms/stage10_zone_branch_room.tscn", "limits": Rect2i(-384, -256, 1152, 512),
-		"floor": Vector2i(-6, 3), "length": 18, "platforms": [{"start": Vector2i(-2, 2), "length": 4}, {"start": Vector2i(4, 1), "length": 4}],
+		"floor": Vector2i(-6, 3), "length": 18, "platforms": [{"start": Vector2i(-2, 2), "length": 4}, {"start": Vector2i(3, 1), "length": 4}],
 		"background": Vector2(192, 0), "background_scale": Vector2(0.72, 0.72),
-		"previous": "res://scenes/rooms/stage10_zone_aerial_room.tscn", "previous_spawn": &"stage10_aerial_return", "left_exit": Vector2(-352, 160),
-		"spawns": {&"stage10_branch_start": Vector2(-256, 204)}, "next_spawn": &"stage10_aerial_return",
+		"previous": "res://scenes/rooms/stage9_zone_switch_room.tscn", "previous_spawn": &"zone_switch_from_stage10_shortcut", "left_exit": Vector2(-352, 160),
+		"spawns": {&"stage10_branch_start": Vector2(-256, 204), &"stage10_branch_from_stage9_shortcut": Vector2(-256, 204)}, "next_spawn": &"stage10_aerial_return",
 		"exit": Vector2(736, 160), "gate": Vector2(640, 168),
 		"nodes": {"AerialSentinelEnemy": Vector2(64, 120), "RecoveryPoint": Vector2(224, 112), "BranchCollectible": Vector2(416, 40)},
 	},
 	{
 		"path": "res://scenes/rooms/stage10_zone_challenge_room.tscn", "limits": Rect2i(-384, -384, 1664, 640),
-		"floor": Vector2i(-6, 4), "length": 26, "platforms": [{"start": Vector2i(-2, 3), "length": 5}, {"start": Vector2i(5, 2), "length": 5}, {"start": Vector2i(12, 3), "length": 4}],
+		"floor": Vector2i(-6, 4), "length": 26, "platforms": [{"start": Vector2i(-2, 3), "length": 5}, {"start": Vector2i(4, 2), "length": 5}, {"start": Vector2i(12, 3), "length": 4}],
 		"background": Vector2(448, -48), "background_scale": Vector2(1.02, 1.02),
 		"previous": "res://scenes/rooms/stage10_zone_aerial_room.tscn", "previous_spawn": &"stage10_aerial_return", "left_exit": Vector2(-352, 224),
 		"spawns": {&"stage10_challenge_start": Vector2(-256, 268), &"stage10_challenge_return": Vector2(1088, 268)},
@@ -66,6 +67,10 @@ func _apply(spec: Dictionary, terrain_set: TileSet, surface_set: TileSet, thin_s
 	root.set("previous_room_path", spec.previous)
 	root.set("previous_spawn_id", spec.previous_spawn)
 	root.set("spawn_positions", spec.spawns)
+	if spec.has("shortcut"):
+		root.set("shortcut_room_path", spec.shortcut)
+		root.set("shortcut_spawn_id", spec.shortcut_spawn)
+		root.set("shortcut_requires_air_dash", bool(spec.shortcut_air_dash))
 	if spec.has("next_spawn"):
 		root.set("next_spawn_id", spec.next_spawn)
 	if spec.has("require_all"):
@@ -126,7 +131,7 @@ func _hide_old(root: Node) -> void:
 		if layer != null:
 			layer.visible = false
 			layer.set("collision_enabled", false)
-	for name: String in ["MaterialTextureArt", "MaterialTexturePreviewArt"]:
+	for name: String in ["MaterialTextureArt"]:
 		var item := root.get_node_or_null(NodePath(name)) as CanvasItem
 		if item != null:
 			item.visible = false

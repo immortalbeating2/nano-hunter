@@ -95,17 +95,6 @@ texture = ExtResource("4_l38wo")
 polygon = PackedVector2Array(-512, -16, 512, -16, 512, 16, -512, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="MaterialTexturePreviewArt" type="Sprite2D" parent="." unique_id=675783871]
-visible = false
-modulate = Color(1, 1, 1, 0.2)
-position = Vector2(192, 145)
-scale = Vector2(1.45, 0.08)
-texture = ExtResource("nh_mat")
-region_enabled = true
-region_rect = Rect2(1024, 0, 512, 512)
-metadata/asset_id = "material_texture_atlas_ai01"
-metadata/asset_binding_note = "dac_terrain_material_transition_decor_only"
-
 [node name="TalismanRelayA" type="Polygon2D" parent="." unique_id=1307972726]
 position = Vector2(128, 184)
 color = Color(0.819608, 0.827451, 0.505882, 0)

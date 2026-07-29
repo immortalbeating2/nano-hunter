@@ -11,6 +11,7 @@ extends "res://scripts/rooms/stage10_room_base.gd"
 @export var challenge_reward_branch := false
 @export var miasma_damage := 1
 @export var seal_gate := false
+@export var persistent_reward_id: StringName = &""
 
 # 运行期状态保存本房间奖励去重、镇妖印节点、支路请求和瘴气伤害去重。
 var _stage13_collected_reward_ids: Dictionary = {}
@@ -80,6 +81,8 @@ func collect_stage13_reward(reward_id: StringName) -> void:
 		return
 
 	_stage13_collected_reward_ids[reward_id] = true
+	if persistent_reward_id != StringName() and _main != null and _main.has_method("collect_exploration_reward"):
+		_main.call("collect_exploration_reward", persistent_reward_id)
 	_emit_hud_context()
 
 
@@ -92,6 +95,8 @@ func get_stage13_progress_snapshot() -> Dictionary:
 		"resource_reward_branch": resource_reward_branch,
 		"challenge_reward_branch": challenge_reward_branch,
 		"miasma_hazard_present": has_miasma_hazard(),
+		"persistent_reward_id": persistent_reward_id,
+		"persistent_reward_collected": persistent_reward_id != StringName() and _main != null and _main.has_method("has_exploration_reward") and bool(_main.call("has_exploration_reward", persistent_reward_id)),
 	}
 
 

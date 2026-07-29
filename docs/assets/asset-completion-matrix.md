@@ -1,12 +1,14 @@
 # Nano Hunter Asset Completion Matrix
 
-Last Updated: 2026-06-24
+Last Updated: 2026-07-12
 
 ## 用途
 
 本文件把“当前项目所需美术资产”从单个 Batch 扩展为完整资产矩阵，覆盖角色、关卡地图场景、UI / 界面、图标、道具与装备、特效、动画帧 / 序列帧、贴图、宣传运营、LOGO、CG、分镜图、叙事与剧情资产，以及 Godot 可用的 Sprite Sheet、Texture Atlas、Tile Set、Spine 拆件图集、UI 图集、特效图集和九宫格图片。
 
 本矩阵不代表所有资产已经生成或接入；它是后续 image gen、清稿、图集整理和 Godot 导入的总控入口。具体资产进入游戏前仍必须回填 `asset-manifest.md` 并通过 `asset-ingestion-checklist.md`。
+
+> 2026-07-12 当前处置口径：正式场景不再使用隐藏 Preview 证明接入；`asset-runtime-integration-map.json` 的 `55` 项现分为 `26 runtime_keep / 20 source_dev_keep / 9 archive_keep`，P0 正式运行计划为 `11` 项。Stage 12/13 的 `14` 个旧 SVG 及 `.import` 已在零引用、import 与 GUT 门禁通过后删除。下文按日期记录的 `30 P0 runtime assets`、hidden preview 等描述是历史过程证据，不代表当前运行接入事实；最新结果统一读取 `docs/assets/2026-07-12-final-asset-disposition.md`。
 
 批量提示词模板保存在 `docs/assets/image-gen-prompt-library.md`。动画帧数规格保存在 `docs/assets/animation-frame-spec.md`。具体生产队列保存在 `docs/assets/image-gen-production-backlog.md`，可执行 prompt queue 保存在 `docs/assets/image-gen-prompt-queue.json`。
 Godot 图集构建流程保存在 `docs/assets/godot-atlas-build-pipeline.md`，构建规格保存在 `docs/assets/asset-atlas-build-manifest.json`，内置 image gen 输出定位与导入脚本为 `scripts/assets/import_imagegen_outputs.py`，原始候选拆分为 `selected_*` 源图的脚本为 `scripts/assets/prepare_selected_sources.py`，单体候选导出脚本为 `scripts/assets/export_standalone_candidates.py`，候选池审计脚本为 `scripts/assets/audit_imagegen_candidate_pool.py`，未选 raw candidate 的 Godot 评审入口为 `scenes/dev/imagegen_candidate_review_gallery.tscn`，资产来源 / prompt / hash 记录为 `docs/assets/asset-provenance-records.json`，运行时 / 发布接入映射为 `docs/assets/asset-runtime-integration-map.json`，Godot runtime catalog 为 `scenes/dev/imagegen_runtime_asset_catalog.tscn`。
