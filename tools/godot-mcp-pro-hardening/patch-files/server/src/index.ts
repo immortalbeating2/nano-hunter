@@ -90,7 +90,7 @@ registerInputMapTools(toolServer, godot);
 registerDiagnosticTools(toolServer, godot);
 
 // 3D-critical tools (registered in FULL and --3d modes)
-// Core (81) + Physics (6) + AnimationTree (8) + Navigation (5) = exactly 100 tools
+// Core (85) + Physics (6) + AnimationTree (8) + Navigation (5) = 104 tools
 if (!LITE_MODE || THREED_MODE) {
   registerPhysicsTools(server, godot);
   registerAnimationTreeTools(server, godot);
@@ -155,9 +155,9 @@ async function main() {
     const modeLabel = MINIMAL_MODE
       ? "[MCP] Godot MCP Pro MINIMAL started (35 tools, stdio transport)"
       : THREED_MODE
-        ? "[MCP] Godot MCP Pro 3D started (103 tools, stdio transport)"
+        ? "[MCP] Godot MCP Pro 3D started (104 tools, stdio transport)"
         : LITE_MODE
-          ? "[MCP] Godot MCP Pro LITE started (84 tools, stdio transport)"
+          ? "[MCP] Godot MCP Pro LITE started (85 tools, stdio transport)"
           : "[MCP] Godot MCP Pro started (stdio transport)";
     console.error(modeLabel);
   }

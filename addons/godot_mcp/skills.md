@@ -6,7 +6,7 @@
 
 ## What is Godot MCP Pro?
 
-You have access to 169 MCP tools that connect directly to the Godot 4 editor. You can create scenes, write scripts, simulate player input, inspect running games, and more — all without the user leaving this conversation. Every change goes through Godot's UndoRedo system, so the user can always Ctrl+Z.
+You have access to 176 MCP tools (175 official tools + get_bridge_status) that connect directly to the Godot 4 editor. You can create scenes, write scripts, simulate player input, inspect running games, and more — all without the user leaving this conversation. Every change goes through Godot's UndoRedo system, so the user can always Ctrl+Z.
 
 ## Essential Workflows
 

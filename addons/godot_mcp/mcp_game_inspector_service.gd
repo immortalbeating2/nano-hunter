@@ -52,6 +52,15 @@ var _moveto_look_at: bool = true
 var _moveto_keys_held: Array = []  # Track injected keys for guaranteed release
 
 
+func _runtime_root() -> Node:
+	var main := get_node_or_null("/root/Main")
+	if main != null:
+		return main
+	if get_tree().current_scene != null:
+		return get_tree().current_scene
+	return get_tree().root
+
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -156,7 +165,7 @@ func _handle_request() -> void:
 # ── get_scene_tree ────────────────────────────────────────────────────────────
 
 func _cmd_get_scene_tree(params: Dictionary) -> void:
-	var root := get_tree().current_scene
+	var root := _runtime_root()
 	if root == null:
 		_write_response({"error": "No current scene"})
 		return
@@ -746,7 +755,11 @@ func _safe_get(node: Node, prop: String, default: Variant = null) -> Variant:
 
 	var temp_node := Node.new()
 	temp_node.set_script(script)
-	get_tree().current_scene.add_child(temp_node)
+	var root := _runtime_root()
+	if root == null:
+		_write_response({"error": "No current scene"})
+		return
+	root.add_child(temp_node)
 
 	var output: Variant = null
 	if temp_node.has_method("run"):
@@ -769,7 +782,7 @@ func _cmd_find_nodes_by_script(params: Dictionary) -> void:
 		_write_response({"error": "'script' is required"})
 		return
 
-	var root := get_tree().current_scene
+	var root := _runtime_root()
 	if root == null:
 		_write_response({"error": "No current scene"})
 		return
@@ -896,7 +909,7 @@ func _cmd_batch_get_properties(params: Dictionary) -> void:
 # ── find_ui_elements ─────────────────────────────────────────────────────────
 
 func _cmd_find_ui_elements(params: Dictionary) -> void:
-	var root := get_tree().current_scene
+	var root := _runtime_root()
 	if root == null:
 		_write_response({"error": "No current scene"})
 		return
@@ -987,7 +1000,7 @@ func _cmd_click_button_by_text(params: Dictionary) -> void:
 		_write_response({"error": "'text' is required"})
 		return
 
-	var root := get_tree().current_scene
+	var root := _runtime_root()
 	if root == null:
 		_write_response({"error": "No current scene"})
 		return
@@ -1119,7 +1132,7 @@ func _cmd_find_nearby_nodes(params: Dictionary) -> void:
 		_write_response({"error": "'position' is required (node_path string or {x,y,z} object)"})
 		return
 
-	var root := get_tree().current_scene
+	var root := _runtime_root()
 	if root == null:
 		_write_response({"error": "No current scene"})
 		return

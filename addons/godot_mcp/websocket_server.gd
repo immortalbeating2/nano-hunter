@@ -32,6 +32,7 @@ const LEGACY_CLI_END := 6514
 const RECONNECT_INTERVAL := 3.0
 const BUFFER_SIZE := 16 * 1024 * 1024  # 16MB
 const RENDEZVOUS_PATH := "res://.godot/godot-mcp-pro/current-bridge.json"
+const RENDEZVOUS_STALE_AFTER := 15.0
 const PING_INTERVAL := 5.0
 const INACTIVITY_TIMEOUT := 30.0
 
@@ -146,6 +147,9 @@ func _add_rendezvous_port() -> void:
 	var path := ProjectSettings.globalize_path(RENDEZVOUS_PATH)
 	if not FileAccess.file_exists(path):
 		return
+	if _is_rendezvous_stale(path):
+		DirAccess.remove_absolute(path)
+		return
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return
@@ -158,6 +162,30 @@ func _add_rendezvous_port() -> void:
 		return
 	_add_port(port, "rendezvous")
 	_rendezvous_sessions[port] = str(data.get("sessionId", ""))
+
+
+func _is_rendezvous_stale(path: String) -> bool:
+	var modified := float(FileAccess.get_modified_time(path))
+	if modified <= 0.0:
+		return true
+	return Time.get_unix_time_from_system() - modified > RENDEZVOUS_STALE_AFTER
+
+
+func _refresh_rendezvous_session(port: int) -> void:
+	var path := ProjectSettings.globalize_path(RENDEZVOUS_PATH)
+	if not FileAccess.file_exists(path) or _is_rendezvous_stale(path):
+		if FileAccess.file_exists(path):
+			DirAccess.remove_absolute(path)
+		return
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	if not parsed is Dictionary:
+		return
+	var data: Dictionary = parsed
+	if int(data.get("port", 0)) == port:
+		_rendezvous_sessions[port] = str(data.get("sessionId", ""))
 
 
 func _try_connect(p: int) -> void:
@@ -263,6 +291,7 @@ func _send_workspace_hello(p: int) -> void:
 	if _hello_sent.get(p, false):
 		return
 	_hello_sent[p] = true
+	_refresh_rendezvous_session(p)
 	var workspace := ProjectSettings.globalize_path("res://")
 	var payload := {
 		"jsonrpc": "2.0",
@@ -332,6 +361,7 @@ func _handle_hello_ack(source_port: int, params: Variant) -> void:
 	var accepted := bool(data.get("accepted", false))
 	if accepted:
 		_accepted[source_port] = true
+		_close_other_stdio_peers(source_port)
 		workspace_handshake_accepted.emit(source_port, str(data.get("sessionId", "")))
 	else:
 		var reason := str(data.get("reason", "rejected"))
@@ -339,6 +369,27 @@ func _handle_hello_ack(source_port: int, params: Variant) -> void:
 		var ws: WebSocketPeer = _peers.get(source_port)
 		if ws:
 			ws.close(1008, reason)
+
+
+func _is_stdio_port(port: int) -> bool:
+	var source := get_port_source(port)
+	return source == "rendezvous" or source == "stdio primary" or source == "legacy stdio"
+
+
+func _close_other_stdio_peers(active_port: int) -> void:
+	if not _is_stdio_port(active_port):
+		return
+	for p: int in _peers.keys():
+		if p == active_port or not _is_stdio_port(p):
+			continue
+		var ws: WebSocketPeer = _peers.get(p)
+		if ws:
+			ws.close(1000, "Replaced by active MCP owner")
+		_connected[p] = false
+		_accepted[p] = false
+		_hello_sent[p] = false
+		_peers[p] = null
+		_timers[p] = 0.0
 
 
 func _execute_command(source_port: int, id: Variant, method: String, params: Dictionary) -> void:
