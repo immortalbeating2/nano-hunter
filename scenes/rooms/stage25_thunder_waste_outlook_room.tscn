@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=4]
+
+[ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+
+[node name="Stage25ThunderWasteOutlookRoom" instance=ExtResource("1")]
+next_room_path = "res://scenes/rooms/stage11_demo_end_room.tscn"
+next_spawn_id = &"stage11_thunder_waste_return"
+previous_room_path = "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn"
+previous_spawn_id = &"stage25_fork_return"
+spawn_positions = {
+&"stage25_outlook_return": Vector2(736, 204),
+&"stage25_outlook_start": Vector2(-256, 204)
+}
+stage25_title = "雷泽荒原 · 驿路远眺"
+stage25_prompt = "雷泽小路已勘明；向右沿旧驿路返回镇妖驿厅。"

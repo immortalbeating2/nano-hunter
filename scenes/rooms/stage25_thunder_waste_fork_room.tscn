@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=4]
+
+[ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+
+[node name="Stage25ThunderWasteForkRoom" instance=ExtResource("1")]
+next_room_path = "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn"
+next_spawn_id = &"stage25_outlook_start"
+previous_room_path = "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn"
+previous_spawn_id = &"stage25_slope_return"
+spawn_positions = {
+&"stage25_fork_return": Vector2(736, 204),
+&"stage25_fork_start": Vector2(-256, 204)
+}
+stage25_title = "雷泽荒原 · 风蚀岔口"
+stage25_prompt = "主路向右通往驿路远眺；跃上蓝色符标可进入接地祭柱回环。"
+branch_room_path = "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn"
+branch_spawn_id = &"stage25_relay_start"

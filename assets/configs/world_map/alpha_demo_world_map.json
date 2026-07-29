@@ -6,7 +6,8 @@
     {"id": "ward", "title": "镇妖前庭", "label_position": [0.30, 0.05]},
     {"id": "marsh", "title": "瘴泽禁域", "label_position": [0.69, 0.05]},
     {"id": "sanctum", "title": "空行古刹", "label_position": [0.82, 0.76]},
-    {"id": "seal", "title": "封印深处", "label_position": [0.24, 0.94]}
+    {"id": "seal", "title": "封印深处", "label_position": [0.24, 0.94]},
+    {"id": "waste", "title": "雷泽荒原", "label_position": [0.72, 0.82]}
   ],
   "rooms": [
     {"id": "01", "title": "教程起点", "path": "res://scenes/rooms/tutorial_room.tscn", "position": [0.06, 0.22], "region": "trial"},
@@ -43,6 +44,12 @@
     {"id": "32", "title": "回溯确认", "path": "res://scenes/rooms/stage16_backtrack_confirmation_room.tscn", "position": [0.08, 0.79], "region": "seal"},
     {"id": "33", "title": "妖瘴净化", "path": "res://scenes/rooms/stage16_corruption_purge_room.tscn", "position": [0.16, 0.88], "region": "seal"},
     {"id": "34", "title": "封印终点", "path": "res://scenes/rooms/stage16_alpha_demo_end_room.tscn", "position": [0.27, 0.85], "region": "seal"},
+    {"id": "35", "title": "荒原界碑", "path": "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn", "position": [0.37, 0.92], "region": "waste"},
+    {"id": "36", "title": "雷雨洼地", "path": "res://scenes/rooms/stage25_thunder_waste_stormfield_room.tscn", "position": [0.47, 0.95], "region": "waste"},
+    {"id": "37", "title": "引雷坡道", "path": "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn", "position": [0.57, 0.91], "region": "waste"},
+    {"id": "38", "title": "风蚀岔口", "path": "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn", "position": [0.67, 0.95], "region": "waste"},
+    {"id": "39", "title": "接地祭柱", "path": "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn", "position": [0.78, 0.88], "region": "waste"},
+    {"id": "40", "title": "驿路远眺", "path": "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn", "position": [0.90, 0.93], "region": "waste"},
     {"id": "A", "title": "镇妖资源支路", "path": "res://scenes/rooms/stage10_zone_branch_room.tscn", "position": [0.24, 0.44], "region": "ward"},
     {"id": "B", "title": "瘴泽资源支路", "path": "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn", "position": [0.55, 0.52], "region": "marsh"},
     {"id": "C", "title": "瘴泽挑战支路", "path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "position": [0.73, 0.58], "region": "marsh"},
@@ -57,7 +64,13 @@
     {"from": "09", "to": "A"},
     {"from": "19", "to": "B"},
     {"from": "19", "to": "C"},
-    {"from": "27", "to": "D"}
+    {"from": "27", "to": "D"},
+    {"from": "35", "to": "36"},
+    {"from": "36", "to": "37"},
+    {"from": "37", "to": "38"},
+    {"from": "38", "to": "40"},
+    {"from": "38", "to": "39"},
+    {"from": "39", "to": "37"}
   ],
   "remote_connections": [
     {"id": "SC-01", "from": "07", "to": "A", "requirements": []},
@@ -65,6 +78,8 @@
     {"id": "SC-03", "from": "B", "to": "17", "requirements": []},
     {"id": "SC-04", "from": "C", "to": "21", "requirements": []},
     {"id": "SC-05", "from": "24", "to": "D", "requirements": ["warden_sigil_collected"]},
-    {"id": "SC-06", "from": "15", "to": "23", "requirements": ["wind_seal_unlocked", "air_dash_unlocked"]}
+    {"id": "SC-06", "from": "15", "to": "23", "requirements": ["wind_seal_unlocked", "air_dash_unlocked"]},
+    {"id": "SC-07", "from": "11", "to": "35", "requirements": ["waystation_intel_unlocked"]},
+    {"id": "SC-08", "from": "40", "to": "11", "requirements": []}
   ]
 }

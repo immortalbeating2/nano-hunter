@@ -18,6 +18,7 @@ const STAGE15_ROOM_PREFIX := "res://scenes/rooms/stage15_"
 const STAGE15_COMPLETION_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
 const STAGE16_ROOM_PREFIX := "res://scenes/rooms/stage16_"
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
+const STAGE25_ROOM_PREFIX := "res://scenes/rooms/stage25_"
 const FALL_RESET_MARGIN := 96.0
 const WIND_SEAL_REWARD_ID: StringName = &"wind_seal"
 const ELEMENT_WIND: StringName = &"wind"
@@ -1040,6 +1041,9 @@ func _get_demo_goal_text() -> String:
 	if _stage16_alpha_demo_completed:
 		return "Alpha Demo 已完成"
 
+	if room != null and room.scene_file_path.begins_with(STAGE25_ROOM_PREFIX):
+		return "目标：勘明雷泽荒原并返回驿厅"
+
 	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
 		return "目标：完成封印链"
 
@@ -1077,6 +1081,9 @@ func _get_demo_goal_hint_text() -> String:
 	# 提示文案只标注当前房间最可能卡住玩家的点，不在 HUD 里写完整教程。
 	if _stage16_alpha_demo_completed:
 		return "提示：可重开或查看发布项"
+
+	if room != null and room.scene_file_path.begins_with(STAGE25_ROOM_PREFIX):
+		return "提示：避开雷暴 / 风后接雷使祭柱接地"
 
 	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
 		return "提示：符印/回溯/净化"

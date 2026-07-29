@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=4]
+
+[ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+
+[node name="Stage25ThunderWasteStormfieldRoom" instance=ExtResource("1")]
+next_room_path = "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn"
+next_spawn_id = &"stage25_slope_start"
+previous_room_path = "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn"
+previous_spawn_id = &"stage25_entry_return"
+spawn_positions = {
+&"stage25_storm_return": Vector2(736, 204),
+&"stage25_storm_start": Vector2(-256, 204)
+}
+stage25_title = "雷泽荒原 · 雷雨洼地"
+stage25_prompt = "雷暴会在首次触碰时造成伤害；穿过洼地寻找接地遗构。"
+storm_hazard_present = true

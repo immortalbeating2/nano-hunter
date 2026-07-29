@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=4]
+
+[ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+
+[node name="Stage25ThunderWasteSlopeRoom" instance=ExtResource("1")]
+next_room_path = "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn"
+next_spawn_id = &"stage25_fork_start"
+previous_room_path = "res://scenes/rooms/stage25_thunder_waste_stormfield_room.tscn"
+previous_spawn_id = &"stage25_storm_return"
+spawn_positions = {
+&"stage25_slope_loop_return": Vector2(-64, 204),
+&"stage25_slope_return": Vector2(736, 204),
+&"stage25_slope_start": Vector2(-256, 204)
+}
+stage25_title = "雷泽荒原 · 引雷坡道"
+stage25_prompt = "坡道连接主路与接地回环，继续向右抵达风蚀岔口。"

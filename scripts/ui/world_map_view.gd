@@ -12,6 +12,7 @@ const REGION_COLORS := {
 	"marsh": Color(0.20, 0.43, 0.33, 0.94),
 	"sanctum": Color(0.54, 0.36, 0.18, 0.94),
 	"seal": Color(0.45, 0.24, 0.29, 0.94),
+	"waste": Color(0.27, 0.40, 0.62, 0.94),
 }
 
 @export_file("*.json") var layout_path := DEFAULT_LAYOUT_PATH

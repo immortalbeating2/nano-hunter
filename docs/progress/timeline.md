@@ -4,6 +4,11 @@
 
 ## 2026-07-30
 
+- **Stage25 Thunder Waste small second region**：消费 Stage23 雷泽路引，以 6 房灰盒验证新区、元素机关、旧区回访和小回环。
+  结果：Stage11 经 `SC-07` 进入荒原；`35 → 36 → 37 → 38 → 40 → 11` 构成主路，`38 → 39 → 37` 构成内部回环；雷暴单房结算一次，接地祭柱只接受风→雷追击贯穿并解除危险与门。世界图扩为 `44` 房、`8` 条远端连接。
+  关键验证或结论：Stage25 `5/5` / `60` assertions、邻近组合 `31/31` / `452`、递归全量 GUT `41` scripts / `294/294` tests / `8462` assertions；Godot import / smoke、Windows/OpenGL 真实 Player 接地探针、编辑器错误 `0` 和 `git diff --check` 通过，临时 MCP autoload 零残留。
+  详情日志链接：`docs/progress/logs/2026-07-30.md`；设计：`spec-design/2026-07-30-stage25-thunder-waste-region.md`；正式计划：`plan/2026-07-30-stage25-thunder-waste-region.md`；执行清单：`docs/implementation-plans/2026-07-30-stage25-thunder-waste-region.md`；边界：复用既有美术做冷蓝灰盒，未增加新敌人、天气状态机、区域 Boss、第三元素、快速旅行或正式存档。
+
 - **Stage24 two-slot relic/component Build**：把 Stage20 的单件切换扩展为四件可取得、任意两件可装备的轻量 Build。
   结果：瘴泽遗物与镇妖挑战符保留原效果；Caster 悬赏回交授予腐瘴法珠，Boss 击败授予守印金刚心，分别把序列窗口扩到 `2.75s`、姿态冷却缩到 `0.20s`。暂停详情面板支持装备 / 卸下，槽满不暗中替换。
   关键验证或结论：Stage24 `5/5` / `36` assertions、邻近组合 `63/63` / `1061`、递归全量 GUT `40` scripts / `289/289` tests / `8369` assertions；Godot import / smoke、Windows/OpenGL 两槽 UI 截图、组合数值探针、编辑器错误 `0` 和 `git diff --check` 通过，临时 MCP autoload 零残留。

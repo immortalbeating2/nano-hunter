@@ -1,0 +1,164 @@
+[gd_scene load_steps=11 format=4]
+
+[ext_resource type="Script" path="res://scripts/rooms/stage25_thunder_waste_room.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/stage25_storm_relay.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="5"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/011_equipment_pickup_atlas_ai01_auto_012_c02.atlas_texture.tres" id="6"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(1152, 32)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(32, 512)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(96, 160)
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(32, 144)
+
+[sub_resource type="RectangleShape2D" id="5"]
+size = Vector2(48, 96)
+
+[node name="Stage25ThunderWasteRoomBase" type="Node2D"]
+script = ExtResource("1")
+camera_limits = Rect2i(-384, -256, 1280, 512)
+spawn_positions = {
+&"stage25_start": Vector2(-256, 204),
+&"stage25_return": Vector2(736, 204)
+}
+default_step_id = &"stage25_waste"
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+z_index = -4
+color = Color(0.055, 0.082, 0.13, 1)
+polygon = PackedVector2Array(-416, -320, 928, -320, 928, 320, -416, 320)
+
+[node name="WasteBackgroundArt" type="Sprite2D" parent="."]
+modulate = Color(0.62, 0.72, 1, 0.52)
+z_index = -3
+position = Vector2(256, 0)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3")
+metadata/asset_id = "biome02_miasma_marsh_background_ai01"
+metadata/asset_binding_note = "stage25_graybox_cold_storm_reuse"
+
+[node name="StormCloudBand" type="Polygon2D" parent="."]
+z_index = -2
+color = Color(0.25, 0.32, 0.48, 0.48)
+polygon = PackedVector2Array(-384, -192, 896, -192, 896, -96, -384, -128)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(256, 240)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("1")
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+z_index = 1
+texture_repeat = 2
+color = Color(0.42, 0.52, 0.62, 0.94)
+texture = ExtResource("4")
+polygon = PackedVector2Array(-576, -16, 576, -16, 576, 16, -576, 16)
+metadata/asset_binding_note = "stage25_existing_formal_stone_underlay"
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-368, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("2")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(880, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("2")
+
+[node name="LeftExitZone" type="Area2D" parent="."]
+position = Vector2(-352, 176)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone"]
+shape = SubResource("3")
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(816, 176)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("3")
+
+[node name="ExitMarker" type="Polygon2D" parent="ExitZone"]
+z_index = 2
+color = Color(0.46, 0.82, 0.92, 0.72)
+polygon = PackedVector2Array(-18, -12, 18, 0, -18, 12, -8, 0)
+
+[node name="StormField" type="Node2D" parent="."]
+position = Vector2(240, 204)
+
+[node name="FieldGlow" type="Polygon2D" parent="StormField"]
+z_index = 1
+color = Color(0.25, 0.5, 0.95, 0.24)
+polygon = PackedVector2Array(-64, -32, 64, -32, 76, 20, -76, 20)
+
+[node name="BoltLeft" type="Polygon2D" parent="StormField"]
+z_index = 2
+color = Color(0.68, 0.88, 1, 0.86)
+polygon = PackedVector2Array(-32, -72, -12, -32, -26, -32, -4, 16, -18, -10, -4, -10)
+
+[node name="BoltRight" type="Polygon2D" parent="StormField"]
+z_index = 2
+color = Color(0.86, 0.92, 1, 0.78)
+polygon = PackedVector2Array(24, -64, 42, -26, 28, -26, 48, 12, 32, -8, 16, -8)
+
+[node name="StormRelay" type="StaticBody2D" parent="."]
+position = Vector2(560, 176)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StormRelay"]
+shape = SubResource("5")
+
+[node name="RelayRing" type="Polygon2D" parent="StormRelay"]
+z_index = 2
+color = Color(0.3, 0.42, 0.62, 0.88)
+polygon = PackedVector2Array(-28, -36, 0, -48, 28, -36, 36, 0, 28, 36, 0, 48, -28, 36, -36, 0)
+
+[node name="RelayCore" type="Polygon2D" parent="StormRelay"]
+z_index = 3
+color = Color(0.78, 0.62, 0.28, 0.94)
+polygon = PackedVector2Array(-10, -24, 12, -8, 2, 4, 14, 26, -12, 12, -2, 0)
+
+[node name="GateBarrier" type="StaticBody2D" parent="."]
+position = Vector2(704, 152)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier"]
+shape = SubResource("4")
+
+[node name="BarrierVisual" type="Polygon2D" parent="GateBarrier"]
+z_index = 2
+color = Color(0.78, 0.32, 0.26, 0.74)
+polygon = PackedVector2Array(-16, -72, 16, -72, 16, 72, -16, 72)
+
+[node name="GateArt" type="Sprite2D" parent="GateBarrier"]
+z_index = 3
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
+
+[node name="BranchZone" type="Marker2D" parent="."]
+position = Vector2(400, 112)
+
+[node name="BranchMarkerArt" type="Sprite2D" parent="BranchZone"]
+z_index = 3
+modulate = Color(0.68, 0.88, 1, 0.92)
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("6")
+metadata/asset_id = "equipment_pickup_atlas_ai01"
+metadata/runtime_source = "equipment_pickup_atlas_ai01.shrine_key_token"

@@ -1,6 +1,6 @@
 extends GutTest
 
-# Stage19 房间蓝图与探索地图回归：保护 38 房布局、发现状态、远端连接和 Stage11 驿厅语义。
+# Stage19 房间蓝图与探索地图回归：保护 44 房布局、发现状态、远端连接和 Stage11 驿厅语义。
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const WORLD_MAP_VIEW_SCRIPT_PATH := "res://scripts/ui/world_map_view.gd"
@@ -17,13 +17,13 @@ func after_each() -> void:
 	get_tree().paused = false
 
 
-func test_world_map_layout_covers_38_formal_rooms_and_six_remote_connections() -> void:
+func test_world_map_layout_covers_44_formal_rooms_and_eight_remote_connections() -> void:
 	var view := _spawn_world_map_view()
 	assert_not_null(view)
 	if view == null:
 		return
 
-	assert_eq(int(view.call("get_room_count")), 38)
+	assert_eq(int(view.call("get_room_count")), 44)
 	var room_paths: Array = view.call("get_room_paths")
 	assert_true(TUTORIAL_ROOM_PATH in room_paths)
 	assert_false("res://scenes/rooms/test_room.tscn" in room_paths)
@@ -31,7 +31,7 @@ func test_world_map_layout_covers_38_formal_rooms_and_six_remote_connections() -
 		assert_true(ResourceLoader.exists(str(room_path)), "地图房间场景存在：%s" % str(room_path))
 
 	var connection_ids: Array = view.call("get_remote_connection_ids")
-	for connection_id: String in ["SC-01", "SC-02", "SC-03", "SC-04", "SC-05", "SC-06"]:
+	for connection_id: String in ["SC-01", "SC-02", "SC-03", "SC-04", "SC-05", "SC-06", "SC-07", "SC-08"]:
 		assert_true(connection_id in connection_ids, "地图缺少远端连接：%s" % connection_id)
 
 
@@ -50,7 +50,7 @@ func test_world_map_art_and_topology_remain_separate_and_editable() -> void:
 	if not parsed is Dictionary:
 		return
 	var rooms: Array = parsed.get("rooms", [])
-	assert_eq(rooms.size(), 38)
+	assert_eq(rooms.size(), 44)
 	var unique_vertical_positions: Dictionary = {}
 	for room: Dictionary in rooms:
 		var position: Array = room.get("position", [])

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=4]
+
+[ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+
+[node name="Stage25ThunderWasteEntryRoom" instance=ExtResource("1")]
+next_room_path = "res://scenes/rooms/stage25_thunder_waste_stormfield_room.tscn"
+next_spawn_id = &"stage25_storm_start"
+previous_room_path = "res://scenes/rooms/stage11_demo_end_room.tscn"
+previous_spawn_id = &"stage11_thunder_waste_return"
+spawn_positions = {
+&"stage25_entry_return": Vector2(736, 204),
+&"stage25_entry_start": Vector2(-256, 204)
+}
+checkpoint_spawn_id = &"stage25_entry_start"
+checkpoint_on_ready = true
+stage25_title = "雷泽荒原 · 荒原界碑"
+stage25_prompt = "路引已验：向右进入雷雨洼地；向左可返回镇妖驿厅。"
