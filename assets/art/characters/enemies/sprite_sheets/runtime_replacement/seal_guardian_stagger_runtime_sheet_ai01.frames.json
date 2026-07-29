@@ -1,0 +1,134 @@
+{
+  "id": "seal_guardian_stagger_runtime_sheet_ai01",
+  "source_asset_id": "seal_guardian_attack_body_runtime_sheet_ai02",
+  "kind": "sprite_sheet",
+  "batch": "ARP-17",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.png",
+  "metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.frames.json",
+  "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.spriteframes.tres",
+  "cell": [
+    256,
+    192
+  ],
+  "columns": 4,
+  "rows": 1,
+  "frame_count": 4,
+  "animation": {
+    "name": "staggered",
+    "speed": 10.0,
+    "loop": false
+  },
+  "anchor": "foot",
+  "frames": [
+    {
+      "index": 0,
+      "name": "seal_guardian_stagger_runtime_sheet_ai01_staggered_01",
+      "phase": "staggered",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.png",
+      "source_frame_index": 4,
+      "source_bbox": [
+        34,
+        30,
+        223,
+        184
+      ],
+      "region": [
+        0,
+        0,
+        256,
+        192
+      ],
+      "tint": [
+        0.82,
+        0.96,
+        1.12
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 1,
+      "name": "seal_guardian_stagger_runtime_sheet_ai01_staggered_02",
+      "phase": "staggered",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.png",
+      "source_frame_index": 5,
+      "source_bbox": [
+        46,
+        62,
+        209,
+        184
+      ],
+      "region": [
+        256,
+        0,
+        256,
+        192
+      ],
+      "tint": [
+        0.76,
+        0.94,
+        1.16
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 2,
+      "name": "seal_guardian_stagger_runtime_sheet_ai01_staggered_03",
+      "phase": "staggered",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.png",
+      "source_frame_index": 6,
+      "source_bbox": [
+        38,
+        73,
+        218,
+        184
+      ],
+      "region": [
+        512,
+        0,
+        256,
+        192
+      ],
+      "tint": [
+        0.72,
+        0.9,
+        1.14
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 3,
+      "name": "seal_guardian_stagger_runtime_sheet_ai01_staggered_04",
+      "phase": "staggered",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.png",
+      "source_frame_index": 7,
+      "source_bbox": [
+        40,
+        39,
+        216,
+        184
+      ],
+      "region": [
+        768,
+        0,
+        256,
+        192
+      ],
+      "tint": [
+        0.78,
+        0.88,
+        1.08
+      ],
+      "scale": 1.0
+    }
+  ],
+  "normalization": {
+    "process": "reuse_clean_attack_recovery_frames_with_guard_break_tint",
+    "selected_source_frames": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "geometry_change": false
+  }
+}

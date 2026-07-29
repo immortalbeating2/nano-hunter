@@ -11,24 +11,26 @@ const STAGE14_GATE_ROOM_PATH := "res://scenes/rooms/stage14_air_dash_gate_room.t
 const STAGE14_HUB_ROOM_PATH := "res://scenes/rooms/stage14_backtrack_hub_room.tscn"
 const STAGE14_LOOP_RETURN_ROOM_PATH := "res://scenes/rooms/stage14_loop_return_room.tscn"
 const ASSET_MANIFEST_PATH := "res://docs/assets/asset-manifest.md"
-const MIASMA_TILESET_RESOURCE_PATH := "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres"
-const LUNA_RUN_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres"
-const LUNA_RUN_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai01.spriteframes.tres"
-const LUNA_AIR_DASH_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres"
-const LUNA_ATTACK_01_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres"
-const LUNA_IDLE_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres"
-const LUNA_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai01.spriteframes.tres"
-const LUNA_JUMP_FALL_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres"
-const LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai01.spriteframes.tres"
-const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai02.spriteframes.tres"
-const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai02.spriteframes.tres"
-const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai01.spriteframes.tres"
-const LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai01.spriteframes.tres"
-const LUNA_HIT_DEATH_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres"
-const VFX_SEAL_MAGIC_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
-const VFX_COMBAT_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres"
+const SHRINE_BACKGROUND_RESOURCE_PATH := "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png"
+const SHRINE_TILE_SHEET_RESOURCE_PATH := "res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_tiles_ai01.png"
+const SHRINE_GATE_PROP_SHRINE_ACTIVE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/001_shrine_gate_prop_atlas_ai01_auto_002_c01.atlas_texture.tres"
+const SHRINE_GATE_PROP_LOCKED_GATE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
+const SHRINE_GATE_PROP_OPEN_GATE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres"
+const BACKTRACK_REWARD_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/009_equipment_pickup_atlas_ai01_auto_010_c01.atlas_texture.tres"
+const BACKTRACK_REWARD_PEDESTAL_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/012_shrine_gate_prop_atlas_ai01_auto_013_c02.atlas_texture.tres"
+const LOOP_RETURN_GOAL_MARKER_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/022_equipment_pickup_atlas_ai01_auto_023_c02.atlas_texture.tres"
+const LUNA_RUN_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai03.spriteframes.tres"
+const LUNA_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.spriteframes.tres"
+const LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_state_runtime_sheet_ai04.spriteframes.tres"
+const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres"
+const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres"
+const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres"
+const LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.spriteframes.tres"
 const LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/luna_attack_slash_vfx_runtime_ai01.spriteframes.tres"
 const LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/luna_attack_seal_arc_vfx_runtime_ai01.spriteframes.tres"
+const LUNA_RUNTIME_VISUAL_POSITION := Vector2(0, -16)
+const LUNA_ATTACK_SLASH_VFX_POSITION := Vector2(46, -12)
+const LUNA_ATTACK_SEAL_ARC_VFX_POSITION := Vector2(38, -12)
 
 
 # 输入清理：Stage14 空中冲刺测试依赖 dash / jump 状态从干净输入开始。
@@ -116,60 +118,130 @@ func test_stage14_rooms_exist_and_gate_requires_air_dash() -> void:
 
 	assert_true(gate_room.has_method("is_air_dash_gate_unlocked"))
 	assert_false(gate_room.call("is_air_dash_gate_unlocked"))
+	var gate_art := gate_room.get_node_or_null("GateBarrier/GateArt") as Sprite2D
+	assert_not_null(gate_art)
+	if gate_art != null:
+		assert_eq(gate_art.texture.resource_path, SHRINE_GATE_PROP_LOCKED_GATE_PATH)
 
 	player.call("set_air_dash_unlocked", true)
 	await _advance_process_frames(3)
 
 	assert_true(gate_room.call("is_air_dash_gate_unlocked"))
+	if gate_art != null:
+		assert_eq(gate_art.texture.resource_path, SHRINE_GATE_PROP_OPEN_GATE_PATH)
+		assert_eq(gate_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_open")
 
 
-# 保护 Stage14 Air Dash 静态道具资产：神龛和能力门房间应引用当前项目内的 image gen 道具图。
+# 保护 Stage14 Air Dash 静态道具资产：神龛和能力门房间应引用当前运行态封印门 atlas。
 func test_stage14_air_dash_rooms_reference_shrine_and_gate_art() -> void:
 	var shrine_room := await _spawn_room(STAGE14_SHRINE_ROOM_PATH)
 	_assert_sprite_references_asset(
 		shrine_room,
 		"AirDashShrine/ShrineArt",
-		"stage14_air_dash_shrine_ai01",
-		"res://assets/art/props/stage14_air_dash_shrine_ai01.png"
+		"shrine_gate_prop_atlas_ai01",
+		SHRINE_GATE_PROP_SHRINE_ACTIVE_PATH
 	)
 	_assert_sprite_references_asset(
 		shrine_room,
-		"AirDashShrine/GatePreviewArt",
-		"stage14_air_dash_gate_ai01",
-		"res://assets/art/props/stage14_air_dash_gate_ai01.png"
+		"AirDashShrine/GateEchoArt",
+		"shrine_gate_prop_atlas_ai01",
+		SHRINE_GATE_PROP_LOCKED_GATE_PATH
 	)
 	_assert_sprite_references_asset(
 		shrine_room,
-		"AirDashShrine/AirDashTrailPreviewArt",
+		"AirDashShrine/AirDashTrailArt",
 		"stage14_air_dash_trail_ai01",
 		"res://assets/art/vfx/stage14_air_dash_trail_ai01.png"
 	)
+	assert_null(shrine_room.get_node_or_null("ShrineTrialTilesetPreview"))
+	for source_preview_name: String in ["ShrineTrialParallaxArt", "AirDashShrineRoomArt"]:
+		var source_preview := shrine_room.get_node_or_null(source_preview_name) as Sprite2D
+		assert_not_null(source_preview)
+		if source_preview != null:
+			assert_false(source_preview.visible, "整房间源图装饰会在运行态露出矩形边，保留引用但不能直接上屏。")
+	var shrine_exit_zone_visual := shrine_room.get_node_or_null("ExitZone/ZoneVisual") as Polygon2D
+	assert_not_null(shrine_exit_zone_visual)
+	if shrine_exit_zone_visual != null:
+		assert_false(shrine_exit_zone_visual.visible, "Stage14 神龛房已有正式门禁 prop，出口触发区矩形不能直接上屏。")
 
 	var gate_room := await _spawn_room(STAGE14_GATE_ROOM_PATH)
 	_assert_sprite_references_asset(
 		gate_room,
 		"AirDashGateSensor/ShrineEchoArt",
-		"stage14_air_dash_shrine_ai01",
-		"res://assets/art/props/stage14_air_dash_shrine_ai01.png"
+		"shrine_gate_prop_atlas_ai01",
+		SHRINE_GATE_PROP_SHRINE_ACTIVE_PATH
 	)
 	_assert_sprite_references_asset(
 		gate_room,
 		"GateBarrier/GateArt",
-		"stage14_air_dash_gate_ai01",
-		"res://assets/art/props/stage14_air_dash_gate_ai01.png"
+		"shrine_gate_prop_atlas_ai01",
+		SHRINE_GATE_PROP_LOCKED_GATE_PATH
 	)
-	_assert_tileset_preview_references_asset(gate_room, "MiasmaTilesetPreview")
+	assert_null(gate_room.get_node_or_null("MiasmaTilesetPreview"))
+	assert_null(gate_room.get_node_or_null("ShrineTrialTilesetPreview"))
 
 
-# 保护玩家可读性方向稿和 Air Dash trail 资源：玩家场景应直接引用当前项目 image gen 资源。
-func test_stage14_player_scene_references_luna_readability_and_dash_trail_art() -> void:
+# 保护 Stage14 回溯房 visual replacement：回溯 hub / 回环房应接入神龛试炼三件套。
+func test_stage14_backtrack_rooms_reference_shrine_visual_stack() -> void:
+	for room_path: String in [STAGE14_HUB_ROOM_PATH, STAGE14_LOOP_RETURN_ROOM_PATH]:
+		var room := await _spawn_room(room_path)
+		_assert_sprite_references_asset(
+			room,
+			"ShrineTrialBackgroundArt",
+			"biome01_shrine_trial_background_ai01",
+			SHRINE_BACKGROUND_RESOURCE_PATH
+		)
+		_assert_sprite_references_asset(
+			room,
+			"ShrineTrialTileSheetArt",
+			"biome01_shrine_trial_tiles_ai01",
+			SHRINE_TILE_SHEET_RESOURCE_PATH
+		)
+		assert_null(room.get_node_or_null("ShrineTrialTilesetPreview"))
+		if room_path == STAGE14_HUB_ROOM_PATH:
+			for reward_name in ["BacktrackRewardOne", "BacktrackRewardTwo", "BacktrackRewardThree"]:
+				var reward_visual := room.get_node_or_null("%s/RewardVisual" % reward_name) as Polygon2D
+				assert_not_null(reward_visual, "缺少旧奖励占位节点：%s/RewardVisual" % reward_name)
+				if reward_visual != null:
+					assert_false(reward_visual.visible)
+				_assert_sprite_references_asset(
+					room,
+					"%s/RewardArt" % reward_name,
+					"equipment_pickup_atlas_ai01",
+					BACKTRACK_REWARD_TEXTURE_PATH
+				)
+				_assert_sprite_references_asset(
+					room,
+					"%s/RewardPedestalArt" % reward_name,
+					"shrine_gate_prop_atlas_ai01",
+					BACKTRACK_REWARD_PEDESTAL_TEXTURE_PATH
+				)
+				var reward_art := room.get_node_or_null("%s/RewardArt" % reward_name) as Sprite2D
+				var reward_pedestal := room.get_node_or_null("%s/RewardPedestalArt" % reward_name) as Sprite2D
+				if reward_pedestal != null:
+					assert_eq(reward_pedestal.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.reward_marker_idle")
+					assert_eq(reward_pedestal.get_meta("asset_binding_note", ""), "formal_demo_backtrack_reward_pedestal")
+					assert_lte(reward_pedestal.scale.x, 0.18)
+					assert_gte(reward_pedestal.z_index, 1)
+					if reward_art != null:
+						assert_gt(reward_art.z_index, reward_pedestal.z_index)
+		if room_path == STAGE14_LOOP_RETURN_ROOM_PATH:
+			_assert_sprite_references_asset(
+				room,
+				"GoalZone/GoalMarkerArt",
+				"equipment_pickup_atlas_ai01",
+				LOOP_RETURN_GOAL_MARKER_TEXTURE_PATH
+			)
+			var goal_visual := room.get_node_or_null("GoalZone/GoalVisual") as Polygon2D
+			assert_not_null(goal_visual, "Stage14 回环目标区只保留隐藏编辑参考，运行态读值交给 GoalMarkerArt。")
+			if goal_visual != null:
+				assert_false(goal_visual.visible)
+
+
+# 保护玩家正式动作和 Air Dash trail：运行场景不再携带隐藏方向稿绑定。
+func test_stage14_player_scene_uses_runtime_animation_and_dash_trail_art() -> void:
 	var player := await _spawn_player_with_floor(Vector2.ZERO)
-	_assert_sprite_references_asset(
-		player,
-		"LunaReadabilityArt",
-		"stage16_luna_player_readability_ai01",
-		"res://assets/art/characters/player/stage16_luna_player_readability_ai01.png"
-	)
+	assert_null(player.get_node_or_null("LunaReadabilityArt"))
 	_assert_sprite_references_asset(
 		player,
 		"AirDashTrailArt",
@@ -183,69 +255,22 @@ func test_stage14_player_scene_references_luna_readability_and_dash_trail_art() 
 	_assert_animated_sprite_references_asset(
 		player,
 		"LunaRuntimeAnimationVisual",
-		"luna_idle_runtime_sheet_ai01",
+		"luna_idle_runtime_sheet_ai03",
 		LUNA_IDLE_RUNTIME_SPRITEFRAMES_PATH,
 		&"idle"
 	)
 	var runtime_visual := player.get_node("LunaRuntimeAnimationVisual") as AnimatedSprite2D
+	assert_gt(player.z_index, 2)
 	assert_true(runtime_visual.visible)
 	assert_true(runtime_visual.is_playing())
-	_assert_animated_sprite_references_asset(
-		player,
-		"LunaRunAnimationPreview",
-		"luna_run_sheet_ai01",
-		LUNA_RUN_SPRITEFRAMES_PATH,
-		&"run"
-	)
-	_assert_animated_sprite_references_asset(
-		player,
-		"LunaAirDashAnimationPreview",
-		"luna_air_dash_sheet_ai01",
-		LUNA_AIR_DASH_SPRITEFRAMES_PATH,
-		&"air_dash"
-	)
-	_assert_animated_sprite_references_asset(
-		player,
-		"LunaAttackAnimationPreview",
-		"luna_attack_01_sheet_ai01",
-		LUNA_ATTACK_01_SPRITEFRAMES_PATH,
-		&"attack_01"
-	)
-	_assert_animated_sprite_references_asset(
-		player,
-		"LunaIdleAnimationPreview",
-		"luna_idle_sheet_ai01",
-		LUNA_IDLE_SPRITEFRAMES_PATH,
-		&"idle"
-	)
-	_assert_animated_sprite_references_asset(
-		player,
-		"LunaJumpFallAnimationPreview",
-		"luna_jump_fall_sheet_ai01",
-		LUNA_JUMP_FALL_SPRITEFRAMES_PATH,
-		&"jump_fall"
-	)
-	_assert_animated_sprite_references_asset(
-		player,
-		"LunaHitDeathAnimationPreview",
-		"luna_hit_death_sheet_ai01",
-		LUNA_HIT_DEATH_SPRITEFRAMES_PATH,
-		&"hit_death"
-	)
-	_assert_animated_sprite_references_asset(
-		player,
-		"SealMagicVfxPreview",
-		"vfx_seal_magic_atlas_ai01",
-		VFX_SEAL_MAGIC_SPRITEFRAMES_PATH,
-		&"seal_magic"
-	)
-	_assert_animated_sprite_references_asset(
-		player,
-		"CombatVfxPreview",
-		"vfx_combat_atlas_ai01",
-		VFX_COMBAT_SPRITEFRAMES_PATH,
-		&"combat_vfx"
-	)
+	assert_eq(runtime_visual.position, LUNA_RUNTIME_VISUAL_POSITION)
+	assert_eq(runtime_visual.get_meta("baseline_note", ""), "ai03_alpha_foot_bottom_aligned_to_collision_bottom")
+	var body := player.get_node("Body") as Polygon2D
+	var stage12_silhouette := player.get_node("Stage12Silhouette") as Polygon2D
+	var stage12_helmet_mark := player.get_node("Stage12HelmetMark") as Polygon2D
+	assert_false(body.visible)
+	assert_false(stage12_silhouette.visible)
+	assert_false(stage12_helmet_mark.visible)
 	_assert_animated_sprite_references_asset(
 		player,
 		"AttackSlashVfxVisual",
@@ -262,16 +287,14 @@ func test_stage14_player_scene_references_luna_readability_and_dash_trail_art() 
 	)
 	var attack_slash_vfx := player.get_node("AttackSlashVfxVisual") as AnimatedSprite2D
 	var attack_seal_arc_vfx := player.get_node("AttackSealArcVfxVisual") as AnimatedSprite2D
-	var legacy_slash := player.get_node("Stage12SlashPreview") as Sprite2D
 	assert_false(attack_slash_vfx.visible)
 	assert_false(attack_seal_arc_vfx.visible)
-	assert_false(legacy_slash.visible)
+	assert_eq(attack_slash_vfx.position, LUNA_ATTACK_SLASH_VFX_POSITION)
+	assert_eq(attack_seal_arc_vfx.position, LUNA_ATTACK_SEAL_ARC_VFX_POSITION)
 	assert_false(attack_slash_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_slash_vfx.get_meta("damage_source", true))
 	assert_false(attack_seal_arc_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_seal_arc_vfx.get_meta("damage_source", true))
-	assert_false(legacy_slash.get_meta("gameplay_collision", true))
-	assert_false(legacy_slash.get_meta("damage_source", true))
 	assert_false(_has_collision_or_area_child(attack_slash_vfx))
 	assert_false(_has_collision_or_area_child(attack_seal_arc_vfx))
 
@@ -285,7 +308,7 @@ func test_stage14_player_runtime_animation_visual_switches_idle_run_and_jump_fal
 		return
 
 	assert_true(runtime_visual.visible)
-	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_idle_runtime_sheet_ai01")
+	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_idle_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_IDLE_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"idle")
 
@@ -295,7 +318,7 @@ func test_stage14_player_runtime_animation_visual_switches_idle_run_and_jump_fal
 
 	assert_eq(player.call("get_current_state_id"), &"run")
 	assert_true(runtime_visual.visible)
-	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_run_runtime_sheet_ai01")
+	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_run_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_RUN_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"run")
 	assert_true(runtime_visual.is_playing())
@@ -310,9 +333,9 @@ func test_stage14_player_runtime_animation_visual_switches_idle_run_and_jump_fal
 		or player.call("get_current_state_id") == &"jump_fall"
 	)
 	assert_true(runtime_visual.visible)
-	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_jump_fall_runtime_sheet_ai01")
+	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_jump_state_runtime_sheet_ai04")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_JUMP_FALL_RUNTIME_SPRITEFRAMES_PATH)
-	assert_eq(runtime_visual.animation, &"jump_fall")
+	assert_eq(runtime_visual.animation, &"jump_start")
 	assert_true(runtime_visual.is_playing())
 
 
@@ -322,12 +345,10 @@ func test_stage14_player_runtime_animation_visual_uses_attack_body_candidate() -
 	var runtime_visual := player.get_node_or_null("LunaRuntimeAnimationVisual") as AnimatedSprite2D
 	var attack_slash_vfx := player.get_node_or_null("AttackSlashVfxVisual") as AnimatedSprite2D
 	var attack_seal_arc_vfx := player.get_node_or_null("AttackSealArcVfxVisual") as AnimatedSprite2D
-	var legacy_slash := player.get_node_or_null("Stage12SlashPreview") as Sprite2D
 	assert_not_null(runtime_visual)
 	assert_not_null(attack_slash_vfx)
 	assert_not_null(attack_seal_arc_vfx)
-	assert_not_null(legacy_slash)
-	if runtime_visual == null or attack_slash_vfx == null or attack_seal_arc_vfx == null or legacy_slash == null:
+	if runtime_visual == null or attack_slash_vfx == null or attack_seal_arc_vfx == null:
 		return
 
 	Input.action_press("attack")
@@ -339,15 +360,22 @@ func test_stage14_player_runtime_animation_visual_uses_attack_body_candidate() -
 		or player.call("get_current_state_id") == &"air_attack"
 	)
 	assert_true(runtime_visual.visible)
-	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_attack_body_runtime_sheet_ai02")
+	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_attack_body_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"attack_body")
-	assert_true(runtime_visual.is_playing())
+	assert_false(runtime_visual.is_playing())
+	assert_eq(runtime_visual.frame, 4)
+	assert_false(attack_slash_vfx.visible)
+	assert_false(attack_seal_arc_vfx.visible)
+
+	await _advance_physics_frames(3)
 	assert_true(attack_slash_vfx.visible)
 	assert_eq(attack_slash_vfx.get_meta("asset_id", ""), "luna_attack_slash_vfx_runtime_ai01")
 	assert_eq(attack_slash_vfx.sprite_frames.resource_path, LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES_PATH)
 	assert_eq(attack_slash_vfx.animation, &"attack_slash")
-	assert_true(attack_slash_vfx.is_playing())
+	assert_false(attack_slash_vfx.is_playing())
+	assert_eq(attack_slash_vfx.position, LUNA_ATTACK_SLASH_VFX_POSITION)
+	assert_gte(attack_slash_vfx.scale.x, 0.42)
 	assert_false(attack_slash_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_slash_vfx.get_meta("damage_source", true))
 	assert_false(_has_collision_or_area_child(attack_slash_vfx))
@@ -355,17 +383,16 @@ func test_stage14_player_runtime_animation_visual_uses_attack_body_candidate() -
 	assert_eq(attack_seal_arc_vfx.get_meta("asset_id", ""), "luna_attack_seal_arc_vfx_runtime_ai01")
 	assert_eq(attack_seal_arc_vfx.sprite_frames.resource_path, LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES_PATH)
 	assert_eq(attack_seal_arc_vfx.animation, &"attack_seal_arc")
-	assert_true(attack_seal_arc_vfx.is_playing())
+	assert_false(attack_seal_arc_vfx.is_playing())
+	assert_eq(attack_seal_arc_vfx.position, LUNA_ATTACK_SEAL_ARC_VFX_POSITION)
+	assert_gte(attack_seal_arc_vfx.scale.x, 0.34)
 	assert_false(attack_seal_arc_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_seal_arc_vfx.get_meta("damage_source", true))
 	assert_false(_has_collision_or_area_child(attack_seal_arc_vfx))
-	assert_false(legacy_slash.visible)
-
 	await _advance_physics_frames(24)
 	assert_ne(player.call("get_current_state_id"), &"attack")
 	assert_false(attack_slash_vfx.visible)
 	assert_false(attack_seal_arc_vfx.visible)
-	assert_false(legacy_slash.visible)
 
 
 # 保护 Luna Air Dash 正式替换边界：dash 使用 clean body layer，不接旧的 baked trail 预览 sheet。
@@ -385,11 +412,11 @@ func test_stage14_player_runtime_animation_visual_uses_clean_air_dash_body_candi
 
 	assert_eq(player.call("get_current_state_id"), &"dash")
 	assert_true(runtime_visual.visible)
-	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_air_dash_body_runtime_sheet_ai02")
+	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_air_dash_body_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"air_dash_body")
-	assert_true(runtime_visual.is_playing())
-	assert_ne(runtime_visual.sprite_frames.resource_path, LUNA_AIR_DASH_SPRITEFRAMES_PATH)
+	assert_false(runtime_visual.is_playing())
+	assert_true(runtime_visual.frame in [0, 2, 4, 6, 7, 8])
 	assert_true(air_dash_trail.visible)
 	assert_eq(air_dash_trail.get_meta("asset_id", ""), "stage14_air_dash_trail_ai01")
 	assert_not_null(air_dash_trail.texture)
@@ -416,10 +443,11 @@ func test_stage14_player_runtime_animation_visual_uses_hit_and_death_candidates(
 	await _advance_physics_frames(1)
 
 	assert_true(runtime_visual.visible)
-	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_hit_react_runtime_sheet_ai01")
+	assert_eq(runtime_visual.get_meta("asset_id", ""), "luna_hit_react_runtime_sheet_ai03")
 	assert_eq(runtime_visual.sprite_frames.resource_path, LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(runtime_visual.animation, &"hit_react")
-	assert_true(runtime_visual.is_playing())
+	assert_false(runtime_visual.is_playing())
+	assert_true(runtime_visual.frame in [0, 2, 4, 5])
 
 	var lethal_player := await _spawn_player_with_floor(Vector2(120.0, 0.0))
 	var lethal_visual := lethal_player.get_node_or_null("LunaRuntimeAnimationVisual") as AnimatedSprite2D
@@ -431,7 +459,7 @@ func test_stage14_player_runtime_animation_visual_uses_hit_and_death_candidates(
 	await _advance_physics_frames(1)
 
 	assert_true(lethal_visual.visible)
-	assert_eq(lethal_visual.get_meta("asset_id", ""), "luna_death_idle_runtime_sheet_ai01")
+	assert_eq(lethal_visual.get_meta("asset_id", ""), "luna_death_idle_runtime_sheet_ai03")
 	assert_eq(lethal_visual.sprite_frames.resource_path, LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES_PATH)
 	assert_eq(lethal_visual.animation, &"death_idle")
 	assert_true(lethal_visual.is_playing())
@@ -439,8 +467,8 @@ func test_stage14_player_runtime_animation_visual_uses_hit_and_death_candidates(
 	lethal_player.call("restore_full_health")
 	await _advance_physics_frames(1)
 
-	assert_ne(lethal_visual.get_meta("asset_id", ""), "luna_death_idle_runtime_sheet_ai01")
-	assert_ne(lethal_visual.get_meta("asset_id", ""), "luna_hit_react_runtime_sheet_ai01")
+	assert_ne(lethal_visual.get_meta("asset_id", ""), "luna_death_idle_runtime_sheet_ai03")
+	assert_ne(lethal_visual.get_meta("asset_id", ""), "luna_hit_react_runtime_sheet_ai03")
 	assert_ne(lethal_visual.sprite_frames.resource_path, LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES_PATH)
 	assert_ne(lethal_visual.sprite_frames.resource_path, LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH)
 
@@ -514,7 +542,7 @@ func test_stage14_runtime_spawn_lands_on_room_floor_and_hud_prioritizes_air_dash
 	assert_not_null(player)
 	assert_not_null(room)
 	assert_true(player.is_on_floor())
-	assert_lt(player.global_position.y, 180.0)
+	assert_almost_eq(player.global_position.y + 20.0, 224.0, 0.6, "正式神龛房出生脚底必须落在 TileMap 地面顶面。")
 
 	player.global_position = room.get_node("AirDashShrine").global_position
 	await _advance_process_frames(4)
@@ -648,7 +676,12 @@ func _jump_until_airborne(player: CharacterBody2D) -> void:
 # 等待玩家稳定落地，避免刚接触地面的一帧误判空中冲刺已恢复。
 func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> void:
 	for _i in range(max_frames):
-		if player.is_on_floor() and absf(player.velocity.x) <= 0.1 and absf(player.velocity.y) <= 0.1:
+		if (
+			player.is_on_floor()
+			and absf(player.velocity.x) <= 0.1
+			and absf(player.velocity.y) <= 0.1
+			and player.call("get_current_state_id") == &"idle"
+		):
 			await _advance_physics_frames(2)
 			return
 		await _advance_physics_frames(1)
@@ -730,18 +763,3 @@ func _has_collision_or_area_child(node: Node) -> bool:
 		if _has_collision_or_area_child(child):
 			return true
 	return false
-
-
-# TileSet 预览断言 helper：Stage14 门房只绑定可见 tile 预览，正式碰撞仍由灰盒门体控制。
-func _assert_tileset_preview_references_asset(parent: Node, node_path: String) -> void:
-	var layer := parent.get_node_or_null(NodePath(node_path)) as TileMapLayer
-	assert_not_null(layer, "缺少 TileMapLayer 资产节点：%s" % node_path)
-	if layer == null:
-		return
-
-	assert_eq(layer.get_meta("asset_id", ""), "miasma_marsh_tileset_ai01")
-	assert_not_null(layer.tile_set, "TileMapLayer 没有 TileSet：%s" % node_path)
-	if layer.tile_set != null:
-		assert_eq(layer.tile_set.resource_path, MIASMA_TILESET_RESOURCE_PATH)
-		assert_gt(layer.tile_set.get_source_count(), 0)
-	assert_gt(layer.get_used_cells().size(), 0)

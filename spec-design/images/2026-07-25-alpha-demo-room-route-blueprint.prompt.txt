@@ -1,0 +1,11 @@
+用途：Alpha Demo 房间级路线蓝图的文档资产，不接入运行时。
+
+生成部分：通过 `image-api-edits` 和当前 `IMAGE_API_BASE` 生成 `1536x1024` 制图底板，模型 `gpt-image-2`，质量 `high`。图像模型只负责无文字、无节点、无路线的东方奇幻制图底板。
+
+确定性合成部分：将当前 DAC 39 房审计中的 38 张正式房间运行截图按首次通关顺序排布；`test_room` 作为机制沙盒排除。房间编号、Stage 分组、主路线、普通支路、SC-01 至 SC-05、Air Dash、`marsh_relic` 和 `warden_sigil` 门控均由当前场景导出字段及 Stage18 世界图契约确定，不由图像模型生成。
+
+底板提示词：
+
+Create one clean 3:2 landscape cartographer board background for a side-view Chinese fantasy Metroidvania room-route blueprint. Southern and Northern Dynasties inspired fantasy, exorcist seal ruins, miasma marsh, shrine masonry, restrained ink-wash and meticulous linework character. Use pale cold-gray rice paper, charcoal ink contours, oxidized teal grid accents, sparse cinnabar registration marks, and a thin aged-bronze border. Keep the central 90 percent calm, mostly empty, low contrast, and evenly lit so many room cards and route lines remain readable. Add only subtle topographic contours, seal-pattern corner ornaments, and faint architectural drafting marks near the edges.
+
+No rooms, no gameplay platforms, no characters, no enemies, no icons, no arrows, no route lines, no nodes, no boxes, no labels, no Chinese text, no English text, no letters, no numbers, no legend, no title, no UI, no logo, no watermark, no perspective scene, no photorealism, no dominant blue gradient.

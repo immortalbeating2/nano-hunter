@@ -13,6 +13,7 @@ class_name GroundChargerEnemyConfig
 
 # 触发距离、冲锋速度和持续时间共同决定玩家需要反应的窗口。
 @export var trigger_distance: float = 96.0
+@export var telegraph_duration: float = 0.12
 @export var charge_speed: float = 220.0
 @export var charge_duration: float = 0.35
 

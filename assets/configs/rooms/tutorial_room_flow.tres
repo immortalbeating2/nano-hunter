@@ -12,11 +12,11 @@ step_titles = {
 &"move_jump": "教程 1/4 · 移动与跳跃"
 }
 step_prompts = {
-&"attack": "靠近训练目标后按 J 攻击，打通出口。",
+&"attack": "J 攻击训练目标或红色封印柱，打开出口。",
 &"complete": "阶段 5 教程区已完成，可以继续扩展主流程。",
-&"dash": "前面是低顶短门槛，按 K 冲刺贴地穿过去。",
-&"exit": "出口已经打开，继续向右前进离开教程区。",
-&"move_jump": "按 A/D 或 ←/→ 移动，再按 Space、W 或 ↑ 跳到上方平台。"
+&"dash": "按 K 冲刺穿过低顶门槛。",
+&"exit": "出口已打开，继续向右离开教程区。",
+&"move_jump": "A/D 或 ←/→ 移动，Space/W/↑ 跳上平台。"
 }
 step_dash_visibility = {
 &"attack": true,
@@ -26,11 +26,12 @@ step_dash_visibility = {
 &"move_jump": false
 }
 spawn_positions = {
+&"tutorial_return": Vector2(760, 96),
 &"tutorial_start": Vector2(-320, 96)
 }
 thresholds = {
 &"dash_gate_x": 252.0,
 &"dash_gate_y": 80.0,
 &"move_jump_goal_x": -80.0,
-&"move_jump_goal_y": 40.0
+&"move_jump_goal_y": 64.0
 }

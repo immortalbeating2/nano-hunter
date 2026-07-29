@@ -1,0 +1,26 @@
+{
+  "asset_id": "luna_jump_state_runtime_sheet_ai04",
+  "source_asset_id": "luna_jump_fall_runtime_sheet_ai03",
+  "source": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+  "source_sha256": "c2e93e288fb81bb795d9a43309735d50e78c0810962cd7c9e1f5cc5196f34fd8",
+  "process": "stage17_phase_selection_single_scale_model_lock_normalization",
+  "model_lock": {
+    "model_id": "luna_model_v1",
+    "canonical_reference": "luna_idle_runtime_sheet_ai03",
+    "center_x": 96,
+    "center_tolerance_px": 2,
+    "ground_foot_y": 176,
+    "ground_foot_tolerance_px": 2,
+    "standing_reference_height": 140,
+    "standing_height_tolerance_px": 6,
+    "standing_frame_indices": [
+      9,
+      10
+    ],
+    "grounded_phases": [
+      "jump_start",
+      "land"
+    ],
+    "max_cross_action_median_height_deviation_ratio": 0.08
+  }
+}

@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/combat/basic_melee_enemy.gd" id="1"]
 [ext_resource type="Resource" path="res://scripts/configs/basic_melee_enemy_config.tres" id="2"]
-[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage12_basic_melee_silhouette.svg" id="3"]
-[ext_resource type="Texture2D" path="res://assets/art/vfx/stage12_hit_spark_vfx.svg" id="4"]
-[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres" id="5"]
 [ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_basic_melee_runtime_sheet_ai01.spriteframes.tres" id="6"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/enemy_hit_spark_vfx_runtime_ai01.spriteframes.tres" id="7"]
 
@@ -37,16 +34,9 @@ position = Vector2(0, -20)
 color = Color(1, 0.929412, 0.627451, 0.95)
 polygon = PackedVector2Array(-18, -2, -30, -10, -20, 10, 18, -2, 30, -10, 20, 10)
 
-[node name="Stage12AssetSprite" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.18)
-position = Vector2(0, -20)
-scale = Vector2(0.78, 0.78)
-texture = ExtResource("3")
-
 [node name="EnemyRuntimeAnimationVisual" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -20)
-scale = Vector2(0.42, 0.42)
-modulate = Color(1, 1, 1, 0.82)
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("6")
 animation = &"basic_melee_cycle"
 metadata/asset_id = "enemy_basic_melee_runtime_sheet_ai01"
@@ -64,23 +54,6 @@ metadata/asset_binding_note = "runtime_enemy_hit_spark_only_no_collision_no_dama
 metadata/recommended_blend = "additive_alpha"
 metadata/gameplay_collision = false
 metadata/damage_source = false
-
-[node name="Stage12HitSpark" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(1, 0.952941, 0.552941, 0.9)
-position = Vector2(0, -22)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("4")
-
-[node name="EnemiesCoreAnimationPreview" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(0, -20)
-scale = Vector2(0.42, 0.42)
-modulate = Color(1, 1, 1, 0.42)
-sprite_frames = ExtResource("5")
-animation = &"enemy_core_cycle"
-metadata/asset_id = "enemies_core_sheet_ai01"
-metadata/note = "animation_preview_only_enemy_logic_still_graybox"
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -20)

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/combat/miasma_caster_enemy.gd" id="1"]
 [ext_resource type="Resource" path="res://scripts/configs/miasma_caster_enemy_config.tres" id="2"]
-[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/stage13_miasma_caster_silhouette.svg" id="3"]
 [ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_runtime_sheet_ai01.spriteframes.tres" id="4"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/enemy_hit_spark_vfx_runtime_ai01.spriteframes.tres" id="5"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(28, 36)
@@ -30,25 +30,31 @@ position = Vector2(0, -18)
 color = Color(0.756863, 0.92549, 0.631373, 0.44)
 polygon = PackedVector2Array(-24, 10, -28, -12, -10, -30, 0, -18, 10, -30, 28, -12, 24, 10, 0, 30)
 
-[node name="Stage13AssetSprite" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.22)
-position = Vector2(0, -18)
-scale = Vector2(0.72, 0.72)
-texture = ExtResource("3")
-
 [node name="EnemyRuntimeAnimationVisual" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -18)
-scale = Vector2(0.42, 0.42)
-modulate = Color(1, 1, 1, 0.82)
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("4")
 animation = &"miasma_caster_cycle"
 metadata/asset_id = "enemy_miasma_caster_runtime_sheet_ai01"
-metadata/asset_binding_note = "runtime_visual_only_no_projectile_timing_change"
+metadata/asset_binding_note = "runtime_cast_cycle_with_single_projectile_contract"
 
 [node name="MiasmaPressureVisual" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(0, -18)
-color = Color(0.694118, 0.929412, 0.560784, 0.18)
+color = Color(0.454902, 0.839216, 0.690196, 0.055)
 polygon = PackedVector2Array(-56, 0, -40, -40, 0, -56, 40, -40, 56, 0, 40, 40, 0, 56, -40, 40)
+metadata/asset_binding_note = "dac_subtle_enemy_pressure_aura"
+
+[node name="MiasmaPressureVfxVisual" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -18)
+scale = Vector2(0.34, 0.22)
+modulate = Color(1, 1, 1, 0.18)
+sprite_frames = ExtResource("6")
+animation = &"miasma_purge_warning"
+metadata/asset_id = "miasma_purge_warning_vfx_runtime_ai01"
+metadata/runtime_source = "miasma_purge_warning_vfx_runtime_ai01.miasma_pressure_aura"
+metadata/gameplay_collision = false
+metadata/damage_source = false
 
 [node name="EnemyHitSparkVfxVisual" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -62,12 +68,6 @@ metadata/asset_binding_note = "runtime_enemy_hit_spark_only_no_collision_no_dama
 metadata/recommended_blend = "additive_alpha"
 metadata/gameplay_collision = false
 metadata/damage_source = false
-
-[node name="Stage12HitSpark" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(0, -18)
-color = Color(0.964706, 0.92549, 0.552941, 0.85)
-polygon = PackedVector2Array(-18, 0, -4, -4, 0, -18, 4, -4, 18, 0, 4, 4, 0, 18, -4, 4)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -18)

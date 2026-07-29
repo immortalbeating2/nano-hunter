@@ -17,7 +17,8 @@ step_dash_visibility = {
 &"combat": true
 }
 spawn_positions = {
-&"combat_entry": Vector2(-64, 120),
-&"combat_retry": Vector2(-64, 120)
+&"combat_entry": Vector2(-256, 140),
+&"combat_return": Vector2(640, 140),
+&"combat_retry": Vector2(-256, 140)
 }
 thresholds = {}

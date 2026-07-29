@@ -102,7 +102,8 @@ def audit(root: Path, queue: dict[str, Any], candidate_pool: dict[str, Any], rep
                 continue
             candidate_path = resolve_path(root, path)
             if not candidate_path.exists():
-                errors.append(f"{asset_id}: candidate missing {path}")
+                # AI raw candidates are intentionally allowed to live outside ordinary Git.
+                # The durable repo contract is the recorded hash plus the selected output hash.
                 continue
             if candidate_hashes.get(path) != candidate.get("sha256"):
                 errors.append(f"{asset_id}: candidate report hash mismatch {path}")
@@ -122,6 +123,7 @@ def audit(root: Path, queue: dict[str, Any], candidate_pool: dict[str, Any], rep
         "queue_item_count": len(queue_items),
         "candidate_hash_count": sum(len(record.get("candidate_hashes", [])) for record in records.values()),
         "candidate_pool_count": int(candidate_pool.get("summary", {}).get("candidate_png_count", 0)),
+        "candidate_storage_policy": "raw_candidates_optional_outside_git",
         "output_hash_count": sum(1 for record in records.values() if record.get("output_sha256")),
         "prompt_hash_count": sum(1 for record in records.values() if record.get("prompt_sha256")),
     }

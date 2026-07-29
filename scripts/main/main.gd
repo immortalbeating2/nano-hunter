@@ -18,6 +18,12 @@ const STAGE15_ROOM_PREFIX := "res://scenes/rooms/stage15_"
 const STAGE15_COMPLETION_ROOM_PATH := "res://scenes/rooms/stage15_completion_room.tscn"
 const STAGE16_ROOM_PREFIX := "res://scenes/rooms/stage16_"
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
+const FALL_RESET_MARGIN := 96.0
+const WIND_SEAL_REWARD_ID: StringName = &"wind_seal"
+const BUILD_REWARD_IDS := [&"marsh_relic", &"warden_sigil"]
+const STAGE11_STORY_EVENT_ID: StringName = &"stage11_hidden_dispatch"
+const STAGE11_STORY_EVENT_TITLE := "镇妖驿厅 · 密令残页"
+const STAGE11_STORY_EVENT_BODY := "镇妖卫驿卒：瘴泽封印并非天灾，是郡守私运妖骨后崩裂。\n\nLuna：悬赏只写“清除妖患”，没有百姓名册。\n\n陌生妖声：你闻得到他们留下的血。因为你与我同源。"
 
 # 默认输入绑定由 Main 兜底创建，保证独立运行测试或新机器启动时输入契约完整。
 const INPUT_BINDINGS := {
@@ -45,7 +51,12 @@ var _checkpoint_spawn_id: StringName = &""
 var _is_short_chain_completed := false
 var _is_demo_completed := false
 var _air_dash_unlocked := false
+var _wind_seal_unlocked := false
 var _stage14_backtrack_reward_ids: Dictionary = {}
+var _exploration_reward_ids: Dictionary = {}
+var _active_build_id: StringName = &""
+var _completed_story_event_ids: Dictionary = {}
+var _visited_room_paths: Dictionary = {}
 var _stage15_boss_defeated := false
 var _stage16_alpha_demo_completed := false
 var _stage16_release_notes_ready := false
@@ -55,11 +66,18 @@ var _stage16_qa_checklist_ready := false
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
 func _ready() -> void:
 	_configure_window_defaults()
+	if not get_viewport().size_changed.is_connected(_update_runtime_camera_zoom):
+		get_viewport().size_changed.connect(_update_runtime_camera_zoom)
 	_ensure_default_input_bindings()
 	room = get_node_or_null("Room") as Node2D
 	if demo_shell != null and demo_shell.has_method("bind_main"):
 		demo_shell.call("bind_main", self)
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
+
+
+# 主流程每帧只做跨房间安全检查；房间内教学、战斗和门控仍由房间脚本负责。
+func _process(_delta: float) -> void:
+	_check_player_fall_out_of_bounds()
 
 
 # 固定窗口最小尺寸，保证灰盒 HUD 与房间构图在桌面运行时不被压得不可读。
@@ -117,12 +135,41 @@ func _apply_room_camera_limits(player: CharacterBody2D) -> void:
 	camera.limit_top = world_camera_limits.position.y
 	camera.limit_right = world_camera_limits.end.x
 	camera.limit_bottom = world_camera_limits.end.y
+	_apply_camera_zoom(camera)
+
+
+# 正式 Demo 仍按 640x360 设计房间构图；高分屏只放大相机，不额外暴露未清稿背景。
+func _apply_camera_zoom(camera: Camera2D) -> void:
+	var viewport_size := Vector2(get_tree().root.size)
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		viewport_size = get_viewport_rect().size
+	var scale_x := viewport_size.x / float(BASE_VIEWPORT_SIZE.x)
+	var scale_y := viewport_size.y / float(BASE_VIEWPORT_SIZE.y)
+	var scale_value: float = maxf(1.0, minf(scale_x, scale_y))
+	camera.zoom = Vector2(scale_value, scale_value)
+
+
+# ponytail: 单玩家主入口直接更新当前 Camera2D；多玩家或分屏时再抽专门相机管理。
+func _update_runtime_camera_zoom() -> void:
+	var player := _get_runtime_player()
+	if player == null:
+		return
+
+	var camera: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+	if camera == null:
+		return
+
+	_apply_camera_zoom(camera)
 
 
 # 把跨房间状态注入新玩家，并把当前 Room / Player / Main 三方重新挂到 HUD。
 func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 	if player.has_method("set_air_dash_unlocked"):
 		player.call("set_air_dash_unlocked", _air_dash_unlocked)
+	if player.has_method("set_wind_seal_unlocked"):
+		player.call("set_wind_seal_unlocked", _wind_seal_unlocked)
+	if player.has_method("set_active_build_id"):
+		player.call("set_active_build_id", _active_build_id)
 
 	if room != null and room.has_method("bind_player"):
 		room.call("bind_player", player)
@@ -150,17 +197,58 @@ func transition_to_room(room_path: String, spawn_id: StringName) -> void:
 
 # Demo 重开只清理本轮推进状态，保留全局输入和场景结构，方便终点房反复试玩。
 func restart_demo() -> void:
+	_reset_demo_runtime_state()
+	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
+
+
+# 测试选关入口：仍走生产 Main 的房间、玩家、HUD 和相机装配，只跳过手动主线推进。
+func start_demo_at_room(room_path: String, spawn_id: StringName, debug_progress: Dictionary = {}) -> bool:
+	if room_path.is_empty() or not ResourceLoader.exists(room_path):
+		return false
+
+	_reset_demo_runtime_state()
+	if bool(debug_progress.get("air_dash_unlocked", false)):
+		_air_dash_unlocked = true
+	if bool(debug_progress.get("wind_seal_unlocked", false)):
+		_wind_seal_unlocked = true
+		_exploration_reward_ids[WIND_SEAL_REWARD_ID] = true
+	var debug_rewards: Variant = debug_progress.get("exploration_rewards", [])
+	if debug_rewards is Array:
+		for reward_id: Variant in debug_rewards:
+			var resolved_reward_id := StringName(str(reward_id))
+			if resolved_reward_id != StringName():
+				_exploration_reward_ids[resolved_reward_id] = true
+	var debug_build_id := StringName(str(debug_progress.get("active_build_id", "")))
+	if debug_build_id in BUILD_REWARD_IDS and _exploration_reward_ids.has(debug_build_id):
+		_active_build_id = debug_build_id
+	elif _active_build_id == StringName():
+		_select_first_available_build()
+	var reward_count := int(debug_progress.get("stage14_backtrack_reward_count", 0))
+	for reward_index in range(reward_count):
+		_stage14_backtrack_reward_ids[StringName("debug_stage14_reward_%d" % reward_index)] = true
+	_stage15_boss_defeated = bool(debug_progress.get("stage15_boss_defeated", false))
+	_change_room(room_path, spawn_id)
+	get_tree().paused = false
+	return true
+
+
+# 重置一轮试玩的跨房间状态；正式重开和测试选关复用同一份清理语义。
+func _reset_demo_runtime_state() -> void:
 	_is_short_chain_completed = false
 	_is_demo_completed = false
 	_air_dash_unlocked = false
+	_wind_seal_unlocked = false
 	_stage14_backtrack_reward_ids.clear()
+	_exploration_reward_ids.clear()
+	_active_build_id = &""
+	_completed_story_event_ids.clear()
+	_visited_room_paths.clear()
 	_stage15_boss_defeated = false
 	_stage16_alpha_demo_completed = false
 	_stage16_release_notes_ready = false
 	_stage16_qa_checklist_ready = false
 	_checkpoint_room_path = ""
 	_checkpoint_spawn_id = &""
-	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
 
 
 # 从 Demo 壳或测试入口开始试玩；Main 只负责转发并保留无 UI 时的回退路径。
@@ -203,17 +291,42 @@ func is_demo_paused() -> bool:
 func get_demo_progress_snapshot() -> Dictionary:
 	# 快照是 HUD、测试和 MCP 复核的统一读值入口，不让外部直接依赖 Main 私有字段名。
 	return {
+		"short_chain_completed": _is_short_chain_completed,
 		"demo_completed": _is_demo_completed,
 		"goal_text": _get_demo_goal_text(),
 		"goal_hint_text": _get_demo_goal_hint_text(),
 		"replay_available": _is_demo_completed,
 		"air_dash_unlocked": _air_dash_unlocked,
+		"wind_seal_unlocked": _wind_seal_unlocked,
 		"stage14_backtrack_reward_count": get_stage14_backtrack_reward_count(),
+		"exploration_reward_count": get_exploration_reward_count(),
+		"marsh_relic_collected": has_exploration_reward(&"marsh_relic"),
+		"warden_sigil_collected": has_exploration_reward(&"warden_sigil"),
+		"active_build_id": _active_build_id,
+		"active_build_label": get_active_build_label(),
+		"available_build_count": get_available_build_count(),
+		"story_event_count": _completed_story_event_ids.size(),
+		"stage11_story_event_completed": has_completed_story_event(STAGE11_STORY_EVENT_ID),
+		"visited_room_count": _visited_room_paths.size(),
 		"stage15_boss_defeated": _stage15_boss_defeated,
 		"stage15_recovery_charge_ready": _is_stage15_recovery_charge_ready(),
 		"stage16_alpha_demo_completed": _stage16_alpha_demo_completed,
 		"stage16_release_notes_ready": _stage16_release_notes_ready,
 		"stage16_qa_checklist_ready": _stage16_qa_checklist_ready,
+	}
+
+
+# 输出探索地图所需的只读状态；地图只消费该快照，不参与切房或门控判定。
+func get_world_map_snapshot() -> Dictionary:
+	var visited_room_paths: Array = _visited_room_paths.keys()
+	visited_room_paths.sort()
+	return {
+		"current_room_path": _current_room_path,
+		"visited_room_paths": visited_room_paths,
+		"air_dash_unlocked": _air_dash_unlocked,
+		"wind_seal_unlocked": _wind_seal_unlocked,
+		"marsh_relic_collected": has_exploration_reward(&"marsh_relic"),
+		"warden_sigil_collected": has_exploration_reward(&"warden_sigil"),
 	}
 
 
@@ -230,6 +343,21 @@ func is_air_dash_unlocked() -> bool:
 	return _air_dash_unlocked
 
 
+# 解锁风印并同步当前玩家；探索奖励字典同时承担跨房门控查询。
+func unlock_wind_seal() -> void:
+	_wind_seal_unlocked = true
+	_exploration_reward_ids[WIND_SEAL_REWARD_ID] = true
+	var player := _get_runtime_player()
+	if player != null and player.has_method("set_wind_seal_unlocked"):
+		player.call("set_wind_seal_unlocked", true)
+	_refresh_hud_progress()
+
+
+# 查询风印是否已成为本轮可用的第二能力。
+func is_wind_seal_unlocked() -> bool:
+	return _wind_seal_unlocked
+
+
 # 记录 Stage14 回溯收益，使用 reward_id 去重，防止换房或重复触发刷计数。
 func collect_stage14_backtrack_reward(reward_id: StringName) -> void:
 	if reward_id == StringName() or _stage14_backtrack_reward_ids.has(reward_id):
@@ -241,6 +369,80 @@ func collect_stage14_backtrack_reward(reward_id: StringName) -> void:
 # 返回已确认的 Stage14 回溯收益数量，HUD 和主线测试都依赖这个读值。
 func get_stage14_backtrack_reward_count() -> int:
 	return _stage14_backtrack_reward_ids.size()
+
+
+# 记录跨房间探索收益；当前只服务两条 Stage13 支路，不扩展成物品栏或经济系统。
+func collect_exploration_reward(reward_id: StringName) -> void:
+	if reward_id == StringName() or _exploration_reward_ids.has(reward_id):
+		return
+
+	_exploration_reward_ids[reward_id] = true
+	if reward_id in BUILD_REWARD_IDS and _active_build_id == StringName():
+		_active_build_id = reward_id
+		_apply_active_build_to_current_player()
+	_refresh_hud_progress()
+
+
+# 查询指定探索收益是否已经取得，供远端捷径恢复开关状态。
+func has_exploration_reward(reward_id: StringName) -> bool:
+	return reward_id != StringName() and _exploration_reward_ids.has(reward_id)
+
+
+# 返回当前 Demo 内已取得的探索收益数量，供 HUD 与回归测试读取。
+func get_exploration_reward_count() -> int:
+	return _exploration_reward_ids.size()
+
+
+# 在当前已取得的两件圣物间循环调谐；没有圣物时保持空 Build。
+func cycle_active_build() -> StringName:
+	var available_builds := _get_available_build_ids()
+	if available_builds.is_empty():
+		_active_build_id = &""
+		return _active_build_id
+
+	var current_index := available_builds.find(_active_build_id)
+	_active_build_id = available_builds[(current_index + 1) % available_builds.size()] if current_index >= 0 else available_builds[0]
+	_apply_active_build_to_current_player()
+	_refresh_hud_progress()
+	return _active_build_id
+
+
+# 返回当前调谐 ID，暂停菜单和测试不直接读取 Main 私有状态。
+func get_active_build_id() -> StringName:
+	return _active_build_id
+
+
+# 返回当前 Build 的短标签；只有两件已批准圣物，不建立配置表或装备数据库。
+func get_active_build_label() -> String:
+	match _active_build_id:
+		&"marsh_relic":
+			return "瘴泽遗物"
+		&"warden_sigil":
+			return "镇妖挑战符"
+		_:
+			return "尚未调谐"
+
+
+# 返回本轮可切换的 Build 数量。
+func get_available_build_count() -> int:
+	return _get_available_build_ids().size()
+
+
+# 触发一次正式剧情事件；Main 只去重和转发，表现继续由 DemoShell 负责。
+func trigger_story_event(event_id: StringName, title: String, body: String) -> bool:
+	if event_id == StringName() or _completed_story_event_ids.has(event_id):
+		return false
+
+	_completed_story_event_ids[event_id] = true
+	if demo_shell != null and demo_shell.has_method("show_story_event"):
+		demo_shell.call("show_story_event", title, body)
+	_refresh_hud_progress()
+	return true
+
+
+# 查询剧情事件是否已在本轮完成。
+func has_completed_story_event(event_id: StringName) -> bool:
+	return event_id != StringName() and _completed_story_event_ids.has(event_id)
 
 
 # 标记 Stage15 Boss 已击败；实际胜利房间跳转仍由房间脚本发起。
@@ -289,7 +491,7 @@ func is_stage16_qa_checklist_ready() -> bool:
 
 
 # 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
-func _change_room(room_path: String, spawn_id: StringName) -> void:
+func _change_room(room_path: String, spawn_id: StringName, force_reload := false) -> void:
 	var room_scene: PackedScene = load(room_path) as PackedScene
 	if room_scene == null:
 		return
@@ -299,8 +501,9 @@ func _change_room(room_path: String, spawn_id: StringName) -> void:
 
 	_current_room_path = room_path
 	_current_spawn_id = spawn_id
+	_visited_room_paths[room_path] = true
 
-	if room != null and room.scene_file_path == room_path:
+	if not force_reload and room != null and room.scene_file_path == room_path:
 		_bind_room_signals()
 		_spawn_placeholder_player(spawn_id)
 		return
@@ -373,15 +576,51 @@ func _on_room_transition_requested(target_room_path: String, spawn_id: StringNam
 
 # 玩家失败后优先回 checkpoint，没有 checkpoint 时按当前房间的失败规则决定是否重置。
 func _on_player_defeated() -> void:
+	_handle_player_failure("已战败，回到最近检查点。")
+
+
+# 玩家跌出当前房间相机下边界时，按失败处理，防止落入空白区域后无法恢复。
+func _check_player_fall_out_of_bounds() -> void:
+	var player := _get_runtime_player()
+	if player == null:
+		return
+
+	var camera_limits := _get_current_room_camera_limits()
+	if player.global_position.y <= float(camera_limits.end.y) + FALL_RESET_MARGIN:
+		return
+
+	_handle_player_failure("已跌落，回到最近检查点。")
+
+
+func _handle_player_failure(message: String) -> void:
 	if not _checkpoint_room_path.is_empty():
-		_change_room(_checkpoint_room_path, _checkpoint_spawn_id)
+		_change_room(_checkpoint_room_path, _checkpoint_spawn_id, true)
+		_show_failure_notice(message)
 		return
 
 	if room == null:
 		return
 
 	if room.has_method("should_reset_on_player_defeat") and room.call("should_reset_on_player_defeat"):
+		_change_room(_current_room_path, _current_spawn_id, true)
+	else:
 		_change_room(_current_room_path, _current_spawn_id)
+
+	_show_failure_notice(message)
+
+
+func _get_current_room_camera_limits() -> Rect2i:
+	if room != null and room.has_method("get_camera_limits"):
+		var camera_limits: Rect2i = room.call("get_camera_limits")
+		var room_world_offset := Vector2i(room.global_position.round())
+		return Rect2i(camera_limits.position + room_world_offset, camera_limits.size)
+
+	return Rect2i(Vector2i(-BASE_VIEWPORT_SIZE.x / 2, -BASE_VIEWPORT_SIZE.y / 2), BASE_VIEWPORT_SIZE)
+
+
+func _show_failure_notice(message: String) -> void:
+	if demo_shell != null and demo_shell.has_method("show_failure_notice"):
+		demo_shell.call("show_failure_notice", message)
 
 
 # 从 Runtime 容器取当前玩家实例；每次换房都会生成新实例，因此不能长期缓存。
@@ -405,16 +644,20 @@ func _is_stage15_recovery_charge_ready() -> bool:
 	return bool(player.call("can_spend_recovery_charge"))
 
 
-# Main 同时记录旧的短链路完成态与新的 demo 完成态，
-# 但只有真正进入 stage11 终点房时，才把本轮试玩标记为已完成。
+# Stage11 只确认早期短链路；完整 Demo 完成态只允许 Stage16 终点写入。
 func _on_goal_completed() -> void:
-	_is_short_chain_completed = true
 	if room != null and room.scene_file_path == STAGE16_ALPHA_DEMO_END_ROOM_PATH:
 		mark_stage16_alpha_demo_completed()
 		return
 
 	if room != null and room.scene_file_path == STAGE11_DEMO_END_ROOM_PATH:
-		_is_demo_completed = true
+		_is_short_chain_completed = true
+		trigger_story_event(
+			STAGE11_STORY_EVENT_ID,
+			STAGE11_STORY_EVENT_TITLE,
+			STAGE11_STORY_EVENT_BODY
+		)
+		_refresh_hud_progress()
 
 
 # 房间请求 checkpoint 时只记录房间路径与出生点，不在 Main 内保存更多房间状态。
@@ -424,65 +667,86 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 	_checkpoint_spawn_id = spawn_id
 
 
+# 按固定的两件圣物顺序返回已取得 Build，保持暂停循环行为稳定可预测。
+func _get_available_build_ids() -> Array[StringName]:
+	var available_builds: Array[StringName] = []
+	for reward_id: StringName in BUILD_REWARD_IDS:
+		if has_exploration_reward(reward_id):
+			available_builds.append(reward_id)
+	return available_builds
+
+
+func _select_first_available_build() -> void:
+	var available_builds := _get_available_build_ids()
+	if not available_builds.is_empty():
+		_active_build_id = available_builds[0]
+
+
+func _apply_active_build_to_current_player() -> void:
+	var player := _get_runtime_player()
+	if player != null and player.has_method("set_active_build_id"):
+		player.call("set_active_build_id", _active_build_id)
+
+
 # Demo 主链路的目标文案只做“当前处于哪个关键节点”的最小收束，
 # 不把它扩成另一层配置系统。
 func _get_demo_goal_text() -> String:
 	# Stage 13 已回收到瘴泽妖域语境；这里保持玩家目标可读，不额外引入剧情系统。
 	if _stage16_alpha_demo_completed:
-		return "Alpha Demo 已完成：终局封印链已闭合，可重开试玩或查看发布说明"
+		return "Alpha Demo 已完成"
 
 	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
-		return "主目标：完成终局封印链并形成 Alpha Demo 候选"
+		return "目标：完成封印链"
 
 	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
 		return "Stage15 已完成：封印守卫已击败，战斗高潮闭环成立"
 
 	if room != null and room.scene_file_path.begins_with(STAGE15_ROOM_PREFIX):
-		return "主目标：击败封印守卫并稳定完成战斗高潮"
+		return "目标：击败封印守卫"
 
 	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
-		return "主目标：取得空中二段冲刺并回头打开能力门"
+		return "目标：取得空中冲刺"
 
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
-		return "主目标：探索瘴泽妖域并抵达第二小区域终点"
+		return "目标：抵达二区终点"
 
 	if _is_demo_completed:
 		return "Demo 已完成：可向左返回并重开试玩"
 
 	if room == null:
-		return "主目标：正在加载 Demo"
+		return "目标：加载 Demo"
 
 	match room.scene_file_path:
 		STAGE10_BRANCH_ROOM_PATH:
-			return "主目标：带着支路收益返回主线"
+			return "目标：返回主线"
 		STAGE10_CHALLENGE_ROOM_PATH:
-			return "主目标：完成挑战并前往 Demo 终点"
+			return "目标：完成挑战"
 		STAGE11_DEMO_END_ROOM_PATH:
-			return "主目标：抵达终点并完成 Demo"
+			return "目标：确认镇妖驿厅通路"
 		_:
-			return "主目标：继续向右推进并完成 Demo"
+			return "目标：推进 Demo"
 
 
 # 按当前阶段和房间给 HUD 生成一条短提示，帮助玩家理解当下最关键的操作。
 func _get_demo_goal_hint_text() -> String:
 	# 提示文案只标注当前房间最可能卡住玩家的点，不在 HUD 里写完整教程。
 	if _stage16_alpha_demo_completed:
-		return "提示：暂停菜单可重开 Demo；QA checklist 与 release notes 状态会在 HUD 中同步"
+		return "提示：可重开或查看发布项"
 
 	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
-		return "提示：确认符印节点、回溯收益和封印净化反馈"
+		return "提示：符印/回溯/净化"
 
 	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
-		return "提示：阶段完成反馈已触发，后续可进入 Alpha Demo 打包候选复核"
+		return "提示：可进入打包复核"
 
 	if room != null and room.scene_file_path.begins_with(STAGE15_ROOM_PREFIX):
-		return "提示：攻击积累恢复充能，满后按 L 恢复 1 点生命"
+		return "提示：攻击充能，L 恢复"
 
 	if room != null and room.scene_file_path.begins_with(STAGE14_ROOM_PREFIX):
-		return "提示：空中按冲刺可越过能力门，落地后恢复一次空中冲刺"
+		return "提示：空中冲刺过门"
 
 	if room != null and room.scene_file_path.begins_with(STAGE13_ROOM_PREFIX):
-		return "提示：留意瘴气、瘴气妖术投射者和封印门控"
+		return "提示：瘴气/投射/门控"
 
 	if _is_demo_completed:
 		return "提示：向左回到重开入口后，可从教程重新开始"
@@ -494,8 +758,8 @@ func _get_demo_goal_hint_text() -> String:
 		STAGE10_BRANCH_ROOM_PATH:
 			return "提示：支路会给出恢复点与收集收益"
 		STAGE10_CHALLENGE_ROOM_PATH:
-			return "提示：通过挑战房后，右侧出口会接入终点"
+			return "提示：通过挑战房后，右侧出口会接入镇妖驿厅"
 		STAGE11_DEMO_END_ROOM_PATH:
-			return "提示：向右抵达终点，完成后可向左返回重开"
+			return "提示：左返试炼 / 右入瘴泽"
 		_:
 			return ""

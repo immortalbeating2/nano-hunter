@@ -107,6 +107,8 @@ lock/heartbeat 和 rendezvous 都是辅助证据，不是唯一真相。stale �
 
 `safe-repair` and `open-worktree-godot` are implementation helpers. Prefer `enter-worktree-godot-mcp.ps1` unless you are doing focused diagnostics.
 
+Godot 路径按 `-GodotExe`、`GODOT_EXE`、PATH 中的 `godot` 命令依次解析；进程识别不绑定具体补丁版本，避免升级 `4.x` stable 后漏判编辑器。
+
 ## Troubleshooting Layers
 
 1. Tool entry

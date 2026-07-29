@@ -5,13 +5,13 @@ This report blocks multi-project image_gen mix-ups for Nano Hunter runtime asset
 ## Summary
 
 - Status: `runtime_sources_confirmed`
-- Runtime assets: `30`
+- Runtime assets: `11`
 - Review-required runtime assets: `0`
 - Unsafe assets: `0`
 
 ## Runtime Gate Counts
 
-- `runtime_reference_source_confirmed`: `30`
+- `runtime_reference_source_confirmed`: `11`
 
 ## Review Required
 

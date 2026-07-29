@@ -13,16 +13,29 @@ signal goal_completed
 # Stage9 系列房间共享一套相机范围和流程配置资源类型。
 const CAMERA_LIMITS := Rect2i(-320, -192, 960, 384)
 const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
+const GateStateVfx := preload("res://scripts/rooms/gate_state_vfx.gd")
+const SEAL_GATE_LOCKED_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres")
+const SEAL_GATE_OPEN_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres")
 
 # 导出字段由场景配置，用来描述当前房间的下一房、出生点、HUD 阶段和 checkpoint 行为。
 @export var flow_config: RoomFlowConfig
+@export var camera_limits: Rect2i = CAMERA_LIMITS
 @export var next_room_path := ""
 @export var next_spawn_id: StringName = &""
+@export var previous_room_path := ""
+@export var previous_spawn_id: StringName = &""
+@export var spawn_positions: Dictionary = {}
 @export var checkpoint_spawn_id: StringName = &""
 @export var default_step_id: StringName = &"room"
 @export var cleared_step_id: StringName = &"clear"
 @export var checkpoint_on_ready := false
 @export var require_all_enemies_defeated := false
+@export var shortcut_room_path := ""
+@export var shortcut_spawn_id: StringName = &""
+@export var shortcut_requires_air_dash := false
+@export var shortcut_required_reward_id: StringName = &""
+@export var narrative_stele_title := ""
+@export_multiline var narrative_stele_text := ""
 
 # 运行期状态保存玩家引用、当前 HUD 步骤、门控状态、敌人清场计数、checkpoint 去重和切房去重。
 var _player: CharacterBody2D
@@ -31,6 +44,8 @@ var _gate_unlocked := true
 var _remaining_required_enemy_count := 0
 var _checkpoint_activated := false
 var _transition_requested := false
+var _main: Node
+var _narrative_stele_active := false
 
 
 # 初始化时按房间资源确定默认步骤、门是否默认锁住，以及是否进房即激活 checkpoint。
@@ -48,6 +63,13 @@ func _ready() -> void:
 # 区域房间只在“门已开 + 玩家走到出口区”时触发推进。
 func _process(_delta: float) -> void:
 	if _player == null or _transition_requested:
+		return
+
+	_update_narrative_stele()
+	if _try_request_shortcut():
+		return
+
+	if _try_request_previous_room():
 		return
 
 	if not _gate_unlocked:
@@ -71,10 +93,15 @@ func bind_player(player: CharacterBody2D) -> void:
 			child.call("bind_player", player)
 
 
+# 接收 Main 引用，让共享房间基类能读取跨房间探索收益；没有捷径的房间不会使用它。
+func bind_main(main: Node) -> void:
+	_main = main
+
+
 # 返回 Stage9 系列房间统一相机边界。
 func get_camera_limits() -> Rect2i:
 	# Main 通过该接口同步相机边界，保持房间脚本不直接操作 Camera2D。
-	return CAMERA_LIMITS
+	return camera_limits
 
 
 # 公开当前 HUD 步骤 ID，供测试和 HUD 上下文读取。
@@ -86,6 +113,9 @@ func get_current_step_id() -> StringName:
 # 返回当前步骤标题，优先读取流程配置资源。
 func get_current_step_title() -> String:
 	# 标题优先来自配置资源，缺失时回退到通用区域推进文本。
+	if _narrative_stele_active and not narrative_stele_title.is_empty():
+		return narrative_stele_title
+
 	if flow_config != null:
 		return flow_config.get_step_title(_current_step, "区域推进中")
 
@@ -95,6 +125,9 @@ func get_current_step_title() -> String:
 # 返回当前步骤提示，允许灰盒房间没有额外提示文案。
 func get_current_prompt_text() -> String:
 	# 提示文本允许为空，避免每个灰盒房都被迫写重复说明。
+	if _narrative_stele_active and not narrative_stele_text.is_empty():
+		return narrative_stele_text
+
 	if flow_config != null:
 		return flow_config.get_step_prompt(_current_step, "")
 
@@ -104,10 +137,11 @@ func get_current_prompt_text() -> String:
 # 根据 spawn_id 返回房间出生点，配置缺失时回落到左侧安全区。
 func get_spawn_position(spawn_id: StringName) -> Vector2:
 	# 出生点由配置资源提供，回退点保持在房间左侧安全区域。
+	var fallback := _get_scene_spawn_position(spawn_id, Vector2(-224, 96))
 	if flow_config != null:
-		return flow_config.get_spawn_position(spawn_id, Vector2(-224, 96))
+		return flow_config.get_spawn_position(spawn_id, fallback)
 
-	return Vector2(-224, 96)
+	return fallback
 
 
 # 汇总 Stage9 基础 HUD 上下文，后续阶段基类会在此基础上追加字段。
@@ -119,6 +153,9 @@ func get_hud_context() -> Dictionary:
 		"step_title": get_current_step_title(),
 		"prompt_text": get_current_prompt_text(),
 		"dash_available": true,
+		"shortcut_available": is_shortcut_available(),
+		"shortcut_target": shortcut_room_path,
+		"narrative_stele_active": _narrative_stele_active,
 	}
 
 
@@ -182,6 +219,78 @@ func _handle_exit_reached() -> void:
 	goal_completed.emit()
 
 
+# 普通房间允许玩家从左侧返回上一房；Boss 锁门等例外不放 LeftExitZone 或不配置 previous_room_path。
+func _try_request_previous_room() -> bool:
+	if previous_room_path.is_empty():
+		return false
+
+	var left_exit_zone := get_node_or_null("LeftExitZone") as Node2D
+	if left_exit_zone == null:
+		return false
+
+	if _player.global_position.x > left_exit_zone.global_position.x + 36.0:
+		return false
+
+	_transition_requested = true
+	room_transition_requested.emit(previous_room_path, previous_spawn_id)
+	return true
+
+
+# 查询当前房间的可选捷径是否满足能力与探索收益条件。
+func is_shortcut_available() -> bool:
+	if shortcut_room_path.is_empty():
+		return false
+	if shortcut_requires_air_dash and not _is_air_dash_unlocked():
+		return false
+	if shortcut_required_reward_id != StringName() and not _has_exploration_reward(shortcut_required_reward_id):
+		return false
+	return true
+
+
+# 玩家进入 ShortcutZone 且条件满足时，继续复用标准房间切换信号。
+func _try_request_shortcut() -> bool:
+	if not is_shortcut_available():
+		return false
+
+	var shortcut_zone := get_node_or_null("ShortcutZone") as Node2D
+	if shortcut_zone == null or _player.global_position.distance_to(shortcut_zone.global_position) > 48.0:
+		return false
+
+	_transition_requested = true
+	room_transition_requested.emit(shortcut_room_path, shortcut_spawn_id)
+	return true
+
+
+# 叙事碑只在玩家靠近时临时接管提示区，离开后恢复房间原有目标文本。
+func _update_narrative_stele() -> void:
+	var stele := get_node_or_null("NarrativeStele") as Node2D
+	var is_active := stele != null and not narrative_stele_text.is_empty() and _player.global_position.distance_to(stele.global_position) <= 72.0
+	if is_active == _narrative_stele_active:
+		return
+
+	_narrative_stele_active = is_active
+	_emit_hud_context()
+
+
+# Air Dash 状态直接读取 Main 已注入的新玩家，避免为捷径复制第二份能力状态。
+func _is_air_dash_unlocked() -> bool:
+	return _player != null and _player.has_method("is_air_dash_unlocked") and bool(_player.call("is_air_dash_unlocked"))
+
+
+# 探索收益由 Main 跨房保存；孤立房间测试没有 Main 时按未取得处理。
+func _has_exploration_reward(reward_id: StringName) -> bool:
+	return _main != null and _main.has_method("has_exploration_reward") and bool(_main.call("has_exploration_reward", reward_id))
+
+
+# 读取场景直接声明的出生点；后段房间不一定都有独立 RoomFlowConfig。
+func _get_scene_spawn_position(spawn_id: StringName, fallback: Vector2) -> Vector2:
+	var value: Variant = spawn_positions.get(spawn_id, fallback)
+	if value is Vector2:
+		return value
+
+	return fallback
+
+
 # 连接房间内敌人的 defeated 信号，让门控解锁逻辑集中在房间基类。
 func _bind_enemy_signals() -> void:
 	# 当前小区域只需要“一只或多只敌人被击败后开门”的最小规则；
@@ -208,9 +317,9 @@ func _emit_hud_context() -> void:
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
-# 根据门控状态同步碰撞与占位颜色，保证可玩和可看状态一致。
+# 根据门控状态同步碰撞与正式门贴图，保证可玩和可看状态一致。
 func _apply_gate_lock_state() -> void:
-	# 碰撞与颜色一起更新，确保自动化和人工复核读到同一个门控状态。
+	# 碰撞、旧占位颜色和正式门贴图一起更新，确保自动化和人工复核读到同一个门控状态。
 	var gate_shape := _get_gate_shape()
 	if gate_shape != null:
 		gate_shape.disabled = _gate_unlocked
@@ -218,6 +327,15 @@ func _apply_gate_lock_state() -> void:
 	var gate_visual := _get_gate_visual()
 	if gate_visual != null:
 		gate_visual.color = Color(0.258824, 0.694118, 0.478431, 1.0) if _gate_unlocked else Color(0.776471, 0.321569, 0.262745, 1.0)
+
+	var gate_art := _get_gate_art()
+	if gate_art != null:
+		gate_art.texture = SEAL_GATE_OPEN_TEXTURE if _gate_unlocked else SEAL_GATE_LOCKED_TEXTURE
+		if str(gate_art.get_meta("asset_id", "")).is_empty():
+			gate_art.set_meta("asset_id", "shrine_gate_prop_atlas_ai01")
+		gate_art.set_meta("runtime_source", "shrine_gate_prop_atlas_ai01.seal_gate_open" if _gate_unlocked else "shrine_gate_prop_atlas_ai01.seal_gate_locked")
+
+	GateStateVfx.sync_unlock_feedback(get_node_or_null("GateBarrier"), _gate_unlocked)
 
 
 # 查找可选门控碰撞节点；缺失时房间视为无门默认可通行。
@@ -230,3 +348,12 @@ func _get_gate_shape() -> CollisionShape2D:
 func _get_gate_visual() -> Polygon2D:
 	# 门控视觉同样是可选节点，方便早期房间逐步补齐占位资产。
 	return get_node_or_null("GateBarrier/BarrierVisual") as Polygon2D
+
+
+# 查找正式门禁贴图节点；历史房间里命名有 BarrierArt 和 GateArt 两种。
+func _get_gate_art() -> Sprite2D:
+	var barrier_art := get_node_or_null("GateBarrier/BarrierArt") as Sprite2D
+	if barrier_art != null:
+		return barrier_art
+
+	return get_node_or_null("GateBarrier/GateArt") as Sprite2D

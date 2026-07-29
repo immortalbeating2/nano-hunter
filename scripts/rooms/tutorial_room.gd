@@ -16,14 +16,17 @@ const STEP_EXIT: StringName = &"exit"
 const STEP_COMPLETE: StringName = &"complete"
 const COMBAT_TRIAL_ROOM_PATH := "res://scenes/rooms/combat_trial_room.tscn"
 const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
+const GateStateVfx := preload("res://scripts/rooms/gate_state_vfx.gd")
+const SEAL_GATE_LOCKED_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres")
+const SEAL_GATE_OPEN_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres")
 
 const CAMERA_LIMITS := Rect2i(-512, -192, 1536, 384)
 
 const STEP_PROMPTS := {
-	STEP_MOVE_JUMP: "按 A/D 或 ←/→ 移动，再按 Space、W 或 ↑ 跳到上方平台。",
-	STEP_DASH: "前面是低顶短门槛，按 K 冲刺贴地穿过去。",
-	STEP_ATTACK: "靠近训练目标后按 J 攻击，打通出口。",
-	STEP_EXIT: "出口已经打开，继续向右前进离开教程区。",
+	STEP_MOVE_JUMP: "A/D 或 ←/→ 移动，Space/W/↑ 跳上平台。",
+	STEP_DASH: "按 K 冲刺穿过低顶门槛。",
+	STEP_ATTACK: "J 攻击训练目标或红色封印柱，打开出口。",
+	STEP_EXIT: "出口已打开，继续向右离开教程区。",
 	STEP_COMPLETE: "阶段 5 教程区已完成，可以继续扩展主流程。",
 }
 
@@ -44,8 +47,10 @@ const STEP_ORDER := {
 }
 
 @onready var tutorial_dummy: StaticBody2D = $TutorialDummy
+@onready var exit_barrier: StaticBody2D = $ExitBarrier
 @onready var exit_barrier_shape: CollisionShape2D = $ExitBarrier/CollisionShape2D
 @onready var exit_barrier_visual: Polygon2D = $ExitBarrier/BarrierVisual
+@onready var exit_barrier_art: Sprite2D = $ExitBarrier/BarrierArt
 @onready var exit_zone: Area2D = $ExitZone
 
 var _player: CharacterBody2D
@@ -60,6 +65,8 @@ var _transition_requested := false
 func _ready() -> void:
 	if tutorial_dummy != null and tutorial_dummy.has_signal("hit_registered"):
 		tutorial_dummy.connect("hit_registered", Callable(self, "_on_tutorial_dummy_hit_registered"))
+	if exit_barrier != null and exit_barrier.has_signal("hit_registered"):
+		exit_barrier.connect("hit_registered", Callable(self, "_on_exit_barrier_hit_registered"))
 
 	_apply_exit_lock_state()
 	_emit_step_changed()
@@ -167,13 +174,20 @@ func _emit_step_changed() -> void:
 	hud_context_changed.emit(get_current_step_title(), get_current_prompt_text())
 
 
-# 按当前解锁状态同步出口碰撞和占位颜色。
+# 按当前解锁状态同步出口碰撞、旧占位颜色和正式门贴图。
 func _apply_exit_lock_state() -> void:
 	if exit_barrier_shape != null:
 		exit_barrier_shape.disabled = _exit_unlocked
 
 	if exit_barrier_visual != null:
 		exit_barrier_visual.color = Color(0.258824, 0.694118, 0.478431, 1.0) if _exit_unlocked else Color(0.776471, 0.321569, 0.262745, 1.0)
+
+	if exit_barrier_art != null:
+		exit_barrier_art.texture = SEAL_GATE_OPEN_TEXTURE if _exit_unlocked else SEAL_GATE_LOCKED_TEXTURE
+		exit_barrier_art.set_meta("asset_id", "shrine_gate_prop_atlas_ai01")
+		exit_barrier_art.set_meta("runtime_source", "shrine_gate_prop_atlas_ai01.seal_gate_open" if _exit_unlocked else "shrine_gate_prop_atlas_ai01.seal_gate_locked")
+
+	GateStateVfx.sync_unlock_feedback(exit_barrier, _exit_unlocked)
 
 
 # 请求离开教程房进入实战房，使用标记防止同一区域重复触发。
@@ -187,6 +201,14 @@ func _request_combat_trial_transition() -> void:
 
 # 训练假人命中信号只在攻击教学步骤内解锁出口。
 func _on_tutorial_dummy_hit_registered(_hit_count: int) -> void:
+	if _current_step != STEP_ATTACK:
+		return
+
+	_unlock_exit_after_attack()
+
+
+# 红色封印柱是玩家眼中的出口目标；攻击教学阶段命中它也必须开门。
+func _on_exit_barrier_hit_registered(_hit_count: int) -> void:
 	if _current_step != STEP_ATTACK:
 		return
 

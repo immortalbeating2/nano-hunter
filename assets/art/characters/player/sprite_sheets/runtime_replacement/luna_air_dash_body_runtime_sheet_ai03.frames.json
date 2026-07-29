@@ -1,0 +1,533 @@
+{
+  "id": "luna_air_dash_body_runtime_sheet_ai03",
+  "kind": "sprite_sheet",
+  "source_asset_id": "imagegen_luna_air_dash_body_runtime_sheet_ai03",
+  "output": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.png",
+  "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.frames.json",
+  "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres",
+  "cell": [
+    192,
+    192
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frame_count": 16,
+  "animation": {
+    "name": "air_dash_body",
+    "speed": 20.0,
+    "loop": false
+  },
+  "anchor": "body_center",
+  "frames": [
+    {
+      "index": 0,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_001",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 0,
+      "region": [
+        0,
+        0,
+        192,
+        192
+      ],
+      "source_bbox": [
+        49,
+        69,
+        208,
+        245
+      ],
+      "content_size": [
+        159,
+        176
+      ],
+      "normalized_size": [
+        84,
+        93
+      ],
+      "paste": [
+        54,
+        50
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 1,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_002",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 1,
+      "region": [
+        192,
+        0,
+        192,
+        192
+      ],
+      "source_bbox": [
+        52,
+        66,
+        211,
+        244
+      ],
+      "content_size": [
+        159,
+        178
+      ],
+      "normalized_size": [
+        84,
+        94
+      ],
+      "paste": [
+        54,
+        49
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 2,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_003",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 2,
+      "region": [
+        384,
+        0,
+        192,
+        192
+      ],
+      "source_bbox": [
+        49,
+        74,
+        239,
+        246
+      ],
+      "content_size": [
+        190,
+        172
+      ],
+      "normalized_size": [
+        100,
+        91
+      ],
+      "paste": [
+        46,
+        50
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 3,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_004",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 3,
+      "region": [
+        576,
+        0,
+        192,
+        192
+      ],
+      "source_bbox": [
+        49,
+        79,
+        246,
+        252
+      ],
+      "content_size": [
+        197,
+        173
+      ],
+      "normalized_size": [
+        104,
+        91
+      ],
+      "paste": [
+        44,
+        50
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 4,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_005",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 4,
+      "region": [
+        0,
+        192,
+        192,
+        192
+      ],
+      "source_bbox": [
+        33,
+        84,
+        280,
+        248
+      ],
+      "content_size": [
+        247,
+        164
+      ],
+      "normalized_size": [
+        130,
+        87
+      ],
+      "paste": [
+        31,
+        52
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 5,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_006",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 5,
+      "region": [
+        192,
+        192,
+        192,
+        192
+      ],
+      "source_bbox": [
+        18,
+        96,
+        279,
+        248
+      ],
+      "content_size": [
+        261,
+        152
+      ],
+      "normalized_size": [
+        138,
+        80
+      ],
+      "paste": [
+        27,
+        56
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 6,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_007",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 6,
+      "region": [
+        384,
+        192,
+        192,
+        192
+      ],
+      "source_bbox": [
+        17,
+        95,
+        282,
+        245
+      ],
+      "content_size": [
+        265,
+        150
+      ],
+      "normalized_size": [
+        140,
+        79
+      ],
+      "paste": [
+        26,
+        56
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 7,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_008",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 7,
+      "region": [
+        576,
+        192,
+        192,
+        192
+      ],
+      "source_bbox": [
+        17,
+        103,
+        290,
+        243
+      ],
+      "content_size": [
+        273,
+        140
+      ],
+      "normalized_size": [
+        144,
+        74
+      ],
+      "paste": [
+        24,
+        59
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 8,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_009",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 8,
+      "region": [
+        0,
+        384,
+        192,
+        192
+      ],
+      "source_bbox": [
+        34,
+        83,
+        255,
+        228
+      ],
+      "content_size": [
+        221,
+        145
+      ],
+      "normalized_size": [
+        117,
+        76
+      ],
+      "paste": [
+        38,
+        58
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 9,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_010",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 9,
+      "region": [
+        192,
+        384,
+        192,
+        192
+      ],
+      "source_bbox": [
+        46,
+        70,
+        232,
+        238
+      ],
+      "content_size": [
+        186,
+        168
+      ],
+      "normalized_size": [
+        98,
+        89
+      ],
+      "paste": [
+        47,
+        52
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 10,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_011",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 10,
+      "region": [
+        384,
+        384,
+        192,
+        192
+      ],
+      "source_bbox": [
+        38,
+        61,
+        216,
+        241
+      ],
+      "content_size": [
+        178,
+        180
+      ],
+      "normalized_size": [
+        94,
+        95
+      ],
+      "paste": [
+        49,
+        48
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 11,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_012",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 11,
+      "region": [
+        576,
+        384,
+        192,
+        192
+      ],
+      "source_bbox": [
+        29,
+        64,
+        217,
+        242
+      ],
+      "content_size": [
+        188,
+        178
+      ],
+      "normalized_size": [
+        99,
+        94
+      ],
+      "paste": [
+        46,
+        49
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 12,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_013",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 12,
+      "region": [
+        0,
+        576,
+        192,
+        192
+      ],
+      "source_bbox": [
+        34,
+        49,
+        207,
+        250
+      ],
+      "content_size": [
+        173,
+        201
+      ],
+      "normalized_size": [
+        91,
+        106
+      ],
+      "paste": [
+        50,
+        43
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 13,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_014",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 13,
+      "region": [
+        192,
+        576,
+        192,
+        192
+      ],
+      "source_bbox": [
+        38,
+        47,
+        200,
+        256
+      ],
+      "content_size": [
+        162,
+        209
+      ],
+      "normalized_size": [
+        85,
+        110
+      ],
+      "paste": [
+        54,
+        41
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 14,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_015",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 14,
+      "region": [
+        384,
+        576,
+        192,
+        192
+      ],
+      "source_bbox": [
+        43,
+        50,
+        197,
+        257
+      ],
+      "content_size": [
+        154,
+        207
+      ],
+      "normalized_size": [
+        81,
+        109
+      ],
+      "paste": [
+        56,
+        42
+      ],
+      "scale": 0.527473
+    },
+    {
+      "index": 15,
+      "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_016",
+      "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bc0536808196a8244280a4c0596e.png",
+      "source_frame_index": 15,
+      "region": [
+        576,
+        576,
+        192,
+        192
+      ],
+      "source_bbox": [
+        43,
+        48,
+        197,
+        256
+      ],
+      "content_size": [
+        154,
+        208
+      ],
+      "normalized_size": [
+        81,
+        110
+      ],
+      "paste": [
+        56,
+        41
+      ],
+      "scale": 0.527473
+    }
+  ],
+  "normalization": {
+    "safe_size": [
+      144,
+      144
+    ],
+    "source_grid": [
+      4,
+      4
+    ],
+    "chroma_key": "#ff00ff",
+    "scale_min": 0.527473,
+    "scale_max": 0.527473,
+    "transparent_png": true
+  }
+}

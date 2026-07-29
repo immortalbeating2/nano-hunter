@@ -1,9 +1,19 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage14_backtracking_room_base.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_shrine_ai01.png" id="2"]
-[ext_resource type="Texture2D" path="res://assets/art/props/stage14_air_dash_gate_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/vfx/stage14_air_dash_trail_ai01.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_tiles_ai01.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_room_parallax_ai01.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="7_a331g"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_air_dash_shrine_room_ai01.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_hazard_room_ai01.png" id="9"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="10"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="12_o1nxk"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="13_6am06"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/001_shrine_gate_prop_atlas_ai01_auto_002_c01.atlas_texture.tres" id="13_shrine"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="14_gate"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="14_yvopc"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -14,68 +24,238 @@ size = Vector2(960, 32)
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(96, 128)
 
-[node name="Stage14AirDashShrineRoom" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6am06"]
+size = Vector2(96, 128)
+
+[node name="Stage14AirDashShrineRoom" type="Node2D" unique_id=1887307854]
 script = ExtResource("1")
+air_dash_shrine_room = true
+camera_limits = Rect2i(-384, -256, 1280, 512)
 next_room_path = "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
 next_spawn_id = &"stage14_air_dash_gate_start"
+previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
+previous_spawn_id = &"stage13_goal_return"
+narrative_stele_title = "风行符印碑"
+narrative_stele_text = "佛门残偈：身不离地者守旧路，借风越隙者方见旧门重开。"
+spawn_positions = {
+&"stage14_air_dash_shrine_start": Vector2(-256, 204),
+&"stage14_shrine_return": Vector2(640, 204)
+}
 checkpoint_spawn_id = &"stage14_air_dash_shrine_start"
 default_step_id = &"stage14_air_dash_shrine"
-air_dash_shrine_room = true
 
-[node name="Backdrop" type="Polygon2D" parent="."]
+[node name="Backdrop" type="Polygon2D" parent="." unique_id=1627534671]
+z_index = -4
 color = Color(0.105882, 0.121569, 0.164706, 1)
-polygon = PackedVector2Array(-320, -192, 640, -192, 640, 192, -320, 192)
+polygon = PackedVector2Array(-429.52002, -385.81, 941.52, -385.81, 941.52, 385.81, -429.52002, 385.81)
 
-[node name="LeftWall" type="StaticBody2D" parent="."]
+[node name="ShrineTrialBackgroundArt" type="Sprite2D" parent="." unique_id=2089308734]
+modulate = Color(1, 1, 1, 0.56)
+z_index = -3
+position = Vector2(256, 0)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("5")
+metadata/asset_id = "biome01_shrine_trial_background_ai01"
+metadata/asset_binding_note = "dac_background_camera_coverage_scaled"
+
+[node name="ShrineTrialParallaxArt" type="Sprite2D" parent="." unique_id=1237908203]
+visible = false
+modulate = Color(1, 1, 1, 0.18)
+position = Vector2(160, -52)
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("7")
+metadata/asset_id = "biome01_shrine_trial_room_parallax_ai01"
+metadata/asset_binding_note = "hidden_source_preview_rectangular_edge"
+
+[node name="AirDashShrineRoomArt" type="Sprite2D" parent="." unique_id=767871869]
+visible = false
+modulate = Color(1, 1, 1, 0.16)
+position = Vector2(340, 8)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("8")
+metadata/asset_id = "biome01_air_dash_shrine_room_ai01"
+metadata/asset_binding_note = "hidden_source_preview_rectangular_edge"
+
+[node name="ShrineTrialTileSheetArt" type="Sprite2D" parent="." unique_id=232281057]
+visible = false
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(160, 134)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6")
+metadata/asset_id = "biome01_shrine_trial_tiles_ai01"
+metadata/asset_binding_note = "dac_low_alpha_tile_decor_reference"
+
+[node name="MiasmaHazardRoomArt" type="Sprite2D" parent="." unique_id=1662856203]
+visible = false
+modulate = Color(1, 1, 1, 0.16)
+position = Vector2(-72, 32)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("9")
+metadata/asset_id = "biome02_miasma_hazard_room_ai01"
+metadata/asset_binding_note = "hidden_source_preview_no_hazard_collision"
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=619693015]
 position = Vector2(-304, 0)
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1311087521]
+visible = false
 shape = SubResource("1")
+disabled = true
 
-[node name="Floor" type="StaticBody2D" parent="."]
+[node name="Floor" type="StaticBody2D" parent="." unique_id=209806055]
 position = Vector2(128, 160)
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1372453489]
+visible = false
 shape = SubResource("2")
+disabled = true
 
-[node name="FloorVisual" type="Polygon2D" parent="Floor"]
-color = Color(0.235294, 0.278431, 0.352941, 1)
+[node name="FloorVisual" type="Polygon2D" parent="Floor" unique_id=1234613984]
+visible = false
+texture_repeat = 2
+color = Color(1, 1, 1, 0.08)
+texture = ExtResource("7_a331g")
 polygon = PackedVector2Array(-480, -16, 480, -16, 480, 16, -480, 16)
+metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
-[node name="AirDashShrine" type="Marker2D" parent="."]
-position = Vector2(88, 104)
+[node name="AirDashShrine" type="Marker2D" parent="." unique_id=12780695]
+position = Vector2(320, 120)
 
-[node name="ShrineVisual" type="Polygon2D" parent="AirDashShrine"]
+[node name="ShrineVisual" type="Polygon2D" parent="AirDashShrine" unique_id=1849147651]
+visible = false
 color = Color(0.470588, 0.811765, 0.941176, 0.82)
 polygon = PackedVector2Array(-24, 40, -32, -8, 0, -48, 32, -8, 24, 40)
 
-[node name="ShrineArt" type="Sprite2D" parent="AirDashShrine"]
-position = Vector2(0, -10)
-scale = Vector2(0.065, 0.065)
-modulate = Color(1, 1, 1, 0.78)
-texture = ExtResource("2")
-metadata/asset_id = "stage14_air_dash_shrine_ai01"
+[node name="ShrineArt" type="Sprite2D" parent="AirDashShrine" unique_id=981490094]
+modulate = Color(1, 1, 1, 0.88)
+position = Vector2(0, -8)
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("13_shrine")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
 
-[node name="GatePreviewArt" type="Sprite2D" parent="AirDashShrine"]
-position = Vector2(92, 0)
-scale = Vector2(0.042, 0.042)
-modulate = Color(1, 1, 1, 0.42)
-texture = ExtResource("3")
-metadata/asset_id = "stage14_air_dash_gate_ai01"
+[node name="GateEchoArt" type="Sprite2D" parent="AirDashShrine" unique_id=2144288090]
+modulate = Color(1, 1, 1, 0.52)
+position = Vector2(124, -20)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("14_gate")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
 
-[node name="AirDashTrailPreviewArt" type="Sprite2D" parent="AirDashShrine"]
+[node name="AirDashTrailArt" type="Sprite2D" parent="AirDashShrine" unique_id=620901803]
+modulate = Color(1, 1, 1, 0.54)
 position = Vector2(46, -34)
 scale = Vector2(0.045, 0.045)
-modulate = Color(1, 1, 1, 0.54)
 texture = ExtResource("4")
 metadata/asset_id = "stage14_air_dash_trail_ai01"
+metadata/asset_binding_note = "runtime_air_dash_trail_preview_no_collision"
 
-[node name="ExitZone" type="Area2D" parent="."]
-position = Vector2(544, 96)
+[node name="ExitZone" type="Area2D" parent="." unique_id=1165244793]
+position = Vector2(800, 160)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1827413526]
 shape = SubResource("3")
 
-[node name="ZoneVisual" type="Polygon2D" parent="ExitZone"]
-color = Color(0.470588, 0.811765, 0.941176, 0.25)
+[node name="ZoneVisual" type="Polygon2D" parent="ExitZone" unique_id=1296794917]
+visible = false
+color = Color(0.470588, 0.811765, 0.941176, 0.025)
 polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+metadata/asset_binding_note = "dac_subtle_trigger_readability_marker"
+
+[node name="FormalTerrainTilemapDecor" type="TileMapLayer" parent="." unique_id=1849897845]
+visible = false
+modulate = Color(1, 1, 1, 0.92)
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD6/wIAAAAAAAMAAAD7/wIAAAABAAMAAAD8/wIAAAACAAMAAAD9/wIAAAADAAMAAAD+/wIAAAAEAAMAAAD//wIAAAAFAAMAAAAAAAIAAAAGAAMAAAABAAIAAAAHAAMAAAACAAIAAAAAAAQAAAADAAIAAAABAAQAAAAEAAIAAAACAAQAAAAFAAIAAAAAAAMAAAAGAAIAAAABAAMAAAAHAAIAAAACAAMAAAAIAAIAAAADAAMAAAAJAAIAAAAEAAMAAAA=")
+tile_set = ExtResource("12_o1nxk")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_imagegen_tileset_terrain_decor"
+
+[node name="FormalForegroundEdgeDecor" type="TileMapLayer" parent="." unique_id=2116409309]
+visible = false
+modulate = Color(1, 1, 1, 0.46)
+z_index = 2
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD7/wEA/////////////wEA//////////8DAAEA//////////8HAAEA///////////6/wEAAAADAAQAAAAAAAEAAAAEAAQAAAAGAAEAAAAFAAQAAAA=")
+tile_set = ExtResource("12_o1nxk")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_foreground_edge_decor"
+
+[node name="TerrainCollisionVisual" type="TileMapLayer" parent="." unique_id=1462761910]
+modulate = Color(1, 1, 1, 0.08)
+z_index = 1
+scale = Vector2(0.16666667, 0.16666667)
+tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAABAAAAAAD+/wMAAAAAAAAAAAD//wMAAAABAAAAAAAAAAMAAAAAAAAAAAABAAMAAAABAAAAAAACAAMAAAAAAAAAAAADAAMAAAABAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAABAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAABAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAABAAAAAAAKAAMAAAAAAAAAAAALAAMAAAABAAAAAAAMAAMAAAAAAAAAAAANAAMAAAADAAAAAAA=")
+tile_set = ExtResource("13_6am06")
+
+[node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=481045429]
+modulate = Color(1, 1, 1, 0.08)
+z_index = 2
+position = Vector2(0, -16)
+scale = Vector2(0.16666667, 0.16666667)
+tile_map_data = PackedByteArray("AAAEAAIAAAABAAIAAAAFAAIAAAAAAAIAAAAGAAIAAAAAAAIAAAAHAAIAAAACAAIAAAA=")
+tile_set = ExtResource("13_6am06")
+
+[node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1154344513]
+modulate = Color(0.8, 0.82, 0.86, 0.94)
+z_index = 2
+position = Vector2(0, -7)
+tile_map_data = PackedByteArray("AAD6/wMAAAAAAAAAAAD7/wMAAAABAAAAAAD8/wMAAAABAAAAAAD9/wMAAAABAAAAAAD+/wMAAAABAAAAAAD//wMAAAABAAAAAAAAAAMAAAABAAAAAAABAAMAAAABAAAAAAACAAMAAAABAAAAAAADAAMAAAABAAAAAAAEAAMAAAABAAAAAAAFAAMAAAABAAAAAAAGAAMAAAABAAAAAAAHAAMAAAABAAAAAAAIAAMAAAABAAAAAAAJAAMAAAABAAAAAAAKAAMAAAABAAAAAAALAAMAAAABAAAAAAAMAAMAAAABAAAAAAANAAMAAAACAAAAAAA=")
+tile_set = ExtResource("10")
+collision_enabled = false
+
+[node name="ThinPlatformSurfaceVisual" type="TileMapLayer" parent="." unique_id=975816466]
+modulate = Color(0.76, 0.8, 0.84, 0.94)
+z_index = 2
+tile_map_data = PackedByteArray("AAAEAAIAAAAAAAAAAAAFAAIAAAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAACAAAAAAA=")
+tile_set = ExtResource("14_yvopc")
+collision_enabled = false
+
+[node name="DoorVisual" type="TileMapLayer" parent="." unique_id=1566626331]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("13_6am06")
+collision_enabled = false
+
+[node name="BackgroundVisual" type="TileMapLayer" parent="." unique_id=1490991823]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("13_6am06")
+collision_enabled = false
+
+[node name="DecorVisual" type="TileMapLayer" parent="." unique_id=1788523759]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("13_6am06")
+collision_enabled = false
+
+[node name="ForegroundVisual" type="TileMapLayer" parent="." unique_id=1605419233]
+z_index = -1
+scale = Vector2(0.16666667, 0.16666667)
+tile_set = ExtResource("13_6am06")
+collision_enabled = false
+
+[node name="LeftExitZone" type="Area2D" parent="." unique_id=628123068]
+position = Vector2(-352, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=2113400173]
+shape = SubResource("RectangleShape2D_6am06")
+
+[node name="NarrativeStele" type="Marker2D" parent="."]
+position = Vector2(128, 120)
+metadata/lore_id = "stage14_air_dash_doctrine"
+
+[node name="SteleArt" type="Sprite2D" parent="NarrativeStele"]
+z_index = 3
+position = Vector2(0, 12)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("13_shrine")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
+metadata/anchor_role = "stage14_ability_narrative"

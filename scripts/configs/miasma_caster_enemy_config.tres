@@ -6,5 +6,8 @@
 script = ExtResource("1")
 touch_damage = 1
 projectile_range = 184.0
+projectile_damage = 1
+projectile_speed = 120.0
+cast_interval = 1.4
 miasma_pressure_radius = 56.0
 pulse_interval = 1.4

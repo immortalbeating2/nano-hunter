@@ -11,6 +11,7 @@ from typing import Any
 
 REPORT_PATH = Path("docs/assets/final-art-acceptance-gates.json")
 MARKDOWN_PATH = Path("docs/assets/final-art-acceptance-gates.md")
+RUNTIME_SOURCE_SAFETY_PATH = Path("docs/assets/runtime-source-safety-report.json")
 EXPECTED_GATES = [
     "source_traceability",
     "license_terms",
@@ -33,7 +34,7 @@ def load_json(path: Path) -> dict[str, Any]:
         return json.load(file)
 
 
-def audit(report: dict[str, Any]) -> list[str]:
+def audit(report: dict[str, Any], runtime_source_report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     entries = report.get("entries", [])
     summary = report.get("summary", {})
@@ -84,6 +85,21 @@ def audit(report: dict[str, Any]) -> list[str]:
             errors.append(f"{asset_id}: final-ready asset must have zero blocked gates")
         if not bool(entry.get("final_ready", False)) and blocked_gate_count <= 0:
             errors.append(f"{asset_id}: blocked_gate_count expected > 0")
+
+    entries_by_asset = {str(entry.get("asset_id", "")): entry for entry in entries}
+    review_required_items = runtime_source_report.get("summary", {}).get("runtime_review_required_items", [])
+    for asset_id in review_required_items:
+        entry = entries_by_asset.get(str(asset_id))
+        if entry is None:
+            errors.append(f"{asset_id}: runtime source review item missing from final gates")
+            continue
+        source_gate = entry.get("gates", {}).get("source_traceability", {})
+        if source_gate.get("status") != "blocked":
+            errors.append(f"{asset_id}: runtime source review must block source_traceability")
+        if "runtime_source_safety_review_required" not in source_gate.get("blockers", []):
+            errors.append(f"{asset_id}: runtime source blocker missing")
+        if bool(entry.get("final_ready", False)):
+            errors.append(f"{asset_id}: runtime source review item cannot be final-ready")
     return errors
 
 
@@ -92,8 +108,12 @@ def main() -> int:
     if not REPORT_PATH.exists():
         print("final-art acceptance gates report missing")
         return 1 if args.strict else 0
+    if not RUNTIME_SOURCE_SAFETY_PATH.exists():
+        print("runtime source safety report missing")
+        return 1 if args.strict else 0
     report = load_json(REPORT_PATH)
-    errors = audit(report)
+    runtime_source_report = load_json(RUNTIME_SOURCE_SAFETY_PATH)
+    errors = audit(report, runtime_source_report)
     if errors:
         for error in errors:
             print(error)

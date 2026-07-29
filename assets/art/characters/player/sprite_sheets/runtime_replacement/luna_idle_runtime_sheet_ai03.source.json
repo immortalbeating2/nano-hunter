@@ -1,0 +1,17 @@
+{
+  "asset_id": "luna_idle_runtime_sheet_ai03",
+  "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0ded67518d3bd3ad016a46ba4c4e3c819492f783c9bad241d2.png",
+  "source_sha256": "7a306826c623a16fcff10d870630b13067fb1efdb7eb3d56d9af20f2715fdcd4",
+  "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_runtime_body_sheet",
+  "constraints": [
+    "transparent_png",
+    "no_green_background",
+    "no_white_background",
+    "no_checkerboard_background",
+    "fixed_grid",
+    "one_action_per_sheet",
+    "stable_scale",
+    "stable_anchor"
+  ],
+  "anchor": "foot"
+}

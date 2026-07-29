@@ -11,6 +11,7 @@ from typing import Any
 
 REPORT_PATH = Path("docs/assets/p0-scene-replacement-batches.json")
 MARKDOWN_PATH = Path("docs/assets/p0-scene-replacement-batches.md")
+MATRIX_PATH = Path("docs/assets/p0-target-scene-replacement-matrix.json")
 
 
 def parse_args() -> argparse.Namespace:
@@ -24,24 +25,24 @@ def load_json(path: Path) -> dict[str, Any]:
         return json.load(file)
 
 
-def audit(report: dict[str, Any]) -> list[str]:
+def audit(report: dict[str, Any], matrix: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     summary = report.get("summary", {})
     batches = report.get("batches", [])
+    matrix_summary = matrix.get("summary", {})
     if int(summary.get("batch_count", -1)) != len(batches):
         errors.append("batch_count mismatch")
-    if int(summary.get("batch_count", -1)) != 9:
-        errors.append("batch_count expected 9")
-    if int(summary.get("scene_count", -1)) != 14:
-        errors.append("scene_count expected 14")
-    if int(summary.get("unique_asset_count", -1)) != 30:
-        errors.append("unique_asset_count expected 30")
-    if int(summary.get("scene_asset_reference_count", -1)) != 60:
-        errors.append("scene_asset_reference_count expected 60")
-    if int(summary.get("planned_scene_asset_replacement_count", -1)) != 22:
-        errors.append("planned_scene_asset_replacement_count expected 22")
-    if int(summary.get("already_referenced_scene_asset_count", -1)) != 38:
-        errors.append("already_referenced_scene_asset_count expected 38")
+    if not batches:
+        errors.append("no replacement batches")
+    for key in (
+        "scene_count",
+        "unique_asset_count",
+        "scene_asset_reference_count",
+        "planned_scene_asset_replacement_count",
+        "already_referenced_scene_asset_count",
+    ):
+        if int(summary.get(key, -1)) != int(matrix_summary.get(key, -2)):
+            errors.append(f"{key} does not match target scene matrix")
     if int(summary.get("missing_scene_count", -1)) != 0:
         errors.append("missing_scene_count expected 0")
     if int(summary.get("unbatched_scene_count", -1)) != 0:
@@ -108,8 +109,12 @@ def main() -> int:
     if not REPORT_PATH.exists():
         print("P0 scene replacement batches missing")
         return 1 if args.strict else 0
+    if not MATRIX_PATH.exists():
+        print("P0 target scene replacement matrix missing")
+        return 1 if args.strict else 0
     report = load_json(REPORT_PATH)
-    errors = audit(report)
+    matrix = load_json(MATRIX_PATH)
+    errors = audit(report, matrix)
     if errors:
         for error in errors:
             print(error)

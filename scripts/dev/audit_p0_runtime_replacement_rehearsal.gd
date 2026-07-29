@@ -3,14 +3,7 @@ extends SceneTree
 # 验证 P0 runtime replacement rehearsal 场景中的资源绑定。
 
 const MANIFEST_PATH := "res://docs/assets/p0-runtime-replacement-rehearsal-manifest.json"
-const EXPECTED_COUNTS := {
-	"entry_count": 30,
-	"texture2d_nodes": 17,
-	"spriteframes_nodes": 9,
-	"tileset_nodes": 1,
-	"stylebox_nodes": 1,
-	"atlastexture_nodes": 2,
-}
+const PLAN_PATH := "res://docs/assets/p0-runtime-replacement-plan.json"
 
 
 func _init() -> void:
@@ -23,10 +16,14 @@ func _run() -> int:
 	var manifest := _read_json(MANIFEST_PATH)
 	if manifest.is_empty():
 		return 1
+	var plan := _read_json(PLAN_PATH)
+	if plan.is_empty():
+		return 1
+	var expected_counts := _expected_counts(plan)
 
 	var counts: Dictionary = manifest.get("counts", {})
-	for key: String in EXPECTED_COUNTS.keys():
-		var expected := int(EXPECTED_COUNTS[key])
+	for key: String in expected_counts.keys():
+		var expected := int(expected_counts[key])
 		var actual := int(counts.get(key, -1))
 		if actual != expected:
 			push_error("P0 rehearsal manifest count mismatch for %s: expected %s got %s" % [key, expected, actual])
@@ -57,8 +54,8 @@ func _run() -> int:
 	if not _audit_recursive(instance, actual_counts):
 		instance.free()
 		return 1
-	for key: String in EXPECTED_COUNTS.keys():
-		var expected := int(EXPECTED_COUNTS[key])
+	for key: String in expected_counts.keys():
+		var expected := int(expected_counts[key])
 		var actual := int(actual_counts.get(key, -1))
 		if actual != expected:
 			push_error("P0 rehearsal scene count mismatch for %s: expected %s got %s" % [key, expected, actual])
@@ -68,6 +65,32 @@ func _run() -> int:
 	print("P0 runtime replacement rehearsal OK: %s nodes" % actual_counts["entry_count"])
 	instance.free()
 	return 0
+
+
+# 从当前 P0 运行计划推导排练节点数量，避免历史固定数量掩盖计划收缩。
+func _expected_counts(plan: Dictionary) -> Dictionary:
+	var counts := {
+		"entry_count": 0,
+		"texture2d_nodes": 0,
+		"spriteframes_nodes": 0,
+		"tileset_nodes": 0,
+		"stylebox_nodes": 0,
+		"atlastexture_nodes": 0,
+	}
+	for entry: Dictionary in plan.get("entries", []):
+		counts["entry_count"] = int(counts["entry_count"]) + 1
+		match String(entry.get("catalog_resource_type", "unknown")):
+			"SpriteFrames":
+				counts["spriteframes_nodes"] = int(counts["spriteframes_nodes"]) + 1
+			"TileSet":
+				counts["tileset_nodes"] = int(counts["tileset_nodes"]) + 1
+			"StyleBoxTexture":
+				counts["stylebox_nodes"] = int(counts["stylebox_nodes"]) + 1
+			"AtlasTexture":
+				counts["atlastexture_nodes"] = int(counts["atlastexture_nodes"]) + 1
+			_:
+				counts["texture2d_nodes"] = int(counts["texture2d_nodes"]) + 1
+	return counts
 
 
 # 递归验证所有 rehearsal 节点。

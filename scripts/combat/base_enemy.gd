@@ -8,6 +8,8 @@ class_name BaseEnemy
 # defeated 是房间门控和 Main 流程唯一依赖的敌人清除信号。
 signal defeated
 
+const HIT_SPARK_VFX_TIMEOUT := 0.45
+
 # 节点缓存只用于关闭碰撞、隐藏 hurtbox 和显示轻量受击反馈，不作为外部读取入口。
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var _hurtbox: Area2D = $Hurtbox
@@ -18,6 +20,13 @@ signal defeated
 
 # 基类只记录是否已经失效；生命、护印和复杂状态由更高阶敌人自行实现。
 var _is_defeated := false
+
+
+# 初始化正式运行时视觉层：有 runtime 动画时，旧灰盒轮廓只保留为隐藏调试层。
+func _ready() -> void:
+	_prepare_runtime_visual_stack()
+	_hide_enemy_hit_spark_vfx()
+	_start_default_runtime_animation()
 
 
 # 玩家攻击统一通过 receive_attack 进入敌人契约，敌人被击败后同时关闭实体碰撞与 hurtbox。
@@ -32,10 +41,78 @@ func receive_attack(_hit_direction: Vector2, _knockback_force: float) -> void:
 		_hurtbox_shape.disabled = true
 	if _body_polygon != null:
 		_body_polygon.color = Color(0.572549, 0.294118, 0.294118, 0.45)
-	if _runtime_animation_visual != null:
-		_runtime_animation_visual.visible = false
+	_play_defeat_animation()
 	_show_enemy_hit_spark_vfx()
 	defeated.emit()
+
+
+# 共享入口统一切换普通敌人的 SpriteFrames、动作名和资产标识，子类只负责选择真实玩法状态。
+func _play_runtime_animation(
+	frames: SpriteFrames,
+	animation_name: StringName,
+	asset_id: String,
+	restart := false
+) -> void:
+	if _runtime_animation_visual == null or frames == null:
+		return
+	if not frames.has_animation(animation_name):
+		push_error("Enemy runtime animation is missing: %s" % animation_name)
+		return
+
+	var should_restart := restart
+	_runtime_animation_visual.visible = true
+	if _runtime_animation_visual.sprite_frames != frames:
+		_runtime_animation_visual.sprite_frames = frames
+		should_restart = true
+	if _runtime_animation_visual.animation != animation_name:
+		_runtime_animation_visual.animation = animation_name
+		should_restart = true
+	_runtime_animation_visual.set_meta("asset_id", asset_id)
+	if should_restart or not _runtime_animation_visual.is_playing():
+		_runtime_animation_visual.play(animation_name)
+
+
+# 场景已经声明普通敌人的默认 cycle；基类在 ready 后显式启动，避免资源已绑定却停在第一帧。
+func _start_default_runtime_animation() -> void:
+	if _runtime_animation_visual == null:
+		return
+
+	var frames := _runtime_animation_visual.sprite_frames
+	var animation_name := _runtime_animation_visual.animation
+	var asset_id := str(_runtime_animation_visual.get_meta("asset_id", ""))
+	_play_runtime_animation(frames, animation_name, asset_id, true)
+
+
+# 子类有 defeat 资源时覆盖该入口；默认行为保留当前可见终帧，绝不把已击败敌人变成空白。
+func _play_defeat_animation() -> void:
+	if _runtime_animation_visual == null:
+		return
+	_runtime_animation_visual.visible = true
+	_runtime_animation_visual.pause()
+
+
+# 普通敌人正式动画已接入时，隐藏旧 Stage12/13 轮廓、灰盒 body 和低透明 source sprite，避免运行画面混合读值。
+func _prepare_runtime_visual_stack() -> void:
+	if _runtime_animation_visual == null:
+		return
+
+	for node_name: String in [
+		"Body",
+		"Stage12Silhouette",
+		"Stage12ThreatMark",
+		"Stage12ChargeMark",
+		"Stage12AirMark",
+		"Stage12AssetSprite",
+		"Stage13Silhouette",
+		"Stage13AssetSprite",
+	]:
+		var legacy_visual := get_node_or_null(node_name) as CanvasItem
+		if legacy_visual != null:
+			legacy_visual.visible = false
+
+	var callback := Callable(self, "_on_enemy_hit_spark_animation_finished")
+	if _hit_spark_vfx_visual != null and not _hit_spark_vfx_visual.is_connected("animation_finished", callback):
+		_hit_spark_vfx_visual.connect("animation_finished", callback)
 
 
 # 公开敌人是否已经失效，供房间门控和测试读取。
@@ -44,18 +121,32 @@ func is_defeated() -> bool:
 	return _is_defeated
 
 
-# 敌人受击命中特效通过可选节点接入，缺节点时不影响早期敌人场景。
+# 敌人受击命中特效通过正式 runtime 节点接入；缺节点时只跳过视觉，不回退旧占位资源。
 func _show_enemy_hit_spark_vfx() -> void:
 	if _hit_spark_vfx_visual == null:
-		var legacy_hit_spark := get_node_or_null("Stage12HitSpark") as CanvasItem
-		if legacy_hit_spark != null:
-			legacy_hit_spark.visible = true
 		return
 
 	_hit_spark_vfx_visual.visible = true
 	_hit_spark_vfx_visual.set_meta("gameplay_collision", false)
 	_hit_spark_vfx_visual.set_meta("damage_source", false)
 	_hit_spark_vfx_visual.play(&"enemy_hit_spark")
+	_hide_enemy_hit_spark_vfx_after_timeout()
+
+
+# 命中特效是一次性反馈；播放完必须退场，避免敌人已清除后画面仍残留火花。
+func _on_enemy_hit_spark_animation_finished() -> void:
+	_hide_enemy_hit_spark_vfx()
+
+
+func _hide_enemy_hit_spark_vfx() -> void:
+	if _hit_spark_vfx_visual != null:
+		_hit_spark_vfx_visual.visible = false
+		_hit_spark_vfx_visual.stop()
+
+
+func _hide_enemy_hit_spark_vfx_after_timeout() -> void:
+	await get_tree().create_timer(HIT_SPARK_VFX_TIMEOUT).timeout
+	_hide_enemy_hit_spark_vfx()
 
 
 # 触碰伤害统一由基类发起，这样子类只需要决定“何时应当能碰到玩家”。

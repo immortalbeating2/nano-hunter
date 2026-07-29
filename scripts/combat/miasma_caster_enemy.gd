@@ -1,40 +1,55 @@
 extends "res://scripts/combat/base_enemy.gd"
 
 # MiasmaCasterEnemy 是阶段 13 的第 4 类普通敌人。
-# 它用“远程瘴气压制范围”区别于近战、冲锋和空中威胁，
-# 当前只建立可读压力契约，不实现复杂弹幕或 Boss 行为。
+# 它用“定向腐瘴弹体 + 近身压力范围”区别于近战、冲锋和空中威胁，
+# 只发射单发直线弹体，不扩展成复杂弹幕或 Boss 行为。
 
 # 配置资源保存 Stage13 远程压制的可调半径、脉冲节奏和触碰伤害。
 const MiasmaCasterEnemyConfig := preload("res://scripts/configs/miasma_caster_enemy_config.gd")
+const DEFEAT_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_defeat_runtime_sheet_ai02.spriteframes.tres")
+const MIASMA_PROJECTILE_SCENE: PackedScene = preload("res://scenes/combat/miasma_projectile.tscn")
 
 # 场景实例通过该字段绑定配置；脚本不会在运行中修改资源。
 @export var config: MiasmaCasterEnemyConfig
 
-# 远程压制参数目前只驱动读值和占位视觉，不生成真实弹体。
+# 远程压制参数同时驱动压力视觉与单发弹体。
 var _touch_damage := 1
 var _projectile_range := 184.0
+var _projectile_damage := 1
+var _projectile_speed := 120.0
+var _cast_interval := 1.4
 var _miasma_pressure_radius := 56.0
 var _pulse_interval := 1.4
 
-# 脉冲计时器用于驱动危险范围的呼吸透明度。
+# 脉冲与施法使用独立计时器，避免调视觉时改变攻击频率。
 var _pulse_elapsed := 0.0
+var _cast_elapsed := 0.0
+var _projectiles_spawned := 0
+var _player: CharacterBody2D
 
 
 # 初始化时同步远程压制配置，保证直接实例化和场景加载表现一致。
 func _ready() -> void:
 	# 初始化时同步配置，保证测试直接实例化也能读到场景期望数值。
+	super._ready()
 	_apply_config()
 
 
-# 物理帧更新瘴气压力视觉并沿用触碰伤害，当前阶段不生成真实弹体。
+# 物理帧更新瘴气压力、定向施法与沿用的触碰伤害。
 func _physics_process(delta: float) -> void:
 	if is_defeated():
+		_hide_pressure_visuals()
 		return
 
-	# 当前阶段先用脉冲视觉表达远程压制范围，不生成真实弹体，避免把普通敌人扩成弹幕系统。
 	_pulse_elapsed = fmod(_pulse_elapsed + delta, _pulse_interval)
 	_update_pressure_visual()
+	_try_cast_projectile(delta)
 	_deal_touch_damage(_touch_damage)
+
+
+# 房间基类注入当前玩家；Caster 不主动搜索 Main 或场景树。
+func bind_player(player: CharacterBody2D) -> void:
+	_player = player
 
 
 # 从配置资源读取 Stage13 当前实际使用的压制参数。
@@ -44,6 +59,9 @@ func _apply_config() -> void:
 
 	_touch_damage = config.touch_damage
 	_projectile_range = config.projectile_range
+	_projectile_damage = config.projectile_damage
+	_projectile_speed = config.projectile_speed
+	_cast_interval = config.cast_interval
 	_miasma_pressure_radius = config.miasma_pressure_radius
 	_pulse_interval = config.pulse_interval
 
@@ -54,9 +72,8 @@ func get_touch_damage() -> int:
 	return _touch_damage
 
 
-# 公开远程压制范围，作为未来弹体系统的边界占位。
+# 公开真实弹体的起手与飞行边界。
 func get_projectile_range() -> float:
-	# projectile_range 目前是压力读值和未来弹体系统预留边界，不代表已生成弹体。
 	return _projectile_range
 
 
@@ -66,12 +83,75 @@ func get_miasma_pressure_radius() -> float:
 	return _miasma_pressure_radius
 
 
-# 更新占位压力范围视觉；缺少节点时允许静默跳过，避免旧场景加载失败。
-func _update_pressure_visual() -> void:
-	var pressure_visual := get_node_or_null("MiasmaPressureVisual") as Polygon2D
-	if pressure_visual == null:
+func get_cast_interval() -> float:
+	return _cast_interval
+
+
+func get_projectiles_spawned_count() -> int:
+	return _projectiles_spawned
+
+
+# 玩家进入范围后按固定间隔发射一枚直线弹体；离开范围不会积攒瞬发连射。
+func _try_cast_projectile(delta: float) -> void:
+	if _player == null or not is_instance_valid(_player):
+		return
+	if _player.global_position.distance_to(global_position) > _projectile_range:
+		_cast_elapsed = minf(_cast_elapsed, _cast_interval * 0.5)
 		return
 
-	# alpha 轻微呼吸即可提示危险半径；实际伤害仍走 BaseEnemy 的触碰伤害契约。
+	_cast_elapsed += delta
+	if _cast_elapsed < _cast_interval:
+		return
+	_cast_elapsed = 0.0
+
+	var projectile := MIASMA_PROJECTILE_SCENE.instantiate() as Area2D
+	var projectile_parent := get_parent()
+	if projectile == null or projectile_parent == null:
+		return
+
+	projectile_parent.add_child(projectile)
+	var direction := (_player.global_position - global_position).normalized()
+	projectile.global_position = global_position + Vector2(0.0, -18.0) + direction * 22.0
+	projectile.call(
+		"configure",
+		direction,
+		_projectile_damage,
+		_projectile_range,
+		_projectile_speed
+	)
+	_projectiles_spawned += 1
+
+
+# 更新压力范围视觉；旧 Polygon 只保留为隐藏调试层，正式读值走腐瘴专用 VFX 子资源。
+func _update_pressure_visual() -> void:
+	var pressure_visual := get_node_or_null("MiasmaPressureVisual") as Polygon2D
+	var pressure_vfx := get_node_or_null("MiasmaPressureVfxVisual") as AnimatedSprite2D
+
 	var t := _pulse_elapsed / maxf(_pulse_interval, 0.01)
-	pressure_visual.color = Color(0.619608, 0.858824, 0.321569, 0.22 + 0.18 * sin(t * TAU))
+	if pressure_visual != null:
+		pressure_visual.visible = false
+		pressure_visual.color = Color(0.454902, 0.839216, 0.690196, 0.055 + 0.035 * sin(t * TAU))
+	if pressure_vfx != null:
+		pressure_vfx.visible = true
+		pressure_vfx.modulate = Color(1.0, 1.0, 1.0, 0.17 + 0.03 * sin(t * TAU))
+
+
+# 敌人被击败后清理压制提示，避免房间门控已清除但视觉还残留。
+func _hide_pressure_visuals() -> void:
+	var pressure_visual := get_node_or_null("MiasmaPressureVisual") as CanvasItem
+	var pressure_vfx := get_node_or_null("MiasmaPressureVfxVisual") as AnimatedSprite2D
+	if pressure_visual != null:
+		pressure_visual.visible = false
+	if pressure_vfx != null:
+		pressure_vfx.visible = false
+
+
+# 施法者清除时同步移除压力范围，并播放可见 defeat。
+func _play_defeat_animation() -> void:
+	_hide_pressure_visuals()
+	_play_runtime_animation(
+		DEFEAT_FRAMES,
+		&"miasma_caster_defeat",
+		"enemy_miasma_caster_defeat_runtime_sheet_ai02",
+		true
+	)

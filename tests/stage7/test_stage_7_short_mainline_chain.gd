@@ -8,6 +8,9 @@ const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const COMBAT_ROOM_SCENE_PATH := "res://scenes/rooms/combat_trial_room.tscn"
 const GOAL_ROOM_SCENE_PATH := "res://scenes/rooms/goal_trial_room.tscn"
+const GOAL_GATE_LOCKED_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
+const GOAL_GATE_OPEN_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres"
+const GATE_UNLOCK_VFX_FRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
 
 # goal_completed 计数用于确认目标房完成信号只发一次。
 var _goal_completed_count := 0
@@ -76,15 +79,27 @@ func test_goal_trial_room_exposes_contract_unlocks_gate_and_completes_goal() -> 
 	var player: CharacterBody2D = await _spawn_player_into_room(room, room.call("get_spawn_position", &"goal_entry"))
 	var enemy: Node2D = room.get_node_or_null("BasicMeleeEnemy") as Node2D
 	var barrier_shape: CollisionShape2D = room.get_node_or_null("GoalBarrier/CollisionShape2D") as CollisionShape2D
+	var barrier_visual: Polygon2D = room.get_node_or_null("GoalBarrier/BarrierVisual") as Polygon2D
+	var barrier_art: Sprite2D = room.get_node_or_null("GoalBarrier/BarrierArt") as Sprite2D
 	var goal_zone: Area2D = room.get_node_or_null("GoalZone") as Area2D
 
 	assert_not_null(player)
 	assert_not_null(enemy)
 	assert_not_null(barrier_shape)
+	assert_not_null(barrier_visual)
+	assert_not_null(barrier_art)
 	assert_not_null(goal_zone)
 	assert_eq(room.call("get_current_step_id"), &"goal_gate")
 	assert_false(room.call("is_goal_unlocked"))
 	assert_false(room.call("should_reset_on_player_defeat"))
+	if barrier_visual != null:
+		assert_false(barrier_visual.visible)
+	if barrier_art != null:
+		assert_eq(barrier_art.get_meta("asset_id", ""), "shrine_gate_prop_atlas_ai01")
+		assert_not_null(barrier_art.texture)
+		if barrier_art.texture != null:
+			assert_eq(barrier_art.texture.resource_path, GOAL_GATE_LOCKED_TEXTURE_PATH)
+		assert_eq(barrier_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_locked")
 
 	if room.has_signal("goal_completed"):
 		room.connect("goal_completed", Callable(self, "_on_goal_completed"))
@@ -95,6 +110,17 @@ func test_goal_trial_room_exposes_contract_unlocks_gate_and_completes_goal() -> 
 	assert_true(room.call("is_goal_unlocked"))
 	assert_true(barrier_shape.disabled)
 	assert_string_contains(str(room.call("get_current_prompt_text")), "目标")
+	if barrier_art != null:
+		assert_eq(barrier_art.texture.resource_path, GOAL_GATE_OPEN_TEXTURE_PATH)
+		assert_eq(barrier_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_open")
+	var gate_vfx := room.get_node_or_null("GoalBarrier/GateUnlockVfxArt") as AnimatedSprite2D
+	assert_not_null(gate_vfx)
+	if gate_vfx != null:
+		assert_not_null(gate_vfx.sprite_frames)
+		assert_eq(gate_vfx.sprite_frames.resource_path, GATE_UNLOCK_VFX_FRAMES_PATH)
+		assert_eq(gate_vfx.animation, &"seal_magic")
+		assert_eq(gate_vfx.get_meta("runtime_source", ""), "vfx_seal_magic_atlas_ai01.gate_unlock_feedback")
+		assert_true(gate_vfx.visible)
 
 	player.global_position = goal_zone.global_position
 	await _advance_process_frames(2)

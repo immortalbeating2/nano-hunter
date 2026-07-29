@@ -17,17 +17,23 @@ const STAGE13_RETURN_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_retur
 const STAGE13_GOAL_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
 
 
+func after_each() -> void:
+	get_tree().paused = false
+
+
 # 保护 Stage13 人工复核清单：从 Main 运行态串起入口、主路、两支路、瘴气、checkpoint 和封印门。
 func test_stage13_manual_review_checklist_runtime_closure() -> void:
 	# 这条用例把人工复核 checklist 固定成一条运行时路径：
-	# 先完成 Stage11 demo，再进入 Stage13，逐项确认危险、门控、支路和 checkpoint。
+	# 先确认 Stage11 镇妖驿厅，再进入 Stage13，逐项确认危险、门控、支路和 checkpoint。
 	var stage11_result := await Stage11GrayboxMainlineDriver.drive_mainline(self)
 	var main_scene: Node2D = _find_main_scene()
 
 	assert_not_null(main_scene)
 	assert_true(stage11_result.get("success"), stage11_result.get("failure_reason", "Stage 11 mainline failed"))
 	assert_eq(_get_room_path(main_scene), STAGE11_DEMO_END_ROOM_PATH)
-	assert_true(main_scene.call("get_demo_progress_snapshot").get("demo_completed", false))
+	var stage11_snapshot: Dictionary = main_scene.call("get_demo_progress_snapshot")
+	assert_true(stage11_snapshot.get("short_chain_completed", false))
+	assert_false(stage11_snapshot.get("demo_completed", true))
 
 	_continue_from_demo_end_to_stage13(main_scene)
 	await _advance_process_frames(4)
@@ -94,6 +100,11 @@ func _continue_from_demo_end_to_stage13(main_scene: Node2D) -> void:
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
 	var continue_zone := room.get_node_or_null("ContinueZone") as Node2D
+	var story_continue := main_scene.get_node_or_null(
+		"HUD/DemoShell/DetailPanel/MarginContainer/VBoxContainer/DetailBackButton"
+	) as Button
+	if story_continue != null and get_tree().paused:
+		story_continue.pressed.emit()
 	if player != null and continue_zone != null:
 		player.global_position = continue_zone.global_position
 
@@ -143,7 +154,7 @@ func _verify_checkpoint_recovery(main_scene: Node2D) -> bool:
 	return _get_room_path(main_scene) == STAGE13_PRESSURE_ROOM_PATH
 
 
-# 完成资源支路：进入支路、收集奖励、回到返回房。
+# 完成资源支路：进入支路、收集奖励、回到旧 checkpoint 形成安全回环。
 func _complete_resource_branch(main_scene: Node2D) -> bool:
 	var hub_room := _get_room(main_scene)
 	var player := _get_player(main_scene)
@@ -157,10 +168,10 @@ func _complete_resource_branch(main_scene: Node2D) -> bool:
 		return false
 
 	await _collect_branch_reward_and_exit(main_scene)
-	return _get_room_path(main_scene) == STAGE13_RETURN_ROOM_PATH
+	return _get_room_path(main_scene) == STAGE13_CHECKPOINT_ROOM_PATH
 
 
-# 完成挑战支路：进入挑战支路、收集奖励、回到返回房。
+# 完成挑战支路：进入挑战支路、清场收集奖励并前送到区域目标。
 func _complete_challenge_branch(main_scene: Node2D) -> bool:
 	var hub_room := _get_room(main_scene)
 	var player := _get_player(main_scene)
@@ -174,7 +185,7 @@ func _complete_challenge_branch(main_scene: Node2D) -> bool:
 		return false
 
 	await _collect_branch_reward_and_exit(main_scene)
-	return _get_room_path(main_scene) == STAGE13_RETURN_ROOM_PATH
+	return _get_room_path(main_scene) == STAGE13_GOAL_ROOM_PATH
 
 
 # 支路共用收集和出口逻辑，避免资源 / 挑战支路重复写同一段流程。

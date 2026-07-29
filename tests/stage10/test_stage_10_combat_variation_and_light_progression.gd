@@ -13,6 +13,10 @@ const AERIAL_SENTINEL_CONFIG_SCRIPT_PATH := "res://scripts/configs/aerial_sentin
 const STAGE10_MAIN_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_aerial_room.tscn"
 const STAGE10_BRANCH_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_branch_room.tscn"
 const STAGE10_CHALLENGE_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
+const STAGE10_AIR_VALUE_ART_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/007_equipment_pickup_atlas_ai01_auto_008_c01.atlas_texture.tres"
+const STAGE10_BRANCH_PICKUP_ART_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/008_equipment_pickup_atlas_ai01_auto_009_c01.atlas_texture.tres"
+const STAGE10_CHALLENGE_PICKUP_ART_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/019_equipment_pickup_atlas_ai01_auto_020_c02.atlas_texture.tres"
+const STAGE10_CHECKPOINT_ART_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/015_shrine_gate_prop_atlas_ai01_auto_016_c02.atlas_texture.tres"
 
 
 # 输入环境清理：确保空中攻击、支路触发与 HUD 读值测试都从干净状态开始。
@@ -80,6 +84,43 @@ func test_stage10_zone_adds_main_branch_and_challenge_rooms() -> void:
 	assert_true(challenge_room.call("is_challenge_reward_room"))
 
 
+# 保护 Stage10 运行态可读资产：价值点、恢复点和奖励点必须有正式 atlas 美术表达。
+func test_stage10_value_recovery_and_reward_markers_use_formal_art() -> void:
+	var main_room := await _spawn_room(STAGE10_MAIN_ROOM_SCENE_PATH)
+	var branch_room := await _spawn_room(STAGE10_BRANCH_ROOM_SCENE_PATH)
+	var challenge_room := await _spawn_room(STAGE10_CHALLENGE_ROOM_SCENE_PATH)
+
+	_assert_sprite_references_asset(
+		main_room.get_node_or_null("AirAttackValueMarker/ValueArt"),
+		STAGE10_AIR_VALUE_ART_PATH,
+		"equipment_pickup_atlas_ai01.air_dash_charm"
+	)
+	_assert_sprite_references_asset(
+		main_room.get_node_or_null("BranchZone/BranchMarkerArt"),
+		STAGE10_BRANCH_PICKUP_ART_PATH,
+		"equipment_pickup_atlas_ai01.reward_orb_small"
+	)
+	var branch_visual := main_room.get_node_or_null("BranchZone/BranchVisual") as Polygon2D
+	assert_not_null(branch_visual, "Stage10 支路触发区只保留隐藏编辑参考，运行态读值交给 BranchMarkerArt。")
+	if branch_visual != null:
+		assert_false(branch_visual.visible)
+	_assert_sprite_references_asset(
+		branch_room.get_node_or_null("RecoveryPoint/CheckpointArt"),
+		STAGE10_CHECKPOINT_ART_PATH,
+		"shrine_gate_prop_atlas_ai01.checkpoint_active"
+	)
+	_assert_sprite_references_asset(
+		branch_room.get_node_or_null("BranchCollectible/CollectibleArt"),
+		STAGE10_BRANCH_PICKUP_ART_PATH,
+		"equipment_pickup_atlas_ai01.reward_orb_small"
+	)
+	_assert_sprite_references_asset(
+		challenge_room.get_node_or_null("ChallengeCollectible/CollectibleArt"),
+		STAGE10_CHALLENGE_PICKUP_ART_PATH,
+		"equipment_pickup_atlas_ai01.boss_core_shard"
+	)
+
+
 # 保护轻量成长反馈：收集物和恢复点必须进入房间快照与 HUD 上下文。
 func test_recovery_point_and_collectibles_feed_hud_snapshot() -> void:
 	var room := await _spawn_room(STAGE10_BRANCH_ROOM_SCENE_PATH)
@@ -119,10 +160,18 @@ func test_stage10_spawn_points_land_on_room_floor() -> void:
 	for room_path in spawn_cases.keys():
 		var room := await _spawn_room(room_path)
 		var spawn_position: Vector2 = room.call("get_spawn_position", spawn_cases[room_path])
+		var terrain := room.get_node_or_null("TerrainCollisionVisual") as TileMapLayer
 
-		assert_gt(spawn_position.x, -160.0)
-		assert_lt(spawn_position.x, 352.0)
-		assert_lt(spawn_position.y, 160.0)
+		assert_not_null(terrain)
+		if terrain == null:
+			continue
+		var used := terrain.get_used_rect()
+		var first_center := terrain.to_global(terrain.map_to_local(used.position))
+		var last_cell := used.position + used.size - Vector2i.ONE
+		var last_center := terrain.to_global(terrain.map_to_local(last_cell))
+		assert_gte(spawn_position.x, first_center.x - 32.0)
+		assert_lte(spawn_position.x, last_center.x + 32.0)
+		assert_almost_eq(spawn_position.y + 20.0, first_center.y, 0.5)
 
 
 # 保护可选支路入口：玩家进入 BranchZone 后应请求切到可选支路房。
@@ -241,6 +290,21 @@ func _advance_physics_frames(frame_count: int) -> void:
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
+
+
+# 断言逻辑 marker 的可视子节点绑定到预期 AtlasTexture，并保留来源 metadata 供资产审计追踪。
+func _assert_sprite_references_asset(node: Node, expected_path: String, expected_runtime_source: String) -> void:
+	assert_not_null(node)
+
+	var sprite := node as Sprite2D
+
+	assert_not_null(sprite)
+	assert_not_null(sprite.texture)
+	assert_eq(sprite.texture.resource_path, expected_path)
+	assert_eq(sprite.get_meta("runtime_source"), expected_runtime_source)
+	assert_gt(sprite.z_index, 0)
+	assert_gt(sprite.scale.x, 0.0)
+	assert_gt(sprite.scale.y, 0.0)
 
 
 # 输入清理确保 attack action 存在，并释放当前测试涉及的全部输入。

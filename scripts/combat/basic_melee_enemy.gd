@@ -6,6 +6,7 @@ extends "res://scripts/combat/base_enemy.gd"
 
 # 配置资源让 Stage6-8 的基础敌人数值能在不改脚本的情况下稳定回归。
 const BasicEnemyConfig := preload("res://scripts/configs/basic_enemy_config.gd")
+const DEFEAT_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_basic_melee_defeat_runtime_sheet_ai02.spriteframes.tres")
 
 # 单个敌人实例可以覆盖配置资源，但运行时只读不写。
 @export var config: BasicEnemyConfig
@@ -22,6 +23,7 @@ var _patrol_elapsed := 0.0
 
 # 近战模板的运行态只有两层：读配置，然后按固定正弦巡逻。
 func _ready() -> void:
+	super._ready()
 	_apply_config()
 	_spawn_position = position
 
@@ -69,3 +71,13 @@ func get_patrol_speed() -> float:
 func get_touch_damage() -> int:
 	# 触碰伤害读值用于确认敌人仍沿用最小生命 / 受击闭环。
 	return _touch_damage
+
+
+# 基础近战敌没有伪造主动攻击，只在清除时切换非血腥倒地反馈。
+func _play_defeat_animation() -> void:
+	_play_runtime_animation(
+		DEFEAT_FRAMES,
+		&"basic_melee_defeat",
+		"enemy_basic_melee_defeat_runtime_sheet_ai02",
+		true
+	)

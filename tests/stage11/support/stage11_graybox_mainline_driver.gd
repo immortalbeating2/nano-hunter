@@ -1,7 +1,7 @@
 extends RefCounted
 
-# Stage11GrayboxMainlineDriver 负责在测试侧承载“灰盒主线自动化通关”的最小驾驶入口。
-# 它复用真实房间推进与主流程切房，只通过现有生产主线来推进到 demo 终点，
+# Stage11GrayboxMainlineDriver 负责在测试侧承载“早期灰盒主线闭环”的最小驾驶入口。
+# 它复用真实房间推进与主流程切房，只通过现有生产主线推进到镇妖驿厅，
 # 并在失败时回收足够的运行态上下文帮助定位卡点。
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
@@ -20,7 +20,7 @@ const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_r
 const STAGE9_ENTRY_SPAWN_ID: StringName = &"zone_entry_start"
 
 
-# 公开 driver 入口：加载真实 Main 场景并依次驾驶教程、战斗、Stage9/10 和 Demo 终点。
+# 公开 driver 入口：加载真实 Main 场景并依次驾驶教程、战斗、Stage9/10 和镇妖驿厅。
 static func drive_mainline(test: GutTest) -> Dictionary:
 	# 驱动入口只加载生产 Main.tscn，不拼装测试专用主流程，确保覆盖真实房间切换契约。
 	var result := _make_result()
@@ -41,8 +41,11 @@ static func drive_mainline(test: GutTest) -> Dictionary:
 		return _finalize_result(main_scene, result)
 
 	var snapshot: Dictionary = main_scene.call("get_demo_progress_snapshot")
-	if not snapshot.get("demo_completed", false):
-		result.failure_reason = "已到达 stage11 终点房，但 demo_completed 未置为 true"
+	if not snapshot.get("short_chain_completed", false):
+		result.failure_reason = "已到达 Stage11 镇妖驿厅，但 short_chain_completed 未置为 true"
+		return _finalize_result(main_scene, result)
+	if snapshot.get("demo_completed", false):
+		result.failure_reason = "Stage11 镇妖驿厅错误地提前置真 demo_completed"
 		return _finalize_result(main_scene, result)
 
 	result.success = true
@@ -174,6 +177,12 @@ static func _drive_goal_trial_room(test: GutTest, main_scene: Node2D, result: Di
 
 	player.global_position = goal_zone.global_position
 	await _advance_process_frames(test, 4)
+	var story_continue := main_scene.get_node_or_null(
+		"HUD/DemoShell/DetailPanel/MarginContainer/VBoxContainer/DetailBackButton"
+	) as Button
+	if story_continue != null and test.get_tree().paused:
+		story_continue.pressed.emit()
+		await _advance_process_frames(test, 1)
 
 	return true
 
@@ -223,18 +232,18 @@ static func _clear_switch_gate_room(test: GutTest, main_scene: Node2D, result: D
 	return await _move_player_to_exit_zone(test, main_scene, "", "")
 
 
-# 完成 Demo 终点房：移动到 GoalZone，让房间自己的完成逻辑发出 goal_completed。
+# 确认镇妖驿厅：移动到 GoalZone，让房间自己的完成逻辑发出 goal_completed。
 static func _finish_demo_end_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	result.last_strategy_step = "stage11_finish_demo"
 	var room: Node2D = _get_room(main_scene)
 	var player := _get_player(main_scene)
 	if room == null or player == null:
-		result.failure_reason = "Stage11 终点房运行态缺失"
+		result.failure_reason = "Stage11 镇妖驿厅运行态缺失"
 		return false
 
 	var goal_zone: Area2D = room.get_node_or_null("GoalZone") as Area2D
 	if goal_zone == null:
-		result.failure_reason = "Stage11 终点房缺少 GoalZone"
+		result.failure_reason = "Stage11 镇妖驿厅缺少 GoalZone"
 		return false
 
 	player.global_position = goal_zone.global_position

@@ -1,0 +1,10 @@
+Use case: ui-mockup
+Asset type: production runtime foundation for a Metroidvania discovery-map panel, landscape 3:2 canvas
+Primary request: create a beautiful, restrained Eastern-fantasy map board for Nano Hunter. This is the background and ornamental frame ONLY; live room nodes, paths, fog-of-war, labels, icons and interactions will be drawn separately by Godot.
+Scene/backdrop: an ancient dark xuan-paper map suspended in a blackened bronze and lacquer frame, with very subtle ink-wash silhouettes suggesting mountain ridges, marsh water, ruined shrine roofs and sealed forbidden land. Keep the central 82% open and calm for a dynamic 38-room graph overlay.
+Style/medium: premium hand-painted Chinese fantasy game UI, Southern and Northern Dynasties atmosphere, Shan Hai Jing ink-wash restraint, fine gongbi ornament, compatible with the visible Nano Hunter pause-panel and title-background references.
+Composition/framing: perfectly straight-on orthographic UI plate, wide rectangular 3:2 layout, even safe margins, crisp ornate frame, slightly darker corners, no perspective distortion. Sparse non-semantic terrain washes only; they must not imply fixed room positions or fixed routes.
+Lighting/mood: moonlit charcoal, muted teal ghost-light, aged ivory ink paper, restrained antique gold highlights.
+Materials/textures: fibrous xuan paper, worn black lacquer, oxidized bronze, thin talisman ribbons and lotus/seal motifs confined to the outer frame.
+Constraints: opaque complete rectangular asset; strong readability at 900x620; center remains low-noise; future nodes and route lines must remain legible; no characters.
+Avoid: any text, Chinese characters, pseudo-writing, letters, numbers, captions, title, legend, compass labels, room boxes, dots, route lines, arrows, grid, map pins, icons, buttons, UI callouts, watermark, logo, baked gameplay topology, bright white parchment, chunky Western fantasy scroll styling.

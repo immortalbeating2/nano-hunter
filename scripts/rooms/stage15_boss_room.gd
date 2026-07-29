@@ -3,16 +3,8 @@ extends "res://scripts/rooms/stage13_miasma_marsh_room_base.gd"
 # Stage15BossRoom 把既有房间契约适配成单个精英 Boss 房。
 # 它负责监听 Boss 击败、同步 Main 进度快照，并向 HUD 暴露 Boss 状态。
 
-# Main 只用于写入 Stage15 完成快照；Boss 房仍通过标准房间信号推进切房。
-var _main: Node
 # 本地击败锁防止 Boss defeated 信号和父类敌人清场回调重复触发胜利流程。
 var _boss_defeated := false
-
-
-# 接收 Main 引用，用于 Boss 击败时写入 Stage15 主流程快照。
-func bind_main(main: Node) -> void:
-	# Main 在每次换房重生玩家后重新注入，房间不主动查找场景树外部节点。
-	_main = main
 
 
 # 汇总 Boss 房 HUD 上下文，在父类字段基础上追加 Boss 生命、状态和击败标记。

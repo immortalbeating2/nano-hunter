@@ -14,12 +14,6 @@ OUT_MD = Path("docs/assets/p0-scene-replacement-batches.md")
 
 BATCH_DEFINITIONS = [
     {
-        "batch_id": "batch_00_dev_reference",
-        "title": "开发参考基线",
-        "purpose": "先保留已绑定的全局风格板作为参考基线，再进入正式玩法场景替换。",
-        "scenes": ["scenes/dev/imagegen_asset_gallery.tscn"],
-    },
-    {
         "batch_id": "batch_01_ui_shell",
         "title": "Demo 壳 UI",
         "purpose": "把 DemoShell 主菜单、暂停、重开和完成反馈相关 UI 资源作为一个可复核的 UI 壳批次处理。",
@@ -39,11 +33,11 @@ BATCH_DEFINITIONS = [
     },
     {
         "batch_id": "batch_04_boss_core",
-        "title": "Seal Guardian Boss 核心",
-        "purpose": "把 Seal Guardian Boss、本体预警和 Boss 房间读值资源放在同一批次替换。",
+        "title": "Seal Guardian 与封印压力",
+        "purpose": "把 Seal Guardian 本体与 Stage15 封印压力符印资源放在同一批次复核。",
         "scenes": [
             "scenes/enemies/seal_guardian_boss.tscn",
-            "scenes/rooms/stage15_seal_guardian_boss_room.tscn",
+            "scenes/rooms/stage15_seal_pressure_room.tscn",
         ],
     },
     {
@@ -52,31 +46,20 @@ BATCH_DEFINITIONS = [
         "purpose": "替换 Stage14 能力循环中的 Air Dash shrine、gate、trail 和能力读值道具。",
         "scenes": [
             "scenes/rooms/stage14_air_dash_shrine_room.tscn",
-            "scenes/rooms/stage14_air_dash_gate_room.tscn",
         ],
     },
     {
         "batch_id": "batch_06_stage16_end_chain",
         "title": "Stage16 终局链路",
-        "purpose": "把 Alpha Demo 终点、talisman relay 和 corruption purge 资源作为终局流程反馈批次处理。",
+        "purpose": "把阈值释放、Stage15 完成回声、回溯确认、Alpha Demo 终点、relay 和 purge 作为终局反馈批次处理。",
         "scenes": [
             "scenes/rooms/stage16_seal_release_threshold_room.tscn",
+            "scenes/rooms/stage15_completion_room.tscn",
+            "scenes/rooms/stage16_backtrack_confirmation_room.tscn",
             "scenes/rooms/stage16_alpha_demo_end_room.tscn",
             "scenes/rooms/stage16_talisman_relay_room.tscn",
             "scenes/rooms/stage16_corruption_purge_room.tscn",
         ],
-    },
-    {
-        "batch_id": "batch_07_stage13_tileset",
-        "title": "Stage13 TileSet 房间",
-        "purpose": "在 tile 碰撞、危险区域和读值复核后，再单独替换瘴泽 TileSet。",
-        "scenes": ["scenes/rooms/stage13_miasma_marsh_entry_room.tscn"],
-    },
-    {
-        "batch_id": "batch_08_combat_enemy_animation",
-        "title": "战斗敌人动画",
-        "purpose": "等玩家和 Boss 动画复核稳定后，再替换共享战斗敌人动画引用。",
-        "scenes": ["scenes/combat/basic_melee_enemy.tscn"],
     },
 ]
 
@@ -125,9 +108,11 @@ def build_batches(matrix: dict[str, Any]) -> dict[str, Any]:
     total_planned = 0
     total_already = 0
 
-    for order, definition in enumerate(BATCH_DEFINITIONS):
-        scene_paths = list(definition["scenes"])
-        batch_scenes = [scenes_by_path[path] for path in scene_paths if path in scenes_by_path]
+    for definition in BATCH_DEFINITIONS:
+        scene_paths = [path for path in definition["scenes"] if path in scenes_by_path]
+        if not scene_paths:
+            continue
+        batch_scenes = [scenes_by_path[path] for path in scene_paths]
         covered_scenes.update(str(scene.get("scene", "")) for scene in batch_scenes)
 
         validation_commands: list[str] = []
@@ -136,7 +121,7 @@ def build_batches(matrix: dict[str, Any]) -> dict[str, Any]:
         scene_asset_reference_count = 0
         planned_count = 0
         already_count = 0
-        missing_scenes = [path for path in scene_paths if path not in scenes_by_path or not scenes_by_path[path].get("exists")]
+        missing_scenes = [path for path in scene_paths if not scenes_by_path[path].get("exists")]
 
         for scene in batch_scenes:
             add_counts(risk_counts, scene.get("risk_counts", {}))
@@ -158,7 +143,7 @@ def build_batches(matrix: dict[str, Any]) -> dict[str, Any]:
         batches.append(
             {
                 "batch_id": definition["batch_id"],
-                "recommended_order": order,
+                "recommended_order": len(batches),
                 "title": definition["title"],
                 "purpose": definition["purpose"],
                 "status": "planned_scene_replacement_batch",

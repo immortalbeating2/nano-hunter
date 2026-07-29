@@ -1,8 +1,8 @@
 extends GutTest
 const Stage11GrayboxMainlineDriver := preload("res://tests/stage11/support/stage11_graybox_mainline_driver.gd")
 
-# 阶段 11 回归测试保护“可交付试玩 Demo 切片”的最小闭环。
-# 它覆盖主线终点、支路返回主线、HUD 完成反馈，以及终点房失败后的重来落点。
+# 阶段 11 回归测试保护早期主线抵达镇妖驿厅的最小闭环。
+# 它覆盖主线中继、支路返回、HUD 通路反馈，以及驿厅失败后的恢复落点。
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const STAGE10_MAIN_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_aerial_room.tscn"
@@ -11,7 +11,7 @@ const STAGE10_CHALLENGE_ROOM_SCENE_PATH := "res://scenes/rooms/stage10_zone_chal
 const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 
 
-# 保护灰盒主线 driver：从 Main 起点自动推进必须能抵达 Demo 终点。
+# 保护灰盒主线 driver：从 Main 起点自动推进必须能抵达镇妖驿厅。
 func test_stage11_graybox_driver_can_finish_mainline_from_main_scene() -> void:
 	var result: Dictionary = await Stage11GrayboxMainlineDriver.drive_mainline(self)
 
@@ -27,7 +27,7 @@ func test_stage11_graybox_driver_can_finish_mainline_from_main_scene() -> void:
 	)
 
 
-# 保护 Stage10 主线出口：挑战房完成后必须能进入 Stage11 Demo 终点房。
+# 保护 Stage10 主线出口：挑战房完成后必须能进入 Stage11 镇妖驿厅。
 func test_stage11_mainline_can_progress_from_stage10_into_demo_end_room() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -52,7 +52,7 @@ func test_stage11_mainline_can_progress_from_stage10_into_demo_end_room() -> voi
 	assert_eq(demo_end_room.scene_file_path, STAGE11_DEMO_END_ROOM_SCENE_PATH)
 
 
-# 保护支路回主线：从 Stage10 支路返回主房后仍能继续到挑战房和 Demo 终点。
+# 保护支路回主线：从 Stage10 支路返回主房后仍能继续到挑战房和镇妖驿厅。
 func test_stage11_branch_room_can_return_to_mainline_and_still_reach_demo_end() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -81,8 +81,8 @@ func test_stage11_branch_room_can_return_to_mainline_and_still_reach_demo_end() 
 	assert_eq((main_scene.get_node_or_null("Room") as Node2D).scene_file_path, STAGE11_DEMO_END_ROOM_SCENE_PATH)
 
 
-# 保护 Demo 完成反馈：终点房完成后 Main 快照和 HUD 都要显示完成状态。
-func test_stage11_demo_completion_updates_main_snapshot_and_hud_feedback() -> void:
+# 保护驿厅确认反馈：Stage11 只完成短链，完整 Demo 仍保持未完成。
+func test_stage11_waystation_updates_short_chain_snapshot_and_hud_feedback() -> void:
 	var main_scene := await _spawn_main_scene()
 
 	main_scene.call("transition_to_room", STAGE11_DEMO_END_ROOM_SCENE_PATH, &"stage11_demo_end_start")
@@ -97,13 +97,14 @@ func test_stage11_demo_completion_updates_main_snapshot_and_hud_feedback() -> vo
 	var snapshot: Dictionary = main_scene.call("get_demo_progress_snapshot")
 	var progress_label: Label = main_scene.get_node_or_null("HUD/TutorialHUD/BattlePanel/ProgressLabel") as Label
 
-	assert_true(snapshot.get("demo_completed", false))
+	assert_true(snapshot.get("short_chain_completed", false))
+	assert_false(snapshot.get("demo_completed", true))
 	assert_not_null(progress_label)
-	assert_string_contains(progress_label.text, "Demo")
-	assert_string_contains(progress_label.text, "完成")
+	assert_string_contains(progress_label.text, "驿厅")
+	assert_string_contains(progress_label.text, "通路")
 
 
-# 保护终点房 checkpoint：玩家在 Demo 终点死亡后应重生在同一终点房。
+# 保护驿厅 checkpoint：玩家在镇妖驿厅死亡后应重生在同一房间。
 func test_stage11_player_defeat_in_demo_end_room_respawns_at_demo_end_checkpoint() -> void:
 	var main_scene := await _spawn_main_scene()
 
@@ -135,7 +136,7 @@ func _spawn_main_scene() -> Node2D:
 	return main_scene
 
 
-# 主动打空玩家生命，用于验证 Demo 终点房的 checkpoint 恢复。
+# 主动打空玩家生命，用于验证镇妖驿厅的 checkpoint 恢复。
 func _defeat_player(player: CharacterBody2D) -> void:
 	for _i in range(3):
 		await _advance_physics_frames(24)

@@ -17,6 +17,7 @@ const STATE_IDLE: StringName = &"idle"
 const STATE_CLOSE_PRESSURE: StringName = &"close_pressure"
 const STATE_GROUND_IMPACT: StringName = &"ground_impact"
 const STATE_AIR_PUNISH: StringName = &"air_punish"
+const STATE_RECOVERY: StringName = &"recovery"
 const STATE_STAGGERED: StringName = &"staggered"
 const STATE_DEFEATED: StringName = &"defeated"
 
@@ -24,6 +25,7 @@ const STATE_DEFEATED: StringName = &"defeated"
 const SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres")
 const SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_warning_runtime_sheet_ai01.spriteframes.tres")
 const SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.spriteframes.tres")
+const SEAL_GUARDIAN_STAGGER_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.spriteframes.tres")
 const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres")
 const SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres")
 
@@ -69,6 +71,7 @@ var _last_knockback_force := 0.0
 # 场景实例化后统一初始化 Boss 状态，保证测试直接实例化和房间加载一致。
 func _ready() -> void:
 	# 场景实例化后统一走 reset_boss，保证测试直接实例化和房间加载获得同一份初始状态。
+	_prepare_runtime_visual_stack()
 	reset_boss()
 
 
@@ -80,6 +83,9 @@ func _physics_process(delta: float) -> void:
 	_update_hit_flash(delta)
 	_update_phase()
 	_update_attack_loop(delta)
+	if current_state == STATE_GROUND_IMPACT or current_state == STATE_AIR_PUNISH or current_state == STATE_RECOVERY:
+		_sync_runtime_animation_visual()
+		_sync_attack_vfx_visual()
 
 
 # 接收 Boss 房注入的玩家引用，用于距离触发、空中惩罚和伤害方向计算。
@@ -124,9 +130,27 @@ func reset_boss() -> void:
 	if _collision_shape != null:
 		_collision_shape.disabled = false
 	_enter_state(STATE_IDLE)
+	_sync_runtime_animation_visual()
+	_sync_attack_vfx_visual()
 	health_changed.emit(current_health, max_health)
 	guard_changed.emit(current_guard, max_guard)
 	phase_changed.emit(_phase_index)
+
+
+# Boss 使用正式 runtime sheet 后，旧 polygon 构图和静态方向图只作为隐藏编辑参照，避免运行时与正式动画重叠。
+func _prepare_runtime_visual_stack() -> void:
+	if _runtime_animation_visual == null:
+		return
+
+	for node_name: String in [
+		"Body",
+		"SealHalo",
+		"GuardianMask",
+		"Stage15SealMark",
+	]:
+		var legacy_visual := get_node_or_null(node_name) as CanvasItem
+		if legacy_visual != null:
+			legacy_visual.visible = false
 
 
 # 公开 Boss 是否已击败，房间胜利流程只依赖该稳定读值。
@@ -203,9 +227,9 @@ func get_status_snapshot() -> Dictionary:
 	}
 
 
-# 推进 Boss 的简化线性状态机：预警、出招、硬直、待机。
+# 推进 Boss 的简化线性状态机：预警、出招、恢复、待机；护印击破另走独立硬直。
 func _update_attack_loop(delta: float) -> void:
-	# 状态机保持线性节奏：接近预警、出招、短暂硬直、回到待机。
+	# 正常攻击恢复与 guard-break 硬直使用独立计时，避免恢复动作落入隐藏分支。
 	match current_state:
 		STATE_IDLE:
 			if _can_start_attack():
@@ -216,17 +240,28 @@ func _update_attack_loop(delta: float) -> void:
 				_enter_state(_choose_strike_state())
 		STATE_GROUND_IMPACT, STATE_AIR_PUNISH:
 			_state_elapsed += delta
-			if not _strike_has_dealt_damage:
+			if _state_elapsed >= strike_duration and not _strike_has_dealt_damage:
 				_strike_has_dealt_damage = true
 				_deal_strike_damage()
-			if _state_elapsed >= strike_duration:
-				_enter_state(STATE_STAGGERED)
-		STATE_STAGGERED:
+				_enter_state(STATE_RECOVERY)
+		STATE_RECOVERY:
 			_state_elapsed += delta
 			if _state_elapsed >= _get_phase_adjusted_recovery_duration():
-				current_guard = max_guard
-				guard_changed.emit(current_guard, max_guard)
-				_enter_state(STATE_IDLE)
+				_restore_guard_and_idle()
+		STATE_STAGGERED:
+			_state_elapsed += delta
+			if _state_elapsed >= stagger_duration:
+				_restore_guard_and_idle()
+		_:
+			push_error("Seal Guardian entered unknown state: %s" % current_state)
+			_enter_state(STATE_IDLE)
+
+
+# 正常恢复或护印击破结束后统一恢复 guard，再回到 idle。
+func _restore_guard_and_idle() -> void:
+	current_guard = max_guard
+	guard_changed.emit(current_guard, max_guard)
+	_enter_state(STATE_IDLE)
 
 
 # 判断玩家是否进入压迫距离，控制 Boss 是否从待机进入预警。
@@ -374,6 +409,8 @@ func _refresh_body_color() -> void:
 			_body_canvas.set("color", windup_color)
 		STATE_GROUND_IMPACT, STATE_AIR_PUNISH:
 			_body_canvas.set("color", strike_color)
+		STATE_RECOVERY:
+			_body_canvas.set("color", strike_color.lerp(idle_color, 0.45))
 		STATE_STAGGERED:
 			_body_canvas.set("color", stagger_color)
 		STATE_DEFEATED:
@@ -382,7 +419,7 @@ func _refresh_body_color() -> void:
 			_body_canvas.set("color", idle_color)
 
 
-# 按状态切换已通过审查的运行态动作；攻击状态只显示 clean body，不承载伤害 / VFX 判定。
+# 按状态切换已通过审查的运行态动作；strike / recovery 由玩法相位手动选择前后四帧。
 func _sync_runtime_animation_visual() -> void:
 	if _runtime_animation_visual == null:
 		return
@@ -390,6 +427,7 @@ func _sync_runtime_animation_visual() -> void:
 	var target_frames: SpriteFrames = null
 	var target_animation: StringName = &""
 	var target_asset_id := ""
+	var manual_frame := -1
 	match current_state:
 		STATE_IDLE:
 			target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
@@ -403,29 +441,56 @@ func _sync_runtime_animation_visual() -> void:
 			target_frames = SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES
 			target_animation = &"attack_body"
 			target_asset_id = "seal_guardian_attack_body_runtime_sheet_ai02"
+			manual_frame = _map_attack_contract_frame(0, 3, strike_duration)
+		STATE_RECOVERY:
+			target_frames = SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES
+			target_animation = &"attack_body"
+			target_asset_id = "seal_guardian_attack_body_runtime_sheet_ai02"
+			manual_frame = _map_attack_contract_frame(4, 7, _get_phase_adjusted_recovery_duration())
+		STATE_STAGGERED:
+			target_frames = SEAL_GUARDIAN_STAGGER_RUNTIME_SPRITEFRAMES
+			target_animation = &"staggered"
+			target_asset_id = "seal_guardian_stagger_runtime_sheet_ai01"
 		STATE_DEFEATED:
 			target_frames = SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES
 			target_animation = &"defeat"
 			target_asset_id = "seal_guardian_defeat_runtime_sheet_ai01"
 		_:
-			_runtime_animation_visual.visible = false
-			return
+			push_error("Seal Guardian runtime animation has no state mapping: %s" % current_state)
+			target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
+			target_animation = &"idle"
+			target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
 
 	_runtime_animation_visual.visible = true
+	var clip_changed := false
 	if _runtime_animation_visual.sprite_frames != target_frames:
 		_runtime_animation_visual.sprite_frames = target_frames
+		clip_changed = true
 	if _runtime_animation_visual.animation != target_animation:
 		_runtime_animation_visual.animation = target_animation
+		clip_changed = true
 	_runtime_animation_visual.set_meta("asset_id", target_asset_id)
-	_runtime_animation_visual.play(target_animation)
+	if manual_frame >= 0:
+		_runtime_animation_visual.pause()
+		_runtime_animation_visual.frame = manual_frame
+	elif clip_changed or not _runtime_animation_visual.is_playing():
+		_runtime_animation_visual.play(target_animation)
 
 
-# Boss attack VFX 只跟随攻击状态显示，不参与 AttackArea、碰撞、伤害或状态判定。
+# 把当前状态已过时间稳定映射到闭区间帧段，避免自然播放超出 gameplay window。
+func _map_attack_contract_frame(first_frame: int, last_frame: int, duration: float) -> int:
+	var frame_count := last_frame - first_frame + 1
+	var progress := clampf(_state_elapsed / maxf(duration, 0.001), 0.0, 0.9999)
+	return mini(first_frame + int(floor(progress * frame_count)), last_frame)
+
+
+# Boss attack VFX 与 body 使用同一 strike / recovery 帧段，但不参与碰撞、伤害或状态判定。
 func _sync_attack_vfx_visual() -> void:
 	if _attack_vfx_visual == null:
 		return
 
-	var should_show := current_state == STATE_GROUND_IMPACT or current_state == STATE_AIR_PUNISH
+	var is_strike := current_state == STATE_GROUND_IMPACT or current_state == STATE_AIR_PUNISH
+	var should_show := is_strike or current_state == STATE_RECOVERY
 	if not should_show:
 		_attack_vfx_visual.visible = false
 		_attack_vfx_visual.stop()
@@ -439,4 +504,9 @@ func _sync_attack_vfx_visual() -> void:
 	_attack_vfx_visual.set_meta("asset_id", "seal_guardian_attack_vfx_atlas_ai01")
 	_attack_vfx_visual.set_meta("gameplay_collision", false)
 	_attack_vfx_visual.set_meta("damage_source", false)
-	_attack_vfx_visual.play(&"boss_attack_vfx")
+	_attack_vfx_visual.pause()
+	_attack_vfx_visual.frame = (
+		_map_attack_contract_frame(0, 3, strike_duration)
+		if is_strike
+		else _map_attack_contract_frame(4, 7, _get_phase_adjusted_recovery_duration())
+	)

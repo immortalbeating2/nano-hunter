@@ -12,7 +12,7 @@ class_name PlayerConfig
 @export var air_acceleration: float = 700.0
 
 # 跳跃参数覆盖起跳、短跳、上升 / 下落重力和最大下落速度。
-@export var jump_velocity: float = -340.0
+@export var jump_velocity: float = -420.0
 @export_range(0.1, 1.0, 0.05) var jump_cut_ratio: float = 0.25
 @export var rise_gravity: float = 950.0
 @export var fall_gravity: float = 1350.0
@@ -45,6 +45,7 @@ class_name PlayerConfig
 
 # 受击无敌帧和击退参数决定失败重试前的容错感。
 @export var damage_invulnerability_duration: float = 0.35
+@export var hit_react_visual_duration: float = 0.20
 @export var damage_knockback_speed: float = 260.0
 @export var damage_knockback_lift: float = -150.0
 @export var damage_flash_color: Color = Color(1.0, 0.756863, 0.756863, 1.0)

@@ -1,7 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/test_room.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/combat/training_dummy.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_nnide"]
+[ext_resource type="Script" path="res://scripts/combat/training_dummy.gd" id="5_betf1"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="7_vf0v6"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="nh_bg"]
+[ext_resource type="Texture2D" path="res://assets/art/textures/material_texture_atlas_ai01.png" id="nh_mat"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(384, 32)
@@ -18,95 +23,261 @@ size = Vector2(88, 32)
 [sub_resource type="RectangleShape2D" id="5"]
 size = Vector2(96, 8)
 
-[node name="TestRoom" type="Node2D"]
+[node name="TestRoom" type="Node2D" unique_id=1483885177]
 script = ExtResource("1")
 
-[node name="Backdrop" type="Polygon2D" parent="."]
+[node name="Backdrop" type="Polygon2D" parent="." unique_id=858859081]
+z_index = -4
 color = Color(0.0745098, 0.129412, 0.219608, 1)
-polygon = PackedVector2Array(-512, -192, 512, -192, 512, 192, -512, 192)
+polygon = PackedVector2Array(-520, -296, 520, -296, 520, 296, -520, 296)
 
-[node name="Floor" type="StaticBody2D" parent="."]
+[node name="DemoBackgroundArt" type="Sprite2D" parent="." unique_id=565408794]
+modulate = Color(1, 1, 1, 0.5)
+z_index = -3
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("nh_bg")
+metadata/asset_binding_note = "single_sprite_test_sandbox_coverage"
+
+[node name="MaterialTextureArt" type="Sprite2D" parent="." unique_id=1234533605]
+visible = false
+modulate = Color(1, 1, 1, 0.18)
+position = Vector2(160, 144)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("nh_mat")
+metadata/asset_id = "material_texture_atlas_ai01"
+metadata/asset_binding_note = "full_content_demo_terrain_material_decor"
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=581924853]
 position = Vector2(-320, 160)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1638234654]
 shape = SubResource("1")
 
-[node name="FloorVisual" type="Polygon2D" parent="Floor"]
-color = Color(0.294118, 0.231373, 0.164706, 1)
+[node name="FloorVisual" type="Polygon2D" parent="Floor" unique_id=1978258004]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-192, -16, 192, -16, 192, 16, -192, 16)
+metadata/asset_binding_note = "shape_exact_visual_surface_for_test_sandbox"
 
-[node name="FloorRight" type="StaticBody2D" parent="."]
+[node name="FloorTopEdge" type="Polygon2D" parent="Floor" unique_id=1967855318]
+z_index = 2
+color = Color(0.58, 0.62, 0.61, 0.9)
+polygon = PackedVector2Array(-192, -20, 192, -20, 192, -12, -192, -12)
+metadata/asset_binding_note = "shape_bound_surface_edge"
+
+[node name="LeftCap" type="Polygon2D" parent="Floor/FloorTopEdge" unique_id=679281971]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(-196, -16, -188, -16, -188, -4, -196, -4)
+
+[node name="RightCap" type="Polygon2D" parent="Floor/FloorTopEdge" unique_id=1230034373]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(188, -16, 196, -16, 196, -4, 188, -4)
+
+[node name="FloorRight" type="StaticBody2D" parent="." unique_id=328760014]
 position = Vector2(320, 160)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorRight" unique_id=882182579]
 shape = SubResource("1")
 
-[node name="FloorVisual" type="Polygon2D" parent="FloorRight"]
-color = Color(0.294118, 0.231373, 0.164706, 1)
+[node name="FloorVisual" type="Polygon2D" parent="FloorRight" unique_id=1661954391]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-192, -16, 192, -16, 192, 16, -192, 16)
+metadata/asset_binding_note = "shape_exact_visual_surface_for_test_sandbox"
 
-[node name="LeftWall" type="StaticBody2D" parent="."]
+[node name="FloorTopEdge" type="Polygon2D" parent="FloorRight" unique_id=1294506192]
+z_index = 2
+color = Color(0.58, 0.62, 0.61, 0.9)
+polygon = PackedVector2Array(-192, -20, 192, -20, 192, -12, -192, -12)
+metadata/asset_binding_note = "shape_bound_surface_edge"
+
+[node name="LeftCap" type="Polygon2D" parent="FloorRight/FloorTopEdge" unique_id=835260731]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(-196, -16, -188, -16, -188, -4, -196, -4)
+
+[node name="RightCap" type="Polygon2D" parent="FloorRight/FloorTopEdge" unique_id=2107596736]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(188, -16, 196, -16, 196, -4, 188, -4)
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=965379629]
 position = Vector2(-496, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=990944731]
 shape = SubResource("2")
 
-[node name="LeftWallVisual" type="Polygon2D" parent="LeftWall"]
-color = Color(0.184314, 0.262745, 0.333333, 1)
+[node name="LeftWallVisual" type="Polygon2D" parent="LeftWall" unique_id=1823434151]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-16, -192, 16, -192, 16, 192, -16, 192)
+metadata/asset_binding_note = "shape_exact_wall_mass_for_test_sandbox"
 
-[node name="RightWall" type="StaticBody2D" parent="."]
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=2136891725]
 position = Vector2(496, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=282727248]
 shape = SubResource("2")
 
-[node name="RightWallVisual" type="Polygon2D" parent="RightWall"]
-color = Color(0.184314, 0.262745, 0.333333, 1)
+[node name="RightWallVisual" type="Polygon2D" parent="RightWall" unique_id=1914421986]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-16, -192, 16, -192, 16, 192, -16, 192)
+metadata/asset_binding_note = "shape_exact_wall_mass_for_test_sandbox"
 
-[node name="MidPlatform" type="StaticBody2D" parent="."]
+[node name="MidPlatform" type="StaticBody2D" parent="." unique_id=389976961]
 position = Vector2(196, 48)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MidPlatform"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MidPlatform" unique_id=1102541072]
 shape = SubResource("3")
 
-[node name="PlatformVisual" type="Polygon2D" parent="MidPlatform"]
-color = Color(0.423529, 0.364706, 0.247059, 1)
+[node name="PlatformVisual" type="Polygon2D" parent="MidPlatform" unique_id=779587026]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-112, -12, 112, -12, 112, 12, -112, 12)
+metadata/asset_binding_note = "shape_exact_visual_surface_for_test_sandbox"
 
-[node name="DashGapLeft" type="StaticBody2D" parent="."]
+[node name="PlatformTopEdge" type="Polygon2D" parent="MidPlatform" unique_id=377635694]
+z_index = 2
+color = Color(0.58, 0.62, 0.61, 0.9)
+polygon = PackedVector2Array(-112, -16, 112, -16, 112, -8, -112, -8)
+metadata/asset_binding_note = "shape_bound_surface_edge"
+
+[node name="LeftCap" type="Polygon2D" parent="MidPlatform/PlatformTopEdge" unique_id=1241154888]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(-116, -12, -108, -12, -108, 0, -116, 0)
+
+[node name="RightCap" type="Polygon2D" parent="MidPlatform/PlatformTopEdge" unique_id=1135894301]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(108, -12, 116, -12, 116, 0, 108, 0)
+
+[node name="DashGapLeft" type="StaticBody2D" parent="." unique_id=244539159]
 position = Vector2(-64, 160)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGapLeft"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGapLeft" unique_id=1060129812]
 shape = SubResource("4")
 
-[node name="PlatformVisual" type="Polygon2D" parent="DashGapLeft"]
-color = Color(0.470588, 0.4, 0.243137, 1)
+[node name="PlatformVisual" type="Polygon2D" parent="DashGapLeft" unique_id=351646615]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-44, -16, 44, -16, 44, 16, -44, 16)
+metadata/asset_binding_note = "shape_exact_visual_surface_for_test_sandbox"
 
-[node name="DashGapRight" type="StaticBody2D" parent="."]
+[node name="PlatformTopEdge" type="Polygon2D" parent="DashGapLeft" unique_id=1077440603]
+z_index = 2
+color = Color(0.58, 0.62, 0.61, 0.9)
+polygon = PackedVector2Array(-44, -20, 44, -20, 44, -12, -44, -12)
+metadata/asset_binding_note = "shape_bound_surface_edge"
+
+[node name="LeftCap" type="Polygon2D" parent="DashGapLeft/PlatformTopEdge" unique_id=6985994]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(-48, -16, -40, -16, -40, -4, -48, -4)
+
+[node name="RightCap" type="Polygon2D" parent="DashGapLeft/PlatformTopEdge" unique_id=1719934880]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(40, -16, 48, -16, 48, -4, 40, -4)
+
+[node name="DashGapRight" type="StaticBody2D" parent="." unique_id=848838867]
 position = Vector2(64, 160)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGapRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGapRight" unique_id=1029344280]
 shape = SubResource("4")
 
-[node name="PlatformVisual" type="Polygon2D" parent="DashGapRight"]
-color = Color(0.470588, 0.4, 0.243137, 1)
+[node name="PlatformVisual" type="Polygon2D" parent="DashGapRight" unique_id=1184393155]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-44, -16, 44, -16, 44, 16, -44, 16)
+metadata/asset_binding_note = "shape_exact_visual_surface_for_test_sandbox"
 
-[node name="DashGateCeiling" type="StaticBody2D" parent="."]
+[node name="PlatformTopEdge" type="Polygon2D" parent="DashGapRight" unique_id=1837285449]
+z_index = 2
+color = Color(0.58, 0.62, 0.61, 0.9)
+polygon = PackedVector2Array(-44, -20, 44, -20, 44, -12, -44, -12)
+metadata/asset_binding_note = "shape_bound_surface_edge"
+
+[node name="LeftCap" type="Polygon2D" parent="DashGapRight/PlatformTopEdge" unique_id=1653092676]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(-48, -16, -40, -16, -40, -4, -48, -4)
+
+[node name="RightCap" type="Polygon2D" parent="DashGapRight/PlatformTopEdge" unique_id=218648061]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(40, -16, 48, -16, 48, -4, 40, -4)
+
+[node name="DashGateCeiling" type="StaticBody2D" parent="." unique_id=309693769]
 position = Vector2(0, 90)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGateCeiling"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashGateCeiling" unique_id=1991350393]
 shape = SubResource("5")
 
-[node name="CeilingVisual" type="Polygon2D" parent="DashGateCeiling"]
-color = Color(0.239216, 0.309804, 0.376471, 1)
+[node name="CeilingVisual" type="Polygon2D" parent="DashGateCeiling" unique_id=2135361338]
+texture_repeat = 2
+color = Color(0.34, 0.38, 0.39, 0.62)
+texture = ExtResource("4_nnide")
 polygon = PackedVector2Array(-48, -4, 48, -4, 48, 4, -48, 4)
+metadata/asset_binding_note = "shape_exact_visual_surface_for_test_sandbox"
 
-[node name="TrainingDummy" parent="." instance=ExtResource("2")]
+[node name="CeilingBottomEdge" type="Polygon2D" parent="DashGateCeiling" unique_id=1413163456]
+z_index = 2
+color = Color(0.58, 0.62, 0.61, 0.9)
+polygon = PackedVector2Array(-48, 0, 48, 0, 48, 8, -48, 8)
+metadata/asset_binding_note = "shape_bound_surface_edge"
+
+[node name="LeftCap" type="Polygon2D" parent="DashGateCeiling/CeilingBottomEdge" unique_id=519794918]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(-52, 4, -44, 4, -44, -8, -52, -8)
+
+[node name="RightCap" type="Polygon2D" parent="DashGateCeiling/CeilingBottomEdge" unique_id=1148669885]
+z_index = 2
+color = Color(0.5104, 0.5456, 0.5368, 0.9)
+polygon = PackedVector2Array(44, 4, 52, 4, 52, -8, 44, -8)
+
+[node name="TrainingDummy" type="StaticBody2D" parent="." unique_id=319555405 instance=ExtResource("2")]
 position = Vector2(-208, 136)
+script = ExtResource("5_betf1")
 
-[node name="DashCombatDummy" parent="." instance=ExtResource("2")]
+[node name="DashCombatDummy" type="StaticBody2D" parent="." unique_id=61561063 instance=ExtResource("2")]
 position = Vector2(56, 136)
+script = ExtResource("5_betf1")
+
+[node name="GoalVisual" type="Polygon2D" parent="." unique_id=451405360]
+visible = false
+color = Color(0.564706, 0.784314, 0.737255, 0.025)
+polygon = PackedVector2Array(392, 32, 472, 32, 472, 152, 392, 152)
+metadata/asset_binding_note = "dac_subtle_trigger_readability_marker"
+
+[node name="FormalTerrainTilemapDecor" type="TileMapLayer" parent="." unique_id=605026520]
+visible = false
+modulate = Color(1, 1, 1, 0.92)
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD4/wIAAAAAAAMAAAD5/wIAAAABAAMAAAD6/wIAAAACAAMAAAD7/wIAAAADAAMAAAD8/wIAAAAEAAMAAAD9/wIAAAAFAAMAAAACAAIAAAAAAAMAAAADAAIAAAABAAMAAAAEAAIAAAACAAMAAAAFAAIAAAADAAMAAAAGAAIAAAAEAAMAAAAHAAIAAAAFAAMAAAABAAAA//////////8CAAAA//////////8DAAAA//////////8EAAAA///////////+/wIA/////////////wIA//////////8AAAIA//////////8BAAIA/////////////wEA//////////8AAAEA//////////8=")
+tile_set = ExtResource("7_vf0v6")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_imagegen_tileset_terrain_decor"
+
+[node name="FormalForegroundEdgeDecor" type="TileMapLayer" parent="." unique_id=362920673]
+visible = false
+modulate = Color(1, 1, 1, 0.46)
+z_index = 2
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAD7/wEA//////////8DAAEA//////////8HAAEA//////////8BAP/////////////4/wEAAAADAAQAAAACAAEAAAADAAQAAAA=")
+tile_set = ExtResource("7_vf0v6")
+collision_enabled = false
+metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
+metadata/asset_binding_note = "dac_formal_foreground_edge_decor"

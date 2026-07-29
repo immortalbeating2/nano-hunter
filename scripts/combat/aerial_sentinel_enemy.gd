@@ -7,6 +7,7 @@ extends "res://scripts/combat/base_enemy.gd"
 
 # 配置资源只保存悬浮和伤害参数，保持空中敌人仍是轻量普通敌。
 const AerialSentinelEnemyConfig := preload("res://scripts/configs/aerial_sentinel_enemy_config.gd")
+const DEFEAT_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_defeat_runtime_sheet_ai02.spriteframes.tres")
 
 # 场景可替换配置资源；运行时不回写配置。
 @export var config: AerialSentinelEnemyConfig
@@ -24,6 +25,7 @@ var _hover_elapsed := 0.0
 
 # 运行态保持单一节奏：围绕出生点做悬浮摆动，并持续转发触碰伤害。
 func _ready() -> void:
+	super._ready()
 	_apply_config()
 	_spawn_position = position
 
@@ -67,3 +69,13 @@ func get_air_attack_lane_height() -> float:
 func get_touch_damage() -> int:
 	# 触碰伤害仍由 BaseEnemy 统一处理，getter 只暴露同步后的配置结果。
 	return _touch_damage
+
+
+# 空中敌击败后只切换可见 defeat，不借此增加俯冲、弹体或额外碰撞。
+func _play_defeat_animation() -> void:
+	_play_runtime_animation(
+		DEFEAT_FRAMES,
+		&"aerial_sentinel_defeat",
+		"enemy_aerial_sentinel_defeat_runtime_sheet_ai02",
+		true
+	)

@@ -207,11 +207,12 @@ def build_report(root: Path, queue_path: Path, candidate_pool_path: Path, proven
             resolved_candidate = resolve_path(root, candidate_path)
             status = "unknown_or_unsafe"
             reasons: list[str] = []
+            notes: list[str] = []
             evidence: dict[str, Any] = {}
             if not candidate_path.startswith("assets/source/ai_generated/"):
                 reasons.append("candidate is outside assets/source/ai_generated")
             if not resolved_candidate.exists():
-                reasons.append("candidate file is missing")
+                notes.append("candidate file is not in ordinary Git; raw candidates may be stored outside the repo")
             if candidate_path not in record_candidate_paths:
                 reasons.append("candidate is missing from provenance candidate_hashes")
             if reasons:
@@ -226,6 +227,7 @@ def build_report(root: Path, queue_path: Path, candidate_pool_path: Path, proven
                     "path": candidate_path,
                     "status": status,
                     "reasons": reasons,
+                    "notes": notes,
                     **evidence,
                 }
             )
@@ -266,6 +268,7 @@ def build_report(root: Path, queue_path: Path, candidate_pool_path: Path, proven
         "summary": {
             "queue_item_count": len(queue_items),
             "candidate_count": candidate_count,
+            "candidate_storage_policy": "raw_candidates_optional_outside_git",
             "classification_counts": summary_counts,
             "review_required_candidate_count": review_required_count,
             "unsafe_candidate_count": unsafe_count,

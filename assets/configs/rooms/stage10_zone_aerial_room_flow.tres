@@ -17,6 +17,7 @@ step_dash_visibility = {
 &"room": true
 }
 spawn_positions = {
-&"stage10_aerial_start": Vector2(-128, 96)
+&"stage10_aerial_return": Vector2(256, 204),
+&"stage10_aerial_start": Vector2(-256, 204)
 }
 thresholds = {}

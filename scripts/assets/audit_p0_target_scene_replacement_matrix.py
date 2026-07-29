@@ -11,6 +11,7 @@ from typing import Any
 
 REPORT_PATH = Path("docs/assets/p0-target-scene-replacement-matrix.json")
 MARKDOWN_PATH = Path("docs/assets/p0-target-scene-replacement-matrix.md")
+PLAN_PATH = Path("docs/assets/p0-runtime-replacement-plan.json")
 
 
 def parse_args() -> argparse.Namespace:
@@ -24,18 +25,37 @@ def load_json(path: Path) -> dict[str, Any]:
         return json.load(file)
 
 
-def audit(report: dict[str, Any]) -> list[str]:
+def audit(report: dict[str, Any], plan: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     summary = report.get("summary", {})
     scenes = report.get("scenes", [])
+    plan_entries = plan.get("entries", [])
+    expected_asset_ids = {str(entry.get("asset_id", "")) for entry in plan_entries if entry.get("asset_id")}
+    expected_reference_count = sum(len(entry.get("target_scene_status", [])) for entry in plan_entries)
+    expected_planned_count = sum(
+        1
+        for entry in plan_entries
+        for scene in entry.get("target_scene_status", [])
+        if not scene.get("already_references_resource", False)
+    )
+    matrix_asset_ids = {
+        str(asset.get("asset_id", ""))
+        for scene in scenes
+        for asset in scene.get("assets", [])
+        if asset.get("asset_id")
+    }
     if int(summary.get("scene_count", -1)) != len(scenes):
         errors.append("scene_count mismatch")
-    if int(summary.get("unique_asset_count", -1)) != 30:
-        errors.append("unique_asset_count expected 30")
+    if matrix_asset_ids != expected_asset_ids:
+        errors.append("unique asset ids do not match P0 runtime plan")
+    if int(summary.get("unique_asset_count", -1)) != len(expected_asset_ids):
+        errors.append(f"unique_asset_count expected {len(expected_asset_ids)}")
     if int(summary.get("missing_scene_count", -1)) != 0:
         errors.append("missing_scene_count expected 0")
-    if int(summary.get("scene_asset_reference_count", -1)) < 30:
-        errors.append("scene_asset_reference_count must be >= 30")
+    if int(summary.get("scene_asset_reference_count", -1)) != expected_reference_count:
+        errors.append(f"scene_asset_reference_count expected {expected_reference_count}")
+    if int(summary.get("planned_scene_asset_replacement_count", -1)) != expected_planned_count:
+        errors.append(f"planned_scene_asset_replacement_count expected {expected_planned_count}")
     if not MARKDOWN_PATH.exists():
         errors.append("markdown_missing")
     for scene in scenes:
@@ -61,8 +81,12 @@ def main() -> int:
     if not REPORT_PATH.exists():
         print("P0 target scene replacement matrix missing")
         return 1 if args.strict else 0
+    if not PLAN_PATH.exists():
+        print("P0 runtime replacement plan missing")
+        return 1 if args.strict else 0
     report = load_json(REPORT_PATH)
-    errors = audit(report)
+    plan = load_json(PLAN_PATH)
+    errors = audit(report, plan)
     if errors:
         for error in errors:
             print(error)

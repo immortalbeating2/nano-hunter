@@ -11,6 +11,12 @@ signal hit_registered(hit_count: int)
 @export var hit_offset_distance: float = 12.0
 @export var hit_scale := Vector2(1.08, 0.92)
 
+# 正式运行态使用人工复核过的试炼碑，缩放基线让纹理底边和 48px 碰撞盒脚底一致。
+const DUMMY_ART_BASE_SCALE := Vector2(0.3, 0.3)
+
+@onready var body: Polygon2D = $Body
+@onready var dummy_art: Sprite2D = $DummyArt
+
 # 公开读值保留最近一次命中的方向、力度和累计次数，作为攻击契约的测试入口。
 var last_hit_direction := Vector2.ZERO
 var last_knockback_force := 0.0
@@ -47,14 +53,21 @@ func receive_attack(hit_direction: Vector2, knockback_force: float) -> void:
 	hit_registered.emit(hit_count)
 
 	var direction := hit_direction.normalized()
-	$Body.position = direction * hit_offset_distance
-	$Body.color = Color(1.0, 0.92, 0.68, 1.0)
-	$Body.scale = hit_scale
+	var hit_position := Vector2(0, -24) + direction * hit_offset_distance
+	body.position = hit_position
+	body.color = Color(1.0, 0.92, 0.68, 1.0)
+	body.scale = hit_scale
+	dummy_art.position = hit_position
+	dummy_art.modulate = Color(1.0, 0.92, 0.68, 1.0)
+	dummy_art.scale = DUMMY_ART_BASE_SCALE * hit_scale
 
 
 # 复位训练假人的占位视觉，供初始化和命中反馈结束共同调用。
 func _reset_feedback_visuals() -> void:
 	# 复位逻辑集中在这里，确保 ready 和命中反馈结束走同一套视觉基线。
-	$Body.position = Vector2.ZERO
-	$Body.color = Color(0.654902, 0.498039, 0.298039, 1.0)
-	$Body.scale = Vector2.ONE
+	body.position = Vector2(0, -24)
+	body.color = Color(0.654902, 0.498039, 0.298039, 1.0)
+	body.scale = Vector2.ONE
+	dummy_art.position = Vector2(0, -24)
+	dummy_art.modulate = Color.WHITE
+	dummy_art.scale = DUMMY_ART_BASE_SCALE

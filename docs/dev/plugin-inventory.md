@@ -1,6 +1,6 @@
 # Plugin Inventory
 
-Last Updated: 2026-04-27
+Last Updated: 2026-07-16
 
 ## 当前结论
 
@@ -9,11 +9,13 @@ Last Updated: 2026-04-27
 - `godot_mcp`
 - `gut`
 
+当前 vendored 测试插件为 GUT `9.6.1`；已在 Godot `4.6.3` 下完成导入、全量测试与主场景启动验证。
+
 其余插件目录可以保留，但不应默认写入 `project.godot` 的 `[editor_plugins]` 或 `[autoload]`。当前代码没有引用 `DialogueManager`、`ControllerIcons` 或 `BetterTerrain`，因此 2026-04-27 已从 `project.godot` 移除 `DialogueManager` 与 `ControllerIcons` autoload，以降低进入 Godot 项目时的默认加载面。
 
 之前“一进入 Godot 项目就有多个报错”的高置信度原因不是“插件目录存在就会报错”，而是多种历史状态叠加：
 
-- `project.godot` 早期曾残留 `BetterTerrain` autoload / UID 引用，而 `better-terrain` 在当前 Godot 4.6 环境下有解析和兼容性风险。
+- `project.godot` 早期曾残留 `BetterTerrain` autoload / UID 引用，而 `better-terrain` 在当前 Godot 4.6.3 环境下有解析和兼容性风险。
 - `DialogueManager` 与 `ControllerIcons` 虽然没有在 `[editor_plugins]` 启用，但曾作为 `[autoload]` 默认加载；任何 autoload 都会在项目启动时参与加载。
 - 清理 `.godot` 缓存后，历史 UID 引用容易重新暴露为 `Unrecognized UID`。
 - `godot_mcp` 在 headless import 中会启动并停止 MCP bridge，这类日志不是错误；真正需要警惕的是旧 bridge 占用 `6505-6509` 导致当前会话错连。
@@ -23,7 +25,7 @@ Last Updated: 2026-04-27
 | 插件 | 当前目录 | project.godot 状态 | 当前用途 | 建议 |
 | --- | --- | --- | --- | --- |
 | Godot MCP Pro | `addons/godot_mcp/` | editor plugin enabled | Codex / Godot MCP 运行态复核 | 保留并启用 |
-| GUT | `addons/gut/` | editor plugin enabled | 阶段自动化测试 | 保留并启用 |
+| GUT 9.6.1 | `addons/gut/` | editor plugin enabled | 阶段自动化测试 | 保留并启用 |
 | better-terrain | `addons/better-terrain/` | disabled | 后续 tile / terrain 候选 | 暂不推荐启用；过去已验证有兼容性风险 |
 | Dialogue Manager | `addons/dialogue_manager/` | disabled, no autoload | 后续 NPC / 佛门石碑 / 悬赏榜文本候选 | 有可用价值，但等叙事系统进入阶段计划再启用 |
 | Controller Icons | `addons/controller_icons/` | disabled, no autoload | 后续键鼠 / 手柄提示 UI 候选 | 有可用价值，但等输入提示 UI 成型后再启用 |

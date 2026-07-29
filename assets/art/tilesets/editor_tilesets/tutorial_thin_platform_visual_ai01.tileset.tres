@@ -1,0 +1,17 @@
+[gd_resource type="TileSet" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/tilesets/tutorial_thin_platform_visual_ai01.png" id="1_thin"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_thin_platform"]
+texture = ExtResource("1_thin")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 14)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 14)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 14)
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_thin_platform")

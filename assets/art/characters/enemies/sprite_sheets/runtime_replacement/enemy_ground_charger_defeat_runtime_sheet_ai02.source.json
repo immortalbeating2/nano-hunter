@@ -1,0 +1,7 @@
+{
+  "asset_id": "enemy_ground_charger_defeat_runtime_sheet_ai02",
+  "source_asset_id": "enemy_ground_charger_runtime_sheet_ai01",
+  "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_ground_charger_runtime_sheet_ai01.png",
+  "source_sha256": "e84bfc2b35290d2f24d3e278102cf186b5025ca0f8343de169fda946dbcc7c79",
+  "process": "stage17_deterministic_cycle_to_non_gory_defeat"
+}

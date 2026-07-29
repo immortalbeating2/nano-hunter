@@ -1,0 +1,196 @@
+{
+  "id": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02",
+  "source_asset_id": "enemy_aerial_sentinel_runtime_sheet_ai01",
+  "kind": "sprite_sheet",
+  "batch": "ARP-17",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_defeat_runtime_sheet_ai02.png",
+  "metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_defeat_runtime_sheet_ai02.frames.json",
+  "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_defeat_runtime_sheet_ai02.spriteframes.tres",
+  "cell": [
+    160,
+    160
+  ],
+  "columns": 4,
+  "rows": 1,
+  "frame_count": 4,
+  "animation": {
+    "name": "aerial_sentinel_defeat",
+    "speed": 12.0,
+    "loop": false
+  },
+  "animations": [
+    {
+      "name": "aerial_sentinel_defeat",
+      "indexes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "speed": 12.0,
+      "loop": false
+    }
+  ],
+  "anchor": "foot",
+  "frames": [
+    {
+      "index": 0,
+      "name": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02_aerial_sentinel_defeat_01",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.png",
+      "source_frame_index": 4,
+      "region": [
+        0,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        38,
+        44,
+        121,
+        152
+      ],
+      "normalized_size": [
+        83,
+        108
+      ],
+      "paste": [
+        38,
+        40
+      ],
+      "scale": 1.0,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 1.0,
+      "tint": [
+        1.05,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "index": 1,
+      "name": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02_aerial_sentinel_defeat_02",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.png",
+      "source_frame_index": 5,
+      "region": [
+        160,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        34,
+        46,
+        126,
+        152
+      ],
+      "normalized_size": [
+        88,
+        102
+      ],
+      "paste": [
+        36,
+        46
+      ],
+      "scale": 0.96,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 1.0,
+      "tint": [
+        1.05,
+        0.96,
+        0.96
+      ]
+    },
+    {
+      "index": 2,
+      "name": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02_aerial_sentinel_defeat_03",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.png",
+      "source_frame_index": 6,
+      "region": [
+        320,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        34,
+        45,
+        125,
+        152
+      ],
+      "normalized_size": [
+        82,
+        96
+      ],
+      "paste": [
+        39,
+        52
+      ],
+      "scale": 0.9,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 0.95,
+      "tint": [
+        1.0,
+        0.9,
+        0.9
+      ]
+    },
+    {
+      "index": 3,
+      "name": "enemy_aerial_sentinel_defeat_runtime_sheet_ai02_aerial_sentinel_defeat_04",
+      "phase": "defeat",
+      "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_runtime_sheet_ai01.png",
+      "source_frame_index": 7,
+      "region": [
+        480,
+        0,
+        160,
+        160
+      ],
+      "source_bbox": [
+        32,
+        47,
+        128,
+        152
+      ],
+      "normalized_size": [
+        81,
+        88
+      ],
+      "paste": [
+        40,
+        60
+      ],
+      "scale": 0.84,
+      "center_x": 80,
+      "foot_y": 148,
+      "alpha_factor": 0.9,
+      "tint": [
+        0.95,
+        0.84,
+        0.84
+      ]
+    }
+  ],
+  "normalization": {
+    "process": "reuse_cycle_frames_with_progressive_collapse_and_fade",
+    "source_cell": [
+      160,
+      160
+    ],
+    "selected_source_frames": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "foot_baseline_y": 148,
+    "center_x": 80
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "map_id": "alpha_demo_world_map",
+  "regions": [
+    {"id": "trial", "title": "初印试炼", "label_position": [0.06, 0.07]},
+    {"id": "ward", "title": "镇妖前庭", "label_position": [0.30, 0.05]},
+    {"id": "marsh", "title": "瘴泽禁域", "label_position": [0.69, 0.05]},
+    {"id": "sanctum", "title": "空行古刹", "label_position": [0.82, 0.76]},
+    {"id": "seal", "title": "封印深处", "label_position": [0.24, 0.94]}
+  ],
+  "rooms": [
+    {"id": "01", "title": "教程起点", "path": "res://scenes/rooms/tutorial_room.tscn", "position": [0.06, 0.22], "region": "trial"},
+    {"id": "02", "title": "战斗试炼", "path": "res://scenes/rooms/combat_trial_room.tscn", "position": [0.12, 0.16], "region": "trial"},
+    {"id": "03", "title": "目标试炼", "path": "res://scenes/rooms/goal_trial_room.tscn", "position": [0.19, 0.22], "region": "trial"},
+    {"id": "04", "title": "镇妖入口", "path": "res://scenes/rooms/stage9_zone_entry_room.tscn", "position": [0.26, 0.18], "region": "ward"},
+    {"id": "05", "title": "镇妖战斗", "path": "res://scenes/rooms/stage9_zone_combat_room.tscn", "position": [0.33, 0.11], "region": "ward"},
+    {"id": "06", "title": "冲锋回廊", "path": "res://scenes/rooms/stage9_zone_charger_room.tscn", "position": [0.42, 0.16], "region": "ward"},
+    {"id": "07", "title": "封印机关", "path": "res://scenes/rooms/stage9_zone_switch_room.tscn", "position": [0.37, 0.27], "region": "ward"},
+    {"id": "08", "title": "镇妖前庭", "path": "res://scenes/rooms/stage9_zone_final_room.tscn", "position": [0.28, 0.32], "region": "ward"},
+    {"id": "09", "title": "空战主路", "path": "res://scenes/rooms/stage10_zone_aerial_room.tscn", "position": [0.37, 0.39], "region": "ward"},
+    {"id": "10", "title": "镇妖试炼", "path": "res://scenes/rooms/stage10_zone_challenge_room.tscn", "position": [0.46, 0.33], "region": "ward"},
+    {"id": "11", "title": "镇妖驿厅", "path": "res://scenes/rooms/stage11_demo_end_room.tscn", "position": [0.51, 0.23], "region": "ward"},
+    {"id": "12", "title": "瘴泽入口", "path": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn", "position": [0.59, 0.16], "region": "marsh"},
+    {"id": "13", "title": "妖术伏击", "path": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn", "position": [0.67, 0.10], "region": "marsh"},
+    {"id": "14", "title": "瘴气洼地", "path": "res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn", "position": [0.76, 0.15], "region": "marsh"},
+    {"id": "15", "title": "封印门", "path": "res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn", "position": [0.84, 0.23], "region": "marsh"},
+    {"id": "16", "title": "交叉火力", "path": "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn", "position": [0.78, 0.33], "region": "marsh"},
+    {"id": "17", "title": "瘴泽检查点", "path": "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn", "position": [0.68, 0.30], "region": "marsh"},
+    {"id": "18", "title": "瘴泽压力", "path": "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn", "position": [0.59, 0.36], "region": "marsh"},
+    {"id": "19", "title": "支路枢纽", "path": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "position": [0.64, 0.47], "region": "marsh"},
+    {"id": "20", "title": "瘴泽回流", "path": "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn", "position": [0.74, 0.47], "region": "marsh"},
+    {"id": "21", "title": "瘴泽目标", "path": "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn", "position": [0.84, 0.41], "region": "marsh"},
+    {"id": "22", "title": "空冲神龛", "path": "res://scenes/rooms/stage14_air_dash_shrine_room.tscn", "position": [0.89, 0.54], "region": "sanctum"},
+    {"id": "23", "title": "空冲门禁", "path": "res://scenes/rooms/stage14_air_dash_gate_room.tscn", "position": [0.84, 0.66], "region": "sanctum"},
+    {"id": "24", "title": "回溯枢纽", "path": "res://scenes/rooms/stage14_backtrack_hub_room.tscn", "position": [0.75, 0.72], "region": "sanctum"},
+    {"id": "25", "title": "回环出口", "path": "res://scenes/rooms/stage14_loop_return_room.tscn", "position": [0.65, 0.66], "region": "sanctum"},
+    {"id": "26", "title": "封印压力", "path": "res://scenes/rooms/stage15_seal_pressure_room.tscn", "position": [0.57, 0.75], "region": "seal"},
+    {"id": "27", "title": "混合遭遇", "path": "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn", "position": [0.48, 0.69], "region": "seal"},
+    {"id": "28", "title": "封印守卫", "path": "res://scenes/rooms/stage15_seal_guardian_boss_room.tscn", "position": [0.39, 0.76], "region": "seal"},
+    {"id": "29", "title": "战后整备", "path": "res://scenes/rooms/stage15_completion_room.tscn", "position": [0.30, 0.70], "region": "seal"},
+    {"id": "30", "title": "封印阈值", "path": "res://scenes/rooms/stage16_seal_release_threshold_room.tscn", "position": [0.21, 0.61], "region": "seal"},
+    {"id": "31", "title": "符印中继", "path": "res://scenes/rooms/stage16_talisman_relay_room.tscn", "position": [0.13, 0.68], "region": "seal"},
+    {"id": "32", "title": "回溯确认", "path": "res://scenes/rooms/stage16_backtrack_confirmation_room.tscn", "position": [0.08, 0.79], "region": "seal"},
+    {"id": "33", "title": "妖瘴净化", "path": "res://scenes/rooms/stage16_corruption_purge_room.tscn", "position": [0.16, 0.88], "region": "seal"},
+    {"id": "34", "title": "封印终点", "path": "res://scenes/rooms/stage16_alpha_demo_end_room.tscn", "position": [0.27, 0.85], "region": "seal"},
+    {"id": "A", "title": "镇妖资源支路", "path": "res://scenes/rooms/stage10_zone_branch_room.tscn", "position": [0.24, 0.44], "region": "ward"},
+    {"id": "B", "title": "瘴泽资源支路", "path": "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn", "position": [0.55, 0.52], "region": "marsh"},
+    {"id": "C", "title": "瘴泽挑战支路", "path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "position": [0.73, 0.58], "region": "marsh"},
+    {"id": "D", "title": "封印挑战支路", "path": "res://scenes/rooms/stage15_challenge_branch_room.tscn", "position": [0.56, 0.58], "region": "seal"}
+  ],
+  "main_route": [
+    "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
+    "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22",
+    "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34"
+  ],
+  "branch_connections": [
+    {"from": "09", "to": "A"},
+    {"from": "19", "to": "B"},
+    {"from": "19", "to": "C"},
+    {"from": "27", "to": "D"}
+  ],
+  "remote_connections": [
+    {"id": "SC-01", "from": "07", "to": "A", "requirements": []},
+    {"id": "SC-02", "from": "09", "to": "12", "requirements": ["air_dash_unlocked"]},
+    {"id": "SC-03", "from": "B", "to": "17", "requirements": []},
+    {"id": "SC-04", "from": "C", "to": "21", "requirements": []},
+    {"id": "SC-05", "from": "24", "to": "D", "requirements": ["warden_sigil_collected"]},
+    {"id": "SC-06", "from": "15", "to": "23", "requirements": ["wind_seal_unlocked", "air_dash_unlocked"]}
+  ]
+}

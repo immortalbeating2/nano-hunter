@@ -1,0 +1,6098 @@
+{
+  "version": 1,
+  "status": "runtime_replacement_ready",
+  "active_asset_count": 7,
+  "asset_count": 7,
+  "source_manifest": "docs/assets/luna-unified-runtime-body-candidates-2026-07-03.json",
+  "ready_count": 7,
+  "blocked_count": 0,
+  "archived_reference_count": 0,
+  "archived_reference_error_count": 0,
+  "assets": [
+    {
+      "asset_id": "luna_idle_runtime_sheet_ai03",
+      "texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_idle_runtime_sheet_ai03.spriteframes.tres",
+      "animation": {
+        "name": "idle",
+        "speed": 8.0,
+        "loop": true
+      },
+      "cell": [
+        192,
+        192
+      ],
+      "status": "runtime_replacement_ready",
+      "blockers": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_001",
+          "region": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "hash": -1212320326207252738,
+          "empty": false,
+          "bbox": [
+            53,
+            32,
+            139,
+            176
+          ],
+          "margins": {
+            "left": 53,
+            "top": 32,
+            "right": 53,
+            "bottom": 16
+          },
+          "content_size": [
+            86,
+            144
+          ],
+          "center": [
+            96.0,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6960,
+              "bbox": [
+                53,
+                32,
+                139,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_002",
+          "region": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "hash": 5561401232202924633,
+          "empty": false,
+          "bbox": [
+            52,
+            32,
+            140,
+            176
+          ],
+          "margins": {
+            "left": 52,
+            "top": 32,
+            "right": 52,
+            "bottom": 16
+          },
+          "content_size": [
+            88,
+            144
+          ],
+          "center": [
+            96.0,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6905,
+              "bbox": [
+                52,
+                32,
+                140,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_003",
+          "region": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "hash": -721281009327848433,
+          "empty": false,
+          "bbox": [
+            52,
+            32,
+            141,
+            176
+          ],
+          "margins": {
+            "left": 52,
+            "top": 32,
+            "right": 51,
+            "bottom": 16
+          },
+          "content_size": [
+            89,
+            144
+          ],
+          "center": [
+            96.5,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6849,
+              "bbox": [
+                52,
+                32,
+                141,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_004",
+          "region": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "hash": -8230049062751351960,
+          "empty": false,
+          "bbox": [
+            52,
+            32,
+            139,
+            176
+          ],
+          "margins": {
+            "left": 52,
+            "top": 32,
+            "right": 53,
+            "bottom": 16
+          },
+          "content_size": [
+            87,
+            144
+          ],
+          "center": [
+            95.5,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6873,
+              "bbox": [
+                52,
+                32,
+                139,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_005",
+          "region": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "hash": 4117988071130746592,
+          "empty": false,
+          "bbox": [
+            54,
+            33,
+            138,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 33,
+            "right": 54,
+            "bottom": 16
+          },
+          "content_size": [
+            84,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6942,
+              "bbox": [
+                54,
+                33,
+                138,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_006",
+          "region": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "hash": -7844641802301292289,
+          "empty": false,
+          "bbox": [
+            54,
+            33,
+            139,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 33,
+            "right": 53,
+            "bottom": 16
+          },
+          "content_size": [
+            85,
+            143
+          ],
+          "center": [
+            96.5,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6907,
+              "bbox": [
+                54,
+                33,
+                139,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_007",
+          "region": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "hash": -8786667211827079129,
+          "empty": false,
+          "bbox": [
+            53,
+            33,
+            139,
+            176
+          ],
+          "margins": {
+            "left": 53,
+            "top": 33,
+            "right": 53,
+            "bottom": 16
+          },
+          "content_size": [
+            86,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6878,
+              "bbox": [
+                53,
+                33,
+                139,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_008",
+          "region": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "hash": 1264681907283892944,
+          "empty": false,
+          "bbox": [
+            54,
+            33,
+            138,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 33,
+            "right": 54,
+            "bottom": 16
+          },
+          "content_size": [
+            84,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6919,
+              "bbox": [
+                54,
+                33,
+                138,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_009",
+          "region": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "hash": 3523579836300147509,
+          "empty": false,
+          "bbox": [
+            54,
+            32,
+            137,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 32,
+            "right": 55,
+            "bottom": 16
+          },
+          "content_size": [
+            83,
+            144
+          ],
+          "center": [
+            95.5,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6887,
+              "bbox": [
+                54,
+                32,
+                137,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_010",
+          "region": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "hash": -7534954035240677034,
+          "empty": false,
+          "bbox": [
+            54,
+            32,
+            138,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 32,
+            "right": 54,
+            "bottom": 16
+          },
+          "content_size": [
+            84,
+            144
+          ],
+          "center": [
+            96.0,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6793,
+              "bbox": [
+                54,
+                32,
+                138,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_011",
+          "region": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "hash": 2869638765724560623,
+          "empty": false,
+          "bbox": [
+            53,
+            32,
+            139,
+            176
+          ],
+          "margins": {
+            "left": 53,
+            "top": 32,
+            "right": 53,
+            "bottom": 16
+          },
+          "content_size": [
+            86,
+            144
+          ],
+          "center": [
+            96.0,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6974,
+              "bbox": [
+                53,
+                32,
+                139,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_012",
+          "region": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "hash": -6154025316471961017,
+          "empty": false,
+          "bbox": [
+            54,
+            32,
+            138,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 32,
+            "right": 54,
+            "bottom": 16
+          },
+          "content_size": [
+            84,
+            144
+          ],
+          "center": [
+            96.0,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6925,
+              "bbox": [
+                54,
+                32,
+                138,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_013",
+          "region": [
+            0,
+            576,
+            192,
+            192
+          ],
+          "hash": 1090261746149690382,
+          "empty": false,
+          "bbox": [
+            54,
+            33,
+            137,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 33,
+            "right": 55,
+            "bottom": 16
+          },
+          "content_size": [
+            83,
+            143
+          ],
+          "center": [
+            95.5,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6939,
+              "bbox": [
+                54,
+                33,
+                137,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_014",
+          "region": [
+            192,
+            576,
+            192,
+            192
+          ],
+          "hash": 4642417901786135443,
+          "empty": false,
+          "bbox": [
+            55,
+            33,
+            137,
+            176
+          ],
+          "margins": {
+            "left": 55,
+            "top": 33,
+            "right": 55,
+            "bottom": 16
+          },
+          "content_size": [
+            82,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6858,
+              "bbox": [
+                55,
+                33,
+                137,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_015",
+          "region": [
+            384,
+            576,
+            192,
+            192
+          ],
+          "hash": -7813406529099027062,
+          "empty": false,
+          "bbox": [
+            55,
+            33,
+            137,
+            176
+          ],
+          "margins": {
+            "left": 55,
+            "top": 33,
+            "right": 55,
+            "bottom": 16
+          },
+          "content_size": [
+            82,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6862,
+              "bbox": [
+                55,
+                33,
+                137,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "name": "luna_idle_runtime_sheet_ai03_runtime_016",
+          "region": [
+            576,
+            576,
+            192,
+            192
+          ],
+          "hash": 4620156919705345267,
+          "empty": false,
+          "bbox": [
+            54,
+            33,
+            138,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 33,
+            "right": 54,
+            "bottom": 16
+          },
+          "content_size": [
+            84,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6810,
+              "bbox": [
+                54,
+                33,
+                138,
+                176
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "frame_count": 16,
+        "min_margins": {
+          "left": 52,
+          "top": 32,
+          "right": 51,
+          "bottom": 16
+        },
+        "edge_touch_frames": [],
+        "edge_padding_failures": [],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 0,
+        "center_x_variance_px": 1.0,
+        "content_width_variance_ratio": 0.0787,
+        "content_height_variance_ratio": 0.0069,
+        "anchor_mode": "foot",
+        "recorded_scale_variance": 0.0,
+        "stable_recorded_scale": true,
+        "detached_component_failures": []
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "max_detached_component_area_ratio": 0.08,
+        "min_detached_component_area_px": 160,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_run_runtime_sheet_ai03",
+      "texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai03.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai03.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_run_runtime_sheet_ai03.spriteframes.tres",
+      "animation": {
+        "name": "run",
+        "speed": 18.0,
+        "loop": true
+      },
+      "cell": [
+        192,
+        192
+      ],
+      "status": "runtime_replacement_ready",
+      "blockers": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_run_runtime_sheet_ai03_runtime_001",
+          "region": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "hash": 3312328422777653529,
+          "empty": false,
+          "bbox": [
+            39,
+            43,
+            153,
+            176
+          ],
+          "margins": {
+            "left": 39,
+            "top": 43,
+            "right": 39,
+            "bottom": 16
+          },
+          "content_size": [
+            114,
+            133
+          ],
+          "center": [
+            96.0,
+            109.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8967,
+              "bbox": [
+                39,
+                43,
+                153,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                112,
+                145,
+                113,
+                146
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_run_runtime_sheet_ai03_runtime_002",
+          "region": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "hash": 6158284340679140205,
+          "empty": false,
+          "bbox": [
+            40,
+            41,
+            153,
+            176
+          ],
+          "margins": {
+            "left": 40,
+            "top": 41,
+            "right": 39,
+            "bottom": 16
+          },
+          "content_size": [
+            113,
+            135
+          ],
+          "center": [
+            96.5,
+            108.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8670,
+              "bbox": [
+                40,
+                41,
+                153,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                138,
+                114,
+                139,
+                115
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_run_runtime_sheet_ai03_runtime_003",
+          "region": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "hash": 5712660836004619267,
+          "empty": false,
+          "bbox": [
+            37,
+            34,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 37,
+            "top": 34,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            118,
+            142
+          ],
+          "center": [
+            96.0,
+            105.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8611,
+              "bbox": [
+                37,
+                34,
+                155,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_run_runtime_sheet_ai03_runtime_004",
+          "region": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "hash": 1052972767242704276,
+          "empty": false,
+          "bbox": [
+            32,
+            40,
+            159,
+            176
+          ],
+          "margins": {
+            "left": 32,
+            "top": 40,
+            "right": 33,
+            "bottom": 16
+          },
+          "content_size": [
+            127,
+            136
+          ],
+          "center": [
+            95.5,
+            108.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8743,
+              "bbox": [
+                32,
+                40,
+                159,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                75,
+                91,
+                76,
+                92
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                116,
+                139,
+                117,
+                140
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_run_runtime_sheet_ai03_runtime_005",
+          "region": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "hash": 7392604144560732170,
+          "empty": false,
+          "bbox": [
+            40,
+            33,
+            153,
+            176
+          ],
+          "margins": {
+            "left": 40,
+            "top": 33,
+            "right": 39,
+            "bottom": 16
+          },
+          "content_size": [
+            113,
+            143
+          ],
+          "center": [
+            96.5,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8233,
+              "bbox": [
+                40,
+                33,
+                153,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                133,
+                111,
+                134,
+                112
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_run_runtime_sheet_ai03_runtime_006",
+          "region": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "hash": -8987840320276579954,
+          "empty": false,
+          "bbox": [
+            32,
+            36,
+            159,
+            176
+          ],
+          "margins": {
+            "left": 32,
+            "top": 36,
+            "right": 33,
+            "bottom": 16
+          },
+          "content_size": [
+            127,
+            140
+          ],
+          "center": [
+            95.5,
+            106.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 9148,
+              "bbox": [
+                32,
+                36,
+                159,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                122,
+                105,
+                123,
+                106
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_run_runtime_sheet_ai03_runtime_007",
+          "region": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "hash": -6571596919494670828,
+          "empty": false,
+          "bbox": [
+            35,
+            34,
+            157,
+            176
+          ],
+          "margins": {
+            "left": 35,
+            "top": 34,
+            "right": 35,
+            "bottom": 16
+          },
+          "content_size": [
+            122,
+            142
+          ],
+          "center": [
+            96.0,
+            105.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 9188,
+              "bbox": [
+                35,
+                34,
+                157,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_run_runtime_sheet_ai03_runtime_008",
+          "region": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "hash": 4253903782158472211,
+          "empty": false,
+          "bbox": [
+            38,
+            33,
+            154,
+            176
+          ],
+          "margins": {
+            "left": 38,
+            "top": 33,
+            "right": 38,
+            "bottom": 16
+          },
+          "content_size": [
+            116,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8217,
+              "bbox": [
+                38,
+                33,
+                154,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "luna_run_runtime_sheet_ai03_runtime_009",
+          "region": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "hash": 6896540249898873332,
+          "empty": false,
+          "bbox": [
+            36,
+            32,
+            156,
+            176
+          ],
+          "margins": {
+            "left": 36,
+            "top": 32,
+            "right": 36,
+            "bottom": 16
+          },
+          "content_size": [
+            120,
+            144
+          ],
+          "center": [
+            96.0,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8051,
+              "bbox": [
+                36,
+                32,
+                156,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "name": "luna_run_runtime_sheet_ai03_runtime_010",
+          "region": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "hash": 8463292034292931003,
+          "empty": false,
+          "bbox": [
+            37,
+            36,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 37,
+            "top": 36,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            118,
+            140
+          ],
+          "center": [
+            96.0,
+            106.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8701,
+              "bbox": [
+                37,
+                36,
+                155,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                140,
+                134,
+                141,
+                135
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                139,
+                153,
+                140,
+                154
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                125,
+                157,
+                126,
+                158
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "name": "luna_run_runtime_sheet_ai03_runtime_011",
+          "region": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "hash": 8053120226142217245,
+          "empty": false,
+          "bbox": [
+            36,
+            34,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 36,
+            "top": 34,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            119,
+            142
+          ],
+          "center": [
+            95.5,
+            105.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 9007,
+              "bbox": [
+                36,
+                34,
+                155,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "name": "luna_run_runtime_sheet_ai03_runtime_012",
+          "region": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "hash": -6172096308233591326,
+          "empty": false,
+          "bbox": [
+            42,
+            35,
+            151,
+            176
+          ],
+          "margins": {
+            "left": 42,
+            "top": 35,
+            "right": 41,
+            "bottom": 16
+          },
+          "content_size": [
+            109,
+            141
+          ],
+          "center": [
+            96.5,
+            105.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8178,
+              "bbox": [
+                42,
+                35,
+                151,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "name": "luna_run_runtime_sheet_ai03_runtime_013",
+          "region": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "hash": -6029031486433146980,
+          "empty": false,
+          "bbox": [
+            40,
+            38,
+            152,
+            176
+          ],
+          "margins": {
+            "left": 40,
+            "top": 38,
+            "right": 40,
+            "bottom": 16
+          },
+          "content_size": [
+            112,
+            138
+          ],
+          "center": [
+            96.0,
+            107.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 9077,
+              "bbox": [
+                40,
+                38,
+                152,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                96,
+                101,
+                97,
+                102
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "name": "luna_run_runtime_sheet_ai03_runtime_014",
+          "region": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "hash": -6627245608948594569,
+          "empty": false,
+          "bbox": [
+            38,
+            35,
+            154,
+            176
+          ],
+          "margins": {
+            "left": 38,
+            "top": 35,
+            "right": 38,
+            "bottom": 16
+          },
+          "content_size": [
+            116,
+            141
+          ],
+          "center": [
+            96.0,
+            105.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8343,
+              "bbox": [
+                38,
+                35,
+                154,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                105,
+                90,
+                106,
+                91
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "name": "luna_run_runtime_sheet_ai03_runtime_015",
+          "region": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "hash": -661349392088403540,
+          "empty": false,
+          "bbox": [
+            39,
+            35,
+            153,
+            176
+          ],
+          "margins": {
+            "left": 39,
+            "top": 35,
+            "right": 39,
+            "bottom": 16
+          },
+          "content_size": [
+            114,
+            141
+          ],
+          "center": [
+            96.0,
+            105.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8397,
+              "bbox": [
+                39,
+                35,
+                153,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "name": "luna_run_runtime_sheet_ai03_runtime_016",
+          "region": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "hash": 1939061726776032680,
+          "empty": false,
+          "bbox": [
+            38,
+            40,
+            154,
+            176
+          ],
+          "margins": {
+            "left": 38,
+            "top": 40,
+            "right": 38,
+            "bottom": 16
+          },
+          "content_size": [
+            116,
+            136
+          ],
+          "center": [
+            96.0,
+            108.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 7941,
+              "bbox": [
+                38,
+                40,
+                154,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                132,
+                113,
+                133,
+                114
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "name": "luna_run_runtime_sheet_ai03_runtime_017",
+          "region": [
+            768,
+            384,
+            192,
+            192
+          ],
+          "hash": -4788372819750918562,
+          "empty": false,
+          "bbox": [
+            37,
+            40,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 37,
+            "top": 40,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            118,
+            136
+          ],
+          "center": [
+            96.0,
+            108.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8498,
+              "bbox": [
+                37,
+                40,
+                155,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "name": "luna_run_runtime_sheet_ai03_runtime_018",
+          "region": [
+            960,
+            384,
+            192,
+            192
+          ],
+          "hash": 2517373242571027741,
+          "empty": false,
+          "bbox": [
+            38,
+            41,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 38,
+            "top": 41,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            117,
+            135
+          ],
+          "center": [
+            96.5,
+            108.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8910,
+              "bbox": [
+                38,
+                41,
+                155,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                77,
+                66,
+                78,
+                67
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                89,
+                82,
+                90,
+                83
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "name": "luna_run_runtime_sheet_ai03_runtime_019",
+          "region": [
+            0,
+            576,
+            192,
+            192
+          ],
+          "hash": 5493995634758913833,
+          "empty": false,
+          "bbox": [
+            38,
+            38,
+            154,
+            176
+          ],
+          "margins": {
+            "left": 38,
+            "top": 38,
+            "right": 38,
+            "bottom": 16
+          },
+          "content_size": [
+            116,
+            138
+          ],
+          "center": [
+            96.0,
+            107.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 9100,
+              "bbox": [
+                38,
+                38,
+                154,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                67,
+                96,
+                68,
+                97
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "name": "luna_run_runtime_sheet_ai03_runtime_020",
+          "region": [
+            192,
+            576,
+            192,
+            192
+          ],
+          "hash": 8728526821685126802,
+          "empty": false,
+          "bbox": [
+            32,
+            44,
+            159,
+            176
+          ],
+          "margins": {
+            "left": 32,
+            "top": 44,
+            "right": 33,
+            "bottom": 16
+          },
+          "content_size": [
+            127,
+            132
+          ],
+          "center": [
+            95.5,
+            110.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8905,
+              "bbox": [
+                32,
+                44,
+                159,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "name": "luna_run_runtime_sheet_ai03_runtime_021",
+          "region": [
+            384,
+            576,
+            192,
+            192
+          ],
+          "hash": 8234421614769838835,
+          "empty": false,
+          "bbox": [
+            37,
+            36,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 37,
+            "top": 36,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            118,
+            140
+          ],
+          "center": [
+            96.0,
+            106.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8491,
+              "bbox": [
+                37,
+                36,
+                155,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                133,
+                106,
+                134,
+                107
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "name": "luna_run_runtime_sheet_ai03_runtime_022",
+          "region": [
+            576,
+            576,
+            192,
+            192
+          ],
+          "hash": 7715670584976774745,
+          "empty": false,
+          "bbox": [
+            42,
+            33,
+            150,
+            176
+          ],
+          "margins": {
+            "left": 42,
+            "top": 33,
+            "right": 42,
+            "bottom": 16
+          },
+          "content_size": [
+            108,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8184,
+              "bbox": [
+                42,
+                33,
+                150,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "name": "luna_run_runtime_sheet_ai03_runtime_023",
+          "region": [
+            768,
+            576,
+            192,
+            192
+          ],
+          "hash": 6490845975174812345,
+          "empty": false,
+          "bbox": [
+            40,
+            40,
+            151,
+            176
+          ],
+          "margins": {
+            "left": 40,
+            "top": 40,
+            "right": 41,
+            "bottom": 16
+          },
+          "content_size": [
+            111,
+            136
+          ],
+          "center": [
+            95.5,
+            108.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8641,
+              "bbox": [
+                40,
+                40,
+                151,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "name": "luna_run_runtime_sheet_ai03_runtime_024",
+          "region": [
+            960,
+            576,
+            192,
+            192
+          ],
+          "hash": 8031745308355219690,
+          "empty": false,
+          "bbox": [
+            37,
+            33,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 37,
+            "top": 33,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            118,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8891,
+              "bbox": [
+                37,
+                33,
+                155,
+                176
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "frame_count": 24,
+        "min_margins": {
+          "left": 32,
+          "top": 32,
+          "right": 33,
+          "bottom": 16
+        },
+        "edge_touch_frames": [],
+        "edge_padding_failures": [],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 0,
+        "center_x_variance_px": 1.0,
+        "content_width_variance_ratio": 0.1496,
+        "content_height_variance_ratio": 0.0833,
+        "anchor_mode": "foot",
+        "recorded_scale_variance": 0.0,
+        "stable_recorded_scale": true,
+        "detached_component_failures": []
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "max_detached_component_area_ratio": 0.08,
+        "min_detached_component_area_px": 160,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_jump_fall_runtime_sheet_ai03",
+      "texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_fall_runtime_sheet_ai03.spriteframes.tres",
+      "animation": {
+        "name": "jump_fall",
+        "speed": 14.0,
+        "loop": false
+      },
+      "cell": [
+        192,
+        192
+      ],
+      "status": "runtime_replacement_ready",
+      "blockers": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_001",
+          "region": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "hash": 2577828190606849224,
+          "empty": false,
+          "bbox": [
+            51,
+            62,
+            141,
+            130
+          ],
+          "margins": {
+            "left": 51,
+            "top": 62,
+            "right": 51,
+            "bottom": 62
+          },
+          "content_size": [
+            90,
+            68
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 130,
+          "components": [
+            {
+              "area": 3793,
+              "bbox": [
+                51,
+                62,
+                141,
+                130
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_002",
+          "region": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "hash": -4230493998483821978,
+          "empty": false,
+          "bbox": [
+            52,
+            61,
+            139,
+            131
+          ],
+          "margins": {
+            "left": 52,
+            "top": 61,
+            "right": 53,
+            "bottom": 61
+          },
+          "content_size": [
+            87,
+            70
+          ],
+          "center": [
+            95.5,
+            96.0
+          ],
+          "foot_y": 131,
+          "components": [
+            {
+              "area": 3648,
+              "bbox": [
+                52,
+                61,
+                139,
+                131
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_003",
+          "region": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "hash": -8302008352820745060,
+          "empty": false,
+          "bbox": [
+            54,
+            54,
+            138,
+            137
+          ],
+          "margins": {
+            "left": 54,
+            "top": 54,
+            "right": 54,
+            "bottom": 55
+          },
+          "content_size": [
+            84,
+            83
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 137,
+          "components": [
+            {
+              "area": 3737,
+              "bbox": [
+                54,
+                54,
+                138,
+                137
+              ]
+            },
+            {
+              "area": 7,
+              "bbox": [
+                78,
+                91,
+                81,
+                94
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_004",
+          "region": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "hash": 166760081665688253,
+          "empty": false,
+          "bbox": [
+            54,
+            38,
+            139,
+            153
+          ],
+          "margins": {
+            "left": 54,
+            "top": 38,
+            "right": 53,
+            "bottom": 39
+          },
+          "content_size": [
+            85,
+            115
+          ],
+          "center": [
+            96.5,
+            95.5
+          ],
+          "foot_y": 153,
+          "components": [
+            {
+              "area": 4135,
+              "bbox": [
+                54,
+                38,
+                139,
+                134
+              ]
+            },
+            {
+              "area": 3,
+              "bbox": [
+                102,
+                151,
+                104,
+                153
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                79,
+                76,
+                80,
+                77
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_005",
+          "region": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "hash": -1139540081336582926,
+          "empty": false,
+          "bbox": [
+            58,
+            42,
+            134,
+            151
+          ],
+          "margins": {
+            "left": 58,
+            "top": 42,
+            "right": 58,
+            "bottom": 41
+          },
+          "content_size": [
+            76,
+            109
+          ],
+          "center": [
+            96.0,
+            96.5
+          ],
+          "foot_y": 151,
+          "components": [
+            {
+              "area": 4354,
+              "bbox": [
+                58,
+                42,
+                134,
+                151
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_006",
+          "region": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "hash": -459886113852129137,
+          "empty": false,
+          "bbox": [
+            57,
+            40,
+            135,
+            152
+          ],
+          "margins": {
+            "left": 57,
+            "top": 40,
+            "right": 57,
+            "bottom": 40
+          },
+          "content_size": [
+            78,
+            112
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 152,
+          "components": [
+            {
+              "area": 4357,
+              "bbox": [
+                57,
+                40,
+                135,
+                152
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_007",
+          "region": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "hash": -380636233992055031,
+          "empty": false,
+          "bbox": [
+            54,
+            44,
+            139,
+            149
+          ],
+          "margins": {
+            "left": 54,
+            "top": 44,
+            "right": 53,
+            "bottom": 43
+          },
+          "content_size": [
+            85,
+            105
+          ],
+          "center": [
+            96.5,
+            96.5
+          ],
+          "foot_y": 149,
+          "components": [
+            {
+              "area": 4435,
+              "bbox": [
+                54,
+                44,
+                139,
+                149
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_008",
+          "region": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "hash": -4472739201282399604,
+          "empty": false,
+          "bbox": [
+            58,
+            46,
+            133,
+            145
+          ],
+          "margins": {
+            "left": 58,
+            "top": 46,
+            "right": 59,
+            "bottom": 47
+          },
+          "content_size": [
+            75,
+            99
+          ],
+          "center": [
+            95.5,
+            95.5
+          ],
+          "foot_y": 145,
+          "components": [
+            {
+              "area": 3969,
+              "bbox": [
+                58,
+                46,
+                133,
+                145
+              ]
+            },
+            {
+              "area": 4,
+              "bbox": [
+                90,
+                87,
+                92,
+                89
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_009",
+          "region": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "hash": -6286535281078414141,
+          "empty": false,
+          "bbox": [
+            60,
+            48,
+            133,
+            144
+          ],
+          "margins": {
+            "left": 60,
+            "top": 48,
+            "right": 59,
+            "bottom": 48
+          },
+          "content_size": [
+            73,
+            96
+          ],
+          "center": [
+            96.5,
+            96.0
+          ],
+          "foot_y": 144,
+          "components": [
+            {
+              "area": 3865,
+              "bbox": [
+                60,
+                48,
+                133,
+                144
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_010",
+          "region": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "hash": 2361042817988873370,
+          "empty": false,
+          "bbox": [
+            62,
+            50,
+            129,
+            142
+          ],
+          "margins": {
+            "left": 62,
+            "top": 50,
+            "right": 63,
+            "bottom": 50
+          },
+          "content_size": [
+            67,
+            92
+          ],
+          "center": [
+            95.5,
+            96.0
+          ],
+          "foot_y": 142,
+          "components": [
+            {
+              "area": 3437,
+              "bbox": [
+                62,
+                50,
+                129,
+                142
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_011",
+          "region": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "hash": -8537443625451785116,
+          "empty": false,
+          "bbox": [
+            58,
+            45,
+            134,
+            147
+          ],
+          "margins": {
+            "left": 58,
+            "top": 45,
+            "right": 58,
+            "bottom": 45
+          },
+          "content_size": [
+            76,
+            102
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 147,
+          "components": [
+            {
+              "area": 3875,
+              "bbox": [
+                58,
+                45,
+                134,
+                147
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_012",
+          "region": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "hash": -194066279747671153,
+          "empty": false,
+          "bbox": [
+            59,
+            42,
+            133,
+            149
+          ],
+          "margins": {
+            "left": 59,
+            "top": 42,
+            "right": 59,
+            "bottom": 43
+          },
+          "content_size": [
+            74,
+            107
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 149,
+          "components": [
+            {
+              "area": 3874,
+              "bbox": [
+                59,
+                42,
+                133,
+                149
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                123,
+                123,
+                124,
+                124
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_013",
+          "region": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "hash": 1351208693650611551,
+          "empty": false,
+          "bbox": [
+            59,
+            44,
+            133,
+            148
+          ],
+          "margins": {
+            "left": 59,
+            "top": 44,
+            "right": 59,
+            "bottom": 44
+          },
+          "content_size": [
+            74,
+            104
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 148,
+          "components": [
+            {
+              "area": 4027,
+              "bbox": [
+                59,
+                44,
+                133,
+                148
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_014",
+          "region": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "hash": 7655175512269306800,
+          "empty": false,
+          "bbox": [
+            60,
+            44,
+            132,
+            149
+          ],
+          "margins": {
+            "left": 60,
+            "top": 44,
+            "right": 60,
+            "bottom": 43
+          },
+          "content_size": [
+            72,
+            105
+          ],
+          "center": [
+            96.0,
+            96.5
+          ],
+          "foot_y": 149,
+          "components": [
+            {
+              "area": 3900,
+              "bbox": [
+                60,
+                44,
+                132,
+                149
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_015",
+          "region": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "hash": -3178036475122939313,
+          "empty": false,
+          "bbox": [
+            60,
+            42,
+            132,
+            149
+          ],
+          "margins": {
+            "left": 60,
+            "top": 42,
+            "right": 60,
+            "bottom": 43
+          },
+          "content_size": [
+            72,
+            107
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 149,
+          "components": [
+            {
+              "area": 3822,
+              "bbox": [
+                60,
+                42,
+                132,
+                149
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_016",
+          "region": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "hash": -8501450830896300834,
+          "empty": false,
+          "bbox": [
+            60,
+            24,
+            131,
+            168
+          ],
+          "margins": {
+            "left": 60,
+            "top": 24,
+            "right": 61,
+            "bottom": 24
+          },
+          "content_size": [
+            71,
+            144
+          ],
+          "center": [
+            95.5,
+            96.0
+          ],
+          "foot_y": 168,
+          "components": [
+            {
+              "area": 3841,
+              "bbox": [
+                60,
+                24,
+                131,
+                131
+              ]
+            },
+            {
+              "area": 90,
+              "bbox": [
+                106,
+                161,
+                128,
+                168
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_017",
+          "region": [
+            768,
+            384,
+            192,
+            192
+          ],
+          "hash": -7973352829523062578,
+          "empty": false,
+          "bbox": [
+            65,
+            24,
+            127,
+            168
+          ],
+          "margins": {
+            "left": 65,
+            "top": 24,
+            "right": 65,
+            "bottom": 24
+          },
+          "content_size": [
+            62,
+            144
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 168,
+          "components": [
+            {
+              "area": 3548,
+              "bbox": [
+                65,
+                24,
+                127,
+                131
+              ]
+            },
+            {
+              "area": 124,
+              "bbox": [
+                97,
+                159,
+                120,
+                168
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_018",
+          "region": [
+            960,
+            384,
+            192,
+            192
+          ],
+          "hash": -7143765506684670860,
+          "empty": false,
+          "bbox": [
+            64,
+            24,
+            127,
+            167
+          ],
+          "margins": {
+            "left": 64,
+            "top": 24,
+            "right": 65,
+            "bottom": 25
+          },
+          "content_size": [
+            63,
+            143
+          ],
+          "center": [
+            95.5,
+            95.5
+          ],
+          "foot_y": 167,
+          "components": [
+            {
+              "area": 3581,
+              "bbox": [
+                64,
+                24,
+                127,
+                130
+              ]
+            },
+            {
+              "area": 118,
+              "bbox": [
+                97,
+                158,
+                120,
+                167
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_019",
+          "region": [
+            0,
+            576,
+            192,
+            192
+          ],
+          "hash": 3267056927435124802,
+          "empty": false,
+          "bbox": [
+            54,
+            56,
+            138,
+            135
+          ],
+          "margins": {
+            "left": 54,
+            "top": 56,
+            "right": 54,
+            "bottom": 57
+          },
+          "content_size": [
+            84,
+            79
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 135,
+          "components": [
+            {
+              "area": 3132,
+              "bbox": [
+                54,
+                56,
+                138,
+                135
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_020",
+          "region": [
+            192,
+            576,
+            192,
+            192
+          ],
+          "hash": 8604839211241182845,
+          "empty": false,
+          "bbox": [
+            54,
+            62,
+            139,
+            131
+          ],
+          "margins": {
+            "left": 54,
+            "top": 62,
+            "right": 53,
+            "bottom": 61
+          },
+          "content_size": [
+            85,
+            69
+          ],
+          "center": [
+            96.5,
+            96.5
+          ],
+          "foot_y": 131,
+          "components": [
+            {
+              "area": 3273,
+              "bbox": [
+                54,
+                62,
+                139,
+                131
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_021",
+          "region": [
+            384,
+            576,
+            192,
+            192
+          ],
+          "hash": -1115570892547811213,
+          "empty": false,
+          "bbox": [
+            62,
+            52,
+            129,
+            140
+          ],
+          "margins": {
+            "left": 62,
+            "top": 52,
+            "right": 63,
+            "bottom": 52
+          },
+          "content_size": [
+            67,
+            88
+          ],
+          "center": [
+            95.5,
+            96.0
+          ],
+          "foot_y": 140,
+          "components": [
+            {
+              "area": 3424,
+              "bbox": [
+                62,
+                52,
+                129,
+                140
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_022",
+          "region": [
+            576,
+            576,
+            192,
+            192
+          ],
+          "hash": 3969606898978772384,
+          "empty": false,
+          "bbox": [
+            58,
+            48,
+            134,
+            144
+          ],
+          "margins": {
+            "left": 58,
+            "top": 48,
+            "right": 58,
+            "bottom": 48
+          },
+          "content_size": [
+            76,
+            96
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 144,
+          "components": [
+            {
+              "area": 4246,
+              "bbox": [
+                58,
+                48,
+                134,
+                144
+              ]
+            },
+            {
+              "area": 16,
+              "bbox": [
+                86,
+                48,
+                90,
+                53
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_023",
+          "region": [
+            768,
+            576,
+            192,
+            192
+          ],
+          "hash": -4552120419689955368,
+          "empty": false,
+          "bbox": [
+            60,
+            48,
+            131,
+            144
+          ],
+          "margins": {
+            "left": 60,
+            "top": 48,
+            "right": 61,
+            "bottom": 48
+          },
+          "content_size": [
+            71,
+            96
+          ],
+          "center": [
+            95.5,
+            96.0
+          ],
+          "foot_y": 144,
+          "components": [
+            {
+              "area": 4101,
+              "bbox": [
+                60,
+                48,
+                131,
+                144
+              ]
+            },
+            {
+              "area": 6,
+              "bbox": [
+                84,
+                48,
+                87,
+                51
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "name": "luna_jump_fall_runtime_sheet_ai03_runtime_024",
+          "region": [
+            960,
+            576,
+            192,
+            192
+          ],
+          "hash": 1225816647338968899,
+          "empty": false,
+          "bbox": [
+            61,
+            48,
+            131,
+            143
+          ],
+          "margins": {
+            "left": 61,
+            "top": 48,
+            "right": 61,
+            "bottom": 49
+          },
+          "content_size": [
+            70,
+            95
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 143,
+          "components": [
+            {
+              "area": 4071,
+              "bbox": [
+                61,
+                48,
+                131,
+                143
+              ]
+            },
+            {
+              "area": 7,
+              "bbox": [
+                85,
+                48,
+                88,
+                51
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "frame_count": 24,
+        "min_margins": {
+          "left": 51,
+          "top": 24,
+          "right": 51,
+          "bottom": 24
+        },
+        "edge_touch_frames": [],
+        "edge_padding_failures": [],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 38,
+        "center_x_variance_px": 1.0,
+        "content_width_variance_ratio": 0.3111,
+        "content_height_variance_ratio": 0.5278,
+        "anchor_mode": "body_center",
+        "recorded_scale_variance": 0.0,
+        "stable_recorded_scale": true,
+        "detached_component_failures": []
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "max_detached_component_area_ratio": 0.08,
+        "min_detached_component_area_px": 160,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_attack_body_runtime_sheet_ai03",
+      "texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres",
+      "animation": {
+        "name": "attack_body",
+        "speed": 18.0,
+        "loop": false
+      },
+      "cell": [
+        192,
+        192
+      ],
+      "status": "runtime_replacement_ready",
+      "blockers": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_001",
+          "region": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "hash": 6965704070271481643,
+          "empty": false,
+          "bbox": [
+            58,
+            32,
+            134,
+            176
+          ],
+          "margins": {
+            "left": 58,
+            "top": 32,
+            "right": 58,
+            "bottom": 16
+          },
+          "content_size": [
+            76,
+            144
+          ],
+          "center": [
+            96.0,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6312,
+              "bbox": [
+                58,
+                32,
+                134,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_002",
+          "region": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "hash": -7655209787207075325,
+          "empty": false,
+          "bbox": [
+            58,
+            34,
+            134,
+            176
+          ],
+          "margins": {
+            "left": 58,
+            "top": 34,
+            "right": 58,
+            "bottom": 16
+          },
+          "content_size": [
+            76,
+            142
+          ],
+          "center": [
+            96.0,
+            105.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6577,
+              "bbox": [
+                58,
+                34,
+                134,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_003",
+          "region": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "hash": 8811266700634716860,
+          "empty": false,
+          "bbox": [
+            58,
+            34,
+            133,
+            176
+          ],
+          "margins": {
+            "left": 58,
+            "top": 34,
+            "right": 59,
+            "bottom": 16
+          },
+          "content_size": [
+            75,
+            142
+          ],
+          "center": [
+            95.5,
+            105.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6538,
+              "bbox": [
+                58,
+                34,
+                133,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_004",
+          "region": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "hash": 2161883088781948561,
+          "empty": false,
+          "bbox": [
+            56,
+            36,
+            137,
+            176
+          ],
+          "margins": {
+            "left": 56,
+            "top": 36,
+            "right": 55,
+            "bottom": 16
+          },
+          "content_size": [
+            81,
+            140
+          ],
+          "center": [
+            96.5,
+            106.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6459,
+              "bbox": [
+                56,
+                36,
+                137,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_005",
+          "region": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "hash": -7856527750809293910,
+          "empty": false,
+          "bbox": [
+            49,
+            44,
+            143,
+            176
+          ],
+          "margins": {
+            "left": 49,
+            "top": 44,
+            "right": 49,
+            "bottom": 16
+          },
+          "content_size": [
+            94,
+            132
+          ],
+          "center": [
+            96.0,
+            110.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6984,
+              "bbox": [
+                49,
+                44,
+                143,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_006",
+          "region": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "hash": -8478272288658664803,
+          "empty": false,
+          "bbox": [
+            36,
+            44,
+            156,
+            176
+          ],
+          "margins": {
+            "left": 36,
+            "top": 44,
+            "right": 36,
+            "bottom": 16
+          },
+          "content_size": [
+            120,
+            132
+          ],
+          "center": [
+            96.0,
+            110.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 7509,
+              "bbox": [
+                36,
+                44,
+                156,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_007",
+          "region": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "hash": 2508461400952123422,
+          "empty": false,
+          "bbox": [
+            30,
+            45,
+            161,
+            176
+          ],
+          "margins": {
+            "left": 30,
+            "top": 45,
+            "right": 31,
+            "bottom": 16
+          },
+          "content_size": [
+            131,
+            131
+          ],
+          "center": [
+            95.5,
+            110.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 7911,
+              "bbox": [
+                30,
+                45,
+                161,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_008",
+          "region": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "hash": 4896269396367988954,
+          "empty": false,
+          "bbox": [
+            36,
+            48,
+            156,
+            176
+          ],
+          "margins": {
+            "left": 36,
+            "top": 48,
+            "right": 36,
+            "bottom": 16
+          },
+          "content_size": [
+            120,
+            128
+          ],
+          "center": [
+            96.0,
+            112.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 7395,
+              "bbox": [
+                36,
+                48,
+                156,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_009",
+          "region": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "hash": 8138984464689780984,
+          "empty": false,
+          "bbox": [
+            48,
+            46,
+            144,
+            176
+          ],
+          "margins": {
+            "left": 48,
+            "top": 46,
+            "right": 48,
+            "bottom": 16
+          },
+          "content_size": [
+            96,
+            130
+          ],
+          "center": [
+            96.0,
+            111.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6333,
+              "bbox": [
+                48,
+                46,
+                144,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_010",
+          "region": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "hash": 434017450739540887,
+          "empty": false,
+          "bbox": [
+            46,
+            49,
+            145,
+            176
+          ],
+          "margins": {
+            "left": 46,
+            "top": 49,
+            "right": 47,
+            "bottom": 16
+          },
+          "content_size": [
+            99,
+            127
+          ],
+          "center": [
+            95.5,
+            112.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6816,
+              "bbox": [
+                46,
+                49,
+                145,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_011",
+          "region": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "hash": 7553251216645594391,
+          "empty": false,
+          "bbox": [
+            50,
+            44,
+            143,
+            176
+          ],
+          "margins": {
+            "left": 50,
+            "top": 44,
+            "right": 49,
+            "bottom": 16
+          },
+          "content_size": [
+            93,
+            132
+          ],
+          "center": [
+            96.5,
+            110.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6536,
+              "bbox": [
+                50,
+                44,
+                143,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_012",
+          "region": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "hash": 2546621836488142592,
+          "empty": false,
+          "bbox": [
+            54,
+            46,
+            139,
+            176
+          ],
+          "margins": {
+            "left": 54,
+            "top": 46,
+            "right": 53,
+            "bottom": 16
+          },
+          "content_size": [
+            85,
+            130
+          ],
+          "center": [
+            96.5,
+            111.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6143,
+              "bbox": [
+                54,
+                46,
+                139,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_013",
+          "region": [
+            0,
+            576,
+            192,
+            192
+          ],
+          "hash": 5478341487188552979,
+          "empty": false,
+          "bbox": [
+            56,
+            33,
+            136,
+            176
+          ],
+          "margins": {
+            "left": 56,
+            "top": 33,
+            "right": 56,
+            "bottom": 16
+          },
+          "content_size": [
+            80,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6382,
+              "bbox": [
+                56,
+                33,
+                136,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_014",
+          "region": [
+            192,
+            576,
+            192,
+            192
+          ],
+          "hash": -8074444930206077053,
+          "empty": false,
+          "bbox": [
+            58,
+            33,
+            133,
+            176
+          ],
+          "margins": {
+            "left": 58,
+            "top": 33,
+            "right": 59,
+            "bottom": 16
+          },
+          "content_size": [
+            75,
+            143
+          ],
+          "center": [
+            95.5,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6372,
+              "bbox": [
+                58,
+                33,
+                133,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_015",
+          "region": [
+            384,
+            576,
+            192,
+            192
+          ],
+          "hash": -7178689664632524484,
+          "empty": false,
+          "bbox": [
+            57,
+            33,
+            135,
+            176
+          ],
+          "margins": {
+            "left": 57,
+            "top": 33,
+            "right": 57,
+            "bottom": 16
+          },
+          "content_size": [
+            78,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6340,
+              "bbox": [
+                57,
+                33,
+                135,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "name": "luna_attack_body_runtime_sheet_ai03_runtime_016",
+          "region": [
+            576,
+            576,
+            192,
+            192
+          ],
+          "hash": 2724576830724505139,
+          "empty": false,
+          "bbox": [
+            57,
+            33,
+            135,
+            176
+          ],
+          "margins": {
+            "left": 57,
+            "top": 33,
+            "right": 57,
+            "bottom": 16
+          },
+          "content_size": [
+            78,
+            143
+          ],
+          "center": [
+            96.0,
+            104.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6350,
+              "bbox": [
+                57,
+                33,
+                135,
+                176
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "frame_count": 16,
+        "min_margins": {
+          "left": 30,
+          "top": 32,
+          "right": 31,
+          "bottom": 16
+        },
+        "edge_touch_frames": [],
+        "edge_padding_failures": [],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 0,
+        "center_x_variance_px": 1.0,
+        "content_width_variance_ratio": 0.4275,
+        "content_height_variance_ratio": 0.1181,
+        "anchor_mode": "foot",
+        "recorded_scale_variance": 0.0,
+        "stable_recorded_scale": true,
+        "detached_component_failures": []
+      },
+      "gates": {
+        "min_edge_padding_px": 8,
+        "recommended_horizontal_padding_px": 24,
+        "max_foot_baseline_variance_px": 12,
+        "max_center_variance_px": 36,
+        "max_size_variance_ratio": 0.55,
+        "max_detached_component_area_ratio": 0.08,
+        "min_detached_component_area_px": 160,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_air_dash_body_runtime_sheet_ai03",
+      "texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres",
+      "animation": {
+        "name": "air_dash_body",
+        "speed": 20.0,
+        "loop": false
+      },
+      "cell": [
+        192,
+        192
+      ],
+      "status": "runtime_replacement_ready",
+      "blockers": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_001",
+          "region": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "hash": 1809311943660745911,
+          "empty": false,
+          "bbox": [
+            54,
+            50,
+            138,
+            143
+          ],
+          "margins": {
+            "left": 54,
+            "top": 50,
+            "right": 54,
+            "bottom": 49
+          },
+          "content_size": [
+            84,
+            93
+          ],
+          "center": [
+            96.0,
+            96.5
+          ],
+          "foot_y": 143,
+          "components": [
+            {
+              "area": 4328,
+              "bbox": [
+                54,
+                50,
+                138,
+                142
+              ]
+            },
+            {
+              "area": 111,
+              "bbox": [
+                113,
+                129,
+                124,
+                143
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_002",
+          "region": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "hash": 758306436006282569,
+          "empty": false,
+          "bbox": [
+            54,
+            49,
+            138,
+            143
+          ],
+          "margins": {
+            "left": 54,
+            "top": 49,
+            "right": 54,
+            "bottom": 49
+          },
+          "content_size": [
+            84,
+            94
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 143,
+          "components": [
+            {
+              "area": 4320,
+              "bbox": [
+                54,
+                49,
+                138,
+                143
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_003",
+          "region": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "hash": 6388476651933625128,
+          "empty": false,
+          "bbox": [
+            46,
+            50,
+            146,
+            141
+          ],
+          "margins": {
+            "left": 46,
+            "top": 50,
+            "right": 46,
+            "bottom": 51
+          },
+          "content_size": [
+            100,
+            91
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 141,
+          "components": [
+            {
+              "area": 4732,
+              "bbox": [
+                46,
+                50,
+                146,
+                141
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_004",
+          "region": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "hash": 7069371469877966814,
+          "empty": false,
+          "bbox": [
+            44,
+            50,
+            148,
+            141
+          ],
+          "margins": {
+            "left": 44,
+            "top": 50,
+            "right": 44,
+            "bottom": 51
+          },
+          "content_size": [
+            104,
+            91
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 141,
+          "components": [
+            {
+              "area": 4720,
+              "bbox": [
+                44,
+                50,
+                148,
+                141
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_005",
+          "region": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "hash": 5398140241306465175,
+          "empty": false,
+          "bbox": [
+            31,
+            52,
+            161,
+            139
+          ],
+          "margins": {
+            "left": 31,
+            "top": 52,
+            "right": 31,
+            "bottom": 53
+          },
+          "content_size": [
+            130,
+            87
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 139,
+          "components": [
+            {
+              "area": 5319,
+              "bbox": [
+                31,
+                52,
+                161,
+                139
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_006",
+          "region": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "hash": 1469127617142891616,
+          "empty": false,
+          "bbox": [
+            27,
+            56,
+            165,
+            136
+          ],
+          "margins": {
+            "left": 27,
+            "top": 56,
+            "right": 27,
+            "bottom": 56
+          },
+          "content_size": [
+            138,
+            80
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 136,
+          "components": [
+            {
+              "area": 5113,
+              "bbox": [
+                27,
+                56,
+                165,
+                136
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_007",
+          "region": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "hash": -8884273791166832788,
+          "empty": false,
+          "bbox": [
+            26,
+            56,
+            166,
+            135
+          ],
+          "margins": {
+            "left": 26,
+            "top": 56,
+            "right": 26,
+            "bottom": 57
+          },
+          "content_size": [
+            140,
+            79
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 135,
+          "components": [
+            {
+              "area": 5121,
+              "bbox": [
+                26,
+                56,
+                166,
+                135
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_008",
+          "region": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "hash": -6190220815048804206,
+          "empty": false,
+          "bbox": [
+            24,
+            59,
+            168,
+            133
+          ],
+          "margins": {
+            "left": 24,
+            "top": 59,
+            "right": 24,
+            "bottom": 59
+          },
+          "content_size": [
+            144,
+            74
+          ],
+          "center": [
+            96.0,
+            96.0
+          ],
+          "foot_y": 133,
+          "components": [
+            {
+              "area": 4965,
+              "bbox": [
+                24,
+                59,
+                168,
+                133
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_009",
+          "region": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "hash": -7515787911806592353,
+          "empty": false,
+          "bbox": [
+            38,
+            58,
+            155,
+            134
+          ],
+          "margins": {
+            "left": 38,
+            "top": 58,
+            "right": 37,
+            "bottom": 58
+          },
+          "content_size": [
+            117,
+            76
+          ],
+          "center": [
+            96.5,
+            96.0
+          ],
+          "foot_y": 134,
+          "components": [
+            {
+              "area": 4333,
+              "bbox": [
+                38,
+                58,
+                155,
+                134
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_010",
+          "region": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "hash": 2987678871340782773,
+          "empty": false,
+          "bbox": [
+            47,
+            52,
+            145,
+            141
+          ],
+          "margins": {
+            "left": 47,
+            "top": 52,
+            "right": 47,
+            "bottom": 51
+          },
+          "content_size": [
+            98,
+            89
+          ],
+          "center": [
+            96.0,
+            96.5
+          ],
+          "foot_y": 141,
+          "components": [
+            {
+              "area": 4653,
+              "bbox": [
+                47,
+                52,
+                145,
+                141
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_011",
+          "region": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "hash": 5347025042145164822,
+          "empty": false,
+          "bbox": [
+            49,
+            48,
+            143,
+            143
+          ],
+          "margins": {
+            "left": 49,
+            "top": 48,
+            "right": 49,
+            "bottom": 49
+          },
+          "content_size": [
+            94,
+            95
+          ],
+          "center": [
+            96.0,
+            95.5
+          ],
+          "foot_y": 143,
+          "components": [
+            {
+              "area": 4678,
+              "bbox": [
+                49,
+                48,
+                143,
+                143
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_012",
+          "region": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "hash": -5481894612792471376,
+          "empty": false,
+          "bbox": [
+            46,
+            49,
+            145,
+            143
+          ],
+          "margins": {
+            "left": 46,
+            "top": 49,
+            "right": 47,
+            "bottom": 49
+          },
+          "content_size": [
+            99,
+            94
+          ],
+          "center": [
+            95.5,
+            96.0
+          ],
+          "foot_y": 143,
+          "components": [
+            {
+              "area": 4750,
+              "bbox": [
+                46,
+                49,
+                145,
+                143
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_013",
+          "region": [
+            0,
+            576,
+            192,
+            192
+          ],
+          "hash": -7206068254050601054,
+          "empty": false,
+          "bbox": [
+            50,
+            43,
+            141,
+            149
+          ],
+          "margins": {
+            "left": 50,
+            "top": 43,
+            "right": 51,
+            "bottom": 43
+          },
+          "content_size": [
+            91,
+            106
+          ],
+          "center": [
+            95.5,
+            96.0
+          ],
+          "foot_y": 149,
+          "components": [
+            {
+              "area": 5067,
+              "bbox": [
+                50,
+                43,
+                141,
+                149
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_014",
+          "region": [
+            192,
+            576,
+            192,
+            192
+          ],
+          "hash": -3332837231591118995,
+          "empty": false,
+          "bbox": [
+            54,
+            41,
+            139,
+            151
+          ],
+          "margins": {
+            "left": 54,
+            "top": 41,
+            "right": 53,
+            "bottom": 41
+          },
+          "content_size": [
+            85,
+            110
+          ],
+          "center": [
+            96.5,
+            96.0
+          ],
+          "foot_y": 151,
+          "components": [
+            {
+              "area": 4714,
+              "bbox": [
+                54,
+                41,
+                139,
+                151
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_015",
+          "region": [
+            384,
+            576,
+            192,
+            192
+          ],
+          "hash": 1911087408661775388,
+          "empty": false,
+          "bbox": [
+            56,
+            42,
+            137,
+            151
+          ],
+          "margins": {
+            "left": 56,
+            "top": 42,
+            "right": 55,
+            "bottom": 41
+          },
+          "content_size": [
+            81,
+            109
+          ],
+          "center": [
+            96.5,
+            96.5
+          ],
+          "foot_y": 151,
+          "components": [
+            {
+              "area": 4586,
+              "bbox": [
+                56,
+                42,
+                137,
+                151
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "name": "luna_air_dash_body_runtime_sheet_ai03_runtime_016",
+          "region": [
+            576,
+            576,
+            192,
+            192
+          ],
+          "hash": 8210485902468068518,
+          "empty": false,
+          "bbox": [
+            56,
+            41,
+            137,
+            151
+          ],
+          "margins": {
+            "left": 56,
+            "top": 41,
+            "right": 55,
+            "bottom": 41
+          },
+          "content_size": [
+            81,
+            110
+          ],
+          "center": [
+            96.5,
+            96.0
+          ],
+          "foot_y": 151,
+          "components": [
+            {
+              "area": 4594,
+              "bbox": [
+                56,
+                41,
+                137,
+                151
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "frame_count": 16,
+        "min_margins": {
+          "left": 24,
+          "top": 41,
+          "right": 24,
+          "bottom": 41
+        },
+        "edge_touch_frames": [],
+        "edge_padding_failures": [],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 18,
+        "center_x_variance_px": 1.0,
+        "content_width_variance_ratio": 0.4375,
+        "content_height_variance_ratio": 0.3273,
+        "anchor_mode": "body_center",
+        "recorded_scale_variance": 0.0,
+        "stable_recorded_scale": true,
+        "detached_component_failures": []
+      },
+      "gates": {
+        "min_edge_padding_px": 8,
+        "recommended_horizontal_padding_px": 24,
+        "max_foot_baseline_variance_px": 12,
+        "max_center_variance_px": 36,
+        "max_size_variance_ratio": 0.55,
+        "max_detached_component_area_ratio": 0.08,
+        "min_detached_component_area_px": 160,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_hit_react_runtime_sheet_ai03",
+      "texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres",
+      "animation": {
+        "name": "hit_react",
+        "speed": 14.0,
+        "loop": false
+      },
+      "cell": [
+        192,
+        192
+      ],
+      "status": "runtime_replacement_ready",
+      "blockers": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_001",
+          "region": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "hash": 2751022140319772513,
+          "empty": false,
+          "bbox": [
+            36,
+            48,
+            156,
+            176
+          ],
+          "margins": {
+            "left": 36,
+            "top": 48,
+            "right": 36,
+            "bottom": 16
+          },
+          "content_size": [
+            120,
+            128
+          ],
+          "center": [
+            96.0,
+            112.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8152,
+              "bbox": [
+                36,
+                48,
+                156,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_002",
+          "region": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "hash": -6840243850986992129,
+          "empty": false,
+          "bbox": [
+            33,
+            48,
+            159,
+            176
+          ],
+          "margins": {
+            "left": 33,
+            "top": 48,
+            "right": 33,
+            "bottom": 16
+          },
+          "content_size": [
+            126,
+            128
+          ],
+          "center": [
+            96.0,
+            112.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 8208,
+              "bbox": [
+                33,
+                48,
+                159,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_003",
+          "region": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "hash": 7727771468960583031,
+          "empty": false,
+          "bbox": [
+            37,
+            63,
+            155,
+            176
+          ],
+          "margins": {
+            "left": 37,
+            "top": 63,
+            "right": 37,
+            "bottom": 16
+          },
+          "content_size": [
+            118,
+            113
+          ],
+          "center": [
+            96.0,
+            119.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6921,
+              "bbox": [
+                37,
+                63,
+                155,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_004",
+          "region": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "hash": -3444199922700563090,
+          "empty": false,
+          "bbox": [
+            44,
+            67,
+            147,
+            176
+          ],
+          "margins": {
+            "left": 44,
+            "top": 67,
+            "right": 45,
+            "bottom": 16
+          },
+          "content_size": [
+            103,
+            109
+          ],
+          "center": [
+            95.5,
+            121.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6562,
+              "bbox": [
+                44,
+                67,
+                147,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_005",
+          "region": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "hash": -1920683449724258909,
+          "empty": false,
+          "bbox": [
+            34,
+            61,
+            158,
+            176
+          ],
+          "margins": {
+            "left": 34,
+            "top": 61,
+            "right": 34,
+            "bottom": 16
+          },
+          "content_size": [
+            124,
+            115
+          ],
+          "center": [
+            96.0,
+            118.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 7341,
+              "bbox": [
+                34,
+                61,
+                158,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_006",
+          "region": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "hash": 5080858014440633108,
+          "empty": false,
+          "bbox": [
+            42,
+            64,
+            151,
+            176
+          ],
+          "margins": {
+            "left": 42,
+            "top": 64,
+            "right": 41,
+            "bottom": 16
+          },
+          "content_size": [
+            109,
+            112
+          ],
+          "center": [
+            96.5,
+            120.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6601,
+              "bbox": [
+                42,
+                64,
+                151,
+                176
+              ]
+            },
+            {
+              "area": 4,
+              "bbox": [
+                80,
+                104,
+                82,
+                106
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_007",
+          "region": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "hash": 2011887592940935272,
+          "empty": false,
+          "bbox": [
+            46,
+            35,
+            145,
+            176
+          ],
+          "margins": {
+            "left": 46,
+            "top": 35,
+            "right": 47,
+            "bottom": 16
+          },
+          "content_size": [
+            99,
+            141
+          ],
+          "center": [
+            95.5,
+            105.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 7237,
+              "bbox": [
+                46,
+                35,
+                145,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_hit_react_runtime_sheet_ai03_runtime_008",
+          "region": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "hash": -1063810594206961810,
+          "empty": false,
+          "bbox": [
+            58,
+            32,
+            135,
+            176
+          ],
+          "margins": {
+            "left": 58,
+            "top": 32,
+            "right": 57,
+            "bottom": 16
+          },
+          "content_size": [
+            77,
+            144
+          ],
+          "center": [
+            96.5,
+            104.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 6622,
+              "bbox": [
+                58,
+                32,
+                135,
+                176
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "frame_count": 8,
+        "min_margins": {
+          "left": 33,
+          "top": 32,
+          "right": 33,
+          "bottom": 16
+        },
+        "edge_touch_frames": [],
+        "edge_padding_failures": [],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 0,
+        "center_x_variance_px": 1.0,
+        "content_width_variance_ratio": 0.3889,
+        "content_height_variance_ratio": 0.2431,
+        "anchor_mode": "foot",
+        "recorded_scale_variance": 0.0,
+        "stable_recorded_scale": true,
+        "detached_component_failures": []
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "max_detached_component_area_ratio": 0.08,
+        "min_detached_component_area_px": 160,
+        "require_no_duplicate_frame_hashes": true
+      }
+    },
+    {
+      "asset_id": "luna_death_idle_runtime_sheet_ai03",
+      "texture": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.png",
+      "metadata": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.frames.json",
+      "sprite_frames": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.spriteframes.tres",
+      "animation": {
+        "name": "death_idle",
+        "speed": 10.0,
+        "loop": false
+      },
+      "cell": [
+        192,
+        192
+      ],
+      "status": "runtime_replacement_ready",
+      "blockers": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_001",
+          "region": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "hash": -3318480610548856599,
+          "empty": false,
+          "bbox": [
+            56,
+            53,
+            137,
+            176
+          ],
+          "margins": {
+            "left": 56,
+            "top": 53,
+            "right": 55,
+            "bottom": 16
+          },
+          "content_size": [
+            81,
+            123
+          ],
+          "center": [
+            96.5,
+            114.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 5583,
+              "bbox": [
+                56,
+                53,
+                137,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_002",
+          "region": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "hash": -6012621574342278892,
+          "empty": false,
+          "bbox": [
+            51,
+            63,
+            141,
+            176
+          ],
+          "margins": {
+            "left": 51,
+            "top": 63,
+            "right": 51,
+            "bottom": 16
+          },
+          "content_size": [
+            90,
+            113
+          ],
+          "center": [
+            96.0,
+            119.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 5926,
+              "bbox": [
+                51,
+                63,
+                141,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_003",
+          "region": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "hash": 1557370668989138075,
+          "empty": false,
+          "bbox": [
+            50,
+            72,
+            143,
+            176
+          ],
+          "margins": {
+            "left": 50,
+            "top": 72,
+            "right": 49,
+            "bottom": 16
+          },
+          "content_size": [
+            93,
+            104
+          ],
+          "center": [
+            96.5,
+            124.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 5700,
+              "bbox": [
+                50,
+                72,
+                143,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_004",
+          "region": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "hash": -2081935183535206829,
+          "empty": false,
+          "bbox": [
+            49,
+            87,
+            143,
+            176
+          ],
+          "margins": {
+            "left": 49,
+            "top": 87,
+            "right": 49,
+            "bottom": 16
+          },
+          "content_size": [
+            94,
+            89
+          ],
+          "center": [
+            96.0,
+            131.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 5086,
+              "bbox": [
+                49,
+                87,
+                143,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_005",
+          "region": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "hash": -4905130634268409753,
+          "empty": false,
+          "bbox": [
+            47,
+            89,
+            145,
+            176
+          ],
+          "margins": {
+            "left": 47,
+            "top": 89,
+            "right": 47,
+            "bottom": 16
+          },
+          "content_size": [
+            98,
+            87
+          ],
+          "center": [
+            96.0,
+            132.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 4759,
+              "bbox": [
+                47,
+                89,
+                145,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_006",
+          "region": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "hash": -4742140424388646702,
+          "empty": false,
+          "bbox": [
+            44,
+            92,
+            149,
+            176
+          ],
+          "margins": {
+            "left": 44,
+            "top": 92,
+            "right": 43,
+            "bottom": 16
+          },
+          "content_size": [
+            105,
+            84
+          ],
+          "center": [
+            96.5,
+            134.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 4651,
+              "bbox": [
+                44,
+                92,
+                149,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_007",
+          "region": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "hash": 4254456584877239338,
+          "empty": false,
+          "bbox": [
+            46,
+            98,
+            147,
+            176
+          ],
+          "margins": {
+            "left": 46,
+            "top": 98,
+            "right": 45,
+            "bottom": 16
+          },
+          "content_size": [
+            101,
+            78
+          ],
+          "center": [
+            96.5,
+            137.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 4387,
+              "bbox": [
+                46,
+                98,
+                147,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_008",
+          "region": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "hash": 2355688287548882542,
+          "empty": false,
+          "bbox": [
+            44,
+            109,
+            148,
+            176
+          ],
+          "margins": {
+            "left": 44,
+            "top": 109,
+            "right": 44,
+            "bottom": 16
+          },
+          "content_size": [
+            104,
+            67
+          ],
+          "center": [
+            96.0,
+            142.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3970,
+              "bbox": [
+                44,
+                109,
+                148,
+                176
+              ]
+            },
+            {
+              "area": 1,
+              "bbox": [
+                116,
+                144,
+                117,
+                145
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_009",
+          "region": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "hash": 1164552116439517457,
+          "empty": false,
+          "bbox": [
+            39,
+            113,
+            153,
+            176
+          ],
+          "margins": {
+            "left": 39,
+            "top": 113,
+            "right": 39,
+            "bottom": 16
+          },
+          "content_size": [
+            114,
+            63
+          ],
+          "center": [
+            96.0,
+            144.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 4548,
+              "bbox": [
+                39,
+                113,
+                153,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_010",
+          "region": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "hash": 1235840374050761111,
+          "empty": false,
+          "bbox": [
+            41,
+            116,
+            151,
+            176
+          ],
+          "margins": {
+            "left": 41,
+            "top": 116,
+            "right": 41,
+            "bottom": 16
+          },
+          "content_size": [
+            110,
+            60
+          ],
+          "center": [
+            96.0,
+            146.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 4355,
+              "bbox": [
+                41,
+                116,
+                151,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_011",
+          "region": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "hash": 2058292502425025156,
+          "empty": false,
+          "bbox": [
+            40,
+            121,
+            151,
+            176
+          ],
+          "margins": {
+            "left": 40,
+            "top": 121,
+            "right": 41,
+            "bottom": 16
+          },
+          "content_size": [
+            111,
+            55
+          ],
+          "center": [
+            95.5,
+            148.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 4142,
+              "bbox": [
+                40,
+                121,
+                151,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_012",
+          "region": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "hash": -3432118745183193631,
+          "empty": false,
+          "bbox": [
+            34,
+            129,
+            159,
+            176
+          ],
+          "margins": {
+            "left": 34,
+            "top": 129,
+            "right": 33,
+            "bottom": 16
+          },
+          "content_size": [
+            125,
+            47
+          ],
+          "center": [
+            96.5,
+            152.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 4312,
+              "bbox": [
+                34,
+                129,
+                159,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_013",
+          "region": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "hash": -6387991857863862070,
+          "empty": false,
+          "bbox": [
+            30,
+            131,
+            161,
+            176
+          ],
+          "margins": {
+            "left": 30,
+            "top": 131,
+            "right": 31,
+            "bottom": 16
+          },
+          "content_size": [
+            131,
+            45
+          ],
+          "center": [
+            95.5,
+            153.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3999,
+              "bbox": [
+                30,
+                131,
+                161,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_014",
+          "region": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "hash": 1825376072244810958,
+          "empty": false,
+          "bbox": [
+            26,
+            138,
+            165,
+            176
+          ],
+          "margins": {
+            "left": 26,
+            "top": 138,
+            "right": 27,
+            "bottom": 16
+          },
+          "content_size": [
+            139,
+            38
+          ],
+          "center": [
+            95.5,
+            157.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3624,
+              "bbox": [
+                26,
+                138,
+                165,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_015",
+          "region": [
+            768,
+            384,
+            192,
+            192
+          ],
+          "hash": 5660248313361056850,
+          "empty": false,
+          "bbox": [
+            26,
+            144,
+            167,
+            176
+          ],
+          "margins": {
+            "left": 26,
+            "top": 144,
+            "right": 25,
+            "bottom": 16
+          },
+          "content_size": [
+            141,
+            32
+          ],
+          "center": [
+            96.5,
+            160.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3281,
+              "bbox": [
+                26,
+                144,
+                167,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_016",
+          "region": [
+            0,
+            576,
+            192,
+            192
+          ],
+          "hash": 8516305939633968452,
+          "empty": false,
+          "bbox": [
+            28,
+            143,
+            164,
+            176
+          ],
+          "margins": {
+            "left": 28,
+            "top": 143,
+            "right": 28,
+            "bottom": 16
+          },
+          "content_size": [
+            136,
+            33
+          ],
+          "center": [
+            96.0,
+            159.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3250,
+              "bbox": [
+                28,
+                143,
+                164,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_017",
+          "region": [
+            192,
+            576,
+            192,
+            192
+          ],
+          "hash": 8015273399516306357,
+          "empty": false,
+          "bbox": [
+            26,
+            139,
+            166,
+            176
+          ],
+          "margins": {
+            "left": 26,
+            "top": 139,
+            "right": 26,
+            "bottom": 16
+          },
+          "content_size": [
+            140,
+            37
+          ],
+          "center": [
+            96.0,
+            157.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3625,
+              "bbox": [
+                26,
+                139,
+                166,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_018",
+          "region": [
+            384,
+            576,
+            192,
+            192
+          ],
+          "hash": -662969407867831762,
+          "empty": false,
+          "bbox": [
+            24,
+            142,
+            168,
+            176
+          ],
+          "margins": {
+            "left": 24,
+            "top": 142,
+            "right": 24,
+            "bottom": 16
+          },
+          "content_size": [
+            144,
+            34
+          ],
+          "center": [
+            96.0,
+            159.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3621,
+              "bbox": [
+                24,
+                142,
+                168,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_019",
+          "region": [
+            576,
+            576,
+            192,
+            192
+          ],
+          "hash": 6318973164140900961,
+          "empty": false,
+          "bbox": [
+            24,
+            142,
+            167,
+            176
+          ],
+          "margins": {
+            "left": 24,
+            "top": 142,
+            "right": 25,
+            "bottom": 16
+          },
+          "content_size": [
+            143,
+            34
+          ],
+          "center": [
+            95.5,
+            159.0
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3523,
+              "bbox": [
+                24,
+                142,
+                167,
+                176
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "name": "luna_death_idle_runtime_sheet_ai03_runtime_020",
+          "region": [
+            768,
+            576,
+            192,
+            192
+          ],
+          "hash": -4909965640043850136,
+          "empty": false,
+          "bbox": [
+            24,
+            137,
+            167,
+            176
+          ],
+          "margins": {
+            "left": 24,
+            "top": 137,
+            "right": 25,
+            "bottom": 16
+          },
+          "content_size": [
+            143,
+            39
+          ],
+          "center": [
+            95.5,
+            156.5
+          ],
+          "foot_y": 176,
+          "components": [
+            {
+              "area": 3667,
+              "bbox": [
+                24,
+                137,
+                167,
+                176
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "frame_count": 20,
+        "min_margins": {
+          "left": 24,
+          "top": 53,
+          "right": 24,
+          "bottom": 16
+        },
+        "edge_touch_frames": [],
+        "edge_padding_failures": [],
+        "horizontal_padding_below_recommended": [],
+        "duplicate_frame_groups": [],
+        "foot_baseline_variance_px": 0,
+        "center_x_variance_px": 1.0,
+        "content_width_variance_ratio": 0.4375,
+        "content_height_variance_ratio": 0.7398,
+        "anchor_mode": "foot",
+        "recorded_scale_variance": 0.0,
+        "stable_recorded_scale": true,
+        "detached_component_failures": []
+      },
+      "gates": {
+        "min_edge_padding_px": 4,
+        "recommended_horizontal_padding_px": 12,
+        "max_foot_baseline_variance_px": 10,
+        "max_center_variance_px": 28,
+        "max_size_variance_ratio": 0.45,
+        "max_detached_component_area_ratio": 0.08,
+        "min_detached_component_area_px": 160,
+        "require_no_duplicate_frame_hashes": true
+      }
+    }
+  ],
+  "archived_references": [],
+  "boundary": "Formal animation runtime replacement audit for active runtime candidates. Archived references are retained as failed evidence or regeneration inputs and must point to existing replacements. Passing this audit is required before replacing live player, enemy or boss controller animations, but it does not replace gameplay timing, hitbox/hurtbox and playtest verification."
+}

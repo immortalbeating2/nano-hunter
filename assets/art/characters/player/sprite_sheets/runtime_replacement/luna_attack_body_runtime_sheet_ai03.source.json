@@ -1,0 +1,17 @@
+{
+  "asset_id": "luna_attack_body_runtime_sheet_ai03",
+  "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bbc07af081968cfcbe5ea1f0bfcb.png",
+  "source_sha256": "dfbb89238d590d59321cc78c6eb0ee9ecfefa42579849aed208c4b6e0d3ca756",
+  "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_runtime_body_sheet",
+  "constraints": [
+    "transparent_png",
+    "no_green_background",
+    "no_white_background",
+    "no_checkerboard_background",
+    "fixed_grid",
+    "one_action_per_sheet",
+    "stable_scale",
+    "stable_anchor"
+  ],
+  "anchor": "foot"
+}

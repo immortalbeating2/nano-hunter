@@ -8,6 +8,9 @@ const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const TUTORIAL_ROOM_SCENE_PATH := "res://scenes/rooms/tutorial_room.tscn"
 const COMBAT_ROOM_SCENE_PATH := "res://scenes/rooms/combat_trial_room.tscn"
+const GATE_LOCKED_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
+const GATE_OPEN_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres"
+const GATE_UNLOCK_VFX_FRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
 
 # 信号缓存用于确认玩家生命变化和 defeated 只按预期次数发出。
 var _health_signal_values: Array[int] = []
@@ -104,16 +107,31 @@ func test_combat_trial_room_unlocks_exit_after_enemy_is_defeated() -> void:
 	await get_tree().process_frame
 
 	var enemy: Node2D = room.get_node_or_null("BasicMeleeEnemy") as Node2D
+	var exit_art := room.get_node_or_null("ExitBarrier/BarrierArt") as Sprite2D
 
 	assert_not_null(enemy)
+	assert_not_null(exit_art)
 	assert_false(room.call("is_exit_unlocked"))
 	assert_string_contains(str(room.call("get_current_prompt_text")), "击败")
+	if exit_art != null:
+		assert_eq(exit_art.texture.resource_path, GATE_LOCKED_TEXTURE_PATH)
 
 	enemy.call("receive_attack", Vector2.RIGHT, 120.0)
 	await _advance_process_frames(2)
 
 	assert_true(room.call("is_exit_unlocked"))
 	assert_string_contains(str(room.call("get_current_prompt_text")), "出口")
+	if exit_art != null:
+		assert_eq(exit_art.texture.resource_path, GATE_OPEN_TEXTURE_PATH)
+		assert_eq(exit_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_open")
+	var exit_vfx := room.get_node_or_null("ExitBarrier/GateUnlockVfxArt") as AnimatedSprite2D
+	assert_not_null(exit_vfx)
+	if exit_vfx != null:
+		assert_not_null(exit_vfx.sprite_frames)
+		assert_eq(exit_vfx.sprite_frames.resource_path, GATE_UNLOCK_VFX_FRAMES_PATH)
+		assert_eq(exit_vfx.animation, &"seal_magic")
+		assert_eq(exit_vfx.get_meta("runtime_source", ""), "vfx_seal_magic_atlas_ai01.gate_unlock_feedback")
+		assert_true(exit_vfx.visible)
 
 
 # 保护运行态复核后的接敌距离：首个敌人不能离出生点过远导致实战压力偏弱。
@@ -154,17 +172,22 @@ func test_main_resets_current_combat_room_after_player_is_defeated() -> void:
 	var player: CharacterBody2D = main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
 	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
 	var status_label: Label = main_scene.get_node_or_null("HUD/TutorialHUD/BattlePanel/StatusLabel") as Label
+	var health_bar_back: ColorRect = main_scene.get_node_or_null("HUD/TutorialHUD/BattlePanel/HealthBarBack") as ColorRect
+	var health_bar_fill: ColorRect = main_scene.get_node_or_null("HUD/TutorialHUD/BattlePanel/HealthBarFill") as ColorRect
 
 	assert_not_null(player)
 	assert_not_null(room)
 	assert_not_null(status_label)
+	assert_not_null(health_bar_back)
+	assert_not_null(health_bar_fill)
 	assert_eq(room.scene_file_path, COMBAT_ROOM_SCENE_PATH)
 	assert_eq(player.get("current_health"), 3)
-	assert_string_contains(status_label.text, "■■■")
+	assert_string_contains(status_label.text, "生命")
+	assert_almost_eq(_health_bar_ratio(health_bar_fill, health_bar_back), 1.0, 0.01)
 
 	player.call("receive_damage", 1, Vector2.RIGHT)
 	await _advance_physics_frames(2)
-	assert_string_contains(status_label.text, "■■□")
+	assert_almost_eq(_health_bar_ratio(health_bar_fill, health_bar_back), 2.0 / 3.0, 0.02)
 
 	await _defeat_player(player)
 	await _advance_process_frames(4)
@@ -181,10 +204,49 @@ func test_main_resets_current_combat_room_after_player_is_defeated() -> void:
 	assert_eq(reset_room.scene_file_path, COMBAT_ROOM_SCENE_PATH)
 	assert_eq(reset_player.get("current_health"), 3)
 	assert_false(reset_room.call("is_exit_unlocked"))
-	assert_string_contains(status_label.text, "■■■")
+	assert_almost_eq(_health_bar_ratio(health_bar_fill, health_bar_back), 1.0, 0.01)
 
 	var spawn_position: Vector2 = reset_room.call("get_spawn_position", &"combat_entry")
 	assert_lt(reset_player.global_position.distance_to(spawn_position), 8.0)
+
+
+# 保护已清房后的失败重试：同房间死亡必须重新实例化房间，不能保留已开门和已击败敌人状态。
+func test_main_reloads_combat_room_state_after_clear_then_player_defeat() -> void:
+	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
+
+	assert_not_null(packed_scene)
+
+	var main_scene: Node2D = packed_scene.instantiate() as Node2D
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+
+	await _complete_tutorial_and_enter_combat(main_scene)
+
+	var room: Node2D = main_scene.get_node_or_null("Room") as Node2D
+	var player: CharacterBody2D = main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
+	var enemy: Node2D = room.get_node_or_null("BasicMeleeEnemy") as Node2D
+
+	assert_not_null(room)
+	assert_not_null(player)
+	assert_not_null(enemy)
+
+	enemy.call("receive_attack", Vector2.RIGHT, 120.0)
+	await _advance_process_frames(2)
+	assert_true(room.call("is_exit_unlocked"))
+
+	player.call("receive_damage", 1, Vector2.RIGHT)
+	await _defeat_player(player)
+	await _advance_process_frames(4)
+
+	var reset_room: Node2D = main_scene.get_node_or_null("Room") as Node2D
+	var reset_enemy: Node2D = reset_room.get_node_or_null("BasicMeleeEnemy") as Node2D
+
+	assert_not_null(reset_room)
+	assert_not_null(reset_enemy)
+	assert_ne(reset_room, room)
+	assert_eq(reset_room.scene_file_path, COMBAT_ROOM_SCENE_PATH)
+	assert_false(reset_room.call("is_exit_unlocked"))
+	assert_false(reset_enemy.call("is_defeated"))
 
 
 # 测试辅助：统一生成战斗房、玩家和失败流程，避免各条测试自行拼接主线推进。
@@ -268,6 +330,11 @@ func _wait_until_player_is_settled(player: CharacterBody2D, max_frames: int) -> 
 		await _advance_physics_frames(1)
 
 	fail_test("玩家在预期帧数内没有稳定落地")
+
+
+# HUD 生命已由文本格升级为固定宽度资源条；测试只读取比例，避免绑定具体像素宽度。
+func _health_bar_ratio(fill: ColorRect, back: ColorRect) -> float:
+	return fill.size.x / maxf(back.size.x - 2.0, 1.0)
 
 
 # 输入清理覆盖移动、跳跃、攻击和冲刺，防止 Input 单例在 GUT 测试之间泄漏状态。

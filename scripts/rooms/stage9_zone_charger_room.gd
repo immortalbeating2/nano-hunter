@@ -5,5 +5,8 @@ extends "res://scripts/rooms/stage9_room_base.gd"
 
 func _handle_enemy_defeated() -> void:
 	# 这里保留为独立 override，是为了把“击败冲锋敌”明确记录为阶段检查点。
+	var checkpoint_art := get_node_or_null("CheckpointPoint/CheckpointArt") as Sprite2D
+	if checkpoint_art != null:
+		checkpoint_art.visible = true
 	activate_checkpoint()
 	unlock_gate(cleared_step_id)

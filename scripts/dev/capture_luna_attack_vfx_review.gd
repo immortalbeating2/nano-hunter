@@ -8,12 +8,19 @@ const OUT_DIR := "res://tests/artifacts/local/animation-runtime-replacement/arp_
 const OUT_IMAGE := "%s/luna_attack_vfx_runtime.png" % OUT_DIR
 const OUT_REPORT := "%s/luna_attack_vfx_runtime_report.json" % OUT_DIR
 const VIEWPORT_SIZE := Vector2i(960, 540)
-const TARGET_BODY_ASSET_ID := "luna_attack_body_runtime_sheet_ai02"
-const TARGET_BODY_SPRITEFRAMES := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai02.spriteframes.tres"
+const TARGET_BODY_ASSET_ID := "luna_attack_body_runtime_sheet_ai03"
+const TARGET_BODY_SPRITEFRAMES := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres"
 const TARGET_SLASH_ASSET_ID := "luna_attack_slash_vfx_runtime_ai01"
 const TARGET_SLASH_SPRITEFRAMES := "res://assets/art/vfx/atlases/luna_attack_slash_vfx_runtime_ai01.spriteframes.tres"
 const TARGET_SEAL_ARC_ASSET_ID := "luna_attack_seal_arc_vfx_runtime_ai01"
 const TARGET_SEAL_ARC_SPRITEFRAMES := "res://assets/art/vfx/atlases/luna_attack_seal_arc_vfx_runtime_ai01.spriteframes.tres"
+const LUNA_RUNTIME_VISUAL_POSITION := Vector2(0.0, -16.0)
+const LUNA_RUNTIME_ALPHA_FOOT_BOTTOM_Y := 175.0
+const LUNA_RUNTIME_FRAME_HALF_HEIGHT := 96.0
+const PLAYER_COLLISION_BOTTOM_Y := 20.0
+const LUNA_ATTACK_SLASH_VFX_POSITION := Vector2(46.0, -12.0)
+const LUNA_ATTACK_SEAL_ARC_VFX_POSITION := Vector2(38.0, -12.0)
+const MAX_FOOT_ANCHOR_DELTA := 1.0
 const SAMPLE_STEP := 6
 const MIN_VISIBLE_PIXEL_RATIO := 0.01
 
@@ -44,6 +51,15 @@ func _capture_attack_vfx() -> int:
 	var floor := StaticBody2D.new()
 	floor.position = Vector2(480, 380)
 	world.add_child(floor)
+	var floor_visual := Polygon2D.new()
+	floor_visual.color = Color(0.22, 0.25, 0.26, 1.0)
+	floor_visual.polygon = PackedVector2Array([
+		Vector2(-512, -16),
+		Vector2(512, -16),
+		Vector2(512, 16),
+		Vector2(-512, 16),
+	])
+	floor.add_child(floor_visual)
 	var floor_shape := CollisionShape2D.new()
 	var rectangle := RectangleShape2D.new()
 	rectangle.size = Vector2(1024, 32)
@@ -57,6 +73,9 @@ func _capture_attack_vfx() -> int:
 		return 1
 	player.position = Vector2(480, 320)
 	world.add_child(player)
+	var camera := player.get_node_or_null("Camera2D") as Camera2D
+	if camera != null:
+		camera.zoom = Vector2(3.2, 3.2)
 
 	await _settle_player(player, 60)
 	Input.action_press("attack")
@@ -109,12 +128,22 @@ func _build_report(image: Image, player: CharacterBody2D) -> Dictionary:
 	var runtime_visual := player.get_node_or_null("LunaRuntimeAnimationVisual") as AnimatedSprite2D
 	var slash_vfx := player.get_node_or_null("AttackSlashVfxVisual") as AnimatedSprite2D
 	var seal_arc_vfx := player.get_node_or_null("AttackSealArcVfxVisual") as AnimatedSprite2D
-	var legacy_slash := player.get_node_or_null("Stage12SlashPreview") as Sprite2D
 	var state := String(player.call("get_current_state_id")) if player.has_method("get_current_state_id") else ""
 	var runtime_report := _inspect_runtime_visual(runtime_visual)
-	var slash_report := _inspect_attack_vfx(slash_vfx, TARGET_SLASH_ASSET_ID, TARGET_SLASH_SPRITEFRAMES, &"attack_slash")
-	var seal_arc_report := _inspect_attack_vfx(seal_arc_vfx, TARGET_SEAL_ARC_ASSET_ID, TARGET_SEAL_ARC_SPRITEFRAMES, &"attack_seal_arc")
-	var legacy_report := _inspect_legacy_slash(legacy_slash)
+	var slash_report := _inspect_attack_vfx(
+		slash_vfx,
+		TARGET_SLASH_ASSET_ID,
+		TARGET_SLASH_SPRITEFRAMES,
+		&"attack_slash",
+		LUNA_ATTACK_SLASH_VFX_POSITION
+	)
+	var seal_arc_report := _inspect_attack_vfx(
+		seal_arc_vfx,
+		TARGET_SEAL_ARC_ASSET_ID,
+		TARGET_SEAL_ARC_SPRITEFRAMES,
+		&"attack_seal_arc",
+		LUNA_ATTACK_SEAL_ARC_VFX_POSITION
+	)
 	var slash_has_collision_child := _has_collision_or_area_child(slash_vfx)
 	var seal_arc_has_collision_child := _has_collision_or_area_child(seal_arc_vfx)
 	var image_stats := _analyze_image(image)
@@ -122,13 +151,15 @@ func _build_report(image: Image, player: CharacterBody2D) -> Dictionary:
 		state in ["attack", "air_attack"]
 		and bool(runtime_report.get("visible", false))
 		and bool(runtime_report.get("resource_ok", false))
+		and bool(runtime_report.get("foot_anchor_ok", false))
 		and bool(slash_report.get("visible", false))
 		and bool(slash_report.get("resource_ok", false))
 		and bool(slash_report.get("metadata_ok", false))
+		and bool(slash_report.get("placement_ok", false))
 		and bool(seal_arc_report.get("visible", false))
 		and bool(seal_arc_report.get("resource_ok", false))
 		and bool(seal_arc_report.get("metadata_ok", false))
-		and not bool(legacy_report.get("visible", true))
+		and bool(seal_arc_report.get("placement_ok", false))
 		and not slash_has_collision_child
 		and not seal_arc_has_collision_child
 		and bool(image_stats.get("ok", false))
@@ -144,7 +175,6 @@ func _build_report(image: Image, player: CharacterBody2D) -> Dictionary:
 		"runtime_visual": runtime_report,
 		"attack_slash_vfx_visual": slash_report,
 		"attack_seal_arc_vfx_visual": seal_arc_report,
-		"legacy_stage12_slash_visual": legacy_report,
 		"attack_slash_has_collision_or_area_child": slash_has_collision_child,
 		"attack_seal_arc_has_collision_or_area_child": seal_arc_has_collision_child,
 		"image_stats": image_stats,
@@ -163,18 +193,31 @@ func _inspect_runtime_visual(visual: AnimatedSprite2D) -> Dictionary:
 		and resource_path == TARGET_BODY_SPRITEFRAMES
 		and visual.animation == &"attack_body"
 	)
+	var visible_foot_bottom_y := visual.position.y + (LUNA_RUNTIME_ALPHA_FOOT_BOTTOM_Y - LUNA_RUNTIME_FRAME_HALF_HEIGHT) * visual.scale.y
+	var foot_anchor_delta := absf(PLAYER_COLLISION_BOTTOM_Y - visible_foot_bottom_y)
+	var foot_anchor_ok := visual.position == LUNA_RUNTIME_VISUAL_POSITION and foot_anchor_delta <= MAX_FOOT_ANCHOR_DELTA
 	return {
 		"exists": true,
 		"visible": visual.visible,
 		"asset_id": str(visual.get_meta("asset_id", "")),
 		"resource_path": resource_path,
 		"animation": String(visual.animation),
+		"position": [visual.position.x, visual.position.y],
+		"visible_foot_bottom_y": visible_foot_bottom_y,
+		"foot_anchor_delta": foot_anchor_delta,
+		"foot_anchor_ok": foot_anchor_ok,
 		"resource_ok": resource_ok,
 	}
 
 
 # 检查单个攻击 VFX 的资源、动画和 no-collision / no-damage metadata。
-func _inspect_attack_vfx(visual: AnimatedSprite2D, asset_id: String, spriteframes_path: String, animation_name: StringName) -> Dictionary:
+func _inspect_attack_vfx(
+	visual: AnimatedSprite2D,
+	asset_id: String,
+	spriteframes_path: String,
+	animation_name: StringName,
+	expected_position: Vector2
+) -> Dictionary:
 	if visual == null:
 		return {"exists": false, "resource_ok": false, "metadata_ok": false}
 	var resource_path := visual.sprite_frames.resource_path if visual.sprite_frames != null else ""
@@ -186,6 +229,7 @@ func _inspect_attack_vfx(visual: AnimatedSprite2D, asset_id: String, spriteframe
 		and visual.animation == animation_name
 	)
 	var metadata_ok := not gameplay_collision and not damage_source
+	var placement_ok := visual.position == expected_position
 	return {
 		"exists": true,
 		"visible": visual.visible,
@@ -198,19 +242,8 @@ func _inspect_attack_vfx(visual: AnimatedSprite2D, asset_id: String, spriteframe
 		"damage_source": damage_source,
 		"resource_ok": resource_ok,
 		"metadata_ok": metadata_ok,
-	}
-
-
-# 旧 Stage12 SVG 只允许作为隐藏历史预览资源存在。
-func _inspect_legacy_slash(visual: Sprite2D) -> Dictionary:
-	if visual == null:
-		return {"exists": false, "visible": true}
-	return {
-		"exists": true,
-		"visible": visual.visible,
-		"asset_id": str(visual.get_meta("asset_id", "")),
-		"gameplay_collision": bool(visual.get_meta("gameplay_collision", true)),
-		"damage_source": bool(visual.get_meta("damage_source", true)),
+		"expected_position": [expected_position.x, expected_position.y],
+		"placement_ok": placement_ok,
 	}
 
 

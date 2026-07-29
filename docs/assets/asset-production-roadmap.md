@@ -28,7 +28,7 @@ Stage 设计目标
 | Batch 01 | P0 玩法可读资产 | 补 Luna、Air Dash、Seal Guardian、Boss 预警、Recovery Charge 等最影响读值的资产 | 是，接入前需复核 | Stage14-16 polish |
 | Batch 02 | Stage16 UI 与终局反馈 | 补主菜单、暂停 / 重开、终局封印链、完成反馈 | 是 | Stage16 Alpha Demo polish |
 | Batch 03 | 区域表现资产 | 补山门古刹 / 镇妖试炼场与瘴泽妖域区域表现 | 是 | Stage13-16 visual pass |
-| Batch 04 | 音频资产 | 补最小 SFX、人声、怪物声与 BGM loop | 是 | Stage16 audio pass |
+| Batch 04 | 音频资产 | 补全量音频资产参考与 Stage16 首批 SFX / 氛围 / BGM / 配置入口 | 是 | Stage16 audio pass / Stage17+ audio library |
 | Batch 05 | 动画参考与宣传素材 | 生成动作参考、Boss 入场、trailer 草案 | 默认否 | 后续动画 / 宣传 |
 | Batch 06 | 角色与敌人动画帧 | 补 Luna 高帧数动作帧、敌人 / Seal Guardian 动作帧和 sprite sheets | 是，接入前需复核 | Stage14-17 animation pass |
 | Batch 07 | TileSet 与贴图 | 补地形 tile、材质贴图、危险池和平台边缘 | 是 | Stage13-17 environment pass |
@@ -120,13 +120,21 @@ Stage 设计目标
 
 ## Batch 04 - 音频资产
 
-目标：补 Alpha Demo 最小音频表现，不建立完整音频系统。
+目标：先补全量音频资产参考口径，再按 Stage16 Alpha Demo 需要生成首批可接入音频；不在本批直接建立完整音频系统。
 
 资产需求：
 
-- SFX：跳跃、空中冲刺、攻击、命中、受击、封印门开合、符印激活、Boss 预警、恢复充能、完成反馈。
-- Voice：Luna 短促受击 / 发力声、Seal Guardian 低吼；先作为候选，不默认大量接入。
-- BGM：主菜单 loop、瘴泽区域 loop、Boss loop。
+- 角色动作音效：Luna 脚步、跳跃、落地、空中冲刺、滑墙候选、攻击发力。
+- 战斗音效：攻击、命中、格挡 / 反制候选、敌人消散、投射物、Boss 预警、Boss impact。
+- UI 音效：确认、取消、焦点移动、暂停打开 / 关闭、完成反馈。
+- 环境音效 / 氛围声：山门古刹、瘴泽妖域、Boss 房、封印释放阈值。
+- 物品与交互音效：checkpoint、拾取、能力神龛、封印门开合、符印 relay、恢复充能。
+- 载具 / 机械音效：当前世界观不做现代载具，统一改为古代机关、石质升降平台、封印链、机括锁。
+- 怪物 / NPC 音效：普通敌人警觉、冲锋蓄力、空中敌悬浮、Seal Guardian 低吼、后续 NPC 含混语音候选。
+- 音乐资产 BGM：主菜单、山门古刹、瘴泽探索、瘴泽战斗、Boss、胜利 / 失败 stinger。
+- 语音资产：Luna 短促无台词发力 / 受击 / 冲刺呼吸，后续 NPC 无台词候选。
+- 系统反馈音：checkpoint 保存、能力解锁、条件不足、重开 / retry。
+- 音频配置资产：audio event catalog、mix targets、generation manifest、ingestion checklist。
 
 推荐工具：
 
@@ -134,6 +142,8 @@ Stage 设计目标
 - Suno / Lyria 3：BGM 草案与 loop。
 - Audacity / Reaper：裁剪、响度统一、无缝 loop。
 - Godot：导入、压缩和播放验证。
+
+Prompt、命令、全量分类矩阵与存放地址参考：`docs/assets/audio-asset-prompt-reference.md`。
 
 ## Batch 05 - 动画参考与宣传素材
 
@@ -205,6 +215,7 @@ Stage 设计目标
 - HUD 血量、能力状态、Boss 状态、Recovery Charge。
 - Air Dash、checkpoint、门控、终点、奖励图标。
 - 九宫格面板和按钮背景。
+- 发现式世界地图底板；只生成宣纸、外框和非语义气氛，动态房间与路线不得烘焙进图片。
 
 输出：
 

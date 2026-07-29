@@ -1,0 +1,17 @@
+{
+  "asset_id": "luna_run_runtime_sheet_ai03",
+  "source": "assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03/ig_0b7418c88991aee0016a46bacf88048196ba785a223a3953dc.png",
+  "source_sha256": "fa356b955ee60d8a2359b1b4c1b779e1dcdd9dc3fa1809da6dc3dfebc9e7ea57",
+  "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_runtime_body_sheet",
+  "constraints": [
+    "transparent_png",
+    "no_green_background",
+    "no_white_background",
+    "no_checkerboard_background",
+    "fixed_grid",
+    "one_action_per_sheet",
+    "stable_scale",
+    "stable_anchor"
+  ],
+  "anchor": "foot"
+}

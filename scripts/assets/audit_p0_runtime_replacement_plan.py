@@ -11,7 +11,7 @@ from typing import Any
 
 REPORT_PATH = Path("docs/assets/p0-runtime-replacement-plan.json")
 MARKDOWN_PATH = Path("docs/assets/p0-runtime-replacement-plan.md")
-EXPECTED_P0_RUNTIME_ENTRIES = 30
+RUNTIME_MAP_PATH = Path("docs/assets/asset-runtime-integration-map.json")
 
 
 def parse_args() -> argparse.Namespace:
@@ -25,13 +25,19 @@ def load_json(path: Path) -> dict[str, Any]:
         return json.load(file)
 
 
-def audit(report: dict[str, Any]) -> list[str]:
+def audit(report: dict[str, Any], runtime_map: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     entries = report.get("entries", [])
     summary = report.get("summary", {})
-    if len(entries) != EXPECTED_P0_RUNTIME_ENTRIES:
-        errors.append(f"entry_count expected {EXPECTED_P0_RUNTIME_ENTRIES} got {len(entries)}")
-    if int(summary.get("asset_count", -1)) != EXPECTED_P0_RUNTIME_ENTRIES:
+    expected_ids = {
+        str(entry.get("asset_id", ""))
+        for entry in runtime_map.get("entries", [])
+        if entry.get("priority") == "P0" and str(entry.get("track", "")).startswith("runtime_")
+    }
+    actual_ids = {str(entry.get("asset_id", "")) for entry in entries}
+    if actual_ids != expected_ids:
+        errors.append(f"entry asset ids mismatch: expected {len(expected_ids)} got {len(actual_ids)}")
+    if int(summary.get("asset_count", -1)) != len(expected_ids):
         errors.append("summary asset_count mismatch")
     if int(summary.get("missing_resource_count", -1)) != 0:
         errors.append("missing_resource_count expected 0")
@@ -62,8 +68,12 @@ def main() -> int:
     if not REPORT_PATH.exists():
         print("P0 runtime replacement plan missing")
         return 1 if args.strict else 0
+    if not RUNTIME_MAP_PATH.exists():
+        print("asset runtime integration map missing")
+        return 1 if args.strict else 0
     report = load_json(REPORT_PATH)
-    errors = audit(report)
+    runtime_map = load_json(RUNTIME_MAP_PATH)
+    errors = audit(report, runtime_map)
     if errors:
         for error in errors:
             print(error)

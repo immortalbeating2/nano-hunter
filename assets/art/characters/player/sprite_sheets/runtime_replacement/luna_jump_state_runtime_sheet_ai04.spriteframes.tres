@@ -1,0 +1,70 @@
+[gd_resource type="SpriteFrames" load_steps=13 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_jump_state_runtime_sheet_ai04.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_001"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_002"]
+atlas = ExtResource("1")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_003"]
+atlas = ExtResource("1")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_004"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_005"]
+atlas = ExtResource("1")
+region = Rect2(192, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_006"]
+atlas = ExtResource("1")
+region = Rect2(384, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_007"]
+atlas = ExtResource("1")
+region = Rect2(576, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_008"]
+atlas = ExtResource("1")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_009"]
+atlas = ExtResource("1")
+region = Rect2(192, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_jump_state_runtime_sheet_ai04_010"]
+atlas = ExtResource("1")
+region = Rect2(384, 384, 192, 192)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_002")}],
+"loop": false,
+"name": &"jump_start",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_003")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_004")}],
+"loop": true,
+"name": &"rise_hold",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_005")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_006")}],
+"loop": true,
+"name": &"fall_hold",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_007")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_009")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_jump_state_runtime_sheet_ai04_010")}],
+"loop": false,
+"name": &"land",
+"speed": 14.0
+}]

@@ -149,6 +149,8 @@ def markdown(report: dict[str, Any]) -> str:
     ]
     for key, value in report["summary"]["strategy_counts"].items():
         lines.append(f"- `{key}`: `{value}`")
+    if not report["summary"]["strategy_counts"]:
+        lines.append("- 无。")
     lines.extend(["", "## Queue", ""])
     for entry in report["entries"]:
         candidates = ", ".join(
@@ -164,8 +166,9 @@ def markdown(report: dict[str, Any]) -> str:
         lines.append(f"  - Candidate statuses: `{candidates}`")
         lines.append(f"  - Scenes: `{scenes}`")
         lines.append(f"  - Next: {entry['next_action']}")
-    lines.append("")
-    return "\n".join(lines)
+    if not report["entries"]:
+        lines.append("- 无。")
+    return "\n".join(lines) + "\n"
 
 
 def build_report(root: Path, runtime_path: Path, source_path: Path, provenance_path: Path) -> dict[str, Any]:
