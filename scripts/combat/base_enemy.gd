@@ -46,6 +46,15 @@ func receive_attack(_hit_direction: Vector2, _knockback_force: float) -> void:
 	defeated.emit()
 
 
+# 元素包装默认立即回到原受击契约；子类只能在委托前增加一次性反应。
+func receive_elemental_attack(
+	hit_direction: Vector2,
+	knockback_force: float,
+	_attack_context: Dictionary
+) -> void:
+	receive_attack(hit_direction, knockback_force)
+
+
 # 共享入口统一切换普通敌人的 SpriteFrames、动作名和资产标识，子类只负责选择真实玩法状态。
 func _play_runtime_animation(
 	frames: SpriteFrames,

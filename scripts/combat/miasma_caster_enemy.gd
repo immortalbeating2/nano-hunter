@@ -91,6 +91,27 @@ func get_projectiles_spawned_count() -> int:
 	return _projectiles_spawned
 
 
+# 风雷追击在原击败前斩散场上余弹；其它上下文直接走 BaseEnemy。
+func receive_elemental_attack(
+	hit_direction: Vector2,
+	knockback_force: float,
+	attack_context: Dictionary
+) -> void:
+	if attack_context.get("reaction_id", StringName()) == &"wind_thunder_pierce":
+		_disperse_active_projectiles()
+	super.receive_elemental_attack(hit_direction, knockback_force, attack_context)
+
+
+# Caster 不另存弹体列表，直接清理同房间现存的同类弹体即可。
+func _disperse_active_projectiles() -> void:
+	var projectile_parent := get_parent()
+	if projectile_parent == null:
+		return
+	for child: Node in projectile_parent.get_children():
+		if child is MiasmaProjectile and not bool(child.call("is_spent")):
+			child.call("receive_attack", Vector2.ZERO, 0.0)
+
+
 # 玩家进入范围后按固定间隔发射一枚直线弹体；离开范围不会积攒瞬发连射。
 func _try_cast_projectile(delta: float) -> void:
 	if _player == null or not is_instance_valid(_player):

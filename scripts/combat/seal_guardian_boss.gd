@@ -116,6 +116,26 @@ func receive_attack(hit_direction: Vector2, knockback_force: float) -> void:
 		_enter_state(STATE_STAGGERED)
 
 
+# 风雷追击只在预警窗口直接破印；生命扣除仍只由 receive_attack 结算一次。
+func receive_elemental_attack(
+	hit_direction: Vector2,
+	knockback_force: float,
+	attack_context: Dictionary
+) -> void:
+	var breaks_warning_guard: bool = (
+		attack_context.get("reaction_id", StringName()) == &"wind_thunder_pierce"
+		and current_state == STATE_CLOSE_PRESSURE
+	)
+	receive_attack(hit_direction, knockback_force)
+	if not breaks_warning_guard or current_state == STATE_DEFEATED:
+		return
+	if current_guard > 0:
+		current_guard = 0
+		guard_changed.emit(current_guard, max_guard)
+	if current_state != STATE_STAGGERED:
+		_enter_state(STATE_STAGGERED)
+
+
 # 重置 Boss 的生命、护印、阶段和碰撞状态，供失败重试与测试复用。
 func reset_boss() -> void:
 	# 失败重试和直接测试实例化都复用这套初始化，避免 Boss 房和测试各写一份重置逻辑。

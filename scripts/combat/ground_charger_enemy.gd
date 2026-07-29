@@ -115,6 +115,23 @@ func get_touch_damage() -> int:
 	return _touch_damage
 
 
+# 雷风散射先取消冲锋并退位，再委托 BaseEnemy 完成原击败流程。
+func receive_elemental_attack(
+	hit_direction: Vector2,
+	knockback_force: float,
+	attack_context: Dictionary
+) -> void:
+	if attack_context.get("reaction_id", StringName()) == &"thunder_wind_scatter":
+		_telegraph_remaining = 0.0
+		_charge_active = false
+		_recovery_remaining = 0.0
+		var horizontal_direction := signf(hit_direction.x)
+		if absf(horizontal_direction) <= 0.01:
+			horizontal_direction = 1.0
+		position.x += horizontal_direction * minf(maxf(knockback_force, 0.0) * 0.3, 48.0)
+	super.receive_elemental_attack(hit_direction, knockback_force, attack_context)
+
+
 # 从配置资源同步当前原型所需的全部冲锋参数。
 func _apply_config() -> void:
 	if config == null:

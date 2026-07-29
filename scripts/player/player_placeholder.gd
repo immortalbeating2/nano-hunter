@@ -439,11 +439,7 @@ func _perform_attack_hits() -> void:
 			continue
 
 		_attack_hit_ids[receiver_id] = true
-		receiver.call(
-			"receive_attack",
-			Vector2(_facing_direction, 0.0),
-			get_effective_attack_knockback_force()
-		)
+		_dispatch_attack_to_receiver(receiver)
 		if not receiver.has_method("is_defeated"):
 			continue
 		# 恢复充能跟随真实命中结算，避免空挥也能获得 Stage15 容错资源。
@@ -456,16 +452,37 @@ func _perform_attack_hits() -> void:
 # 从物理查询命中的对象解析真正能接收攻击的节点，兼容敌人父子节点结构。
 func _resolve_attack_receiver(collider: Object) -> Object:
 	# 攻击查询可能命中敌人的 StaticBody，也可能命中其子节点；
-	# 这里向上找一层 receive_attack，保持场景结构可微调。
-	if collider.has_method("receive_attack"):
+	# 这里向上找一层攻击入口，保持场景结构可微调。
+	if collider.has_method("receive_attack") or collider.has_method("receive_elemental_attack"):
 		return collider
 
 	if collider is Node:
 		var parent := (collider as Node).get_parent()
-		if parent != null and parent.has_method("receive_attack"):
+		if parent != null and (
+			parent.has_method("receive_attack") or parent.has_method("receive_elemental_attack")
+		):
 			return parent
 
 	return null
+
+
+# 只有显式实现元素包装的对象才收到 Stage21 上下文；其余目标保持原 receive_attack 调用。
+func _dispatch_attack_to_receiver(receiver: Object) -> void:
+	var hit_direction := Vector2(_facing_direction, 0.0)
+	var knockback_force := get_effective_attack_knockback_force()
+	if receiver.has_method("receive_elemental_attack"):
+		receiver.call(
+			"receive_elemental_attack",
+			hit_direction,
+			knockback_force,
+			{
+				"element_id": _current_element_id,
+				"stance_id": _current_stance_id,
+				"reaction_id": _active_attack_reaction_id,
+			}
+		)
+		return
+	receiver.call("receive_attack", hit_direction, knockback_force)
 
 
 # 收束攻击窗口，清理命中表与临时视觉，保证下一次攻击重新判定。

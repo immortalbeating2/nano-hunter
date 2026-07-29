@@ -62,6 +62,20 @@ func get_damage_amount() -> int:
 	return damage
 
 
+# 雷风散射把当前脉冲错回完整休止段；普通风击和其它序列不改变相位。
+func receive_elemental_attack(
+	_hit_direction: Vector2,
+	_knockback_force: float,
+	attack_context: Dictionary
+) -> void:
+	if attack_context.get("reaction_id", StringName()) != &"thunder_wind_scatter":
+		return
+	_phase = Phase.REST
+	_phase_elapsed = 0.0
+	_damage_dealt_this_cycle = false
+	_sync_visuals()
+
+
 func _get_phase_duration() -> float:
 	match _phase:
 		Phase.WARNING:
