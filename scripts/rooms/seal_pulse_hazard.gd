@@ -10,6 +10,8 @@ enum Phase {
 	ACTIVE,
 }
 
+signal sequence_disrupted
+
 @export var rest_duration := 1.1
 @export var warning_duration := 0.65
 @export var active_duration := 0.32
@@ -74,6 +76,7 @@ func receive_elemental_attack(
 	_phase_elapsed = 0.0
 	_damage_dealt_this_cycle = false
 	_sync_visuals()
+	sequence_disrupted.emit()
 
 
 func _get_phase_duration() -> float:

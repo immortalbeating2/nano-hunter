@@ -44,6 +44,8 @@ var _detail_returns_to_game := false
 var _main_menu_buttons: Array[Button] = []
 var _level_select_scroll: ScrollContainer
 var _level_select_list: VBoxContainer
+var _bounty_scroll: ScrollContainer
+var _bounty_list: VBoxContainer
 
 const WORLD_MAP_ASPECT := 1511.0 / 1041.0
 const LEVEL_SELECT_ENTRIES := [
@@ -93,6 +95,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_main_menu_buttons = [start_button, continue_button, level_select_button, settings_button, controls_button, quit_button]
 	_ensure_level_select_list()
+	_ensure_bounty_list()
 	resized.connect(_layout_title_menu)
 	_layout_title_menu()
 	_connect_buttons()
@@ -328,6 +331,103 @@ func _ensure_level_select_list() -> void:
 		_level_select_list.add_child(button)
 
 
+# 悬赏榜复用详情面板与按钮皮肤，不额外建立一套菜单场景。
+func _ensure_bounty_list() -> void:
+	if _bounty_list != null or detail_vbox == null:
+		return
+
+	_bounty_scroll = ScrollContainer.new()
+	_bounty_scroll.name = "BountyScroll"
+	_bounty_scroll.visible = false
+	_bounty_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_bounty_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	detail_vbox.add_child(_bounty_scroll)
+	detail_vbox.move_child(_bounty_scroll, detail_back_button.get_index())
+
+	_bounty_list = VBoxContainer.new()
+	_bounty_list.name = "BountyList"
+	_bounty_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_bounty_scroll.add_child(_bounty_list)
+
+
+# 驿厅榜单只渲染 Main 快照；按钮回传固定 id 后再次读取最新状态。
+func show_bounty_board(snapshot: Dictionary) -> void:
+	_ensure_bounty_list()
+	_detail_returns_to_game = true
+	detail_back_button.text = "返回驿厅"
+	detail_title_label.text = "镇妖驿站 · 悬赏榜"
+	detail_body_label.text = "已接 %d/3 · 完成 %d · 回交 %d" % [
+		int(snapshot.get("accepted_count", 0)),
+		int(snapshot.get("completed_count", 0)),
+		int(snapshot.get("turned_in_count", 0)),
+	]
+	if bool(snapshot.get("waystation_intel_unlocked", false)):
+		detail_body_label.text += "\n雷泽荒原路引已解锁。"
+	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	if _level_select_scroll != null:
+		_level_select_scroll.visible = false
+	_bounty_scroll.visible = true
+	_rebuild_bounty_list(snapshot)
+	title_background.visible = false
+	main_menu.visible = false
+	pause_menu.visible = false
+	world_map_panel.visible = false
+	failure_panel.visible = false
+	completion_panel.visible = false
+	detail_panel.visible = true
+	_is_pause_menu_open = false
+	get_tree().paused = true
+
+	var focus_target := detail_back_button
+	for child: Node in _bounty_list.get_children():
+		var button := child as Button
+		if button != null and not button.disabled:
+			focus_target = button
+			break
+	focus_target.grab_focus()
+
+
+func _rebuild_bounty_list(snapshot: Dictionary) -> void:
+	for child: Node in _bounty_list.get_children():
+		_bounty_list.remove_child(child)
+		child.queue_free()
+
+	for entry: Dictionary in snapshot.get("entries", []):
+		var state := StringName(entry.get("state", &"available"))
+		var action_label := "接取"
+		var disabled := false
+		match state:
+			&"accepted":
+				action_label = "追踪中"
+				disabled = true
+			&"completed":
+				action_label = "回交"
+			&"turned_in":
+				action_label = "已回交"
+				disabled = true
+
+		var button := Button.new()
+		button.text = "%s · %s｜%s" % [
+			action_label,
+			str(entry.get("title", "未命名悬赏")),
+			str(entry.get("objective", "")),
+		]
+		button.disabled = disabled
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.focus_mode = Control.FOCUS_ALL
+		_copy_button_skin(button)
+		button.pressed.connect(_on_bounty_entry_pressed.bind(StringName(entry.get("id", &""))))
+		_bounty_list.add_child(button)
+
+
+func _on_bounty_entry_pressed(bounty_id: StringName) -> void:
+	if _main == null or not _main.has_method("advance_bounty"):
+		return
+	var snapshot: Variant = _main.call("advance_bounty", bounty_id)
+	if snapshot is Dictionary:
+		show_bounty_board(snapshot)
+
+
 # 选关按钮复用主菜单按钮皮肤，只缩小高度；后续正式关卡 UI 再换专用资产。
 func _copy_button_skin(button: Button) -> void:
 	for state: String in ["normal", "hover", "pressed", "focus"]:
@@ -336,6 +436,10 @@ func _copy_button_skin(button: Button) -> void:
 			button.add_theme_stylebox_override(state, stylebox)
 	for color_name: String in ["font_color", "font_hover_color", "font_pressed_color"]:
 		button.add_theme_color_override(color_name, start_button.get_theme_color(color_name))
+	var normal_style := start_button.get_theme_stylebox("normal")
+	if normal_style != null:
+		button.add_theme_stylebox_override("disabled", normal_style)
+	button.add_theme_color_override("font_disabled_color", start_button.get_theme_color("font_color"))
 
 
 # 显示主菜单并暂停场景模拟，等待玩家明确开始本轮 Demo。
@@ -388,6 +492,8 @@ func _open_detail_panel(title: String, body: String, show_level_select := false)
 	detail_body_label.custom_minimum_size = Vector2(0.0, 36.0 if show_level_select else 124.0)
 	if _level_select_scroll != null:
 		_level_select_scroll.visible = show_level_select
+	if _bounty_scroll != null:
+		_bounty_scroll.visible = false
 	main_menu.visible = false
 	detail_panel.visible = true
 
@@ -395,6 +501,8 @@ func _open_detail_panel(title: String, body: String, show_level_select := false)
 func _close_detail_panel() -> void:
 	if _level_select_scroll != null:
 		_level_select_scroll.visible = false
+	if _bounty_scroll != null:
+		_bounty_scroll.visible = false
 	detail_panel.visible = false
 	if _detail_returns_to_game:
 		_detail_returns_to_game = false
@@ -547,6 +655,8 @@ func show_story_event(title: String, body: String) -> void:
 	detail_body_label.custom_minimum_size = Vector2(0.0, 164.0)
 	if _level_select_scroll != null:
 		_level_select_scroll.visible = false
+	if _bounty_scroll != null:
+		_bounty_scroll.visible = false
 	title_background.visible = false
 	main_menu.visible = false
 	pause_menu.visible = false

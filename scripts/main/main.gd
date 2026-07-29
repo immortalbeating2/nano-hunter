@@ -25,6 +25,32 @@ const ELEMENT_THUNDER: StringName = &"thunder"
 const STANCE_SWIFT: StringName = &"swift"
 const STANCE_WARD: StringName = &"ward"
 const BUILD_REWARD_IDS := [&"marsh_relic", &"warden_sigil"]
+const MIASMA_CASTER_SCRIPT_PATH := "res://scripts/combat/miasma_caster_enemy.gd"
+const BOUNTY_CASTER_HUNT: StringName = &"caster_hunt"
+const BOUNTY_DEMON_BONE_EVIDENCE: StringName = &"demon_bone_evidence"
+const BOUNTY_SEAL_PULSE_CLEANUP: StringName = &"seal_pulse_cleanup"
+const BOUNTY_IDS: Array[StringName] = [
+	BOUNTY_CASTER_HUNT,
+	BOUNTY_DEMON_BONE_EVIDENCE,
+	BOUNTY_SEAL_PULSE_CLEANUP,
+]
+const BOUNTY_DEFINITIONS := {
+	BOUNTY_CASTER_HUNT: {
+		"title": "断瘴缉术",
+		"objective": "击败一名腐瘴法师",
+		"reward": "瘴泽术式记录",
+	},
+	BOUNTY_DEMON_BONE_EVIDENCE: {
+		"title": "妖骨取证",
+		"objective": "回收瘴泽妖骨证物",
+		"reward": "妖骨案卷",
+	},
+	BOUNTY_SEAL_PULSE_CLEANUP: {
+		"title": "封脉清障",
+		"objective": "用雷风序列散去封印脉冲",
+		"reward": "雷泽荒原路引",
+	},
+}
 const STAGE11_STORY_EVENT_ID: StringName = &"stage11_hidden_dispatch"
 const STAGE11_STORY_EVENT_TITLE := "镇妖驿厅 · 密令残页"
 const STAGE11_STORY_EVENT_BODY := "镇妖卫驿卒：瘴泽封印并非天灾，是郡守私运妖骨后崩裂。\n\nLuna：悬赏只写“清除妖患”，没有百姓名册。\n\n陌生妖声：你闻得到他们留下的血。因为你与我同源。"
@@ -62,6 +88,9 @@ var _current_element_id: StringName = ELEMENT_THUNDER
 var _current_stance_id: StringName = STANCE_SWIFT
 var _stage14_backtrack_reward_ids: Dictionary = {}
 var _exploration_reward_ids: Dictionary = {}
+var _accepted_bounty_ids: Dictionary = {}
+var _completed_bounty_ids: Dictionary = {}
+var _turned_in_bounty_ids: Dictionary = {}
 var _active_build_id: StringName = &""
 var _completed_story_event_ids: Dictionary = {}
 var _visited_room_paths: Dictionary = {}
@@ -265,6 +294,9 @@ func _reset_demo_runtime_state() -> void:
 	_current_stance_id = STANCE_SWIFT
 	_stage14_backtrack_reward_ids.clear()
 	_exploration_reward_ids.clear()
+	_accepted_bounty_ids.clear()
+	_completed_bounty_ids.clear()
+	_turned_in_bounty_ids.clear()
 	_active_build_id = &""
 	_completed_story_event_ids.clear()
 	_visited_room_paths.clear()
@@ -316,6 +348,7 @@ func is_demo_paused() -> bool:
 func get_demo_progress_snapshot() -> Dictionary:
 	# 快照是 HUD、测试和 MCP 复核的统一读值入口，不让外部直接依赖 Main 私有字段名。
 	var sequence_snapshot := _get_current_element_sequence_snapshot()
+	var bounty_snapshot := get_bounty_board_snapshot()
 	return {
 		"short_chain_completed": _is_short_chain_completed,
 		"demo_completed": _is_demo_completed,
@@ -337,6 +370,12 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"exploration_reward_count": get_exploration_reward_count(),
 		"marsh_relic_collected": has_exploration_reward(&"marsh_relic"),
 		"warden_sigil_collected": has_exploration_reward(&"warden_sigil"),
+		"bounty_board": bounty_snapshot,
+		"bounty_accepted_count": bounty_snapshot.get("accepted_count", 0),
+		"bounty_completed_count": bounty_snapshot.get("completed_count", 0),
+		"bounty_turned_in_count": bounty_snapshot.get("turned_in_count", 0),
+		"bounty_reward_count": bounty_snapshot.get("reward_count", 0),
+		"waystation_intel_unlocked": bounty_snapshot.get("waystation_intel_unlocked", false),
 		"active_build_id": _active_build_id,
 		"active_build_label": get_active_build_label(),
 		"available_build_count": get_available_build_count(),
@@ -354,6 +393,7 @@ func get_demo_progress_snapshot() -> Dictionary:
 # 输出探索地图所需的只读状态；地图只消费该快照，不参与切房或门控判定。
 func get_world_map_snapshot() -> Dictionary:
 	var visited_room_paths: Array = _visited_room_paths.keys()
+	var bounty_snapshot := get_bounty_board_snapshot()
 	visited_room_paths.sort()
 	return {
 		"current_room_path": _current_room_path,
@@ -362,6 +402,10 @@ func get_world_map_snapshot() -> Dictionary:
 		"wind_seal_unlocked": _wind_seal_unlocked,
 		"marsh_relic_collected": has_exploration_reward(&"marsh_relic"),
 		"warden_sigil_collected": has_exploration_reward(&"warden_sigil"),
+		"bounty_accepted_count": bounty_snapshot.get("accepted_count", 0),
+		"bounty_completed_count": bounty_snapshot.get("completed_count", 0),
+		"bounty_turned_in_count": bounty_snapshot.get("turned_in_count", 0),
+		"waystation_intel_unlocked": bounty_snapshot.get("waystation_intel_unlocked", false),
 	}
 
 
@@ -429,7 +473,82 @@ func collect_exploration_reward(reward_id: StringName) -> void:
 	if reward_id in BUILD_REWARD_IDS and _active_build_id == StringName():
 		_active_build_id = reward_id
 		_apply_active_build_to_current_player()
+	if reward_id == &"marsh_relic":
+		_complete_bounty(BOUNTY_DEMON_BONE_EVIDENCE)
 	_refresh_hud_progress()
+
+
+# 驿站悬赏只保留三条固定条目；状态快照同时供榜单、HUD、地图与测试读取。
+func get_bounty_board_snapshot() -> Dictionary:
+	var entries: Array[Dictionary] = []
+	for bounty_id: StringName in BOUNTY_IDS:
+		var definition: Dictionary = BOUNTY_DEFINITIONS[bounty_id]
+		entries.append({
+			"id": bounty_id,
+			"title": definition.get("title", ""),
+			"objective": definition.get("objective", ""),
+			"reward": definition.get("reward", ""),
+			"state": _get_bounty_state(bounty_id),
+		})
+	return {
+		"entries": entries,
+		"accepted_count": _accepted_bounty_ids.size(),
+		"completed_count": _completed_bounty_ids.size(),
+		"turned_in_count": _turned_in_bounty_ids.size(),
+		"reward_count": _turned_in_bounty_ids.size(),
+		"waystation_intel_unlocked": _turned_in_bounty_ids.size() == BOUNTY_IDS.size(),
+	}
+
+
+# 同一入口承担接取与回交；任务推进只允许在镇妖驿厅发生。
+func advance_bounty(bounty_id: StringName) -> Dictionary:
+	if room == null or room.scene_file_path != STAGE11_DEMO_END_ROOM_PATH:
+		return get_bounty_board_snapshot()
+	if not BOUNTY_DEFINITIONS.has(bounty_id):
+		return get_bounty_board_snapshot()
+
+	if not _accepted_bounty_ids.has(bounty_id):
+		_accepted_bounty_ids[bounty_id] = true
+		if bounty_id == BOUNTY_DEMON_BONE_EVIDENCE and has_exploration_reward(&"marsh_relic"):
+			_complete_bounty(bounty_id)
+	elif _completed_bounty_ids.has(bounty_id) and not _turned_in_bounty_ids.has(bounty_id):
+		_turned_in_bounty_ids[bounty_id] = true
+		_refresh_hud_progress()
+	return get_bounty_board_snapshot()
+
+
+# 房间信号和测试复用该入口，榜单只显示状态，不持有任务数据。
+func open_bounty_board() -> void:
+	if room == null or room.scene_file_path != STAGE11_DEMO_END_ROOM_PATH:
+		return
+	if demo_shell != null and demo_shell.has_method("show_bounty_board"):
+		demo_shell.call("show_bounty_board", get_bounty_board_snapshot())
+
+
+func _complete_bounty(bounty_id: StringName) -> void:
+	if not _accepted_bounty_ids.has(bounty_id) or _completed_bounty_ids.has(bounty_id):
+		return
+	_completed_bounty_ids[bounty_id] = true
+	_refresh_hud_progress()
+
+
+func _get_bounty_state(bounty_id: StringName) -> StringName:
+	if _turned_in_bounty_ids.has(bounty_id):
+		return &"turned_in"
+	if _completed_bounty_ids.has(bounty_id):
+		return &"completed"
+	if _accepted_bounty_ids.has(bounty_id):
+		return &"accepted"
+	return &"available"
+
+
+func _get_bounty_progress_hint() -> String:
+	return "悬赏：已接 %d/%d · 完成 %d · 回交 %d" % [
+		_accepted_bounty_ids.size(),
+		BOUNTY_IDS.size(),
+		_completed_bounty_ids.size(),
+		_turned_in_bounty_ids.size(),
+	]
 
 
 # 查询指定探索收益是否已经取得，供远端捷径恢复开关状态。
@@ -594,6 +713,42 @@ func _ensure_room_signal_binding() -> void:
 	var checkpoint_callback := Callable(self, "_on_checkpoint_requested")
 	if room.has_signal("checkpoint_requested") and not room.is_connected("checkpoint_requested", checkpoint_callback):
 		room.connect("checkpoint_requested", checkpoint_callback)
+
+	var bounty_board_callback := Callable(self, "_on_bounty_board_requested")
+	if room.has_signal("bounty_board_requested") and not room.is_connected("bounty_board_requested", bounty_board_callback):
+		room.connect("bounty_board_requested", bounty_board_callback)
+
+	_bind_bounty_target_signals()
+
+
+# 直接复用现有房间子节点的生产信号，不让任务系统接管敌人或机关生命周期。
+func _bind_bounty_target_signals() -> void:
+	for child: Node in room.get_children():
+		var child_script := child.get_script() as Script
+		var caster_callback := Callable(self, "_on_bounty_caster_defeated")
+		if (
+			child_script != null
+			and child_script.resource_path == MIASMA_CASTER_SCRIPT_PATH
+			and child.has_signal("defeated")
+			and not child.is_connected("defeated", caster_callback)
+		):
+			child.connect("defeated", caster_callback)
+
+		var pulse_callback := Callable(self, "_on_bounty_pulse_disrupted")
+		if child.has_signal("sequence_disrupted") and not child.is_connected("sequence_disrupted", pulse_callback):
+			child.connect("sequence_disrupted", pulse_callback)
+
+
+func _on_bounty_board_requested() -> void:
+	open_bounty_board()
+
+
+func _on_bounty_caster_defeated() -> void:
+	_complete_bounty(BOUNTY_CASTER_HUNT)
+
+
+func _on_bounty_pulse_disrupted() -> void:
+	_complete_bounty(BOUNTY_SEAL_PULSE_CLEANUP)
 
 
 # 解析房间出生点；房间未实现契约时回落到主场景默认出生点。
@@ -800,6 +955,9 @@ func _get_demo_goal_hint_text() -> String:
 
 	if room != null and room.scene_file_path.begins_with(STAGE16_ROOM_PREFIX):
 		return "提示：符印/回溯/净化"
+
+	if not _accepted_bounty_ids.is_empty():
+		return _get_bounty_progress_hint()
 
 	if room != null and room.scene_file_path == STAGE15_COMPLETION_ROOM_PATH and _stage15_boss_defeated:
 		return "提示：可进入打包复核"

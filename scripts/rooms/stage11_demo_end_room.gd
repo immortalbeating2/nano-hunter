@@ -1,12 +1,13 @@
 extends Node2D
 
 # Stage11DemoEndRoom 保留历史场景句柄，但运行职责已改为连接 Stage10 与 Stage13 的镇妖驿厅。
-# 它只处理封印回响确认、checkpoint 和左右双向出口，不再提前结束完整 Demo。
+# 它只处理封印回响确认、悬赏榜入口、checkpoint 和左右双向出口，不再提前结束完整 Demo。
 
 signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 signal hud_context_changed(step_title: String, prompt_text: String)
 signal checkpoint_requested(room_path: String, spawn_id: StringName)
 signal goal_completed
+signal bounty_board_requested
 
 const CAMERA_LIMITS := Rect2i(-384, -256, 1152, 512)
 const STEP_FINISH: StringName = &"finish"
@@ -26,6 +27,7 @@ const STEP_PROMPTS := {
 }
 
 @onready var replay_zone: Area2D = $ReplayZone
+@onready var bounty_board_zone: Area2D = $BountyBoardZone
 @onready var goal_zone: Area2D = $GoalZone
 @onready var continue_zone: Area2D = $ContinueZone
 
@@ -35,6 +37,7 @@ var _goal_finished := false
 var _replay_requested := false
 var _continue_requested := false
 var _checkpoint_activated := false
+var _bounty_board_near := false
 
 
 # 驿厅一进入就注册最近恢复点，确保失败后仍从安全位置重来。
@@ -47,6 +50,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if _player == null:
 		return
+
+	_update_bounty_board()
 
 	if not _goal_finished:
 		# 未完成前先确认中央封印标记，避免玩家绕过本房 checkpoint 与 HUD 状态。
@@ -99,6 +104,7 @@ func get_hud_context() -> Dictionary:
 		"step_title": STEP_TITLES.get(_current_step, "镇妖驿厅"),
 		"prompt_text": STEP_PROMPTS.get(_current_step, ""),
 		"dash_available": true,
+		"bounty_board_present": true,
 	}
 
 
@@ -119,6 +125,16 @@ func _activate_checkpoint() -> void:
 
 	_checkpoint_activated = true
 	checkpoint_requested.emit(scene_file_path, DEMO_END_SPAWN_ID)
+
+
+# 玩家首次靠近榜牌时打开榜单，离开后才允许再次触发。
+func _update_bounty_board() -> void:
+	var is_near := _player.global_position.distance_to(bounty_board_zone.global_position) <= 56.0
+	if is_near and not _bounty_board_near:
+		_bounty_board_near = true
+		bounty_board_requested.emit()
+	elif not is_near:
+		_bounty_board_near = false
 
 
 # 确认驿厅封印回响，只触发一次 HUD 更新和 goal_completed 信号。

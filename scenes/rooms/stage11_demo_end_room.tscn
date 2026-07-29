@@ -108,6 +108,24 @@ texture = ExtResource("replay_icon")
 metadata/asset_id = "equipment_pickup_atlas_ai01"
 metadata/runtime_source = "equipment_pickup_atlas_ai01.bronze_bell"
 
+[node name="BountyBoardZone" type="Area2D" parent="."]
+position = Vector2(128, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BountyBoardZone"]
+shape = SubResource("3")
+
+[node name="BountyBoardVisual" type="Polygon2D" parent="BountyBoardZone"]
+visible = false
+color = Color(0.929412, 0.854902, 0.486275, 0.025)
+polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
+metadata/asset_binding_note = "stage23_bounty_board_trigger"
+
+[node name="BountyBoardMarkerArt" type="Sprite2D" parent="BountyBoardZone"]
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("replay_icon")
+metadata/asset_id = "equipment_pickup_atlas_ai01"
+metadata/runtime_source = "equipment_pickup_atlas_ai01.bounty_board_marker"
+
 [node name="GoalZone" type="Area2D" parent="." unique_id=30036610]
 position = Vector2(480, 160)
 

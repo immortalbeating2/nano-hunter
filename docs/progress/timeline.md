@@ -4,6 +4,11 @@
 
 ## 2026-07-30
 
+- **Stage23 waystation bounty loop**：把 Stage11 镇妖驿厅升级为三条固定悬赏的接取、生产事件追踪、回交与情报奖励入口。
+  结果：Caster 击败、妖骨证物回收与雷→风散去封印脉冲分别推进一条悬赏；三条全部回交后解锁“雷泽荒原路引”，状态由 Main 快照统一持有，HUD / 世界图只读显示，重开清空。
+  关键验证或结论：Stage23 `5/5` / `42` assertions、邻近组合 `62/62` / `1250`、递归全量 GUT `39` scripts / `284/284` tests / `8333` assertions；Godot import / smoke、Windows/OpenGL 全流程榜单截图、编辑器错误 `0` 和 `git diff --check` 通过，临时 MCP autoload 零残留。
+  详情日志链接：`docs/progress/logs/2026-07-30.md`；设计：`spec-design/2026-07-30-stage23-waystation-bounty-board.md`；正式计划：`plan/2026-07-30-stage23-waystation-bounty-board.md`；执行清单：`docs/implementation-plans/2026-07-30-stage23-waystation-bounty-board.md`；边界：未增加随机任务、货币、交易市集、对话树或正式存档。
+
 - **Stage22 enemy and Boss elemental reactions**：把 Stage21 序列压入 Caster、Charger、Seal Guardian 与封印脉冲，同时保留原伤害和失败恢复契约。
   结果：风→雷清除 Caster 余弹并可在 Boss 预警期直接破印；雷→风让 Charger 破势退位，并把封印脉冲错回休止段。反馈全部复用既有弹体消失、defeat / stagger 动画和危险相位视觉。
   关键验证或结论：Stage22 `5/5` / `31` assertions、邻近组合 `86/86` / `1308`、递归全量 GUT `38` scripts / `279/279` tests / `8291` assertions；Godot import / smoke、Windows/OpenGL 四对象探针、Boss 真实命中截图、编辑器错误 `0` 和 `git diff --check` 通过，临时 MCP autoload 零残留。
