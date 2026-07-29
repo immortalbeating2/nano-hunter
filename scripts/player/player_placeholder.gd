@@ -10,6 +10,9 @@ signal defeated
 # Recovery Charge 是 Stage15 的战斗容错资源；信号只通知 HUD 和测试，不扩展成正式经济系统。
 signal recovery_charge_changed(charge_ratio: float, ready: bool)
 signal recovery_charge_spent(restored_health: int)
+# Main 只持久化当前选择；两步序列仍留在本玩家实例内，换房自然清空。
+signal element_changed(element_id: StringName)
+signal stance_changed(stance_id: StringName)
 
 
 const STATE_IDLE: StringName = &"idle"
@@ -29,6 +32,19 @@ const BUILD_MARSH_RELIC: StringName = &"marsh_relic"
 const BUILD_WARDEN_SIGIL: StringName = &"warden_sigil"
 const MARSH_RELIC_RECOVERY_MULTIPLIER := 1.5
 const WARDEN_SIGIL_REACH_BONUS := 16.0
+const ELEMENT_WIND: StringName = &"wind"
+const ELEMENT_THUNDER: StringName = &"thunder"
+const STANCE_SWIFT: StringName = &"swift"
+const STANCE_WARD: StringName = &"ward"
+const REACTION_WIND_THUNDER: StringName = &"wind_thunder_pierce"
+const REACTION_THUNDER_WIND: StringName = &"thunder_wind_scatter"
+const ELEMENT_SEQUENCE_WINDOW := 2.0
+const STANCE_SWITCH_COOLDOWN := 0.35
+const WARD_STANCE_HEIGHT_BONUS := 8.0
+const WARD_STANCE_KNOCKBACK_MULTIPLIER := 1.15
+const WIND_THUNDER_REACH_BONUS := 24.0
+const THUNDER_WIND_HEIGHT_BONUS := 16.0
+const THUNDER_WIND_KNOCKBACK_MULTIPLIER := 1.75
 
 # 短动作不自然播放完整长素材，而是由 gameplay phase 选择可读关键帧。
 const LUNA_ATTACK_KEYFRAMES := [4, 6, 7, 8, 10, 12]
@@ -109,6 +125,13 @@ var _air_dash_unlocked := false
 var _air_dash_available := false
 var _wind_seal_unlocked := false
 var _active_build_id: StringName = &""
+var _current_element_id: StringName = ELEMENT_THUNDER
+var _current_stance_id: StringName = STANCE_SWIFT
+var _element_sequence: Array[StringName] = []
+var _sequence_window_remaining := 0.0
+var _sequence_reaction_id: StringName = &""
+var _active_attack_reaction_id: StringName = &""
+var _stance_switch_cooldown_remaining := 0.0
 var _current_dash_started_in_air := false
 var _body_idle_color := Color(1.0, 1.0, 1.0, 1.0)
 var _damage_invulnerability_remaining := 0.0
@@ -184,12 +207,16 @@ func _physics_process(delta: float) -> void:
 
 	_update_damage_invulnerability(delta)
 	_update_hit_react_visual(delta)
+	_update_element_sequence(delta)
+	_stance_switch_cooldown_remaining = maxf(_stance_switch_cooldown_remaining - delta, 0.0)
 
 	var jump_pressed := Input.is_action_just_pressed("jump")
 	var jump_released := Input.is_action_just_released("jump")
 	var attack_pressed := Input.is_action_just_pressed("attack")
 	var dash_pressed := Input.is_action_just_pressed("dash")
 	var recover_pressed := InputMap.has_action("recover") and Input.is_action_just_pressed("recover")
+	var element_switch_pressed := InputMap.has_action("element_switch") and Input.is_action_just_pressed("element_switch")
+	var stance_switch_pressed := InputMap.has_action("stance_switch") and Input.is_action_just_pressed("stance_switch")
 	var was_grounded := is_on_floor()
 
 	_update_jump_window_timers(delta, was_grounded, jump_pressed)
@@ -199,6 +226,10 @@ func _physics_process(delta: float) -> void:
 	elif _is_dashing():
 		_update_dash_state(delta, was_grounded)
 	else:
+		if element_switch_pressed:
+			cycle_current_element()
+		if stance_switch_pressed:
+			cycle_current_stance()
 		_apply_horizontal_movement(delta)
 		_apply_vertical_motion(delta, was_grounded)
 
@@ -315,6 +346,7 @@ func _start_jump() -> void:
 
 # 进入攻击动作窗口，清空上一次命中缓存并启动正式攻击视觉反馈。
 func _start_attack() -> void:
+	_record_current_element_event()
 	_attack_elapsed = 0.0
 	_attack_was_active = false
 	_attack_hit_ids.clear()
@@ -388,8 +420,8 @@ func _perform_attack_hits() -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = hit_shape
 	query.transform = Transform2D(0.0, get_attack_hitbox_center())
-	# 风印的战斗价值是让同一记普通攻击可查询并斩散敌方 Area2D 弹体。
-	query.collide_with_areas = _wind_seal_unlocked
+	# 风印只在风元素攻击时斩散敌方弹体，雷元素继续保留自己的后续反应职责。
+	query.collide_with_areas = _wind_seal_unlocked and _current_element_id == ELEMENT_WIND
 	query.collide_with_bodies = true
 	query.exclude = [get_rid()]
 
@@ -410,7 +442,7 @@ func _perform_attack_hits() -> void:
 		receiver.call(
 			"receive_attack",
 			Vector2(_facing_direction, 0.0),
-			attack_knockback_force
+			get_effective_attack_knockback_force()
 		)
 		if not receiver.has_method("is_defeated"):
 			continue
@@ -442,6 +474,7 @@ func _finish_attack() -> void:
 	_attack_elapsed = 0.0
 	_attack_was_active = false
 	_attack_hit_ids.clear()
+	_active_attack_reaction_id = &""
 	_hide_attack_vfx_visuals()
 	current_state = STATE_IDLE
 
@@ -503,6 +536,7 @@ func _sync_attack_vfx_visual(
 	visual.set_meta("asset_id", asset_id)
 	visual.set_meta("gameplay_collision", false)
 	visual.set_meta("damage_source", false)
+	visual.modulate = _get_element_vfx_color(0.76 if visual == _attack_slash_vfx_visual else 0.58)
 	visual.pause()
 	visual.frame = target_frame
 
@@ -822,14 +856,146 @@ func is_air_dash_available() -> bool:
 	return _air_dash_unlocked and _air_dash_available and not _is_dashing() and not _is_defeated
 
 
-# 注入风印解锁状态；当前能力只扩展攻击查询，不增加新按键或资源条。
+# 注入风印解锁状态；首次开放时自动切到风，保证拾取反馈和 Stage20 斩弹契约立即可见。
 func set_wind_seal_unlocked(is_unlocked: bool) -> void:
+	var was_unlocked := _wind_seal_unlocked
 	_wind_seal_unlocked = is_unlocked
+	if not is_unlocked:
+		set_current_element_id(ELEMENT_THUNDER)
+	elif not was_unlocked:
+		set_current_element_id(ELEMENT_WIND)
 
 
 # 查询普通攻击是否可斩散敌方弹体。
 func is_wind_seal_unlocked() -> bool:
 	return _wind_seal_unlocked
+
+
+# 在当前已开放元素间循环；风印前只有雷，因此输入保持雷而不制造假选择。
+func cycle_current_element() -> StringName:
+	if not _wind_seal_unlocked:
+		set_current_element_id(ELEMENT_THUNDER)
+		return _current_element_id
+
+	set_current_element_id(ELEMENT_THUNDER if _current_element_id == ELEMENT_WIND else ELEMENT_WIND)
+	return _current_element_id
+
+
+# Main 注入跨房选择时走同一校验；未知元素和未开放的风都回落到雷。
+func set_current_element_id(element_id: StringName) -> void:
+	var resolved_element := element_id
+	if resolved_element != ELEMENT_THUNDER and resolved_element != ELEMENT_WIND:
+		resolved_element = ELEMENT_THUNDER
+	if resolved_element == ELEMENT_WIND and not _wind_seal_unlocked:
+		resolved_element = ELEMENT_THUNDER
+	if _current_element_id == resolved_element:
+		return
+
+	_current_element_id = resolved_element
+	element_changed.emit(_current_element_id)
+
+
+func get_current_element_id() -> StringName:
+	return _current_element_id
+
+
+func get_current_element_label() -> String:
+	return "风" if _current_element_id == ELEMENT_WIND else "雷"
+
+
+# 疾 / 御只有一个短冷却；直接注入不消耗冷却，只有玩家主动循环时计时。
+func cycle_current_stance() -> StringName:
+	if _stance_switch_cooldown_remaining > 0.0:
+		return _current_stance_id
+
+	set_current_stance_id(STANCE_WARD if _current_stance_id == STANCE_SWIFT else STANCE_SWIFT)
+	_stance_switch_cooldown_remaining = STANCE_SWITCH_COOLDOWN
+	return _current_stance_id
+
+
+func set_current_stance_id(stance_id: StringName) -> void:
+	var resolved_stance := stance_id if stance_id == STANCE_SWIFT or stance_id == STANCE_WARD else STANCE_SWIFT
+	if _current_stance_id == resolved_stance:
+		return
+
+	_current_stance_id = resolved_stance
+	stance_changed.emit(_current_stance_id)
+
+
+func get_current_stance_id() -> StringName:
+	return _current_stance_id
+
+
+func get_current_stance_label() -> String:
+	return "御印" if _current_stance_id == STANCE_WARD else "疾印"
+
+
+# 每次攻击起手只记录一个元素事件；最近两步决定当前序列反应。
+func _record_current_element_event() -> void:
+	_element_sequence.append(_current_element_id)
+	if _element_sequence.size() > 2:
+		_element_sequence.pop_front()
+	_sequence_window_remaining = get_element_sequence_window_duration()
+	_sequence_reaction_id = _resolve_sequence_reaction()
+	_active_attack_reaction_id = _sequence_reaction_id
+
+
+# 序列超时统一清空；HUD 和测试都通过公开快照观察结果。
+func _update_element_sequence(delta: float) -> void:
+	if _element_sequence.is_empty():
+		return
+
+	_sequence_window_remaining = maxf(_sequence_window_remaining - delta, 0.0)
+	if _sequence_window_remaining <= 0.0:
+		clear_element_sequence()
+
+
+func clear_element_sequence() -> void:
+	_element_sequence.clear()
+	_sequence_window_remaining = 0.0
+	_sequence_reaction_id = &""
+	_active_attack_reaction_id = &""
+
+
+func get_element_sequence_window_duration() -> float:
+	return ELEMENT_SEQUENCE_WINDOW
+
+
+func get_element_sequence_snapshot() -> Dictionary:
+	return {
+		"element_ids": _element_sequence.duplicate(),
+		"window_remaining": _sequence_window_remaining,
+		"window_duration": get_element_sequence_window_duration(),
+		"reaction_id": _sequence_reaction_id,
+		"reaction_label": _get_sequence_reaction_label(_sequence_reaction_id),
+	}
+
+
+func _resolve_sequence_reaction() -> StringName:
+	if _element_sequence.size() < 2:
+		return &""
+	if _element_sequence[0] == ELEMENT_WIND and _element_sequence[1] == ELEMENT_THUNDER:
+		return REACTION_WIND_THUNDER
+	if _element_sequence[0] == ELEMENT_THUNDER and _element_sequence[1] == ELEMENT_WIND:
+		return REACTION_THUNDER_WIND
+	return &""
+
+
+func _get_sequence_reaction_label(reaction_id: StringName) -> String:
+	match reaction_id:
+		REACTION_WIND_THUNDER:
+			return "追击贯穿"
+		REACTION_THUNDER_WIND:
+			return "散射破势"
+		_:
+			return ""
+
+
+# 现有攻击 VFX 只换元素色，不新增动画或伤害节点。
+func _get_element_vfx_color(alpha: float) -> Color:
+	if _current_element_id == ELEMENT_WIND:
+		return Color(0.48, 0.96, 0.78, alpha)
+	return Color(0.58, 0.68, 1.0, alpha)
 
 
 # 注入当前圣物调谐；未知 ID 回落为空，避免调试数据污染玩家数值。
@@ -850,7 +1016,21 @@ func get_effective_attack_hitbox_size() -> Vector2:
 	var effective_size := attack_hitbox_size
 	if _active_build_id == BUILD_WARDEN_SIGIL:
 		effective_size.x += WARDEN_SIGIL_REACH_BONUS
+	if _current_stance_id == STANCE_WARD:
+		effective_size.y += WARD_STANCE_HEIGHT_BONUS
+	if _active_attack_reaction_id == REACTION_WIND_THUNDER:
+		effective_size.x += WIND_THUNDER_REACH_BONUS
+	elif _active_attack_reaction_id == REACTION_THUNDER_WIND:
+		effective_size.y += THUNDER_WIND_HEIGHT_BONUS
 	return effective_size
+
+
+# 御印和雷风序列复用同一击退出口，避免在每种敌人调用点重复乘倍率。
+func get_effective_attack_knockback_force() -> float:
+	var multiplier := WARD_STANCE_KNOCKBACK_MULTIPLIER if _current_stance_id == STANCE_WARD else 1.0
+	if _active_attack_reaction_id == REACTION_THUNDER_WIND:
+		multiplier *= THUNDER_WIND_KNOCKBACK_MULTIPLIER
+	return attack_knockback_force * multiplier
 
 
 # 瘴泽遗物只影响真实命中产生的恢复充能，不放大测试或奖励节点的直接注入。
@@ -908,8 +1088,15 @@ func get_hud_status_snapshot() -> Dictionary:
 		"air_dash_unlocked": _air_dash_unlocked,
 		"air_dash_available": is_air_dash_available(),
 		"wind_seal_unlocked": _wind_seal_unlocked,
+		"current_element_id": _current_element_id,
+		"current_element_label": get_current_element_label(),
+		"current_stance_id": _current_stance_id,
+		"current_stance_label": get_current_stance_label(),
+		"stance_switch_cooldown_remaining": _stance_switch_cooldown_remaining,
+		"element_sequence": get_element_sequence_snapshot(),
 		"active_build_id": _active_build_id,
 		"effective_attack_hitbox_size": get_effective_attack_hitbox_size(),
+		"effective_attack_knockback_force": get_effective_attack_knockback_force(),
 		"recovery_charge_gain_multiplier": get_recovery_charge_gain_multiplier(),
 		"recovery_charge_ratio": get_recovery_charge_ratio(),
 		"recovery_charge_ready": can_spend_recovery_charge(),

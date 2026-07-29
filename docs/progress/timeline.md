@@ -4,6 +4,11 @@
 
 ## 2026-07-30
 
+- **Stage21 element, stance, and two-step sequence**：把北极星最小元素战斗核心接入现有 Player / Main / HUD 契约。
+  结果：雷 / 风、疾印 / 御印可切换；风→雷获得横向追击贯穿，雷→风获得纵向散射破势；两步窗口、跨房状态、重开边界、风印解锁和元素色 VFX 均已落地。
+  关键验证或结论：Stage21 `5/5` / `47` assertions、邻近组合 `88/88` / `1335`、递归全量 GUT `37` scripts / `274/274` tests / `8260` assertions；Godot import / smoke、Windows/OpenGL 运行态输入与 HUD 复核、`git diff --check` 通过，临时 MCP autoload 零残留。
+  详情日志链接：`docs/progress/logs/2026-07-30.md`；设计：`spec-design/2026-07-30-stage21-element-stance-sequence.md`；正式计划：`plan/2026-07-30-stage21-element-stance-sequence.md`；执行清单：`docs/implementation-plans/2026-07-30-stage21-element-stance-sequence.md`；边界：敌人与 Boss 的专属元素反应留给 Stage22。
+
 - **North-star follow-up stage roadmap**：根据当前 Stage20 后的北极星差距，冻结后续 Stage21-26 的开发内容顺序。
   结果：新增 `spec-design/2026-07-30-north-star-stage-roadmap.md`、`plan/2026-07-30-north-star-stage-roadmap.md` 和 `docs/implementation-plans/2026-07-30-north-star-stage-roadmap.md`；推荐先做 Stage21 `2 元素 + 2 姿态 + 2 步序列`，再做敌人 / Boss 反应、驿站悬赏、Build 深化、第二区域和 Alpha Candidate 收口。
   关键验证或结论：本轮只生成计划，不修改运行时代码；路线依据北极星设计、Stage20 当前状态和已验证的 Alpha Demo 最小闭环。

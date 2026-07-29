@@ -20,6 +20,10 @@ const STAGE16_ROOM_PREFIX := "res://scenes/rooms/stage16_"
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
 const FALL_RESET_MARGIN := 96.0
 const WIND_SEAL_REWARD_ID: StringName = &"wind_seal"
+const ELEMENT_WIND: StringName = &"wind"
+const ELEMENT_THUNDER: StringName = &"thunder"
+const STANCE_SWIFT: StringName = &"swift"
+const STANCE_WARD: StringName = &"ward"
 const BUILD_REWARD_IDS := [&"marsh_relic", &"warden_sigil"]
 const STAGE11_STORY_EVENT_ID: StringName = &"stage11_hidden_dispatch"
 const STAGE11_STORY_EVENT_TITLE := "镇妖驿厅 · 密令残页"
@@ -33,6 +37,8 @@ const INPUT_BINDINGS := {
 	"attack": [KEY_J],
 	"dash": [KEY_K],
 	"recover": [KEY_L],
+	"element_switch": [KEY_Q],
+	"stance_switch": [KEY_E],
 	"pause": [KEY_ESCAPE],
 }
 
@@ -52,6 +58,8 @@ var _is_short_chain_completed := false
 var _is_demo_completed := false
 var _air_dash_unlocked := false
 var _wind_seal_unlocked := false
+var _current_element_id: StringName = ELEMENT_THUNDER
+var _current_stance_id: StringName = STANCE_SWIFT
 var _stage14_backtrack_reward_ids: Dictionary = {}
 var _exploration_reward_ids: Dictionary = {}
 var _active_build_id: StringName = &""
@@ -168,8 +176,16 @@ func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 		player.call("set_air_dash_unlocked", _air_dash_unlocked)
 	if player.has_method("set_wind_seal_unlocked"):
 		player.call("set_wind_seal_unlocked", _wind_seal_unlocked)
+	if player.has_method("set_current_element_id"):
+		player.call("set_current_element_id", _current_element_id)
+	if player.has_method("set_current_stance_id"):
+		player.call("set_current_stance_id", _current_stance_id)
 	if player.has_method("set_active_build_id"):
 		player.call("set_active_build_id", _active_build_id)
+	if player.has_signal("element_changed"):
+		player.connect("element_changed", Callable(self, "_on_player_element_changed"))
+	if player.has_signal("stance_changed"):
+		player.connect("stance_changed", Callable(self, "_on_player_stance_changed"))
 
 	if room != null and room.has_method("bind_player"):
 		room.call("bind_player", player)
@@ -212,6 +228,13 @@ func start_demo_at_room(room_path: String, spawn_id: StringName, debug_progress:
 	if bool(debug_progress.get("wind_seal_unlocked", false)):
 		_wind_seal_unlocked = true
 		_exploration_reward_ids[WIND_SEAL_REWARD_ID] = true
+		_current_element_id = ELEMENT_WIND
+	var debug_element_id := StringName(str(debug_progress.get("current_element_id", "")))
+	if debug_element_id == ELEMENT_THUNDER or (debug_element_id == ELEMENT_WIND and _wind_seal_unlocked):
+		_current_element_id = debug_element_id
+	var debug_stance_id := StringName(str(debug_progress.get("current_stance_id", "")))
+	if debug_stance_id == STANCE_SWIFT or debug_stance_id == STANCE_WARD:
+		_current_stance_id = debug_stance_id
 	var debug_rewards: Variant = debug_progress.get("exploration_rewards", [])
 	if debug_rewards is Array:
 		for reward_id: Variant in debug_rewards:
@@ -238,6 +261,8 @@ func _reset_demo_runtime_state() -> void:
 	_is_demo_completed = false
 	_air_dash_unlocked = false
 	_wind_seal_unlocked = false
+	_current_element_id = ELEMENT_THUNDER
+	_current_stance_id = STANCE_SWIFT
 	_stage14_backtrack_reward_ids.clear()
 	_exploration_reward_ids.clear()
 	_active_build_id = &""
@@ -290,6 +315,7 @@ func is_demo_paused() -> bool:
 # 输出主流程稳定快照，供 HUD、GUT 和 MCP 复核读取，不暴露 Main 私有字段。
 func get_demo_progress_snapshot() -> Dictionary:
 	# 快照是 HUD、测试和 MCP 复核的统一读值入口，不让外部直接依赖 Main 私有字段名。
+	var sequence_snapshot := _get_current_element_sequence_snapshot()
 	return {
 		"short_chain_completed": _is_short_chain_completed,
 		"demo_completed": _is_demo_completed,
@@ -298,6 +324,15 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"replay_available": _is_demo_completed,
 		"air_dash_unlocked": _air_dash_unlocked,
 		"wind_seal_unlocked": _wind_seal_unlocked,
+		"current_element_id": _current_element_id,
+		"current_element_label": "风" if _current_element_id == ELEMENT_WIND else "雷",
+		"current_stance_id": _current_stance_id,
+		"current_stance_label": "御印" if _current_stance_id == STANCE_WARD else "疾印",
+		"element_sequence": sequence_snapshot.get("element_ids", []),
+		"sequence_window_remaining": sequence_snapshot.get("window_remaining", 0.0),
+		"sequence_window_duration": sequence_snapshot.get("window_duration", 0.0),
+		"sequence_reaction_id": sequence_snapshot.get("reaction_id", StringName()),
+		"sequence_reaction_label": sequence_snapshot.get("reaction_label", ""),
 		"stage14_backtrack_reward_count": get_stage14_backtrack_reward_count(),
 		"exploration_reward_count": get_exploration_reward_count(),
 		"marsh_relic_collected": has_exploration_reward(&"marsh_relic"),
@@ -346,16 +381,30 @@ func is_air_dash_unlocked() -> bool:
 # 解锁风印并同步当前玩家；探索奖励字典同时承担跨房门控查询。
 func unlock_wind_seal() -> void:
 	_wind_seal_unlocked = true
+	_current_element_id = ELEMENT_WIND
 	_exploration_reward_ids[WIND_SEAL_REWARD_ID] = true
 	var player := _get_runtime_player()
 	if player != null and player.has_method("set_wind_seal_unlocked"):
 		player.call("set_wind_seal_unlocked", true)
+	if player != null and player.has_method("set_current_element_id"):
+		player.call("set_current_element_id", _current_element_id)
 	_refresh_hud_progress()
 
 
 # 查询风印是否已成为本轮可用的第二能力。
 func is_wind_seal_unlocked() -> bool:
 	return _wind_seal_unlocked
+
+
+# 玩家只上报跨房选择；两步序列仍由当前玩家实例自己持有。
+func _on_player_element_changed(element_id: StringName) -> void:
+	_current_element_id = element_id
+	_refresh_hud_progress()
+
+
+func _on_player_stance_changed(stance_id: StringName) -> void:
+	_current_stance_id = stance_id
+	_refresh_hud_progress()
 
 
 # 记录 Stage14 回溯收益，使用 reward_id 去重，防止换房或重复触发刷计数。
@@ -632,6 +681,22 @@ func _get_runtime_player() -> CharacterBody2D:
 func _refresh_hud_progress() -> void:
 	if tutorial_hud != null and tutorial_hud.has_method("_update_progress_status"):
 		tutorial_hud.call("_update_progress_status")
+
+
+# Main 只转发当前玩家的局部序列快照；没有玩家或换房瞬间回落为空序列。
+func _get_current_element_sequence_snapshot() -> Dictionary:
+	var player := _get_runtime_player()
+	if player == null or not player.has_method("get_element_sequence_snapshot"):
+		return {
+			"element_ids": [],
+			"window_remaining": 0.0,
+			"window_duration": 0.0,
+			"reaction_id": StringName(),
+			"reaction_label": "",
+		}
+
+	var snapshot: Variant = player.call("get_element_sequence_snapshot")
+	return snapshot if snapshot is Dictionary else {}
 
 
 # 把玩家恢复充能 ready 状态转成 Main 快照字段，供 HUD 展示 stage15 战斗容错。

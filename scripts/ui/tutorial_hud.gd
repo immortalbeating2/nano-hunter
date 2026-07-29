@@ -25,6 +25,8 @@ extends Control
 @onready var boss_bar_fill: ColorRect = $BattlePanel/BossBarFill
 @onready var boss_meter_frame_art: TextureRect = $BattlePanel/BossMeterFrameArt
 @onready var progress_label: Label = $BattlePanel/ProgressLabel
+@onready var element_panel: Panel = $ElementPanel
+@onready var element_status_label: Label = $ElementPanel/ElementStatusLabel
 
 const INPUT_MODE_KEYBOARD := "keyboard"
 const INPUT_MODE_CONTROLLER := "controller"
@@ -81,13 +83,14 @@ func _ready() -> void:
 	_sync_prompt_panel_layout()
 	_update_health_status()
 	_update_dash_status()
+	_update_element_status()
 	_update_progress_status()
 
 
 # 运行态 HUD 按真实视口放大整个面板，保留内部 640 基准网格不逐项重排。
 func _layout_runtime_hud() -> void:
 	var hud_scale := _runtime_hud_scale(get_viewport_rect().size)
-	for panel: Control in [battle_panel, prompt_panel]:
+	for panel: Control in [battle_panel, prompt_panel, element_panel]:
 		if panel != null:
 			panel.scale = Vector2(hud_scale, hud_scale)
 
@@ -101,6 +104,7 @@ func _runtime_hud_scale(viewport_size: Vector2) -> float:
 func _process(_delta: float) -> void:
 	# 逐帧刷新轻量文本，保证 dash 冷却、恢复充能和 Boss 生命不依赖信号完整性。
 	_update_dash_status()
+	_update_element_status()
 	_update_progress_status()
 
 
@@ -162,6 +166,7 @@ func _sync_from_sources() -> void:
 	_apply_room_context(_get_room_hud_context())
 	_update_health_status()
 	_update_dash_status()
+	_update_element_status()
 	_update_progress_status()
 
 
@@ -174,6 +179,7 @@ func _on_tutorial_step_changed(step_id: StringName, prompt_text: String) -> void
 	prompt_label.text = _format_prompt_text(str(room_context.get("prompt_text", prompt_text)), _context_step_id(room_context))
 	_sync_prompt_panel_layout()
 	_update_dash_status()
+	_update_element_status()
 	_update_progress_status()
 
 
@@ -235,6 +241,35 @@ func _update_health_status() -> void:
 	status_label.text = "生命"
 	health_bar_fill.color = COLOR_HEALTH_LOW if current_health <= 1 else COLOR_HEALTH_READY
 	_set_bar_fill(health_bar_fill, health_bar_back, float(maxi(current_health, 0)) / float(maxi(max_health, 1)))
+
+
+# 元素面板只翻译玩家快照；切换、序列计时和反应判定仍由 Player 负责。
+func _update_element_status() -> void:
+	if element_status_label == null:
+		return
+
+	var player_status := _get_player_hud_status()
+	var stance_label := str(player_status.get("current_stance_label", "疾印"))
+	var element_label := str(player_status.get("current_element_label", "雷"))
+	var sequence: Dictionary = player_status.get("element_sequence", {})
+	var element_ids: Array = sequence.get("element_ids", [])
+	var sequence_labels: Array[String] = []
+	for element_id: Variant in element_ids:
+		sequence_labels.append("风" if StringName(str(element_id)) == &"wind" else "雷")
+
+	var sequence_text := "序列：—"
+	if not sequence_labels.is_empty():
+		var remaining := float(sequence.get("window_remaining", 0.0))
+		sequence_text = "序列：%s  %.1fs" % [" → ".join(sequence_labels), remaining]
+		var reaction_label := str(sequence.get("reaction_label", ""))
+		if not reaction_label.is_empty():
+			sequence_text += "  %s" % reaction_label
+
+	element_status_label.text = "%s · %s    Q 元素 / E 姿态\n%s" % [
+		stance_label,
+		element_label,
+		sequence_text,
+	]
 
 
 # Demo 进度和 stage10 成长反馈都通过稳定快照组装成最小可读文案，

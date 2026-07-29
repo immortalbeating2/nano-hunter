@@ -4,15 +4,15 @@
 
 - 设计真源：`spec-design/2026-07-30-north-star-stage-roadmap.md`
 - 正式入口：`plan/2026-07-30-north-star-stage-roadmap.md`
-- 本清单只冻结后续 Stage 内容顺序，不实施运行时代码。
+- 本清单按顺序跟踪 Stage21-26；每个 Stage 仍以独立设计与执行清单为准。
 
 ## Stage21 元素序列与符印姿态
 
-- [ ] Brainstorming：确认 `wind` / `thunder`、`疾` / `御` 的输入、战斗节奏和 UI 表达。
-- [ ] 设计：补 `spec-design/YYYY-MM-DD-stage21-element-stance-sequence.md`。
-- [ ] 计划：补 `plan/YYYY-MM-DD-stage21-element-stance-sequence.md` 和执行清单。
-- [ ] 实现目标：两元素、两姿态、两步序列窗口、两种顺序不同效果、HUD 展示。
-- [ ] 验证目标：Stage21 专项、邻近战斗、全量 GUT、Godot import、运行态复核。
+- [x] Brainstorming：确认 `wind` / `thunder`、`疾` / `御` 的输入、战斗节奏和 UI 表达。
+- [x] 设计：补 `spec-design/YYYY-MM-DD-stage21-element-stance-sequence.md`。
+- [x] 计划：补 `plan/YYYY-MM-DD-stage21-element-stance-sequence.md` 和执行清单。
+- [x] 实现目标：两元素、两姿态、两步序列窗口、两种顺序不同效果、HUD 展示。
+- [x] 验证目标：Stage21 专项、邻近战斗、全量 GUT、Godot import、运行态复核。
 
 ## Stage22 敌人与 Boss 元素反应
 
