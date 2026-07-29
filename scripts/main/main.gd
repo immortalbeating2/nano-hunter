@@ -24,7 +24,39 @@ const ELEMENT_WIND: StringName = &"wind"
 const ELEMENT_THUNDER: StringName = &"thunder"
 const STANCE_SWIFT: StringName = &"swift"
 const STANCE_WARD: StringName = &"ward"
-const BUILD_REWARD_IDS := [&"marsh_relic", &"warden_sigil"]
+const BUILD_MARSH_RELIC: StringName = &"marsh_relic"
+const BUILD_WARDEN_SIGIL: StringName = &"warden_sigil"
+const BUILD_CASTER_CORE: StringName = &"caster_core"
+const BUILD_GUARDIAN_CORE: StringName = &"guardian_core"
+const BUILD_SLOT_LIMIT := 2
+const BUILD_REWARD_IDS: Array[StringName] = [
+	BUILD_MARSH_RELIC,
+	BUILD_WARDEN_SIGIL,
+	BUILD_CASTER_CORE,
+	BUILD_GUARDIAN_CORE,
+]
+const BUILD_DEFINITIONS := {
+	BUILD_MARSH_RELIC: {
+		"label": "瘴泽遗物",
+		"effect": "恢复充能获取 x1.5",
+		"source": "瘴泽资源支路",
+	},
+	BUILD_WARDEN_SIGIL: {
+		"label": "镇妖挑战符",
+		"effect": "横向攻击距离 +16px",
+		"source": "瘴泽挑战支路",
+	},
+	BUILD_CASTER_CORE: {
+		"label": "腐瘴法珠",
+		"effect": "元素序列窗口 +0.75s",
+		"source": "断瘴缉术回交",
+	},
+	BUILD_GUARDIAN_CORE: {
+		"label": "守印金刚心",
+		"effect": "姿态切换冷却 -0.15s",
+		"source": "封印守卫",
+	},
+}
 const MIASMA_CASTER_SCRIPT_PATH := "res://scripts/combat/miasma_caster_enemy.gd"
 const BOUNTY_CASTER_HUNT: StringName = &"caster_hunt"
 const BOUNTY_DEMON_BONE_EVIDENCE: StringName = &"demon_bone_evidence"
@@ -92,6 +124,7 @@ var _accepted_bounty_ids: Dictionary = {}
 var _completed_bounty_ids: Dictionary = {}
 var _turned_in_bounty_ids: Dictionary = {}
 var _active_build_id: StringName = &""
+var _equipped_build_ids: Array[StringName] = []
 var _completed_story_event_ids: Dictionary = {}
 var _visited_room_paths: Dictionary = {}
 var _stage15_boss_defeated := false
@@ -209,7 +242,9 @@ func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 		player.call("set_current_element_id", _current_element_id)
 	if player.has_method("set_current_stance_id"):
 		player.call("set_current_stance_id", _current_stance_id)
-	if player.has_method("set_active_build_id"):
+	if player.has_method("set_equipped_build_ids"):
+		player.call("set_equipped_build_ids", _equipped_build_ids, _active_build_id)
+	elif player.has_method("set_active_build_id"):
 		player.call("set_active_build_id", _active_build_id)
 	if player.has_signal("element_changed"):
 		player.connect("element_changed", Callable(self, "_on_player_element_changed"))
@@ -270,11 +305,31 @@ func start_demo_at_room(room_path: String, spawn_id: StringName, debug_progress:
 			var resolved_reward_id := StringName(str(reward_id))
 			if resolved_reward_id != StringName():
 				_exploration_reward_ids[resolved_reward_id] = true
+	var debug_equipped_builds: Variant = debug_progress.get("equipped_build_ids", [])
+	if debug_equipped_builds is Array:
+		for build_id: Variant in debug_equipped_builds:
+			var resolved_build_id := StringName(str(build_id))
+			if (
+				resolved_build_id in BUILD_REWARD_IDS
+				and _exploration_reward_ids.has(resolved_build_id)
+				and not _equipped_build_ids.has(resolved_build_id)
+				and _equipped_build_ids.size() < BUILD_SLOT_LIMIT
+			):
+				_equipped_build_ids.append(resolved_build_id)
 	var debug_build_id := StringName(str(debug_progress.get("active_build_id", "")))
-	if debug_build_id in BUILD_REWARD_IDS and _exploration_reward_ids.has(debug_build_id):
+	if (
+		debug_build_id in BUILD_REWARD_IDS
+		and _exploration_reward_ids.has(debug_build_id)
+		and not _equipped_build_ids.has(debug_build_id)
+		and _equipped_build_ids.size() < BUILD_SLOT_LIMIT
+	):
+		_equipped_build_ids.append(debug_build_id)
+	if _equipped_build_ids.has(debug_build_id):
 		_active_build_id = debug_build_id
-	elif _active_build_id == StringName():
-		_select_first_available_build()
+	elif _equipped_build_ids.is_empty():
+		_equip_available_builds()
+	else:
+		_active_build_id = _equipped_build_ids[0]
 	var reward_count := int(debug_progress.get("stage14_backtrack_reward_count", 0))
 	for reward_index in range(reward_count):
 		_stage14_backtrack_reward_ids[StringName("debug_stage14_reward_%d" % reward_index)] = true
@@ -298,6 +353,7 @@ func _reset_demo_runtime_state() -> void:
 	_completed_bounty_ids.clear()
 	_turned_in_bounty_ids.clear()
 	_active_build_id = &""
+	_equipped_build_ids.clear()
 	_completed_story_event_ids.clear()
 	_visited_room_paths.clear()
 	_stage15_boss_defeated = false
@@ -378,6 +434,10 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"waystation_intel_unlocked": bounty_snapshot.get("waystation_intel_unlocked", false),
 		"active_build_id": _active_build_id,
 		"active_build_label": get_active_build_label(),
+		"equipped_build_ids": get_equipped_build_ids(),
+		"equipped_build_count": _equipped_build_ids.size(),
+		"build_slot_limit": BUILD_SLOT_LIMIT,
+		"build_loadout": get_build_loadout_snapshot(),
 		"available_build_count": get_available_build_count(),
 		"story_event_count": _completed_story_event_ids.size(),
 		"stage11_story_event_completed": has_completed_story_event(STAGE11_STORY_EVENT_ID),
@@ -464,15 +524,18 @@ func get_stage14_backtrack_reward_count() -> int:
 	return _stage14_backtrack_reward_ids.size()
 
 
-# 记录跨房间探索收益；当前只服务两条 Stage13 支路，不扩展成物品栏或经济系统。
+# 记录跨房间探索 / 战斗收益；四件固定 Build 共用该去重入口，不扩展成物品栏或经济系统。
 func collect_exploration_reward(reward_id: StringName) -> void:
 	if reward_id == StringName() or _exploration_reward_ids.has(reward_id):
 		return
 
 	_exploration_reward_ids[reward_id] = true
-	if reward_id in BUILD_REWARD_IDS and _active_build_id == StringName():
-		_active_build_id = reward_id
-		_apply_active_build_to_current_player()
+	if reward_id in BUILD_REWARD_IDS:
+		if _equipped_build_ids.size() < BUILD_SLOT_LIMIT:
+			_equipped_build_ids.append(reward_id)
+		if _active_build_id == StringName() and _equipped_build_ids.has(reward_id):
+			_active_build_id = reward_id
+		_apply_build_loadout_to_current_player()
 	if reward_id == &"marsh_relic":
 		_complete_bounty(BOUNTY_DEMON_BONE_EVIDENCE)
 	_refresh_hud_progress()
@@ -513,6 +576,8 @@ func advance_bounty(bounty_id: StringName) -> Dictionary:
 			_complete_bounty(bounty_id)
 	elif _completed_bounty_ids.has(bounty_id) and not _turned_in_bounty_ids.has(bounty_id):
 		_turned_in_bounty_ids[bounty_id] = true
+		if bounty_id == BOUNTY_CASTER_HUNT:
+			collect_exploration_reward(BUILD_CASTER_CORE)
 		_refresh_hud_progress()
 	return get_bounty_board_snapshot()
 
@@ -561,16 +626,19 @@ func get_exploration_reward_count() -> int:
 	return _exploration_reward_ids.size()
 
 
-# 在当前已取得的两件圣物间循环调谐；没有圣物时保持空 Build。
+# 在当前两槽装备间循环调谐焦点；实际效果始终由整份装备列表决定。
 func cycle_active_build() -> StringName:
-	var available_builds := _get_available_build_ids()
-	if available_builds.is_empty():
+	if _equipped_build_ids.is_empty():
 		_active_build_id = &""
 		return _active_build_id
 
-	var current_index := available_builds.find(_active_build_id)
-	_active_build_id = available_builds[(current_index + 1) % available_builds.size()] if current_index >= 0 else available_builds[0]
-	_apply_active_build_to_current_player()
+	var current_index := _equipped_build_ids.find(_active_build_id)
+	_active_build_id = (
+		_equipped_build_ids[(current_index + 1) % _equipped_build_ids.size()]
+		if current_index >= 0
+		else _equipped_build_ids[0]
+	)
+	_apply_build_loadout_to_current_player()
 	_refresh_hud_progress()
 	return _active_build_id
 
@@ -580,20 +648,70 @@ func get_active_build_id() -> StringName:
 	return _active_build_id
 
 
-# 返回当前 Build 的短标签；只有两件已批准圣物，不建立配置表或装备数据库。
+# 返回调谐焦点的短标签；效果仍由两槽共同决定。
 func get_active_build_label() -> String:
-	match _active_build_id:
-		&"marsh_relic":
-			return "瘴泽遗物"
-		&"warden_sigil":
-			return "镇妖挑战符"
-		_:
-			return "尚未调谐"
+	if not BUILD_DEFINITIONS.has(_active_build_id):
+		return "尚未调谐"
+	return str((BUILD_DEFINITIONS[_active_build_id] as Dictionary).get("label", "尚未调谐"))
 
 
 # 返回本轮可切换的 Build 数量。
 func get_available_build_count() -> int:
 	return _get_available_build_ids().size()
+
+
+# 返回两槽副本，暂停 UI、测试和玩家注入都不直接修改 Main 内部数组。
+func get_equipped_build_ids() -> Array[StringName]:
+	return _equipped_build_ids.duplicate()
+
+
+# 输出轻量装备面板所需的全部状态，不建立通用物品栏模型。
+func get_build_loadout_snapshot(status_message := "") -> Dictionary:
+	var entries: Array[Dictionary] = []
+	for build_id: StringName in _get_available_build_ids():
+		var definition: Dictionary = BUILD_DEFINITIONS[build_id]
+		entries.append({
+			"id": build_id,
+			"label": definition.get("label", ""),
+			"effect": definition.get("effect", ""),
+			"source": definition.get("source", ""),
+			"equipped": _equipped_build_ids.has(build_id),
+			"slot": _equipped_build_ids.find(build_id) + 1,
+		})
+	return {
+		"entries": entries,
+		"available_count": entries.size(),
+		"equipped_count": _equipped_build_ids.size(),
+		"equipped_ids": get_equipped_build_ids(),
+		"active_build_id": _active_build_id,
+		"slot_limit": BUILD_SLOT_LIMIT,
+		"status_message": status_message,
+	}
+
+
+# 装备已取得物品或卸下已装备物品；槽满时保持原状态并给 UI 明确信息。
+func toggle_build_equipped(build_id: StringName) -> Dictionary:
+	if not _exploration_reward_ids.has(build_id) or not BUILD_DEFINITIONS.has(build_id):
+		return get_build_loadout_snapshot("尚未取得该圣物。")
+
+	if _equipped_build_ids.has(build_id):
+		_equipped_build_ids.erase(build_id)
+		if _active_build_id == build_id:
+			_active_build_id = _equipped_build_ids[0] if not _equipped_build_ids.is_empty() else StringName()
+	elif _equipped_build_ids.size() >= BUILD_SLOT_LIMIT:
+		return get_build_loadout_snapshot("槽位已满，请先卸下一件。")
+	else:
+		_equipped_build_ids.append(build_id)
+		_active_build_id = build_id
+
+	_apply_build_loadout_to_current_player()
+	_refresh_hud_progress()
+	return get_build_loadout_snapshot()
+
+
+func open_build_loadout() -> void:
+	if demo_shell != null and demo_shell.has_method("show_build_loadout"):
+		demo_shell.call("show_build_loadout", get_build_loadout_snapshot())
 
 
 # 触发一次正式剧情事件；Main 只去重和转发，表现继续由 DemoShell 负责。
@@ -617,6 +735,7 @@ func has_completed_story_event(event_id: StringName) -> bool:
 func mark_stage15_boss_defeated() -> void:
 	# Boss 房只报告胜利事件；Main 把它转成 demo 进度快照，供完成房和 HUD 继续读取。
 	_stage15_boss_defeated = true
+	collect_exploration_reward(BUILD_GUARDIAN_CORE)
 
 
 # 公开查询 Stage15 Boss 结果，避免完成房直接读取 Main 私有变量。
@@ -887,7 +1006,7 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 	_checkpoint_spawn_id = spawn_id
 
 
-# 按固定的两件圣物顺序返回已取得 Build，保持暂停循环行为稳定可预测。
+# 按固定四件顺序返回已取得 Build，保证两槽 UI 与测试顺序稳定。
 func _get_available_build_ids() -> Array[StringName]:
 	var available_builds: Array[StringName] = []
 	for reward_id: StringName in BUILD_REWARD_IDS:
@@ -896,15 +1015,21 @@ func _get_available_build_ids() -> Array[StringName]:
 	return available_builds
 
 
-func _select_first_available_build() -> void:
+func _equip_available_builds() -> void:
 	var available_builds := _get_available_build_ids()
-	if not available_builds.is_empty():
-		_active_build_id = available_builds[0]
+	for build_id: StringName in available_builds:
+		if _equipped_build_ids.size() >= BUILD_SLOT_LIMIT:
+			break
+		_equipped_build_ids.append(build_id)
+	if not _equipped_build_ids.is_empty():
+		_active_build_id = _equipped_build_ids[0]
 
 
-func _apply_active_build_to_current_player() -> void:
+func _apply_build_loadout_to_current_player() -> void:
 	var player := _get_runtime_player()
-	if player != null and player.has_method("set_active_build_id"):
+	if player != null and player.has_method("set_equipped_build_ids"):
+		player.call("set_equipped_build_ids", _equipped_build_ids, _active_build_id)
+	elif player != null and player.has_method("set_active_build_id"):
 		player.call("set_active_build_id", _active_build_id)
 
 

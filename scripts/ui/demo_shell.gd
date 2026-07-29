@@ -41,6 +41,7 @@ extends Control
 var _main: Node
 var _is_pause_menu_open := false
 var _detail_returns_to_game := false
+var _detail_returns_to_pause := false
 var _main_menu_buttons: Array[Button] = []
 var _level_select_scroll: ScrollContainer
 var _level_select_list: VBoxContainer
@@ -354,6 +355,7 @@ func _ensure_bounty_list() -> void:
 func show_bounty_board(snapshot: Dictionary) -> void:
 	_ensure_bounty_list()
 	_detail_returns_to_game = true
+	_detail_returns_to_pause = false
 	detail_back_button.text = "返回驿厅"
 	detail_title_label.text = "镇妖驿站 · 悬赏榜"
 	detail_body_label.text = "已接 %d/3 · 完成 %d · 回交 %d" % [
@@ -428,6 +430,75 @@ func _on_bounty_entry_pressed(bounty_id: StringName) -> void:
 		show_bounty_board(snapshot)
 
 
+# 两槽 Build 复用悬赏榜的滚动选择容器，避免再造第三套详情列表。
+func show_build_loadout(snapshot: Dictionary) -> void:
+	_ensure_bounty_list()
+	_detail_returns_to_game = false
+	_detail_returns_to_pause = true
+	detail_back_button.text = "返回暂停"
+	detail_title_label.text = "圣物调谐 · 两槽 Build"
+	detail_body_label.text = "已取得 %d · 槽位 %d/%d" % [
+		int(snapshot.get("available_count", 0)),
+		int(snapshot.get("equipped_count", 0)),
+		int(snapshot.get("slot_limit", 2)),
+	]
+	var status_message := str(snapshot.get("status_message", ""))
+	if not status_message.is_empty():
+		detail_body_label.text += "\n%s" % status_message
+	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	if _level_select_scroll != null:
+		_level_select_scroll.visible = false
+	_bounty_scroll.visible = true
+	_rebuild_build_list(snapshot)
+	title_background.visible = false
+	main_menu.visible = false
+	pause_menu.visible = false
+	world_map_panel.visible = false
+	failure_panel.visible = false
+	completion_panel.visible = false
+	detail_panel.visible = true
+	_is_pause_menu_open = true
+	get_tree().paused = true
+
+	var focus_target := detail_back_button
+	for child: Node in _bounty_list.get_children():
+		var button := child as Button
+		if button != null:
+			focus_target = button
+			break
+	focus_target.grab_focus()
+
+
+func _rebuild_build_list(snapshot: Dictionary) -> void:
+	for child: Node in _bounty_list.get_children():
+		_bounty_list.remove_child(child)
+		child.queue_free()
+
+	for entry: Dictionary in snapshot.get("entries", []):
+		var equipped := bool(entry.get("equipped", false))
+		var action_label := "卸下 槽%d" % int(entry.get("slot", 0)) if equipped else "装备"
+		var button := Button.new()
+		button.text = "%s · %s｜%s" % [
+			action_label,
+			str(entry.get("label", "未命名圣物")),
+			str(entry.get("effect", "")),
+		]
+		button.set_meta("build_id", entry.get("id", StringName()))
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.focus_mode = Control.FOCUS_ALL
+		_copy_button_skin(button)
+		button.pressed.connect(_on_build_entry_pressed.bind(StringName(entry.get("id", &""))))
+		_bounty_list.add_child(button)
+
+
+func _on_build_entry_pressed(build_id: StringName) -> void:
+	if _main == null or not _main.has_method("toggle_build_equipped"):
+		return
+	var snapshot: Variant = _main.call("toggle_build_equipped", build_id)
+	if snapshot is Dictionary:
+		show_build_loadout(snapshot)
+
+
 # 选关按钮复用主菜单按钮皮肤，只缩小高度；后续正式关卡 UI 再换专用资产。
 func _copy_button_skin(button: Button) -> void:
 	for state: String in ["normal", "hover", "pressed", "focus"]:
@@ -452,6 +523,7 @@ func _open_main_menu() -> void:
 	failure_panel.visible = false
 	_is_pause_menu_open = false
 	_detail_returns_to_game = false
+	_detail_returns_to_pause = false
 	detail_back_button.text = "返回"
 	# 主菜单保持可见覆盖层，但不暂停场景树；这样既保留开始入口，也不破坏既有灰盒 driver 从 Main.tscn 直接推进的自动化。
 	get_tree().paused = false
@@ -486,6 +558,7 @@ func _open_level_select_panel() -> void:
 
 func _open_detail_panel(title: String, body: String, show_level_select := false) -> void:
 	_detail_returns_to_game = false
+	_detail_returns_to_pause = false
 	detail_back_button.text = "返回"
 	detail_title_label.text = title
 	detail_body_label.text = body
@@ -504,6 +577,16 @@ func _close_detail_panel() -> void:
 	if _bounty_scroll != null:
 		_bounty_scroll.visible = false
 	detail_panel.visible = false
+	if _detail_returns_to_pause:
+		_detail_returns_to_pause = false
+		detail_back_button.text = "返回"
+		main_menu.visible = false
+		pause_menu.visible = true
+		_is_pause_menu_open = true
+		get_tree().paused = true
+		build_button.grab_focus()
+		_refresh_build_button()
+		return
 	if _detail_returns_to_game:
 		_detail_returns_to_game = false
 		detail_back_button.text = "返回"
@@ -598,10 +681,12 @@ func _on_map_back_pressed() -> void:
 	_refresh_completion_panel()
 
 
-# 暂停菜单用单按钮在已取得圣物间循环，避免为两项选择建立装备页面。
+# 保留旧调谐焦点循环，再打开复用详情面板的两槽选择列表。
 func _on_build_pressed() -> void:
 	if _main != null and _main.has_method("cycle_active_build"):
 		_main.call("cycle_active_build")
+	if _main != null and _main.has_method("open_build_loadout"):
+		_main.call("open_build_loadout")
 	_refresh_build_button()
 
 
@@ -623,10 +708,17 @@ func _on_restart_pressed() -> void:
 
 # 从暂停菜单回到试玩；主菜单流程不走这里，避免开始前误恢复模拟。
 func _resume_demo() -> void:
+	detail_panel.visible = false
+	if _level_select_scroll != null:
+		_level_select_scroll.visible = false
+	if _bounty_scroll != null:
+		_bounty_scroll.visible = false
 	pause_menu.visible = false
 	world_map_panel.visible = false
 	failure_panel.visible = false
 	_is_pause_menu_open = false
+	_detail_returns_to_game = false
+	_detail_returns_to_pause = false
 	get_tree().paused = false
 	_refresh_completion_panel()
 
@@ -649,6 +741,7 @@ func show_failure_notice(message: String) -> void:
 # 复用主菜单详情面板显示一次性剧情；关闭后回到运行态而不是主菜单。
 func show_story_event(title: String, body: String) -> void:
 	_detail_returns_to_game = true
+	_detail_returns_to_pause = false
 	detail_back_button.text = "继续"
 	detail_title_label.text = title
 	detail_body_label.text = body
@@ -724,5 +817,10 @@ func _refresh_build_button() -> void:
 
 	var build_label := str(_main.call("get_active_build_label"))
 	var available_count := int(_main.call("get_available_build_count")) if _main.has_method("get_available_build_count") else 0
-	build_button.text = "圣物：%s" % build_label
-	build_button.disabled = available_count < 2
+	var equipped_count := (
+		Array(_main.call("get_equipped_build_ids")).size()
+		if _main.has_method("get_equipped_build_ids")
+		else (1 if not build_label.contains("尚未") else 0)
+	)
+	build_button.text = "圣物：%s · %d/2" % [build_label, equipped_count]
+	build_button.disabled = available_count == 0

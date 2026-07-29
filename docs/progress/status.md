@@ -4,6 +4,7 @@ Last Updated: 2026-07-30
 
 ## Current Status
 
+- 2026-07-30 完成 Stage24 两槽圣物 / 组件 Build：保留 `marsh_relic` 的恢复充能 `x1.5` 与 `warden_sigil` 的横向距离 `+16px`，新增回交 Caster 悬赏取得的 `caster_core`（元素序列窗口 `+0.75s`）和击败 Seal Guardian 取得的 `guardian_core`（姿态切换冷却 `-0.15s`）。Main 现持有四件已取得物品、最多两件已装备物品与兼容调谐焦点；暂停菜单复用 DetailPanel / Stage23 选择列表完成装备与卸下，槽满时明确要求先卸下一件。Player 在原恢复、判定、序列窗口和姿态冷却计算入口叠加效果，Stage20 单件接口保持兼容；装备跨房保留，重开清空。Stage24 `5/5` / `36` assertions、Stage15/16/20/21/22/23/24 邻近组合 `63/63` / `1061`、递归全量 GUT `40` scripts / `289/289` tests / `8369` assertions；Godot `4.6.3` import、主场景 smoke、Windows/OpenGL 两槽 UI 与组合数值运行探针、编辑器错误 `0`、`git diff --check` 通过，临时 MCP autoload 已清理。本阶段未增加背包、装备树、强化、随机词条、经济或正式存档。
 - 2026-07-30 完成 Stage23 镇妖驿站与悬赏榜：Stage11 新增可见榜牌触发区，DemoShell 复用 DetailPanel 提供“断瘴缉术 / 妖骨取证 / 封脉清障”三条固定悬赏；Main 统一保存 accepted / completed / turned-in 状态，分别观察 Caster 击败、`marsh_relic` 回收与雷→风散去封印脉冲。三条悬赏可独立接取、追踪、完成、回驿站回交，并最终解锁“雷泽荒原路引”；HUD 与世界图只读消费计数，重开清空，Stage11 短链完成仍不等同 Alpha 完成。Stage23 `5/5` / `42` assertions、Stage11/13/16/19/20/22/23 邻近组合 `62/62` / `1250`、递归全量 GUT `39` scripts / `284/284` tests / `8333` assertions；Godot `4.6.3` import、主场景 smoke、Windows/OpenGL 全流程运行探针与截图、编辑器错误 `0`、`git diff --check` 通过，临时 MCP autoload 已清理。本阶段未加入随机任务、货币、交易市集、对话树或正式存档。
 - 2026-07-30 完成 Stage22 敌人与 Boss 元素反应：Player 只在目标显式支持时转发 Stage21 攻击上下文，最终生命 / 击败仍走原 `receive_attack(...)`。风→雷命中 Caster 会清除同房余弹，并在 Seal Guardian `close_pressure` 预警期直接清空护印进入既有 stagger；雷→风命中 Charger 会取消冲锋并退位，命中封印脉冲会把当前相位错回完整休止段。普通命中、风印斩弹和旧失败恢复保持不变。Stage22 `5/5` / `31` assertions、Stage3/6/9/13/15/17/20/21/22 邻近组合 `86/86` / `1308`、递归全量 GUT `38` scripts / `279/279` tests / `8291` assertions；Godot `4.6.3` import、主场景 smoke、Windows/OpenGL 四对象运行探针、Boss 真实 Player 命中与截图、编辑器错误 `0`、`git diff --check` 通过，临时 MCP autoload 已清理。Stage22 没有加入元素伤害表、普通敌人血条或新 Boss 阶段。
 - 2026-07-30 完成 Stage21 元素、姿态与两步序列：Luna 现有雷 / 风两元素与疾印 / 御印两姿态，`Q` / `E` 切换；风→雷形成横向追击贯穿，雷→风形成纵向散射破势，两步窗口为 `2.0s`。元素与姿态由 Main 跨房保留，序列随玩家重建清空，重开恢复雷 + 疾；风印仍由 Stage10 奖励解锁。HUD 顶部安全区显示当前元素、姿态、序列、剩余窗口和反应名，攻击 VFX 同步元素色。Stage21 `5/5` / `47` assertions、Stage3/6/10/13/15/17/20/21 邻近组合 `88/88` / `1335`、递归全量 GUT `37` scripts / `274/274` tests / `8260` assertions；Godot `4.6.3` import、主场景 smoke、Windows/OpenGL 输入与三类战斗房运行态复核、`git diff --check` 通过，临时 MCP autoload 已清理。Stage21 不实现敌人专属元素反应，该范围进入 Stage22。
@@ -338,7 +339,7 @@ Last Updated: 2026-07-30
 
 ## Next Steps
 
-- Stage24 下一步：保留两槽上限，把 `marsh_relic` / `warden_sigil` 纳入正式装备选择，再增加 2-3 个只服务元素序列的圣物或组件；不扩成装备树、背包或多资源经济。
+- Stage25 下一步：消费“雷泽荒原路引”，新增 `6-8` 房的小型雷泽荒原区域、一个主题机制、一个旧区回访口和一个小回环；继续使用 JSON 作为连接 / 门控真源，不扩成商业版全区域。
 - Stage18 下一步：用真人连续试玩分别验证安全首次通关、取得 Air Dash 后的 Stage10 回访、取得 `marsh_relic` 后的 Stage9 回访、Stage13 两支路选择和 `warden_sigil` 高风险捷径；只按明确证据调整地标、提示和收益节奏，不扩成地图 UI 或快速旅行系统。
 - Stage17 下一步：审查并合并 `codex/stage-17-animation-runtime-stabilization`，在实体手柄 / 真人体验签核后更新 `AGENTS.md` 主线阶段指针；随后为最小 `2 元素 + 2 姿态 + 2 步序列` 另做 brainstorming、设计和正式阶段计划。
 - Formal Demo map 下一步：先做提交前差异审查和真人连续试玩；若发现具体房间读值问题，按房间证据局部修正，不再回到随机全图替换。当前 39 房截图脚本已经覆盖主线、支路和非主线机制沙盒。

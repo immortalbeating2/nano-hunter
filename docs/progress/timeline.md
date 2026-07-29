@@ -4,6 +4,11 @@
 
 ## 2026-07-30
 
+- **Stage24 two-slot relic/component Build**：把 Stage20 的单件切换扩展为四件可取得、任意两件可装备的轻量 Build。
+  结果：瘴泽遗物与镇妖挑战符保留原效果；Caster 悬赏回交授予腐瘴法珠，Boss 击败授予守印金刚心，分别把序列窗口扩到 `2.75s`、姿态冷却缩到 `0.20s`。暂停详情面板支持装备 / 卸下，槽满不暗中替换。
+  关键验证或结论：Stage24 `5/5` / `36` assertions、邻近组合 `63/63` / `1061`、递归全量 GUT `40` scripts / `289/289` tests / `8369` assertions；Godot import / smoke、Windows/OpenGL 两槽 UI 截图、组合数值探针、编辑器错误 `0` 和 `git diff --check` 通过，临时 MCP autoload 零残留。
+  详情日志链接：`docs/progress/logs/2026-07-30.md`；设计：`spec-design/2026-07-30-stage24-two-slot-build-loadout.md`；正式计划：`plan/2026-07-30-stage24-two-slot-build-loadout.md`；执行清单：`docs/implementation-plans/2026-07-30-stage24-two-slot-build-loadout.md`；边界：未增加背包、装备树、强化、随机词条、经济或正式存档。
+
 - **Stage23 waystation bounty loop**：把 Stage11 镇妖驿厅升级为三条固定悬赏的接取、生产事件追踪、回交与情报奖励入口。
   结果：Caster 击败、妖骨证物回收与雷→风散去封印脉冲分别推进一条悬赏；三条全部回交后解锁“雷泽荒原路引”，状态由 Main 快照统一持有，HUD / 世界图只读显示，重开清空。
   关键验证或结论：Stage23 `5/5` / `42` assertions、邻近组合 `62/62` / `1250`、递归全量 GUT `39` scripts / `284/284` tests / `8333` assertions；Godot import / smoke、Windows/OpenGL 全流程榜单截图、编辑器错误 `0` 和 `git diff --check` 通过，临时 MCP autoload 零残留。

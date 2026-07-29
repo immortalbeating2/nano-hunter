@@ -30,8 +30,13 @@ const RECOVERY_CHARGE_PER_HIT := 0.35
 const RECOVERY_CHARGE_DEFEAT_BONUS := 0.65
 const BUILD_MARSH_RELIC: StringName = &"marsh_relic"
 const BUILD_WARDEN_SIGIL: StringName = &"warden_sigil"
+const BUILD_CASTER_CORE: StringName = &"caster_core"
+const BUILD_GUARDIAN_CORE: StringName = &"guardian_core"
+const BUILD_SLOT_LIMIT := 2
 const MARSH_RELIC_RECOVERY_MULTIPLIER := 1.5
 const WARDEN_SIGIL_REACH_BONUS := 16.0
+const CASTER_CORE_SEQUENCE_WINDOW_BONUS := 0.75
+const GUARDIAN_CORE_STANCE_COOLDOWN_REDUCTION := 0.15
 const ELEMENT_WIND: StringName = &"wind"
 const ELEMENT_THUNDER: StringName = &"thunder"
 const STANCE_SWIFT: StringName = &"swift"
@@ -125,6 +130,7 @@ var _air_dash_unlocked := false
 var _air_dash_available := false
 var _wind_seal_unlocked := false
 var _active_build_id: StringName = &""
+var _equipped_build_ids: Array[StringName] = []
 var _current_element_id: StringName = ELEMENT_THUNDER
 var _current_stance_id: StringName = STANCE_SWIFT
 var _element_sequence: Array[StringName] = []
@@ -788,7 +794,7 @@ func _get_attack_total_duration() -> float:
 # 返回当前攻击判定中心；空中攻击会略微上移以覆盖空中威胁。
 func get_attack_hitbox_center() -> Vector2:
 	# 空中攻击的判定中心略微上移，用来体现 Stage 10 “空中攻击打空中威胁”的价值。
-	var build_offset := WARDEN_SIGIL_REACH_BONUS * 0.5 if _active_build_id == BUILD_WARDEN_SIGIL else 0.0
+	var build_offset := WARDEN_SIGIL_REACH_BONUS * 0.5 if _has_equipped_build(BUILD_WARDEN_SIGIL) else 0.0
 	if current_state == STATE_AIR_ATTACK:
 		return global_position + Vector2(
 			(attack_hitbox_offset.x + build_offset) * _facing_direction,
@@ -926,7 +932,7 @@ func cycle_current_stance() -> StringName:
 		return _current_stance_id
 
 	set_current_stance_id(STANCE_WARD if _current_stance_id == STANCE_SWIFT else STANCE_SWIFT)
-	_stance_switch_cooldown_remaining = STANCE_SWITCH_COOLDOWN
+	_stance_switch_cooldown_remaining = get_stance_switch_cooldown_duration()
 	return _current_stance_id
 
 
@@ -975,7 +981,9 @@ func clear_element_sequence() -> void:
 
 
 func get_element_sequence_window_duration() -> float:
-	return ELEMENT_SEQUENCE_WINDOW
+	return ELEMENT_SEQUENCE_WINDOW + (
+		CASTER_CORE_SEQUENCE_WINDOW_BONUS if _has_equipped_build(BUILD_CASTER_CORE) else 0.0
+	)
 
 
 func get_element_sequence_snapshot() -> Dictionary:
@@ -1017,10 +1025,31 @@ func _get_element_vfx_color(alpha: float) -> Color:
 
 # 注入当前圣物调谐；未知 ID 回落为空，避免调试数据污染玩家数值。
 func set_active_build_id(build_id: StringName) -> void:
-	if build_id != StringName() and build_id != BUILD_MARSH_RELIC and build_id != BUILD_WARDEN_SIGIL:
+	if build_id != StringName() and not _is_supported_build(build_id):
 		_active_build_id = &""
+		_equipped_build_ids.clear()
 		return
 	_active_build_id = build_id
+	_equipped_build_ids = [] if build_id == StringName() else [build_id]
+
+
+# Main 注入最多两件已装备物品；调谐焦点只影响兼容读值，不改变效果叠加。
+func set_equipped_build_ids(build_ids: Array, active_build_id: StringName = &"") -> void:
+	var resolved_ids: Array[StringName] = []
+	for build_id: Variant in build_ids:
+		var resolved_id := StringName(str(build_id))
+		if (
+			_is_supported_build(resolved_id)
+			and not resolved_ids.has(resolved_id)
+			and resolved_ids.size() < BUILD_SLOT_LIMIT
+		):
+			resolved_ids.append(resolved_id)
+	_equipped_build_ids = resolved_ids
+	_active_build_id = (
+		active_build_id
+		if _equipped_build_ids.has(active_build_id)
+		else (_equipped_build_ids[0] if not _equipped_build_ids.is_empty() else StringName())
+	)
 
 
 # 返回当前圣物 Build ID。
@@ -1028,10 +1057,15 @@ func get_active_build_id() -> StringName:
 	return _active_build_id
 
 
+# 返回两槽副本，防止外部直接修改玩家内部数组。
+func get_equipped_build_ids() -> Array[StringName]:
+	return _equipped_build_ids.duplicate()
+
+
 # 镇妖挑战符只增加横向攻击距离，不改变高度、伤害或攻击节奏。
 func get_effective_attack_hitbox_size() -> Vector2:
 	var effective_size := attack_hitbox_size
-	if _active_build_id == BUILD_WARDEN_SIGIL:
+	if _has_equipped_build(BUILD_WARDEN_SIGIL):
 		effective_size.x += WARDEN_SIGIL_REACH_BONUS
 	if _current_stance_id == STANCE_WARD:
 		effective_size.y += WARD_STANCE_HEIGHT_BONUS
@@ -1052,7 +1086,32 @@ func get_effective_attack_knockback_force() -> float:
 
 # 瘴泽遗物只影响真实命中产生的恢复充能，不放大测试或奖励节点的直接注入。
 func get_recovery_charge_gain_multiplier() -> float:
-	return MARSH_RELIC_RECOVERY_MULTIPLIER if _active_build_id == BUILD_MARSH_RELIC else 1.0
+	return MARSH_RELIC_RECOVERY_MULTIPLIER if _has_equipped_build(BUILD_MARSH_RELIC) else 1.0
+
+
+# 守印金刚心只缩短姿态切换冷却，不改变姿态效果本身。
+func get_stance_switch_cooldown_duration() -> float:
+	return maxf(
+		STANCE_SWITCH_COOLDOWN - (
+			GUARDIAN_CORE_STANCE_COOLDOWN_REDUCTION
+			if _has_equipped_build(BUILD_GUARDIAN_CORE)
+			else 0.0
+		),
+		0.01
+	)
+
+
+func _has_equipped_build(build_id: StringName) -> bool:
+	return _equipped_build_ids.has(build_id)
+
+
+func _is_supported_build(build_id: StringName) -> bool:
+	return build_id in [
+		BUILD_MARSH_RELIC,
+		BUILD_WARDEN_SIGIL,
+		BUILD_CASTER_CORE,
+		BUILD_GUARDIAN_CORE,
+	]
 
 
 # 增加 Stage15 恢复充能，并在比例或 ready 状态变化时通知 HUD。
@@ -1112,6 +1171,7 @@ func get_hud_status_snapshot() -> Dictionary:
 		"stance_switch_cooldown_remaining": _stance_switch_cooldown_remaining,
 		"element_sequence": get_element_sequence_snapshot(),
 		"active_build_id": _active_build_id,
+		"equipped_build_ids": get_equipped_build_ids(),
 		"effective_attack_hitbox_size": get_effective_attack_hitbox_size(),
 		"effective_attack_knockback_force": get_effective_attack_knockback_force(),
 		"recovery_charge_gain_multiplier": get_recovery_charge_gain_multiplier(),
