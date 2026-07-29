@@ -4,6 +4,11 @@
 
 ## 2026-07-30
 
+- **North-star follow-up stage roadmap**：根据当前 Stage20 后的北极星差距，冻结后续 Stage21-26 的开发内容顺序。
+  结果：新增 `spec-design/2026-07-30-north-star-stage-roadmap.md`、`plan/2026-07-30-north-star-stage-roadmap.md` 和 `docs/implementation-plans/2026-07-30-north-star-stage-roadmap.md`；推荐先做 Stage21 `2 元素 + 2 姿态 + 2 步序列`，再做敌人 / Boss 反应、驿站悬赏、Build 深化、第二区域和 Alpha Candidate 收口。
+  关键验证或结论：本轮只生成计划，不修改运行时代码；路线依据北极星设计、Stage20 当前状态和已验证的 Alpha Demo 最小闭环。
+  详情日志链接：`docs/progress/logs/2026-07-30.md`。
+
 - **Stage17-20 worktree merge into hardening branch**：将 d7ef 工作树 `codex/stage-17-animation-runtime-stabilization` 合入当前 `codex/upgrade-godot-mcp-1-15-hardening` 分支。
   结果：d7ef 未提交的 Stage18-20 内容先固定为提交 `cc5df58`，再与当前 Godot MCP hardening / 工具数量口径修正合并；冲突集中在 `docs/progress` 文档，代码、场景和资源未出现文本冲突。
   关键验证或结论：冲突解决保留 2026-06-28 与 2026-07-16 两边日志；`status.md` 采用 Stage20 最新状态并补充本次合并状态。尚未合并 `main` / push。
