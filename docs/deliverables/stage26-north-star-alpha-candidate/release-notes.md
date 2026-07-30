@@ -19,7 +19,7 @@
 ## 默认控制
 
 - 键盘：移动 `A/D` 或方向键；跳跃 `Space/W/↑`；攻击 `J`；冲刺 `K`；恢复 `L`；元素 `Q`；姿态 `E`；暂停 `Esc`。
-- 手柄：左摇杆 / 十字键；A 跳跃；B 冲刺；X 攻击；Y 恢复；LB 元素；RB 姿态；Menu 暂停。
+- 手柄：游戏内左摇杆 / 十字键移动；A 跳跃；B 冲刺；X 攻击；Y 恢复；LB 元素；RB 姿态；Menu 暂停。菜单内使用左摇杆 / 十字键导航、A 确认、B 返回。
 - Xbox Series X Controller 已完成真实 Joypad 事件、InputMap、静置漂移、十字键与教程内运行时响应复核；主观舒适度仍需真人反馈。
 
 ## 进度与继续边界
@@ -38,8 +38,8 @@
 
 ## 验证状态
 
-- Stage26 专项为 `5/5` tests、`62` assertions；Stage16 / 19 / 21-26 邻近组合为 `56/56` tests、`1004` assertions；递归全量为 `42` scripts、`299/299` tests、`8524` assertions。
+- Stage26 专项为 `6/6` tests、`78` assertions；Stage16 / 19 / 21-26 邻近组合为 `57/57` tests、`1020` assertions；递归全量为 `42` scripts、`300/300` tests、`8540` assertions。
 - Godot `4.6.3` import、主场景 smoke、`14/14` 键盘 / synthetic Joypad 输入行和 `git diff --check` 通过。import 只报告 ignored 本地资产证据副本与运行时资源的 `6` 条重复 UID warning。
 - input-only replay 从主菜单自然经过 `34` 房到 Stage16 终点，耗时 `429.38s`，`P0/P1/P2=0`；不调用切房或坐标注入。
-- Windows/OpenGL 复核覆盖控制说明、Stage25 选关、HUD、暂停、地图、两槽 Build 和完成态；运行态发现并修正地图总数从旧硬编码 `38` 到当前布局 `44`，最终编辑器错误为 `0`。
+- Windows/OpenGL 复核覆盖控制说明、Stage25 选关、HUD、暂停、地图、两槽 Build 和完成态；Godot MCP Pro 追加确认主菜单 / 暂停菜单初始焦点、方向导航和游戏中 B 不误开暂停。运行态发现并修正地图总数从旧硬编码 `38` 到当前布局 `44`，最终编辑器错误为 `0`。
 - 本机实体手柄技术复核通过；候选开发完成仍不等于发布签核，真人路线、悬赏 / Build 理解度和按键舒适度全部通过后才能称为人工验收通过。

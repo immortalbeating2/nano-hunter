@@ -2,6 +2,13 @@
 
 本文件只记录项目里程碑级事件。每日细节、命令输出、MCP 复核过程、分支操作原因和误判修正过程保存在 `docs/progress/logs/YYYY-MM-DD.md`。每条里程碑默认包含范围、结果、关键验证、详情日志；重要阶段收口或工具链修复可补提交 hash 与遗留风险。
 
+## 2026-07-31
+
+- **Stage26 controller menu navigation hotfix**：修复实体手柄在主菜单与暂停菜单没有可用焦点和 UI 动作映射的候选阻断。
+  结果：左摇杆 / 十字键可导航，A 确认、B 返回，主菜单 / 详情 / 暂停入口恢复确定焦点；B 在游戏中仍只冲刺，Menu / Esc 才打开暂停。
+  关键验证或结论：修复前菜单回归为 `5/6` 且新增用例 `13` 处失败；最终 Stage26 `6/6` / `78` assertions、邻近组合 `57/57` / `1020`、递归全量 GUT `42` scripts / `300/300` tests / `8540` assertions，Godot import / smoke 与 MCP 运行态焦点复核通过，临时 MCP autoload 零残留。
+  详情日志链接：`docs/progress/logs/2026-07-31.md`；遗留：真人路线理解、Build 调整和实体手柄主观舒适度仍待外部人工签核。
+
 ## 2026-07-30
 
 - **Stage26 north-star Alpha Candidate closeout**：停止新增大系统，把 Stage21-25 与既有 34 房首次通关链收成可自动复查、可交真人签核的候选版。

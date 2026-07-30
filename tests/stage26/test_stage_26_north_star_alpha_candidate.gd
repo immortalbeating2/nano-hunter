@@ -31,6 +31,8 @@ func after_each() -> void:
 		"element_switch",
 		"stance_switch",
 		"pause",
+		"ui_accept",
+		"ui_cancel",
 	]:
 		if InputMap.has_action(action_name):
 			Input.action_release(action_name)
@@ -50,6 +52,55 @@ func test_candidate_controller_map_has_non_conflicting_core_actions() -> void:
 		_action_has_joy_button(&"dash", JOY_BUTTON_RIGHT_SHOULDER),
 		"RB 只能切换姿态，不能同时触发 Dash。"
 	)
+
+
+func test_controller_can_operate_main_and_pause_menus() -> void:
+	var main := await _spawn_main()
+	var shell := main.get_node("HUD/DemoShell") as Control
+	var viewport := shell.get_viewport()
+	var start_button := shell.get_node(
+		"MainMenu/MarginContainer/VBoxContainer/StartButton"
+	) as Button
+	var continue_button := shell.get_node(
+		"MainMenu/MarginContainer/VBoxContainer/ContinueButton"
+	) as Button
+	var resume_button := shell.get_node(
+		"PauseMenu/MarginContainer/VBoxContainer/ResumeButton"
+	) as Button
+	var map_button := shell.get_node(
+		"PauseMenu/MarginContainer/VBoxContainer/MapButton"
+	) as Button
+
+	assert_true(_action_has_joy_button(&"ui_accept", JOY_BUTTON_A))
+	assert_true(_action_has_joy_button(&"ui_cancel", JOY_BUTTON_B))
+	assert_same(viewport.gui_get_focus_owner(), start_button)
+
+	await _send_joy_button(JOY_BUTTON_DPAD_DOWN)
+	assert_same(viewport.gui_get_focus_owner(), continue_button)
+	await _send_joy_button(JOY_BUTTON_A)
+	assert_true((shell.get_node("DetailPanel") as Control).visible)
+	await _send_joy_button(JOY_BUTTON_B)
+	assert_true((shell.get_node("MainMenu") as Control).visible)
+	assert_same(viewport.gui_get_focus_owner(), start_button)
+
+	await _send_joy_button(JOY_BUTTON_A)
+	assert_false((shell.get_node("MainMenu") as Control).visible)
+	await _send_joy_button(JOY_BUTTON_B)
+	assert_false(
+		(shell.get_node("PauseMenu") as Control).visible,
+		"B 在游戏中只负责冲刺，不能同时触发 UI 返回并打开暂停菜单。",
+	)
+	await _send_joy_button(JOY_BUTTON_START)
+	assert_true((shell.get_node("PauseMenu") as Control).visible)
+	assert_same(viewport.gui_get_focus_owner(), resume_button)
+
+	await _send_joy_button(JOY_BUTTON_DPAD_DOWN)
+	assert_same(viewport.gui_get_focus_owner(), map_button)
+	await _send_joy_button(JOY_BUTTON_A)
+	assert_true((shell.get_node("WorldMapPanel") as Control).visible)
+	await _send_joy_button(JOY_BUTTON_B)
+	assert_true((shell.get_node("PauseMenu") as Control).visible)
+	assert_same(viewport.gui_get_focus_owner(), map_button)
 
 
 func test_controls_and_level_select_expose_stage21_and_stage25_candidate_entries() -> void:
@@ -231,6 +282,20 @@ func _action_has_joy_button(action_name: StringName, button_index: JoyButton) ->
 		if joy_button != null and joy_button.button_index == button_index:
 			return true
 	return false
+
+
+func _send_joy_button(button_index: JoyButton) -> void:
+	var event := InputEventJoypadButton.new()
+	event.device = 0
+	event.button_index = button_index
+	event.pressed = true
+	event.pressure = 1.0
+	Input.parse_input_event(event)
+	await _advance_frames(2)
+	event.pressed = false
+	event.pressure = 0.0
+	Input.parse_input_event(event)
+	await _advance_frames(2)
 
 
 func _close_detail_panel(main: Node) -> void:

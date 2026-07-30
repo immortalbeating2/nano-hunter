@@ -44,9 +44,9 @@ Stage26 不接入未经授权、未剪辑和未混音的临时音频；音频生
 
 ## 证据边界
 
-- 自动证据：Stage26 `5/5` / `62` assertions，邻近组合 `56/56` / `1004`，递归全量 `299/299` / `8524`；Godot import / smoke、input-only replay 与 synthetic Joypad 均通过。
+- 自动证据：Stage26 `6/6` / `78` assertions，邻近组合 `57/57` / `1020`，递归全量 `300/300` / `8540`；Godot import / smoke、input-only replay 与 synthetic Joypad 均通过。
 - input-only replay：从主菜单自然经过 `34` 房到 Stage16 终点，耗时 `429.38s`，`P0/P1/P2=0`。
-- 代理运行态：Windows/OpenGL 控制说明、Stage25 选关、HUD、暂停、地图、两槽 Build、完成态与错误面板均已复核；地图旧总数硬编码已修为从当前 `44` 房布局读取。
+- 代理运行态：Windows/OpenGL 控制说明、Stage25 选关、HUD、暂停、地图、两槽 Build、完成态与错误面板均已复核；主菜单 / 暂停菜单的确定焦点、方向导航及 B / Menu 冲突边界已由 Godot MCP Pro 复核；地图旧总数硬编码已修为从当前 `44` 房布局读取。
 - 实体手柄：Xbox Series X Controller 的真实事件、`9/9` 生产动作、左摇杆 / 十字键、静置漂移与教程内响应已复核。
 - 待外部人工验收：真人首次通关、能力回访、悬赏 / Build 理解度和实体手柄主观舒适度。
 

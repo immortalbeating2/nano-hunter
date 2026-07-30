@@ -244,24 +244,28 @@ func _layout_title_menu() -> void:
 			button.add_theme_font_size_override("font_size", max(11, button_font_size - 2))
 
 
-# Esc / pause 输入在地图内先返回暂停菜单；主菜单显示时不叠加暂停层。
+# Menu / Esc 负责打开暂停；B / ui_cancel 只在已显示界面内返回，避免与游戏中冲刺冲突。
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
-		if world_map_panel.visible:
-			_on_map_back_pressed()
-			return
+	var pause_pressed := event.is_action_pressed("pause")
+	var cancel_pressed := event.is_action_pressed("ui_cancel")
+	if not pause_pressed and not cancel_pressed:
+		return
 
-		if detail_panel.visible:
-			_close_detail_panel()
-			return
+	if world_map_panel.visible:
+		_on_map_back_pressed()
+		return
 
-		if main_menu.visible:
-			return
+	if detail_panel.visible:
+		_close_detail_panel()
+		return
 
-		if _is_pause_menu_open:
-			_resume_demo()
-		else:
-			_open_pause_menu()
+	if main_menu.visible:
+		return
+
+	if _is_pause_menu_open:
+		_resume_demo()
+	elif pause_pressed:
+		_open_pause_menu()
 
 
 # Main 在 _ready 中注入自身，DemoShell 不主动搜索场景树，避免形成隐藏依赖。
@@ -535,6 +539,7 @@ func _open_main_menu() -> void:
 	get_tree().paused = false
 	_refresh_status_text()
 	_refresh_completion_panel()
+	start_button.grab_focus()
 
 
 # 开始按钮从教程起点重开一轮试玩，复用 Main.restart_demo 的统一清理语义。
@@ -579,6 +584,7 @@ func _open_detail_panel(title: String, body: String, show_level_select := false)
 		_bounty_scroll.visible = false
 	main_menu.visible = false
 	detail_panel.visible = true
+	detail_back_button.grab_focus()
 
 
 func _close_detail_panel() -> void:
@@ -606,6 +612,7 @@ func _close_detail_panel() -> void:
 		return
 	main_menu.visible = true
 	_refresh_status_text()
+	start_button.grab_focus()
 
 
 func _on_level_select_entry_pressed(entry: Dictionary) -> void:
@@ -648,6 +655,7 @@ func _open_pause_menu() -> void:
 	get_tree().paused = true
 	_refresh_build_button()
 	_refresh_completion_panel()
+	resume_button.grab_focus()
 
 
 # 继续按钮恢复当前运行态，不修改 Main 进度。

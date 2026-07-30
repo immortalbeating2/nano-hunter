@@ -9,9 +9,9 @@
 
 ## 自动化门禁
 
-- [x] Stage26 专项 GUT：`5/5` tests、`62` assertions。
-- [x] Stage16 / 19 / 21 / 22 / 23 / 24 / 25 / 26 邻近回归：`8` scripts、`56/56` tests、`1004` assertions。
-- [x] 递归全量 GUT：`42` scripts、`299/299` tests、`8524` assertions。
+- [x] Stage26 专项 GUT：`6/6` tests、`78` assertions。
+- [x] Stage16 / 19 / 21 / 22 / 23 / 24 / 25 / 26 邻近回归：`8` scripts、`57/57` tests、`1020` assertions。
+- [x] 递归全量 GUT：`42` scripts、`300/300` tests、`8540` assertions。
 - [x] `godot --headless --path . --import`。
 - [x] `godot --headless --path . --quit-after 3`。
 - [x] `git diff --check`。
@@ -27,13 +27,15 @@
 - [x] 失败恢复回最近 checkpoint，并保留本轮悬赏 / Build 状态。
 - [x] 重开回教程并清空本轮状态；release notes / QA 静态就绪状态保持。
 - [x] Stage16 终点显示 Alpha Demo 完成和候选文档已准备。
+- [x] 主菜单初始聚焦 Start，详情返回后恢复 Start；暂停菜单初始聚焦 Resume，左摇杆 / 十字键、A / B / Menu 可完成菜单链。
 - [x] 临时 MCP autoload 已清理，编辑器错误面板为 `0`，只结束本轮自有编辑器。
 
 ## 控制映射
 
 - [x] 键盘：移动 `A/D` 或方向键、跳跃 `Space/W/↑`、攻击 `J`、冲刺 `K`、恢复 `L`、元素 `Q`、姿态 `E`、暂停 `Esc`。
-- [x] 手柄映射：移动左摇杆 / 十字键、跳跃 A、冲刺 B、攻击 X、恢复 Y、元素 LB、姿态 RB、暂停 Menu。
+- [x] 手柄映射：游戏内移动左摇杆 / 十字键、跳跃 A、冲刺 B、攻击 X、恢复 Y、元素 LB、姿态 RB、暂停 Menu；UI 使用左摇杆 / 十字键导航、A 确认、B 返回。
 - [x] Dash 不再绑定 RB，不会与姿态切换同时触发。
+- [x] B 在游戏中只触发 Dash，不会因兼任 `ui_cancel` 而打开暂停；Menu / Esc 才能从游戏中打开暂停。
 
 ## 存档与音效边界
 
