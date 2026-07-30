@@ -31,4 +31,5 @@
 ## 收口状态
 
 - 自动化、input-only replay、synthetic Joypad 与 Windows/OpenGL 代理运行态已闭环。
-- 真人首次通关、能力回访、悬赏 / Build 理解度和实体手柄仍待外部人工签核。
+- Xbox Series X Controller 的真实事件、`9/9` 生产动作、摇杆 / 十字键、静置漂移和教程内响应已完成技术复核。
+- 真人首次通关、能力回访、悬赏 / Build 理解度和实体手柄主观舒适度仍待外部人工签核。

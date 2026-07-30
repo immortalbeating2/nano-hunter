@@ -6,8 +6,8 @@
 
 - **Stage26 north-star Alpha Candidate closeout**：停止新增大系统，把 Stage21-25 与既有 34 房首次通关链收成可自动复查、可交真人签核的候选版。
   结果：冻结单次会话 / checkpoint / 重开 / Continue 边界；手柄映射改为 A/B/X/Y/LB/RB/Menu 且 Dash 移除 RB；DemoShell 增加 Stage25 六房选关、完整控制说明和静态候选文档就绪状态。运行态发现地图总数旧硬编码 `38`，已改为读取当前 `44` 房布局。
-  关键验证或结论：Stage26 `5/5` / `62` assertions、邻近组合 `56/56` / `1004`、递归全量 GUT `42` scripts / `299/299` tests / `8524` assertions；Godot import / smoke、`14/14` 输入行、input-only `34` 房通关（`429.38s`、`P0/P1/P2=0`）、Windows/OpenGL 候选 UI / 完成态、编辑器错误 `0` 和 `git diff --check` 通过，临时 MCP autoload 零残留。
-  详情日志链接：`docs/progress/logs/2026-07-30.md`；设计：`spec-design/2026-07-30-stage26-north-star-alpha-candidate.md`；正式计划：`plan/2026-07-30-stage26-north-star-alpha-candidate.md`；交付：`docs/deliverables/stage26-north-star-alpha-candidate/`；遗留：本机无实体手柄，真人首次通关 / 回访、悬赏 / Build 理解度和实体手柄舒适度仍待外部人工签核。
+  关键验证或结论：Stage26 `5/5` / `62` assertions、邻近组合 `56/56` / `1004`、递归全量 GUT `42` scripts / `299/299` tests / `8524` assertions；Godot import / smoke、`14/14` 输入行、input-only `34` 房通关（`429.38s`、`P0/P1/P2=0`）、Windows/OpenGL 候选 UI / 完成态通过。追加 Xbox Series X Controller 实体复核：真实事件覆盖 `9/9` 生产动作、左摇杆 / 十字键、静置漂移与教程内响应；临时 MCP autoload 零残留。
+  详情日志链接：`docs/progress/logs/2026-07-30.md`；设计：`spec-design/2026-07-30-stage26-north-star-alpha-candidate.md`；正式计划：`plan/2026-07-30-stage26-north-star-alpha-candidate.md`；交付：`docs/deliverables/stage26-north-star-alpha-candidate/`；遗留：真人首次通关 / 回访、悬赏 / Build 理解度和实体手柄主观舒适度仍待外部人工签核。
 
 - **Stage25 Thunder Waste small second region**：消费 Stage23 雷泽路引，以 6 房灰盒验证新区、元素机关、旧区回访和小回环。
   结果：Stage11 经 `SC-07` 进入荒原；`35 → 36 → 37 → 38 → 40 → 11` 构成主路，`38 → 39 → 37` 构成内部回环；雷暴单房结算一次，接地祭柱只接受风→雷追击贯穿并解除危险与门。世界图扩为 `44` 房、`8` 条远端连接。
