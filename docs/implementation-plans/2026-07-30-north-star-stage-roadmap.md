@@ -44,10 +44,11 @@
 
 ## Stage26 北极星 Alpha Candidate
 
-- [ ] 集成 Stage21-25，停止新增大系统。
+- [x] 集成 Stage21-25，停止新增大系统。
 - [ ] 完成真人首次通关、能力回访、悬赏回交和 Build 调整试玩。
-- [ ] 复核实体手柄、暂停 / 地图 / HUD、失败恢复、音效缺口和存档边界。
-- [ ] 更新 QA checklist、release notes、北极星完成度审计和进度文档。
+- [x] 复核 synthetic Joypad、暂停 / 地图 / HUD、失败恢复、音效缺口和存档边界。
+- [ ] 复核实体手柄硬件、漂移、死区和按键舒适度。
+- [x] 更新 QA checklist、release notes、北极星完成度审计和进度文档。
 
 ## 当前不做
 

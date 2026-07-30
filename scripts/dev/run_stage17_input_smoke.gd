@@ -1,12 +1,20 @@
 extends SceneTree
 
-# Stage17 键鼠 / 手柄输入通路 smoke。
+# Stage17-26 键鼠 / 手柄输入通路 smoke。
 # 事件通过生产 InputMap 注入生产玩家，不直接调用玩家的动作启动函数。
 
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const OUT_DIR := "res://tests/artifacts/local/stage17-animation-runtime"
 const OUT_REPORT := "%s/input_smoke_report.json" % OUT_DIR
-const ACTION_CASES := ["move_right", "jump", "attack", "dash"]
+const ACTION_CASES := [
+	"move_right",
+	"jump",
+	"attack",
+	"dash",
+	"recover",
+	"element_switch",
+	"stance_switch",
+]
 
 
 func _init() -> void:
@@ -48,6 +56,7 @@ func _probe_action(device: String, action: String) -> Dictionary:
 	if player == null:
 		world.free()
 		return {"ok": false, "device": device, "action": action, "error": "player_spawn_failed"}
+	_prepare_action(player, action)
 
 	var event := _input_event(device, action, true)
 	var release_event := _input_event(device, action, false)
@@ -77,6 +86,9 @@ func _probe_action(device: String, action: String) -> Dictionary:
 		"animation": String(visual.animation) if visual != null else "",
 		"asset_id": String(visual.get_meta("asset_id", "")) if visual != null else "",
 		"x_delta": player.global_position.x - start_x,
+		"element": String(player.call("get_current_element_id")),
+		"stance": String(player.call("get_current_stance_id")),
+		"health": int(player.call("get_current_health")),
 	}
 	world.free()
 	_release_actions()
@@ -95,6 +107,15 @@ func _action_observed(player: CharacterBody2D, action: String, start_x: float) -
 			return state == "attack"
 		"dash":
 			return state == "dash"
+		"recover":
+			return (
+				int(player.call("get_current_health")) == int(player.call("get_max_health"))
+				and not bool(player.call("can_spend_recovery_charge"))
+			)
+		"element_switch":
+			return StringName(player.call("get_current_element_id")) == &"thunder"
+		"stance_switch":
+			return StringName(player.call("get_current_stance_id")) == &"ward"
 	return false
 
 
@@ -108,6 +129,9 @@ func _input_event(device: String, action: String, pressed: bool) -> InputEvent:
 			"jump": KEY_SPACE,
 			"attack": KEY_J,
 			"dash": KEY_K,
+			"recover": KEY_L,
+			"element_switch": KEY_Q,
+			"stance_switch": KEY_E,
 		}.get(action, KEY_NONE))
 		key_event.keycode = keycode
 		key_event.physical_keycode = keycode
@@ -127,8 +151,20 @@ func _input_event(device: String, action: String, pressed: bool) -> InputEvent:
 		"jump": JOY_BUTTON_A,
 		"attack": JOY_BUTTON_X,
 		"dash": JOY_BUTTON_B,
+		"recover": JOY_BUTTON_Y,
+		"element_switch": JOY_BUTTON_LEFT_SHOULDER,
+		"stance_switch": JOY_BUTTON_RIGHT_SHOULDER,
 	}.get(action, JOY_BUTTON_INVALID))
 	return button_event
+
+
+# 恢复与元素输入需要最小生产前置；每项仍由真实输入事件触发最终状态变化。
+func _prepare_action(player: CharacterBody2D, action: String) -> void:
+	if action == "recover":
+		player.call("receive_damage", 1, Vector2.ZERO)
+		player.call("add_recovery_charge", 1.0)
+	elif action == "element_switch":
+		player.call("set_wind_seal_unlocked", true)
 
 
 # 玩家夹具沿用真实 CharacterBody2D、碰撞与地板，只关闭无关相机。
@@ -166,7 +202,7 @@ func _add_floor(world: Node2D) -> void:
 
 # 每项前后都释放 action，避免 Input 单例把状态泄漏到下一夹具。
 func _release_actions() -> void:
-	for action in ["move_left", "move_right", "jump", "attack", "dash", "recover"]:
+	for action in ["move_left", "move_right", "jump", "attack", "dash", "recover", "element_switch", "stance_switch"]:
 		if InputMap.has_action(action):
 			Input.action_release(action)
 

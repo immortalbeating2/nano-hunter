@@ -61,6 +61,7 @@ func is_finished() -> bool:
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_physics_process(false)
 
 
@@ -79,6 +80,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _drive_input(delta: float) -> void:
+	_release_ui_cancel_event_if_active()
+	_focus_paused_detail_back(delta)
 	_focus_failure_continue(delta)
 	if _drive_room_objective(delta):
 		_update_stuck_timer(delta)
@@ -215,6 +218,8 @@ func _drive_room_objective(delta: float) -> bool:
 	if _drive_stage16_corruption_purge_route(delta, room, player):
 		return true
 	if _drive_stage15_pressure_caster_route(delta, room, player):
+		return true
+	if _drive_stage10_aerial_platform_route(delta, room, player):
 		return true
 	if _drive_stage13_caster_platform_route(delta, room, player):
 		return true
@@ -520,10 +525,10 @@ func _drive_two_level_trigger_ascent(
 			_drive_objective_x(player_local.x, low_platform_x)
 			_tick_objective_jump(delta)
 		1:
-			_drive_objective_x(player_local.x, launch_x, 4.0)
+			_drive_objective_x(player_local.x, launch_x + direction * 32.0, 4.0)
 			_release_objective_jump()
 			var staged := player_local.x >= launch_x - 4.0 if direction > 0.0 else player_local.x <= launch_x + 4.0
-			if staged and player.is_on_floor():
+			if staged and player.is_on_floor() and player.velocity.x * direction > 0.0:
 				_room_objective_phase = 3
 				_objective_action_elapsed = -0.08
 				_release_objective_jump()
@@ -732,6 +737,20 @@ func _drive_stage15_pressure_caster_route(delta: float, room: Node2D, player: Ch
 	return true
 
 
+# Stage10 空战主房的空中敌位于第三层；先沿正式两级平台登高，再把攻击交回通用战斗输入。
+func _drive_stage10_aerial_platform_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage10_zone_aerial_room.tscn"):
+		return false
+	var aerial := room.get_node_or_null("AerialSentinelEnemy") as Node2D
+	if aerial == null or aerial.has_method("is_defeated") and bool(aerial.call("is_defeated")):
+		return false
+	var combat_delta := _enemy_combat_position(aerial) - player.global_position
+	if absf(combat_delta.x) <= 96.0 and absf(combat_delta.y) <= 112.0:
+		_room_objective_phase = 2
+		return false
+	return _drive_two_level_trigger_ascent(delta, room, player, aerial, -64.0, 96.0, 1.0, false)
+
+
 # Stage13 首个施法者房要求先踩低台再登高台；路标只负责抵达战斗层，不替代攻击或门控。
 func _drive_stage13_caster_platform_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage13_miasma_marsh_caster_room.tscn"):
@@ -743,7 +762,6 @@ func _drive_stage13_caster_platform_route(delta: float, room: Node2D, player: Ch
 	var combat_delta := _enemy_combat_position(caster) - player.global_position
 	if absf(combat_delta.x) <= 96.0 and absf(combat_delta.y) <= 72.0:
 		_room_objective_phase = 2
-		_release_objective_jump()
 		return false
 	return _drive_two_level_trigger_ascent(delta, room, player, caster, 224.0, 288.0, 1.0, false)
 
@@ -892,6 +910,42 @@ func _focus_failure_continue(delta: float) -> void:
 	_tick_tap("ui_accept", delta, 0.36)
 
 
+# 自动打开的悬赏榜会暂停场景树；探针只聚焦返回键并发送 UI 输入，不直接改业务状态。
+func _focus_paused_detail_back(delta: float) -> void:
+	var panel := _main.get_node_or_null("HUD/DemoShell/DetailPanel") as Control
+	var button := _main.get_node_or_null("HUD/DemoShell/DetailPanel/MarginContainer/VBoxContainer/DetailBackButton") as Button
+	if panel == null or button == null or not panel.visible:
+		return
+
+	button.grab_focus()
+	_tick_ui_cancel(delta)
+
+
+# DemoShell 已用 ui_cancel 统一关闭详情层；通过事件链复用该入口，不模拟坐标点击。
+func _tick_ui_cancel(delta: float) -> void:
+	_tap_timers["ui_cancel"] = float(_tap_timers.get("ui_cancel", 0.0)) + delta
+	if bool(_tap_active.get("ui_cancel", false)) or float(_tap_timers["ui_cancel"]) < 0.36:
+		return
+
+	_tap_timers["ui_cancel"] = 0.0
+	_tap_active["ui_cancel"] = true
+	var event := InputEventAction.new()
+	event.action = &"ui_cancel"
+	event.pressed = true
+	event.strength = 1.0
+	Input.parse_input_event(event)
+
+
+func _release_ui_cancel_event_if_active() -> void:
+	if not bool(_tap_active.get("ui_cancel", false)):
+		return
+	var event := InputEventAction.new()
+	event.action = &"ui_cancel"
+	event.pressed = false
+	Input.parse_input_event(event)
+	_tap_active["ui_cancel"] = false
+
+
 func _tick_tap(action: String, delta: float, period: float) -> void:
 	_tap_timers[action] = float(_tap_timers.get(action, 0.0)) + delta
 	if bool(_tap_active.get(action, false)):
@@ -1006,6 +1060,7 @@ func _capture(room_id: String, phase: String) -> String:
 
 
 func _release_all() -> void:
+	_release_ui_cancel_event_if_active()
 	_release_objective_jump()
 	for action: String in ["move_left", "move_right", "jump", "attack", "dash", "recover", "ui_accept"]:
 		if InputMap.has_action(action):

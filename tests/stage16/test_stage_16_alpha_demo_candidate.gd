@@ -84,8 +84,8 @@ func test_main_snapshot_exposes_stage16_release_notes_and_qa_flags() -> void:
 	assert_true(snapshot.has("stage16_release_notes_ready"))
 	assert_true(snapshot.has("stage16_qa_checklist_ready"))
 	assert_false(bool(snapshot.get("stage16_alpha_demo_completed", true)))
-	assert_false(bool(snapshot.get("stage16_release_notes_ready", true)))
-	assert_false(bool(snapshot.get("stage16_qa_checklist_ready", true)))
+	assert_true(bool(snapshot.get("stage16_release_notes_ready", false)))
+	assert_true(bool(snapshot.get("stage16_qa_checklist_ready", false)))
 
 
 # 保护完整重开语义：restart_demo 必须清理 Stage14 / Stage15 / Stage16 运行期进度。

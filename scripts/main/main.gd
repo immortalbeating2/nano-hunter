@@ -130,8 +130,8 @@ var _completed_story_event_ids: Dictionary = {}
 var _visited_room_paths: Dictionary = {}
 var _stage15_boss_defeated := false
 var _stage16_alpha_demo_completed := false
-var _stage16_release_notes_ready := false
-var _stage16_qa_checklist_ready := false
+var _stage16_release_notes_ready := true
+var _stage16_qa_checklist_ready := true
 
 
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
@@ -359,8 +359,9 @@ func _reset_demo_runtime_state() -> void:
 	_visited_room_paths.clear()
 	_stage15_boss_defeated = false
 	_stage16_alpha_demo_completed = false
-	_stage16_release_notes_ready = false
-	_stage16_qa_checklist_ready = false
+	# 候选文档是随构建发布的静态交付物，不随单次 Demo 会话重开而消失。
+	_stage16_release_notes_ready = true
+	_stage16_qa_checklist_ready = true
 	_checkpoint_room_path = ""
 	_checkpoint_spawn_id = &""
 

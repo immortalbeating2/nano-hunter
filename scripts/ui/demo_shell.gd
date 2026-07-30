@@ -84,6 +84,12 @@ const LEVEL_SELECT_ENTRIES := [
 	{"label": "32 Stage16 回溯确认", "path": "res://scenes/rooms/stage16_backtrack_confirmation_room.tscn", "spawn": "stage16_backtrack_confirmation_start", "progress": {"air_dash_unlocked": true, "stage14_backtrack_reward_count": 3, "stage15_boss_defeated": true}},
 	{"label": "33 Stage16 妖瘴净化", "path": "res://scenes/rooms/stage16_corruption_purge_room.tscn", "spawn": "stage16_corruption_purge_start", "progress": {"air_dash_unlocked": true, "stage14_backtrack_reward_count": 3, "stage15_boss_defeated": true}},
 	{"label": "34 Stage16 Alpha 终点", "path": "res://scenes/rooms/stage16_alpha_demo_end_room.tscn", "spawn": "stage16_alpha_demo_end_start", "progress": {"air_dash_unlocked": true, "stage14_backtrack_reward_count": 3, "stage15_boss_defeated": true}},
+	{"label": "35 Stage25 荒原界碑", "path": "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn", "spawn": "stage25_entry_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
+	{"label": "36 Stage25 雷雨洼地", "path": "res://scenes/rooms/stage25_thunder_waste_stormfield_room.tscn", "spawn": "stage25_storm_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
+	{"label": "37 Stage25 引雷坡道", "path": "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn", "spawn": "stage25_slope_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
+	{"label": "38 Stage25 风蚀岔口", "path": "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn", "spawn": "stage25_fork_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
+	{"label": "39 Stage25 接地祭柱", "path": "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn", "spawn": "stage25_relay_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
+	{"label": "40 Stage25 驿路远眺", "path": "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn", "spawn": "stage25_outlook_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
 	{"label": "支线 Stage10 资源房", "path": "res://scenes/rooms/stage10_zone_branch_room.tscn", "spawn": "stage10_branch_start"},
 	{"label": "支线 Stage13 资源房", "path": "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn", "spawn": "stage13_resource_branch_start"},
 	{"label": "支线 Stage13 挑战房", "path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "spawn": "stage13_challenge_branch_start"},
@@ -549,7 +555,11 @@ func _on_start_pressed() -> void:
 
 # 控制说明复用同一个详情面板；真正按键重绑定留给后续设置系统。
 func _on_controls_pressed() -> void:
-	_open_detail_panel("控制说明", "移动 A/D 或 方向键\n跳跃 Space / W / ↑\n攻击 J\n冲刺 Shift\n暂停 Esc")
+	_open_detail_panel(
+		"控制说明",
+		"键盘：移动 A/D 或方向键 · 跳跃 Space/W/↑ · 攻击 J · 冲刺 K · 恢复 L · 元素 Q · 姿态 E · 暂停 Esc\n"
+		+ "手柄：左摇杆/十字键 · 跳跃 A · 冲刺 B · 攻击 X · 恢复 Y · 元素 LB · 姿态 RB · 暂停 Menu"
+	)
 
 
 func _open_level_select_panel() -> void:
@@ -658,9 +668,16 @@ func _on_map_pressed() -> void:
 		world_map_view.call("set_map_snapshot", snapshot)
 	if map_current_room_label != null:
 		var room_label := "未知房间"
+		var room_count := 0
 		if world_map_view != null and world_map_view.has_method("get_current_room_label"):
 			room_label = str(world_map_view.call("get_current_room_label"))
-		map_current_room_label.text = "当前位置：%s  ·  已发现 %d / 38" % [room_label, Array(snapshot.get("visited_room_paths", [])).size()]
+		if world_map_view != null and world_map_view.has_method("get_room_count"):
+			room_count = int(world_map_view.call("get_room_count"))
+		map_current_room_label.text = "当前位置：%s  ·  已发现 %d / %d" % [
+			room_label,
+			Array(snapshot.get("visited_room_paths", [])).size(),
+			room_count,
+		]
 
 	pause_menu.visible = false
 	world_map_panel.visible = true
