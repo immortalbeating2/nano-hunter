@@ -15,7 +15,7 @@
 3. 逐房替换入口、雷雨洼地、坡道、岔口、祭柱、远眺的构图和地标；不增加第七房。
 4. 将雷暴、接地祭柱、屏障和出口提示的关键纯色 Polygon 替换为正式 startup / active / grounded / disabled VFX，逻辑仍由 Stage25 脚本驱动。
 5. 将入口 checkpoint 清稿为“雷泽前哨”，预留 Stage31 的 travel point ID，但本阶段不提供传送按钮。
-6. 接入雷泽氛围与一条探索 BGM，经试听接受后绑定；校验循环点和切房不中断策略。
+6. 以并发 `1` 生成雷泽氛围、祭柱接地与一条探索 BGM scratch 候选并记录 seed / hash；本阶段不绑定，Gate26H 试听、peak / loop / mix 与授权接受后才进入 runtime。
 
 ## 主要触点
 
@@ -25,7 +25,7 @@
 
 ## 验证
 
-Stage25 专项、六房场景实例化与引用测试、视觉 / 碰撞对齐、16:9 / 2K / 21:9 截图、递归全量、import、主场景 smoke、Gate26M 和 strict 资产审计。
+Stage25 专项、六房场景实例化与引用测试、视觉 / 碰撞对齐、原生 2K / 720p / 21:9 safe-boundary 截图、递归全量、import、主场景 smoke、Gate26M 和 strict 资产审计；真实 21:9 显示器主观判断留 Gate26H。
 
 ## 退出标准
 

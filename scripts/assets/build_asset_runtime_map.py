@@ -231,6 +231,20 @@ ASSET_ID_RULE_OVERRIDES = {
         "target_system": "bounty, Build and two-slot DetailPanel presentation",
         "target_scene_candidates": ["scenes/ui/demo_shell.tscn"],
     },
+    "stage29_thunder_waste_background_ai01": {
+        "target_system": "Stage25 six-room Thunder Waste background display layer",
+        "target_scene_candidates": ["scenes/rooms/stage25_thunder_waste_room_base.tscn"],
+    },
+    "stage29_thunder_waste_environment_sheet_ai01": {
+        "resource_type": "TileSet plus AtlasTexture",
+        "target_system": "Stage25 ground tiles, six room landmarks and foreground props",
+        "target_scene_candidates": ["scenes/rooms/stage25_thunder_waste_room_base.tscn"],
+    },
+    "stage29_thunder_waste_state_vfx_ai01": {
+        "resource_type": "SpriteFrames plus AtlasTexture",
+        "target_system": "Stage25 storm, relay, barrier, route and outpost state presentation",
+        "target_scene_candidates": ["scenes/rooms/stage25_thunder_waste_room_base.tscn"],
+    },
 }
 
 SOURCE_DEV_ASSET_IDS = {

@@ -50,11 +50,11 @@
 ## Stage29：雷泽荒原正式美术与区域机制清稿
 
 - [x] 专属设计边界与正式计划已冻结：`plan/2026-08-01-stage29-thunder-waste-formal-art.md`。
-- [ ] 登记并制作 `NS29-ThunderWaste`。
-- [ ] 保持六房拓扑，替换瘴泽背景复用和关键 Polygon 灰盒表现。
-- [ ] 接入专用背景、TileSet、props、天气 / 机关 VFX、氛围与 BGM。
-- [ ] 入口 checkpoint 完成雷泽前哨表现，但不提前做传送。
-- [ ] 完成六房引用、碰撞对齐、16:9 / 2K / 21:9、专项与全量验证。
+- [x] 登记并制作 `NS29-ThunderWasteBackground / Environment / StateVFX`，音频登记为 scratch 候选。
+- [x] 保持六房拓扑，替换瘴泽背景复用和关键 Polygon 灰盒表现。
+- [x] 接入专用背景、TileSet、props、天气 / 机关 VFX；氛围、接地和 BGM 以并发 `1` 进入 scratch，未提前绑定。
+- [x] 入口 checkpoint 完成雷泽前哨表现并登记 `thunder_outpost`，但不提前做传送。
+- [x] 完成六房引用、碰撞对齐、原生 2K / 720p / 21:9 safe-boundary、专项与全量验证；真实 21:9 主观签核仍留 Gate26H。
 
 ## Stage30：雷泽敌群、区域首领与元素吸收成长
 

@@ -3,8 +3,8 @@
   "status": "placeholder_ready",
   "boundary": "Art readiness audit. structural_ready means generated PNGs and metadata are usable by the pipeline. final_ready remains false until license records, manual cleanup, semantic naming, runtime replacement, and gameplay readability checks are completed.",
   "summary": {
-    "item_count": 63,
-    "structural_ready_count": 63,
+    "item_count": 66,
+    "structural_ready_count": 66,
     "final_ready_count": 55,
     "kind_counts": {
       "boss_animation": 1,
@@ -16,7 +16,7 @@
       "completion_ui": 1,
       "environment_background": 2,
       "environment_boss_room_background": 1,
-      "environment_room_background": 4,
+      "environment_room_background": 5,
       "environment_tiles": 2,
       "equipment_atlas": 1,
       "hud_frame": 2,
@@ -28,7 +28,7 @@
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
-      "prop_atlas": 2,
+      "prop_atlas": 3,
       "prop_sheet": 1,
       "spine_cutout_parts": 2,
       "sprite_sheet": 8,
@@ -40,22 +40,24 @@
       "ui_atlas": 2,
       "ui_map_foundation": 1,
       "ui_panel": 2,
-      "vfx_atlas": 2,
+      "vfx_atlas": 3,
       "vfx_direction": 1,
       "vfx_sheet": 2,
       "vfx_warning": 1
     },
     "warnings_by_type": {},
     "blockers_by_type": {
-      "foreground_occlusion_review": 1,
-      "license_terms_manual_review": 8,
-      "parallax_layer_split": 1,
+      "anchor_manual_review": 1,
+      "foreground_occlusion_review": 2,
+      "license_terms_manual_review": 11,
+      "mask_and_blend_manual_review": 1,
+      "parallax_layer_split": 2,
       "pseudo_text_cleanup": 1,
       "runtime_catalog_ready_manual_replacement": 5,
       "runtime_layout_review": 1,
-      "scale_readability_review": 1,
+      "scale_readability_review": 2,
       "small_size_readability_review": 2,
-      "state_variant_naming": 1,
+      "state_variant_naming": 2,
       "text_safe_area_review": 1,
       "theme_mapping_manual_review": 1
     },
@@ -2169,7 +2171,7 @@
         "rule_count": 32,
         "collision_disabled_count": 32,
         "damage_disabled_count": 32,
-        "manual_review_required": false
+        "manual_review_required": true
       },
       "animation_rules": null,
       "provenance": {
@@ -2274,7 +2276,7 @@
         "rule_count": 32,
         "collision_disabled_count": 32,
         "damage_disabled_count": 32,
-        "manual_review_required": false
+        "manual_review_required": true
       },
       "animation_rules": null,
       "provenance": {
@@ -5337,7 +5339,7 @@
       "animation_rules": null,
       "provenance": {
         "tool": "Codex built-in image_gen",
-        "source_status": "project_session_confirmed",
+        "source_status": "source_recorded",
         "license_record_status": "source_recorded_terms_review_required",
         "commercial_use_status": "manual_terms_review_required_before_external_release",
         "prompt_sha256": "31f9ff2ee0e685e998248319bb752821e2f2ac5fc3f0dfeae7c827fa30e30e1d",
@@ -5406,7 +5408,7 @@
       "animation_rules": null,
       "provenance": {
         "tool": "Codex built-in image_gen",
-        "source_status": "project_session_confirmed",
+        "source_status": "source_recorded",
         "license_record_status": "source_recorded_terms_review_required",
         "commercial_use_status": "manual_terms_review_required_before_external_release",
         "prompt_sha256": "d4f61757c334b9878f44e8b5dc85689e60ce9d37d614ffa2568d93b859e697da",
@@ -5475,7 +5477,7 @@
       "animation_rules": null,
       "provenance": {
         "tool": "Codex built-in image_gen",
-        "source_status": "project_session_confirmed",
+        "source_status": "source_recorded",
         "license_record_status": "source_recorded_terms_review_required",
         "commercial_use_status": "manual_terms_review_required_before_external_release",
         "prompt_sha256": "e3369ef0a725022abf02727afd8e2e4f690d0e61dcdc29143971616a509c73ac",
@@ -5544,7 +5546,7 @@
       "animation_rules": null,
       "provenance": {
         "tool": "Codex built-in image_gen",
-        "source_status": "project_session_confirmed",
+        "source_status": "source_recorded",
         "license_record_status": "source_recorded_terms_review_required",
         "commercial_use_status": "manual_terms_review_required_before_external_release",
         "prompt_sha256": "f034f47d6fae953659568193a2bdf3c907dc3e49a1b320b07d4b315a622fa67f",
@@ -5613,7 +5615,7 @@
       "animation_rules": null,
       "provenance": {
         "tool": "Codex built-in image_gen",
-        "source_status": "project_session_confirmed",
+        "source_status": "source_recorded",
         "license_record_status": "source_recorded_terms_review_required",
         "commercial_use_status": "manual_terms_review_required_before_external_release",
         "prompt_sha256": "b79c6768ec589d1c3cd122ba2a8927fc241d2c967351f48854f367a22648f6b5",
@@ -5685,7 +5687,7 @@
       "animation_rules": null,
       "provenance": {
         "tool": "Codex built-in image_gen",
-        "source_status": "project_session_confirmed",
+        "source_status": "source_recorded",
         "license_record_status": "source_recorded_terms_review_required",
         "commercial_use_status": "manual_terms_review_required_before_external_release",
         "prompt_sha256": "c7fd9b8e845f0e3774f7d4c5c20865b451ff36ae0b9b9876e8cbfd4a25e643a5",
@@ -5764,7 +5766,7 @@
       "animation_rules": null,
       "provenance": {
         "tool": "Codex built-in image_gen",
-        "source_status": "project_session_confirmed",
+        "source_status": "source_recorded",
         "license_record_status": "source_recorded_terms_review_required",
         "commercial_use_status": "manual_terms_review_required_before_external_release",
         "prompt_sha256": "af5e004b42e5c65abe6dda1f7e3ccfbc956101f0cee45cdefa3de973350798ba",
@@ -5803,6 +5805,229 @@
         "small_size_readability_review",
         "pseudo_text_cleanup",
         "theme_mapping_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage29_thunder_waste_background_ai01",
+      "target_kind": "environment_room_background",
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1280,
+        "height": 512,
+        "mode": "RGB",
+        "has_alpha": false,
+        "transparent_pixel_ratio": 0.0,
+        "opaque_pixel_ratio": 1.0,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "9df6827ffa2a00a9959b4e16edc085c65c7a63bf6ada269f44da7a7b6c9ba38b",
+        "candidate_count": 1,
+        "output_sha256": "0cfa75a78e2f45706c82b64e3cd5ef89f57dc9f6525a2f8a1806d868cec7eeab"
+      },
+      "runtime_map": {
+        "track": "runtime_environment",
+        "target_system": "Stage25 six-room Thunder Waste background display layer",
+        "recommended_resource_type": "Texture2D",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/rooms/stage25_thunder_waste_room_base.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 1,
+        "referenced_scenes": [
+          "scenes/rooms/stage25_thunder_waste_room_base.tscn"
+        ],
+        "resource_path": "res://assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "parallax_layer_split",
+        "foreground_occlusion_review"
+      ]
+    },
+    {
+      "asset_id": "stage29_thunder_waste_environment_sheet_ai01",
+      "target_kind": "prop_atlas",
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.755917,
+        "opaque_pixel_ratio": 0.256587,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "bb47b18ce99b3d555bf2203cfc94ceced3eafae02f7ad6df99eb7d3ff2b63c14",
+        "candidate_count": 1,
+        "output_sha256": "5c78b24f105019a3e9a3e98f0e1e7661a7b8ba79db994fa37c02907efa317548"
+      },
+      "runtime_map": {
+        "track": "runtime_gameplay",
+        "target_system": "Stage25 ground tiles, six room landmarks and foreground props",
+        "recommended_resource_type": "TileSet plus AtlasTexture",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/rooms/stage25_thunder_waste_room_base.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 1,
+        "referenced_scenes": [
+          "scenes/rooms/stage25_thunder_waste_room_base.tscn"
+        ],
+        "resource_path": "res://assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "state_variant_naming",
+        "scale_readability_review"
+      ]
+    },
+    {
+      "asset_id": "stage29_thunder_waste_state_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.841438,
+        "opaque_pixel_ratio": 0.181636,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": {
+        "path": "assets/art/vfx/vfx_rules/stage29_thunder_waste_state_vfx_ai01.vfx_rules.json",
+        "frame_count": 16,
+        "rule_count": 16,
+        "collision_disabled_count": 16,
+        "damage_disabled_count": 16,
+        "manual_review_required": true
+      },
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "8ec1b32cfb6c575456f07b285d165bd9eb59c79ad99743d8ae8f510b95353b7c",
+        "candidate_count": 1,
+        "output_sha256": "0602ac1b0de782164599360260ea3e1530013008fe16ef2af41f94979a1361c6"
+      },
+      "runtime_map": {
+        "track": "runtime_vfx",
+        "target_system": "Stage25 storm, relay, barrier, route and outpost state presentation",
+        "recommended_resource_type": "SpriteFrames plus AtlasTexture",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/rooms/stage25_thunder_waste_room_base.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 1,
+        "referenced_scenes": [
+          "scenes/rooms/stage25_thunder_waste_room_base.tscn"
+        ],
+        "resource_path": "res://assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
       ]
     }
   ],

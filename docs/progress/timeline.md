@@ -2,6 +2,13 @@
 
 本文件只记录项目里程碑级事件。每日细节、命令输出、MCP 复核过程、分支操作原因和误判修正过程保存在 `docs/progress/logs/YYYY-MM-DD.md`。每条里程碑默认包含范围、结果、关键验证、详情日志；重要阶段收口或工具链修复可补提交 hash 与遗留风险。
 
+## 2026-08-02
+
+- **Stage29 雷泽荒原正式美术与区域机制清稿技术候选完成**：在不扩房、不改路线和碰撞的前提下，把 Stage25 六房从冷色瘴泽灰盒提升为专属雷泽区域。
+  结果：共享正式背景、显示 TileSet、六个唯一地标及雷暴 / 祭柱 / 屏障 / 路线 VFX 进入生产场景；入口登记 `thunder_outpost` 但没有传送功能。三条本地音频按并发 `1` 进入 scratch，真人试听前不进入 runtime。资产治理为 `66/66 structural-ready`、`55/66 final-ready`，`11` 个人工阻断保持可见。
+  关键验证或结论：MCP 无 HUD 逐房复核发现并修复 atlas 浮点行号错裁；最终 `editor errors=0`、临时 autoload / 当前 editor / CLI listener 清理完成。Stage19/25/26/29 `20/20` / `464`，递归 GUT `46` scripts / `312/312` / `8732`，Godot `4.6.3` import、smoke、strict package 与 diff 校验通过。真实 21:9、音频、美术审美和无 HUD 理解度继续归 Gate26H。
+  详情日志链接：`docs/progress/logs/2026-08-02.md`；执行清单：`docs/implementation-plans/2026-08-01-stage29-thunder-waste-formal-art.md`；资产矩阵：`docs/assets/stage29-thunder-waste-asset-matrix.md`。
+
 ## 2026-08-01
 
 - **Stage28 镇妖驿站、悬赏与 Build 正式表现技术候选完成**：复用 Stage23 / 24 的固定数据和 DetailPanel，把 Stage11 从功能灰盒提升为正式叙事与整备锚点。

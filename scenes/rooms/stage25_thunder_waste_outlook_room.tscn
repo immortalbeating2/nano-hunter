@@ -13,3 +13,5 @@ spawn_positions = {
 }
 stage25_title = "雷泽荒原 · 驿路远眺"
 stage25_prompt = "雷泽小路已勘明；向右沿旧驿路返回镇妖驿厅。"
+stage29_landmark_index = 9
+stage29_landmark_position = Vector2(512, 118)

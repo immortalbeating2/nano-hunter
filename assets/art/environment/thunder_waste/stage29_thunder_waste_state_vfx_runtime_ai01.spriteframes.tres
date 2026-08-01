@@ -1,0 +1,140 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_00"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_01"]
+atlas = ExtResource("1")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_02"]
+atlas = ExtResource("1")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_03"]
+atlas = ExtResource("1")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_04"]
+atlas = ExtResource("1")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_05"]
+atlas = ExtResource("1")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_06"]
+atlas = ExtResource("1")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_07"]
+atlas = ExtResource("1")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_08"]
+atlas = ExtResource("1")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_09"]
+atlas = ExtResource("1")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_10"]
+atlas = ExtResource("1")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_11"]
+atlas = ExtResource("1")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_12"]
+atlas = ExtResource("1")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_13"]
+atlas = ExtResource("1")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_14"]
+atlas = ExtResource("1")
+region = Rect2(512, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Stage29Vfx_15"]
+atlas = ExtResource("1")
+region = Rect2(768, 768, 256, 256)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_00")}, {"duration": 1.0, "texture": SubResource("Stage29Vfx_01")}, {"duration": 1.0, "texture": SubResource("Stage29Vfx_02")}],
+"loop": true,
+"name": &"storm_active",
+"speed": 6.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_03")}],
+"loop": false,
+"name": &"storm_grounded",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_04")}],
+"loop": false,
+"name": &"relay_active",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_05")}],
+"loop": false,
+"name": &"relay_struck",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_06")}],
+"loop": false,
+"name": &"relay_grounded",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_07")}],
+"loop": false,
+"name": &"relay_disabled",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_08")}],
+"loop": false,
+"name": &"barrier_locked",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_09")}, {"duration": 1.0, "texture": SubResource("Stage29Vfx_10")}],
+"loop": false,
+"name": &"barrier_unlock",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_10")}],
+"loop": false,
+"name": &"barrier_open",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_11")}],
+"loop": false,
+"name": &"exit_right",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_12")}],
+"loop": false,
+"name": &"outpost_checkpoint",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_13")}],
+"loop": false,
+"name": &"branch_up",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_14")}],
+"loop": false,
+"name": &"cloud_flash",
+"speed": 4.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage29Vfx_15")}],
+"loop": false,
+"name": &"safe_discharge",
+"speed": 4.0
+}]

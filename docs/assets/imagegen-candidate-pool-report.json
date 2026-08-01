@@ -3,9 +3,9 @@
   "status": "review_required",
   "boundary": "Candidate pool audit only. It proves raw PNG candidates exist and tracks whether selected sources already use them; it does not approve art quality or runtime replacement.",
   "summary": {
-    "queue_item_count": 63,
-    "candidate_png_count": 141,
-    "selected_source_count": 471,
+    "queue_item_count": 66,
+    "candidate_png_count": 144,
+    "selected_source_count": 474,
     "unselected_candidate_count": 104,
     "review_required_item_count": 55,
     "review_required_items": [
@@ -75,7 +75,7 @@
       "completion_ui": 1,
       "environment_background": 2,
       "environment_boss_room_background": 1,
-      "environment_room_background": 4,
+      "environment_room_background": 5,
       "environment_tiles": 2,
       "equipment_atlas": 1,
       "hud_frame": 2,
@@ -87,7 +87,7 @@
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
-      "prop_atlas": 2,
+      "prop_atlas": 3,
       "prop_sheet": 1,
       "spine_cutout_parts": 2,
       "sprite_sheet": 8,
@@ -99,7 +99,7 @@
       "ui_atlas": 2,
       "ui_map_foundation": 1,
       "ui_panel": 2,
-      "vfx_atlas": 2,
+      "vfx_atlas": 3,
       "vfx_direction": 1,
       "vfx_sheet": 2,
       "vfx_warning": 1
@@ -118,7 +118,8 @@
       "Batch 12": 4,
       "Batch 13": 3,
       "Batch 27": 4,
-      "Batch 28": 3
+      "Batch 28": 3,
+      "Batch 29": 3
     },
     "recovery_ledgers": [
       {
@@ -2888,6 +2889,102 @@
           "index": 1,
           "path": "assets/source/ai_generated/batch_28/stage28_waystation_ui_sheet_ai01/candidates/stage28_waystation_ui_sheet_ai01_candidate_01.png",
           "sha256": "56c99ca2babaea4b83a7fb4ea282d82109998137d03e26dfe24fb23f76f98c19",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage29_thunder_waste_background_ai01",
+      "batch": "Batch 29",
+      "target_kind": "environment_room_background",
+      "candidate_dir": "assets/source/ai_generated/batch_29/stage29_thunder_waste_background_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_background_ai01/candidates/stage29_thunder_waste_background_ai01_candidate_01.png",
+          "sha256": "55403e0b7c3f497f548cd29c091268b17eefb9ee89063e96f272a8c919923efe",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage29_thunder_waste_environment_sheet_ai01",
+      "batch": "Batch 29",
+      "target_kind": "prop_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_29/stage29_thunder_waste_environment_sheet_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_environment_sheet_ai01/candidates/stage29_thunder_waste_environment_sheet_ai01_candidate_01.png",
+          "sha256": "18d34703808e1419fe5c05ac38f878d272e9f5f3aab0754f98e288362eda1f9e",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage29_thunder_waste_state_vfx_ai01",
+      "batch": "Batch 29",
+      "target_kind": "vfx_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates/stage29_thunder_waste_state_vfx_ai01_candidate_01.png",
+          "sha256": "1769def3ee1e4e205d2c02f2a188e56d5636c6684da2fd4f80d6f5a46bafd993",
           "width": 1254,
           "height": 1254,
           "mode": "RGB"

@@ -1,0 +1,398 @@
+{
+  "id": "stage29_thunder_waste_environment_runtime_ai01",
+  "kind": "environment_prop_sheet",
+  "output": "assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png",
+  "cell": [
+    256,
+    256
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frame_count": 16,
+  "frames": [
+    {
+      "index": 0,
+      "region": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        102,
+        284,
+        214
+      ],
+      "normalized_size": [
+        236,
+        93
+      ],
+      "paste": [
+        10,
+        82
+      ],
+      "scale": 0.830986
+    },
+    {
+      "index": 1,
+      "region": [
+        256,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        100,
+        283,
+        215
+      ],
+      "normalized_size": [
+        236,
+        96
+      ],
+      "paste": [
+        10,
+        80
+      ],
+      "scale": 0.833922
+    },
+    {
+      "index": 2,
+      "region": [
+        512,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        9,
+        99,
+        283,
+        267
+      ],
+      "normalized_size": [
+        236,
+        145
+      ],
+      "paste": [
+        10,
+        56
+      ],
+      "scale": 0.861314
+    },
+    {
+      "index": 3,
+      "region": [
+        768,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        99,
+        275,
+        266
+      ],
+      "normalized_size": [
+        236,
+        143
+      ],
+      "paste": [
+        10,
+        56
+      ],
+      "scale": 0.858182
+    },
+    {
+      "index": 4,
+      "region": [
+        0,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        36,
+        6,
+        243,
+        267
+      ],
+      "normalized_size": [
+        187,
+        236
+      ],
+      "paste": [
+        34,
+        10
+      ],
+      "scale": 0.904215
+    },
+    {
+      "index": 5,
+      "region": [
+        256,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        71,
+        283,
+        272
+      ],
+      "normalized_size": [
+        236,
+        168
+      ],
+      "paste": [
+        10,
+        44
+      ],
+      "scale": 0.833922
+    },
+    {
+      "index": 6,
+      "region": [
+        512,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        6,
+        280,
+        277
+      ],
+      "normalized_size": [
+        236,
+        228
+      ],
+      "paste": [
+        10,
+        14
+      ],
+      "scale": 0.842857
+    },
+    {
+      "index": 7,
+      "region": [
+        768,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        7,
+        23,
+        281,
+        265
+      ],
+      "normalized_size": [
+        236,
+        208
+      ],
+      "paste": [
+        10,
+        24
+      ],
+      "scale": 0.861314
+    },
+    {
+      "index": 8,
+      "region": [
+        0,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        11,
+        284,
+        258
+      ],
+      "normalized_size": [
+        236,
+        205
+      ],
+      "paste": [
+        10,
+        26
+      ],
+      "scale": 0.830986
+    },
+    {
+      "index": 9,
+      "region": [
+        256,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        10,
+        283,
+        280
+      ],
+      "normalized_size": [
+        236,
+        225
+      ],
+      "paste": [
+        10,
+        16
+      ],
+      "scale": 0.833922
+    },
+    {
+      "index": 10,
+      "region": [
+        512,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        77,
+        283,
+        209
+      ],
+      "normalized_size": [
+        236,
+        110
+      ],
+      "paste": [
+        10,
+        73
+      ],
+      "scale": 0.833922
+    },
+    {
+      "index": 11,
+      "region": [
+        768,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        9,
+        72,
+        276,
+        255
+      ],
+      "normalized_size": [
+        236,
+        162
+      ],
+      "paste": [
+        10,
+        47
+      ],
+      "scale": 0.883895
+    },
+    {
+      "index": 12,
+      "region": [
+        0,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        71,
+        0,
+        250,
+        283
+      ],
+      "normalized_size": [
+        149,
+        236
+      ],
+      "paste": [
+        54,
+        10
+      ],
+      "scale": 0.833922
+    },
+    {
+      "index": 13,
+      "region": [
+        256,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        109,
+        1,
+        171,
+        278
+      ],
+      "normalized_size": [
+        53,
+        236
+      ],
+      "paste": [
+        102,
+        10
+      ],
+      "scale": 0.851986
+    },
+    {
+      "index": 14,
+      "region": [
+        512,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        52,
+        283,
+        268
+      ],
+      "normalized_size": [
+        236,
+        180
+      ],
+      "paste": [
+        10,
+        38
+      ],
+      "scale": 0.833922
+    },
+    {
+      "index": 15,
+      "region": [
+        768,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        5,
+        13,
+        272,
+        261
+      ],
+      "normalized_size": [
+        236,
+        219
+      ],
+      "paste": [
+        10,
+        18
+      ],
+      "scale": 0.883895
+    }
+  ]
+}

@@ -4,24 +4,24 @@
 
 ## Summary
 
-- 资产总数：`63`
-- 需要人工复核：`8`
+- 资产总数：`66`
+- 需要人工复核：`11`
 - Final ready：`55`
 
 ## By Family
 
 - `animation`: `8`
 - `characters`: `4`
-- `environment`: `11`
+- `environment`: `12`
 - `icons`: `4`
 - `other`: `4`
 - `promo_logo_cg`: `4`
-- `props_equipment`: `7`
+- `props_equipment`: `8`
 - `story`: `3`
 - `style`: `1`
 - `textures`: `1`
 - `ui`: `10`
-- `vfx`: `6`
+- `vfx`: `7`
 
 ## Queue
 
@@ -64,6 +64,10 @@
 - [ ] `P0` `stage15_boss_attack_warning_ai01` (vfx / vfx_warning) - 0 blockers
 - [ ] `P0` `stage16_corruption_purge_ai01` (vfx / vfx_sheet) - 0 blockers
 - [ ] `P0` `stage16_talisman_relay_ai01` (vfx / vfx_sheet) - 0 blockers
+- [ ] `P0` `stage29_thunder_waste_state_vfx_ai01` (vfx / vfx_atlas) - 3 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
+  - 复核 VFX mask、透明边缘和混合模式。
 - [ ] `P0` `vfx_combat_atlas_ai01` (vfx / vfx_atlas) - 0 blockers
 - [ ] `P0` `vfx_seal_magic_atlas_ai01` (vfx / vfx_atlas) - 0 blockers
 - [ ] `P1` `biome01_air_dash_shrine_room_ai01` (environment / environment_room_background) - 0 blockers
@@ -80,6 +84,10 @@
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
   - 把背景拆成前景、中景、远景等可配置 parallax 层。
   - 检查前景装饰不会遮挡玩家、危险物或交互物。
+- [ ] `P1` `stage29_thunder_waste_background_ai01` (environment / environment_room_background) - 3 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 把背景拆成前景、中景、远景等可配置 parallax 层。
+  - 检查前景装饰不会遮挡玩家、危险物或交互物。
 - [ ] `P1` `equipment_pickup_atlas_ai01` (props_equipment / equipment_atlas) - 0 blockers
 - [ ] `P1` `reusable_seal_props_ai01` (props_equipment / prop_sheet) - 0 blockers
 - [ ] `P1` `shrine_gate_prop_atlas_ai01` (props_equipment / prop_atlas) - 0 blockers
@@ -87,6 +95,10 @@
 - [ ] `P1` `stage14_air_dash_shrine_ai01` (props_equipment / prop) - 0 blockers
 - [ ] `P1` `stage16_seal_release_threshold_ai01` (props_equipment / prop) - 0 blockers
 - [ ] `P1` `stage28_waystation_world_sheet_ai01` (props_equipment / prop_atlas) - 3 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 命名道具状态变体及其玩法含义。
+  - 对照玩家体型检查道具比例读值。
+- [ ] `P1` `stage29_thunder_waste_environment_sheet_ai01` (props_equipment / prop_atlas) - 3 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
   - 命名道具状态变体及其玩法含义。
   - 对照玩家体型检查道具比例读值。

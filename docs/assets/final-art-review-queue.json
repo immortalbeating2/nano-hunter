@@ -3,33 +3,35 @@
   "status": "manual_review_queue_ready",
   "boundary": "Manual final-art review queue. Passing audits means every structural asset has an explicit review task; it does not mean the asset is final-ready.",
   "summary": {
-    "asset_count": 63,
-    "manual_review_required_count": 8,
+    "asset_count": 66,
+    "manual_review_required_count": 11,
     "final_ready_count": 55,
     "family_counts": {
       "animation": 8,
       "characters": 4,
-      "environment": 11,
+      "environment": 12,
       "icons": 4,
       "other": 4,
       "promo_logo_cg": 4,
-      "props_equipment": 7,
+      "props_equipment": 8,
       "story": 3,
       "style": 1,
       "textures": 1,
       "ui": 10,
-      "vfx": 6
+      "vfx": 7
     },
     "blocker_counts": {
-      "foreground_occlusion_review": 1,
-      "license_terms_manual_review": 8,
-      "parallax_layer_split": 1,
+      "anchor_manual_review": 1,
+      "foreground_occlusion_review": 2,
+      "license_terms_manual_review": 11,
+      "mask_and_blend_manual_review": 1,
+      "parallax_layer_split": 2,
       "pseudo_text_cleanup": 1,
       "runtime_catalog_ready_manual_replacement": 5,
       "runtime_layout_review": 1,
-      "scale_readability_review": 1,
+      "scale_readability_review": 2,
       "small_size_readability_review": 2,
-      "state_variant_naming": 1,
+      "state_variant_naming": 2,
       "text_safe_area_review": 1,
       "theme_mapping_manual_review": 1
     }
@@ -569,6 +571,31 @@
       ]
     },
     {
+      "asset_id": "stage29_thunder_waste_state_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "family": "vfx",
+      "priority": "P0",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
+      "blocker_count": 3,
+      "blockers": [
+        "license_terms_manual_review",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
+        "复核 VFX mask、透明边缘和混合模式。"
+      ],
+      "evidence_paths": [
+        "assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
+        "assets/art/vfx/vfx_rules/stage29_thunder_waste_state_vfx_ai01.vfx_rules.json"
+      ]
+    },
+    {
       "asset_id": "vfx_combat_atlas_ai01",
       "target_kind": "vfx_atlas",
       "family": "vfx",
@@ -793,6 +820,30 @@
       ]
     },
     {
+      "asset_id": "stage29_thunder_waste_background_ai01",
+      "target_kind": "environment_room_background",
+      "family": "environment",
+      "priority": "P1",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png",
+      "blocker_count": 3,
+      "blockers": [
+        "license_terms_manual_review",
+        "parallax_layer_split",
+        "foreground_occlusion_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "把背景拆成前景、中景、远景等可配置 parallax 层。",
+        "检查前景装饰不会遮挡玩家、危险物或交互物。"
+      ],
+      "evidence_paths": [
+        "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png"
+      ]
+    },
+    {
       "asset_id": "equipment_pickup_atlas_ai01",
       "target_kind": "equipment_atlas",
       "family": "props_equipment",
@@ -912,6 +963,30 @@
       ],
       "evidence_paths": [
         "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage29_thunder_waste_environment_sheet_ai01",
+      "target_kind": "prop_atlas",
+      "family": "props_equipment",
+      "priority": "P1",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png",
+      "blocker_count": 3,
+      "blockers": [
+        "license_terms_manual_review",
+        "state_variant_naming",
+        "scale_readability_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "命名道具状态变体及其玩法含义。",
+        "对照玩家体型检查道具比例读值。"
+      ],
+      "evidence_paths": [
+        "assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png"
       ]
     },
     {

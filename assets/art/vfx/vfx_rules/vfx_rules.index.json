@@ -1,8 +1,8 @@
 {
   "version": 1,
   "status": "placeholder_ready",
-  "asset_count": 7,
-  "frame_rule_count": 86,
+  "asset_count": 8,
+  "frame_rule_count": 102,
   "manual_review_required": true,
   "assets": [
     {
@@ -40,6 +40,12 @@
       "path": "assets/art/vfx/vfx_rules/stage16_corruption_purge_ai01.vfx_rules.json",
       "frame_count": 6,
       "target_kind": "vfx_sheet"
+    },
+    {
+      "asset_id": "stage29_thunder_waste_state_vfx_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage29_thunder_waste_state_vfx_ai01.vfx_rules.json",
+      "frame_count": 16,
+      "target_kind": "vfx_atlas"
     },
     {
       "asset_id": "seal_guardian_attack_vfx_atlas_ai01",

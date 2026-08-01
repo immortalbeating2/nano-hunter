@@ -15,3 +15,5 @@ stage25_title = "雷泽荒原 · 接地祭柱"
 stage25_prompt = "先风后雷形成“追击贯穿”，击中祭柱即可接地、停雷并打开回环出口。"
 storm_hazard_present = true
 relay_gate_present = true
+stage29_landmark_index = 8
+stage29_landmark_position = Vector2(160, 138)

@@ -14,3 +14,5 @@ spawn_positions = {
 stage25_title = "雷泽荒原 · 雷雨洼地"
 stage25_prompt = "雷暴会在首次触碰时造成伤害；穿过洼地寻找接地遗构。"
 storm_hazard_present = true
+stage29_landmark_index = 5
+stage29_landmark_position = Vector2(240, 136)

@@ -15,3 +15,6 @@ checkpoint_spawn_id = &"stage25_entry_start"
 checkpoint_on_ready = true
 stage25_title = "雷泽荒原 · 荒原界碑"
 stage25_prompt = "路引已验：向右进入雷雨洼地；向左可返回镇妖驿厅。"
+stage29_landmark_index = 4
+stage29_landmark_position = Vector2(-96, 132)
+travel_point_id = &"thunder_outpost"

@@ -1,0 +1,19 @@
+{
+  "asset_id": "stage29_thunder_waste_background_ai01",
+  "runtime_asset_id": "stage29_thunder_waste_background_runtime_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "source": "assets/source/ai_generated/batch_29/stage29_thunder_waste_background_ai01/candidates/stage29_thunder_waste_background_ai01_candidate_01.png",
+  "source_sha256": "55403e0b7c3f497f548cd29c091268b17eefb9ee89063e96f272a8c919923efe",
+  "output": "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png",
+  "output_sha256": "0cfa75a78e2f45706c82b64e3cd5ef89f57dc9f6525a2f8a1806d868cec7eeab",
+  "process": "built_in_image_gen_stage29_fixed_grid_chroma_to_alpha",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "camera_bounds_1280x512",
+    "three_depth_layers",
+    "display_layer_only"
+  ]
+}

@@ -9,6 +9,13 @@ extends "res://scripts/rooms/stage10_room_base.gd"
 @export var storm_damage := 1
 @export var branch_room_path := ""
 @export var branch_spawn_id: StringName = &""
+@export_range(4, 9, 1) var stage29_landmark_index := 4
+@export var stage29_landmark_position := Vector2(128, 132)
+@export var travel_point_id: StringName = &""
+
+const STAGE29_ENVIRONMENT_ATLAS: Texture2D = preload(
+	"res://assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png"
+)
 
 var _storm_damage_dealt := false
 var _relay_grounded := false
@@ -18,6 +25,7 @@ var _stage25_branch_requested := false
 # 初始化时按导出字段显示主题节点；非机关房立即复用父类开门状态。
 func _ready() -> void:
 	super._ready()
+	_apply_stage29_presentation()
 	var storm_field := get_node_or_null("StormField") as CanvasItem
 	if storm_field != null:
 		storm_field.visible = storm_hazard_present
@@ -67,6 +75,8 @@ func get_stage25_progress_snapshot() -> Dictionary:
 		"relay_gate_present": relay_gate_present,
 		"relay_grounded": _relay_grounded,
 		"branch_room_path": branch_room_path,
+		"stage29_landmark_index": stage29_landmark_index,
+		"travel_point_id": travel_point_id,
 	}
 
 
@@ -118,3 +128,52 @@ func _on_storm_relay_grounded() -> void:
 	if storm_field != null:
 		storm_field.visible = false
 	unlock_gate(&"stage25_relay_grounded")
+	_set_stage29_animation(^"StormRelay/RelayStateArt", &"relay_grounded")
+	_set_stage29_animation(^"GateBarrier/Stage29BarrierArt", &"barrier_open")
+
+
+# Stage29 仅建立显示层：地形格、逐房地标和前哨 ID 不参与路线或碰撞判定。
+func _apply_stage29_presentation() -> void:
+	var landmark := get_node_or_null("RoomLandmarkArt") as Sprite2D
+	if landmark != null:
+		landmark.position = stage29_landmark_position
+		landmark.texture = _stage29_atlas_texture(stage29_landmark_index)
+		landmark.set_meta(
+			"runtime_source",
+			"stage29_thunder_waste_environment_runtime_ai01.landmark_%d" % (stage29_landmark_index - 4)
+		)
+
+	var outpost := get_node_or_null("OutpostCheckpointArt") as CanvasItem
+	if outpost != null:
+		outpost.visible = travel_point_id == &"thunder_outpost"
+
+	var ground := get_node_or_null("FormalGroundVisual") as TileMapLayer
+	if ground != null:
+		ground.clear()
+		for cell_x: int in range(18):
+			ground.set_cell(Vector2i(cell_x, 0), 0, Vector2i(0, 0))
+
+	var hazard_ground := get_node_or_null("HazardGroundVisual") as TileMapLayer
+	if hazard_ground != null:
+		hazard_ground.clear()
+		if storm_hazard_present:
+			for cell_x: int in range(7, 10):
+				hazard_ground.set_cell(Vector2i(cell_x, 0), 0, Vector2i(1, 0))
+
+
+func _stage29_atlas_texture(index: int) -> AtlasTexture:
+	var texture := AtlasTexture.new()
+	texture.atlas = STAGE29_ENVIRONMENT_ATLAS
+	texture.region = Rect2((index % 4) * 256, floori(index / 4.0) * 256, 256, 256)
+	return texture
+
+
+func _set_stage29_animation(path: NodePath, animation_name: StringName) -> void:
+	var art := get_node_or_null(path) as AnimatedSprite2D
+	if art == null:
+		return
+	art.play(animation_name)
+	art.set_meta(
+		"runtime_source",
+		"stage29_thunder_waste_state_vfx_runtime_ai01.%s" % animation_name
+	)

@@ -16,6 +16,32 @@ DEFAULT_ATLAS_MANIFEST = "docs/assets/asset-atlas-build-manifest.json"
 DEFAULT_OUT_DIR = "assets/art/vfx/vfx_rules"
 VFX_KINDS = {"vfx_atlas", "vfx_sheet", "vfx_direction", "vfx_warning"}
 STANDALONE_GRID_SPECS = {
+    "stage29_thunder_waste_state_vfx_ai01": {
+        "columns": 4,
+        "rows": 4,
+        "names": [
+            "storm_startup",
+            "storm_active_a",
+            "storm_active_b",
+            "storm_grounded",
+            "relay_active",
+            "relay_struck",
+            "relay_grounded",
+            "relay_disabled",
+            "barrier_locked",
+            "barrier_unlock",
+            "barrier_open",
+            "exit_right",
+            "outpost_checkpoint",
+            "branch_up",
+            "cloud_flash",
+            "safe_discharge",
+        ],
+        "boundary": (
+            "Stage29 4x4 environment state VFX grid. Runtime nodes consume explicit SpriteFrames or AtlasTexture "
+            "regions; every rule is visual-only and owns no collision or damage."
+        ),
+    },
     "stage16_talisman_relay_ai01": {
         "columns": 3,
         "rows": 2,
@@ -89,6 +115,37 @@ def semantic_path_for(metadata_path: Path) -> Path:
 
 def output_manifest_by_id(manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {item["id"]: item for item in manifest.get("outputs", [])}
+
+
+def existing_rule_entries(root: Path, out_dir: Path, index_path: Path) -> list[dict[str, Any]]:
+    """保留已人工修订的 sidecar；生成器只为尚不存在的资产补规则。"""
+    paths: list[Path] = []
+    if index_path.exists():
+        for item in load_json(index_path).get("assets", []):
+            value = str(item.get("path", ""))
+            if value:
+                paths.append(resolve_path(root, value))
+    paths.extend(sorted(out_dir.glob("*.vfx_rules.json")))
+
+    entries: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for path in paths:
+        if not path.exists():
+            continue
+        rules = load_json(path)
+        asset_id = str(rules.get("asset_id", ""))
+        if not asset_id or asset_id in seen:
+            continue
+        seen.add(asset_id)
+        entries.append(
+            {
+                "asset_id": asset_id,
+                "path": rel(path, root),
+                "frame_count": int(rules.get("frame_count", 0)),
+                "target_kind": str(rules.get("target_kind", "")),
+            }
+        )
+    return entries
 
 
 def semantic_entries_by_index(path: Path) -> dict[int, dict[str, Any]]:
@@ -290,11 +347,15 @@ def main() -> int:
     if not args.dry_run:
         out_dir.mkdir(parents=True, exist_ok=True)
 
-    built: list[dict[str, Any]] = []
+    index_path = out_dir / "vfx_rules.index.json"
+    built = existing_rule_entries(root, out_dir, index_path)
+    built_ids = {item["asset_id"] for item in built}
     for item in queue.get("items", []):
         if item.get("target_kind") not in VFX_KINDS:
             continue
         asset_id = item["asset_id"]
+        if asset_id in built_ids:
+            continue
         if asset_id in manifest_by_id:
             rules = build_atlas_rules(root, item, manifest_by_id[asset_id])
         else:
@@ -308,6 +369,7 @@ def main() -> int:
                 "target_kind": item["target_kind"],
             }
         )
+        built_ids.add(asset_id)
         if not args.dry_run:
             out_path.write_text(json.dumps(rules, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -323,7 +385,6 @@ def main() -> int:
             "runtime damage/hit logic must be authored separately in gameplay code or scenes."
         ),
     }
-    index_path = out_dir / "vfx_rules.index.json"
     if not args.dry_run:
         index_path.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 

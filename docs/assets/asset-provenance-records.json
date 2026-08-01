@@ -11,10 +11,10 @@
   },
   "license_boundary": "AI-generated source records are present for project tracking. Commercial release and external distribution still require manual terms review for the active tool/account and any downstream platform.",
   "summary": {
-    "record_count": 63,
-    "candidate_hash_count": 141,
-    "output_hash_count": 63,
-    "prompt_hash_count": 63,
+    "record_count": 66,
+    "candidate_hash_count": 144,
+    "output_hash_count": 66,
+    "prompt_hash_count": 66,
     "recovery_ledger_count": 1
   },
   "recovery_ledgers": [
@@ -3007,6 +3007,114 @@
           "index": 1,
           "path": "assets/source/ai_generated/batch_28/stage28_waystation_ui_sheet_ai01/candidates/stage28_waystation_ui_sheet_ai01_candidate_01.png",
           "sha256": "56c99ca2babaea4b83a7fb4ea282d82109998137d03e26dfe24fb23f76f98c19",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage29_thunder_waste_background_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 29",
+      "priority": "P0",
+      "target_kind": "environment_room_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Create one production-ready 2D side-view metroidvania environment background for the game Nano Hunter. Scene: the Thunder Waste, a desolate supernatural lightning plateau in a Southern-and-Northern-Dynasties Chinese fantasy world. Wide cinematic 16:9 composition, no characters, no UI, no words, no logos. Three clearly readable depth layers: distant ink-wash storm mountains and dense thunderclouds, middle-distance ruined Buddhist exorcist pylons and eroded stone steles, near ground silhouettes with dry silver grass and torn talisman flags. Cold blue-gray and slate palette with restrained ochre-gold ritual accents, pale electric cyan lightning veins, painterly gongbi outlines and mineral-pigment texture. The lower 25 percent must remain a comparatively quiet horizontal playable-ground band; keep the center readable behind a small player sprite. Strong regional identity distinct from swamp or laboratory imagery. Opaque background, edge-to-edge, no frame, no transparent checkerboard. No watermark.",
+      "prompt_sha256": "9df6827ffa2a00a9959b4e16edc085c65c7a63bf6ada269f44da7a7b6c9ba38b",
+      "source_dir": "assets/source/ai_generated/batch_29/stage29_thunder_waste_background_ai01/candidates",
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png",
+      "output_sha256": "0cfa75a78e2f45706c82b64e3cd5ef89f57dc9f6525a2f8a1806d868cec7eeab",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_background_ai01/candidates/stage29_thunder_waste_background_ai01_candidate_01.png",
+          "sha256": "55403e0b7c3f497f548cd29c091268b17eefb9ee89063e96f272a8c919923efe",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage29_thunder_waste_environment_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 29",
+      "priority": "P0",
+      "target_kind": "prop_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Create a single exact 4 by 4 sprite-sheet asset board for Nano Hunter, a 2D side-view metroidvania in Southern-and-Northern-Dynasties Chinese dark fantasy. Exactly sixteen equally sized square cells, strict aligned grid, one isolated asset per cell, consistent side-view scale and lighting, no gutters crossing cells, no text, no numbers, no UI labels, no characters. Use a perfectly flat solid chroma-key lime green background #7FFF00 in every empty pixel; no green inside the assets, no cast shadows outside each cell. Formal hand-painted gongbi ink outline with mineral pigment texture, cold slate blue-gray, pale electric cyan and restrained ochre-gold ritual accents. Row 1 left to right: safe weathered thunder-stone ground slab with readable pale top edge; dangerous cracked electrified ground slab with cyan veins; left cliff cap of layered dark rock; right cliff cap of layered dark rock. Row 2: compact Thunder Outpost boundary stele with small talisman canopy; storm-basin landmark with low lightning rods; ascending lightning-slope landmark with three ritual rods; wind-eroded fork landmark with split stone sign and torn flags. Row 3: grounded ritual relay altar with circular conductor; distant-road outlook landmark with ruined watchtower; broad horizontal storm-cloud band prop; silver dry-grass cluster. Row 4: torn ochre talisman flag; bronze-black lightning conductor rod; dark foreground rock and reed cluster; small ruined Buddhist exorcist shrine silhouette. Keep every silhouette bold and readable when reduced to 64-128 pixels. No modern technology, no laboratory, no swamp vegetation. No watermark.",
+      "prompt_sha256": "bb47b18ce99b3d555bf2203cfc94ceced3eafae02f7ad6df99eb7d3ff2b63c14",
+      "source_dir": "assets/source/ai_generated/batch_29/stage29_thunder_waste_environment_sheet_ai01/candidates",
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png",
+      "output_sha256": "5c78b24f105019a3e9a3e98f0e1e7661a7b8ba79db994fa37c02907efa317548",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_environment_sheet_ai01/candidates/stage29_thunder_waste_environment_sheet_ai01_candidate_01.png",
+          "sha256": "18d34703808e1419fe5c05ac38f878d272e9f5f3aab0754f98e288362eda1f9e",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage29_thunder_waste_state_vfx_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 29",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Create a single exact 4 by 4 VFX and state sprite sheet for Nano Hunter, a 2D side-view metroidvania in Southern-and-Northern-Dynasties Chinese dark fantasy. Exactly sixteen equal square cells in a strict aligned grid, one isolated effect or state per cell, no text, no labels, no characters. Perfectly flat solid chroma-key lime green background #7FFF00 in all empty pixels; no green inside assets, no checkerboard, no glow crossing cell boundaries. Formal hand-painted gongbi ink edges, pale electric cyan, white-blue lightning, deep slate, restrained ochre-gold talisman accents. Bold readable silhouettes at 64-128 pixels. Row 1: storm field startup with gathering sparks; storm field active frame A with vertical lightning; storm field active frame B with branching lightning; storm field grounded residual fading into earth. Row 2: ritual relay pillar active charged; relay pillar struck by wind-thunder sequence; relay pillar grounded with cyan energy flowing downward; relay pillar disabled dark state. Row 3: vertical lightning barrier locked; lightning barrier unlock burst; barrier open residual sparks; formal right-pointing exit marker made of talisman wind and cyan lightning. Row 4: Thunder Outpost checkpoint active beacon; upward branch-route marker with ritual knot; broad distant storm-cloud lightning flash; circular ground impact / safe discharge ring. Keep each effect centered with generous transparent-key space, crisp alpha-ready boundaries, no modern electronics, no laboratory imagery. No watermark.",
+      "prompt_sha256": "8ec1b32cfb6c575456f07b285d165bd9eb59c79ad99743d8ae8f510b95353b7c",
+      "source_dir": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates",
+      "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
+      "output_sha256": "0602ac1b0de782164599360260ea3e1530013008fe16ef2af41f94979a1361c6",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates/stage29_thunder_waste_state_vfx_ai01_candidate_01.png",
+          "sha256": "1769def3ee1e4e205d2c02f2a188e56d5636c6684da2fd4f80d6f5a46bafd993",
           "width": 1254,
           "height": 1254,
           "mode": "RGB"

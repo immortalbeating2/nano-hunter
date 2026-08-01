@@ -15,3 +15,5 @@ stage25_title = "雷泽荒原 · 风蚀岔口"
 stage25_prompt = "主路向右通往驿路远眺；跃上蓝色符标可进入接地祭柱回环。"
 branch_room_path = "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn"
 branch_spawn_id = &"stage25_relay_start"
+stage29_landmark_index = 7
+stage29_landmark_position = Vector2(384, 132)

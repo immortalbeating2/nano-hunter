@@ -14,3 +14,5 @@ spawn_positions = {
 }
 stage25_title = "雷泽荒原 · 引雷坡道"
 stage25_prompt = "坡道连接主路与接地回环，继续向右抵达风蚀岔口。"
+stage29_landmark_index = 6
+stage29_landmark_position = Vector2(432, 126)

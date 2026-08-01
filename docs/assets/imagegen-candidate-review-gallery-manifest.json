@@ -5,14 +5,14 @@
 	"purpose": "Godot editor-facing review scene for raw image_gen candidates not yet used by selected sources.",
 	"boundary": "Raw candidate review only; not selected-source promotion, atlas rebuild, final art approval or runtime integration.",
 	"counts": {
-		"unselected_candidates": 102,
+		"unselected_candidates": 104,
 		"review_required_assets": 55,
 		"batch_counts": {
 			"Batch 00": 1,
 			"Batch 01": 8,
 			"Batch 06": 35,
 			"Batch 07": 3,
-			"Batch 08": 10,
+			"Batch 08": 12,
 			"Batch 09": 4,
 			"Batch 10": 6,
 			"Batch 11": 11,
