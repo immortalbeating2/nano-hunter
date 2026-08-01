@@ -2,7 +2,29 @@
 
 本文件只记录项目里程碑级事件。每日细节、命令输出、MCP 复核过程、分支操作原因和误判修正过程保存在 `docs/progress/logs/YYYY-MM-DD.md`。每条里程碑默认包含范围、结果、关键验证、详情日志；重要阶段收口或工具链修复可补提交 hash 与遗留风险。
 
+## 2026-08-01
+
+- **Preflight26A 可审计基线完成**：把既有地形视觉 / 碰撞修复和资产治理收成 Stage27 前的独立技术检查点。
+  结果：`stage19_discovery_map_base_ai01` 已纳入 56 项 runtime map、readiness、review、acceptance、catalog 与 gallery 的统一集合；结构门禁 `56/56`，final-ready `55/56`，人工签核阻断保持可见。全 NUL 的资产 manifest 已留存 ignored 原始证据后从 HEAD 精确恢复，个人配置、候选 inbox、backend 与归属不明文件没有混入。
+  关键验证或结论：地形专项 `16/16` / `1358`、相邻组合 `97/97` / `1864`、递归 GUT `43` scripts / `301/301` / `8542`，Godot `4.6.3` import、主场景 smoke、strict 资产审计和 diff 校验通过；技术基线提交 `eb98e47`。编辑器运行态错误与完整输入链进入 Gate26M。
+  详情日志链接：`docs/progress/logs/2026-08-01.md`；执行清单：`docs/implementation-plans/2026-08-01-preflight26a-clean-baseline.md`。
+
+- **Preflight26A 至 Stage31 阶段级计划冻结**：将路线总纲拆为 7 份可执行正式计划与 7 份同名 implementation checklist。
+  结果：Preflight 明确脏工作树 / 资产治理基线，Gate26M 明确 Godot MCP Pro 证据包；Stage27-31 分别冻结战斗美术 / 音频、驿站 / 悬赏 / Build、雷泽清稿、雷泽敌群 / Boss / 吸收、单档 / 双点传送范围。Stage30 与 Stage31 的数据契约已具体到稳定 ID、数值、字段白名单与失败边界。
+  关键验证或结论：本里程碑只完成计划生成并进入 Preflight，不声称任何阶段运行实现或 Gate26H 真人签核完成。
+  详情日志链接：`docs/progress/logs/2026-08-01.md`；路线入口：`plan/2026-07-31-stage27-32-north-star-beta-roadmap.md`。
+
+- **Formal Demo art priority and deferred human gate**：把 Stage27 从最小反馈 polish 提升为 Luna 全动作集、四类技能 VFX、既有 Seal Guardian 高质量动作 / 特效与首批本地音频的正式 Demo 美术阶段。
+  结果：Gate26H 允许延后到 Stage31 后但仍是 Stage32 硬门禁；新增 Gate26M 承担 MCP / GUT 确定性技术复核。当前 Luna `7` clips / `111` 帧、Seal Guardian `5` clips / `24` 帧和三套各 `8` 帧攻击 VFX 只标记为技术可运行；雷泽新 Boss 同样按完整两阶段资产包排产。
+  关键验证或结论：Godot MCP Pro 当前工具面包含运行时输入、连续帧、截图和 QA 断言，但本轮 editor 未连接，未伪报运行通过；本机 Stable Audio、Kokoro、Chatterbox、ACE-Step 入口和 scratch / accepted 目录均存在，当前只更新生产路由，未生成音频。
+  详情日志链接：`docs/progress/logs/2026-08-01.md`；路线：`spec-design/2026-07-31-post-stage26-north-star-gap-and-stage27-32-roadmap.md`；美术评估：`docs/assets/2026-07-31-post-stage26-north-star-art-gap-assessment.md`；音频路由：`docs/assets/audio-asset-prompt-reference.md`。
+
 ## 2026-07-31
+
+- **Post-Stage26 north-star gap and Stage27-32 Beta roadmap**：按当前代码、运行态与资产证据重新确定 Alpha Candidate 到北极星 Beta 垂直切片的最短路线。
+  结果：确认 Stage21-26 已形成两元素 / 两姿态 / 两步序列、敌人反应、驿站悬赏、两槽 Build 与六房雷泽的系统 Alpha，但专属动作 / VFX、音频、驿站身份、雷泽正式美术、区域首领、持久化和真人签核仍不足；当日路线为 `Preflight26A -> Gate26H -> Stage27-32`，已由 2026-08-01 正式 Demo 美术优先级里程碑修订。
+  关键验证或结论：Stage21-26 新鲜组合回归 `31/31` tests、`294` assertions；Godot MCP Pro 当前 workspace / 主场景通过、编辑器错误 `0`。资产现场重算 `56/56 structural-ready`、`55/56 final-ready`；strict runtime-map 因 `stage19_discovery_map_base_ai01` 缺登记失败，作为 Stage27 前置治理门禁保留，未误报为通过。
+  详情日志链接：`docs/progress/logs/2026-07-31.md`；设计：`spec-design/2026-07-31-post-stage26-north-star-gap-and-stage27-32-roadmap.md`；正式路线：`plan/2026-07-31-stage27-32-north-star-beta-roadmap.md`；美术评估：`docs/assets/2026-07-31-post-stage26-north-star-art-gap-assessment.md`。
 
 - **Stage26 controller menu navigation hotfix**：修复实体手柄在主菜单与暂停菜单没有可用焦点和 UI 动作映射的候选阻断。
   结果：左摇杆 / 十字键可导航，A 确认、B 返回，主菜单 / 详情 / 暂停入口恢复确定焦点；B 在游戏中仍只冲刺，Menu / Esc 才打开暂停。

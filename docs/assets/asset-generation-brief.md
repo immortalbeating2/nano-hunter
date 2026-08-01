@@ -93,8 +93,9 @@ Last Updated: 2026-05-14
 | --- | --- | --- |
 | Image2 / GPT Image | 角色、Boss、区域背景、大型道具、主视觉方向稿 | 优先生成清晰轮廓和可读构图，不直接承诺最终动画 |
 | Nano Banana / Gemini Image | 小图案、HUD 图标、符印、道具变体、角色一致性延展和局部重绘 | 适合做已选方向的微调与同风格变体 |
-| ElevenLabs | 短 SFX、人声、怪物声、UI 反馈音 | 接入前必须裁剪、统一响度并记录授权状态 |
-| Suno / Lyria 3 | BGM 草案、区域 loop、Boss loop、主菜单音乐 | 接入前必须确认账号计划和商用 / 发布条款 |
+| Stable Audio 3 Small SFX（本机） | 短 SFX、怪物声、UI 反馈、机关和非音乐环境声 | 候选先进入本机 scratch；接入前必须试听、裁剪、统一响度并记录 prompt / seed / 工具 |
+| ACE-Step 1.5（本机） | BGM 草案、区域 loop、Boss loop、主菜单音乐与 stinger | 草稿默认 `fast`；最终候选按任务选 profile，并复核 loop、模型来源和发布条款 |
+| Kokoro / Chatterbox V3（本机） | 中文占位台词、最终候选中英文台词 | 参考音色只在明确确认授权后使用；人声候选保留 provenance sidecar |
 | Seedance 2 / Veo 3.1 | 动作参考、宣传视频、过场氛围和 trailer 草案 | 默认不直接作为游戏内 sprite 动画源 |
 | Aseprite / Krita / Inkscape / Audacity / Reaper | 最终清稿、切片、透明背景、SVG 清理、音频裁剪和 loop | 不由 Godot 插件完全替代 |
 

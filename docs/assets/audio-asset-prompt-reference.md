@@ -1,10 +1,10 @@
 # Nano Hunter Audio Asset Prompt Reference
 
-Last Updated: 2026-06-27
+Last Updated: 2026-08-01
 
 ## 目的
 
-本文件是 Batch 04 音频资产的全量生成参考包，服务 Stage16 Alpha Demo 后续 audio pass，并为 Stage17+ 继续扩展音频资产库预留统一分类、prompt、路径和配置资产入口。它对齐当前美术背景：南北朝东方奇幻、佛门符印、镇妖卫、瘴泽妖域、Seal Guardian、柔和灵光与水墨 / 工笔色系。
+本文件是 Batch 04 音频资产的全量生成参考包，服务 Stage27 起正式 Demo audio pass，并为后续 Stage 继续扩展音频资产库预留统一分类、prompt、路径和配置资产入口。它对齐当前美术背景：南北朝东方奇幻、佛门符印、镇妖卫、瘴泽妖域、Seal Guardian、柔和灵光与水墨 / 工笔色系。
 
 本轮只提供高质量 prompt、生成 / 后处理命令、存放地址和验收标准；不直接接入 Godot，不新增完整音频系统。
 
@@ -45,17 +45,55 @@ no modern sci-fi laser, no cyberpunk synth lead, no EDM drop, no gun, no explosi
 
 ## 输出与路径规则
 
+### 本机 `local-game-audio` 路由
+
+| 资产类型 | 本机运行时 | 当前入口 | 使用边界 |
+| --- | --- | --- | --- |
+| 武器 / 技能、命中、UI、脚步、机关、怪物和非音乐氛围 | Stable Audio 3 Small SFX | `D:\AI\audio\stable-audio-3\optimized\tflite\sa3.ps1` | 纯 SFX prompt 明确写 `no music`，one-shot 默认 `3-5s` 候选后裁剪 |
+| 中文占位台词 / 批量草稿 | Kokoro 82M v1.1-zh | `D:\AI\audio\kokoro\speak_zh.py` | 仅草稿；夹杂英文时拆分语言 |
+| 最终候选中 / 英文台词 | Chatterbox Multilingual V3 | `D:\AI\audio\chatterbox\speak.ps1` | 参考音色必须明确确认同意或商用权，并保留 provenance sidecar |
+| BGM、音乐 loop、stinger | ACE-Step 1.5 | `D:\AI\audio\start-ace-step-api.ps1` | 草稿默认 `fast`；最高质量候选按明确任务使用 `quality`，不与 Chatterbox 同时加载 |
+
+候选流程固定为：
+
+1. 使用唯一文件名写入 `D:\AI\audio\outputs\scratch`，不得覆盖既有 accepted 资产。
+2. 验证 WAV 存在、非空、可解码、采样率 / 声道 / 时长合理；记录 runtime、prompt / text、seed 和生成参数。
+3. 人工试听接受后复制到 `D:\AI\audio\outputs\accepted`，同时回填 `docs/assets/audio-generation-manifest.json`。
+4. 再复制到项目 `assets/source/ai_generated/batch_04/audio/<asset_id>/`，完成裁剪、响度、loop 和 OGG 转换后进入 runtime 路径。
+5. Godot import、事件绑定、重复播放、混音与生产场景复核通过后，才可标记 runtime accepted；生成成功本身不等于发布授权通过。
+
 | 类型 | 原始候选路径 | 可接入路径 | 推荐规格 |
 | --- | --- | --- | --- |
-| SFX | `assets/source/ai_generated/batch_04/audio/<asset_id>/candidate_01.wav` | `assets/audio/sfx/stage16_demo_sfx_pack/<asset_id>_ai01.ogg` | 48 kHz，mono 或 narrow stereo，0.2-2.5 秒 |
+| SFX | `D:\AI\audio\outputs\scratch\<unique-name>.wav`，接受后复制到 `assets/source/ai_generated/batch_04/audio/<asset_id>/candidate_01.wav` | `assets/audio/sfx/stage27_demo_sfx_pack/<asset_id>_ai01.ogg` | 48 kHz，mono 或 narrow stereo，0.2-2.5 秒 |
 | Voice / monster | `assets/source/ai_generated/batch_04/audio/<asset_id>/candidate_01.wav` | `assets/audio/sfx/stage16_demo_voice_pack/<asset_id>_ai01.ogg` | 48 kHz，mono，0.2-1.5 秒 |
 | Ambient loop | `assets/source/ai_generated/batch_04/audio/<asset_id>/candidate_01.wav` | `assets/audio/music/<asset_id>_ai01.ogg` | 48 kHz，stereo，30-90 秒，无缝 loop |
 | BGM loop | `assets/source/ai_generated/batch_04/audio/<asset_id>/candidate_01.wav` | `assets/audio/music/<asset_id>_ai01.ogg` | 48 kHz，stereo，45-90 秒，无缝 loop |
 | Audio config | `docs/assets/audio-asset-prompt-reference.md` | `assets/audio/config/<config_id>.json` | 事件名、bus、音量、随机变体、冷却、优先级 |
 
-命名原则：`stage16_<用途>_<动作或对象>_sfx_ai01`，同一资产变体使用 `_var01`、`_var02`、`_var03`。
+历史 Stage16 资产继续保留原命名；Stage27 新资产使用 `stage27_<用途>_<动作或对象>_sfx_ai01`，同一资产变体使用 `_var01`、`_var02`、`_var03`。
+
+Stage27 首批 P0 顺序固定为：Luna 疾 / 御攻击与命中、风 / 雷切换、风→雷 / 雷→风序列、Luna 受伤 / 恢复、Seal Guardian 近 / 远 warning / impact / 破印 / phase、UI focus / confirm / cancel。BGM、对白和全区域音频不抢在这组战斗读值之前。
 
 ## 通用执行命令
+
+Stable Audio 3 Small SFX 候选示例：
+
+```powershell
+& 'D:\AI\audio\stable-audio-3\optimized\tflite\sa3.ps1' `
+  --prompt '<具体声源、动作、材质、空间和 no music 负向约束>' `
+  --dit sm-sfx --precision fp32 --seconds 4 --steps 8 `
+  --seed <seed> --threads 8 `
+  --out 'D:\AI\audio\outputs\scratch\<unique-name>.wav'
+```
+
+ACE-Step 1.5 草稿配置与服务入口：
+
+```powershell
+& 'D:\AI\audio\start-ace-step-api.ps1' -Profile fast -PrintConfig
+& 'D:\AI\audio\start-ace-step-api.ps1' -Profile fast
+```
+
+最终候选只有在任务明确要求更高质量时改用 `-Profile quality`；不得终止或替换非本任务启动的音频服务。
 
 先建目录：
 

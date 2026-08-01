@@ -120,7 +120,7 @@ Stage 设计目标
 
 ## Batch 04 - 音频资产
 
-目标：先补全量音频资产参考口径，再按 Stage16 Alpha Demo 需要生成首批可接入音频；不在本批直接建立完整音频系统。
+目标：先补全量音频资产参考口径，再从 Stage27 起按正式 Demo 优先级生成首批可接入音频；不在本批直接建立完整音频系统。
 
 资产需求：
 
@@ -136,10 +136,13 @@ Stage 设计目标
 - 系统反馈音：checkpoint 保存、能力解锁、条件不足、重开 / retry。
 - 音频配置资产：audio event catalog、mix targets、generation manifest、ingestion checklist。
 
-推荐工具：
+当前本机默认生成路由：
 
-- ElevenLabs：SFX、人声、怪物声。
-- Suno / Lyria 3：BGM 草案与 loop。
+- Stable Audio 3 Small SFX：武器 / 技能、命中、UI、脚步、机关、怪物和非音乐环境 one-shot。
+- ACE-Step 1.5：BGM、音乐 loop 与 stinger；草稿默认 `fast`，最终候选按明确任务选择 `quality`。
+- Kokoro 82M v1.1-zh：中文占位台词和批量草稿。
+- Chatterbox Multilingual V3：最终候选中 / 英文台词；参考音色仅在明确确认授权后使用。
+- 候选统一先写入 `D:\AI\audio\outputs\scratch`，验证和人工试听接受后才进入 `accepted`、项目 source 与 runtime 路径；生成成功不等于发布授权通过。
 - Audacity / Reaper：裁剪、响度统一、无缝 loop。
 - Godot：导入、压缩和播放验证。
 
