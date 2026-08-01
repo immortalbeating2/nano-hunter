@@ -4,8 +4,8 @@
 
 ## Summary
 
-- 资产总数：`56`
-- 需要人工复核：`1`
+- 资产总数：`60`
+- 需要人工复核：`5`
 - Final ready：`55`
 
 ## By Family
@@ -14,6 +14,7 @@
 - `characters`: `4`
 - `environment`: `10`
 - `icons`: `4`
+- `other`: `4`
 - `promo_logo_cg`: `4`
 - `props_equipment`: `6`
 - `story`: `3`
@@ -77,6 +78,18 @@
 - [ ] `P1` `stage16_seal_release_threshold_ai01` (props_equipment / prop) - 0 blockers
 - [ ] `P1` `style_board_global_ai01` (style / style_board) - 0 blockers
 - [ ] `P1` `material_texture_atlas_ai01` (textures / texture_atlas) - 0 blockers
+- [ ] `P2` `stage27_core_combat_vfx_ai01` (other / combat_vfx) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
+- [ ] `P2` `stage27_luna_formal_combat_body_ai01` (other / player_animation) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
+- [ ] `P2` `stage27_seal_guardian_formal_motion_ai01` (other / boss_animation) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
+- [ ] `P2` `stage27_seal_guardian_vfx_ai01` (other / boss_vfx) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P2` `capsule_art_alpha_demo_ai01` (promo_logo_cg / promo_capsule) - 0 blockers
 - [ ] `P2` `cg_seal_guardian_reveal_ai01` (promo_logo_cg / cg_illustration) - 0 blockers
 - [ ] `P2` `nano_hunter_logo_direction_ai01` (promo_logo_cg / logo_direction) - 0 blockers

@@ -1,0 +1,90 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_001"]
+atlas = ExtResource("1")
+region = Rect2(256, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_002"]
+atlas = ExtResource("1")
+region = Rect2(512, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_003"]
+atlas = ExtResource("1")
+region = Rect2(768, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_004"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_005"]
+atlas = ExtResource("1")
+region = Rect2(256, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_006"]
+atlas = ExtResource("1")
+region = Rect2(512, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_007"]
+atlas = ExtResource("1")
+region = Rect2(768, 192, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_008"]
+atlas = ExtResource("1")
+region = Rect2(0, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_009"]
+atlas = ExtResource("1")
+region = Rect2(256, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_010"]
+atlas = ExtResource("1")
+region = Rect2(512, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_011"]
+atlas = ExtResource("1")
+region = Rect2(768, 384, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_012"]
+atlas = ExtResource("1")
+region = Rect2(0, 576, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_013"]
+atlas = ExtResource("1")
+region = Rect2(256, 576, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_014"]
+atlas = ExtResource("1")
+region = Rect2(512, 576, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stage27_core_combat_vfx_runtime_ai01_015"]
+atlas = ExtResource("1")
+region = Rect2(768, 576, 256, 192)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_002")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_003")}],
+"loop": false,
+"name": &"wind_attack",
+"speed": 22.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_004")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_005")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_006")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_007")}],
+"loop": false,
+"name": &"thunder_attack",
+"speed": 22.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_009")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_010")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_011")}],
+"loop": false,
+"name": &"wind_thunder_pierce",
+"speed": 22.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_012")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_013")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_014")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_stage27_core_combat_vfx_runtime_ai01_015")}],
+"loop": false,
+"name": &"thunder_wind_scatter",
+"speed": 22.0
+}]

@@ -3,14 +3,17 @@
   "status": "placeholder_ready",
   "boundary": "Structural audit only. Passing this report proves files, counts and editor resource descriptors exist; it does not prove final art polish, semantic cleanup, runtime integration, license readiness or gameplay readability.",
   "queue": {
-    "item_count": 56,
-    "candidate_png_count": 133,
+    "item_count": 60,
+    "candidate_png_count": 138,
     "candidate_storage_policy": "raw_candidates_optional_outside_git",
-    "unique_output_path_count": 56,
+    "unique_output_path_count": 60,
     "target_kind_counts": {
+      "boss_animation": 1,
       "boss_direction": 1,
+      "boss_vfx": 1,
       "cg_illustration": 1,
       "character_direction": 1,
+      "combat_vfx": 1,
       "completion_ui": 1,
       "environment_background": 2,
       "environment_boss_room_background": 1,
@@ -22,6 +25,7 @@
       "icon_sheet": 2,
       "logo_direction": 1,
       "ninepatch_sheet": 1,
+      "player_animation": 1,
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
@@ -54,11 +58,10 @@
       "Batch 10": 2,
       "Batch 11": 2,
       "Batch 12": 4,
-      "Batch 13": 3
+      "Batch 13": 3,
+      "Batch 27": 4
     },
-    "missing_candidates": [
-      "stage19_discovery_map_base_ai01"
-    ],
+    "missing_candidates": [],
     "missing_outputs": [],
     "missing_target_families": []
   },
@@ -191,11 +194,14 @@
     "scene": "res://scenes/dev/imagegen_asset_gallery.tscn",
     "manifest": "docs/assets/imagegen-asset-gallery-manifest.json",
     "counts": {
-      "queue_outputs": 56,
+      "queue_outputs": 60,
       "queue_categories": {
+        "boss_animation": 1,
         "boss_direction": 1,
+        "boss_vfx": 1,
         "cg_illustration": 1,
         "character_direction": 1,
+        "combat_vfx": 1,
         "completion_ui": 1,
         "environment_background": 2,
         "environment_boss_room_background": 1,
@@ -207,6 +213,7 @@
         "icon_sheet": 2,
         "logo_direction": 1,
         "ninepatch_sheet": 1,
+        "player_animation": 1,
         "promo_capsule": 1,
         "promo_key_art": 1,
         "prop": 3,
@@ -238,13 +245,16 @@
     "present": true,
     "ok": true,
     "summary": {
-      "item_count": 56,
-      "structural_ready_count": 56,
+      "item_count": 60,
+      "structural_ready_count": 60,
       "final_ready_count": 55,
       "kind_counts": {
+        "boss_animation": 1,
         "boss_direction": 1,
+        "boss_vfx": 1,
         "cg_illustration": 1,
         "character_direction": 1,
+        "combat_vfx": 1,
         "completion_ui": 1,
         "environment_background": 2,
         "environment_boss_room_background": 1,
@@ -256,6 +266,7 @@
         "icon_sheet": 2,
         "logo_direction": 1,
         "ninepatch_sheet": 1,
+        "player_animation": 1,
         "promo_capsule": 1,
         "promo_key_art": 1,
         "prop": 3,
@@ -278,7 +289,8 @@
       },
       "warnings_by_type": {},
       "blockers_by_type": {
-        "license_terms_manual_review": 1,
+        "license_terms_manual_review": 5,
+        "runtime_catalog_ready_manual_replacement": 4,
         "runtime_layout_review": 1,
         "small_size_readability_review": 1,
         "text_safe_area_review": 1
@@ -312,14 +324,15 @@
     "markdown_exists": true,
     "status": "manual_review_queue_ready",
     "summary": {
-      "asset_count": 56,
-      "manual_review_required_count": 1,
+      "asset_count": 60,
+      "manual_review_required_count": 5,
       "final_ready_count": 55,
       "family_counts": {
         "animation": 8,
         "characters": 4,
         "environment": 10,
         "icons": 4,
+        "other": 4,
         "promo_logo_cg": 4,
         "props_equipment": 6,
         "story": 3,
@@ -329,13 +342,14 @@
         "vfx": 6
       },
       "blocker_counts": {
-        "license_terms_manual_review": 1,
+        "license_terms_manual_review": 5,
+        "runtime_catalog_ready_manual_replacement": 4,
         "runtime_layout_review": 1,
         "small_size_readability_review": 1,
         "text_safe_area_review": 1
       }
     },
-    "entry_count": 56,
+    "entry_count": 60,
     "errors": []
   },
   "final_art_review_workbench": {
@@ -344,15 +358,15 @@
     "scene": "res://scenes/dev/final_art_review_workbench.tscn",
     "manifest": "docs/assets/final-art-review-workbench-manifest.json",
     "counts": {
-      "entry_count": 56,
-      "texture_card_count": 56,
-      "manual_review_required_count": 1,
+      "entry_count": 60,
+      "texture_card_count": 60,
+      "manual_review_required_count": 5,
       "final_ready_count": 55,
-      "blocker_total": 4,
+      "blocker_total": 12,
       "priority_counts": {
         "P0": 31,
         "P1": 18,
-        "P2": 7
+        "P2": 11
       },
       "family_counts": {
         "animation": 8,
@@ -364,6 +378,7 @@
         "props_equipment": 6,
         "style": 1,
         "textures": 1,
+        "other": 4,
         "promo_logo_cg": 4,
         "story": 3
       }
@@ -376,44 +391,46 @@
     "markdown_exists": true,
     "status": "acceptance_gates_ready",
     "summary": {
-      "asset_count": 56,
+      "asset_count": 60,
       "final_ready_count": 55,
-      "blocked_asset_count": 1,
+      "blocked_asset_count": 5,
       "gate_count": 7,
       "gate_summary": {
         "source_traceability": {
           "passed": 56,
-          "blocked": 0
+          "blocked": 4
         },
         "license_terms": {
           "passed": 55,
-          "blocked": 1
+          "blocked": 5
         },
         "godot_structural_resource": {
-          "passed": 56,
+          "passed": 60,
           "blocked": 0
         },
         "editor_review_card": {
-          "passed": 56,
+          "passed": 60,
           "blocked": 0
         },
         "runtime_replacement": {
           "passed": 56,
-          "blocked": 0
+          "blocked": 4
         },
         "family_specific_polish": {
-          "passed": 55,
+          "passed": 59,
           "blocked": 1
         },
         "final_approval": {
           "passed": 55,
-          "blocked": 1
+          "blocked": 5
         }
       },
       "blocked_by_priority": {
-        "P0": 1
+        "P0": 1,
+        "P2": 4
       },
       "blocked_by_family": {
+        "other": 4,
         "ui": 1
       }
     },
@@ -507,9 +524,9 @@
     "present": true,
     "status": "review_required",
     "summary": {
-      "queue_item_count": 56,
-      "candidate_png_count": 134,
-      "selected_source_count": 464,
+      "queue_item_count": 60,
+      "candidate_png_count": 138,
+      "selected_source_count": 468,
       "unselected_candidate_count": 104,
       "review_required_item_count": 55,
       "review_required_items": [
@@ -570,9 +587,12 @@
         "stage14_ability_status_hud_ai01"
       ],
       "target_kind_counts": {
+        "boss_animation": 1,
         "boss_direction": 1,
+        "boss_vfx": 1,
         "cg_illustration": 1,
         "character_direction": 1,
+        "combat_vfx": 1,
         "completion_ui": 1,
         "environment_background": 2,
         "environment_boss_room_background": 1,
@@ -584,6 +604,7 @@
         "icon_sheet": 2,
         "logo_direction": 1,
         "ninepatch_sheet": 1,
+        "player_animation": 1,
         "promo_capsule": 1,
         "promo_key_art": 1,
         "prop": 3,
@@ -616,7 +637,8 @@
         "Batch 10": 10,
         "Batch 11": 11,
         "Batch 12": 4,
-        "Batch 13": 3
+        "Batch 13": 3,
+        "Batch 27": 4
       },
       "recovery_ledgers": [
         {
@@ -657,10 +679,10 @@
     "present": true,
     "status": "source_recorded_review_required",
     "summary": {
-      "record_count": 56,
-      "candidate_hash_count": 134,
-      "output_hash_count": 56,
-      "prompt_hash_count": 56,
+      "record_count": 60,
+      "candidate_hash_count": 138,
+      "output_hash_count": 60,
+      "prompt_hash_count": 60,
       "recovery_ledger_count": 1
     },
     "errors": []
@@ -669,20 +691,20 @@
     "present": true,
     "status": "review_required",
     "summary": {
-      "queue_item_count": 56,
-      "candidate_count": 134,
+      "queue_item_count": 60,
+      "candidate_count": 138,
       "candidate_storage_policy": "raw_candidates_optional_outside_git",
       "classification_counts": {
-        "project_session_confirmed": 1,
+        "project_session_confirmed": 44,
         "explicit_mapping_confirmed": 0,
-        "explicit_mapping_review_required": 0,
-        "workspace_provenance_recorded_review_required": 133,
+        "explicit_mapping_review_required": 30,
+        "workspace_provenance_recorded_review_required": 64,
         "unknown_or_unsafe": 0
       },
-      "review_required_candidate_count": 133,
+      "review_required_candidate_count": 94,
       "unsafe_candidate_count": 0,
-      "session_recovery_candidate_count": 1,
-      "ledger_mapped_candidate_count": 0,
+      "session_recovery_candidate_count": 44,
+      "ledger_mapped_candidate_count": 30,
       "global_generated_images_latest_allowed": false,
       "errors": []
     },
@@ -866,9 +888,9 @@
       "families_structurally_covered": 10,
       "format_count": 7,
       "formats_structurally_covered": 7,
-      "structural_ready_count": 55,
+      "structural_ready_count": 60,
       "final_ready_count": 55,
-      "queue_item_count": 55
+      "queue_item_count": 60
     },
     "errors": []
   },
@@ -889,26 +911,27 @@
     "present": true,
     "status": "runtime_map_scene_reference_split_ready",
     "summary": {
-      "entry_count": 56,
+      "entry_count": 60,
       "track_counts": {
         "animation_pipeline": 2,
         "archive": 9,
         "art_direction": 1,
         "narrative_or_release": 4,
         "release_promo": 3,
+        "runtime_animation": 2,
         "runtime_environment": 10,
         "runtime_gameplay": 4,
         "runtime_ui": 9,
-        "runtime_vfx": 4,
+        "runtime_vfx": 6,
         "source_dev": 10
       },
       "status_counts": {
         "binding_map_ready_manual_replacement_required": 1,
         "not_runtime_target": 29,
-        "scene_reference_verified": 26
+        "scene_reference_verified": 30
       },
-      "directly_referenced_entry_count": 26,
-      "development_referenced_entry_count": 55,
+      "directly_referenced_entry_count": 30,
+      "development_referenced_entry_count": 60,
       "missing_output_count": 0,
       "missing_target_scene_candidate_count": 0
     },
@@ -920,12 +943,12 @@
     "scene": "res://scenes/dev/imagegen_runtime_asset_catalog.tscn",
     "manifest": "docs/assets/imagegen-runtime-asset-catalog-manifest.json",
     "counts": {
-      "entry_count": 56,
+      "entry_count": 60,
       "missing_count": 0,
-      "resource_count": 56,
+      "resource_count": 60,
       "resource_type_counts": {
         "AtlasTexture": 5,
-        "CompressedTexture2D": 38,
+        "CompressedTexture2D": 42,
         "SpriteFrames": 10,
         "StyleBoxTexture": 1,
         "TileSet": 2
@@ -936,10 +959,11 @@
         "art_direction": 1,
         "narrative_or_release": 4,
         "release_promo": 3,
+        "runtime_animation": 2,
         "runtime_environment": 10,
         "runtime_gameplay": 4,
         "runtime_ui": 9,
-        "runtime_vfx": 4,
+        "runtime_vfx": 6,
         "source_dev": 10
       }
     },
@@ -959,10 +983,10 @@
     "missing": []
   },
   "file_counts": {
-    "art_png": 112,
-    "art_import": 112,
-    "metadata_json": 177,
-    "spriteframes_tres": 52,
+    "art_png": 116,
+    "art_import": 116,
+    "metadata_json": 185,
+    "spriteframes_tres": 56,
     "atlas_texture_tres": 324,
     "tileset_tres": 5,
     "stylebox_texture_tres": 8,

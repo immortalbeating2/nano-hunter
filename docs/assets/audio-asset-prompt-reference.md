@@ -57,10 +57,11 @@ no modern sci-fi laser, no cyberpunk synth lead, no EDM drop, no gun, no explosi
 候选流程固定为：
 
 1. 使用唯一文件名写入 `D:\AI\audio\outputs\scratch`，不得覆盖既有 accepted 资产。
-2. 验证 WAV 存在、非空、可解码、采样率 / 声道 / 时长合理；记录 runtime、prompt / text、seed 和生成参数。
-3. 人工试听接受后复制到 `D:\AI\audio\outputs\accepted`，同时回填 `docs/assets/audio-generation-manifest.json`。
-4. 再复制到项目 `assets/source/ai_generated/batch_04/audio/<asset_id>/`，完成裁剪、响度、loop 和 OGG 转换后进入 runtime 路径。
-5. Godot import、事件绑定、重复播放、混音与生产场景复核通过后，才可标记 runtime accepted；生成成功本身不等于发布授权通过。
+2. Nano Hunter 音效生成默认串行并发 `1`，任何批次并发必须 `<4`；不得为赶批次占满本机推理资源。
+3. 验证 WAV 存在、非空、可解码、采样率 / 声道 / 时长合理；记录 runtime、prompt / text、seed 和生成参数。
+4. 人工试听接受后复制到 `D:\AI\audio\outputs\accepted`，同时回填 `docs/assets/audio-generation-manifest.json`。
+5. 再复制到项目 `assets/source/ai_generated/batch_04/audio/<asset_id>/`，完成裁剪、响度、loop 和 OGG 转换后进入 runtime 路径。
+6. Godot import、事件绑定、重复播放、混音与生产场景复核通过后，才可标记 runtime accepted；生成成功本身不等于发布授权通过。
 
 | 类型 | 原始候选路径 | 可接入路径 | 推荐规格 |
 | --- | --- | --- | --- |

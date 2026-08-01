@@ -3,9 +3,9 @@
   "status": "review_required",
   "boundary": "Candidate pool audit only. It proves raw PNG candidates exist and tracks whether selected sources already use them; it does not approve art quality or runtime replacement.",
   "summary": {
-    "queue_item_count": 56,
-    "candidate_png_count": 134,
-    "selected_source_count": 464,
+    "queue_item_count": 60,
+    "candidate_png_count": 138,
+    "selected_source_count": 468,
     "unselected_candidate_count": 104,
     "review_required_item_count": 55,
     "review_required_items": [
@@ -66,9 +66,12 @@
       "stage14_ability_status_hud_ai01"
     ],
     "target_kind_counts": {
+      "boss_animation": 1,
       "boss_direction": 1,
+      "boss_vfx": 1,
       "cg_illustration": 1,
       "character_direction": 1,
+      "combat_vfx": 1,
       "completion_ui": 1,
       "environment_background": 2,
       "environment_boss_room_background": 1,
@@ -80,6 +83,7 @@
       "icon_sheet": 2,
       "logo_direction": 1,
       "ninepatch_sheet": 1,
+      "player_animation": 1,
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
@@ -112,7 +116,8 @@
       "Batch 10": 10,
       "Batch 11": 11,
       "Batch 12": 4,
-      "Batch 13": 3
+      "Batch 13": 3,
+      "Batch 27": 4
     },
     "recovery_ledgers": [
       {
@@ -2660,6 +2665,134 @@
           "sha256": "2f28b02f8f21b7cdedf3d017fa153eae10592ff76a4207a61109202e8fc61a35",
           "width": 1511,
           "height": 1041,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage27_luna_formal_combat_body_ai01",
+      "batch": "Batch 27",
+      "target_kind": "player_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_27/stage27_luna_formal_combat_body_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_luna_formal_combat_body_ai01/candidates/stage27_luna_formal_combat_body_ai01_candidate_01.png",
+          "sha256": "71bae2ede04c7396e0223eb4058002ea68f29c10ccb08f2dd70d07af774c66ee",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage27_core_combat_vfx_ai01",
+      "batch": "Batch 27",
+      "target_kind": "combat_vfx",
+      "candidate_dir": "assets/source/ai_generated/batch_27/stage27_core_combat_vfx_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_core_combat_vfx_ai01/candidates/stage27_core_combat_vfx_ai01_candidate_01.png",
+          "sha256": "f2ad63393cf4956f98a29d56f40109c62a2a7ace94a8031bcbd5d2ec177c5707",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_vfx_ai01",
+      "batch": "Batch 27",
+      "target_kind": "boss_vfx",
+      "candidate_dir": "assets/source/ai_generated/batch_27/stage27_seal_guardian_vfx_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_vfx_ai01/candidates/stage27_seal_guardian_vfx_ai01_candidate_01.png",
+          "sha256": "89a92879e498b6adc0e9688d131477a5e0b94526918d2d2c50b8f0ea259b5c29",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_formal_motion_ai01",
+      "batch": "Batch 27",
+      "target_kind": "boss_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_27/stage27_seal_guardian_formal_motion_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_formal_motion_ai01/candidates/stage27_seal_guardian_formal_motion_ai01_candidate_01.png",
+          "sha256": "aa7d0d3be6f7e9944c7f9bdffbfe5cecb457a0c24496f0a3f0e902fdbe74f023",
+          "width": 1254,
+          "height": 1254,
           "mode": "RGB"
         }
       ]

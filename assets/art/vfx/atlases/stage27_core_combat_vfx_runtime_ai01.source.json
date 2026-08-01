@@ -1,0 +1,18 @@
+{
+  "asset_id": "stage27_core_combat_vfx_ai01",
+  "runtime_asset_id": "stage27_core_combat_vfx_runtime_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "source": "assets/source/ai_generated/batch_27/stage27_core_combat_vfx_ai01/candidates/stage27_core_combat_vfx_ai01_candidate_01.png",
+  "source_sha256": "f2ad63393cf4956f98a29d56f40109c62a2a7ace94a8031bcbd5d2ec177c5707",
+  "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_stage27",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "transparent_png",
+    "fixed_4x4_grid",
+    "stable_scale",
+    "stable_anchor"
+  ]
+}

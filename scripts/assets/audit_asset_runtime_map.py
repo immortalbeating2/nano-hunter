@@ -103,8 +103,10 @@ def main() -> int:
             if str(scene).startswith("scenes/dev/"):
                 errors.append(f"{asset_id}: development scene leaked into production references {scene}")
             scene_text = scene_path.read_text(encoding="utf-8")
-            output_res_path = "res://" + str(entry.get("output_path", "")).replace("\\", "/")
-            if asset_id not in scene_text and output_res_path not in scene_text:
+            output_value = str(entry.get("output_path", ""))
+            output_res_path = "res://" + output_value.replace("\\", "/")
+            output_stem = Path(output_value).stem
+            if asset_id not in scene_text and output_res_path not in scene_text and output_stem not in scene_text:
                 errors.append(f"{asset_id}: direct scene reference missing asset id or path in {scene}")
 
     summary = report.get("summary", {})

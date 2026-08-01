@@ -5,20 +5,20 @@
 
 ## Summary
 
-- 资产总数：`56`
+- 资产总数：`60`
 - Final ready：`55`
-- 仍有阻塞门槛的资产：`1`
+- 仍有阻塞门槛的资产：`5`
 - 每个资产验收门槛数：`7`
 
 ## Gate Summary
 
-- `source_traceability` / 来源 / prompt / hash 可追溯: passed `56`, blocked `0`
-- `license_terms` / 商业使用条款人工复核: passed `55`, blocked `1`
-- `godot_structural_resource` / Godot 结构资源可用: passed `56`, blocked `0`
-- `editor_review_card` / 编辑器复核卡可用: passed `56`, blocked `0`
-- `runtime_replacement` / 运行时引用替换与验证: passed `56`, blocked `0`
-- `family_specific_polish` / 按资产族清稿 / 读值 / 帧序 / 布局复核: passed `55`, blocked `1`
-- `final_approval` / 最终美术批准: passed `55`, blocked `1`
+- `source_traceability` / 来源 / prompt / hash 可追溯: passed `56`, blocked `4`
+- `license_terms` / 商业使用条款人工复核: passed `55`, blocked `5`
+- `godot_structural_resource` / Godot 结构资源可用: passed `60`, blocked `0`
+- `editor_review_card` / 编辑器复核卡可用: passed `60`, blocked `0`
+- `runtime_replacement` / 运行时引用替换与验证: passed `56`, blocked `4`
+- `family_specific_polish` / 按资产族清稿 / 读值 / 帧序 / 布局复核: passed `59`, blocked `1`
+- `final_approval` / 最终美术批准: passed `55`, blocked `5`
 
 ## Blocked Assets
 
@@ -74,6 +74,26 @@
 - [ ] `P0` `stage19_discovery_map_base_ai01` (ui / ui_map_foundation) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
   - `family_specific_polish`: small_size_readability_review, text_safe_area_review, runtime_layout_review
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P2` `stage27_core_combat_vfx_ai01` (other / combat_vfx) - blocked gates `4`
+  - `source_traceability`: source_or_hash_record_missing
+  - `license_terms`: license_terms_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P2` `stage27_luna_formal_combat_body_ai01` (other / player_animation) - blocked gates `4`
+  - `source_traceability`: source_or_hash_record_missing
+  - `license_terms`: license_terms_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P2` `stage27_seal_guardian_formal_motion_ai01` (other / boss_animation) - blocked gates `4`
+  - `source_traceability`: source_or_hash_record_missing
+  - `license_terms`: license_terms_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P2` `stage27_seal_guardian_vfx_ai01` (other / boss_vfx) - blocked gates `4`
+  - `source_traceability`: source_or_hash_record_missing
+  - `license_terms`: license_terms_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `storyboard_intro_bounty_ai01` (story / storyboard_sheet) - blocked gates `0`
 - [ ] `P2` `storyboard_miasma_marsh_ai01` (story / storyboard_sheet) - blocked gates `0`

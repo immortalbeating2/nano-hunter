@@ -1,0 +1,110 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_000"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_001"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_002"]
+atlas = ExtResource("1")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_003"]
+atlas = ExtResource("1")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_004"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_005"]
+atlas = ExtResource("1")
+region = Rect2(192, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_006"]
+atlas = ExtResource("1")
+region = Rect2(384, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_007"]
+atlas = ExtResource("1")
+region = Rect2(576, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_008"]
+atlas = ExtResource("1")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_009"]
+atlas = ExtResource("1")
+region = Rect2(192, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_010"]
+atlas = ExtResource("1")
+region = Rect2(384, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_011"]
+atlas = ExtResource("1")
+region = Rect2(576, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_012"]
+atlas = ExtResource("1")
+region = Rect2(0, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_013"]
+atlas = ExtResource("1")
+region = Rect2(192, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_014"]
+atlas = ExtResource("1")
+region = Rect2(384, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_015"]
+atlas = ExtResource("1")
+region = Rect2(576, 576, 192, 192)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_000")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_001")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_002")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_003")}],
+"loop": false,
+"name": &"ward_attack",
+"speed": 18.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_004")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_005")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_006")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_007")}],
+"loop": false,
+"name": &"air_attack",
+"speed": 18.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_004")}],
+"loop": false,
+"name": &"apex",
+"speed": 18.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_009")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_010")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_011")}],
+"loop": false,
+"name": &"wind_thunder_finisher",
+"speed": 18.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_012")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_013")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_014")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_015")}],
+"loop": false,
+"name": &"thunder_wind_finisher",
+"speed": 18.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_009")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_008")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_000")}],
+"loop": false,
+"name": &"element_switch",
+"speed": 18.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_012")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_013")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_012")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_000")}],
+"loop": false,
+"name": &"stance_switch",
+"speed": 18.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_015")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_012")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_luna_formal_combat_body_runtime_sheet_ai01_000")}],
+"loop": false,
+"name": &"recover",
+"speed": 18.0
+}]

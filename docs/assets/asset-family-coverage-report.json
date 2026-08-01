@@ -12,9 +12,9 @@
     "families_structurally_covered": 10,
     "format_count": 7,
     "formats_structurally_covered": 7,
-    "structural_ready_count": 55,
+    "structural_ready_count": 60,
     "final_ready_count": 55,
-    "queue_item_count": 55
+    "queue_item_count": 60
   },
   "asset_families": [
     {
@@ -229,7 +229,7 @@
       "minimum_assets": 2,
       "structural_ready_count": 4,
       "final_ready_count": 4,
-      "package_count": 2,
+      "package_count": 5,
       "package_path": [
         "editor_resources",
         "tilesets",
@@ -292,7 +292,7 @@
       "minimum_assets": 5,
       "structural_ready_count": 6,
       "final_ready_count": 6,
-      "package_count": 78,
+      "package_count": 86,
       "package_path": [
         "editor_resources",
         "vfx_rules",

@@ -1,0 +1,441 @@
+{
+  "id": "seal_guardian_formal_motion_runtime_sheet_ai01",
+  "kind": "sprite_sheet",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+  "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres",
+  "cell": [
+    256,
+    192
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frame_count": 16,
+  "animations": {
+    "close_pressure": [
+      0,
+      1
+    ],
+    "ground_impact": [
+      2,
+      3
+    ],
+    "air_warning": [
+      4,
+      5
+    ],
+    "air_punish": [
+      6,
+      7
+    ],
+    "recovery": [
+      7,
+      6,
+      5,
+      4
+    ],
+    "guard_break": [
+      8,
+      9
+    ],
+    "phase_transition": [
+      10,
+      11
+    ],
+    "hit": [
+      12
+    ],
+    "defeat": [
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "anchor": "foot",
+  "frames": [
+    {
+      "index": 0,
+      "region": [
+        0,
+        0,
+        256,
+        192
+      ],
+      "source_bbox": [
+        22,
+        81,
+        279,
+        270
+      ],
+      "normalized_size": [
+        228,
+        168
+      ],
+      "paste": [
+        14,
+        16
+      ],
+      "scale": 0.888889
+    },
+    {
+      "index": 1,
+      "region": [
+        256,
+        0,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        100,
+        289,
+        269
+      ],
+      "normalized_size": [
+        232,
+        136
+      ],
+      "paste": [
+        12,
+        48
+      ],
+      "scale": 0.802768
+    },
+    {
+      "index": 2,
+      "region": [
+        512,
+        0,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        115,
+        289,
+        275
+      ],
+      "normalized_size": [
+        232,
+        128
+      ],
+      "paste": [
+        12,
+        56
+      ],
+      "scale": 0.802768
+    },
+    {
+      "index": 3,
+      "region": [
+        768,
+        0,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        113,
+        272,
+        286
+      ],
+      "normalized_size": [
+        232,
+        148
+      ],
+      "paste": [
+        12,
+        36
+      ],
+      "scale": 0.852941
+    },
+    {
+      "index": 4,
+      "region": [
+        0,
+        192,
+        256,
+        192
+      ],
+      "source_bbox": [
+        17,
+        48,
+        271,
+        254
+      ],
+      "normalized_size": [
+        207,
+        168
+      ],
+      "paste": [
+        24,
+        16
+      ],
+      "scale": 0.815534
+    },
+    {
+      "index": 5,
+      "region": [
+        256,
+        192,
+        256,
+        192
+      ],
+      "source_bbox": [
+        4,
+        38,
+        259,
+        255
+      ],
+      "normalized_size": [
+        197,
+        168
+      ],
+      "paste": [
+        30,
+        16
+      ],
+      "scale": 0.774194
+    },
+    {
+      "index": 6,
+      "region": [
+        512,
+        192,
+        256,
+        192
+      ],
+      "source_bbox": [
+        10,
+        15,
+        254,
+        255
+      ],
+      "normalized_size": [
+        171,
+        168
+      ],
+      "paste": [
+        42,
+        16
+      ],
+      "scale": 0.7
+    },
+    {
+      "index": 7,
+      "region": [
+        768,
+        192,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        33,
+        249,
+        255
+      ],
+      "normalized_size": [
+        188,
+        168
+      ],
+      "paste": [
+        34,
+        16
+      ],
+      "scale": 0.756757
+    },
+    {
+      "index": 8,
+      "region": [
+        0,
+        384,
+        256,
+        192
+      ],
+      "source_bbox": [
+        22,
+        50,
+        271,
+        224
+      ],
+      "normalized_size": [
+        232,
+        162
+      ],
+      "paste": [
+        12,
+        22
+      ],
+      "scale": 0.931727
+    },
+    {
+      "index": 9,
+      "region": [
+        256,
+        384,
+        256,
+        192
+      ],
+      "source_bbox": [
+        9,
+        52,
+        274,
+        223
+      ],
+      "normalized_size": [
+        232,
+        150
+      ],
+      "paste": [
+        12,
+        34
+      ],
+      "scale": 0.875472
+    },
+    {
+      "index": 10,
+      "region": [
+        512,
+        384,
+        256,
+        192
+      ],
+      "source_bbox": [
+        8,
+        26,
+        253,
+        223
+      ],
+      "normalized_size": [
+        209,
+        168
+      ],
+      "paste": [
+        24,
+        16
+      ],
+      "scale": 0.852792
+    },
+    {
+      "index": 11,
+      "region": [
+        768,
+        384,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        23,
+        250,
+        223
+      ],
+      "normalized_size": [
+        210,
+        168
+      ],
+      "paste": [
+        23,
+        16
+      ],
+      "scale": 0.84
+    },
+    {
+      "index": 12,
+      "region": [
+        0,
+        576,
+        256,
+        192
+      ],
+      "source_bbox": [
+        27,
+        18,
+        274,
+        213
+      ],
+      "normalized_size": [
+        213,
+        168
+      ],
+      "paste": [
+        22,
+        16
+      ],
+      "scale": 0.861538
+    },
+    {
+      "index": 13,
+      "region": [
+        256,
+        576,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        58,
+        253,
+        216
+      ],
+      "normalized_size": [
+        232,
+        145
+      ],
+      "paste": [
+        12,
+        39
+      ],
+      "scale": 0.916996
+    },
+    {
+      "index": 14,
+      "region": [
+        512,
+        576,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        99,
+        289,
+        215
+      ],
+      "normalized_size": [
+        232,
+        93
+      ],
+      "paste": [
+        12,
+        91
+      ],
+      "scale": 0.802768
+    },
+    {
+      "index": 15,
+      "region": [
+        768,
+        576,
+        256,
+        192
+      ],
+      "source_bbox": [
+        0,
+        119,
+        261,
+        214
+      ],
+      "normalized_size": [
+        232,
+        84
+      ],
+      "paste": [
+        12,
+        100
+      ],
+      "scale": 0.888889
+    }
+  ]
+}

@@ -27,6 +27,7 @@ const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characte
 const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres"
 const LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.spriteframes.tres"
 const LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/luna_attack_slash_vfx_runtime_ai01.spriteframes.tres"
+const STAGE27_CORE_COMBAT_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.spriteframes.tres"
 const LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/luna_attack_seal_arc_vfx_runtime_ai01.spriteframes.tres"
 const LUNA_RUNTIME_VISUAL_POSITION := Vector2(0, -16)
 const LUNA_ATTACK_SLASH_VFX_POSITION := Vector2(46, -12)
@@ -370,22 +371,16 @@ func test_stage14_player_runtime_animation_visual_uses_attack_body_candidate() -
 
 	await _advance_physics_frames(3)
 	assert_true(attack_slash_vfx.visible)
-	assert_eq(attack_slash_vfx.get_meta("asset_id", ""), "luna_attack_slash_vfx_runtime_ai01")
-	assert_eq(attack_slash_vfx.sprite_frames.resource_path, LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES_PATH)
-	assert_eq(attack_slash_vfx.animation, &"attack_slash")
+	assert_eq(attack_slash_vfx.get_meta("asset_id", ""), "stage27_core_combat_vfx_runtime_ai01")
+	assert_eq(attack_slash_vfx.sprite_frames.resource_path, STAGE27_CORE_COMBAT_VFX_SPRITEFRAMES_PATH)
+	assert_eq(attack_slash_vfx.animation, &"thunder_attack")
 	assert_false(attack_slash_vfx.is_playing())
 	assert_eq(attack_slash_vfx.position, LUNA_ATTACK_SLASH_VFX_POSITION)
 	assert_gte(attack_slash_vfx.scale.x, 0.42)
 	assert_false(attack_slash_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_slash_vfx.get_meta("damage_source", true))
 	assert_false(_has_collision_or_area_child(attack_slash_vfx))
-	assert_true(attack_seal_arc_vfx.visible)
-	assert_eq(attack_seal_arc_vfx.get_meta("asset_id", ""), "luna_attack_seal_arc_vfx_runtime_ai01")
-	assert_eq(attack_seal_arc_vfx.sprite_frames.resource_path, LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES_PATH)
-	assert_eq(attack_seal_arc_vfx.animation, &"attack_seal_arc")
-	assert_false(attack_seal_arc_vfx.is_playing())
-	assert_eq(attack_seal_arc_vfx.position, LUNA_ATTACK_SEAL_ARC_VFX_POSITION)
-	assert_gte(attack_seal_arc_vfx.scale.x, 0.34)
+	assert_false(attack_seal_arc_vfx.visible, "迅捷姿态只显示元素主 VFX；护印副层留给护印姿态。")
 	assert_false(attack_seal_arc_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_seal_arc_vfx.get_meta("damage_source", true))
 	assert_false(_has_collision_or_area_child(attack_seal_arc_vfx))

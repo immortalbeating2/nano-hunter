@@ -90,6 +90,7 @@ const LEVEL_SELECT_ENTRIES := [
 	{"label": "38 Stage25 风蚀岔口", "path": "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn", "spawn": "stage25_fork_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
 	{"label": "39 Stage25 接地祭柱", "path": "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn", "spawn": "stage25_relay_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
 	{"label": "40 Stage25 驿路远眺", "path": "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn", "spawn": "stage25_outlook_start", "progress": {"wind_seal_unlocked": true, "current_element_id": "wind"}},
+	{"label": "DEBUG 北极星全能力巡检", "path": "res://scenes/rooms/stage15_seal_guardian_boss_room.tscn", "spawn": "stage15_boss_start", "debug_only": true, "progress": {"air_dash_unlocked": true, "wind_seal_unlocked": true, "current_element_id": "wind", "current_stance_id": "swift", "stage14_backtrack_reward_count": 3, "exploration_rewards": ["marsh_relic", "warden_sigil", "caster_core", "guardian_core"], "equipped_build_ids": ["caster_core", "guardian_core"], "active_build_id": "caster_core"}},
 	{"label": "支线 Stage10 资源房", "path": "res://scenes/rooms/stage10_zone_branch_room.tscn", "spawn": "stage10_branch_start"},
 	{"label": "支线 Stage13 资源房", "path": "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn", "spawn": "stage13_resource_branch_start"},
 	{"label": "支线 Stage13 挑战房", "path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "spawn": "stage13_challenge_branch_start"},
@@ -333,6 +334,8 @@ func _ensure_level_select_list() -> void:
 	_level_select_scroll.add_child(_level_select_list)
 
 	for entry: Dictionary in LEVEL_SELECT_ENTRIES:
+		if bool(entry.get("debug_only", false)) and not OS.is_debug_build():
+			continue
 		var button := Button.new()
 		button.text = str(entry.get("label", "未命名关卡"))
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL

@@ -4,6 +4,11 @@
 
 ## 2026-08-01
 
+- **Stage27 正式战斗美术与首批音频技术候选完成**：以现有 Stage21-22 战斗权威为边界，补齐 Luna 姿态 / 空中 / 两序列动作表现、四类独立 VFX 和 Seal Guardian 状态动作 / VFX。
+  结果：四张 4x4 image_gen 网格经本地 alpha 清理、锚点归一与 SpriteFrames 构建后进入生产脚本；Debug build 增加全能力巡检预设。六个 Stable Audio scratch 候选按并发 `1` 生成，人工试听前不进入项目 runtime。资产治理为 `60/60 structural-ready`、`55/60 final-ready`，五个人工阻断保持可见。
+  关键验证或结论：Stage21/22/24/26/27 `25/25`；递归 GUT `44` scripts / `305/305` / `8589`，Godot `4.6.3` import、smoke、strict package 和 MCP 生产主场景状态 / 连续帧 / 截图复核通过。运行场景、当前 editor 和临时 autoload 已清理；音频试听、响度 / 叠爆、美术审美和授权批准继续归 Gate26H。
+  详情日志链接：`docs/progress/logs/2026-08-01.md`；执行清单：`docs/implementation-plans/2026-08-01-stage27-formal-combat-art-audio.md`；资产矩阵：`docs/assets/stage27-formal-combat-asset-matrix.md`。
+
 - **Gate26M Godot MCP Pro 自动技术门禁完成**：用生产主场景验证确定性输入、焦点、暂停、状态和渲染链。
   结果：主菜单、暂停 / 继续、44 房地图、悬赏榜、两槽 Build 与返回状态走通；运行态 InputMap 读到完整键盘 / 手柄生产映射。风→雷、雷→风和御印切换均进入公开快照，攻击连续捕获 `6` 帧；Stage23 接取与 Stage24 槽满拒绝状态正确。
   关键验证或结论：同一新鲜基线递归 GUT `301/301`；没有稳定产品缺口。当前插件未实现 `record_frames` 且 editor-only input 查询不含项目动作，分别由 `capture_frames` 和运行态 InputMap 替代。场景、当前 workspace editor 和临时 autoload 已清理，工程配置无 diff；本门禁不替代 Gate26H 真人签核。

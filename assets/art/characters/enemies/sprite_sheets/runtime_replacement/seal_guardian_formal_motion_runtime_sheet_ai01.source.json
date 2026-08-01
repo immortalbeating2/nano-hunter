@@ -1,0 +1,18 @@
+{
+  "asset_id": "stage27_seal_guardian_formal_motion_ai01",
+  "runtime_asset_id": "seal_guardian_formal_motion_runtime_sheet_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "source": "assets/source/ai_generated/batch_27/stage27_seal_guardian_formal_motion_ai01/candidates/stage27_seal_guardian_formal_motion_ai01_candidate_01.png",
+  "source_sha256": "aa7d0d3be6f7e9944c7f9bdffbfe5cecb457a0c24496f0a3f0e902fdbe74f023",
+  "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_stage27",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "transparent_png",
+    "fixed_4x4_grid",
+    "stable_scale",
+    "stable_anchor"
+  ]
+}

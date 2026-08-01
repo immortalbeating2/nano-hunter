@@ -23,11 +23,9 @@ const STATE_DEFEATED: StringName = &"defeated"
 
 # Seal Guardian 的正式替换动作只接入通过几何审查的 body clips；攻击 VFX 仍由独立视觉层承担。
 const SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres")
-const SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_warning_runtime_sheet_ai01.spriteframes.tres")
-const SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.spriteframes.tres")
-const SEAL_GUARDIAN_STAGGER_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_stagger_runtime_sheet_ai01.spriteframes.tres")
-const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres")
-const SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres")
+const SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres")
+const SEAL_GUARDIAN_FORMAL_VFX_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.spriteframes.tres")
+const PHASE_TRANSITION_VISUAL_DURATION := 0.5
 
 # 导出参数是 Stage15 原型的调参面板：生命、护印、读招时长、伤害窗口和占位颜色。
 @export var max_health: int = 8
@@ -57,6 +55,8 @@ var _phase_index := 1
 var _state_elapsed := 0.0
 var _hit_flash_remaining := 0.0
 var _strike_has_dealt_damage := false
+var _planned_strike_state: StringName = STATE_GROUND_IMPACT
+var _phase_transition_visual_remaining := 0.0
 var _last_hit_direction := Vector2.ZERO
 var _last_knockback_force := 0.0
 
@@ -81,11 +81,11 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_update_hit_flash(delta)
+	_phase_transition_visual_remaining = maxf(_phase_transition_visual_remaining - delta, 0.0)
 	_update_phase()
 	_update_attack_loop(delta)
-	if current_state == STATE_GROUND_IMPACT or current_state == STATE_AIR_PUNISH or current_state == STATE_RECOVERY:
-		_sync_runtime_animation_visual()
-		_sync_attack_vfx_visual()
+	_sync_runtime_animation_visual()
+	_sync_attack_vfx_visual()
 
 
 # 接收 Boss 房注入的玩家引用，用于距离触发、空中惩罚和伤害方向计算。
@@ -145,6 +145,8 @@ func reset_boss() -> void:
 	_state_elapsed = 0.0
 	_hit_flash_remaining = 0.0
 	_strike_has_dealt_damage = false
+	_planned_strike_state = STATE_GROUND_IMPACT
+	_phase_transition_visual_remaining = 0.0
 	_last_hit_direction = Vector2.ZERO
 	_last_knockback_force = 0.0
 	if _collision_shape != null:
@@ -257,7 +259,7 @@ func _update_attack_loop(delta: float) -> void:
 		STATE_CLOSE_PRESSURE:
 			_state_elapsed += delta
 			if _state_elapsed >= windup_duration:
-				_enter_state(_choose_strike_state())
+				_enter_state(_planned_strike_state)
 		STATE_GROUND_IMPACT, STATE_AIR_PUNISH:
 			_state_elapsed += delta
 			if _state_elapsed >= strike_duration and not _strike_has_dealt_damage:
@@ -358,6 +360,7 @@ func _update_phase() -> void:
 		return
 
 	_phase_index = 2
+	_phase_transition_visual_remaining = PHASE_TRANSITION_VISUAL_DURATION
 	phase_changed.emit(_phase_index)
 
 
@@ -377,6 +380,7 @@ func _enter_state(next_state: StringName) -> void:
 	_state_elapsed = 0.0
 	_strike_has_dealt_damage = false
 	if next_state == STATE_CLOSE_PRESSURE:
+		_planned_strike_state = _choose_strike_state()
 		attack_started.emit(next_state)
 	state_changed.emit(current_state)
 	_refresh_body_color()
@@ -448,38 +452,55 @@ func _sync_runtime_animation_visual() -> void:
 	var target_animation: StringName = &""
 	var target_asset_id := ""
 	var manual_frame := -1
-	match current_state:
-		STATE_IDLE:
-			target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
-			target_animation = &"idle"
-			target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
-		STATE_CLOSE_PRESSURE:
-			target_frames = SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES
-			target_animation = &"warning"
-			target_asset_id = "seal_guardian_warning_runtime_sheet_ai01"
-		STATE_GROUND_IMPACT, STATE_AIR_PUNISH:
-			target_frames = SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES
-			target_animation = &"attack_body"
-			target_asset_id = "seal_guardian_attack_body_runtime_sheet_ai02"
-			manual_frame = _map_attack_contract_frame(0, 3, strike_duration)
-		STATE_RECOVERY:
-			target_frames = SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES
-			target_animation = &"attack_body"
-			target_asset_id = "seal_guardian_attack_body_runtime_sheet_ai02"
-			manual_frame = _map_attack_contract_frame(4, 7, _get_phase_adjusted_recovery_duration())
-		STATE_STAGGERED:
-			target_frames = SEAL_GUARDIAN_STAGGER_RUNTIME_SPRITEFRAMES
-			target_animation = &"staggered"
-			target_asset_id = "seal_guardian_stagger_runtime_sheet_ai01"
-		STATE_DEFEATED:
-			target_frames = SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES
-			target_animation = &"defeat"
-			target_asset_id = "seal_guardian_defeat_runtime_sheet_ai01"
-		_:
-			push_error("Seal Guardian runtime animation has no state mapping: %s" % current_state)
-			target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
-			target_animation = &"idle"
-			target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
+	if current_state == STATE_DEFEATED:
+		target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+		target_animation = &"defeat"
+		target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+	elif _phase_transition_visual_remaining > 0.0:
+		target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+		target_animation = &"phase_transition"
+		target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+	elif _hit_flash_remaining > 0.0 and current_state != STATE_STAGGERED:
+		target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+		target_animation = &"hit"
+		target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+		manual_frame = 0
+	else:
+		match current_state:
+			STATE_IDLE:
+				target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
+				target_animation = &"idle"
+				target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
+			STATE_CLOSE_PRESSURE:
+				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+				target_animation = &"air_warning" if _planned_strike_state == STATE_AIR_PUNISH else &"close_pressure"
+				target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+				manual_frame = _map_attack_contract_frame(0, 1, windup_duration)
+			STATE_GROUND_IMPACT:
+				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+				target_animation = &"ground_impact"
+				target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+				manual_frame = _map_attack_contract_frame(0, 1, strike_duration)
+			STATE_AIR_PUNISH:
+				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+				target_animation = &"air_punish"
+				target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+				manual_frame = _map_attack_contract_frame(0, 1, strike_duration)
+			STATE_RECOVERY:
+				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+				target_animation = &"recovery"
+				target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+				manual_frame = _map_attack_contract_frame(0, 3, _get_phase_adjusted_recovery_duration())
+			STATE_STAGGERED:
+				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+				target_animation = &"guard_break"
+				target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+				manual_frame = _map_attack_contract_frame(0, 1, stagger_duration)
+			_:
+				push_error("Seal Guardian runtime animation has no state mapping: %s" % current_state)
+				target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
+				target_animation = &"idle"
+				target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
 
 	_runtime_animation_visual.visible = true
 	var clip_changed := false
@@ -510,23 +531,43 @@ func _sync_attack_vfx_visual() -> void:
 		return
 
 	var is_strike := current_state == STATE_GROUND_IMPACT or current_state == STATE_AIR_PUNISH
-	var should_show := is_strike or current_state == STATE_RECOVERY
-	if not should_show:
+	var animation_name: StringName = &""
+	var manual_frame := -1
+	if current_state == STATE_DEFEATED:
+		animation_name = &"defeat"
+	elif _phase_transition_visual_remaining > 0.0:
+		animation_name = &"phase_transition"
+	elif current_state == STATE_CLOSE_PRESSURE:
+		animation_name = &"warning"
+		manual_frame = _map_attack_contract_frame(0, 3, windup_duration)
+	elif is_strike:
+		animation_name = &"impact"
+		manual_frame = _map_attack_contract_frame(0, 3, strike_duration)
+	elif current_state == STATE_RECOVERY:
+		animation_name = &"impact"
+		manual_frame = 3 - _map_attack_contract_frame(0, 3, _get_phase_adjusted_recovery_duration())
+	elif current_state == STATE_STAGGERED:
+		animation_name = &"guard_break"
+		manual_frame = _map_attack_contract_frame(0, 3, stagger_duration)
+
+	if animation_name == StringName():
 		_attack_vfx_visual.visible = false
 		_attack_vfx_visual.stop()
 		return
 
 	_attack_vfx_visual.visible = true
-	if _attack_vfx_visual.sprite_frames != SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES:
-		_attack_vfx_visual.sprite_frames = SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES
-	if _attack_vfx_visual.animation != &"boss_attack_vfx":
-		_attack_vfx_visual.animation = &"boss_attack_vfx"
-	_attack_vfx_visual.set_meta("asset_id", "seal_guardian_attack_vfx_atlas_ai01")
+	var clip_changed := (
+		_attack_vfx_visual.sprite_frames != SEAL_GUARDIAN_FORMAL_VFX_SPRITEFRAMES
+		or _attack_vfx_visual.animation != animation_name
+	)
+	_attack_vfx_visual.sprite_frames = SEAL_GUARDIAN_FORMAL_VFX_SPRITEFRAMES
+	_attack_vfx_visual.animation = animation_name
+	_attack_vfx_visual.position = Vector2(0.0, -34.0 if animation_name == &"phase_transition" or animation_name == &"defeat" else 0.0)
+	_attack_vfx_visual.set_meta("asset_id", "stage27_seal_guardian_vfx_runtime_ai01")
 	_attack_vfx_visual.set_meta("gameplay_collision", false)
 	_attack_vfx_visual.set_meta("damage_source", false)
-	_attack_vfx_visual.pause()
-	_attack_vfx_visual.frame = (
-		_map_attack_contract_frame(0, 3, strike_duration)
-		if is_strike
-		else _map_attack_contract_frame(4, 7, _get_phase_adjusted_recovery_duration())
-	)
+	if manual_frame >= 0:
+		_attack_vfx_visual.pause()
+		_attack_vfx_visual.frame = manual_frame
+	elif clip_changed or not _attack_vfx_visual.is_playing():
+		_attack_vfx_visual.play(animation_name)

@@ -3,13 +3,16 @@
   "status": "placeholder_ready",
   "boundary": "Art readiness audit. structural_ready means generated PNGs and metadata are usable by the pipeline. final_ready remains false until license records, manual cleanup, semantic naming, runtime replacement, and gameplay readability checks are completed.",
   "summary": {
-    "item_count": 56,
-    "structural_ready_count": 56,
+    "item_count": 60,
+    "structural_ready_count": 60,
     "final_ready_count": 55,
     "kind_counts": {
+      "boss_animation": 1,
       "boss_direction": 1,
+      "boss_vfx": 1,
       "cg_illustration": 1,
       "character_direction": 1,
+      "combat_vfx": 1,
       "completion_ui": 1,
       "environment_background": 2,
       "environment_boss_room_background": 1,
@@ -21,6 +24,7 @@
       "icon_sheet": 2,
       "logo_direction": 1,
       "ninepatch_sheet": 1,
+      "player_animation": 1,
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
@@ -43,7 +47,8 @@
     },
     "warnings_by_type": {},
     "blockers_by_type": {
-      "license_terms_manual_review": 1,
+      "license_terms_manual_review": 5,
+      "runtime_catalog_ready_manual_replacement": 4,
       "runtime_layout_review": 1,
       "small_size_readability_review": 1,
       "text_safe_area_review": 1
@@ -5293,6 +5298,282 @@
         "small_size_readability_review",
         "text_safe_area_review",
         "runtime_layout_review"
+      ]
+    },
+    {
+      "asset_id": "stage27_luna_formal_combat_body_ai01",
+      "target_kind": "player_animation",
+      "output_path": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 768,
+        "height": 768,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.7501,
+        "opaque_pixel_ratio": 0.265318,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "project_session_confirmed",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "31f9ff2ee0e685e998248319bb752821e2f2ac5fc3f0dfeae7c827fa30e30e1d",
+        "candidate_count": 1,
+        "output_sha256": "625c56954a345ce9b0c964b4996e0d5c5757d06ad85cd130d5bf4d2845a3ce98"
+      },
+      "runtime_map": {
+        "track": "runtime_animation",
+        "target_system": "player state animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/player/player_placeholder.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 0,
+        "referenced_scenes": [],
+        "resource_path": "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
+      ]
+    },
+    {
+      "asset_id": "stage27_core_combat_vfx_ai01",
+      "target_kind": "combat_vfx",
+      "output_path": "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 768,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.945794,
+        "opaque_pixel_ratio": 0.062088,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "project_session_confirmed",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "d4f61757c334b9878f44e8b5dc85689e60ce9d37d614ffa2568d93b859e697da",
+        "candidate_count": 1,
+        "output_sha256": "1a2bfbc51c80b1af6e8aff5b58dfe3c559262e446e7490224c0220d18be0e263"
+      },
+      "runtime_map": {
+        "track": "runtime_vfx",
+        "target_system": "player combat VFX replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/player/player_placeholder.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 0,
+        "referenced_scenes": [],
+        "resource_path": "res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_vfx_ai01",
+      "target_kind": "boss_vfx",
+      "output_path": "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 768,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.834455,
+        "opaque_pixel_ratio": 0.177266,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "project_session_confirmed",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "e3369ef0a725022abf02727afd8e2e4f690d0e61dcdc29143971616a509c73ac",
+        "candidate_count": 1,
+        "output_sha256": "d4e12179bfe7a83bf737e370c20f0a9d6de736667ee783feebc7bd3b0f324d4f"
+      },
+      "runtime_map": {
+        "track": "runtime_vfx",
+        "target_system": "boss state VFX replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 0,
+        "referenced_scenes": [],
+        "resource_path": "res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_formal_motion_ai01",
+      "target_kind": "boss_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 768,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.666988,
+        "opaque_pixel_ratio": 0.352656,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "project_session_confirmed",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "f034f47d6fae953659568193a2bdf3c907dc3e49a1b320b07d4b315a622fa67f",
+        "candidate_count": 1,
+        "output_sha256": "78c06243fe05f147c2084f74ea94c6a3e7c60ed300ec30f3285fb52d9ce0354f"
+      },
+      "runtime_map": {
+        "track": "runtime_animation",
+        "target_system": "boss state animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 0,
+        "referenced_scenes": [],
+        "resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
       ]
     }
   ],

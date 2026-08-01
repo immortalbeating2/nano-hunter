@@ -21,44 +21,46 @@
     "final_approval": "最终美术批准"
   },
   "summary": {
-    "asset_count": 56,
+    "asset_count": 60,
     "final_ready_count": 55,
-    "blocked_asset_count": 1,
+    "blocked_asset_count": 5,
     "gate_count": 7,
     "gate_summary": {
       "source_traceability": {
         "passed": 56,
-        "blocked": 0
+        "blocked": 4
       },
       "license_terms": {
         "passed": 55,
-        "blocked": 1
+        "blocked": 5
       },
       "godot_structural_resource": {
-        "passed": 56,
+        "passed": 60,
         "blocked": 0
       },
       "editor_review_card": {
-        "passed": 56,
+        "passed": 60,
         "blocked": 0
       },
       "runtime_replacement": {
         "passed": 56,
-        "blocked": 0
+        "blocked": 4
       },
       "family_specific_polish": {
-        "passed": 55,
+        "passed": 59,
         "blocked": 1
       },
       "final_approval": {
         "passed": 55,
-        "blocked": 1
+        "blocked": 5
       }
     },
     "blocked_by_priority": {
-      "P0": 1
+      "P0": 1,
+      "P2": 4
     },
     "blocked_by_family": {
+      "other": 4,
       "ui": 1
     }
   },
@@ -3607,6 +3609,326 @@
             "text_safe_area_review",
             "runtime_layout_review"
           ]
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "stage27_core_combat_vfx_ai01",
+      "target_kind": "combat_vfx",
+      "family": "other",
+      "priority": "P2",
+      "output_path": "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 4,
+      "gates": {
+        "source_traceability": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png"
+          ],
+          "blockers": [
+            "source_or_hash_record_missing"
+          ]
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+            "res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png"
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
+        },
+        "family_specific_polish": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": []
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "stage27_luna_formal_combat_body_ai01",
+      "target_kind": "player_animation",
+      "family": "other",
+      "priority": "P2",
+      "output_path": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 4,
+      "gates": {
+        "source_traceability": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png"
+          ],
+          "blockers": [
+            "source_or_hash_record_missing"
+          ]
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+            "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png"
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
+        },
+        "family_specific_polish": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": []
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "stage27_seal_guardian_formal_motion_ai01",
+      "target_kind": "boss_animation",
+      "family": "other",
+      "priority": "P2",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 4,
+      "gates": {
+        "source_traceability": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png"
+          ],
+          "blockers": [
+            "source_or_hash_record_missing"
+          ]
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png"
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
+        },
+        "family_specific_polish": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": []
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "stage27_seal_guardian_vfx_ai01",
+      "target_kind": "boss_vfx",
+      "family": "other",
+      "priority": "P2",
+      "output_path": "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 4,
+      "gates": {
+        "source_traceability": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png"
+          ],
+          "blockers": [
+            "source_or_hash_record_missing"
+          ]
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+            "res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png"
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
+        },
+        "family_specific_polish": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": []
         },
         "final_approval": {
           "status": "blocked",

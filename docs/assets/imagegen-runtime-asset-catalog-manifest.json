@@ -1,12 +1,12 @@
 {
 	"boundary": "Runtime catalog only. It proves resources can be loaded through a Godot ResourcePreloader; it does not replace gameplay scene references or approve final art.",
 	"counts": {
-		"entry_count": 56,
+		"entry_count": 60,
 		"missing_count": 0,
-		"resource_count": 56,
+		"resource_count": 60,
 		"resource_type_counts": {
 			"AtlasTexture": 5,
-			"CompressedTexture2D": 38,
+			"CompressedTexture2D": 42,
 			"SpriteFrames": 10,
 			"StyleBoxTexture": 1,
 			"TileSet": 2
@@ -17,10 +17,11 @@
 			"art_direction": 1,
 			"narrative_or_release": 4,
 			"release_promo": 3,
+			"runtime_animation": 2,
 			"runtime_environment": 10,
 			"runtime_gameplay": 4,
 			"runtime_ui": 9,
-			"runtime_vfx": 4,
+			"runtime_vfx": 6,
 			"source_dev": 10
 		}
 	},
@@ -584,6 +585,46 @@
 			"target_kind": "ui_map_foundation",
 			"target_system": "discovery map background and ornamental frame",
 			"track": "runtime_ui"
+		},
+		{
+			"asset_id": "stage27_luna_formal_combat_body_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+			"target_kind": "player_animation",
+			"target_system": "player state animation replacement",
+			"track": "runtime_animation"
+		},
+		{
+			"asset_id": "stage27_core_combat_vfx_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+			"target_kind": "combat_vfx",
+			"target_system": "player combat VFX replacement",
+			"track": "runtime_vfx"
+		},
+		{
+			"asset_id": "stage27_seal_guardian_vfx_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+			"target_kind": "boss_vfx",
+			"target_system": "boss state VFX replacement",
+			"track": "runtime_vfx"
+		},
+		{
+			"asset_id": "stage27_seal_guardian_formal_motion_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+			"target_kind": "boss_animation",
+			"target_system": "boss state animation replacement",
+			"track": "runtime_animation"
 		}
 	],
 	"missing": [],

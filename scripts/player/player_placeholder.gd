@@ -50,6 +50,7 @@ const WARD_STANCE_KNOCKBACK_MULTIPLIER := 1.15
 const WIND_THUNDER_REACH_BONUS := 24.0
 const THUNDER_WIND_HEIGHT_BONUS := 16.0
 const THUNDER_WIND_KNOCKBACK_MULTIPLIER := 1.75
+const PRESENTATION_ACTION_DURATION := 0.22
 
 # 短动作不自然播放完整长素材，而是由 gameplay phase 选择可读关键帧。
 const LUNA_ATTACK_KEYFRAMES := [4, 6, 7, 8, 10, 12]
@@ -65,8 +66,9 @@ const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/charact
 const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.spriteframes.tres")
-const LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES := preload("res://assets/art/vfx/atlases/luna_attack_slash_vfx_runtime_ai01.spriteframes.tres")
+const LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.spriteframes.tres")
 const LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES := preload("res://assets/art/vfx/atlases/luna_attack_seal_arc_vfx_runtime_ai01.spriteframes.tres")
+const STAGE27_CORE_COMBAT_VFX_SPRITEFRAMES := preload("res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.spriteframes.tres")
 
 # PlayerConfig 负责手感调参；运行期只复制字段，不反向修改资源。
 @export var player_config: PlayerConfig
@@ -138,6 +140,8 @@ var _sequence_window_remaining := 0.0
 var _sequence_reaction_id: StringName = &""
 var _active_attack_reaction_id: StringName = &""
 var _stance_switch_cooldown_remaining := 0.0
+var _presentation_action_id: StringName = &""
+var _presentation_action_remaining := 0.0
 var _current_dash_started_in_air := false
 var _body_idle_color := Color(1.0, 1.0, 1.0, 1.0)
 var _damage_invulnerability_remaining := 0.0
@@ -214,6 +218,7 @@ func _physics_process(delta: float) -> void:
 	_update_damage_invulnerability(delta)
 	_update_hit_react_visual(delta)
 	_update_element_sequence(delta)
+	_update_presentation_action(delta)
 	_stance_switch_cooldown_remaining = maxf(_stance_switch_cooldown_remaining - delta, 0.0)
 
 	var jump_pressed := Input.is_action_just_pressed("jump")
@@ -521,23 +526,32 @@ func _sync_attack_vfx_visuals() -> void:
 
 	var visual_elapsed := _attack_elapsed - attack_startup_duration
 	var visual_duration := attack_active_duration + attack_recovery_duration
-	var target_frame := _select_keyframe(LUNA_ATTACK_VFX_KEYFRAMES, visual_elapsed, visual_duration)
+	var target_frame := _select_keyframe([0, 1, 2, 3], visual_elapsed, visual_duration)
+	var vfx_animation: StringName = &"wind_attack" if _current_element_id == ELEMENT_WIND else &"thunder_attack"
+	if _active_attack_reaction_id == REACTION_WIND_THUNDER:
+		vfx_animation = &"wind_thunder_pierce"
+	elif _active_attack_reaction_id == REACTION_THUNDER_WIND:
+		vfx_animation = &"thunder_wind_scatter"
 	_sync_attack_vfx_visual(
 		_attack_slash_vfx_visual,
-		LUNA_ATTACK_SLASH_VFX_SPRITEFRAMES,
-		&"attack_slash",
-		"luna_attack_slash_vfx_runtime_ai01",
+		STAGE27_CORE_COMBAT_VFX_SPRITEFRAMES,
+		vfx_animation,
+		"stage27_core_combat_vfx_runtime_ai01",
 		Vector2(absf(attack_hitbox_offset.x) + 20.0, attack_hitbox_offset.y - 8.0),
 		target_frame,
 	)
-	_sync_attack_vfx_visual(
-		_attack_seal_arc_vfx_visual,
-		LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES,
-		&"attack_seal_arc",
-		"luna_attack_seal_arc_vfx_runtime_ai01",
-		Vector2(absf(attack_hitbox_offset.x) + 12.0, attack_hitbox_offset.y - 8.0),
-		target_frame,
-	)
+	if _current_stance_id == STANCE_WARD:
+		_sync_attack_vfx_visual(
+			_attack_seal_arc_vfx_visual,
+			LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES,
+			&"attack_seal_arc",
+			"luna_attack_seal_arc_vfx_runtime_ai01",
+			Vector2(absf(attack_hitbox_offset.x) + 12.0, attack_hitbox_offset.y - 8.0),
+			_select_keyframe(LUNA_ATTACK_VFX_KEYFRAMES, visual_elapsed, visual_duration),
+		)
+	elif _attack_seal_arc_vfx_visual != null:
+		_attack_seal_arc_vfx_visual.visible = false
+		_attack_seal_arc_vfx_visual.stop()
 
 
 # 单个攻击 VFX 节点只负责视觉播放，不参与攻击判定、碰撞或伤害。
@@ -559,7 +573,11 @@ func _sync_attack_vfx_visual(
 	visual.set_meta("asset_id", asset_id)
 	visual.set_meta("gameplay_collision", false)
 	visual.set_meta("damage_source", false)
-	visual.modulate = _get_element_vfx_color(0.76 if visual == _attack_slash_vfx_visual else 0.58)
+	visual.modulate = (
+		Color(1.0, 1.0, 1.0, 0.92)
+		if sprite_frames == STAGE27_CORE_COMBAT_VFX_SPRITEFRAMES
+		else _get_element_vfx_color(0.58)
+	)
 	visual.pause()
 	visual.frame = target_frame
 
@@ -655,23 +673,58 @@ func _update_runtime_animation_visual() -> void:
 		target_animation = &"air_dash_body"
 		target_asset_id = "luna_air_dash_body_runtime_sheet_ai03"
 		manual_frame = _select_keyframe(LUNA_AIR_DASH_KEYFRAMES, _dash_elapsed, dash_duration)
+	elif current_state == STATE_ATTACK or current_state == STATE_AIR_ATTACK:
+		if _active_attack_reaction_id == REACTION_WIND_THUNDER:
+			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
+			target_animation = &"wind_thunder_finisher"
+			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
+			manual_frame = _get_formal_attack_body_keyframe()
+		elif _active_attack_reaction_id == REACTION_THUNDER_WIND:
+			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
+			target_animation = &"thunder_wind_finisher"
+			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
+			manual_frame = _get_formal_attack_body_keyframe()
+		elif current_state == STATE_AIR_ATTACK:
+			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
+			target_animation = &"air_attack"
+			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
+			manual_frame = _get_formal_attack_body_keyframe()
+		elif _current_stance_id == STANCE_WARD:
+			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
+			target_animation = &"ward_attack"
+			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
+			manual_frame = _get_formal_attack_body_keyframe()
+		else:
+			target_frames = LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES
+			target_animation = &"attack_body"
+			target_asset_id = "luna_attack_body_runtime_sheet_ai03"
+			manual_frame = _get_attack_body_keyframe()
+	elif _presentation_action_remaining > 0.0:
+		target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
+		target_animation = _presentation_action_id
+		target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
 	elif current_state == STATE_RUN:
 		target_frames = LUNA_RUN_RUNTIME_SPRITEFRAMES
 		target_animation = &"run"
 		target_asset_id = "luna_run_runtime_sheet_ai03"
 	elif current_state == STATE_JUMP_RISE:
-		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
-		target_animation = &"jump_start" if _jump_visual_elapsed < 0.25 else &"rise_hold"
-		target_asset_id = "luna_jump_state_runtime_sheet_ai04"
+		if absf(velocity.y) < 80.0:
+			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
+			target_animation = &"apex"
+			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
+		else:
+			target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
+			target_animation = &"jump_start" if _jump_visual_elapsed < 0.25 else &"rise_hold"
+			target_asset_id = "luna_jump_state_runtime_sheet_ai04"
 	elif current_state == STATE_JUMP_FALL:
-		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
-		target_animation = &"fall_hold"
-		target_asset_id = "luna_jump_state_runtime_sheet_ai04"
-	elif current_state == STATE_ATTACK or current_state == STATE_AIR_ATTACK:
-		target_frames = LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES
-		target_animation = &"attack_body"
-		target_asset_id = "luna_attack_body_runtime_sheet_ai03"
-		manual_frame = _get_attack_body_keyframe()
+		if absf(velocity.y) < 80.0:
+			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
+			target_animation = &"apex"
+			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
+		else:
+			target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
+			target_animation = &"fall_hold"
+			target_asset_id = "luna_jump_state_runtime_sheet_ai04"
 	elif current_state == STATE_LAND:
 		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
 		target_animation = &"land"
@@ -724,6 +777,11 @@ func _get_attack_body_keyframe() -> int:
 		_attack_elapsed - active_end,
 		attack_recovery_duration
 	)
+
+
+# Stage27 四帧动作补片只映射现有攻击窗口，不改变 startup / active / recovery 时序。
+func _get_formal_attack_body_keyframe() -> int:
+	return _select_keyframe([0, 1, 2, 3], _attack_elapsed, _get_attack_total_duration())
 
 
 # 把动作内归一化进度映射到少量可读关键帧，避免长素材被短 gameplay 状态截断。
@@ -916,6 +974,7 @@ func set_current_element_id(element_id: StringName) -> void:
 
 	_current_element_id = resolved_element
 	element_changed.emit(_current_element_id)
+	_start_presentation_action(&"element_switch")
 
 
 func get_current_element_id() -> StringName:
@@ -943,6 +1002,7 @@ func set_current_stance_id(stance_id: StringName) -> void:
 
 	_current_stance_id = resolved_stance
 	stance_changed.emit(_current_stance_id)
+	_start_presentation_action(&"stance_switch")
 
 
 func get_current_stance_id() -> StringName:
@@ -971,6 +1031,20 @@ func _update_element_sequence(delta: float) -> void:
 	_sequence_window_remaining = maxf(_sequence_window_remaining - delta, 0.0)
 	if _sequence_window_remaining <= 0.0:
 		clear_element_sequence()
+
+
+# 元素、姿态与恢复动作只覆盖短暂显示，不阻断移动或改写玩家 gameplay state。
+func _start_presentation_action(action_id: StringName) -> void:
+	_presentation_action_id = action_id
+	_presentation_action_remaining = PRESENTATION_ACTION_DURATION
+
+
+func _update_presentation_action(delta: float) -> void:
+	if _presentation_action_remaining <= 0.0:
+		return
+	_presentation_action_remaining = maxf(_presentation_action_remaining - delta, 0.0)
+	if _presentation_action_remaining <= 0.0:
+		_presentation_action_id = &""
 
 
 func clear_element_sequence() -> void:
@@ -1143,6 +1217,7 @@ func spend_recovery_charge() -> bool:
 		health_changed.emit(current_health, max_health)
 	recovery_charge_changed.emit(get_recovery_charge_ratio(), can_spend_recovery_charge())
 	recovery_charge_spent.emit(current_health - previous_health)
+	_start_presentation_action(&"recover")
 	return true
 
 

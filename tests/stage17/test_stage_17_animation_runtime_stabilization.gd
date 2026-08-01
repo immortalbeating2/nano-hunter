@@ -220,7 +220,7 @@ func test_boss_attack_recovery_and_stagger_are_visible_and_distinct() -> void:
 		if attack_boss.call("get_boss_state") == &"recovery":
 			recovery_seen = true
 			assert_true(attack_visual.visible)
-			assert_eq(attack_visual.animation, &"attack_body")
+			assert_eq(attack_visual.animation, &"recovery")
 			break
 	assert_true(recovery_seen, "Boss strike 后没有进入独立 recovery。")
 
@@ -231,8 +231,8 @@ func test_boss_attack_recovery_and_stagger_are_visible_and_distinct() -> void:
 
 	assert_eq(stagger_boss.call("get_boss_state"), &"staggered")
 	assert_true(stagger_visual.visible, "Boss staggered 不能落入隐藏分支。")
-	assert_eq(stagger_visual.animation, &"staggered")
-	assert_eq(stagger_visual.get_meta("asset_id", ""), "seal_guardian_stagger_runtime_sheet_ai01")
+	assert_eq(stagger_visual.animation, &"guard_break")
+	assert_eq(stagger_visual.get_meta("asset_id", ""), "seal_guardian_formal_motion_runtime_sheet_ai01")
 
 
 # Boss 单次攻击只能结算一次伤害，同时 body 与 VFX 必须进入后半恢复帧。
@@ -254,8 +254,8 @@ func test_boss_attack_body_and_vfx_reach_late_frames_and_damage_once() -> void:
 			max_vfx_frame = maxi(max_vfx_frame, vfx.frame)
 
 	assert_eq(player.call("get_current_health"), starting_health - 1, "Boss 单次 attack cycle 只能结算一次伤害。")
-	assert_gte(max_body_frame, 4, "Boss body 没有进入 recovery 后半帧。")
-	assert_gte(max_vfx_frame, 4, "Boss VFX 没有进入 recovery 后半帧。")
+	assert_gte(max_body_frame, 2, "Boss body 没有进入四帧动作的后半段。")
+	assert_gte(max_vfx_frame, 2, "Boss VFX 没有进入四帧动作的后半段。")
 
 
 # 构造带地板的真实玩家，供攻击、Dash、跳跃和受击状态在物理帧中运行。

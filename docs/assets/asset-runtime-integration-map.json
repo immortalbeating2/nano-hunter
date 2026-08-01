@@ -1,28 +1,29 @@
 {
   "version": 1,
   "status": "runtime_map_scene_reference_split_ready",
-  "boundary": "Runtime/release integration map only. It assigns generated assets to target systems, resource types and candidate scenes, and records production and development references separately; it does not approve final art quality.",
+  "boundary": "Runtime/release integration map only. It assigns generated assets to target systems, resource types and candidate scenes, and records production and development consumer references separately; it does not approve final art quality.",
   "summary": {
-    "entry_count": 56,
+    "entry_count": 60,
     "track_counts": {
       "animation_pipeline": 2,
       "archive": 9,
       "art_direction": 1,
       "narrative_or_release": 4,
       "release_promo": 3,
+      "runtime_animation": 2,
       "runtime_environment": 10,
       "runtime_gameplay": 4,
       "runtime_ui": 9,
-      "runtime_vfx": 4,
+      "runtime_vfx": 6,
       "source_dev": 10
     },
     "status_counts": {
       "binding_map_ready_manual_replacement_required": 1,
       "not_runtime_target": 29,
-      "scene_reference_verified": 26
+      "scene_reference_verified": 30
     },
-    "directly_referenced_entry_count": 26,
-    "development_referenced_entry_count": 55,
+    "directly_referenced_entry_count": 30,
+    "development_referenced_entry_count": 60,
     "missing_output_count": 0,
     "missing_target_scene_candidate_count": 0
   },
@@ -151,7 +152,9 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
+        "scripts/dev/capture_final_art_polish_fp01_review.gd",
+        "scripts/dev/capture_luna_air_dash_vfx_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -537,7 +540,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/build_imagegen_runtime_asset_catalog.gd"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -610,7 +614,21 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/apply_formal_map_batch1_rooms.gd",
+        "scripts/dev/apply_formal_map_batch2_stage9_rooms.gd",
+        "scripts/dev/apply_formal_map_batch3_stage10_rooms.gd",
+        "scripts/dev/apply_formal_map_batch4_stage11_stage13_entry.gd",
+        "scripts/dev/apply_formal_map_batch5_stage13_mid_rooms.gd",
+        "scripts/dev/apply_formal_map_batch6_stage13_branches_goal.gd",
+        "scripts/dev/apply_formal_map_batch7_stage14_remaining_rooms.gd",
+        "scripts/dev/apply_formal_map_batch8_stage15_remaining_rooms.gd",
+        "scripts/dev/apply_formal_map_batch9_stage16_rooms.gd",
+        "scripts/dev/apply_formal_terrain_kit_stage14_gate_trial.gd",
+        "scripts/dev/apply_formal_terrain_kit_stage15_gauntlet_trial.gd",
+        "scripts/dev/apply_formal_terrain_kit_tutorial_trial.gd",
+        "scripts/dev/build_imagegen_runtime_asset_catalog.gd",
+        "scripts/dev/capture_tutorial_collision_driven_terrain_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -662,7 +680,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -738,7 +757,8 @@
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
         "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
-        "scenes/dev/runtime_source_review_workbench.tscn"
+        "scenes/dev/runtime_source_review_workbench.tscn",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -776,7 +796,14 @@
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
         "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
-        "scenes/dev/runtime_source_review_workbench.tscn"
+        "scenes/dev/runtime_source_review_workbench.tscn",
+        "scripts/dev/audit_editor_styleboxes.gd",
+        "scripts/dev/audit_runtime_ui_skin_binding.gd",
+        "scripts/dev/build_editor_styleboxes.gd",
+        "scripts/dev/build_editor_ui_skin.gd",
+        "scripts/dev/build_imagegen_asset_gallery.gd",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd",
+        "scripts/dev/build_imagegen_runtime_asset_catalog.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -836,14 +863,30 @@
         "scenes/rooms/stage9_zone_entry_room.tscn",
         "scenes/rooms/stage9_zone_final_room.tscn",
         "scenes/rooms/stage9_zone_switch_room.tscn",
-        "scenes/rooms/tutorial_room.tscn"
+        "scenes/rooms/tutorial_room.tscn",
+        "scripts/rooms/combat_trial_room.gd",
+        "scripts/rooms/goal_trial_room.gd",
+        "scripts/rooms/stage9_room_base.gd",
+        "scripts/rooms/stage9_zone_switch_room.gd",
+        "scripts/rooms/tutorial_room.gd"
       ],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/apply_formal_map_batch2_stage9_rooms.gd",
+        "scripts/dev/apply_formal_map_batch4_stage11_stage13_entry.gd",
+        "scripts/dev/apply_formal_map_batch5_stage13_mid_rooms.gd",
+        "scripts/dev/apply_formal_map_batch6_stage13_branches_goal.gd",
+        "scripts/dev/apply_formal_map_batch8_stage15_remaining_rooms.gd",
+        "scripts/dev/apply_formal_map_batch9_stage16_rooms.gd",
+        "scripts/dev/apply_formal_terrain_kit_tutorial_trial.gd",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd",
+        "scripts/dev/capture_demo_art_composition_review.gd",
+        "scripts/dev/capture_demo_formal_remap_review.gd",
+        "scripts/dev/capture_final_art_polish_fp01_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -892,7 +935,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -922,7 +966,9 @@
         "scenes/enemies/seal_guardian_boss.tscn"
       ],
       "direct_scene_references": [
-        "scenes/rooms/stage15_seal_pressure_room.tscn"
+        "scenes/rooms/stage15_seal_pressure_room.tscn",
+        "scripts/rooms/gate_state_vfx.gd",
+        "scripts/rooms/stage9_zone_switch_room.gd"
       ],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
@@ -998,7 +1044,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -1030,7 +1077,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -1062,7 +1110,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -1218,7 +1267,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -1282,7 +1332,8 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/audit_runtime_ui_skin_binding.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -1320,7 +1371,8 @@
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
         "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
-        "scenes/dev/runtime_source_review_workbench.tscn"
+        "scenes/dev/runtime_source_review_workbench.tscn",
+        "scripts/dev/audit_runtime_ui_skin_binding.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -1357,7 +1409,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
+        "scripts/dev/capture_final_art_polish_fp01_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -1559,7 +1612,8 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/capture_final_art_polish_fp01_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -1663,7 +1717,8 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/capture_final_art_polish_fp01_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -1695,7 +1750,8 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/capture_demo_art_composition_review.gd"
       ],
       "integration_status": "binding_map_ready_manual_replacement_required",
       "manual_gates": [
@@ -1952,7 +2008,8 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/capture_final_art_polish_fp01_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -1988,7 +2045,9 @@
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
         "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
-        "scenes/dev/runtime_source_review_workbench.tscn"
+        "scenes/dev/runtime_source_review_workbench.tscn",
+        "scripts/dev/audit_runtime_ui_skin_binding.gd",
+        "scripts/dev/build_editor_ui_skin.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -2025,7 +2084,9 @@
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
         "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
-        "scenes/dev/runtime_source_review_workbench.tscn"
+        "scenes/dev/runtime_source_review_workbench.tscn",
+        "scripts/dev/audit_runtime_ui_skin_binding.gd",
+        "scripts/dev/build_editor_ui_skin.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -2060,7 +2121,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/runtime_source_review_workbench.tscn"
+        "scenes/dev/runtime_source_review_workbench.tscn",
+        "scripts/dev/build_editor_ui_skin.gd"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -2094,7 +2156,8 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/runtime_source_review_workbench.tscn"
+        "scenes/dev/runtime_source_review_workbench.tscn",
+        "scripts/dev/build_editor_ui_skin.gd"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -2123,7 +2186,143 @@
       "direct_scene_references": [
         "scenes/ui/demo_shell.tscn"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage27_luna_formal_combat_body_ai01",
+      "batch": "Batch 27",
+      "priority": "P0",
+      "target_kind": "player_animation",
+      "track": "runtime_animation",
+      "disposition": "runtime_keep",
+      "target_system": "player state animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "output_path": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+      "output_exists": true,
+      "output_sha256": "625c56954a345ce9b0c964b4996e0d5c5757d06ad85cd130d5bf4d2845a3ce98",
+      "target_scene_candidates": [
+        "scenes/player/player_placeholder.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/player/player_placeholder.tscn"
+      ],
+      "direct_scene_references": [
+        "scripts/player/player_placeholder.gd"
+      ],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage27_core_combat_vfx_ai01",
+      "batch": "Batch 27",
+      "priority": "P0",
+      "target_kind": "combat_vfx",
+      "track": "runtime_vfx",
+      "disposition": "runtime_keep",
+      "target_system": "player combat VFX replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "output_path": "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+      "output_exists": true,
+      "output_sha256": "1a2bfbc51c80b1af6e8aff5b58dfe3c559262e446e7490224c0220d18be0e263",
+      "target_scene_candidates": [
+        "scenes/player/player_placeholder.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/player/player_placeholder.tscn"
+      ],
+      "direct_scene_references": [
+        "scripts/player/player_placeholder.gd"
+      ],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_vfx_ai01",
+      "batch": "Batch 27",
+      "priority": "P0",
+      "target_kind": "boss_vfx",
+      "track": "runtime_vfx",
+      "disposition": "runtime_keep",
+      "target_system": "boss state VFX replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "output_path": "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+      "output_exists": true,
+      "output_sha256": "d4e12179bfe7a83bf737e370c20f0a9d6de736667ee783feebc7bd3b0f324d4f",
+      "target_scene_candidates": [
+        "scenes/enemies/seal_guardian_boss.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/enemies/seal_guardian_boss.tscn"
+      ],
+      "direct_scene_references": [
+        "scripts/combat/seal_guardian_boss.gd"
+      ],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_formal_motion_ai01",
+      "batch": "Batch 27",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "track": "runtime_animation",
+      "disposition": "runtime_keep",
+      "target_system": "boss state animation replacement",
+      "recommended_resource_type": "SpriteFrames",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+      "output_exists": true,
+      "output_sha256": "78c06243fe05f147c2084f74ea94c6a3e7c60ed300ec30f3285fb52d9ce0354f",
+      "target_scene_candidates": [
+        "scenes/enemies/seal_guardian_boss.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/enemies/seal_guardian_boss.tscn"
+      ],
+      "direct_scene_references": [
+        "scripts/combat/seal_guardian_boss.gd"
+      ],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",

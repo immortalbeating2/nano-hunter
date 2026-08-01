@@ -3,14 +3,15 @@
   "status": "manual_review_queue_ready",
   "boundary": "Manual final-art review queue. Passing audits means every structural asset has an explicit review task; it does not mean the asset is final-ready.",
   "summary": {
-    "asset_count": 56,
-    "manual_review_required_count": 1,
+    "asset_count": 60,
+    "manual_review_required_count": 5,
     "final_ready_count": 55,
     "family_counts": {
       "animation": 8,
       "characters": 4,
       "environment": 10,
       "icons": 4,
+      "other": 4,
       "promo_logo_cg": 4,
       "props_equipment": 6,
       "story": 3,
@@ -20,7 +21,8 @@
       "vfx": 6
     },
     "blocker_counts": {
-      "license_terms_manual_review": 1,
+      "license_terms_manual_review": 5,
+      "runtime_catalog_ready_manual_replacement": 4,
       "runtime_layout_review": 1,
       "small_size_readability_review": 1,
       "text_safe_area_review": 1
@@ -860,6 +862,94 @@
       "evidence_paths": [
         "assets/art/editor_resources/material_texture_atlas_ai01/000_material_texture_atlas_ai01_auto_001.atlas_texture.tres",
         "assets/art/textures/material_texture_atlas_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage27_core_combat_vfx_ai01",
+      "target_kind": "combat_vfx",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
+      ],
+      "evidence_paths": [
+        "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage27_luna_formal_combat_body_ai01",
+      "target_kind": "player_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_formal_motion_ai01",
+      "target_kind": "boss_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage27_seal_guardian_vfx_ai01",
+      "target_kind": "boss_vfx",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
+      ],
+      "evidence_paths": [
+        "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png"
       ]
     },
     {

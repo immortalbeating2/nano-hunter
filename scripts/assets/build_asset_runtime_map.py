@@ -12,16 +12,34 @@ from typing import Any
 DEFAULT_REPORT = "docs/assets/asset-runtime-integration-map.json"
 
 TARGET_KIND_RULES = {
+    "boss_animation": {
+        "track": "runtime_animation",
+        "resource_type": "SpriteFrames",
+        "target_system": "boss state animation replacement",
+        "target_scene_candidates": ["scenes/enemies/seal_guardian_boss.tscn"],
+    },
     "boss_direction": {
         "track": "runtime_gameplay",
         "resource_type": "Texture2D",
         "target_system": "Seal Guardian boss readability direction",
         "target_scene_candidates": ["scenes/enemies/seal_guardian_boss.tscn", "scenes/rooms/stage15_seal_guardian_boss_room.tscn"],
     },
+    "boss_vfx": {
+        "track": "runtime_vfx",
+        "resource_type": "SpriteFrames",
+        "target_system": "boss state VFX replacement",
+        "target_scene_candidates": ["scenes/enemies/seal_guardian_boss.tscn"],
+    },
     "character_direction": {
         "track": "runtime_gameplay",
         "resource_type": "Texture2D",
         "target_system": "player visual readability direction",
+        "target_scene_candidates": ["scenes/player/player_placeholder.tscn"],
+    },
+    "combat_vfx": {
+        "track": "runtime_vfx",
+        "resource_type": "SpriteFrames",
+        "target_system": "player combat VFX replacement",
         "target_scene_candidates": ["scenes/player/player_placeholder.tscn"],
     },
     "completion_ui": {
@@ -101,6 +119,12 @@ TARGET_KIND_RULES = {
         "resource_type": "Texture2D",
         "target_system": "single prop sheet replacement",
         "target_scene_candidates": ["scenes/rooms/stage16_seal_release_threshold_room.tscn"],
+    },
+    "player_animation": {
+        "track": "runtime_animation",
+        "resource_type": "SpriteFrames",
+        "target_system": "player state animation replacement",
+        "target_scene_candidates": ["scenes/player/player_placeholder.tscn"],
     },
     "spine_cutout_parts": {
         "track": "animation_pipeline",
@@ -304,15 +328,25 @@ def scene_paths(root: Path, development: bool) -> list[str]:
     return sorted(paths)
 
 
-def find_direct_scene_references(root: Path, scenes: list[str], asset_id: str, output_path: str) -> list[str]:
+def script_paths(root: Path, development: bool) -> list[str]:
+    paths: list[str] = []
+    for path in (root / "scripts").rglob("*.gd"):
+        relative = normalize_rel(path, root)
+        if relative.startswith("scripts/dev/") == development:
+            paths.append(relative)
+    return sorted(paths)
+
+
+def find_direct_references(root: Path, consumers: list[str], asset_id: str, output_path: str) -> list[str]:
     references: list[str] = []
     res_path = "res://" + output_path.replace("\\", "/")
-    for scene in scenes:
-        text = read_scene_text(root, scene)
+    output_stem = Path(output_path).stem
+    for consumer in consumers:
+        text = read_scene_text(root, consumer)
         if not text:
             continue
-        if asset_id in text or res_path in text:
-            references.append(scene)
+        if asset_id in text or res_path in text or output_stem in text:
+            references.append(consumer)
     return references
 
 
@@ -352,6 +386,8 @@ def main() -> int:
     }
     production_scenes = scene_paths(root, development=False)
     development_scenes = scene_paths(root, development=True)
+    production_consumers = production_scenes + script_paths(root, development=False)
+    development_consumers = development_scenes + script_paths(root, development=True)
 
     entries: list[dict[str, Any]] = []
     for item in queue.get("items", []):
@@ -366,8 +402,8 @@ def main() -> int:
         ]
         provenance_record = provenance_by_id.get(asset_id, {})
         output_rel = normalize_rel(output_path, root)
-        direct_scene_references = find_direct_scene_references(root, production_scenes, asset_id, output_rel)
-        development_scene_references = find_direct_scene_references(root, development_scenes, asset_id, output_rel)
+        direct_scene_references = find_direct_references(root, production_consumers, asset_id, output_rel)
+        development_scene_references = find_direct_references(root, development_consumers, asset_id, output_rel)
         integration_status = integration_status_for(direct_scene_references, str(rule["track"]))
         entries.append(
             {
@@ -413,7 +449,7 @@ def main() -> int:
         "status": "runtime_map_scene_reference_split_ready",
         "boundary": (
             "Runtime/release integration map only. It assigns generated assets to target systems, "
-            "resource types and candidate scenes, and records production and development references separately; "
+            "resource types and candidate scenes, and records production and development consumer references separately; "
             "it does not approve final art quality."
         ),
         "summary": {

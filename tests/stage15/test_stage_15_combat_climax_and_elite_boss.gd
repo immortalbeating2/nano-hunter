@@ -31,6 +31,8 @@ const SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/chara
 const SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.spriteframes.tres"
 const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres"
 const SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres"
+const SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres"
+const SEAL_GUARDIAN_FORMAL_VFX_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.spriteframes.tres"
 const VFX_SEAL_MAGIC_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
 const MIASMA_PURGE_WARNING_SPRITEFRAMES_PATH := "res://assets/art/vfx/atlases/miasma_purge_warning_vfx_runtime_ai01.spriteframes.tres"
 const STAGE15_PRESSURE_FOCUS_ART_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/010_shrine_gate_prop_atlas_ai01_auto_011_c02.atlas_texture.tres"
@@ -422,28 +424,29 @@ func test_seal_guardian_runtime_visual_uses_ready_clips_only() -> void:
 	await _advance_physics_frames(2)
 	assert_eq(boss.call("get_boss_state"), &"close_pressure")
 	assert_true(visual.visible)
-	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_warning_runtime_sheet_ai01")
+	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_formal_motion_runtime_sheet_ai01")
 	assert_not_null(visual.sprite_frames)
 	if visual.sprite_frames != null:
-		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES_PATH)
-	assert_eq(visual.animation, &"warning")
-	assert_false(attack_vfx_visual.visible)
+		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES_PATH)
+	assert_true(visual.animation == &"close_pressure" or visual.animation == &"air_warning")
+	assert_true(attack_vfx_visual.visible)
+	assert_eq(attack_vfx_visual.animation, &"warning")
 
 	await _advance_physics_frames(30)
 	if boss.call("get_boss_state") == &"ground_impact" or boss.call("get_boss_state") == &"air_punish":
 		assert_true(visual.visible)
-		assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_attack_body_runtime_sheet_ai02")
+		assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_formal_motion_runtime_sheet_ai01")
 		assert_not_null(visual.sprite_frames)
 		if visual.sprite_frames != null:
-			assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH)
-		assert_eq(visual.animation, &"attack_body")
+			assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES_PATH)
+		assert_true(visual.animation == &"ground_impact" or visual.animation == &"air_punish")
 		assert_ne(visual.sprite_frames.resource_path, SEAL_GUARDIAN_SPRITEFRAMES_PATH)
 		assert_true(attack_vfx_visual.visible)
-		assert_eq(attack_vfx_visual.get_meta("asset_id", ""), "seal_guardian_attack_vfx_atlas_ai01")
+		assert_eq(attack_vfx_visual.get_meta("asset_id", ""), "stage27_seal_guardian_vfx_runtime_ai01")
 		assert_not_null(attack_vfx_visual.sprite_frames)
 		if attack_vfx_visual.sprite_frames != null:
-			assert_eq(attack_vfx_visual.sprite_frames.resource_path, SEAL_GUARDIAN_ATTACK_VFX_SPRITEFRAMES_PATH)
-		assert_eq(attack_vfx_visual.animation, &"boss_attack_vfx")
+			assert_eq(attack_vfx_visual.sprite_frames.resource_path, SEAL_GUARDIAN_FORMAL_VFX_SPRITEFRAMES_PATH)
+		assert_eq(attack_vfx_visual.animation, &"impact")
 		assert_false(attack_vfx_visual.get_meta("gameplay_collision", true))
 		assert_false(attack_vfx_visual.get_meta("damage_source", true))
 
@@ -452,12 +455,14 @@ func test_seal_guardian_runtime_visual_uses_ready_clips_only() -> void:
 		boss.call("receive_attack", Vector2.RIGHT, 120.0)
 	assert_eq(boss.call("get_boss_state"), &"defeated")
 	assert_true(visual.visible)
-	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_defeat_runtime_sheet_ai01")
+	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_formal_motion_runtime_sheet_ai01")
 	assert_not_null(visual.sprite_frames)
 	if visual.sprite_frames != null:
-		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES_PATH)
+		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES_PATH)
 	assert_eq(visual.animation, &"defeat")
-	assert_false(attack_vfx_visual.visible)
+	assert_true(attack_vfx_visual.visible)
+	assert_eq(attack_vfx_visual.sprite_frames.resource_path, SEAL_GUARDIAN_FORMAL_VFX_SPRITEFRAMES_PATH)
+	assert_eq(attack_vfx_visual.animation, &"defeat")
 
 
 # 保护战斗高潮节奏：混合遭遇必须三类敌人全清后才允许进入 Boss 房。

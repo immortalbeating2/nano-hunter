@@ -15,7 +15,7 @@
 3. 完成 Luna idle、run、jump start / rise / apex / fall / land、air dash、两姿态地面攻击、空中攻击、两序列收势、元素切换、姿态切换、恢复、hit、death；玩法窗口仍由 `player_placeholder.gd` 权威控制。
 4. 扩展现有 SpriteFrames 选择表，只按当前状态 / 姿态 / 反应选动画；不得由动画帧反向改变 hitbox、伤害或移动。
 5. 为 Seal Guardian 补齐近 / 远 warning / attack、guard break / stagger、phase transition、hit、defeat 及 warning / impact / 破印 / 转阶段 / 消散 VFX，继续复用现有 Boss 状态机。
-6. 用本机 Stable Audio 生成短 SFX 候选；候选只进入 scratch。逐项试听接受、记录 prompt / seed / runtime / 授权后再复制到项目并绑定事件。
+6. 用本机 Stable Audio 串行生成短 SFX 候选（默认并发 `1`，硬上限 `<4`）；候选只进入 scratch。逐项试听接受、记录 prompt / seed / runtime / 授权后再复制到项目并绑定事件。
 7. 复用 DemoShell 的 Stage 选关数据，增加仅 `OS.is_debug_build()` 可见的“北极星全能力巡检”预设，调用现有 `start_demo_at_room(..., debug_progress)`。
 8. 完成无 HUD 识别、锚点 / 体积 / 色边、小尺寸、音频叠爆与 Gate26M 回归。
 

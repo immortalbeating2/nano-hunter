@@ -9,7 +9,7 @@
 - Godot formats: `7`
 - Formats structurally covered: `7`
 - Final-ready assets: `55`
-- Structural-ready assets: `55`
+- Structural-ready assets: `60`
 
 ## Asset Families
 
@@ -32,10 +32,10 @@
 | --- | ---: | ---: | ---: | ---: | --- |
 | Sprite Sheet | 8/6 | 8 | 172 | 8 | covered_structural / final_ready |
 | Texture Atlas | 8/6 | 8 | 302 | 8 | covered_structural / final_ready |
-| Tile Set | 4/2 | 4 | 2 | 4 | covered_structural / final_ready |
+| Tile Set | 4/2 | 4 | 5 | 4 | covered_structural / final_ready |
 | Spine 拆件图集 | 2/2 | 2 | 48 | 2 | covered_structural / final_ready |
 | UI 图集 | 7/5 | 7 | 9 | 7 | covered_structural / final_ready |
-| 特效图集 | 6/5 | 6 | 78 | 6 | covered_structural / final_ready |
+| 特效图集 | 6/5 | 6 | 86 | 6 | covered_structural / final_ready |
 | 九宫格图片 / StyleBox | 5/3 | 5 | 8 | 5 | covered_structural / final_ready |
 
 ## Remaining Gates

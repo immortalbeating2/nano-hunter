@@ -239,10 +239,11 @@ func test_stage12_lightweight_vfx_toggle_without_changing_combat_contract() -> v
 	var active_vfx_seen := false
 	for _i in range(12):
 		await get_tree().physics_frame
-		if attack_slash_vfx.visible and attack_seal_arc_vfx.visible:
+		if attack_slash_vfx.visible:
 			active_vfx_seen = true
 			break
-	assert_true(active_vfx_seen, "Stage17 attack active 窗口必须显示两层攻击 VFX。")
+	assert_true(active_vfx_seen, "attack active 窗口必须显示元素主 VFX。")
+	assert_false(attack_seal_arc_vfx.visible, "迅捷姿态不叠加护印副 VFX。")
 	assert_false(attack_slash_vfx.get_meta("gameplay_collision", true))
 	assert_false(attack_slash_vfx.get_meta("damage_source", true))
 	assert_false(attack_seal_arc_vfx.get_meta("gameplay_collision", true))
