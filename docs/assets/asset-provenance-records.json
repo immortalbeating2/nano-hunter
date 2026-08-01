@@ -11,10 +11,10 @@
   },
   "license_boundary": "AI-generated source records are present for project tracking. Commercial release and external distribution still require manual terms review for the active tool/account and any downstream platform.",
   "summary": {
-    "record_count": 66,
-    "candidate_hash_count": 144,
-    "output_hash_count": 66,
-    "prompt_hash_count": 66,
+    "record_count": 78,
+    "candidate_hash_count": 158,
+    "output_hash_count": 78,
+    "prompt_hash_count": 78,
     "recovery_ledger_count": 1
   },
   "recovery_ledgers": [
@@ -3115,6 +3115,458 @@
           "index": 1,
           "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates/stage29_thunder_waste_state_vfx_ai01_candidate_01.png",
           "sha256": "1769def3ee1e4e205d2c02f2a188e56d5636c6684da2fd4f80d6f5a46bafd993",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_locomotion_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "enemy_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 production sprite sheet for Nano Hunter. Same side-view Thunder Fang beast in every cell: lean corrupted hound with bone plating, dark slate hide, pale cyan lightning veins and restrained ochre talisman fragments, Chinese dark-fantasy ink/gongbi game art. Row 1 idle, row 2 patrol, row 3 faster charged movement, row 4 charged idle; four sequential frames per row. Stable foot anchor, scale and silhouette, one complete body per cell, no detached VFX, no text or grid lines, perfectly flat #FF00FF chroma background, no magenta on the body.",
+      "prompt_sha256": "653985facdc6e57c4c9c17c5b0f7b1290d217a49e2ab8020f7689ab345edcf0f",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png",
+      "output_sha256": "d0bdbaac8ef0ed61147b7b04bc05a05bde59f69667e388bfdece6f958d23ff15",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates/stage30_thunder_fang_locomotion_ai01_candidate_01.png",
+          "sha256": "9eb5f73539681ad92011f50bca123674abe6d8caeb23e184c94e5cdc7ddd4100",
+          "width": 1024,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates/stage30_thunder_fang_locomotion_ai01_candidate_02.png",
+          "sha256": "ee8821d4c47dfcb81cd930bc5b71c4c149f102b26760eb5a465ae9c0f05e587a",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_attack_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "enemy_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 side-view Thunder Fang attack sheet, same body and scale as locomotion, four sequential frames per row. Row 1 readable charged warning, row 2 crouched startup, row 3 horizontal lightning charge attack, row 4 recovery. Body only with restrained attached sparks, stable foot/root anchor, no targets, scenery, labels or grid, flat #FF00FF chroma background, no magenta on subject.",
+      "prompt_sha256": "c7f8e5a13e6ac4f8b44b2d0fd8cf26b982e30f067921f1d6f7c6c69100b4a97c",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_attack_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+      "output_sha256": "acc16a1428c52e4d1e19f233047cb9efc00d4957fcf6dc174cb71cff11187005",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_attack_ai01/candidates/stage30_thunder_fang_attack_ai01_candidate_01.png",
+          "sha256": "c259a2bd5e4b4c62c6e495435806ea1867ad6ff0c61ccacb62e357524a82bdc1",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_reaction_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "enemy_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 side-view Thunder Fang reaction sheet, same beast identity, scale and anchor. Row 1 ordinary hit reaction, row 2 guard-break recoil, row 3 thunder-wind scattering stagger, row 4 non-gory defeat collapse; four progressive frames per row. Body only, no text, target, detached effects or grid, perfectly flat #FF00FF chroma background.",
+      "prompt_sha256": "9e9b4e0039c8caeec718101e65ba20c977065d6c829b27117962b3b36e50260d",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_reaction_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png",
+      "output_sha256": "96010ce2f0c77764522baee43177accc8ecac6688277ccf16a403f6871689048",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_reaction_ai01/candidates/stage30_thunder_fang_reaction_ai01_candidate_01.png",
+          "sha256": "359eb561fc30439101811b1316c933527f6181b428ab8e750f653d3baa2c9d37",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_vfx_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated VFX atlas for Thunder Fang, four sequential frames per row: charged warning ring; narrow forward charge trail; cracked guard-break lightning seal; broad thunder-wind stagger burst. Pale cyan, violet-white lightning, ink-brush edges and restrained ochre seal fragments. No character, scenery, text, borders or overlap; flat #FF00FF chroma background and no magenta in effects.",
+      "prompt_sha256": "b860ef4feba59067ac2153a44b673df629ba979672bda4a0314ec6345f561d46",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+      "output_sha256": "2efddce42137d40e29d6684fb5e4f400a8a70fb9811ade4165da4fcf448afb20",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_vfx_ai01/candidates/stage30_thunder_fang_vfx_ai01_candidate_01.png",
+          "sha256": "345f7b60590048ed611bfafdcc0fb991ea3cbb08bcbcf19fd04db29b69705042",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_presence_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 production boss sprite sheet for Kui Shadow Thunder Remains, a huge one-legged Shanhaijing thunder demon skeleton with dark stone bone armor, bronze ritual rings, cyan-violet lightning core and torn talismans, side-view facing left. Row 1 phase-1 idle, row 2 close warning, row 3 lightning-call warning, row 4 recovery. Four sequential frames per row, stable foot/root anchor and scale, body only, flat #FF00FF chroma background, no text or magenta body paint.",
+      "prompt_sha256": "341f50ede3c203c20a0f99980365f3d182cccafd9608c9982c9ce56128e0f6bc",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_presence_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png",
+      "output_sha256": "ba4d8606a13e5cc70883d654f31f786b3f95ec0e031ab46663fb9fd42f9cf417",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_presence_ai01/candidates/stage30_kui_boss_phase1_presence_ai01_candidate_01.png",
+          "sha256": "f2bb1ac40a088fc5aee4957afa81a636f96c0314c5fa2ff269c88b0c0aa9fddd",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_attacks_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 phase-1 attack sheet for the same side-view Kui thunder boss. Row 1 close startup, row 2 heavy close slam, row 3 upward lightning-call startup, row 4 lightning release. Four progressive body frames per row, stable scale and anchor, no detached VFX, targets, scenery, text or grid, flat #FF00FF chroma background.",
+      "prompt_sha256": "f0cfec6fb59dfdee1b40fa6445daef4048507c53d39479c3e525ababb83b51c5",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_attacks_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png",
+      "output_sha256": "ea08cff0e2f1f0329aac045b2b252290ec6eb86478ee5c912ce7c17f4f1908be",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_attacks_ai01/candidates/stage30_kui_boss_phase1_attacks_ai01_candidate_01.png",
+          "sha256": "84dfdfbaffd38d4ebafe6b632ed608323dfe56a338cb093dd510ba9284ff32d5",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_kui_boss_transition_reaction_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 reaction and transition sheet for the same Kui thunder boss. Row 1 ordinary hit, row 2 scattering stagger, row 3 guard break, row 4 phase transition into an empowered lightning posture. Four sequential body frames per row, stable anchor, side view, no detached effects, text, scenery or grid, flat #FF00FF chroma background.",
+      "prompt_sha256": "3cc2153d45366a8030d872e119f230d8e29c2770d47d5b9c3ba253d4b4a4d27f",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_transition_reaction_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png",
+      "output_sha256": "dd49a737be2a33dbc3ffe23e074418d492d56fe2dff39fbce4fa458fb5f0011d",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_transition_reaction_ai01/candidates/stage30_kui_boss_transition_reaction_ai01_candidate_01.png",
+          "sha256": "32efb7cabccdce0b1c7f90060c42b8c159ab841c69d0a92b1f80c3eccbb3b447",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_presence_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 phase-2 presence sheet for the same Kui thunder boss, empowered but with unchanged anatomy and scale. Row 1 phase-2 idle, row 2 faster close warning, row 3 stronger lightning warning, row 4 shorter recovery. Four sequential frames per row, stable root anchor, body only with restrained attached energy, flat #FF00FF chroma background, no magenta contamination, text or grid.",
+      "prompt_sha256": "bd94e39c239c1bb5ad5d7ce02d95c9121c22737838366197f9b4a93d8f1d57b3",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png",
+      "output_sha256": "26d9fd6d27f4d345bdc3ab96a9040efdfe01ab75e2a6e9c4affbc918b8ac0a87",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates/stage30_kui_boss_phase2_presence_ai01_candidate_01.png",
+          "sha256": "de1bf102d63221c121744fa0028a499fe2d349e44cbe8026db10c79d9966a29b",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates/stage30_kui_boss_phase2_presence_ai01_candidate_02.png",
+          "sha256": "b1b37349d5e422353585738ec3b713f99665c2a1f90738f472279080feb690e2",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 phase-2 action and resolution sheet for the same side-view Kui thunder boss. Row 1 empowered close strike, row 2 empowered lightning call, row 3 recovery, row 4 non-gory defeat into inert stone-bone remains and fading energy. Four progressive frames per row, stable scale and anchor, no detached VFX, targets, text, scenery or grid, flat #FF00FF chroma background.",
+      "prompt_sha256": "b74da1d3b3e09f7edfbcb5e1a5513eecbfcc8df685844722650a11e78a784592",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_resolution_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
+      "output_sha256": "c6569149f525e65aad9bd03b73eb20df78bc033bd942e3be4f50c3276a0117bf",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_resolution_ai01/candidates/stage30_kui_boss_phase2_resolution_ai01_candidate_01.png",
+          "sha256": "f30dd013d49d8dd628be9379b664e98233ef18e5e7d2087df478e4b2d85fae34",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_kui_boss_combat_vfx_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated combat VFX atlas for the Kui thunder boss: row 1 close warning seal; row 2 low broad close impact; row 3 vertical lightning warning marker; row 4 ritual lightning impact. Four progressive frames per row, Chinese ink/gongbi lightning, bronze seal geometry, cyan-violet-white energy. No body, scenery, text, grid or overlap; flat #FF00FF chroma background.",
+      "prompt_sha256": "9f80ea38b06f45e93e5b6fcbacf0347fdf1f283068d48ec77dec88e87ea7cee7",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_combat_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
+      "output_sha256": "85d2d42db35965f5dd0174fdddcaae641a6f59da69458dc0959a9a71e4e9967b",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_combat_vfx_ai01/candidates/stage30_kui_boss_combat_vfx_ai01_candidate_01.png",
+          "sha256": "1d44c9760aa317d7d9820d18671f868ec6582b2b3383ea08152bae273d42d4d6",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_kui_boss_state_vfx_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated state VFX atlas for the Kui thunder boss: cracked guard-break ring; wider thunder-wind stagger burst; rising phase-transition aura; quiet non-gory defeat dissipation. Four progressive frames per row, restrained cyan, violet, bronze and ink-brush silhouettes. No character, text, scenery, borders or overlap; flat #FF00FF chroma background.",
+      "prompt_sha256": "6cd4272e392f730198ec6ebc757cb638f328f6396976d797d9009b8984b18391",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_state_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+      "output_sha256": "d3aa47cccd22ecbf10b3c036c2eaaacff56045a47c4ac86e359c1972c6a4aeaf",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_state_vfx_ai01/candidates/stage30_kui_boss_state_vfx_ai01_candidate_01.png",
+          "sha256": "2479765f559efd36dd6a7336f3b382f13ed1756fecb49ded659b2112e8baa16e",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated reward and capability VFX atlas: row 1 thunder absorption unlock condensing inward; row 2 thunder beast core relic pulse; row 3 demon resonance ring; row 4 vertical storm curtain changing from locked to passable. Four readable frames per row, ancient Chinese talisman geometry, cyan-violet lightning, bronze and moon-white accents. No character, text, scenery, grid or overlap; flat #FF00FF chroma background.",
+      "prompt_sha256": "f329d332acc32750487174cf88bacd1546c961bb132478eef7ea457febae7312",
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_absorption_reward_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+      "output_sha256": "2be00fe820364d19a229e8a5f92ede41f5a431a226ae7d0d215a9a930c3d3f5e",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_absorption_reward_vfx_ai01/candidates/stage30_thunder_absorption_reward_vfx_ai01_candidate_01.png",
+          "sha256": "0e1e83752de7552ab8d2f74341ecc6afd1327cf66e3a60444c527657e187c6aa",
           "width": 1254,
           "height": 1254,
           "mode": "RGB"

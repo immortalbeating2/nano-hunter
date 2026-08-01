@@ -1,12 +1,12 @@
 {
 	"boundary": "Runtime catalog only. It proves resources can be loaded through a Godot ResourcePreloader; it does not replace gameplay scene references or approve final art.",
 	"counts": {
-		"entry_count": 66,
+		"entry_count": 78,
 		"missing_count": 0,
-		"resource_count": 66,
+		"resource_count": 78,
 		"resource_type_counts": {
 			"AtlasTexture": 5,
-			"CompressedTexture2D": 48,
+			"CompressedTexture2D": 60,
 			"SpriteFrames": 10,
 			"StyleBoxTexture": 1,
 			"TileSet": 2
@@ -15,13 +15,14 @@
 			"animation_pipeline": 2,
 			"archive": 9,
 			"art_direction": 1,
+			"manual_review": 3,
 			"narrative_or_release": 4,
 			"release_promo": 3,
-			"runtime_animation": 2,
+			"runtime_animation": 7,
 			"runtime_environment": 12,
 			"runtime_gameplay": 6,
 			"runtime_ui": 10,
-			"runtime_vfx": 7,
+			"runtime_vfx": 11,
 			"source_dev": 10
 		}
 	},
@@ -684,6 +685,126 @@
 			"resource_path": "res://assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
 			"target_kind": "vfx_atlas",
 			"target_system": "Stage25 storm, relay, barrier, route and outpost state presentation",
+			"track": "runtime_vfx"
+		},
+		{
+			"asset_id": "stage30_thunder_fang_locomotion_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "Texture2D",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png",
+			"target_kind": "enemy_animation",
+			"target_system": "release/narrative asset binding",
+			"track": "manual_review"
+		},
+		{
+			"asset_id": "stage30_thunder_fang_attack_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "Texture2D",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+			"target_kind": "enemy_animation",
+			"target_system": "release/narrative asset binding",
+			"track": "manual_review"
+		},
+		{
+			"asset_id": "stage30_thunder_fang_reaction_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "Texture2D",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png",
+			"target_kind": "enemy_animation",
+			"target_system": "release/narrative asset binding",
+			"track": "manual_review"
+		},
+		{
+			"asset_id": "stage30_thunder_fang_vfx_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+			"target_kind": "vfx_atlas",
+			"target_system": "VFX atlas animation replacement",
+			"track": "runtime_vfx"
+		},
+		{
+			"asset_id": "stage30_kui_boss_phase1_presence_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png",
+			"target_kind": "boss_animation",
+			"target_system": "boss state animation replacement",
+			"track": "runtime_animation"
+		},
+		{
+			"asset_id": "stage30_kui_boss_phase1_attacks_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png",
+			"target_kind": "boss_animation",
+			"target_system": "boss state animation replacement",
+			"track": "runtime_animation"
+		},
+		{
+			"asset_id": "stage30_kui_boss_transition_reaction_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png",
+			"target_kind": "boss_animation",
+			"target_system": "boss state animation replacement",
+			"track": "runtime_animation"
+		},
+		{
+			"asset_id": "stage30_kui_boss_phase2_presence_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png",
+			"target_kind": "boss_animation",
+			"target_system": "boss state animation replacement",
+			"track": "runtime_animation"
+		},
+		{
+			"asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
+			"target_kind": "boss_animation",
+			"target_system": "boss state animation replacement",
+			"track": "runtime_animation"
+		},
+		{
+			"asset_id": "stage30_kui_boss_combat_vfx_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
+			"target_kind": "vfx_atlas",
+			"target_system": "VFX atlas animation replacement",
+			"track": "runtime_vfx"
+		},
+		{
+			"asset_id": "stage30_kui_boss_state_vfx_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+			"target_kind": "vfx_atlas",
+			"target_system": "VFX atlas animation replacement",
+			"track": "runtime_vfx"
+		},
+		{
+			"asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames",
+			"resource_path": "res://assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+			"target_kind": "vfx_atlas",
+			"target_system": "VFX atlas animation replacement",
 			"track": "runtime_vfx"
 		}
 	],

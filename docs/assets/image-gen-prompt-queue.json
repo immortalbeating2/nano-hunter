@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-01",
+  "updated": "2026-08-02",
   "purpose": "Concrete image_gen production queue for Nano Hunter core art completion.",
   "style_anchor": "2D side-view metroidvania game asset for Nano Hunter, Northern and Southern Dynasties inspired Chinese dark fantasy, demon-suppressing bureau bounty hunter world, Buddhist talisman seal magic, Shanhaijing monster mythology, ink wash and gongbi-inspired color accents, soft Ori-like glow, clean readable silhouette, high gameplay readability at 640x360, moon white, ink teal, cyan-white spiritual glow, vermilion talisman accents, no watermark.",
   "negative_anchor": "Avoid photorealistic rendering, 3D render, modern laboratory, biotech facility, sci-fi armor, cyberpunk, futuristic UI, modern warning sign, excessive tiny detail, blurry edges, noisy background, gore, watermark, and readable text unless the asset is explicitly a logo direction.",
@@ -690,6 +690,126 @@
       "source_dir": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates",
       "output_path": "assets/art/environment/thunder_waste/stage29_thunder_waste_state_vfx_runtime_ai01.png",
       "prompt": "Create a single exact 4 by 4 VFX and state sprite sheet for Nano Hunter, a 2D side-view metroidvania in Southern-and-Northern-Dynasties Chinese dark fantasy. Exactly sixteen equal square cells in a strict aligned grid, one isolated effect or state per cell, no text, no labels, no characters. Perfectly flat solid chroma-key lime green background #7FFF00 in all empty pixels; no green inside assets, no checkerboard, no glow crossing cell boundaries. Formal hand-painted gongbi ink edges, pale electric cyan, white-blue lightning, deep slate, restrained ochre-gold talisman accents. Bold readable silhouettes at 64-128 pixels. Row 1: storm field startup with gathering sparks; storm field active frame A with vertical lightning; storm field active frame B with branching lightning; storm field grounded residual fading into earth. Row 2: ritual relay pillar active charged; relay pillar struck by wind-thunder sequence; relay pillar grounded with cyan energy flowing downward; relay pillar disabled dark state. Row 3: vertical lightning barrier locked; lightning barrier unlock burst; barrier open residual sparks; formal right-pointing exit marker made of talisman wind and cyan lightning. Row 4: Thunder Outpost checkpoint active beacon; upward branch-route marker with ritual knot; broad distant storm-cloud lightning flash; circular ground impact / safe discharge ring. Keep each effect centered with generous transparent-key space, crisp alpha-ready boundaries, no modern electronics, no laboratory imagery. No watermark."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_locomotion_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "enemy_animation",
+      "candidate_count": 2,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 production sprite sheet for Nano Hunter. Same side-view Thunder Fang beast in every cell: lean corrupted hound with bone plating, dark slate hide, pale cyan lightning veins and restrained ochre talisman fragments, Chinese dark-fantasy ink/gongbi game art. Row 1 idle, row 2 patrol, row 3 faster charged movement, row 4 charged idle; four sequential frames per row. Stable foot anchor, scale and silhouette, one complete body per cell, no detached VFX, no text or grid lines, perfectly flat #FF00FF chroma background, no magenta on the body."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_attack_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "enemy_animation",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_attack_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 side-view Thunder Fang attack sheet, same body and scale as locomotion, four sequential frames per row. Row 1 readable charged warning, row 2 crouched startup, row 3 horizontal lightning charge attack, row 4 recovery. Body only with restrained attached sparks, stable foot/root anchor, no targets, scenery, labels or grid, flat #FF00FF chroma background, no magenta on subject."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_reaction_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "enemy_animation",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_reaction_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 side-view Thunder Fang reaction sheet, same beast identity, scale and anchor. Row 1 ordinary hit reaction, row 2 guard-break recoil, row 3 thunder-wind scattering stagger, row 4 non-gory defeat collapse; four progressive frames per row. Body only, no text, target, detached effects or grid, perfectly flat #FF00FF chroma background."
+    },
+    {
+      "asset_id": "stage30_thunder_fang_vfx_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated VFX atlas for Thunder Fang, four sequential frames per row: charged warning ring; narrow forward charge trail; cracked guard-break lightning seal; broad thunder-wind stagger burst. Pale cyan, violet-white lightning, ink-brush edges and restrained ochre seal fragments. No character, scenery, text, borders or overlap; flat #FF00FF chroma background and no magenta in effects."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_presence_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_presence_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 production boss sprite sheet for Kui Shadow Thunder Remains, a huge one-legged Shanhaijing thunder demon skeleton with dark stone bone armor, bronze ritual rings, cyan-violet lightning core and torn talismans, side-view facing left. Row 1 phase-1 idle, row 2 close warning, row 3 lightning-call warning, row 4 recovery. Four sequential frames per row, stable foot/root anchor and scale, body only, flat #FF00FF chroma background, no text or magenta body paint."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_attacks_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_attacks_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 phase-1 attack sheet for the same side-view Kui thunder boss. Row 1 close startup, row 2 heavy close slam, row 3 upward lightning-call startup, row 4 lightning release. Four progressive body frames per row, stable scale and anchor, no detached VFX, targets, scenery, text or grid, flat #FF00FF chroma background."
+    },
+    {
+      "asset_id": "stage30_kui_boss_transition_reaction_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_transition_reaction_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 reaction and transition sheet for the same Kui thunder boss. Row 1 ordinary hit, row 2 scattering stagger, row 3 guard break, row 4 phase transition into an empowered lightning posture. Four sequential body frames per row, stable anchor, side view, no detached effects, text, scenery or grid, flat #FF00FF chroma background."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_presence_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "candidate_count": 2,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 phase-2 presence sheet for the same Kui thunder boss, empowered but with unchanged anatomy and scale. Row 1 phase-2 idle, row 2 faster close warning, row 3 stronger lightning warning, row 4 shorter recovery. Four sequential frames per row, stable root anchor, body only with restrained attached energy, flat #FF00FF chroma background, no magenta contamination, text or grid."
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_resolution_ai01/candidates",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 phase-2 action and resolution sheet for the same side-view Kui thunder boss. Row 1 empowered close strike, row 2 empowered lightning call, row 3 recovery, row 4 non-gory defeat into inert stone-bone remains and fading energy. Four progressive frames per row, stable scale and anchor, no detached VFX, targets, text, scenery or grid, flat #FF00FF chroma background."
+    },
+    {
+      "asset_id": "stage30_kui_boss_combat_vfx_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_combat_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated combat VFX atlas for the Kui thunder boss: row 1 close warning seal; row 2 low broad close impact; row 3 vertical lightning warning marker; row 4 ritual lightning impact. Four progressive frames per row, Chinese ink/gongbi lightning, bronze seal geometry, cyan-violet-white energy. No body, scenery, text, grid or overlap; flat #FF00FF chroma background."
+    },
+    {
+      "asset_id": "stage30_kui_boss_state_vfx_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_state_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated state VFX atlas for the Kui thunder boss: cracked guard-break ring; wider thunder-wind stagger burst; rising phase-transition aura; quiet non-gory defeat dissipation. Four progressive frames per row, restrained cyan, violet, bronze and ink-brush silhouettes. No character, text, scenery, borders or overlap; flat #FF00FF chroma background."
+    },
+    {
+      "asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+      "batch": "Batch 30",
+      "priority": "P0",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "source_dir": "assets/source/ai_generated/batch_30/stage30_thunder_absorption_reward_vfx_ai01/candidates",
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+      "prompt": "Nano Hunter project art; no watermark. Exact 4x4 isolated reward and capability VFX atlas: row 1 thunder absorption unlock condensing inward; row 2 thunder beast core relic pulse; row 3 demon resonance ring; row 4 vertical storm curtain changing from locked to passable. Four readable frames per row, ancient Chinese talisman geometry, cyan-violet lightning, bronze and moon-white accents. No character, text, scenery, grid or overlap; flat #FF00FF chroma background."
     }
   ]
 }

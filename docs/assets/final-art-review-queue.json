@@ -3,32 +3,33 @@
   "status": "manual_review_queue_ready",
   "boundary": "Manual final-art review queue. Passing audits means every structural asset has an explicit review task; it does not mean the asset is final-ready.",
   "summary": {
-    "asset_count": 66,
-    "manual_review_required_count": 11,
+    "asset_count": 78,
+    "manual_review_required_count": 23,
     "final_ready_count": 55,
     "family_counts": {
       "animation": 8,
       "characters": 4,
       "environment": 12,
       "icons": 4,
-      "other": 4,
+      "other": 12,
       "promo_logo_cg": 4,
       "props_equipment": 8,
       "story": 3,
       "style": 1,
       "textures": 1,
       "ui": 10,
-      "vfx": 7
+      "vfx": 11
     },
     "blocker_counts": {
-      "anchor_manual_review": 1,
+      "anchor_manual_review": 5,
       "foreground_occlusion_review": 2,
-      "license_terms_manual_review": 11,
-      "mask_and_blend_manual_review": 1,
+      "license_terms_manual_review": 23,
+      "mask_and_blend_manual_review": 5,
       "parallax_layer_split": 2,
       "pseudo_text_cleanup": 1,
       "runtime_catalog_ready_manual_replacement": 5,
       "runtime_layout_review": 1,
+      "runtime_reference_not_replaced": 9,
       "scale_readability_review": 2,
       "small_size_readability_review": 2,
       "state_variant_naming": 2,
@@ -596,6 +597,114 @@
       ]
     },
     {
+      "asset_id": "stage30_kui_boss_combat_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "family": "vfx",
+      "priority": "P0",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
+      "blocker_count": 4,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
+        "复核 VFX mask、透明边缘和混合模式。"
+      ],
+      "evidence_paths": [
+        "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
+        "assets/art/vfx/vfx_rules/stage30_kui_boss_combat_vfx_ai01.vfx_rules.json"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_state_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "family": "vfx",
+      "priority": "P0",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+      "blocker_count": 4,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
+        "复核 VFX mask、透明边缘和混合模式。"
+      ],
+      "evidence_paths": [
+        "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+        "assets/art/vfx/vfx_rules/stage30_kui_boss_state_vfx_ai01.vfx_rules.json"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "family": "vfx",
+      "priority": "P0",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+      "blocker_count": 4,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
+        "复核 VFX mask、透明边缘和混合模式。"
+      ],
+      "evidence_paths": [
+        "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+        "assets/art/vfx/vfx_rules/stage30_thunder_absorption_reward_vfx_ai01.vfx_rules.json"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "family": "vfx",
+      "priority": "P0",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+      "blocker_count": 4,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
+        "复核 VFX mask、透明边缘和混合模式。"
+      ],
+      "evidence_paths": [
+        "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+        "assets/art/vfx/vfx_rules/stage30_thunder_fang_vfx_ai01.vfx_rules.json"
+      ]
+    },
+    {
       "asset_id": "vfx_combat_atlas_ai01",
       "target_kind": "vfx_atlas",
       "family": "vfx",
@@ -1108,6 +1217,176 @@
       ],
       "evidence_paths": [
         "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_attacks_ai01",
+      "target_kind": "boss_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_presence_ai01",
+      "target_kind": "boss_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_presence_ai01",
+      "target_kind": "boss_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+      "target_kind": "boss_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_transition_reaction_ai01",
+      "target_kind": "boss_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png",
+      "blocker_count": 2,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_attack_ai01",
+      "target_kind": "enemy_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+      "blocker_count": 1,
+      "blockers": [
+        "license_terms_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_locomotion_ai01",
+      "target_kind": "enemy_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png",
+      "blocker_count": 1,
+      "blockers": [
+        "license_terms_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_reaction_ai01",
+      "target_kind": "enemy_animation",
+      "family": "other",
+      "priority": "P2",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png",
+      "blocker_count": 1,
+      "blockers": [
+        "license_terms_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。"
+      ],
+      "evidence_paths": [
+        "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png"
       ]
     },
     {

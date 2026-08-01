@@ -52,6 +52,7 @@ var _build_slot_row: HBoxContainer
 
 const WORLD_MAP_ASPECT := 1511.0 / 1041.0
 const WAYSTATION_UI_ATLAS: Texture2D = preload("res://assets/art/ui/stage28_waystation_ui_runtime_ai01.png")
+const STAGE30_REWARD_ATLAS: Texture2D = preload("res://assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png")
 const WAYSTATION_UI_ICON_INDEX := {
 	&"waystation_clerk_portrait": 0,
 	&"bounty_caster_hunt": 1,
@@ -606,10 +607,15 @@ func _rebuild_build_slots(snapshot: Dictionary) -> void:
 
 
 func _waystation_ui_texture(icon_id: StringName) -> AtlasTexture:
+	if icon_id == &"build_thunder_beast_core":
+		var reward_texture := AtlasTexture.new()
+		reward_texture.atlas = STAGE30_REWARD_ATLAS
+		reward_texture.region = Rect2(0, 256, 256, 256)
+		return reward_texture
 	var index := int(WAYSTATION_UI_ICON_INDEX.get(icon_id, 8))
 	var texture := AtlasTexture.new()
 	texture.atlas = WAYSTATION_UI_ATLAS
-	texture.region = Rect2((index % 4) * 160, (index / 4) * 160, 160, 160)
+	texture.region = Rect2((index % 4) * 160, floori(index / 4.0) * 160, 160, 160)
 	return texture
 
 

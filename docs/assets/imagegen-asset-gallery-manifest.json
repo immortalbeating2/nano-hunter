@@ -5,15 +5,16 @@
 	"purpose": "Godot editor-facing preview scene for image-gen art package review.",
 	"boundary": "Preview and structural review only; not final art polish or runtime integration.",
 	"counts": {
-		"queue_outputs": 66,
+		"queue_outputs": 78,
 		"queue_categories": {
-			"boss_animation": 1,
+			"boss_animation": 6,
 			"boss_direction": 1,
 			"boss_vfx": 1,
 			"cg_illustration": 1,
 			"character_direction": 1,
 			"combat_vfx": 1,
 			"completion_ui": 1,
+			"enemy_animation": 3,
 			"environment_background": 2,
 			"environment_boss_room_background": 1,
 			"environment_room_background": 5,
@@ -40,7 +41,7 @@
 			"ui_atlas": 2,
 			"ui_map_foundation": 1,
 			"ui_panel": 2,
-			"vfx_atlas": 3,
+			"vfx_atlas": 7,
 			"vfx_direction": 1,
 			"vfx_sheet": 2,
 			"vfx_warning": 1

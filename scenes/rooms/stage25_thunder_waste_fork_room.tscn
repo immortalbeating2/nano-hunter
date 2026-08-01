@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=4]
+[gd_scene load_steps=3 format=4]
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/thunder_fang_enemy.tscn" id="2"]
 
 [node name="Stage25ThunderWasteForkRoom" instance=ExtResource("1")]
 next_room_path = "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn"
@@ -17,3 +18,10 @@ branch_room_path = "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn"
 branch_spawn_id = &"stage25_relay_start"
 stage29_landmark_index = 7
 stage29_landmark_position = Vector2(384, 132)
+
+[node name="ThunderFangEnemy" parent="." index="20" instance=ExtResource("2")]
+position = Vector2(180, 224)
+
+[node name="ChargedThunderFangEnemy" parent="." index="21" instance=ExtResource("2")]
+position = Vector2(520, 224)
+charged_variant = true

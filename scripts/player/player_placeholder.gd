@@ -32,11 +32,13 @@ const BUILD_MARSH_RELIC: StringName = &"marsh_relic"
 const BUILD_WARDEN_SIGIL: StringName = &"warden_sigil"
 const BUILD_CASTER_CORE: StringName = &"caster_core"
 const BUILD_GUARDIAN_CORE: StringName = &"guardian_core"
+const BUILD_THUNDER_BEAST_CORE: StringName = &"thunder_beast_core"
 const BUILD_SLOT_LIMIT := 2
 const MARSH_RELIC_RECOVERY_MULTIPLIER := 1.5
 const WARDEN_SIGIL_REACH_BONUS := 16.0
 const CASTER_CORE_SEQUENCE_WINDOW_BONUS := 0.75
 const GUARDIAN_CORE_STANCE_COOLDOWN_REDUCTION := 0.15
+const THUNDER_BEAST_CORE_SCATTER_KNOCKBACK_MULTIPLIER := 1.2
 const ELEMENT_WIND: StringName = &"wind"
 const ELEMENT_THUNDER: StringName = &"thunder"
 const STANCE_SWIFT: StringName = &"swift"
@@ -131,6 +133,7 @@ var _dash_direction := 1.0
 var _air_dash_unlocked := false
 var _air_dash_available := false
 var _wind_seal_unlocked := false
+var _thunder_absorption_unlocked := false
 var _active_build_id: StringName = &""
 var _equipped_build_ids: Array[StringName] = []
 var _current_element_id: StringName = ELEMENT_THUNDER
@@ -490,6 +493,7 @@ func _dispatch_attack_to_receiver(receiver: Object) -> void:
 				"element_id": _current_element_id,
 				"stance_id": _current_stance_id,
 				"reaction_id": _active_attack_reaction_id,
+				"thunder_absorption_unlocked": _thunder_absorption_unlocked,
 			}
 		)
 		return
@@ -1013,6 +1017,15 @@ func get_current_stance_label() -> String:
 	return "御印" if _current_stance_id == STANCE_WARD else "疾印"
 
 
+# Main 注入妖雷吸收能力；玩家只把它写入攻击上下文，不自行修改目标护印。
+func set_thunder_absorption_unlocked(unlocked: bool) -> void:
+	_thunder_absorption_unlocked = unlocked
+
+
+func is_thunder_absorption_unlocked() -> bool:
+	return _thunder_absorption_unlocked
+
+
 # 每次攻击起手只记录一个元素事件；最近两步决定当前序列反应。
 func _record_current_element_event() -> void:
 	_element_sequence.append(_current_element_id)
@@ -1155,6 +1168,8 @@ func get_effective_attack_knockback_force() -> float:
 	var multiplier := WARD_STANCE_KNOCKBACK_MULTIPLIER if _current_stance_id == STANCE_WARD else 1.0
 	if _active_attack_reaction_id == REACTION_THUNDER_WIND:
 		multiplier *= THUNDER_WIND_KNOCKBACK_MULTIPLIER
+		if _has_equipped_build(BUILD_THUNDER_BEAST_CORE):
+			multiplier *= THUNDER_BEAST_CORE_SCATTER_KNOCKBACK_MULTIPLIER
 	return attack_knockback_force * multiplier
 
 
@@ -1185,6 +1200,7 @@ func _is_supported_build(build_id: StringName) -> bool:
 		BUILD_WARDEN_SIGIL,
 		BUILD_CASTER_CORE,
 		BUILD_GUARDIAN_CORE,
+		BUILD_THUNDER_BEAST_CORE,
 	]
 
 
@@ -1239,6 +1255,7 @@ func get_hud_status_snapshot() -> Dictionary:
 		"air_dash_unlocked": _air_dash_unlocked,
 		"air_dash_available": is_air_dash_available(),
 		"wind_seal_unlocked": _wind_seal_unlocked,
+		"thunder_absorption_unlocked": _thunder_absorption_unlocked,
 		"current_element_id": _current_element_id,
 		"current_element_label": get_current_element_label(),
 		"current_stance_id": _current_stance_id,

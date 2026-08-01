@@ -3,17 +3,18 @@
   "status": "placeholder_ready",
   "boundary": "Art readiness audit. structural_ready means generated PNGs and metadata are usable by the pipeline. final_ready remains false until license records, manual cleanup, semantic naming, runtime replacement, and gameplay readability checks are completed.",
   "summary": {
-    "item_count": 66,
-    "structural_ready_count": 66,
+    "item_count": 78,
+    "structural_ready_count": 78,
     "final_ready_count": 55,
     "kind_counts": {
-      "boss_animation": 1,
+      "boss_animation": 6,
       "boss_direction": 1,
       "boss_vfx": 1,
       "cg_illustration": 1,
       "character_direction": 1,
       "combat_vfx": 1,
       "completion_ui": 1,
+      "enemy_animation": 3,
       "environment_background": 2,
       "environment_boss_room_background": 1,
       "environment_room_background": 5,
@@ -40,21 +41,22 @@
       "ui_atlas": 2,
       "ui_map_foundation": 1,
       "ui_panel": 2,
-      "vfx_atlas": 3,
+      "vfx_atlas": 7,
       "vfx_direction": 1,
       "vfx_sheet": 2,
       "vfx_warning": 1
     },
     "warnings_by_type": {},
     "blockers_by_type": {
-      "anchor_manual_review": 1,
+      "anchor_manual_review": 5,
       "foreground_occlusion_review": 2,
-      "license_terms_manual_review": 11,
-      "mask_and_blend_manual_review": 1,
+      "license_terms_manual_review": 23,
+      "mask_and_blend_manual_review": 5,
       "parallax_layer_split": 2,
       "pseudo_text_cleanup": 1,
       "runtime_catalog_ready_manual_replacement": 5,
       "runtime_layout_review": 1,
+      "runtime_reference_not_replaced": 9,
       "scale_readability_review": 2,
       "small_size_readability_review": 2,
       "state_variant_naming": 2,
@@ -6026,6 +6028,763 @@
       "warnings": [],
       "polish_blockers": [
         "license_terms_manual_review",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_locomotion_ai01",
+      "target_kind": "enemy_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 896,
+        "height": 768,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.701951,
+        "opaque_pixel_ratio": 0.323309,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "653985facdc6e57c4c9c17c5b0f7b1290d217a49e2ab8020f7689ab345edcf0f",
+        "candidate_count": 2,
+        "output_sha256": "d0bdbaac8ef0ed61147b7b04bc05a05bde59f69667e388bfdece6f958d23ff15"
+      },
+      "runtime_map": {
+        "track": "manual_review",
+        "target_system": "release/narrative asset binding",
+        "recommended_resource_type": "Texture2D",
+        "integration_status": "not_runtime_target",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/dev/imagegen_asset_gallery.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_attack_ai01",
+      "target_kind": "enemy_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 896,
+        "height": 768,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.705,
+        "opaque_pixel_ratio": 0.320421,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "c7f8e5a13e6ac4f8b44b2d0fd8cf26b982e30f067921f1d6f7c6c69100b4a97c",
+        "candidate_count": 1,
+        "output_sha256": "acc16a1428c52e4d1e19f233047cb9efc00d4957fcf6dc174cb71cff11187005"
+      },
+      "runtime_map": {
+        "track": "manual_review",
+        "target_system": "release/narrative asset binding",
+        "recommended_resource_type": "Texture2D",
+        "integration_status": "not_runtime_target",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/dev/imagegen_asset_gallery.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_reaction_ai01",
+      "target_kind": "enemy_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 896,
+        "height": 768,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.715554,
+        "opaque_pixel_ratio": 0.307261,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "9e9b4e0039c8caeec718101e65ba20c977065d6c829b27117962b3b36e50260d",
+        "candidate_count": 1,
+        "output_sha256": "96010ce2f0c77764522baee43177accc8ecac6688277ccf16a403f6871689048"
+      },
+      "runtime_map": {
+        "track": "manual_review",
+        "target_system": "release/narrative asset binding",
+        "recommended_resource_type": "Texture2D",
+        "integration_status": "not_runtime_target",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/dev/imagegen_asset_gallery.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.87628,
+        "opaque_pixel_ratio": 0.14574,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": {
+        "path": "assets/art/vfx/vfx_rules/stage30_thunder_fang_vfx_ai01.vfx_rules.json",
+        "frame_count": 16,
+        "rule_count": 16,
+        "collision_disabled_count": 16,
+        "damage_disabled_count": 16,
+        "manual_review_required": true
+      },
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "b860ef4feba59067ac2153a44b673df629ba979672bda4a0314ec6345f561d46",
+        "candidate_count": 1,
+        "output_sha256": "2efddce42137d40e29d6684fb5e4f400a8a70fb9811ade4165da4fcf448afb20"
+      },
+      "runtime_map": {
+        "track": "runtime_vfx",
+        "target_system": "VFX atlas animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/player/player_placeholder.tscn",
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_presence_ai01",
+      "target_kind": "boss_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1152,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.712901,
+        "opaque_pixel_ratio": 0.318887,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "341f50ede3c203c20a0f99980365f3d182cccafd9608c9982c9ce56128e0f6bc",
+        "candidate_count": 1,
+        "output_sha256": "ba4d8606a13e5cc70883d654f31f786b3f95ec0e031ab46663fb9fd42f9cf417"
+      },
+      "runtime_map": {
+        "track": "runtime_animation",
+        "target_system": "boss state animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_attacks_ai01",
+      "target_kind": "boss_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1152,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.741299,
+        "opaque_pixel_ratio": 0.288823,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "f0cfec6fb59dfdee1b40fa6445daef4048507c53d39479c3e525ababb83b51c5",
+        "candidate_count": 1,
+        "output_sha256": "ea08cff0e2f1f0329aac045b2b252290ec6eb86478ee5c912ce7c17f4f1908be"
+      },
+      "runtime_map": {
+        "track": "runtime_animation",
+        "target_system": "boss state animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_transition_reaction_ai01",
+      "target_kind": "boss_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1152,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.711821,
+        "opaque_pixel_ratio": 0.321024,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "3cc2153d45366a8030d872e119f230d8e29c2770d47d5b9c3ba253d4b4a4d27f",
+        "candidate_count": 1,
+        "output_sha256": "dd49a737be2a33dbc3ffe23e074418d492d56fe2dff39fbce4fa458fb5f0011d"
+      },
+      "runtime_map": {
+        "track": "runtime_animation",
+        "target_system": "boss state animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_presence_ai01",
+      "target_kind": "boss_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1152,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.796328,
+        "opaque_pixel_ratio": 0.301131,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "bd94e39c239c1bb5ad5d7ce02d95c9121c22737838366197f9b4a93d8f1d57b3",
+        "candidate_count": 2,
+        "output_sha256": "26d9fd6d27f4d345bdc3ab96a9040efdfe01ab75e2a6e9c4affbc918b8ac0a87"
+      },
+      "runtime_map": {
+        "track": "runtime_animation",
+        "target_system": "boss state animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+      "target_kind": "boss_animation",
+      "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1152,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.779345,
+        "opaque_pixel_ratio": 0.300012,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "b74da1d3b3e09f7edfbcb5e1a5513eecbfcc8df685844722650a11e78a784592",
+        "candidate_count": 1,
+        "output_sha256": "c6569149f525e65aad9bd03b73eb20df78bc033bd942e3be4f50c3276a0117bf"
+      },
+      "runtime_map": {
+        "track": "runtime_animation",
+        "target_system": "boss state animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_combat_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.910074,
+        "opaque_pixel_ratio": 0.126702,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": {
+        "path": "assets/art/vfx/vfx_rules/stage30_kui_boss_combat_vfx_ai01.vfx_rules.json",
+        "frame_count": 16,
+        "rule_count": 16,
+        "collision_disabled_count": 16,
+        "damage_disabled_count": 16,
+        "manual_review_required": true
+      },
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "9f80ea38b06f45e93e5b6fcbacf0347fdf1f283068d48ec77dec88e87ea7cee7",
+        "candidate_count": 1,
+        "output_sha256": "85d2d42db35965f5dd0174fdddcaae641a6f59da69458dc0959a9a71e4e9967b"
+      },
+      "runtime_map": {
+        "track": "runtime_vfx",
+        "target_system": "VFX atlas animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/player/player_placeholder.tscn",
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_state_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "output_path": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.862923,
+        "opaque_pixel_ratio": 0.172485,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": {
+        "path": "assets/art/vfx/vfx_rules/stage30_kui_boss_state_vfx_ai01.vfx_rules.json",
+        "frame_count": 16,
+        "rule_count": 16,
+        "collision_disabled_count": 16,
+        "damage_disabled_count": 16,
+        "manual_review_required": true
+      },
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "6cd4272e392f730198ec6ebc757cb638f328f6396976d797d9009b8984b18391",
+        "candidate_count": 1,
+        "output_sha256": "d3aa47cccd22ecbf10b3c036c2eaaacff56045a47c4ac86e359c1972c6a4aeaf"
+      },
+      "runtime_map": {
+        "track": "runtime_vfx",
+        "target_system": "VFX atlas animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/player/player_placeholder.tscn",
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "anchor_manual_review",
+        "mask_and_blend_manual_review"
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+      "target_kind": "vfx_atlas",
+      "output_path": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.723829,
+        "opaque_pixel_ratio": 0.304575,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": {
+        "path": "assets/art/vfx/vfx_rules/stage30_thunder_absorption_reward_vfx_ai01.vfx_rules.json",
+        "frame_count": 16,
+        "rule_count": 16,
+        "collision_disabled_count": 16,
+        "damage_disabled_count": 16,
+        "manual_review_required": true
+      },
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "f329d332acc32750487174cf88bacd1546c961bb132478eef7ea457febae7312",
+        "candidate_count": 1,
+        "output_sha256": "2be00fe820364d19a229e8a5f92ede41f5a431a226ae7d0d215a9a930c3d3f5e"
+      },
+      "runtime_map": {
+        "track": "runtime_vfx",
+        "target_system": "VFX atlas animation replacement",
+        "recommended_resource_type": "SpriteFrames",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/player/player_placeholder.tscn",
+          "scenes/enemies/seal_guardian_boss.tscn"
+        ]
+      },
+      "runtime_catalog": null,
+      "runtime_replacement_plan": null,
+      "runtime_map_references": null,
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
         "anchor_manual_review",
         "mask_and_blend_manual_review"
       ]

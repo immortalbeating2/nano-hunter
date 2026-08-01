@@ -4,8 +4,8 @@
 
 ## Summary
 
-- 资产总数：`66`
-- 需要人工复核：`11`
+- 资产总数：`78`
+- 需要人工复核：`23`
 - Final ready：`55`
 
 ## By Family
@@ -14,14 +14,14 @@
 - `characters`: `4`
 - `environment`: `12`
 - `icons`: `4`
-- `other`: `4`
+- `other`: `12`
 - `promo_logo_cg`: `4`
 - `props_equipment`: `8`
 - `story`: `3`
 - `style`: `1`
 - `textures`: `1`
 - `ui`: `10`
-- `vfx`: `7`
+- `vfx`: `11`
 
 ## Queue
 
@@ -66,6 +66,26 @@
 - [ ] `P0` `stage16_talisman_relay_ai01` (vfx / vfx_sheet) - 0 blockers
 - [ ] `P0` `stage29_thunder_waste_state_vfx_ai01` (vfx / vfx_atlas) - 3 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
+  - 复核 VFX mask、透明边缘和混合模式。
+- [ ] `P0` `stage30_kui_boss_combat_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
+  - 复核 VFX mask、透明边缘和混合模式。
+- [ ] `P0` `stage30_kui_boss_state_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
+  - 复核 VFX mask、透明边缘和混合模式。
+- [ ] `P0` `stage30_thunder_absorption_reward_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
+  - 复核 VFX mask、透明边缘和混合模式。
+- [ ] `P0` `stage30_thunder_fang_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
   - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
   - 复核 VFX mask、透明边缘和混合模式。
 - [ ] `P0` `vfx_combat_atlas_ai01` (vfx / vfx_atlas) - 0 blockers
@@ -116,6 +136,27 @@
 - [ ] `P2` `stage27_seal_guardian_vfx_ai01` (other / boss_vfx) - 2 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
   - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
+- [ ] `P2` `stage30_kui_boss_phase1_attacks_ai01` (other / boss_animation) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+- [ ] `P2` `stage30_kui_boss_phase1_presence_ai01` (other / boss_animation) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+- [ ] `P2` `stage30_kui_boss_phase2_presence_ai01` (other / boss_animation) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+- [ ] `P2` `stage30_kui_boss_phase2_resolution_ai01` (other / boss_animation) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+- [ ] `P2` `stage30_kui_boss_transition_reaction_ai01` (other / boss_animation) - 2 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+- [ ] `P2` `stage30_thunder_fang_attack_ai01` (other / enemy_animation) - 1 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+- [ ] `P2` `stage30_thunder_fang_locomotion_ai01` (other / enemy_animation) - 1 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+- [ ] `P2` `stage30_thunder_fang_reaction_ai01` (other / enemy_animation) - 1 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
 - [ ] `P2` `capsule_art_alpha_demo_ai01` (promo_logo_cg / promo_capsule) - 0 blockers
 - [ ] `P2` `cg_seal_guardian_reveal_ai01` (promo_logo_cg / cg_illustration) - 0 blockers
 - [ ] `P2` `nano_hunter_logo_direction_ai01` (promo_logo_cg / logo_direction) - 0 blockers

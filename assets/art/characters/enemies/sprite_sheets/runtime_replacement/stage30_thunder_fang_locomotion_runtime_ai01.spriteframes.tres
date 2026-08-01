@@ -1,0 +1,90 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_00"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_01"]
+atlas = ExtResource("1")
+region = Rect2(224, 0, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_02"]
+atlas = ExtResource("1")
+region = Rect2(448, 0, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_03"]
+atlas = ExtResource("1")
+region = Rect2(672, 0, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_04"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_05"]
+atlas = ExtResource("1")
+region = Rect2(224, 192, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_06"]
+atlas = ExtResource("1")
+region = Rect2(448, 192, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_07"]
+atlas = ExtResource("1")
+region = Rect2(672, 192, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_08"]
+atlas = ExtResource("1")
+region = Rect2(0, 384, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_09"]
+atlas = ExtResource("1")
+region = Rect2(224, 384, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_10"]
+atlas = ExtResource("1")
+region = Rect2(448, 384, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_11"]
+atlas = ExtResource("1")
+region = Rect2(672, 384, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_12"]
+atlas = ExtResource("1")
+region = Rect2(0, 576, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_13"]
+atlas = ExtResource("1")
+region = Rect2(224, 576, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_14"]
+atlas = ExtResource("1")
+region = Rect2(448, 576, 224, 192)
+
+[sub_resource type="AtlasTexture" id="Stage30_stage30_thunder_fang_locomotion_runtime_ai01_15"]
+atlas = ExtResource("1")
+region = Rect2(672, 576, 224, 192)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_00")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_01")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_02")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_03")}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_04")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_05")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_06")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_07")}],
+"loop": true,
+"name": &"patrol",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_08")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_09")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_10")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_11")}],
+"loop": true,
+"name": &"move",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_12")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_13")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_14")}, {"duration": 1.0, "texture": SubResource("Stage30_stage30_thunder_fang_locomotion_runtime_ai01_15")}],
+"loop": true,
+"name": &"charged_idle",
+"speed": 8.0
+}]

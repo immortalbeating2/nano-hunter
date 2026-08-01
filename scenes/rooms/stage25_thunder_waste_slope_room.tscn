@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=4]
+[gd_scene load_steps=3 format=4]
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/thunder_fang_enemy.tscn" id="2"]
 
 [node name="Stage25ThunderWasteSlopeRoom" instance=ExtResource("1")]
 next_room_path = "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn"
@@ -16,3 +17,7 @@ stage25_title = "雷泽荒原 · 引雷坡道"
 stage25_prompt = "坡道连接主路与接地回环，继续向右抵达风蚀岔口。"
 stage29_landmark_index = 6
 stage29_landmark_position = Vector2(432, 126)
+
+[node name="ChargedThunderFangEnemy" parent="." index="20" instance=ExtResource("2")]
+position = Vector2(360, 224)
+charged_variant = true

@@ -1,0 +1,426 @@
+{
+  "id": "stage30_kui_boss_state_vfx_runtime_ai01",
+  "kind": "vfx_atlas",
+  "output": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
+  "sprite_frames": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.spriteframes.tres",
+  "cell": [
+    256,
+    256
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frame_count": 16,
+  "animations": {
+    "guard_break": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "stagger": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "phase_transition": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "defeat": [
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "anchor": "center",
+  "frames": [
+    {
+      "index": 0,
+      "region": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        42,
+        98,
+        252,
+        275
+      ],
+      "normalized_size": [
+        210,
+        177
+      ],
+      "paste": [
+        23,
+        40
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 1,
+      "region": [
+        256,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        18,
+        80,
+        240,
+        278
+      ],
+      "normalized_size": [
+        222,
+        198
+      ],
+      "paste": [
+        17,
+        29
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 2,
+      "region": [
+        512,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        3,
+        45,
+        239,
+        286
+      ],
+      "normalized_size": [
+        236,
+        241
+      ],
+      "paste": [
+        10,
+        8
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 3,
+      "region": [
+        768,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        14,
+        250,
+        286
+      ],
+      "normalized_size": [
+        224,
+        244
+      ],
+      "paste": [
+        16,
+        6
+      ],
+      "scale": 0.897059
+    },
+    {
+      "index": 4,
+      "region": [
+        0,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        39,
+        97,
+        265,
+        256
+      ],
+      "normalized_size": [
+        226,
+        159
+      ],
+      "paste": [
+        15,
+        48
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 5,
+      "region": [
+        256,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        9,
+        51,
+        254,
+        257
+      ],
+      "normalized_size": [
+        244,
+        205
+      ],
+      "paste": [
+        6,
+        26
+      ],
+      "scale": 0.995918
+    },
+    {
+      "index": 6,
+      "region": [
+        512,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        49,
+        250,
+        262
+      ],
+      "normalized_size": [
+        244,
+        208
+      ],
+      "paste": [
+        6,
+        24
+      ],
+      "scale": 0.976
+    },
+    {
+      "index": 7,
+      "region": [
+        768,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        38,
+        249,
+        263
+      ],
+      "normalized_size": [
+        244,
+        220
+      ],
+      "paste": [
+        6,
+        18
+      ],
+      "scale": 0.97992
+    },
+    {
+      "index": 8,
+      "region": [
+        0,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        27,
+        72,
+        269,
+        258
+      ],
+      "normalized_size": [
+        242,
+        186
+      ],
+      "paste": [
+        7,
+        35
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 9,
+      "region": [
+        256,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        3,
+        60,
+        256,
+        265
+      ],
+      "normalized_size": [
+        244,
+        198
+      ],
+      "paste": [
+        6,
+        29
+      ],
+      "scale": 0.964427
+    },
+    {
+      "index": 10,
+      "region": [
+        512,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        18,
+        244,
+        270
+      ],
+      "normalized_size": [
+        236,
+        244
+      ],
+      "paste": [
+        10,
+        6
+      ],
+      "scale": 0.968254
+    },
+    {
+      "index": 11,
+      "region": [
+        768,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        0,
+        16,
+        246,
+        271
+      ],
+      "normalized_size": [
+        235,
+        244
+      ],
+      "paste": [
+        10,
+        6
+      ],
+      "scale": 0.956863
+    },
+    {
+      "index": 12,
+      "region": [
+        0,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        51,
+        49,
+        252,
+        233
+      ],
+      "normalized_size": [
+        201,
+        184
+      ],
+      "paste": [
+        28,
+        36
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 13,
+      "region": [
+        256,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        70,
+        47,
+        206,
+        233
+      ],
+      "normalized_size": [
+        136,
+        186
+      ],
+      "paste": [
+        60,
+        35
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 14,
+      "region": [
+        512,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        9,
+        96,
+        233,
+        236
+      ],
+      "normalized_size": [
+        224,
+        140
+      ],
+      "paste": [
+        16,
+        58
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 15,
+      "region": [
+        768,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        5,
+        130,
+        229,
+        232
+      ],
+      "normalized_size": [
+        224,
+        102
+      ],
+      "paste": [
+        16,
+        77
+      ],
+      "scale": 1.0
+    }
+  ]
+}

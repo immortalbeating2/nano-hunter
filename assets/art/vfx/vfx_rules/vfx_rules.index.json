@@ -1,8 +1,8 @@
 {
   "version": 1,
   "status": "placeholder_ready",
-  "asset_count": 8,
-  "frame_rule_count": 102,
+  "asset_count": 12,
+  "frame_rule_count": 166,
   "manual_review_required": true,
   "assets": [
     {
@@ -51,6 +51,30 @@
       "asset_id": "seal_guardian_attack_vfx_atlas_ai01",
       "path": "assets/art/vfx/vfx_rules/seal_guardian_attack_vfx_atlas_ai01.vfx_rules.json",
       "frame_count": 8,
+      "target_kind": "vfx_atlas"
+    },
+    {
+      "asset_id": "stage30_thunder_fang_vfx_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage30_thunder_fang_vfx_ai01.vfx_rules.json",
+      "frame_count": 16,
+      "target_kind": "vfx_atlas"
+    },
+    {
+      "asset_id": "stage30_kui_boss_combat_vfx_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage30_kui_boss_combat_vfx_ai01.vfx_rules.json",
+      "frame_count": 16,
+      "target_kind": "vfx_atlas"
+    },
+    {
+      "asset_id": "stage30_kui_boss_state_vfx_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage30_kui_boss_state_vfx_ai01.vfx_rules.json",
+      "frame_count": 16,
+      "target_kind": "vfx_atlas"
+    },
+    {
+      "asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+      "path": "assets/art/vfx/vfx_rules/stage30_thunder_absorption_reward_vfx_ai01.vfx_rules.json",
+      "frame_count": 16,
       "target_kind": "vfx_atlas"
     }
   ],

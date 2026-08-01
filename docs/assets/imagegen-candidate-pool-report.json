@@ -3,11 +3,11 @@
   "status": "review_required",
   "boundary": "Candidate pool audit only. It proves raw PNG candidates exist and tracks whether selected sources already use them; it does not approve art quality or runtime replacement.",
   "summary": {
-    "queue_item_count": 66,
-    "candidate_png_count": 144,
-    "selected_source_count": 474,
-    "unselected_candidate_count": 104,
-    "review_required_item_count": 55,
+    "queue_item_count": 78,
+    "candidate_png_count": 158,
+    "selected_source_count": 486,
+    "unselected_candidate_count": 106,
+    "review_required_item_count": 57,
     "review_required_items": [
       "style_board_global_ai01",
       "stage16_luna_player_readability_ai01",
@@ -63,16 +63,19 @@
       "stage16_pause_panel_ui_ai01",
       "stage16_completion_panel_ui_ai01",
       "stage15_boss_hud_frame_ai01",
-      "stage14_ability_status_hud_ai01"
+      "stage14_ability_status_hud_ai01",
+      "stage30_thunder_fang_locomotion_ai01",
+      "stage30_kui_boss_phase2_presence_ai01"
     ],
     "target_kind_counts": {
-      "boss_animation": 1,
+      "boss_animation": 6,
       "boss_direction": 1,
       "boss_vfx": 1,
       "cg_illustration": 1,
       "character_direction": 1,
       "combat_vfx": 1,
       "completion_ui": 1,
+      "enemy_animation": 3,
       "environment_background": 2,
       "environment_boss_room_background": 1,
       "environment_room_background": 5,
@@ -99,7 +102,7 @@
       "ui_atlas": 2,
       "ui_map_foundation": 1,
       "ui_panel": 2,
-      "vfx_atlas": 3,
+      "vfx_atlas": 7,
       "vfx_direction": 1,
       "vfx_sheet": 2,
       "vfx_warning": 1
@@ -119,7 +122,8 @@
       "Batch 13": 3,
       "Batch 27": 4,
       "Batch 28": 3,
-      "Batch 29": 3
+      "Batch 29": 3,
+      "Batch 30": 14
     },
     "recovery_ledgers": [
       {
@@ -2985,6 +2989,412 @@
           "index": 1,
           "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates/stage29_thunder_waste_state_vfx_ai01_candidate_01.png",
           "sha256": "1769def3ee1e4e205d2c02f2a188e56d5636c6684da2fd4f80d6f5a46bafd993",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_locomotion_ai01",
+      "batch": "Batch 30",
+      "target_kind": "enemy_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates",
+      "candidate_count": 2,
+      "candidate_indices": [
+        1,
+        2
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "selected_candidate_usage": {
+        "02": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.source.json",
+      "unselected_candidate_indices": [
+        1
+      ],
+      "review_required": true,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates/stage30_thunder_fang_locomotion_ai01_candidate_01.png",
+          "sha256": "9eb5f73539681ad92011f50bca123674abe6d8caeb23e184c94e5cdc7ddd4100",
+          "width": 1024,
+          "height": 1024,
+          "mode": "RGBA"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates/stage30_thunder_fang_locomotion_ai01_candidate_02.png",
+          "sha256": "ee8821d4c47dfcb81cd930bc5b71c4c149f102b26760eb5a465ae9c0f05e587a",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_attack_ai01",
+      "batch": "Batch 30",
+      "target_kind": "enemy_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_attack_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_attack_ai01/candidates/stage30_thunder_fang_attack_ai01_candidate_01.png",
+          "sha256": "c259a2bd5e4b4c62c6e495435806ea1867ad6ff0c61ccacb62e357524a82bdc1",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_reaction_ai01",
+      "batch": "Batch 30",
+      "target_kind": "enemy_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_reaction_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_reaction_ai01/candidates/stage30_thunder_fang_reaction_ai01_candidate_01.png",
+          "sha256": "359eb561fc30439101811b1316c933527f6181b428ab8e750f653d3baa2c9d37",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_fang_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_thunder_fang_vfx_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_vfx_ai01/candidates/stage30_thunder_fang_vfx_ai01_candidate_01.png",
+          "sha256": "345f7b60590048ed611bfafdcc0fb991ea3cbb08bcbcf19fd04db29b69705042",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_presence_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_presence_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_presence_ai01/candidates/stage30_kui_boss_phase1_presence_ai01_candidate_01.png",
+          "sha256": "f2bb1ac40a088fc5aee4957afa81a636f96c0314c5fa2ff269c88b0c0aa9fddd",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_attacks_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_attacks_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_attacks_ai01/candidates/stage30_kui_boss_phase1_attacks_ai01_candidate_01.png",
+          "sha256": "84dfdfbaffd38d4ebafe6b632ed608323dfe56a338cb093dd510ba9284ff32d5",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_transition_reaction_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_transition_reaction_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_transition_reaction_ai01/candidates/stage30_kui_boss_transition_reaction_ai01_candidate_01.png",
+          "sha256": "32efb7cabccdce0b1c7f90060c42b8c159ab841c69d0a92b1f80c3eccbb3b447",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_presence_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates",
+      "candidate_count": 2,
+      "candidate_indices": [
+        1,
+        2
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "selected_candidate_usage": {
+        "02": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.source.json",
+      "unselected_candidate_indices": [
+        1
+      ],
+      "review_required": true,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates/stage30_kui_boss_phase2_presence_ai01_candidate_01.png",
+          "sha256": "de1bf102d63221c121744fa0028a499fe2d349e44cbe8026db10c79d9966a29b",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates/stage30_kui_boss_phase2_presence_ai01_candidate_02.png",
+          "sha256": "b1b37349d5e422353585738ec3b713f99665c2a1f90738f472279080feb690e2",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_resolution_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_resolution_ai01/candidates/stage30_kui_boss_phase2_resolution_ai01_candidate_01.png",
+          "sha256": "f30dd013d49d8dd628be9379b664e98233ef18e5e7d2087df478e4b2d85fae34",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_combat_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_combat_vfx_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_combat_vfx_ai01/candidates/stage30_kui_boss_combat_vfx_ai01_candidate_01.png",
+          "sha256": "1d44c9760aa317d7d9820d18671f868ec6582b2b3383ea08152bae273d42d4d6",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_kui_boss_state_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_kui_boss_state_vfx_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_state_vfx_ai01/candidates/stage30_kui_boss_state_vfx_ai01_candidate_01.png",
+          "sha256": "2479765f559efd36dd6a7336f3b382f13ed1756fecb49ded659b2112e8baa16e",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_30/stage30_thunder_absorption_reward_vfx_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_absorption_reward_vfx_ai01/candidates/stage30_thunder_absorption_reward_vfx_ai01_candidate_01.png",
+          "sha256": "0e1e83752de7552ab8d2f74341ecc6afd1327cf66e3a60444c527657e187c6aa",
           "width": 1254,
           "height": 1254,
           "mode": "RGB"

@@ -1,0 +1,426 @@
+{
+  "id": "stage30_thunder_absorption_reward_vfx_runtime_ai01",
+  "kind": "vfx_atlas",
+  "output": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
+  "sprite_frames": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.spriteframes.tres",
+  "cell": [
+    256,
+    256
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frame_count": 16,
+  "animations": {
+    "absorption_unlock": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "thunder_beast_core": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "demon_resonance": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "shortcut_curtain": [
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "anchor": "center",
+  "frames": [
+    {
+      "index": 0,
+      "region": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        25,
+        56,
+        279,
+        286
+      ],
+      "normalized_size": [
+        244,
+        221
+      ],
+      "paste": [
+        6,
+        18
+      ],
+      "scale": 0.96063
+    },
+    {
+      "index": 1,
+      "region": [
+        256,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        20,
+        49,
+        273,
+        286
+      ],
+      "normalized_size": [
+        244,
+        229
+      ],
+      "paste": [
+        6,
+        14
+      ],
+      "scale": 0.964427
+    },
+    {
+      "index": 2,
+      "region": [
+        512,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        15,
+        62,
+        265,
+        286
+      ],
+      "normalized_size": [
+        244,
+        219
+      ],
+      "paste": [
+        6,
+        18
+      ],
+      "scale": 0.976
+    },
+    {
+      "index": 3,
+      "region": [
+        768,
+        0,
+        256,
+        256
+      ],
+      "source_bbox": [
+        4,
+        134,
+        253,
+        286
+      ],
+      "normalized_size": [
+        244,
+        149
+      ],
+      "paste": [
+        6,
+        54
+      ],
+      "scale": 0.97992
+    },
+    {
+      "index": 4,
+      "region": [
+        0,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        56,
+        69,
+        247,
+        285
+      ],
+      "normalized_size": [
+        191,
+        216
+      ],
+      "paste": [
+        32,
+        20
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 5,
+      "region": [
+        256,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        51,
+        70,
+        242,
+        285
+      ],
+      "normalized_size": [
+        191,
+        215
+      ],
+      "paste": [
+        32,
+        20
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 6,
+      "region": [
+        512,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        44,
+        70,
+        235,
+        285
+      ],
+      "normalized_size": [
+        191,
+        215
+      ],
+      "paste": [
+        32,
+        20
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 7,
+      "region": [
+        768,
+        256,
+        256,
+        256
+      ],
+      "source_bbox": [
+        32,
+        71,
+        223,
+        285
+      ],
+      "normalized_size": [
+        191,
+        214
+      ],
+      "paste": [
+        32,
+        21
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 8,
+      "region": [
+        0,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        41,
+        36,
+        264,
+        254
+      ],
+      "normalized_size": [
+        223,
+        218
+      ],
+      "paste": [
+        16,
+        19
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 9,
+      "region": [
+        256,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        41,
+        43,
+        261,
+        253
+      ],
+      "normalized_size": [
+        220,
+        210
+      ],
+      "paste": [
+        18,
+        23
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 10,
+      "region": [
+        512,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        28,
+        40,
+        248,
+        257
+      ],
+      "normalized_size": [
+        220,
+        217
+      ],
+      "paste": [
+        18,
+        20
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 11,
+      "region": [
+        768,
+        512,
+        256,
+        256
+      ],
+      "source_bbox": [
+        17,
+        44,
+        239,
+        263
+      ],
+      "normalized_size": [
+        222,
+        219
+      ],
+      "paste": [
+        17,
+        18
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 12,
+      "region": [
+        0,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        34,
+        0,
+        269,
+        239
+      ],
+      "normalized_size": [
+        235,
+        239
+      ],
+      "paste": [
+        10,
+        8
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 13,
+      "region": [
+        256,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        35,
+        0,
+        264,
+        240
+      ],
+      "normalized_size": [
+        229,
+        240
+      ],
+      "paste": [
+        14,
+        8
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 14,
+      "region": [
+        512,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        22,
+        15,
+        249,
+        238
+      ],
+      "normalized_size": [
+        227,
+        223
+      ],
+      "paste": [
+        14,
+        16
+      ],
+      "scale": 1.0
+    },
+    {
+      "index": 15,
+      "region": [
+        768,
+        768,
+        256,
+        256
+      ],
+      "source_bbox": [
+        12,
+        1,
+        240,
+        243
+      ],
+      "normalized_size": [
+        228,
+        242
+      ],
+      "paste": [
+        14,
+        7
+      ],
+      "scale": 1.0
+    }
+  ]
+}

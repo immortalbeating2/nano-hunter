@@ -4,6 +4,11 @@
 
 ## 2026-08-02
 
+- **Stage30 雷泽敌群、区域首领与妖雷吸收技术候选完成**：不扩房、不新增通用 Boss 框架，复用既有战斗 / 路由契约形成“敌群 → 两阶段首领 → 吸收成长 → 回访捷径”闭环。
+  结果：普通 / 蓄雷雷蚀獠、夔影雷骸两阶段动作与专属 VFX、雷吸收、雷兽妖核、回访 curtain 和一次性妖性共鸣进入生产；十二组图像资产已接入。七条本地音频按并发 `1` 进入 scratch，真人试听前不进入 runtime。资产治理为 `78/78 structural-ready`、`55/78 final-ready`，`23` 个人工阻断保持可见。
+  关键验证或结论：MCP 生产 Main 覆盖敌人连续帧、shortcut 前后状态、Boss 两阶段 / 雷风破势 / 击败奖励与事件幂等，最终 `editor errors=0`、临时 autoload 与本轮 editor 精确进程树清理完成。Stage30 `5/5` / `53`，递归 GUT `47` scripts / `317/317` / `8785`，Godot `4.6.3` import、smoke 与 strict package 通过。音频、Boss 手感 / 读招、美术审美和真实 21:9 继续归 Gate26H。
+  详情日志链接：`docs/progress/logs/2026-08-02.md`；执行清单：`docs/implementation-plans/2026-08-01-stage30-thunder-enemies-boss-absorption.md`；资产矩阵：`docs/assets/stage30-thunder-enemies-boss-asset-matrix.md`。
+
 - **Stage29 雷泽荒原正式美术与区域机制清稿技术候选完成**：在不扩房、不改路线和碰撞的前提下，把 Stage25 六房从冷色瘴泽灰盒提升为专属雷泽区域。
   结果：共享正式背景、显示 TileSet、六个唯一地标及雷暴 / 祭柱 / 屏障 / 路线 VFX 进入生产场景；入口登记 `thunder_outpost` 但没有传送功能。三条本地音频按并发 `1` 进入 scratch，真人试听前不进入 runtime。资产治理为 `66/66 structural-ready`、`55/66 final-ready`，`11` 个人工阻断保持可见。
   关键验证或结论：MCP 无 HUD 逐房复核发现并修复 atlas 浮点行号错裁；最终 `editor errors=0`、临时 autoload / 当前 editor / CLI listener 清理完成。Stage19/25/26/29 `20/20` / `464`，递归 GUT `46` scripts / `312/312` / `8732`，Godot `4.6.3` import、smoke、strict package 与 diff 校验通过。真实 21:9、音频、美术审美和无 HUD 理解度继续归 Gate26H。

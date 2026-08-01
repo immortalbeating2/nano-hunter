@@ -4,17 +4,17 @@
   "status": "review_required",
   "boundary": "Source safety audit only. It checks multi-project image_gen import risk by classifying candidate PNGs against session recovery summaries, recovery ledgers, provenance records and project path boundaries. It does not approve final art quality, legal terms or runtime use.",
   "summary": {
-    "queue_item_count": 66,
-    "candidate_count": 144,
+    "queue_item_count": 78,
+    "candidate_count": 158,
     "candidate_storage_policy": "raw_candidates_optional_outside_git",
     "classification_counts": {
       "project_session_confirmed": 44,
       "explicit_mapping_confirmed": 0,
       "explicit_mapping_review_required": 30,
-      "workspace_provenance_recorded_review_required": 70,
+      "workspace_provenance_recorded_review_required": 84,
       "unknown_or_unsafe": 0
     },
-    "review_required_candidate_count": 100,
+    "review_required_candidate_count": 114,
     "unsafe_candidate_count": 0,
     "session_recovery_candidate_count": 44,
     "ledger_mapped_candidate_count": 30,
@@ -1939,6 +1939,226 @@
       "candidates": [
         {
           "path": "assets/source/ai_generated/batch_29/stage29_thunder_waste_state_vfx_ai01/candidates/stage29_thunder_waste_state_vfx_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_thunder_fang_locomotion_ai01",
+      "batch": "Batch 30",
+      "target_kind": "enemy_animation",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates/stage30_thunder_fang_locomotion_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        },
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_locomotion_ai01/candidates/stage30_thunder_fang_locomotion_ai01_candidate_02.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_thunder_fang_attack_ai01",
+      "batch": "Batch 30",
+      "target_kind": "enemy_animation",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_attack_ai01/candidates/stage30_thunder_fang_attack_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_thunder_fang_reaction_ai01",
+      "batch": "Batch 30",
+      "target_kind": "enemy_animation",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_reaction_ai01/candidates/stage30_thunder_fang_reaction_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_thunder_fang_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_fang_vfx_ai01/candidates/stage30_thunder_fang_vfx_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_presence_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_presence_ai01/candidates/stage30_kui_boss_phase1_presence_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase1_attacks_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase1_attacks_ai01/candidates/stage30_kui_boss_phase1_attacks_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_kui_boss_transition_reaction_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_transition_reaction_ai01/candidates/stage30_kui_boss_transition_reaction_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_presence_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates/stage30_kui_boss_phase2_presence_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        },
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_presence_ai01/candidates/stage30_kui_boss_phase2_presence_ai01_candidate_02.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+      "batch": "Batch 30",
+      "target_kind": "boss_animation",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_resolution_ai01/candidates/stage30_kui_boss_phase2_resolution_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_kui_boss_combat_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_combat_vfx_ai01/candidates/stage30_kui_boss_combat_vfx_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_kui_boss_state_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_kui_boss_state_vfx_ai01/candidates/stage30_kui_boss_state_vfx_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage30_thunder_absorption_reward_vfx_ai01",
+      "batch": "Batch 30",
+      "target_kind": "vfx_atlas",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_30/stage30_thunder_absorption_reward_vfx_ai01/candidates/stage30_thunder_absorption_reward_vfx_ai01_candidate_01.png",
           "status": "workspace_provenance_recorded_review_required",
           "reasons": [
             "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"

@@ -1,0 +1,566 @@
+{
+  "version": 1,
+  "asset_id": "stage30_thunder_fang_vfx_ai01",
+  "target_kind": "vfx_atlas",
+  "status": "runtime_region_ready",
+  "source_texture": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
+  "source_metadata": "",
+  "sprite_frames": "",
+  "frame_count": 16,
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "cell_size": [
+      256,
+      256
+    ]
+  },
+  "rules": [
+    {
+      "index": 0,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_warning_01",
+      "semantic_name": "warning_01",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 1,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_warning_02",
+      "semantic_name": "warning_02",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        256,
+        0,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 2,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_warning_03",
+      "semantic_name": "warning_03",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        512,
+        0,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 3,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_warning_04",
+      "semantic_name": "warning_04",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        768,
+        0,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 4,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_attack_01",
+      "semantic_name": "attack_01",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        0,
+        256,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 5,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_attack_02",
+      "semantic_name": "attack_02",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        256,
+        256,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 6,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_attack_03",
+      "semantic_name": "attack_03",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        512,
+        256,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 7,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_attack_04",
+      "semantic_name": "attack_04",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        768,
+        256,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 8,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_guard_break_01",
+      "semantic_name": "guard_break_01",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        0,
+        512,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 9,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_guard_break_02",
+      "semantic_name": "guard_break_02",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        256,
+        512,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 10,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_guard_break_03",
+      "semantic_name": "guard_break_03",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        512,
+        512,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 11,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_guard_break_04",
+      "semantic_name": "guard_break_04",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        768,
+        512,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 12,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_stagger_01",
+      "semantic_name": "stagger_01",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        0,
+        768,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 13,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_stagger_02",
+      "semantic_name": "stagger_02",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        256,
+        768,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 14,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_stagger_03",
+      "semantic_name": "stagger_03",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        512,
+        768,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    },
+    {
+      "index": 15,
+      "source_name": "stage30_thunder_fang_vfx_runtime_ai01_stagger_04",
+      "semantic_name": "stagger_04",
+      "group": "combat_feedback",
+      "role": "combat_feedback",
+      "region": [
+        768,
+        768,
+        256,
+        256
+      ],
+      "anchor_px": [
+        128,
+        128
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "spawn_offset_px": [
+        0,
+        0
+      ],
+      "recommended_blend": "additive",
+      "gameplay_collision": false,
+      "damage_source": false,
+      "manual_review_required": true,
+      "notes": [
+        "reviewed_standalone_grid_cell",
+        "runtime_region_binding_required",
+        "do_not_use_as_collision_or_damage_source"
+      ]
+    }
+  ],
+  "manual_review_required": true,
+  "boundary": "Stage30 Thunder Fang VFX grid; visual-only with no collision or damage authority."
+}

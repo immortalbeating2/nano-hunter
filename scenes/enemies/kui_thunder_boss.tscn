@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/kui_thunder_boss.gd" id="1"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.spriteframes.tres" id="2"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.spriteframes.tres" id="3"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(84, 128)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(120, 144)
+
+[node name="KuiThunderBoss" type="StaticBody2D"]
+script = ExtResource("1")
+max_health = 12
+max_guard = 4
+aggro_distance = 260.0
+attack_range = 82.0
+windup_duration = 0.6
+strike_duration = 0.22
+recovery_duration = 0.65
+stagger_duration = 0.85
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -64)
+shape = SubResource("1")
+
+[node name="Body" type="Polygon2D" parent="."]
+position = Vector2(0, -64)
+color = Color(0.31, 0.42, 0.58, 1)
+polygon = PackedVector2Array(-42, 58, -46, 0, -28, -58, 0, -68, 30, -54, 46, 0, 40, 58, 0, 68)
+
+[node name="SealGuardianRuntimeAnimationVisual" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -64)
+scale = Vector2(0.52, 0.52)
+sprite_frames = ExtResource("2")
+animation = &"phase1_idle"
+metadata/asset_id = "stage30_kui_boss_phase1_presence_runtime_ai01"
+metadata/asset_binding_note = "runtime_body_only_stage30_phase_and_attack_clips"
+
+[node name="SealGuardianAttackVfxVisual" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(0, -42)
+scale = Vector2(0.52, 0.52)
+modulate = Color(1, 1, 1, 0.82)
+sprite_frames = ExtResource("3")
+animation = &"close_warning"
+metadata/asset_id = "stage30_kui_boss_combat_vfx_runtime_ai01"
+metadata/asset_binding_note = "runtime_attack_and_state_vfx_only"
+metadata/recommended_blend = "additive_alpha"
+metadata/gameplay_collision = false
+metadata/damage_source = false
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -64)
+monitoring = true
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("2")

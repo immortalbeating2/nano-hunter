@@ -5,27 +5,27 @@
 	"purpose": "Godot editor-facing final-art review workbench for the Nano Hunter image-gen asset package.",
 	"boundary": "Review workbench only. It proves review cards and preview textures are available; it does not approve final art, licensing, runtime replacement, animation timing, UI readability or gameplay fit.",
 	"counts": {
-		"entry_count": 66,
-		"texture_card_count": 66,
-		"manual_review_required_count": 11,
+		"entry_count": 78,
+		"texture_card_count": 78,
+		"manual_review_required_count": 23,
 		"final_ready_count": 55,
-		"blocker_total": 32,
+		"blocker_total": 61,
 		"priority_counts": {
-			"P0": 33,
+			"P0": 37,
 			"P1": 22,
-			"P2": 11
+			"P2": 19
 		},
 		"family_counts": {
 			"animation": 8,
 			"characters": 4,
 			"icons": 4,
 			"ui": 10,
-			"vfx": 7,
+			"vfx": 11,
 			"environment": 12,
 			"props_equipment": 8,
 			"style": 1,
 			"textures": 1,
-			"other": 4,
+			"other": 12,
 			"promo_logo_cg": 4,
 			"story": 3
 		}

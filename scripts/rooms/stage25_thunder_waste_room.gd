@@ -12,6 +12,7 @@ extends "res://scripts/rooms/stage10_room_base.gd"
 @export_range(4, 9, 1) var stage29_landmark_index := 4
 @export var stage29_landmark_position := Vector2(128, 132)
 @export var travel_point_id: StringName = &""
+@export var shortcut_requires_thunder_absorption := false
 
 const STAGE29_ENVIRONMENT_ATLAS: Texture2D = preload(
 	"res://assets/art/environment/thunder_waste/stage29_thunder_waste_environment_runtime_ai01.png"
@@ -77,7 +78,27 @@ func get_stage25_progress_snapshot() -> Dictionary:
 		"branch_room_path": branch_room_path,
 		"stage29_landmark_index": stage29_landmark_index,
 		"travel_point_id": travel_point_id,
+		"absorption_shortcut_available": is_shortcut_available(),
 	}
+
+
+# Stage30 只给现有 ShortcutZone 增加一个能力条件，不建立第二套路由系统。
+func is_shortcut_available() -> bool:
+	if (
+		shortcut_requires_thunder_absorption
+		and (
+			_main == null
+			or not _main.has_method("is_thunder_absorption_unlocked")
+			or not bool(_main.call("is_thunder_absorption_unlocked"))
+		)
+	):
+		return false
+	return super.is_shortcut_available()
+
+
+func bind_main(main: Node) -> void:
+	super.bind_main(main)
+	_sync_absorption_shortcut_visual()
 
 
 func get_hud_context() -> Dictionary:
@@ -159,6 +180,21 @@ func _apply_stage29_presentation() -> void:
 		if storm_hazard_present:
 			for cell_x: int in range(7, 10):
 				hazard_ground.set_cell(Vector2i(cell_x, 0), 0, Vector2i(1, 0))
+	_sync_absorption_shortcut_visual()
+
+
+func _sync_absorption_shortcut_visual() -> void:
+	var art := get_node_or_null("AbsorptionStormCurtainArt") as AnimatedSprite2D
+	if art == null:
+		return
+	art.visible = shortcut_requires_thunder_absorption
+	if not art.visible:
+		return
+	art.play(&"shortcut_curtain")
+	art.pause()
+	art.frame = 2 if is_shortcut_available() else 0
+	art.set_meta("gameplay_collision", false)
+	art.set_meta("damage_source", false)
 
 
 func _stage29_atlas_texture(index: int) -> AtlasTexture:

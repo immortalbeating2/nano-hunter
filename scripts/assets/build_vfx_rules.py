@@ -16,6 +16,50 @@ DEFAULT_ATLAS_MANIFEST = "docs/assets/asset-atlas-build-manifest.json"
 DEFAULT_OUT_DIR = "assets/art/vfx/vfx_rules"
 VFX_KINDS = {"vfx_atlas", "vfx_sheet", "vfx_direction", "vfx_warning"}
 STANDALONE_GRID_SPECS = {
+    "stage30_thunder_fang_vfx_ai01": {
+        "columns": 4,
+        "rows": 4,
+        "names": [
+            *[f"warning_{index:02d}" for index in range(1, 5)],
+            *[f"attack_{index:02d}" for index in range(1, 5)],
+            *[f"guard_break_{index:02d}" for index in range(1, 5)],
+            *[f"stagger_{index:02d}" for index in range(1, 5)],
+        ],
+        "boundary": "Stage30 Thunder Fang VFX grid; visual-only with no collision or damage authority.",
+    },
+    "stage30_kui_boss_combat_vfx_ai01": {
+        "columns": 4,
+        "rows": 4,
+        "names": [
+            *[f"close_warning_{index:02d}" for index in range(1, 5)],
+            *[f"close_impact_{index:02d}" for index in range(1, 5)],
+            *[f"lightning_warning_{index:02d}" for index in range(1, 5)],
+            *[f"lightning_impact_{index:02d}" for index in range(1, 5)],
+        ],
+        "boundary": "Stage30 Kui Thunder Boss combat VFX grid; boss code owns timing, collision and damage.",
+    },
+    "stage30_kui_boss_state_vfx_ai01": {
+        "columns": 4,
+        "rows": 4,
+        "names": [
+            *[f"guard_break_{index:02d}" for index in range(1, 5)],
+            *[f"stagger_{index:02d}" for index in range(1, 5)],
+            *[f"phase_transition_{index:02d}" for index in range(1, 5)],
+            *[f"defeat_{index:02d}" for index in range(1, 5)],
+        ],
+        "boundary": "Stage30 Kui Thunder Boss state VFX grid; visual-only state feedback.",
+    },
+    "stage30_thunder_absorption_reward_vfx_ai01": {
+        "columns": 4,
+        "rows": 4,
+        "names": [
+            *[f"absorption_unlock_{index:02d}" for index in range(1, 5)],
+            *[f"thunder_beast_core_{index:02d}" for index in range(1, 5)],
+            *[f"demon_resonance_{index:02d}" for index in range(1, 5)],
+            *[f"shortcut_curtain_{index:02d}" for index in range(1, 5)],
+        ],
+        "boundary": "Stage30 reward and shortcut VFX grid; capability and route state remain code-authoritative.",
+    },
     "stage29_thunder_waste_state_vfx_ai01": {
         "columns": 4,
         "rows": 4,

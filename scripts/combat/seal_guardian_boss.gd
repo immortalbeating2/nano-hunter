@@ -126,8 +126,19 @@ func receive_elemental_attack(
 		attack_context.get("reaction_id", StringName()) == &"wind_thunder_pierce"
 		and current_state == STATE_CLOSE_PRESSURE
 	)
+	var absorption_guard_damage: bool = (
+		bool(attack_context.get("thunder_absorption_unlocked", false))
+		and attack_context.get("element_id", StringName()) == &"thunder"
+	)
 	receive_attack(hit_direction, knockback_force)
-	if not breaks_warning_guard or current_state == STATE_DEFEATED:
+	if current_state == STATE_DEFEATED:
+		return
+	if absorption_guard_damage and current_guard > 0:
+		current_guard = maxi(current_guard - 1, 0)
+		guard_changed.emit(current_guard, max_guard)
+		if current_guard <= 0 and current_state != STATE_STAGGERED:
+			_enter_state(STATE_STAGGERED)
+	if not breaks_warning_guard:
 		return
 	if current_guard > 0:
 		current_guard = 0
@@ -272,7 +283,7 @@ func _update_attack_loop(delta: float) -> void:
 				_restore_guard_and_idle()
 		STATE_STAGGERED:
 			_state_elapsed += delta
-			if _state_elapsed >= stagger_duration:
+			if _state_elapsed >= _get_stagger_duration():
 				_restore_guard_and_idle()
 		_:
 			push_error("Seal Guardian entered unknown state: %s" % current_state)
@@ -368,6 +379,11 @@ func _update_phase() -> void:
 func _get_phase_adjusted_recovery_duration() -> float:
 	# 二阶段缩短恢复时长，让同一套招式自然提高压迫感。
 	return recovery_duration * 0.75 if _phase_index >= 2 else recovery_duration
+
+
+# 子类可只延长破势窗口，不复制整套状态循环。
+func _get_stagger_duration() -> float:
+	return stagger_duration
 
 
 # 统一切换 Boss 状态，并清理计时和单次出招伤害标记。

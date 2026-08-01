@@ -1,0 +1,426 @@
+{
+  "id": "stage30_thunder_fang_attack_runtime_ai01",
+  "kind": "sprite_sheet",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+  "sprite_frames": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.spriteframes.tres",
+  "cell": [
+    224,
+    192
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frame_count": 16,
+  "animations": {
+    "warning": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "startup": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "attack": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "recovery": [
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "anchor": "foot",
+  "frames": [
+    {
+      "index": 0,
+      "region": [
+        0,
+        0,
+        224,
+        192
+      ],
+      "source_bbox": [
+        21,
+        76,
+        272,
+        285
+      ],
+      "normalized_size": [
+        208,
+        173
+      ],
+      "paste": [
+        8,
+        11
+      ],
+      "scale": 0.828685
+    },
+    {
+      "index": 1,
+      "region": [
+        224,
+        0,
+        224,
+        192
+      ],
+      "source_bbox": [
+        1,
+        64,
+        261,
+        285
+      ],
+      "normalized_size": [
+        207,
+        176
+      ],
+      "paste": [
+        8,
+        8
+      ],
+      "scale": 0.79638
+    },
+    {
+      "index": 2,
+      "region": [
+        448,
+        0,
+        224,
+        192
+      ],
+      "source_bbox": [
+        7,
+        59,
+        261,
+        285
+      ],
+      "normalized_size": [
+        198,
+        176
+      ],
+      "paste": [
+        13,
+        8
+      ],
+      "scale": 0.778761
+    },
+    {
+      "index": 3,
+      "region": [
+        672,
+        0,
+        224,
+        192
+      ],
+      "source_bbox": [
+        0,
+        65,
+        251,
+        285
+      ],
+      "normalized_size": [
+        201,
+        176
+      ],
+      "paste": [
+        12,
+        8
+      ],
+      "scale": 0.8
+    },
+    {
+      "index": 4,
+      "region": [
+        0,
+        192,
+        224,
+        192
+      ],
+      "source_bbox": [
+        18,
+        77,
+        277,
+        276
+      ],
+      "normalized_size": [
+        208,
+        160
+      ],
+      "paste": [
+        8,
+        24
+      ],
+      "scale": 0.803089
+    },
+    {
+      "index": 5,
+      "region": [
+        224,
+        192,
+        224,
+        192
+      ],
+      "source_bbox": [
+        10,
+        76,
+        281,
+        275
+      ],
+      "normalized_size": [
+        208,
+        153
+      ],
+      "paste": [
+        8,
+        31
+      ],
+      "scale": 0.767528
+    },
+    {
+      "index": 6,
+      "region": [
+        448,
+        192,
+        224,
+        192
+      ],
+      "source_bbox": [
+        10,
+        76,
+        273,
+        277
+      ],
+      "normalized_size": [
+        208,
+        159
+      ],
+      "paste": [
+        8,
+        25
+      ],
+      "scale": 0.790875
+    },
+    {
+      "index": 7,
+      "region": [
+        672,
+        192,
+        224,
+        192
+      ],
+      "source_bbox": [
+        0,
+        76,
+        276,
+        276
+      ],
+      "normalized_size": [
+        208,
+        151
+      ],
+      "paste": [
+        8,
+        33
+      ],
+      "scale": 0.753623
+    },
+    {
+      "index": 8,
+      "region": [
+        0,
+        384,
+        224,
+        192
+      ],
+      "source_bbox": [
+        5,
+        73,
+        286,
+        257
+      ],
+      "normalized_size": [
+        208,
+        136
+      ],
+      "paste": [
+        8,
+        48
+      ],
+      "scale": 0.740214
+    },
+    {
+      "index": 9,
+      "region": [
+        224,
+        384,
+        224,
+        192
+      ],
+      "source_bbox": [
+        0,
+        78,
+        285,
+        249
+      ],
+      "normalized_size": [
+        208,
+        125
+      ],
+      "paste": [
+        8,
+        59
+      ],
+      "scale": 0.729825
+    },
+    {
+      "index": 10,
+      "region": [
+        448,
+        384,
+        224,
+        192
+      ],
+      "source_bbox": [
+        0,
+        77,
+        285,
+        256
+      ],
+      "normalized_size": [
+        208,
+        131
+      ],
+      "paste": [
+        8,
+        53
+      ],
+      "scale": 0.729825
+    },
+    {
+      "index": 11,
+      "region": [
+        672,
+        384,
+        224,
+        192
+      ],
+      "source_bbox": [
+        0,
+        77,
+        281,
+        259
+      ],
+      "normalized_size": [
+        208,
+        135
+      ],
+      "paste": [
+        8,
+        49
+      ],
+      "scale": 0.740214
+    },
+    {
+      "index": 12,
+      "region": [
+        0,
+        576,
+        224,
+        192
+      ],
+      "source_bbox": [
+        30,
+        42,
+        276,
+        248
+      ],
+      "normalized_size": [
+        208,
+        174
+      ],
+      "paste": [
+        8,
+        10
+      ],
+      "scale": 0.845528
+    },
+    {
+      "index": 13,
+      "region": [
+        224,
+        576,
+        224,
+        192
+      ],
+      "source_bbox": [
+        10,
+        43,
+        261,
+        248
+      ],
+      "normalized_size": [
+        208,
+        170
+      ],
+      "paste": [
+        8,
+        14
+      ],
+      "scale": 0.828685
+    },
+    {
+      "index": 14,
+      "region": [
+        448,
+        576,
+        224,
+        192
+      ],
+      "source_bbox": [
+        7,
+        42,
+        259,
+        248
+      ],
+      "normalized_size": [
+        208,
+        170
+      ],
+      "paste": [
+        8,
+        14
+      ],
+      "scale": 0.825397
+    },
+    {
+      "index": 15,
+      "region": [
+        672,
+        576,
+        224,
+        192
+      ],
+      "source_bbox": [
+        0,
+        42,
+        251,
+        248
+      ],
+      "normalized_size": [
+        208,
+        171
+      ],
+      "paste": [
+        8,
+        13
+      ],
+      "scale": 0.828685
+    }
+  ]
+}

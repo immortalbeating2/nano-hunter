@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=4]
+[gd_scene load_steps=5 format=4]
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/stage25_thunder_waste_room_base.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/stage30_thunder_boss_room.gd" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/kui_thunder_boss.tscn" id="3"]
+[ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.spriteframes.tres" id="4"]
 
 [node name="Stage25ThunderWasteOutlookRoom" instance=ExtResource("1")]
+script = ExtResource("2")
 next_room_path = "res://scenes/rooms/stage11_demo_end_room.tscn"
 next_spawn_id = &"stage11_thunder_waste_return"
 previous_room_path = "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn"
@@ -11,7 +15,25 @@ spawn_positions = {
 &"stage25_outlook_return": Vector2(736, 204),
 &"stage25_outlook_start": Vector2(-256, 204)
 }
-stage25_title = "雷泽荒原 · 驿路远眺"
-stage25_prompt = "雷泽小路已勘明；向右沿旧驿路返回镇妖驿厅。"
+checkpoint_spawn_id = &"stage25_outlook_start"
+checkpoint_on_ready = true
+require_all_enemies_defeated = true
+stage25_title = "雷泽荒原 · 夔影断驿"
+stage25_prompt = "击破夔影雷骸的护印，以风雷破势、雷风散射打开雷吸收窗口。"
 stage29_landmark_index = 9
 stage29_landmark_position = Vector2(512, 118)
+
+[node name="KuiThunderBoss" parent="." index="20" instance=ExtResource("3")]
+position = Vector2(520, 224)
+
+[node name="Stage30RewardVfx" type="AnimatedSprite2D" parent="." index="21"]
+visible = false
+z_index = 4
+position = Vector2(520, 80)
+scale = Vector2(0.58, 0.58)
+sprite_frames = ExtResource("4")
+animation = &"absorption_unlock"
+metadata/asset_id = "stage30_thunder_absorption_reward_vfx_runtime_ai01"
+metadata/asset_binding_note = "runtime_reward_only_no_collision_no_damage"
+metadata/gameplay_collision = false
+metadata/damage_source = false

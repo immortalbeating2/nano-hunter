@@ -29,12 +29,14 @@ const BUILD_MARSH_RELIC: StringName = &"marsh_relic"
 const BUILD_WARDEN_SIGIL: StringName = &"warden_sigil"
 const BUILD_CASTER_CORE: StringName = &"caster_core"
 const BUILD_GUARDIAN_CORE: StringName = &"guardian_core"
+const BUILD_THUNDER_BEAST_CORE: StringName = &"thunder_beast_core"
 const BUILD_SLOT_LIMIT := 2
 const BUILD_REWARD_IDS: Array[StringName] = [
 	BUILD_MARSH_RELIC,
 	BUILD_WARDEN_SIGIL,
 	BUILD_CASTER_CORE,
 	BUILD_GUARDIAN_CORE,
+	BUILD_THUNDER_BEAST_CORE,
 ]
 const BUILD_DEFINITIONS := {
 	BUILD_MARSH_RELIC: {
@@ -60,6 +62,12 @@ const BUILD_DEFINITIONS := {
 		"effect": "姿态切换冷却 -0.15s",
 		"source": "封印守卫",
 		"icon_id": &"build_guardian_core",
+	},
+	BUILD_THUNDER_BEAST_CORE: {
+		"label": "雷兽妖核",
+		"effect": "雷风散射击退 x1.2",
+		"source": "夔影雷骸",
+		"icon_id": &"build_thunder_beast_core",
 	},
 }
 const MIASMA_CASTER_SCRIPT_PATH := "res://scripts/combat/miasma_caster_enemy.gd"
@@ -100,6 +108,9 @@ const STAGE28_ALL_BOUNTIES_EVENT_BODY := "镇妖卫驿卒：三道悬赏都已�
 const STAGE28_THUNDER_RETURN_EVENT_ID: StringName = &"stage28_thunder_waste_return"
 const STAGE28_THUNDER_RETURN_EVENT_TITLE := "镇妖驿站 · 雷泽归来"
 const STAGE28_THUNDER_RETURN_EVENT_BODY := "镇妖卫驿卒：雷印随你归站，荒原里的东西已认得镇妖卫。\n\nLuna：它认得的不是官印，是我体内的妖血。证物照旧封存，案卷照旧送审。\n\n陌生妖声：你还在替他们守门。"
+const STAGE30_DEMON_RESONANCE_EVENT_ID: StringName = &"stage30_demon_resonance"
+const STAGE30_DEMON_RESONANCE_EVENT_TITLE := "雷泽荒原 · 妖雷共鸣"
+const STAGE30_DEMON_RESONANCE_EVENT_BODY := "夔影雷骸的鼓腔归于寂静，残雷却没有散去，而是沿 Luna 的镇妖印没入血脉。\n\nLuna：官府把妖骨制成封印，又命我来斩妖。究竟是谁借谁的血守门？\n\n陌生妖声：你终于肯收回本就属于你的雷。"
 
 # 默认输入绑定由 Main 兜底创建，保证独立运行测试或新机器启动时输入契约完整。
 const INPUT_BINDINGS := {
@@ -142,6 +153,8 @@ var _equipped_build_ids: Array[StringName] = []
 var _completed_story_event_ids: Dictionary = {}
 var _visited_room_paths: Dictionary = {}
 var _stage15_boss_defeated := false
+var _stage30_boss_defeated := false
+var _thunder_absorption_unlocked := false
 var _stage16_alpha_demo_completed := false
 var _stage16_release_notes_ready := true
 var _stage16_qa_checklist_ready := true
@@ -260,6 +273,8 @@ func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 		player.call("set_equipped_build_ids", _equipped_build_ids, _active_build_id)
 	elif player.has_method("set_active_build_id"):
 		player.call("set_active_build_id", _active_build_id)
+	if player.has_method("set_thunder_absorption_unlocked"):
+		player.call("set_thunder_absorption_unlocked", _thunder_absorption_unlocked)
 	if player.has_signal("element_changed"):
 		player.connect("element_changed", Callable(self, "_on_player_element_changed"))
 	if player.has_signal("stance_changed"):
@@ -348,6 +363,12 @@ func start_demo_at_room(room_path: String, spawn_id: StringName, debug_progress:
 	for reward_index in range(reward_count):
 		_stage14_backtrack_reward_ids[StringName("debug_stage14_reward_%d" % reward_index)] = true
 	_stage15_boss_defeated = bool(debug_progress.get("stage15_boss_defeated", false))
+	_stage30_boss_defeated = bool(debug_progress.get("stage30_boss_defeated", false))
+	_thunder_absorption_unlocked = bool(
+		debug_progress.get("thunder_absorption_unlocked", _stage30_boss_defeated)
+	)
+	if _stage30_boss_defeated:
+		collect_exploration_reward(BUILD_THUNDER_BEAST_CORE)
 	_change_room(room_path, spawn_id)
 	get_tree().paused = false
 	return true
@@ -371,6 +392,8 @@ func _reset_demo_runtime_state() -> void:
 	_completed_story_event_ids.clear()
 	_visited_room_paths.clear()
 	_stage15_boss_defeated = false
+	_stage30_boss_defeated = false
+	_thunder_absorption_unlocked = false
 	_stage16_alpha_demo_completed = false
 	# 候选文档是随构建发布的静态交付物，不随单次 Demo 会话重开而消失。
 	_stage16_release_notes_ready = true
@@ -441,6 +464,7 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"exploration_reward_count": get_exploration_reward_count(),
 		"marsh_relic_collected": has_exploration_reward(&"marsh_relic"),
 		"warden_sigil_collected": has_exploration_reward(&"warden_sigil"),
+		"thunder_beast_core_collected": has_exploration_reward(BUILD_THUNDER_BEAST_CORE),
 		"bounty_board": bounty_snapshot,
 		"bounty_accepted_count": bounty_snapshot.get("accepted_count", 0),
 		"bounty_completed_count": bounty_snapshot.get("completed_count", 0),
@@ -458,8 +482,11 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"stage11_story_event_completed": has_completed_story_event(STAGE11_STORY_EVENT_ID),
 		"stage28_all_bounties_story_completed": has_completed_story_event(STAGE28_ALL_BOUNTIES_EVENT_ID),
 		"stage28_thunder_return_story_completed": has_completed_story_event(STAGE28_THUNDER_RETURN_EVENT_ID),
+		"stage30_demon_resonance_story_completed": has_completed_story_event(STAGE30_DEMON_RESONANCE_EVENT_ID),
 		"visited_room_count": _visited_room_paths.size(),
 		"stage15_boss_defeated": _stage15_boss_defeated,
+		"stage30_boss_defeated": _stage30_boss_defeated,
+		"thunder_absorption_unlocked": _thunder_absorption_unlocked,
 		"stage15_recovery_charge_ready": _is_stage15_recovery_charge_ready(),
 		"stage16_alpha_demo_completed": _stage16_alpha_demo_completed,
 		"stage16_release_notes_ready": _stage16_release_notes_ready,
@@ -479,6 +506,8 @@ func get_world_map_snapshot() -> Dictionary:
 		"wind_seal_unlocked": _wind_seal_unlocked,
 		"marsh_relic_collected": has_exploration_reward(&"marsh_relic"),
 		"warden_sigil_collected": has_exploration_reward(&"warden_sigil"),
+		"stage30_boss_defeated": _stage30_boss_defeated,
+		"thunder_absorption_unlocked": _thunder_absorption_unlocked,
 		"bounty_accepted_count": bounty_snapshot.get("accepted_count", 0),
 		"bounty_completed_count": bounty_snapshot.get("completed_count", 0),
 		"bounty_turned_in_count": bounty_snapshot.get("turned_in_count", 0),
@@ -541,7 +570,7 @@ func get_stage14_backtrack_reward_count() -> int:
 	return _stage14_backtrack_reward_ids.size()
 
 
-# 记录跨房间探索 / 战斗收益；四件固定 Build 共用该去重入口，不扩展成物品栏或经济系统。
+# 记录跨房间探索 / 战斗收益；固定 Build 共用该去重入口，不扩展成物品栏或经济系统。
 func collect_exploration_reward(reward_id: StringName) -> void:
 	if reward_id == StringName() or _exploration_reward_ids.has(reward_id):
 		return
@@ -777,6 +806,40 @@ func mark_stage15_boss_defeated() -> void:
 # 公开查询 Stage15 Boss 结果，避免完成房直接读取 Main 私有变量。
 func is_stage15_boss_defeated() -> bool:
 	return _stage15_boss_defeated
+
+
+# 雷泽首领胜利只通过此入口授予能力、组件和一次性共鸣事件，重复信号不重复发奖。
+func mark_stage30_boss_defeated() -> void:
+	if _stage30_boss_defeated:
+		return
+
+	_stage30_boss_defeated = true
+	unlock_thunder_absorption()
+	collect_exploration_reward(BUILD_THUNDER_BEAST_CORE)
+	trigger_story_event(
+		STAGE30_DEMON_RESONANCE_EVENT_ID,
+		STAGE30_DEMON_RESONANCE_EVENT_TITLE,
+		STAGE30_DEMON_RESONANCE_EVENT_BODY
+	)
+
+
+func is_stage30_boss_defeated() -> bool:
+	return _stage30_boss_defeated
+
+
+# 妖雷吸收是独立能力读值；Main 负责跨房保存并注入当前玩家。
+func unlock_thunder_absorption() -> void:
+	if _thunder_absorption_unlocked:
+		return
+	_thunder_absorption_unlocked = true
+	var player := _get_runtime_player()
+	if player != null and player.has_method("set_thunder_absorption_unlocked"):
+		player.call("set_thunder_absorption_unlocked", true)
+	_refresh_hud_progress()
+
+
+func is_thunder_absorption_unlocked() -> bool:
+	return _thunder_absorption_unlocked
 
 
 # 标记 Stage16 Alpha Demo 已完成；终点房或专项测试通过这个接口写入 Main 快照。
@@ -1065,7 +1128,7 @@ func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
 	_checkpoint_spawn_id = spawn_id
 
 
-# 按固定四件顺序返回已取得 Build，保证两槽 UI 与测试顺序稳定。
+# 按固定顺序返回已取得 Build，保证两槽 UI 与测试顺序稳定。
 func _get_available_build_ids() -> Array[StringName]:
 	var available_builds: Array[StringName] = []
 	for reward_id: StringName in BUILD_REWARD_IDS:

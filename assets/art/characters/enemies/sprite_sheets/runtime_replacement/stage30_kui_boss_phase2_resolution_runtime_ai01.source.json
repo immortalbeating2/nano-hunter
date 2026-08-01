@@ -1,0 +1,21 @@
+{
+  "asset_id": "stage30_kui_boss_phase2_resolution_ai01",
+  "runtime_asset_id": "stage30_kui_boss_phase2_resolution_runtime_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "source": "assets/source/ai_generated/batch_30/stage30_kui_boss_phase2_resolution_ai01/candidates/stage30_kui_boss_phase2_resolution_ai01_candidate_01.png",
+  "source_sha256": "f30dd013d49d8dd628be9379b664e98233ef18e5e7d2087df478e4b2d85fae34",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
+  "output_sha256": "c6569149f525e65aad9bd03b73eb20df78bc033bd942e3be4f50c3276a0117bf",
+  "process": "independent_image_api_edit_fixed_grid_chroma_to_alpha_stage30",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "transparent_png",
+    "fixed_4x4_grid",
+    "stable_scale",
+    "stable_anchor",
+    "gameplay_timing_code_authority"
+  ]
+}

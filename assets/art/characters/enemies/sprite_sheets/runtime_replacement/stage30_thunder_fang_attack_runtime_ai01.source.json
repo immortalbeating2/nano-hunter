@@ -1,0 +1,21 @@
+{
+  "asset_id": "stage30_thunder_fang_attack_ai01",
+  "runtime_asset_id": "stage30_thunder_fang_attack_runtime_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "source": "assets/source/ai_generated/batch_30/stage30_thunder_fang_attack_ai01/candidates/stage30_thunder_fang_attack_ai01_candidate_01.png",
+  "source_sha256": "c259a2bd5e4b4c62c6e495435806ea1867ad6ff0c61ccacb62e357524a82bdc1",
+  "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
+  "output_sha256": "acc16a1428c52e4d1e19f233047cb9efc00d4957fcf6dc174cb71cff11187005",
+  "process": "independent_image_api_edit_fixed_grid_chroma_to_alpha_stage30",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "transparent_png",
+    "fixed_4x4_grid",
+    "stable_scale",
+    "stable_anchor",
+    "gameplay_timing_code_authority"
+  ]
+}

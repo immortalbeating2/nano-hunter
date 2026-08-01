@@ -3,21 +3,22 @@
   "status": "placeholder_ready",
   "boundary": "Structural audit only. Passing this report proves files, counts and editor resource descriptors exist; it does not prove final art polish, semantic cleanup, runtime integration, license readiness or gameplay readability.",
   "queue": {
-    "item_count": 63,
-    "candidate_png_count": 141,
+    "item_count": 78,
+    "candidate_png_count": 158,
     "candidate_storage_policy": "raw_candidates_optional_outside_git",
-    "unique_output_path_count": 63,
+    "unique_output_path_count": 78,
     "target_kind_counts": {
-      "boss_animation": 1,
+      "boss_animation": 6,
       "boss_direction": 1,
       "boss_vfx": 1,
       "cg_illustration": 1,
       "character_direction": 1,
       "combat_vfx": 1,
       "completion_ui": 1,
+      "enemy_animation": 3,
       "environment_background": 2,
       "environment_boss_room_background": 1,
-      "environment_room_background": 4,
+      "environment_room_background": 5,
       "environment_tiles": 2,
       "equipment_atlas": 1,
       "hud_frame": 2,
@@ -29,7 +30,7 @@
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
-      "prop_atlas": 2,
+      "prop_atlas": 3,
       "prop_sheet": 1,
       "spine_cutout_parts": 2,
       "sprite_sheet": 8,
@@ -41,7 +42,7 @@
       "ui_atlas": 2,
       "ui_map_foundation": 1,
       "ui_panel": 2,
-      "vfx_atlas": 2,
+      "vfx_atlas": 7,
       "vfx_direction": 1,
       "vfx_sheet": 2,
       "vfx_warning": 1
@@ -60,7 +61,9 @@
       "Batch 12": 4,
       "Batch 13": 3,
       "Batch 27": 4,
-      "Batch 28": 3
+      "Batch 28": 3,
+      "Batch 29": 3,
+      "Batch 30": 12
     },
     "missing_candidates": [],
     "missing_outputs": [],
@@ -159,12 +162,12 @@
     },
     "vfx_rules": {
       "present": true,
-      "expected_asset_count": 7,
-      "asset_count": 7,
-      "expected_frame_rule_count": 86,
-      "frame_rule_count": 86,
-      "collision_disabled_count": 86,
-      "damage_disabled_count": 86,
+      "expected_asset_count": 12,
+      "asset_count": 12,
+      "expected_frame_rule_count": 166,
+      "frame_rule_count": 166,
+      "collision_disabled_count": 166,
+      "damage_disabled_count": 166,
       "missing": []
     },
     "animation_rules": {
@@ -195,18 +198,19 @@
     "scene": "res://scenes/dev/imagegen_asset_gallery.tscn",
     "manifest": "docs/assets/imagegen-asset-gallery-manifest.json",
     "counts": {
-      "queue_outputs": 63,
+      "queue_outputs": 78,
       "queue_categories": {
-        "boss_animation": 1,
+        "boss_animation": 6,
         "boss_direction": 1,
         "boss_vfx": 1,
         "cg_illustration": 1,
         "character_direction": 1,
         "combat_vfx": 1,
         "completion_ui": 1,
+        "enemy_animation": 3,
         "environment_background": 2,
         "environment_boss_room_background": 1,
-        "environment_room_background": 4,
+        "environment_room_background": 5,
         "environment_tiles": 2,
         "equipment_atlas": 1,
         "hud_frame": 2,
@@ -218,7 +222,7 @@
         "promo_capsule": 1,
         "promo_key_art": 1,
         "prop": 3,
-        "prop_atlas": 2,
+        "prop_atlas": 3,
         "prop_sheet": 1,
         "spine_cutout_parts": 2,
         "sprite_sheet": 8,
@@ -230,7 +234,7 @@
         "ui_atlas": 2,
         "ui_map_foundation": 1,
         "ui_panel": 2,
-        "vfx_atlas": 2,
+        "vfx_atlas": 7,
         "vfx_direction": 1,
         "vfx_sheet": 2,
         "vfx_warning": 1
@@ -246,20 +250,21 @@
     "present": true,
     "ok": true,
     "summary": {
-      "item_count": 63,
-      "structural_ready_count": 63,
+      "item_count": 78,
+      "structural_ready_count": 78,
       "final_ready_count": 55,
       "kind_counts": {
-        "boss_animation": 1,
+        "boss_animation": 6,
         "boss_direction": 1,
         "boss_vfx": 1,
         "cg_illustration": 1,
         "character_direction": 1,
         "combat_vfx": 1,
         "completion_ui": 1,
+        "enemy_animation": 3,
         "environment_background": 2,
         "environment_boss_room_background": 1,
-        "environment_room_background": 4,
+        "environment_room_background": 5,
         "environment_tiles": 2,
         "equipment_atlas": 1,
         "hud_frame": 2,
@@ -271,7 +276,7 @@
         "promo_capsule": 1,
         "promo_key_art": 1,
         "prop": 3,
-        "prop_atlas": 2,
+        "prop_atlas": 3,
         "prop_sheet": 1,
         "spine_cutout_parts": 2,
         "sprite_sheet": 8,
@@ -283,22 +288,25 @@
         "ui_atlas": 2,
         "ui_map_foundation": 1,
         "ui_panel": 2,
-        "vfx_atlas": 2,
+        "vfx_atlas": 7,
         "vfx_direction": 1,
         "vfx_sheet": 2,
         "vfx_warning": 1
       },
       "warnings_by_type": {},
       "blockers_by_type": {
-        "foreground_occlusion_review": 1,
-        "license_terms_manual_review": 8,
-        "parallax_layer_split": 1,
+        "anchor_manual_review": 5,
+        "foreground_occlusion_review": 2,
+        "license_terms_manual_review": 23,
+        "mask_and_blend_manual_review": 5,
+        "parallax_layer_split": 2,
         "pseudo_text_cleanup": 1,
         "runtime_catalog_ready_manual_replacement": 5,
         "runtime_layout_review": 1,
-        "scale_readability_review": 1,
+        "runtime_reference_not_replaced": 9,
+        "scale_readability_review": 2,
         "small_size_readability_review": 2,
-        "state_variant_naming": 1,
+        "state_variant_naming": 2,
         "text_safe_area_review": 1,
         "theme_mapping_manual_review": 1
       },
@@ -331,38 +339,41 @@
     "markdown_exists": true,
     "status": "manual_review_queue_ready",
     "summary": {
-      "asset_count": 63,
-      "manual_review_required_count": 8,
+      "asset_count": 78,
+      "manual_review_required_count": 23,
       "final_ready_count": 55,
       "family_counts": {
         "animation": 8,
         "characters": 4,
-        "environment": 11,
+        "environment": 12,
         "icons": 4,
-        "other": 4,
+        "other": 12,
         "promo_logo_cg": 4,
-        "props_equipment": 7,
+        "props_equipment": 8,
         "story": 3,
         "style": 1,
         "textures": 1,
         "ui": 10,
-        "vfx": 6
+        "vfx": 11
       },
       "blocker_counts": {
-        "foreground_occlusion_review": 1,
-        "license_terms_manual_review": 8,
-        "parallax_layer_split": 1,
+        "anchor_manual_review": 5,
+        "foreground_occlusion_review": 2,
+        "license_terms_manual_review": 23,
+        "mask_and_blend_manual_review": 5,
+        "parallax_layer_split": 2,
         "pseudo_text_cleanup": 1,
         "runtime_catalog_ready_manual_replacement": 5,
         "runtime_layout_review": 1,
-        "scale_readability_review": 1,
+        "runtime_reference_not_replaced": 9,
+        "scale_readability_review": 2,
         "small_size_readability_review": 2,
-        "state_variant_naming": 1,
+        "state_variant_naming": 2,
         "text_safe_area_review": 1,
         "theme_mapping_manual_review": 1
       }
     },
-    "entry_count": 63,
+    "entry_count": 78,
     "errors": []
   },
   "final_art_review_workbench": {
@@ -371,27 +382,27 @@
     "scene": "res://scenes/dev/final_art_review_workbench.tscn",
     "manifest": "docs/assets/final-art-review-workbench-manifest.json",
     "counts": {
-      "entry_count": 63,
-      "texture_card_count": 63,
-      "manual_review_required_count": 8,
+      "entry_count": 78,
+      "texture_card_count": 78,
+      "manual_review_required_count": 23,
       "final_ready_count": 55,
-      "blocker_total": 23,
+      "blocker_total": 61,
       "priority_counts": {
-        "P0": 32,
-        "P1": 20,
-        "P2": 11
+        "P0": 37,
+        "P1": 22,
+        "P2": 19
       },
       "family_counts": {
         "animation": 8,
         "characters": 4,
         "icons": 4,
         "ui": 10,
-        "vfx": 6,
-        "environment": 11,
-        "props_equipment": 7,
+        "vfx": 11,
+        "environment": 12,
+        "props_equipment": 8,
         "style": 1,
         "textures": 1,
-        "other": 4,
+        "other": 12,
         "promo_logo_cg": 4,
         "story": 3
       }
@@ -404,50 +415,51 @@
     "markdown_exists": true,
     "status": "acceptance_gates_ready",
     "summary": {
-      "asset_count": 63,
+      "asset_count": 78,
       "final_ready_count": 55,
-      "blocked_asset_count": 8,
+      "blocked_asset_count": 23,
       "gate_count": 7,
       "gate_summary": {
         "source_traceability": {
-          "passed": 56,
-          "blocked": 7
+          "passed": 78,
+          "blocked": 0
         },
         "license_terms": {
           "passed": 55,
-          "blocked": 8
+          "blocked": 23
         },
         "godot_structural_resource": {
-          "passed": 63,
+          "passed": 78,
           "blocked": 0
         },
         "editor_review_card": {
-          "passed": 63,
+          "passed": 78,
           "blocked": 0
         },
         "runtime_replacement": {
-          "passed": 58,
+          "passed": 73,
           "blocked": 5
         },
         "family_specific_polish": {
-          "passed": 59,
-          "blocked": 4
+          "passed": 62,
+          "blocked": 16
         },
         "final_approval": {
           "passed": 55,
-          "blocked": 8
+          "blocked": 23
         }
       },
       "blocked_by_priority": {
-        "P0": 2,
-        "P1": 2,
-        "P2": 4
+        "P0": 7,
+        "P1": 4,
+        "P2": 12
       },
       "blocked_by_family": {
-        "environment": 1,
-        "other": 4,
-        "props_equipment": 1,
-        "ui": 2
+        "environment": 2,
+        "other": 12,
+        "props_equipment": 2,
+        "ui": 2,
+        "vfx": 5
       }
     },
     "errors": []
@@ -540,11 +552,11 @@
     "present": true,
     "status": "review_required",
     "summary": {
-      "queue_item_count": 63,
-      "candidate_png_count": 141,
-      "selected_source_count": 471,
-      "unselected_candidate_count": 104,
-      "review_required_item_count": 55,
+      "queue_item_count": 78,
+      "candidate_png_count": 158,
+      "selected_source_count": 486,
+      "unselected_candidate_count": 106,
+      "review_required_item_count": 57,
       "review_required_items": [
         "style_board_global_ai01",
         "stage16_luna_player_readability_ai01",
@@ -600,19 +612,22 @@
         "stage16_pause_panel_ui_ai01",
         "stage16_completion_panel_ui_ai01",
         "stage15_boss_hud_frame_ai01",
-        "stage14_ability_status_hud_ai01"
+        "stage14_ability_status_hud_ai01",
+        "stage30_thunder_fang_locomotion_ai01",
+        "stage30_kui_boss_phase2_presence_ai01"
       ],
       "target_kind_counts": {
-        "boss_animation": 1,
+        "boss_animation": 6,
         "boss_direction": 1,
         "boss_vfx": 1,
         "cg_illustration": 1,
         "character_direction": 1,
         "combat_vfx": 1,
         "completion_ui": 1,
+        "enemy_animation": 3,
         "environment_background": 2,
         "environment_boss_room_background": 1,
-        "environment_room_background": 4,
+        "environment_room_background": 5,
         "environment_tiles": 2,
         "equipment_atlas": 1,
         "hud_frame": 2,
@@ -624,7 +639,7 @@
         "promo_capsule": 1,
         "promo_key_art": 1,
         "prop": 3,
-        "prop_atlas": 2,
+        "prop_atlas": 3,
         "prop_sheet": 1,
         "spine_cutout_parts": 2,
         "sprite_sheet": 8,
@@ -636,7 +651,7 @@
         "ui_atlas": 2,
         "ui_map_foundation": 1,
         "ui_panel": 2,
-        "vfx_atlas": 2,
+        "vfx_atlas": 7,
         "vfx_direction": 1,
         "vfx_sheet": 2,
         "vfx_warning": 1
@@ -655,7 +670,9 @@
         "Batch 12": 4,
         "Batch 13": 3,
         "Batch 27": 4,
-        "Batch 28": 3
+        "Batch 28": 3,
+        "Batch 29": 3,
+        "Batch 30": 14
       },
       "recovery_ledgers": [
         {
@@ -673,21 +690,22 @@
     "scene": "res://scenes/dev/imagegen_candidate_review_gallery.tscn",
     "manifest": "docs/assets/imagegen-candidate-review-gallery-manifest.json",
     "counts": {
-      "unselected_candidates": 102,
-      "review_required_assets": 55,
+      "unselected_candidates": 106,
+      "review_required_assets": 57,
       "batch_counts": {
         "Batch 00": 1,
         "Batch 01": 8,
         "Batch 06": 35,
         "Batch 07": 3,
-        "Batch 08": 10,
+        "Batch 08": 12,
         "Batch 09": 4,
         "Batch 10": 6,
         "Batch 11": 11,
         "Batch 12": 4,
         "Batch 13": 3,
         "Batch 02": 8,
-        "Batch 03": 9
+        "Batch 03": 9,
+        "Batch 30": 2
       }
     },
     "missing": []
@@ -696,10 +714,10 @@
     "present": true,
     "status": "source_recorded_review_required",
     "summary": {
-      "record_count": 63,
-      "candidate_hash_count": 141,
-      "output_hash_count": 63,
-      "prompt_hash_count": 63,
+      "record_count": 78,
+      "candidate_hash_count": 158,
+      "output_hash_count": 78,
+      "prompt_hash_count": 78,
       "recovery_ledger_count": 1
     },
     "errors": []
@@ -708,17 +726,17 @@
     "present": true,
     "status": "review_required",
     "summary": {
-      "queue_item_count": 63,
-      "candidate_count": 141,
+      "queue_item_count": 78,
+      "candidate_count": 158,
       "candidate_storage_policy": "raw_candidates_optional_outside_git",
       "classification_counts": {
         "project_session_confirmed": 44,
         "explicit_mapping_confirmed": 0,
         "explicit_mapping_review_required": 30,
-        "workspace_provenance_recorded_review_required": 67,
+        "workspace_provenance_recorded_review_required": 84,
         "unknown_or_unsafe": 0
       },
-      "review_required_candidate_count": 97,
+      "review_required_candidate_count": 114,
       "unsafe_candidate_count": 0,
       "session_recovery_candidate_count": 44,
       "ledger_mapped_candidate_count": 30,
@@ -905,9 +923,9 @@
       "families_structurally_covered": 10,
       "format_count": 7,
       "formats_structurally_covered": 7,
-      "structural_ready_count": 63,
+      "structural_ready_count": 78,
       "final_ready_count": 55,
-      "queue_item_count": 63
+      "queue_item_count": 78
     },
     "errors": []
   },
@@ -928,27 +946,28 @@
     "present": true,
     "status": "runtime_map_scene_reference_split_ready",
     "summary": {
-      "entry_count": 63,
+      "entry_count": 78,
       "track_counts": {
         "animation_pipeline": 2,
         "archive": 9,
         "art_direction": 1,
+        "manual_review": 3,
         "narrative_or_release": 4,
         "release_promo": 3,
-        "runtime_animation": 2,
-        "runtime_environment": 11,
-        "runtime_gameplay": 5,
+        "runtime_animation": 7,
+        "runtime_environment": 12,
+        "runtime_gameplay": 6,
         "runtime_ui": 10,
-        "runtime_vfx": 6,
+        "runtime_vfx": 11,
         "source_dev": 10
       },
       "status_counts": {
         "binding_map_ready_manual_replacement_required": 1,
-        "not_runtime_target": 29,
-        "scene_reference_verified": 33
+        "not_runtime_target": 32,
+        "scene_reference_verified": 45
       },
-      "directly_referenced_entry_count": 33,
-      "development_referenced_entry_count": 60,
+      "directly_referenced_entry_count": 45,
+      "development_referenced_entry_count": 66,
       "missing_output_count": 0,
       "missing_target_scene_candidate_count": 0
     },
@@ -960,12 +979,12 @@
     "scene": "res://scenes/dev/imagegen_runtime_asset_catalog.tscn",
     "manifest": "docs/assets/imagegen-runtime-asset-catalog-manifest.json",
     "counts": {
-      "entry_count": 63,
+      "entry_count": 78,
       "missing_count": 0,
-      "resource_count": 63,
+      "resource_count": 78,
       "resource_type_counts": {
         "AtlasTexture": 5,
-        "CompressedTexture2D": 45,
+        "CompressedTexture2D": 60,
         "SpriteFrames": 10,
         "StyleBoxTexture": 1,
         "TileSet": 2
@@ -974,13 +993,14 @@
         "animation_pipeline": 2,
         "archive": 9,
         "art_direction": 1,
+        "manual_review": 3,
         "narrative_or_release": 4,
         "release_promo": 3,
-        "runtime_animation": 2,
-        "runtime_environment": 11,
-        "runtime_gameplay": 5,
+        "runtime_animation": 7,
+        "runtime_environment": 12,
+        "runtime_gameplay": 6,
         "runtime_ui": 10,
-        "runtime_vfx": 6,
+        "runtime_vfx": 11,
         "source_dev": 10
       }
     },
@@ -1000,10 +1020,10 @@
     "missing": []
   },
   "file_counts": {
-    "art_png": 119,
-    "art_import": 119,
-    "metadata_json": 190,
-    "spriteframes_tres": 57,
+    "art_png": 135,
+    "art_import": 135,
+    "metadata_json": 225,
+    "spriteframes_tres": 70,
     "atlas_texture_tres": 324,
     "tileset_tres": 5,
     "stylebox_texture_tres": 8,

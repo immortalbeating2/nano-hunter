@@ -9,7 +9,7 @@
 - Godot formats: `7`
 - Formats structurally covered: `7`
 - Final-ready assets: `55`
-- Structural-ready assets: `66`
+- Structural-ready assets: `78`
 
 ## Asset Families
 
@@ -20,7 +20,7 @@
 | UI / 界面类 | 9/6 | 9 | 8 | covered_structural / final_ready |
 | 图标类 | 4/3 | 4 | 4 | covered_structural / final_ready |
 | 道具与装备类 | 8/4 | 8 | 6 | covered_structural / final_ready |
-| 特效类 | 7/5 | 7 | 6 | covered_structural / final_ready |
+| 特效类 | 11/5 | 11 | 6 | covered_structural / final_ready |
 | 动画帧图 / 序列帧 | 8/6 | 8 | 8 | covered_structural / final_ready |
 | 贴图类 | 5/3 | 5 | 5 | covered_structural / final_ready |
 | 宣传 / 运营 / LOGO / CG | 5/5 | 5 | 5 | covered_structural / final_ready |
@@ -35,7 +35,7 @@
 | Tile Set | 4/2 | 4 | 5 | 4 | covered_structural / final_ready |
 | Spine 拆件图集 | 2/2 | 2 | 48 | 2 | covered_structural / final_ready |
 | UI 图集 | 8/5 | 8 | 9 | 7 | covered_structural / final_ready |
-| 特效图集 | 7/5 | 7 | 86 | 6 | covered_structural / final_ready |
+| 特效图集 | 11/5 | 11 | 166 | 6 | covered_structural / final_ready |
 | 九宫格图片 / StyleBox | 5/3 | 5 | 8 | 5 | covered_structural / final_ready |
 
 ## Remaining Gates
