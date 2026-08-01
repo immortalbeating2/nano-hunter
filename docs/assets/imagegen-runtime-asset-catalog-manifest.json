@@ -1,26 +1,27 @@
 {
 	"boundary": "Runtime catalog only. It proves resources can be loaded through a Godot ResourcePreloader; it does not replace gameplay scene references or approve final art.",
 	"counts": {
-		"entry_count": 55,
+		"entry_count": 56,
 		"missing_count": 0,
-		"resource_count": 55,
+		"resource_count": 56,
 		"resource_type_counts": {
 			"AtlasTexture": 5,
-			"CompressedTexture2D": 37,
+			"CompressedTexture2D": 38,
 			"SpriteFrames": 10,
 			"StyleBoxTexture": 1,
 			"TileSet": 2
 		},
 		"track_counts": {
 			"animation_pipeline": 2,
+			"archive": 9,
 			"art_direction": 1,
 			"narrative_or_release": 4,
 			"release_promo": 3,
-			"runtime_animation": 8,
-			"runtime_environment": 11,
-			"runtime_gameplay": 8,
-			"runtime_ui": 12,
-			"runtime_vfx": 6
+			"runtime_environment": 10,
+			"runtime_gameplay": 4,
+			"runtime_ui": 9,
+			"runtime_vfx": 4,
+			"source_dev": 10
 		}
 	},
 	"entries": [
@@ -42,7 +43,7 @@
 			"resource_path": "res://assets/art/characters/player/stage16_luna_player_readability_ai01.png",
 			"target_kind": "character_direction",
 			"target_system": "player visual readability direction",
-			"track": "runtime_gameplay"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "stage14_air_dash_icon_ai01",
@@ -52,7 +53,7 @@
 			"resource_path": "res://assets/art/ui/stage14_air_dash_icon_ai01.png",
 			"target_kind": "icon",
 			"target_system": "ability/status HUD icon replacement",
-			"track": "runtime_ui"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "stage14_air_dash_trail_ai01",
@@ -72,7 +73,7 @@
 			"resource_path": "res://assets/art/props/stage14_air_dash_shrine_ai01.png",
 			"target_kind": "prop",
 			"target_system": "room prop visual replacement",
-			"track": "runtime_gameplay"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "stage14_air_dash_gate_ai01",
@@ -82,7 +83,7 @@
 			"resource_path": "res://assets/art/props/stage14_air_dash_gate_ai01.png",
 			"target_kind": "prop",
 			"target_system": "room prop visual replacement",
-			"track": "runtime_gameplay"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "stage15_seal_guardian_ai01",
@@ -92,7 +93,7 @@
 			"resource_path": "res://assets/art/characters/enemies/stage15_seal_guardian_ai01.png",
 			"target_kind": "boss_direction",
 			"target_system": "Seal Guardian boss readability direction",
-			"track": "runtime_gameplay"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "stage15_boss_attack_warning_ai01",
@@ -102,7 +103,7 @@
 			"resource_path": "res://assets/art/vfx/stage15_boss_attack_warning_ai01.png",
 			"target_kind": "vfx_warning",
 			"target_system": "boss warning VFX replacement",
-			"track": "runtime_vfx"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "stage15_recovery_charge_icon_ai01",
@@ -112,7 +113,7 @@
 			"resource_path": "res://assets/art/ui/stage15_recovery_charge_icon_ai01.png",
 			"target_kind": "icon",
 			"target_system": "ability/status HUD icon replacement",
-			"track": "runtime_ui"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "luna_run_sheet_ai01",
@@ -122,7 +123,7 @@
 			"resource_path": "res://assets/art/characters/player/sprite_sheets/luna_run_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "luna_air_dash_sheet_ai01",
@@ -132,7 +133,7 @@
 			"resource_path": "res://assets/art/characters/player/sprite_sheets/luna_air_dash_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "luna_attack_01_sheet_ai01",
@@ -142,7 +143,7 @@
 			"resource_path": "res://assets/art/characters/player/sprite_sheets/luna_attack_01_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "luna_idle_sheet_ai01",
@@ -152,7 +153,7 @@
 			"resource_path": "res://assets/art/characters/player/sprite_sheets/luna_idle_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "seal_guardian_boss_sheet_ai01",
@@ -162,7 +163,7 @@
 			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "miasma_marsh_tileset_ai01",
@@ -172,7 +173,7 @@
 			"resource_path": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
 			"target_kind": "tileset_sheet",
 			"target_system": "TileMapLayer visual/collision replacement",
-			"track": "runtime_environment"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "shrine_trial_tileset_ai01",
@@ -199,7 +200,7 @@
 			"catalog_resource_type": "AtlasTexture",
 			"integration_status": "runtime_catalog_ready_manual_replacement_required",
 			"recommended_resource_type": "AtlasTexture",
-			"resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres",
+			"resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001_c01.atlas_texture.tres",
 			"target_kind": "ui_atlas",
 			"target_system": "HUD/menu atlas replacement",
 			"track": "runtime_ui"
@@ -262,7 +263,7 @@
 			"resource_path": "res://assets/art/vfx/atlases/vfx_combat_atlas_ai01.spriteframes.tres",
 			"target_kind": "vfx_atlas",
 			"target_system": "VFX atlas animation replacement",
-			"track": "runtime_vfx"
+			"track": "archive"
 		},
 		{
 			"asset_id": "luna_spine_parts_ai01",
@@ -472,7 +473,7 @@
 			"resource_path": "res://assets/art/characters/player/sprite_sheets/luna_jump_fall_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "luna_hit_death_sheet_ai01",
@@ -482,7 +483,7 @@
 			"resource_path": "res://assets/art/characters/player/sprite_sheets/luna_hit_death_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "enemies_core_sheet_ai01",
@@ -492,7 +493,7 @@
 			"resource_path": "res://assets/art/characters/enemies/sprite_sheets/enemies_core_sheet_ai01.spriteframes.tres",
 			"target_kind": "sprite_sheet",
 			"target_system": "player/enemy/boss animation replacement",
-			"track": "runtime_animation"
+			"track": "archive"
 		},
 		{
 			"asset_id": "biome01_shrine_trial_room_parallax_ai01",
@@ -562,7 +563,7 @@
 			"resource_path": "res://assets/art/ui/stage15_boss_hud_frame_ai01.png",
 			"target_kind": "hud_frame",
 			"target_system": "HUD frame or status panel visual replacement",
-			"track": "runtime_ui"
+			"track": "source_dev"
 		},
 		{
 			"asset_id": "stage14_ability_status_hud_ai01",
@@ -572,6 +573,16 @@
 			"resource_path": "res://assets/art/ui/stage14_ability_status_hud_ai01.png",
 			"target_kind": "hud_frame",
 			"target_system": "HUD frame or status panel visual replacement",
+			"track": "source_dev"
+		},
+		{
+			"asset_id": "stage19_discovery_map_base_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "Texture2D",
+			"resource_path": "res://assets/art/ui/stage19_discovery_map_base_ai01.png",
+			"target_kind": "ui_map_foundation",
+			"target_system": "discovery map background and ornamental frame",
 			"track": "runtime_ui"
 		}
 	],

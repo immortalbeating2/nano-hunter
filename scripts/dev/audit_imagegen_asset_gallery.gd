@@ -3,8 +3,8 @@ extends SceneTree
 # 加载 image gen 资产 Gallery 场景与 manifest，验证 Godot 编辑器预览入口可用。
 
 const MANIFEST_PATH := "res://docs/assets/imagegen-asset-gallery-manifest.json"
+const QUEUE_PATH := "res://docs/assets/image-gen-prompt-queue.json"
 const EXPECTED_COUNTS := {
-	"queue_outputs": 55,
 	"atlas_textures": 302,
 	"tilesets": 2,
 	"styleboxes": 8,
@@ -20,8 +20,11 @@ func _init() -> void:
 # 主入口：检查 manifest、加载 PackedScene，并确认核心计数没有漂移。
 func _run() -> int:
 	var manifest := _read_json(MANIFEST_PATH)
-	if manifest.is_empty():
+	var queue := _read_json(QUEUE_PATH)
+	if manifest.is_empty() or queue.is_empty():
 		return 1
+	var expected_counts := EXPECTED_COUNTS.duplicate()
+	expected_counts["queue_outputs"] = Array(queue.get("items", [])).size()
 
 	var scene_path := String(manifest.get("scene", ""))
 	var scene := ResourceLoader.load(scene_path)
@@ -38,8 +41,8 @@ func _run() -> int:
 		return 1
 
 	var counts: Dictionary = manifest.get("counts", {})
-	for key: String in EXPECTED_COUNTS.keys():
-		var expected := int(EXPECTED_COUNTS[key])
+	for key: String in expected_counts.keys():
+		var expected := int(expected_counts[key])
 		var actual := int(counts.get(key, -1))
 		if actual != expected:
 			push_error("Gallery count mismatch for %s: expected %s got %s" % [key, expected, actual])
@@ -47,19 +50,19 @@ func _run() -> int:
 			return 1
 
 	var preview_counts := _count_preview_nodes(instance)
-	if int(preview_counts.get("queue_output", 0)) != int(EXPECTED_COUNTS["queue_outputs"]):
+	if int(preview_counts.get("queue_output", 0)) != int(expected_counts["queue_outputs"]):
 		push_error("Queue preview node count mismatch: %s" % preview_counts)
 		instance.free()
 		return 1
-	if int(preview_counts.get("atlas_texture", 0)) != int(EXPECTED_COUNTS["atlas_textures"]):
+	if int(preview_counts.get("atlas_texture", 0)) != int(expected_counts["atlas_textures"]):
 		push_error("AtlasTexture preview node count mismatch: %s" % preview_counts)
 		instance.free()
 		return 1
-	if int(preview_counts.get("tileset_sheet", 0)) != int(EXPECTED_COUNTS["tilesets"]):
+	if int(preview_counts.get("tileset_sheet", 0)) != int(expected_counts["tilesets"]):
 		push_error("TileSet preview node count mismatch: %s" % preview_counts)
 		instance.free()
 		return 1
-	if int(preview_counts.get("stylebox", 0)) != int(EXPECTED_COUNTS["styleboxes"]):
+	if int(preview_counts.get("stylebox", 0)) != int(expected_counts["styleboxes"]):
 		push_error("StyleBox preview node count mismatch: %s" % preview_counts)
 		instance.free()
 		return 1
@@ -73,17 +76,17 @@ func _run() -> int:
 		instance.free()
 		return 1
 	var expected_texture_previews := (
-		int(EXPECTED_COUNTS["queue_outputs"])
-		+ int(EXPECTED_COUNTS["atlas_textures"])
-		+ int(EXPECTED_COUNTS["tilesets"])
+		int(expected_counts["queue_outputs"])
+		+ int(expected_counts["atlas_textures"])
+		+ int(expected_counts["tilesets"])
 		+ 2
 	)
 	if int(resource_counts["texture_previews"]) != expected_texture_previews:
 		push_error("Texture preview load count mismatch: expected %s got %s" % [expected_texture_previews, resource_counts["texture_previews"]])
 		instance.free()
 		return 1
-	if int(resource_counts["stylebox_previews"]) != int(EXPECTED_COUNTS["styleboxes"]):
-		push_error("StyleBox preview load count mismatch: expected %s got %s" % [EXPECTED_COUNTS["styleboxes"], resource_counts["stylebox_previews"]])
+	if int(resource_counts["stylebox_previews"]) != int(expected_counts["styleboxes"]):
+		push_error("StyleBox preview load count mismatch: expected %s got %s" % [expected_counts["styleboxes"], resource_counts["stylebox_previews"]])
 		instance.free()
 		return 1
 

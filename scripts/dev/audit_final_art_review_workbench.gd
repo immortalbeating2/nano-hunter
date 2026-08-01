@@ -11,7 +11,7 @@ func _init() -> void:
 	quit(result)
 
 
-# 主入口：加载 manifest、实例化场景、确认 55 张复核卡和预览纹理都可用。
+# 主入口：加载 manifest、实例化场景、确认当前队列的全部复核卡和预览纹理都可用。
 func _run() -> int:
 	var manifest := _read_json(MANIFEST_PATH)
 	if manifest.is_empty():

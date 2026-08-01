@@ -79,7 +79,8 @@ func test_shared_thin_platform_visual_top_matches_one_way_collision() -> void:
 		assert_not_null(tile_data)
 		assert_gte(alpha_top, 0)
 		if tile_data != null and alpha_top >= 0:
-			var visual_top := float(alpha_top + tile_data.texture_origin.y)
+			# Godot 的 texture_origin 正值会把纹理向上移，视觉边缘应减去该偏移。
+			var visual_top := float(alpha_top - tile_data.texture_origin.y)
 			assert_almost_eq(visual_top, PLATFORM_TOP_IN_CELL, 1.0, "薄平台视觉顶沿必须贴合碰撞：tile=%s" % tile_x)
 
 

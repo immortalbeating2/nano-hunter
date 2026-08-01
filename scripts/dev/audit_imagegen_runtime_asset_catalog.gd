@@ -3,15 +3,17 @@ extends SceneTree
 
 const SCENE_PATH := "res://scenes/dev/imagegen_runtime_asset_catalog.tscn"
 const MANIFEST_PATH := "res://docs/assets/imagegen-runtime-asset-catalog-manifest.json"
-const EXPECTED_COUNT := 55
+const RUNTIME_MAP_PATH := "res://docs/assets/asset-runtime-integration-map.json"
 
 
 func _initialize() -> void:
 	var manifest := _read_json(MANIFEST_PATH)
-	if manifest.is_empty():
+	var runtime_map := _read_json(RUNTIME_MAP_PATH)
+	if manifest.is_empty() or runtime_map.is_empty():
 		push_error("Runtime asset catalog manifest missing")
 		quit(1)
 		return
+	var expected_count := int(runtime_map.get("summary", {}).get("entry_count", -1))
 	var packed: PackedScene = load(SCENE_PATH)
 	if packed == null:
 		push_error("Runtime asset catalog scene missing")
@@ -28,13 +30,13 @@ func _initialize() -> void:
 		quit(1)
 		return
 	var names := preloader.get_resource_list()
-	if names.size() != EXPECTED_COUNT:
-		push_error("Runtime resource count expected %s got %s" % [EXPECTED_COUNT, names.size()])
+	if names.size() != expected_count:
+		push_error("Runtime resource count expected %s got %s" % [expected_count, names.size()])
 		quit(1)
 		return
 	var manifest_entries: Array = manifest.get("entries", [])
-	if manifest_entries.size() != EXPECTED_COUNT:
-		push_error("Runtime manifest entry count expected %s got %s" % [EXPECTED_COUNT, manifest_entries.size()])
+	if manifest_entries.size() != expected_count:
+		push_error("Runtime manifest entry count expected %s got %s" % [expected_count, manifest_entries.size()])
 		quit(1)
 		return
 	for entry: Dictionary in manifest_entries:

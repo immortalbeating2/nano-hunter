@@ -273,8 +273,8 @@ func _layer_authority_ok(terrain: TileMapLayer, platform: TileMapLayer, surface:
 		and platform != null
 		and surface != null
 		and thin_surface != null
-		and terrain.visible
-		and platform.visible
+		and not terrain.visible
+		and not platform.visible
 		and bool(terrain.get("collision_enabled"))
 		and bool(platform.get("collision_enabled"))
 		and surface.visible

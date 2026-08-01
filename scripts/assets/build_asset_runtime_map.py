@@ -150,6 +150,12 @@ TARGET_KIND_RULES = {
         "target_system": "pause/completion panel replacement",
         "target_scene_candidates": ["scenes/ui/demo_shell.tscn"],
     },
+    "ui_map_foundation": {
+        "track": "runtime_ui",
+        "resource_type": "Texture2D",
+        "target_system": "discovery map background and ornamental frame",
+        "target_scene_candidates": ["scenes/ui/demo_shell.tscn"],
+    },
     "vfx_atlas": {
         "track": "runtime_vfx",
         "resource_type": "SpriteFrames",

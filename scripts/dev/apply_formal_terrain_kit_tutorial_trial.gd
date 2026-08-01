@@ -230,7 +230,7 @@ func _ensure_layer(root: Node, layer_name: String, tileset: TileSet, offset: Vec
 		root.add_child(layer)
 		layer.owner = root
 
-	layer.visible = true
+	layer.visible = not collision_enabled
 	layer.tile_set = tileset
 	layer.position = offset
 	layer.scale = TILE_SCALE

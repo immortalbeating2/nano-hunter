@@ -69,15 +69,15 @@ func test_stage14_gate_layers_match_formal_room_contract() -> void:
 		return
 
 	assert_true(bool(terrain.get("collision_enabled")))
+	assert_false(terrain.visible)
 	assert_eq(terrain.tile_set.resource_path, TERRAIN_TILESET_PATH)
 	assert_eq(terrain.scale, TERRAIN_SCALE)
-	assert_almost_eq(terrain.modulate.a, 0.08, 0.001)
 
 	assert_true(bool(platform.get("collision_enabled")))
+	assert_false(platform.visible)
 	assert_eq(platform.tile_set.resource_path, TERRAIN_TILESET_PATH)
 	assert_eq(platform.position, PLATFORM_OFFSET)
 	assert_eq(platform.scale, TERRAIN_SCALE)
-	assert_almost_eq(platform.modulate.a, 0.08, 0.001)
 
 	assert_false(bool(surface.get("collision_enabled")))
 	assert_eq(surface.tile_set.resource_path, SURFACE_TILESET_PATH)

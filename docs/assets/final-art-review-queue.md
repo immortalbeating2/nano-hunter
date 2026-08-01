@@ -4,8 +4,8 @@
 
 ## Summary
 
-- 资产总数：`55`
-- 需要人工复核：`0`
+- 资产总数：`56`
+- 需要人工复核：`1`
 - Final ready：`55`
 
 ## By Family
@@ -19,7 +19,7 @@
 - `story`: `3`
 - `style`: `1`
 - `textures`: `1`
-- `ui`: `8`
+- `ui`: `9`
 - `vfx`: `6`
 
 ## Queue
@@ -48,6 +48,11 @@
 - [ ] `P0` `stage16_completion_panel_ui_ai01` (ui / ui_panel) - 0 blockers
 - [ ] `P0` `stage16_pause_panel_ui_ai01` (ui / ui_panel) - 0 blockers
 - [ ] `P0` `stage16_title_background_ai01` (ui / title_background) - 0 blockers
+- [ ] `P0` `stage19_discovery_map_base_ai01` (ui / ui_map_foundation) - 4 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 按目标 HUD / icon 像素尺寸检查读值。
+  - 需要人工复核 `text_safe_area_review`。
+  - 需要人工复核 `runtime_layout_review`。
 - [ ] `P0` `stage14_air_dash_trail_ai01` (vfx / vfx_direction) - 0 blockers
 - [ ] `P0` `stage15_boss_attack_warning_ai01` (vfx / vfx_warning) - 0 blockers
 - [ ] `P0` `stage16_corruption_purge_ai01` (vfx / vfx_sheet) - 0 blockers

@@ -37,6 +37,7 @@
 
 旧 `LeftWall`、`RightWall`、`FloorStart`、`JumpGuidePlatform`、`DashGateLeft`、`DashGateRight`、`DashGateCeiling`、`CombatFloor`、`ExitFloor` 的 `CollisionShape2D` 保留为 authoring bounds，但运行态碰撞已禁用，由 TileMapLayer 承担地形碰撞权威。
 旧 `ShrineTrialTilesetPreview` 必须同时 `visible=false` 与 `collision_enabled=false`；Godot 中隐藏 TileMapLayer 不等于禁用碰撞，这一层曾在 dash 门前形成空气墙。
+`TerrainCollisionVisual` 与 `PlatformCollisionVisual` 是碰撞权威而非展示层，必须保持 `collision_enabled=true`、`visible=false`；实际地表只由 `GroundSurfaceVisual` 与 `ThinPlatformSurfaceVisual` 展示，避免碰撞层以半透明方式形成第二套幽灵台阶。
 
 ## TileSet 语义清洗表
 
@@ -58,7 +59,9 @@
 ## 房间级验收口径
 
 - Luna 脚底必须落在可见地面或平台上。
-- 主地面运行态碰撞脚底基线固定为 `y=160`；`GroundSurfaceVisual` 根据中段切片 alpha top 上移 `7px`，实际可见顶面也必须为 `y=160`。
+- 主地面运行态碰撞脚底基线固定为 `y=160`；`GroundSurfaceVisual` 的 left / center / right 切片分别使用 `texture_origin.y=1/0/-2`，消除三类图片自身 alpha 顶沿的 `1-2px` 差异。
+- 薄平台 left / center / right 切片分别使用 `texture_origin.y=-14/-13/-13`；Godot 的正向 `texture_origin.y` 会把图片向上移动，因此验收必须按 `alpha_top - texture_origin.y` 计算实际可见顶沿，不能再使用旧的加法。
+- `TerrainCollisionVisual` 与 `PlatformCollisionVisual` 必须隐藏但保留碰撞；`GroundSurfaceVisual` 与 `ThinPlatformSurfaceVisual` 必须可见但禁用碰撞。
 - 训练目标和入口地标必须按真实可见像素底边落在 `y=160`，不能按纹理框或旧 authoring bounds 猜位置。
 - 所有可踩面必须来自 `TerrainCollisionVisual` 或 `PlatformCollisionVisual`，不能靠隐藏旧碰撞撑住。
 - 背景、装饰、前景、门框层必须 `collision_enabled=false`，且密度低到不会被误读成路。
@@ -72,4 +75,4 @@
 - 教学房背景只能有一个可见完整覆盖实例；重复背景必须隐藏，不能出现竖向拼接缝或镜头右侧露空。
 - 跳跃平台本身承担第二段地标，不再在落点额外摆石块；Air Dash 地标必须安装在实体低顶上方，不得变成路面障碍。
 - 所有隐藏的历史 TileMapLayer 也必须显式 `collision_enabled=false`，不能留下空气墙。
-- 本轮只验证 `tutorial_room`，不全图推广；后续房间复制同一“蓝图 -> 脚本 -> 网格验收 -> 运行态截图”流程。
+- `test_walkable_surface_visual_collision_alignment.gd` 从生产世界图配置读取全部 44 房：38 个正式 TileMap 房逐格核对真实纹理 alpha 顶沿与碰撞多边形，6 个 Stage25 静态 Floor 房核对可见 Polygon 与 CollisionShape 顶沿；新增房间必须进入同一审计。

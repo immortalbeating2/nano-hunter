@@ -3,8 +3,8 @@
   "status": "manual_review_queue_ready",
   "boundary": "Manual final-art review queue. Passing audits means every structural asset has an explicit review task; it does not mean the asset is final-ready.",
   "summary": {
-    "asset_count": 55,
-    "manual_review_required_count": 0,
+    "asset_count": 56,
+    "manual_review_required_count": 1,
     "final_ready_count": 55,
     "family_counts": {
       "animation": 8,
@@ -16,10 +16,15 @@
       "story": 3,
       "style": 1,
       "textures": 1,
-      "ui": 8,
+      "ui": 9,
       "vfx": 6
     },
-    "blocker_counts": {}
+    "blocker_counts": {
+      "license_terms_manual_review": 1,
+      "runtime_layout_review": 1,
+      "small_size_readability_review": 1,
+      "text_safe_area_review": 1
+    }
   },
   "entries": [
     {
@@ -308,7 +313,7 @@
       "blockers": [],
       "next_actions": [],
       "evidence_paths": [
-        "assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres",
+        "assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001_c01.atlas_texture.tres",
         "assets/art/ui/atlases/hud_core_ui_atlas_ai01.png",
         "assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.rules.json"
       ]
@@ -430,6 +435,32 @@
       "next_actions": [],
       "evidence_paths": [
         "assets/art/ui/stage16_title_background_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage19_discovery_map_base_ai01",
+      "target_kind": "ui_map_foundation",
+      "family": "ui",
+      "priority": "P0",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/ui/stage19_discovery_map_base_ai01.png",
+      "blocker_count": 4,
+      "blockers": [
+        "license_terms_manual_review",
+        "small_size_readability_review",
+        "text_safe_area_review",
+        "runtime_layout_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "按目标 HUD / icon 像素尺寸检查读值。",
+        "需要人工复核 `text_safe_area_review`。",
+        "需要人工复核 `runtime_layout_review`。"
+      ],
+      "evidence_paths": [
+        "assets/art/ui/stage19_discovery_map_base_ai01.png"
       ]
     },
     {

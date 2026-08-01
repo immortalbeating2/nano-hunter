@@ -3,8 +3,8 @@
   "status": "placeholder_ready",
   "boundary": "Art readiness audit. structural_ready means generated PNGs and metadata are usable by the pipeline. final_ready remains false until license records, manual cleanup, semantic naming, runtime replacement, and gameplay readability checks are completed.",
   "summary": {
-    "item_count": 55,
-    "structural_ready_count": 55,
+    "item_count": 56,
+    "structural_ready_count": 56,
     "final_ready_count": 55,
     "kind_counts": {
       "boss_direction": 1,
@@ -34,6 +34,7 @@
       "tileset_sheet": 2,
       "title_background": 1,
       "ui_atlas": 1,
+      "ui_map_foundation": 1,
       "ui_panel": 2,
       "vfx_atlas": 2,
       "vfx_direction": 1,
@@ -41,7 +42,12 @@
       "vfx_warning": 1
     },
     "warnings_by_type": {},
-    "blockers_by_type": {},
+    "blockers_by_type": {
+      "license_terms_manual_review": 1,
+      "runtime_layout_review": 1,
+      "small_size_readability_review": 1,
+      "text_safe_area_review": 1
+    },
     "error_items": [],
     "warning_items": []
   },
@@ -1700,7 +1706,7 @@
         ]
       },
       "runtime_catalog": {
-        "resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres",
+        "resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001_c01.atlas_texture.tres",
         "catalog_resource_type": "AtlasTexture",
         "integration_status": "runtime_catalog_ready_manual_replacement_required"
       },
@@ -1714,7 +1720,7 @@
         "target_scene_count": 2,
         "current_scene_reference_count": 0,
         "referenced_scenes": [],
-        "resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres"
+        "resource_path": "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001_c01.atlas_texture.tres"
       },
       "background_alpha_policy": null,
       "finalization_review": {
@@ -5215,6 +5221,79 @@
       "errors": [],
       "warnings": [],
       "polish_blockers": []
+    },
+    {
+      "asset_id": "stage19_discovery_map_base_ai01",
+      "target_kind": "ui_map_foundation",
+      "output_path": "assets/art/ui/stage19_discovery_map_base_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1511,
+        "height": 1041,
+        "mode": "RGB",
+        "has_alpha": false,
+        "transparent_pixel_ratio": 0.0,
+        "opaque_pixel_ratio": 1.0,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "source_recorded",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "6453972e2a85ba7f1a3923465ce7a58643494bf0188798cec5e442d03c471f1f",
+        "candidate_count": 1,
+        "output_sha256": "2f28b02f8f21b7cdedf3d017fa153eae10592ff76a4207a61109202e8fc61a35"
+      },
+      "runtime_map": {
+        "track": "runtime_ui",
+        "target_system": "discovery map background and ornamental frame",
+        "recommended_resource_type": "Texture2D",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/ui/stage19_discovery_map_base_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/ui/demo_shell.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/ui/stage19_discovery_map_base_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 1,
+        "referenced_scenes": [
+          "scenes/ui/demo_shell.tscn"
+        ],
+        "resource_path": "res://assets/art/ui/stage19_discovery_map_base_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "small_size_readability_review",
+        "text_safe_area_review",
+        "runtime_layout_review"
+      ]
     }
   ],
   "errors": [],

@@ -100,8 +100,8 @@ func _capture() -> int:
 	var collision_authority_ok := (
 		terrain_layer != null
 		and platform_layer != null
-		and terrain_layer.visible
-		and platform_layer.visible
+		and not terrain_layer.visible
+		and not platform_layer.visible
 		and bool(terrain_layer.get("collision_enabled"))
 		and bool(platform_layer.get("collision_enabled"))
 	)

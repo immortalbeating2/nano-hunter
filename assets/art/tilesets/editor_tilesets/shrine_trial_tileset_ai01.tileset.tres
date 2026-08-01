@@ -6,14 +6,17 @@
 texture = ExtResource("1_i8h2g")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 1)
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, 64, 0, 64, 64, 0, 64)
 1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 0)
 1:0/0/terrain_set = 0
 1:0/0/terrain = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, 64, 0, 64, 64, 0, 64)
 2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -2)
 2:0/0/terrain_set = 0
 2:0/0/terrain = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, 64, 0, 64, 64, 0, 64)

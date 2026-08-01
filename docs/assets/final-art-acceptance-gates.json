@@ -21,42 +21,46 @@
     "final_approval": "最终美术批准"
   },
   "summary": {
-    "asset_count": 55,
+    "asset_count": 56,
     "final_ready_count": 55,
-    "blocked_asset_count": 0,
+    "blocked_asset_count": 1,
     "gate_count": 7,
     "gate_summary": {
       "source_traceability": {
-        "passed": 55,
+        "passed": 56,
         "blocked": 0
       },
       "license_terms": {
         "passed": 55,
-        "blocked": 0
+        "blocked": 1
       },
       "godot_structural_resource": {
-        "passed": 55,
+        "passed": 56,
         "blocked": 0
       },
       "editor_review_card": {
-        "passed": 55,
+        "passed": 56,
         "blocked": 0
       },
       "runtime_replacement": {
-        "passed": 55,
+        "passed": 56,
         "blocked": 0
       },
       "family_specific_polish": {
         "passed": 55,
-        "blocked": 0
+        "blocked": 1
       },
       "final_approval": {
         "passed": 55,
-        "blocked": 0
+        "blocked": 1
       }
     },
-    "blocked_by_priority": {},
-    "blocked_by_family": {}
+    "blocked_by_priority": {
+      "P0": 1
+    },
+    "blocked_by_family": {
+      "ui": 1
+    }
   },
   "entries": [
     {
@@ -872,7 +876,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/ui/atlases/hud_core_ui_atlas_ai01.png",
-            "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001.atlas_texture.tres"
+            "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/000_hud_core_ui_atlas_ai01_auto_001_c01.atlas_texture.tres"
           ],
           "blockers": []
         },
@@ -3535,6 +3539,86 @@
             "docs/assets/runtime-source-safety-report.json"
           ],
           "blockers": []
+        }
+      }
+    },
+    {
+      "asset_id": "stage19_discovery_map_base_ai01",
+      "target_kind": "ui_map_foundation",
+      "family": "ui",
+      "priority": "P0",
+      "output_path": "assets/art/ui/stage19_discovery_map_base_ai01.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 3,
+      "gates": {
+        "source_traceability": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/ui/stage19_discovery_map_base_ai01.png"
+          ],
+          "blockers": []
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/ui/stage19_discovery_map_base_ai01.png",
+            "res://assets/art/ui/stage19_discovery_map_base_ai01.png"
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": []
+        },
+        "family_specific_polish": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "small_size_readability_review",
+            "text_safe_area_review",
+            "runtime_layout_review"
+          ]
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
         }
       }
     },

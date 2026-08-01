@@ -80,18 +80,16 @@ func test_tutorial_template_layers_have_correct_collision_authority() -> void:
 	if terrain == null or platform == null or thin_surface == null:
 		return
 
-	assert_true(terrain.visible)
+	assert_false(terrain.visible, "碰撞权威层只保留 physics，不得进入成品画面。")
 	assert_true(bool(terrain.get("collision_enabled")))
-	assert_almost_eq(terrain.modulate.a, 0.08, 0.001, "碰撞层不能再作为主视觉散砖。")
 	assert_eq(terrain.position, TILE_OFFSET)
 	assert_eq(terrain.scale, Vector2(1.0 / 6.0, 1.0 / 6.0))
 	assert_eq(terrain.get_meta("asset_id", ""), "formal_terrain_kit_ai01")
 	assert_eq(terrain.get_meta("asset_binding_note", ""), "tilemap_collision_authority_static_terrain")
 	assert_eq(terrain.tile_set.resource_path, TILESET_PATH)
 
-	assert_true(platform.visible)
+	assert_false(platform.visible, "薄平台碰撞权威层只保留 physics，不得形成幽灵台阶。")
 	assert_true(bool(platform.get("collision_enabled")))
-	assert_almost_eq(platform.modulate.a, 0.08, 0.001, "薄平台碰撞层不能压过正式可见层。")
 	assert_eq(platform.position, THIN_TILE_OFFSET)
 	assert_eq(platform.scale, Vector2(1.0 / 6.0, 1.0 / 6.0))
 	assert_eq(platform.get_meta("asset_binding_note", ""), "tilemap_one_way_collision_authority_platform")

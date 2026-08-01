@@ -3,7 +3,7 @@
   "status": "runtime_map_scene_reference_split_ready",
   "boundary": "Runtime/release integration map only. It assigns generated assets to target systems, resource types and candidate scenes, and records production and development references separately; it does not approve final art quality.",
   "summary": {
-    "entry_count": 55,
+    "entry_count": 56,
     "track_counts": {
       "animation_pipeline": 2,
       "archive": 9,
@@ -12,16 +12,16 @@
       "release_promo": 3,
       "runtime_environment": 10,
       "runtime_gameplay": 4,
-      "runtime_ui": 8,
+      "runtime_ui": 9,
       "runtime_vfx": 4,
       "source_dev": 10
     },
     "status_counts": {
       "binding_map_ready_manual_replacement_required": 1,
       "not_runtime_target": 29,
-      "scene_reference_verified": 25
+      "scene_reference_verified": 26
     },
-    "directly_referenced_entry_count": 25,
+    "directly_referenced_entry_count": 26,
     "development_referenced_entry_count": 55,
     "missing_output_count": 0,
     "missing_target_scene_candidate_count": 0
@@ -52,8 +52,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -84,8 +83,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -116,8 +114,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -188,8 +185,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -222,8 +218,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -256,8 +251,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -290,8 +284,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -322,8 +315,7 @@
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -360,7 +352,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -398,7 +389,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -436,7 +426,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -474,7 +463,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -512,7 +500,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -541,14 +528,16 @@
         "scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
         "scenes/rooms/stage14_air_dash_gate_room.tscn"
       ],
-      "direct_scene_references": [],
+      "direct_scene_references": [
+        "scenes/rooms/stage10_zone_branch_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"
+      ],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
@@ -841,6 +830,7 @@
         "scenes/rooms/stage16_corruption_purge_room.tscn",
         "scenes/rooms/stage16_seal_release_threshold_room.tscn",
         "scenes/rooms/stage16_talisman_relay_room.tscn",
+        "scenes/rooms/stage25_thunder_waste_room_base.tscn",
         "scenes/rooms/stage9_zone_charger_room.tscn",
         "scenes/rooms/stage9_zone_combat_room.tscn",
         "scenes/rooms/stage9_zone_entry_room.tscn",
@@ -894,7 +884,8 @@
         "scenes/rooms/stage14_backtrack_hub_room.tscn",
         "scenes/rooms/stage14_loop_return_room.tscn",
         "scenes/rooms/stage15_challenge_branch_room.tscn",
-        "scenes/rooms/stage15_mixed_gauntlet_room.tscn"
+        "scenes/rooms/stage15_mixed_gauntlet_room.tscn",
+        "scenes/rooms/stage25_thunder_waste_room_base.tscn"
       ],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
@@ -1661,6 +1652,7 @@
         "scenes/rooms/stage13_miasma_marsh_pressure_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_return_room.tscn",
+        "scenes/rooms/stage25_thunder_waste_room_base.tscn",
         "scenes/rooms/stage9_zone_charger_room.tscn",
         "scenes/rooms/stage9_zone_combat_room.tscn",
         "scenes/rooms/stage9_zone_entry_room.tscn",
@@ -1742,7 +1734,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -1780,7 +1771,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -1818,7 +1808,6 @@
         "scenes/dev/imagegen_asset_integration_showcase.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -2071,7 +2060,6 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
@@ -2106,12 +2094,40 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn"
       ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
         "art_quality_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage19_discovery_map_base_ai01",
+      "batch": "Batch 08",
+      "priority": "P0",
+      "target_kind": "ui_map_foundation",
+      "track": "runtime_ui",
+      "disposition": "runtime_keep",
+      "target_system": "discovery map background and ornamental frame",
+      "recommended_resource_type": "Texture2D",
+      "output_path": "assets/art/ui/stage19_discovery_map_base_ai01.png",
+      "output_exists": true,
+      "output_sha256": "2f28b02f8f21b7cdedf3d017fa153eae10592ff76a4207a61109202e8fc61a35",
+      "target_scene_candidates": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "direct_scene_references": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "development_scene_references": [],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
         "scene_or_release_context_review"
       ]
     }

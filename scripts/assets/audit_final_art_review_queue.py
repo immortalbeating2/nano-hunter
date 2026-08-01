@@ -11,12 +11,14 @@ from typing import Any
 
 DEFAULT_QUEUE = "docs/assets/final-art-review-queue.json"
 DEFAULT_MARKDOWN = "docs/assets/final-art-review-queue.md"
+DEFAULT_SOURCE_QUEUE = "docs/assets/image-gen-prompt-queue.json"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Audit final-art manual review queue.")
     parser.add_argument("--queue", default=DEFAULT_QUEUE)
     parser.add_argument("--markdown", default=DEFAULT_MARKDOWN)
+    parser.add_argument("--source-queue", default=DEFAULT_SOURCE_QUEUE)
     parser.add_argument("--strict", action="store_true")
     return parser.parse_args()
 
@@ -38,6 +40,8 @@ def main() -> int:
     root = Path.cwd().resolve()
     queue_path = resolve_path(root, args.queue)
     markdown_path = resolve_path(root, args.markdown)
+    source_queue = load_json(resolve_path(root, args.source_queue))
+    expected_ids = {str(item["asset_id"]) for item in source_queue.get("items", [])}
     errors: list[str] = []
     if not queue_path.exists():
         errors.append("review queue json missing")
@@ -49,8 +53,12 @@ def main() -> int:
 
     entries = queue.get("entries", [])
     summary = queue.get("summary", {})
-    if len(entries) != 55:
-        errors.append(f"entry count expected 55 got {len(entries)}")
+    entry_ids = {str(entry.get("asset_id", "")) for entry in entries}
+    if entry_ids != expected_ids:
+        errors.append(
+            f"asset id coverage mismatch: missing={sorted(expected_ids - entry_ids)} "
+            f"extra={sorted(entry_ids - expected_ids)}"
+        )
     if int(summary.get("asset_count", -1)) != len(entries):
         errors.append("summary asset_count mismatch")
     manual_review_count = sum(1 for entry in entries if entry.get("blockers"))

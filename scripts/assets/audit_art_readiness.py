@@ -100,6 +100,11 @@ MANUAL_POLISH_NOTES = {
         "pseudo_text_cleanup",
         "runtime_layout_review",
     ],
+    "ui_map_foundation": [
+        "small_size_readability_review",
+        "text_safe_area_review",
+        "runtime_layout_review",
+    ],
     "hud_frame": [
         "runtime_contrast_review",
         "mask_and_anchor_cleanup",

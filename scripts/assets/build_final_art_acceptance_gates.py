@@ -255,11 +255,13 @@ def main() -> int:
     review_queue = load_json(REVIEW_QUEUE_PATH)
     workbench_manifest = load_json(WORKBENCH_MANIFEST_PATH)
     runtime_source_report = load_json(RUNTIME_SOURCE_SAFETY_PATH)
-    workbench_present = bool(workbench_manifest.get("scene")) and int(workbench_manifest.get("counts", {}).get("entry_count", 0)) == 55
-
     readiness_items = readiness_by_asset(readiness)
     review_entries = review_by_asset(review_queue)
     runtime_source_items = runtime_source_by_asset(runtime_source_report)
+    workbench_present = (
+        bool(workbench_manifest.get("scene"))
+        and int(workbench_manifest.get("counts", {}).get("entry_count", 0)) == len(review_entries)
+    )
     entries = [
         build_entry(
             asset_id,

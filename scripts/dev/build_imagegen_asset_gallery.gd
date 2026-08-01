@@ -24,6 +24,7 @@ const CATEGORY_LABELS := {
 	"environment_boss_room_background": "Boss 房背景",
 	"ui_atlas": "UI 图集",
 	"ui_panel": "UI 面板",
+	"ui_map_foundation": "探索地图底板",
 	"hud_frame": "HUD 框架",
 	"completion_ui": "完成反馈",
 	"title_background": "标题背景",
@@ -70,7 +71,7 @@ func _run() -> int:
 
 	var queue_counts := _add_queue_outputs(content, queue)
 	var atlas_count := _add_atlas_texture_outputs(content, atlas_index)
-	var tileset_count := _add_tileset_outputs(content, audit_report)
+	var tileset_count := _add_tileset_outputs(content, queue)
 	var stylebox_count := _add_stylebox_outputs(content, stylebox_index)
 	var spine_part_count := _add_spine_outputs(content, spine_index)
 
@@ -155,7 +156,7 @@ func _add_header(parent: VBoxContainer, audit_report: Dictionary) -> void:
 	], 14)
 
 
-# 按 target_kind 分组展示 prompt queue 中的 55 个最终输出 PNG。
+# 按 target_kind 分组展示 prompt queue 中的全部最终输出 PNG。
 func _add_queue_outputs(parent: VBoxContainer, queue: Dictionary) -> Dictionary:
 	_add_section_title(parent, "01 最终输出 PNG / Queue Outputs")
 	var groups: Dictionary = {}
@@ -199,16 +200,23 @@ func _add_atlas_texture_outputs(parent: VBoxContainer, atlas_index: Dictionary) 
 
 
 # 展示 TileSet 资源对应的源 sheet，并记录 Godot TileSet 候选数量。
-func _add_tileset_outputs(parent: VBoxContainer, audit_report: Dictionary) -> int:
+func _add_tileset_outputs(parent: VBoxContainer, queue: Dictionary) -> int:
 	_add_section_title(parent, "03 Godot TileSet / 关卡地块候选")
-	var tilesets: Dictionary = audit_report.get("editor_resources", {}).get("tilesets", {})
-	var resources: Array = tilesets.get("resources", [])
 	var grid := _make_grid(parent, 2)
-	for path_value: String in resources:
-		var file_name := path_value.get_file().trim_suffix(".tileset.tres")
-		var texture_path := "res://assets/art/tilesets/%s.png" % file_name
-		_add_texture_card(grid, file_name, texture_path, "tileset_sheet", Vector2(360, 220))
-	return resources.size()
+	var count := 0
+	for item: Dictionary in queue.get("items", []):
+		if String(item.get("target_kind", "")) != "tileset_sheet":
+			continue
+		var asset_id := String(item.get("asset_id", "unknown"))
+		_add_texture_card(
+			grid,
+			asset_id,
+			_to_res_path(String(item.get("output_path", ""))),
+			"tileset_sheet",
+			Vector2(360, 220)
+		)
+		count += 1
+	return count
 
 
 # 展示九宫格 StyleBoxTexture 候选，便于检查 UI 面板拉伸资源。

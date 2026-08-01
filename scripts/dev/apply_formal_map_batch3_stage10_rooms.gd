@@ -114,7 +114,7 @@ func _layer(root: Node, name: String, tileset: TileSet, position: Vector2, scale
 		layer.name = name
 		root.add_child(layer)
 		layer.owner = root
-	layer.visible = true
+	layer.visible = not collision
 	layer.tile_set = tileset
 	layer.position = position
 	layer.scale = scale

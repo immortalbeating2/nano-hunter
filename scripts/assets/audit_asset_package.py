@@ -16,7 +16,7 @@ REQUIRED_TARGET_KIND_FAMILIES = {
     "style": {"style_board"},
     "characters": {"character_direction", "sprite_sheet", "boss_direction", "spine_cutout_parts"},
     "environment": {"tileset_sheet", "environment_tiles", "environment_background", "environment_room_background", "environment_boss_room_background"},
-    "ui": {"ui_atlas", "ui_panel", "hud_frame", "completion_ui", "title_background", "ninepatch_sheet"},
+    "ui": {"ui_atlas", "ui_panel", "ui_map_foundation", "hud_frame", "completion_ui", "title_background", "ninepatch_sheet"},
     "icons": {"icon", "icon_sheet"},
     "props_equipment": {"prop", "prop_atlas", "prop_sheet", "equipment_atlas"},
     "vfx": {"vfx_direction", "vfx_warning", "vfx_sheet", "vfx_atlas"},
@@ -568,11 +568,12 @@ def audit_final_art_review_queue(root: Path) -> dict[str, Any]:
         }
     report = load_json(report_path)
     entries = report.get("entries", [])
+    expected_count = len(load_json(root / "docs/assets/image-gen-prompt-queue.json").get("items", []))
     errors: list[str] = []
     if not markdown_path.exists():
         errors.append("markdown_missing")
-    if len(entries) != 55:
-        errors.append(f"entry_count expected 55 got {len(entries)}")
+    if len(entries) != expected_count:
+        errors.append(f"entry_count expected {expected_count} got {len(entries)}")
     summary = report.get("summary", {})
     manual_review_count = sum(1 for entry in entries if entry.get("blockers"))
     final_ready_count = sum(1 for entry in entries if bool(entry.get("final_ready", False)))
@@ -622,10 +623,11 @@ def audit_final_art_review_workbench(root: Path) -> dict[str, Any]:
         missing.append(declared_scene or scene_path.as_posix())
 
     counts = manifest.get("counts", {})
-    if int(counts.get("entry_count", -1)) != 55:
-        errors.append("entry_count expected 55")
-    if int(counts.get("texture_card_count", -1)) != 55:
-        errors.append("texture_card_count expected 55")
+    expected_count = len(load_json(root / "docs/assets/image-gen-prompt-queue.json").get("items", []))
+    if int(counts.get("entry_count", -1)) != expected_count:
+        errors.append(f"entry_count expected {expected_count}")
+    if int(counts.get("texture_card_count", -1)) != expected_count:
+        errors.append(f"texture_card_count expected {expected_count}")
     entry_count = int(counts.get("entry_count", -1))
     manual_count = int(counts.get("manual_review_required_count", -1))
     final_ready_count = int(counts.get("final_ready_count", -1))
@@ -658,15 +660,16 @@ def audit_final_art_acceptance_gates(root: Path) -> dict[str, Any]:
 
     report = load_json(report_path)
     summary = report.get("summary", {})
+    expected_count = len(load_json(root / "docs/assets/image-gen-prompt-queue.json").get("items", []))
     errors: list[str] = []
     if not markdown_path.exists():
         errors.append("markdown_missing")
-    if int(summary.get("asset_count", -1)) != 55:
-        errors.append("asset_count expected 55")
+    if int(summary.get("asset_count", -1)) != expected_count:
+        errors.append(f"asset_count expected {expected_count}")
     final_ready_count = int(summary.get("final_ready_count", -1))
     blocked_asset_count = int(summary.get("blocked_asset_count", -1))
-    if final_ready_count + blocked_asset_count != 55:
-        errors.append("final_ready_count + blocked_asset_count expected 55")
+    if final_ready_count + blocked_asset_count != expected_count:
+        errors.append(f"final_ready_count + blocked_asset_count expected {expected_count}")
     if int(summary.get("gate_count", -1)) != 7:
         errors.append("gate_count expected 7")
     gate_summary = summary.get("gate_summary", {})
@@ -680,8 +683,8 @@ def audit_final_art_acceptance_gates(root: Path) -> dict[str, Any]:
         "final_approval",
     ):
         actual = gate_summary.get(gate_name, {})
-        if int(actual.get("passed", -1)) + int(actual.get("blocked", -1)) != 55:
-            errors.append(f"{gate_name} passed + blocked expected 55")
+        if int(actual.get("passed", -1)) + int(actual.get("blocked", -1)) != expected_count:
+            errors.append(f"{gate_name} passed + blocked expected {expected_count}")
     final_gate = gate_summary.get("final_approval", {})
     if int(final_gate.get("passed", -1)) != final_ready_count:
         errors.append("final_approval passed must match final_ready_count")
@@ -1362,6 +1365,7 @@ def audit_file_counts(root: Path) -> dict[str, int]:
 def collect_errors(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     queue = report["queue"]
+    expected_asset_count = int(queue["item_count"])
     if queue["item_count"] < 55:
         errors.append(f"queue item_count expected at least 55 got {queue['item_count']}")
     for key in ("missing_outputs", "missing_target_families"):
@@ -1442,7 +1446,7 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
         errors.append("imagegen asset gallery scene or manifest is missing")
     gallery_counts = gallery.get("counts", {})
     expected_gallery_counts = {
-        "queue_outputs": 55,
+        "queue_outputs": expected_asset_count,
         "atlas_textures": 302,
         "tilesets": 2,
         "styleboxes": 8,
@@ -1459,10 +1463,10 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not art_readiness["present"] or not art_readiness["ok"]:
         errors.append("art readiness report is missing or has structural errors")
     readiness_summary = art_readiness.get("summary", {})
-    if int(readiness_summary.get("item_count", -1)) != 55:
-        errors.append("art readiness item_count expected 55")
-    if int(readiness_summary.get("structural_ready_count", -1)) != 55:
-        errors.append("art readiness structural_ready_count expected 55")
+    if int(readiness_summary.get("item_count", -1)) != expected_asset_count:
+        errors.append(f"art readiness item_count expected {expected_asset_count}")
+    if int(readiness_summary.get("structural_ready_count", -1)) != expected_asset_count:
+        errors.append(f"art readiness structural_ready_count expected {expected_asset_count}")
 
     background_alpha_policy = report["background_alpha_policy"]
     if not background_alpha_policy["present"]:
@@ -1481,12 +1485,12 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not final_art_review.get("markdown_exists"):
         errors.append("final art review queue markdown is missing")
     review_summary = final_art_review.get("summary", {})
-    if int(review_summary.get("asset_count", -1)) != 55:
-        errors.append("final art review queue asset_count expected 55")
+    if int(review_summary.get("asset_count", -1)) != expected_asset_count:
+        errors.append(f"final art review queue asset_count expected {expected_asset_count}")
     review_manual = int(review_summary.get("manual_review_required_count", -1))
     review_final = int(review_summary.get("final_ready_count", -1))
-    if review_manual + review_final != 55:
-        errors.append("final art review queue manual + final expected 55")
+    if review_manual + review_final != expected_asset_count:
+        errors.append(f"final art review queue manual + final expected {expected_asset_count}")
     if final_art_review.get("errors"):
         errors.append(f"final art review queue errors: {final_art_review['errors']}")
 
@@ -1494,14 +1498,14 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not final_art_workbench["present"] or not final_art_workbench["scene_exists"]:
         errors.append("final art review workbench scene or manifest is missing")
     workbench_counts = final_art_workbench.get("counts", {})
-    if int(workbench_counts.get("entry_count", -1)) != 55:
-        errors.append("final art review workbench entry_count expected 55")
-    if int(workbench_counts.get("texture_card_count", -1)) != 55:
-        errors.append("final art review workbench texture_card_count expected 55")
+    if int(workbench_counts.get("entry_count", -1)) != expected_asset_count:
+        errors.append(f"final art review workbench entry_count expected {expected_asset_count}")
+    if int(workbench_counts.get("texture_card_count", -1)) != expected_asset_count:
+        errors.append(f"final art review workbench texture_card_count expected {expected_asset_count}")
     workbench_manual = int(workbench_counts.get("manual_review_required_count", -1))
     workbench_final = int(workbench_counts.get("final_ready_count", -1))
-    if workbench_manual + workbench_final != 55:
-        errors.append("final art review workbench manual + final expected 55")
+    if workbench_manual + workbench_final != expected_asset_count:
+        errors.append(f"final art review workbench manual + final expected {expected_asset_count}")
     if final_art_workbench.get("errors"):
         errors.append(f"final art review workbench errors: {final_art_workbench['errors']}")
 
@@ -1511,12 +1515,12 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not final_art_gates.get("markdown_exists"):
         errors.append("final art acceptance gates markdown is missing")
     gates_summary = final_art_gates.get("summary", {})
-    if int(gates_summary.get("asset_count", -1)) != 55:
-        errors.append("final art acceptance gates asset_count expected 55")
+    if int(gates_summary.get("asset_count", -1)) != expected_asset_count:
+        errors.append(f"final art acceptance gates asset_count expected {expected_asset_count}")
     gates_blocked = int(gates_summary.get("blocked_asset_count", -1))
     gates_final = int(gates_summary.get("final_ready_count", -1))
-    if gates_blocked + gates_final != 55:
-        errors.append("final art acceptance gates blocked + final expected 55")
+    if gates_blocked + gates_final != expected_asset_count:
+        errors.append(f"final art acceptance gates blocked + final expected {expected_asset_count}")
     if int(gates_summary.get("gate_count", -1)) != 7:
         errors.append("final art acceptance gates gate_count expected 7")
     if final_art_gates.get("errors"):
@@ -1798,8 +1802,8 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not runtime_map["present"]:
         errors.append("asset runtime integration map is missing")
     runtime_summary = runtime_map.get("summary", {})
-    if int(runtime_summary.get("entry_count", -1)) != 55:
-        errors.append("asset runtime map entry_count expected 55")
+    if int(runtime_summary.get("entry_count", -1)) != expected_asset_count:
+        errors.append(f"asset runtime map entry_count expected {expected_asset_count}")
     if int(runtime_summary.get("missing_output_count", -1)) != 0:
         errors.append("asset runtime map missing_output_count expected 0")
     if int(runtime_summary.get("missing_target_scene_candidate_count", -1)) != 0:
@@ -1811,10 +1815,10 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     if not runtime_catalog["present"] or not runtime_catalog["scene_exists"]:
         errors.append("imagegen runtime asset catalog scene or manifest is missing")
     catalog_counts = runtime_catalog.get("counts", {})
-    if int(catalog_counts.get("resource_count", -1)) != 55:
-        errors.append("runtime asset catalog resource_count expected 55")
-    if int(catalog_counts.get("entry_count", -1)) != 55:
-        errors.append("runtime asset catalog entry_count expected 55")
+    if int(catalog_counts.get("resource_count", -1)) != expected_asset_count:
+        errors.append(f"runtime asset catalog resource_count expected {expected_asset_count}")
+    if int(catalog_counts.get("entry_count", -1)) != expected_asset_count:
+        errors.append(f"runtime asset catalog entry_count expected {expected_asset_count}")
     if int(catalog_counts.get("missing_count", -1)) != 0:
         errors.append("runtime asset catalog missing_count expected 0")
     if runtime_catalog.get("missing"):

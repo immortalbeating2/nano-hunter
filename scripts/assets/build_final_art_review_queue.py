@@ -73,6 +73,7 @@ FAMILY_BY_KIND = {
     "icon_sheet": "icons",
     "ninepatch_sheet": "ui",
     "title_background": "ui",
+    "ui_map_foundation": "ui",
     "ui_atlas": "ui",
     "ui_panel": "ui",
     "prop": "props_equipment",
