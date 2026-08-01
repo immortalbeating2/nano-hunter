@@ -1,0 +1,19 @@
+{
+  "asset_id": "stage28_waystation_world_sheet_ai01",
+  "runtime_asset_id": "stage28_waystation_world_runtime_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "source": "assets/source/ai_generated/batch_28/stage28_waystation_world_sheet_ai01/candidates/stage28_waystation_world_sheet_ai01_candidate_01.png",
+  "source_sha256": "d8c3131f79f980d075cc7496b5ea6ad29de8f9785b5cdfb658c2e14d97d895c1",
+  "output": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+  "output_sha256": "b50da0659751c27956b89a923924b33833cf59bd1b4516bfd6bfbd9d432b63c3",
+  "process": "built_in_image_gen_stage28_fixed_grid_chroma_to_alpha",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "transparent_png",
+    "fixed_4x4_grid",
+    "small_scale_readability"
+  ]
+}

@@ -3,7 +3,7 @@
   "status": "runtime_map_scene_reference_split_ready",
   "boundary": "Runtime/release integration map only. It assigns generated assets to target systems, resource types and candidate scenes, and records production and development consumer references separately; it does not approve final art quality.",
   "summary": {
-    "entry_count": 60,
+    "entry_count": 63,
     "track_counts": {
       "animation_pipeline": 2,
       "archive": 9,
@@ -11,18 +11,18 @@
       "narrative_or_release": 4,
       "release_promo": 3,
       "runtime_animation": 2,
-      "runtime_environment": 10,
-      "runtime_gameplay": 4,
-      "runtime_ui": 9,
+      "runtime_environment": 11,
+      "runtime_gameplay": 5,
+      "runtime_ui": 10,
       "runtime_vfx": 6,
       "source_dev": 10
     },
     "status_counts": {
       "binding_map_ready_manual_replacement_required": 1,
       "not_runtime_target": 29,
-      "scene_reference_verified": 30
+      "scene_reference_verified": 33
     },
-    "directly_referenced_entry_count": 30,
+    "directly_referenced_entry_count": 33,
     "development_referenced_entry_count": 60,
     "missing_output_count": 0,
     "missing_target_scene_candidate_count": 0
@@ -920,7 +920,6 @@
         "scenes/rooms/stage10_zone_aerial_room.tscn",
         "scenes/rooms/stage10_zone_branch_room.tscn",
         "scenes/rooms/stage10_zone_challenge_room.tscn",
-        "scenes/rooms/stage11_demo_end_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn",
@@ -1693,7 +1692,6 @@
         "scenes/rooms/stage10_zone_aerial_room.tscn",
         "scenes/rooms/stage10_zone_branch_room.tscn",
         "scenes/rooms/stage10_zone_challenge_room.tscn",
-        "scenes/rooms/stage11_demo_end_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_caster_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn",
@@ -2323,6 +2321,94 @@
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_background_ai01",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "environment_room_background",
+      "track": "runtime_environment",
+      "disposition": "runtime_keep",
+      "target_system": "Stage11 formal waystation display layer",
+      "recommended_resource_type": "Texture2D",
+      "output_path": "assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png",
+      "output_exists": true,
+      "output_sha256": "cbfa9c29b597eb6236b7fcb9bc3c0bbe967c580d2a30ff797f0768248e0886de",
+      "target_scene_candidates": [
+        "scenes/rooms/stage11_demo_end_room.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/rooms/stage11_demo_end_room.tscn"
+      ],
+      "direct_scene_references": [
+        "scenes/rooms/stage11_demo_end_room.tscn"
+      ],
+      "development_scene_references": [],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_world_sheet_ai01",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "prop_atlas",
+      "track": "runtime_gameplay",
+      "disposition": "runtime_keep",
+      "target_system": "Stage11 bounty board, clerk and route marker presentation",
+      "recommended_resource_type": "SpriteFrames plus AtlasTexture",
+      "output_path": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "output_exists": true,
+      "output_sha256": "b50da0659751c27956b89a923924b33833cf59bd1b4516bfd6bfbd9d432b63c3",
+      "target_scene_candidates": [
+        "scenes/rooms/stage11_demo_end_room.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/rooms/stage11_demo_end_room.tscn"
+      ],
+      "direct_scene_references": [
+        "scenes/rooms/stage11_demo_end_room.tscn",
+        "scripts/rooms/stage11_demo_end_room.gd"
+      ],
+      "development_scene_references": [],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_ui_sheet_ai01",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "ui_atlas",
+      "track": "runtime_ui",
+      "disposition": "runtime_keep",
+      "target_system": "bounty, Build and two-slot DetailPanel presentation",
+      "recommended_resource_type": "AtlasTexture",
+      "output_path": "assets/art/ui/stage28_waystation_ui_runtime_ai01.png",
+      "output_exists": true,
+      "output_sha256": "ff9d76dbc90d2d1c121f0f3362fd62f6a11af58c70e3073f736d44ef1fee113f",
+      "target_scene_candidates": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "direct_scene_references": [
+        "scripts/ui/demo_shell.gd"
+      ],
+      "development_scene_references": [],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",

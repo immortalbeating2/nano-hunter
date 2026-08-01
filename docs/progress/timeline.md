@@ -4,6 +4,11 @@
 
 ## 2026-08-01
 
+- **Stage28 镇妖驿站、悬赏与 Build 正式表现技术候选完成**：复用 Stage23 / 24 的固定数据和 DetailPanel，把 Stage11 从功能灰盒提升为正式叙事与整备锚点。
+  结果：正式驿站背景、三状态榜牌、四帧驿卒、三悬赏 / 四 Build / 两槽图标和三段去重事件进入生产场景；出口、checkpoint、碰撞和 Stage25 门控不变。五个 Stable Audio scratch 候选按并发 `1` 生成，真人试听前不进入 runtime。资产治理为 `63/63 structural-ready`、`55/63 final-ready`，八个人工阻断保持可见。
+  关键验证或结论：Godot MCP Pro 用实际 Joypad 事件发现并修复列表首项直接跳到返回的共享焦点链问题；最终 `editor errors=0`、临时 autoload 与本轮 editor 清理完成。递归 GUT `45` scripts / `309/309` / `8642`，Godot `4.6.3` import、smoke 与 strict package 通过。首次理解度、手柄舒适度、32px / 64px 可读性、音频和美术审美继续归 Gate26H。
+  详情日志链接：`docs/progress/logs/2026-08-01.md`；执行清单：`docs/implementation-plans/2026-08-01-stage28-waystation-bounty-build-presentation.md`；资产矩阵：`docs/assets/stage28-waystation-asset-matrix.md`。
+
 - **Stage27 正式战斗美术与首批音频技术候选完成**：以现有 Stage21-22 战斗权威为边界，补齐 Luna 姿态 / 空中 / 两序列动作表现、四类独立 VFX 和 Seal Guardian 状态动作 / VFX。
   结果：四张 4x4 image_gen 网格经本地 alpha 清理、锚点归一与 SpriteFrames 构建后进入生产脚本；Debug build 增加全能力巡检预设。六个 Stable Audio scratch 候选按并发 `1` 生成，人工试听前不进入项目 runtime。资产治理为 `60/60 structural-ready`、`55/60 final-ready`，五个人工阻断保持可见。
   关键验证或结论：Stage21/22/24/26/27 `25/25`；递归 GUT `44` scripts / `305/305` / `8589`，Godot `4.6.3` import、smoke、strict package 和 MCP 生产主场景状态 / 连续帧 / 截图复核通过。运行场景、当前 editor 和临时 autoload 已清理；音频试听、响度 / 叠爆、美术审美和授权批准继续归 Gate26H。

@@ -41,21 +41,25 @@ const BUILD_DEFINITIONS := {
 		"label": "瘴泽遗物",
 		"effect": "恢复充能获取 x1.5",
 		"source": "瘴泽资源支路",
+		"icon_id": &"build_marsh_relic",
 	},
 	BUILD_WARDEN_SIGIL: {
 		"label": "镇妖挑战符",
 		"effect": "横向攻击距离 +16px",
 		"source": "瘴泽挑战支路",
+		"icon_id": &"build_warden_sigil",
 	},
 	BUILD_CASTER_CORE: {
 		"label": "腐瘴法珠",
 		"effect": "元素序列窗口 +0.75s",
 		"source": "断瘴缉术回交",
+		"icon_id": &"build_caster_core",
 	},
 	BUILD_GUARDIAN_CORE: {
 		"label": "守印金刚心",
 		"effect": "姿态切换冷却 -0.15s",
 		"source": "封印守卫",
+		"icon_id": &"build_guardian_core",
 	},
 }
 const MIASMA_CASTER_SCRIPT_PATH := "res://scripts/combat/miasma_caster_enemy.gd"
@@ -72,21 +76,30 @@ const BOUNTY_DEFINITIONS := {
 		"title": "断瘴缉术",
 		"objective": "击败一名腐瘴法师",
 		"reward": "瘴泽术式记录",
+		"icon_id": &"bounty_caster_hunt",
 	},
 	BOUNTY_DEMON_BONE_EVIDENCE: {
 		"title": "妖骨取证",
 		"objective": "回收瘴泽妖骨证物",
 		"reward": "妖骨案卷",
+		"icon_id": &"bounty_demon_bone_evidence",
 	},
 	BOUNTY_SEAL_PULSE_CLEANUP: {
 		"title": "封脉清障",
 		"objective": "用雷风序列散去封印脉冲",
 		"reward": "雷泽荒原路引",
+		"icon_id": &"bounty_seal_pulse_cleanup",
 	},
 }
 const STAGE11_STORY_EVENT_ID: StringName = &"stage11_hidden_dispatch"
 const STAGE11_STORY_EVENT_TITLE := "镇妖驿厅 · 密令残页"
 const STAGE11_STORY_EVENT_BODY := "镇妖卫驿卒：瘴泽封印并非天灾，是郡守私运妖骨后崩裂。\n\nLuna：悬赏只写“清除妖患”，没有百姓名册。\n\n陌生妖声：你闻得到他们留下的血。因为你与我同源。"
+const STAGE28_ALL_BOUNTIES_EVENT_ID: StringName = &"stage28_all_bounties_turned_in"
+const STAGE28_ALL_BOUNTIES_EVENT_TITLE := "镇妖驿站 · 三榜归档"
+const STAGE28_ALL_BOUNTIES_EVENT_BODY := "镇妖卫驿卒：三道悬赏都已盖印，雷泽路引归你。\n\nLuna：把妖骨案卷另存一份。郡守若要抹去失踪者，我便把名字带回来。\n\n陌生妖声：雷声会记得那些血。"
+const STAGE28_THUNDER_RETURN_EVENT_ID: StringName = &"stage28_thunder_waste_return"
+const STAGE28_THUNDER_RETURN_EVENT_TITLE := "镇妖驿站 · 雷泽归来"
+const STAGE28_THUNDER_RETURN_EVENT_BODY := "镇妖卫驿卒：雷印随你归站，荒原里的东西已认得镇妖卫。\n\nLuna：它认得的不是官印，是我体内的妖血。证物照旧封存，案卷照旧送审。\n\n陌生妖声：你还在替他们守门。"
 
 # 默认输入绑定由 Main 兜底创建，保证独立运行测试或新机器启动时输入契约完整。
 const INPUT_BINDINGS := {
@@ -443,6 +456,8 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"available_build_count": get_available_build_count(),
 		"story_event_count": _completed_story_event_ids.size(),
 		"stage11_story_event_completed": has_completed_story_event(STAGE11_STORY_EVENT_ID),
+		"stage28_all_bounties_story_completed": has_completed_story_event(STAGE28_ALL_BOUNTIES_EVENT_ID),
+		"stage28_thunder_return_story_completed": has_completed_story_event(STAGE28_THUNDER_RETURN_EVENT_ID),
 		"visited_room_count": _visited_room_paths.size(),
 		"stage15_boss_defeated": _stage15_boss_defeated,
 		"stage15_recovery_charge_ready": _is_stage15_recovery_charge_ready(),
@@ -548,12 +563,15 @@ func get_bounty_board_snapshot() -> Dictionary:
 	var entries: Array[Dictionary] = []
 	for bounty_id: StringName in BOUNTY_IDS:
 		var definition: Dictionary = BOUNTY_DEFINITIONS[bounty_id]
+		var state := _get_bounty_state(bounty_id)
 		entries.append({
 			"id": bounty_id,
 			"title": definition.get("title", ""),
 			"objective": definition.get("objective", ""),
 			"reward": definition.get("reward", ""),
-			"state": _get_bounty_state(bounty_id),
+			"icon_id": definition.get("icon_id", StringName()),
+			"state": state,
+			"state_id": state,
 		})
 	return {
 		"entries": entries,
@@ -581,6 +599,8 @@ func advance_bounty(bounty_id: StringName) -> Dictionary:
 		if bounty_id == BOUNTY_CASTER_HUNT:
 			collect_exploration_reward(BUILD_CASTER_CORE)
 		_refresh_hud_progress()
+		if _turned_in_bounty_ids.size() == BOUNTY_IDS.size():
+			call_deferred("_trigger_stage28_all_bounties_story")
 	return get_bounty_board_snapshot()
 
 
@@ -672,16 +692,30 @@ func get_build_loadout_snapshot(status_message := "") -> Dictionary:
 	var entries: Array[Dictionary] = []
 	for build_id: StringName in _get_available_build_ids():
 		var definition: Dictionary = BUILD_DEFINITIONS[build_id]
+		var equipped := _equipped_build_ids.has(build_id)
 		entries.append({
 			"id": build_id,
 			"label": definition.get("label", ""),
 			"effect": definition.get("effect", ""),
 			"source": definition.get("source", ""),
-			"equipped": _equipped_build_ids.has(build_id),
+			"icon_id": definition.get("icon_id", StringName()),
+			"state_id": &"equipped" if equipped else &"available",
+			"equipped": equipped,
 			"slot": _equipped_build_ids.find(build_id) + 1,
+		})
+	var slots: Array[Dictionary] = []
+	for slot_index in range(BUILD_SLOT_LIMIT):
+		var equipped_id := _equipped_build_ids[slot_index] if slot_index < _equipped_build_ids.size() else StringName()
+		var equipped_definition: Dictionary = BUILD_DEFINITIONS.get(equipped_id, {})
+		slots.append({
+			"slot": slot_index + 1,
+			"state_id": &"equipped" if equipped_id != StringName() else &"empty",
+			"build_id": equipped_id,
+			"icon_id": equipped_definition.get("icon_id", &"slot_empty"),
 		})
 	return {
 		"entries": entries,
+		"slots": slots,
 		"available_count": entries.size(),
 		"equipped_count": _equipped_build_ids.size(),
 		"equipped_ids": get_equipped_build_ids(),
@@ -795,6 +829,7 @@ func _change_room(room_path: String, spawn_id: StringName, force_reload := false
 	if not force_reload and room != null and room.scene_file_path == room_path:
 		_bind_room_signals()
 		_spawn_placeholder_player(spawn_id)
+		_queue_room_entry_story(room_path, spawn_id)
 		return
 
 	if room != null:
@@ -811,6 +846,28 @@ func _change_room(room_path: String, spawn_id: StringName, force_reload := false
 	move_child(room, 0)
 	_bind_room_signals()
 	_spawn_placeholder_player(spawn_id)
+	_queue_room_entry_story(room_path, spawn_id)
+
+
+func _queue_room_entry_story(room_path: String, spawn_id: StringName) -> void:
+	if room_path == STAGE11_DEMO_END_ROOM_PATH and spawn_id == &"stage11_thunder_waste_return":
+		call_deferred("_trigger_stage28_thunder_return_story")
+
+
+func _trigger_stage28_all_bounties_story() -> void:
+	trigger_story_event(
+		STAGE28_ALL_BOUNTIES_EVENT_ID,
+		STAGE28_ALL_BOUNTIES_EVENT_TITLE,
+		STAGE28_ALL_BOUNTIES_EVENT_BODY
+	)
+
+
+func _trigger_stage28_thunder_return_story() -> void:
+	trigger_story_event(
+		STAGE28_THUNDER_RETURN_EVENT_ID,
+		STAGE28_THUNDER_RETURN_EVENT_TITLE,
+		STAGE28_THUNDER_RETURN_EVENT_BODY
+	)
 
 
 # Main 只消费房间约定好的统一信号，不在这里写分房间的硬编码推进逻辑。

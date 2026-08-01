@@ -154,6 +154,7 @@ func test_two_rewards_form_switchable_builds_and_survive_room_change() -> void:
 	var main := await _spawn_main()
 	var shell := main.get_node("HUD/DemoShell") as Control
 	shell.call("start_demo")
+	await get_tree().process_frame
 	main.call("collect_exploration_reward", &"marsh_relic")
 	main.call("collect_exploration_reward", &"warden_sigil")
 	var player := main.get_node("Runtime/PlayerPlaceholder") as CharacterBody2D
@@ -178,6 +179,7 @@ func test_two_rewards_form_switchable_builds_and_survive_room_change() -> void:
 	assert_eq(transitioned_player.call("get_active_build_id"), &"warden_sigil")
 
 	main.call("restart_demo")
+	await get_tree().process_frame
 	assert_eq(main.call("get_active_build_id"), StringName())
 	assert_eq(int(main.call("get_available_build_count")), 0)
 

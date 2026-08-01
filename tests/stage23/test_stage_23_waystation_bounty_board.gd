@@ -59,6 +59,7 @@ func test_stage11_board_opens_three_fixed_entries_and_accepts_selected_bounty() 
 	assert_true(progress_label.text.contains("悬赏"))
 	assert_true(progress_label.text.contains("已接 1/3"))
 	_close_detail(shell)
+	await get_tree().process_frame
 
 
 func test_three_existing_world_events_complete_and_turn_in_all_bounties() -> void:
@@ -163,6 +164,7 @@ func test_stage11_completion_stays_independent_and_restart_clears_bounties() -> 
 	_close_detail(main.get_node("HUD/DemoShell") as Control)
 
 	main.call("restart_demo")
+	await get_tree().process_frame
 	var reset_snapshot := _get_bounty_snapshot(main)
 	assert_eq(int(reset_snapshot.get("accepted_count", -1)), 0)
 	assert_eq(int(reset_snapshot.get("completed_count", -1)), 0)

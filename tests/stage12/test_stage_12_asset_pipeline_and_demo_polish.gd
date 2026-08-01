@@ -22,9 +22,7 @@ const HUD_GOAL_MARKER_RESOURCE_PATH := "res://assets/art/editor_resources/hud_co
 const HUD_BATTLE_PANEL_ART_PATH := "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai01_auto_002_c01.atlas_texture.tres"
 const HUD_PROMPT_PANEL_ART_PATH := "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai01_auto_003_c01.atlas_texture.tres"
 const HEALTH_ICON_RESOURCE_PATH := "res://assets/art/editor_resources/icon_sheet_core_ai01/009_icon_sheet_core_ai01_auto_010_c02.atlas_texture.tres"
-const STAGE11_REPLAY_MARKER_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/003_equipment_pickup_atlas_ai01_auto_004_c01.atlas_texture.tres"
-const STAGE11_GOAL_MARKER_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/023_equipment_pickup_atlas_ai01_auto_024_c02.atlas_texture.tres"
-const STAGE11_CONTINUE_MARKER_TEXTURE_PATH := "res://assets/art/editor_resources/equipment_pickup_atlas_ai01/011_equipment_pickup_atlas_ai01_auto_012_c02.atlas_texture.tres"
+const STAGE28_WAYSTATION_WORLD_ATLAS_PATH := "res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png"
 
 
 # 保护资产管线目录：Stage12 必须建立角色、敌人、环境、VFX、UI、音频和源文件目录。
@@ -321,12 +319,12 @@ func test_stage12_stage11_end_room_hides_legacy_arrows_and_uses_formal_marker_ar
 	assert_not_null(replay_art)
 	assert_not_null(goal_art)
 	assert_not_null(continue_art)
-	assert_eq(replay_art.texture.resource_path, STAGE11_REPLAY_MARKER_TEXTURE_PATH)
-	assert_eq(goal_art.texture.resource_path, STAGE11_GOAL_MARKER_TEXTURE_PATH)
-	assert_eq(continue_art.texture.resource_path, STAGE11_CONTINUE_MARKER_TEXTURE_PATH)
-	assert_eq(replay_art.get_meta("runtime_source", ""), "equipment_pickup_atlas_ai01.bronze_bell")
-	assert_eq(goal_art.get_meta("runtime_source", ""), "equipment_pickup_atlas_ai01.demo_completion_token")
-	assert_eq(continue_art.get_meta("runtime_source", ""), "equipment_pickup_atlas_ai01.shrine_key_token")
+	assert_eq((replay_art.texture as AtlasTexture).atlas.resource_path, STAGE28_WAYSTATION_WORLD_ATLAS_PATH)
+	assert_eq((goal_art.texture as AtlasTexture).atlas.resource_path, STAGE28_WAYSTATION_WORLD_ATLAS_PATH)
+	assert_eq((continue_art.texture as AtlasTexture).atlas.resource_path, STAGE28_WAYSTATION_WORLD_ATLAS_PATH)
+	assert_eq(replay_art.get_meta("runtime_source", ""), "stage28_waystation_world_runtime_ai01.travel_left")
+	assert_eq(goal_art.get_meta("runtime_source", ""), "stage28_waystation_world_runtime_ai01.checkpoint")
+	assert_eq(continue_art.get_meta("runtime_source", ""), "stage28_waystation_world_runtime_ai01.travel_right")
 
 
 # 保护回归基线：Stage12 表现升级后，Stage11 灰盒主线仍必须可完成。

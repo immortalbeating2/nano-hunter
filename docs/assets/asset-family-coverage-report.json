@@ -12,9 +12,9 @@
     "families_structurally_covered": 10,
     "format_count": 7,
     "formats_structurally_covered": 7,
-    "structural_ready_count": 60,
+    "structural_ready_count": 63,
     "final_ready_count": 55,
-    "queue_item_count": 60
+    "queue_item_count": 63
   },
   "asset_families": [
     {
@@ -43,9 +43,9 @@
         "environment_tiles",
         "tileset_sheet"
       ],
-      "asset_count": 10,
+      "asset_count": 11,
       "minimum_assets": 6,
-      "structural_ready_count": 10,
+      "structural_ready_count": 11,
       "final_ready_count": 10,
       "coverage_status": "covered_structural",
       "final_status": "final_ready"
@@ -61,9 +61,9 @@
         "ui_atlas",
         "ui_panel"
       ],
-      "asset_count": 8,
+      "asset_count": 9,
       "minimum_assets": 6,
-      "structural_ready_count": 8,
+      "structural_ready_count": 9,
       "final_ready_count": 8,
       "coverage_status": "covered_structural",
       "final_status": "final_ready"
@@ -91,9 +91,9 @@
         "prop_atlas",
         "prop_sheet"
       ],
-      "asset_count": 6,
+      "asset_count": 7,
       "minimum_assets": 4,
-      "structural_ready_count": 6,
+      "structural_ready_count": 7,
       "final_ready_count": 6,
       "coverage_status": "covered_structural",
       "final_status": "final_ready"
@@ -205,9 +205,9 @@
         "storyboard_sheet",
         "texture_atlas"
       ],
-      "asset_count": 8,
+      "asset_count": 9,
       "minimum_assets": 6,
-      "structural_ready_count": 8,
+      "structural_ready_count": 9,
       "final_ready_count": 8,
       "package_count": 302,
       "package_path": [
@@ -266,9 +266,9 @@
         "ui_atlas",
         "ui_panel"
       ],
-      "asset_count": 7,
+      "asset_count": 8,
       "minimum_assets": 5,
-      "structural_ready_count": 7,
+      "structural_ready_count": 8,
       "final_ready_count": 7,
       "package_count": 9,
       "package_path": [

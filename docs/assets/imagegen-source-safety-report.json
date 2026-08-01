@@ -4,17 +4,17 @@
   "status": "review_required",
   "boundary": "Source safety audit only. It checks multi-project image_gen import risk by classifying candidate PNGs against session recovery summaries, recovery ledgers, provenance records and project path boundaries. It does not approve final art quality, legal terms or runtime use.",
   "summary": {
-    "queue_item_count": 60,
-    "candidate_count": 138,
+    "queue_item_count": 63,
+    "candidate_count": 141,
     "candidate_storage_policy": "raw_candidates_optional_outside_git",
     "classification_counts": {
       "project_session_confirmed": 44,
       "explicit_mapping_confirmed": 0,
       "explicit_mapping_review_required": 30,
-      "workspace_provenance_recorded_review_required": 64,
+      "workspace_provenance_recorded_review_required": 67,
       "unknown_or_unsafe": 0
     },
-    "review_required_candidate_count": 94,
+    "review_required_candidate_count": 97,
     "unsafe_candidate_count": 0,
     "session_recovery_candidate_count": 44,
     "ledger_mapped_candidate_count": 30,
@@ -1837,6 +1837,57 @@
       "candidates": [
         {
           "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_formal_motion_ai01/candidates/stage27_seal_guardian_formal_motion_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage28_waystation_background_ai01",
+      "batch": "Batch 28",
+      "target_kind": "environment_room_background",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_background_ai01/candidates/stage28_waystation_background_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage28_waystation_world_sheet_ai01",
+      "batch": "Batch 28",
+      "target_kind": "prop_atlas",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_world_sheet_ai01/candidates/stage28_waystation_world_sheet_ai01_candidate_01.png",
+          "status": "workspace_provenance_recorded_review_required",
+          "reasons": [
+            "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"
+          ],
+          "notes": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "asset_id": "stage28_waystation_ui_sheet_ai01",
+      "batch": "Batch 28",
+      "target_kind": "ui_atlas",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_ui_sheet_ai01/candidates/stage28_waystation_ui_sheet_ai01_candidate_01.png",
           "status": "workspace_provenance_recorded_review_required",
           "reasons": [
             "candidate has Nano Hunter prompt/provenance but no machine-readable source ledger"

@@ -218,6 +218,19 @@ ASSET_ID_RULE_OVERRIDES = {
     "stage16_seal_release_threshold_ai01": {
         "target_scene_candidates": ["scenes/rooms/stage16_seal_release_threshold_room.tscn"],
     },
+    "stage28_waystation_background_ai01": {
+        "target_system": "Stage11 formal waystation display layer",
+        "target_scene_candidates": ["scenes/rooms/stage11_demo_end_room.tscn"],
+    },
+    "stage28_waystation_world_sheet_ai01": {
+        "resource_type": "SpriteFrames plus AtlasTexture",
+        "target_system": "Stage11 bounty board, clerk and route marker presentation",
+        "target_scene_candidates": ["scenes/rooms/stage11_demo_end_room.tscn"],
+    },
+    "stage28_waystation_ui_sheet_ai01": {
+        "target_system": "bounty, Build and two-slot DetailPanel presentation",
+        "target_scene_candidates": ["scenes/ui/demo_shell.tscn"],
+    },
 }
 
 SOURCE_DEV_ASSET_IDS = {

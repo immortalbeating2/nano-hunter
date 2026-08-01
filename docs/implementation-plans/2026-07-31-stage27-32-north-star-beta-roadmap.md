@@ -19,7 +19,7 @@
 
 ## Gate26H：延后真人签核
 
-- [ ] 允许延后到 Stage31 完成后；未完成时 Stage26 保持“待外部人工签核”，但不阻塞 Stage27-31。
+- [x] 已批准延后到 Stage31 完成后；未完成时 Stage26 保持“待外部人工签核”，但不阻塞 Stage27-31。
 - [ ] 真人从主菜单完成一次首次通关、能力回访、悬赏回交和两槽 Build 调整。
 - [ ] 用实体手柄记录菜单、元素 / 姿态切换、误按、舒适度和迷路点。
 - [ ] 复核 Luna 全动作、四类技能 VFX、Seal Guardian 与雷泽 Boss 的读招 / 命中 / 阶段表现。
@@ -27,23 +27,25 @@
 ## Stage27：正式战斗美术、Luna 全动作集与首批音频
 
 - [x] 专属设计边界与正式计划已冻结：`plan/2026-08-01-stage27-formal-combat-art-audio.md`。
-- [ ] 登记并制作 `NS27-LunaFormalMotion`、`NS27-CoreCombatVFX`、`NS27-SealGuardianPolish` 与 `NS27-Audio`。
-- [ ] 将 Luna 当前 `7` clips / `111` 帧逐项正式验收，并补齐 idle / run / jump 分段 / land / air dash / 两姿态地面攻击 / 空中攻击 / 两序列收势 / 元素切换 / 姿态切换 / 恢复 / hit / death。
-- [ ] 四种攻击结果使用不同形状 / 节奏 VFX，不只换色。
-- [ ] 把 Seal Guardian 当前 `5` clips / `24` 帧提升为近 / 远 warning / attack、guard break / stagger、phase transition、hit、defeat 与配套 VFX。
-- [ ] 通过 `local-game-audio` 生成首批战斗、Boss 预警和 UI 候选；SFX 走 Stable Audio、BGM / stinger 走 ACE-Step，scratch 试听接受后才接入。
+- [x] 登记并制作 `NS27-LunaFormalMotion`、`NS27-CoreCombatVFX`、`NS27-SealGuardianPolish`，并登记 `NS27-Audio` scratch 候选。
+- [x] 在既有 `7` clips / `111` 帧权威上增加 `16` 帧正式战斗补片，覆盖两姿态、空中、两序列收势、元素 / 姿态切换与恢复；基础 locomotion / hit / death 继续复用已验证 clips。
+- [x] 四种攻击结果使用不同形状 / 节奏 VFX，不只换色。
+- [x] Seal Guardian 增加 `16` 帧正式状态补片与 `16` 帧 VFX，覆盖近 / 远 warning / attack、guard break / stagger、phase transition、hit 与 defeat。
+- [x] 通过 `local-game-audio` 以并发 `1` 串行生成首批战斗、Boss 预警和 UI scratch 候选并记录 prompt / seed / hash。
 - [ ] 接入音频事件与音量设置，保留 prompt、seed、runtime、候选和授权记录。
-- [ ] 复用调试选关实现发布隔离的全能力预设。
-- [ ] 完成无 HUD 识别、动作锚点 / 体积 / 色边、Boss 完整演出、专项 / 邻近 / 全量、import、smoke 与 Gate26M；真人短测可延后到 Gate26H。
+- [x] 复用调试选关实现发布隔离的全能力预设。
+- [x] 完成动作锚点 / 体积 / 色边、Boss 状态演出、专项 / 邻近 / 全量、import、smoke 与 MCP 自动复核。
+- [ ] 无 HUD 真人识别、美术审美、音频试听 / 混音 / 授权与 Boss 手感留 Gate26H。
 
 ## Stage28：镇妖驿站叙事锚点与悬赏 / Build 表现
 
 - [x] 专属设计边界与正式计划已冻结：`plan/2026-08-01-stage28-waystation-bounty-build-presentation.md`。
-- [ ] 登记并制作 `NS28-Waystation`。
-- [ ] 正式驿站、三状态悬赏榜、驿卒与三段短事件接入生产场景。
-- [ ] 三悬赏、四 Build、两槽均有唯一图标与状态。
-- [ ] 复用 DetailPanel；不引入通用对话 / 任务框架。
-- [ ] 完成手柄焦点、小尺寸、事件去重、首次理解度和回归验证。
+- [x] 登记并制作 `NS28-WaystationBackground`、`NS28-WaystationWorld` 与 `NS28-BountyBuildUI`，音频登记为 scratch 候选。
+- [x] 正式驿站、三状态悬赏榜、驿卒与三段短事件接入生产场景。
+- [x] 三悬赏、四 Build、两槽均有唯一图标与状态。
+- [x] 复用 DetailPanel；不引入通用对话 / 任务框架。
+- [x] 完成实际 Joypad 焦点、自动小尺寸门、事件去重和回归验证；MCP 发现并修复列表焦点跳过问题。
+- [ ] 首次理解度、32px / 64px 真人可读性、音频试听与美术审美留 Gate26H。
 
 ## Stage29：雷泽荒原正式美术与区域机制清稿
 

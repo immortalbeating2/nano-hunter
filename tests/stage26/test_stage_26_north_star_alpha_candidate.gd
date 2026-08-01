@@ -166,6 +166,8 @@ func test_stage21_to_stage25_loop_reaches_candidate_state_and_survives_checkpoin
 	var bounty_snapshot: Dictionary = main.call("get_bounty_board_snapshot")
 	assert_eq(int(bounty_snapshot.get("turned_in_count", 0)), 3)
 	assert_true(bool(bounty_snapshot.get("waystation_intel_unlocked", false)))
+	await _advance_frames(1)
+	_close_detail_panel(main)
 
 	main.call("mark_stage15_boss_defeated")
 	main.call("toggle_build_equipped", &"marsh_relic")

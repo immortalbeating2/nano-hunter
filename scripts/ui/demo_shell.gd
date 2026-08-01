@@ -47,8 +47,23 @@ var _level_select_scroll: ScrollContainer
 var _level_select_list: VBoxContainer
 var _bounty_scroll: ScrollContainer
 var _bounty_list: VBoxContainer
+var _detail_context_icon: TextureRect
+var _build_slot_row: HBoxContainer
 
 const WORLD_MAP_ASPECT := 1511.0 / 1041.0
+const WAYSTATION_UI_ATLAS: Texture2D = preload("res://assets/art/ui/stage28_waystation_ui_runtime_ai01.png")
+const WAYSTATION_UI_ICON_INDEX := {
+	&"waystation_clerk_portrait": 0,
+	&"bounty_caster_hunt": 1,
+	&"bounty_demon_bone_evidence": 2,
+	&"bounty_seal_pulse_cleanup": 3,
+	&"build_marsh_relic": 4,
+	&"build_warden_sigil": 5,
+	&"build_caster_core": 6,
+	&"build_guardian_core": 7,
+	&"slot_empty": 8,
+	&"slot_equipped": 9,
+}
 const LEVEL_SELECT_ENTRIES := [
 	{"label": "01 教程起点", "path": "res://scenes/rooms/tutorial_room.tscn", "spawn": "tutorial_start"},
 	{"label": "02 战斗试炼", "path": "res://scenes/rooms/combat_trial_room.tscn", "spawn": "combat_entry"},
@@ -350,6 +365,25 @@ func _ensure_bounty_list() -> void:
 	if _bounty_list != null or detail_vbox == null:
 		return
 
+	_detail_context_icon = TextureRect.new()
+	_detail_context_icon.name = "WaystationContextIcon"
+	_detail_context_icon.visible = false
+	_detail_context_icon.custom_minimum_size = Vector2(64.0, 56.0)
+	_detail_context_icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_detail_context_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_detail_context_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_detail_context_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	detail_vbox.add_child(_detail_context_icon)
+	detail_vbox.move_child(_detail_context_icon, detail_back_button.get_index())
+
+	_build_slot_row = HBoxContainer.new()
+	_build_slot_row.name = "BuildSlotRow"
+	_build_slot_row.visible = false
+	_build_slot_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_build_slot_row.add_theme_constant_override("separation", 12)
+	detail_vbox.add_child(_build_slot_row)
+	detail_vbox.move_child(_build_slot_row, detail_back_button.get_index())
+
 	_bounty_scroll = ScrollContainer.new()
 	_bounty_scroll.name = "BountyScroll"
 	_bounty_scroll.visible = false
@@ -379,6 +413,9 @@ func show_bounty_board(snapshot: Dictionary) -> void:
 	if bool(snapshot.get("waystation_intel_unlocked", false)):
 		detail_body_label.text += "\n雷泽荒原路引已解锁。"
 	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	_detail_context_icon.texture = _waystation_ui_texture(&"waystation_clerk_portrait")
+	_detail_context_icon.visible = true
+	_build_slot_row.visible = false
 	if _level_select_scroll != null:
 		_level_select_scroll.visible = false
 	_bounty_scroll.visible = true
@@ -428,11 +465,18 @@ func _rebuild_bounty_list(snapshot: Dictionary) -> void:
 			str(entry.get("objective", "")),
 		]
 		button.disabled = disabled
+		button.icon = _waystation_ui_texture(StringName(entry.get("icon_id", &"")))
+		button.expand_icon = true
+		button.custom_minimum_size.y = 58.0
+		button.tooltip_text = "%s · 奖励：%s" % [entry.get("objective", ""), entry.get("reward", "")]
+		button.set_meta("icon_id", entry.get("icon_id", StringName()))
+		button.set_meta("state_id", entry.get("state_id", state))
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.focus_mode = Control.FOCUS_ALL
 		_copy_button_skin(button)
 		button.pressed.connect(_on_bounty_entry_pressed.bind(StringName(entry.get("id", &""))))
 		_bounty_list.add_child(button)
+	_wire_detail_list_focus()
 
 
 func _on_bounty_entry_pressed(bounty_id: StringName) -> void:
@@ -459,6 +503,9 @@ func show_build_loadout(snapshot: Dictionary) -> void:
 	if not status_message.is_empty():
 		detail_body_label.text += "\n%s" % status_message
 	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	_detail_context_icon.visible = false
+	_rebuild_build_slots(snapshot)
+	_build_slot_row.visible = true
 	if _level_select_scroll != null:
 		_level_select_scroll.visible = false
 	_bounty_scroll.visible = true
@@ -497,11 +544,73 @@ func _rebuild_build_list(snapshot: Dictionary) -> void:
 			str(entry.get("effect", "")),
 		]
 		button.set_meta("build_id", entry.get("id", StringName()))
+		button.set_meta("icon_id", entry.get("icon_id", StringName()))
+		button.set_meta("state_id", entry.get("state_id", &"available"))
+		button.icon = _waystation_ui_texture(StringName(entry.get("icon_id", &"")))
+		button.expand_icon = true
+		button.custom_minimum_size.y = 58.0
+		button.tooltip_text = "%s · 来源：%s" % [entry.get("effect", ""), entry.get("source", "")]
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.focus_mode = Control.FOCUS_ALL
 		_copy_button_skin(button)
 		button.pressed.connect(_on_build_entry_pressed.bind(StringName(entry.get("id", &""))))
 		_bounty_list.add_child(button)
+	_wire_detail_list_focus()
+
+
+# 动态榜单显式串起上下焦点；否则 ScrollContainer 会让手柄从首项直接跳到返回按钮。
+func _wire_detail_list_focus() -> void:
+	var buttons: Array[Button] = []
+	for child: Node in _bounty_list.get_children():
+		var button := child as Button
+		if button != null and not button.disabled:
+			buttons.append(button)
+	if buttons.is_empty():
+		detail_back_button.focus_neighbor_top = NodePath()
+		detail_back_button.focus_neighbor_bottom = NodePath()
+		return
+	for index in range(buttons.size()):
+		var button := buttons[index]
+		var previous: Control = buttons[index - 1] if index > 0 else detail_back_button
+		var next: Control = buttons[index + 1] if index + 1 < buttons.size() else detail_back_button
+		button.focus_neighbor_top = button.get_path_to(previous)
+		button.focus_neighbor_bottom = button.get_path_to(next)
+	detail_back_button.focus_neighbor_top = detail_back_button.get_path_to(buttons[-1])
+	detail_back_button.focus_neighbor_bottom = detail_back_button.get_path_to(buttons[0])
+
+
+func _rebuild_build_slots(snapshot: Dictionary) -> void:
+	for child: Node in _build_slot_row.get_children():
+		_build_slot_row.remove_child(child)
+		child.queue_free()
+	for slot: Dictionary in snapshot.get("slots", []):
+		var equipped := StringName(slot.get("state_id", &"empty")) == &"equipped"
+		var frame := TextureRect.new()
+		frame.custom_minimum_size = Vector2(52.0, 52.0)
+		frame.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		frame.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		frame.texture = _waystation_ui_texture(&"slot_equipped" if equipped else &"slot_empty")
+		frame.tooltip_text = "槽位 %d · %s" % [int(slot.get("slot", 0)), "已装备" if equipped else "空槽"]
+		frame.set_meta("slot", slot.get("slot", 0))
+		frame.set_meta("state_id", slot.get("state_id", &"empty"))
+		if equipped:
+			var icon := TextureRect.new()
+			icon.position = Vector2(12.0, 12.0)
+			icon.size = Vector2(28.0, 28.0)
+			icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			icon.texture = _waystation_ui_texture(StringName(slot.get("icon_id", &"")))
+			frame.add_child(icon)
+		_build_slot_row.add_child(frame)
+
+
+func _waystation_ui_texture(icon_id: StringName) -> AtlasTexture:
+	var index := int(WAYSTATION_UI_ICON_INDEX.get(icon_id, 8))
+	var texture := AtlasTexture.new()
+	texture.atlas = WAYSTATION_UI_ATLAS
+	texture.region = Rect2((index % 4) * 160, (index / 4) * 160, 160, 160)
+	return texture
 
 
 func _on_build_entry_pressed(build_id: StringName) -> void:
@@ -585,6 +694,7 @@ func _open_detail_panel(title: String, body: String, show_level_select := false)
 		_level_select_scroll.visible = show_level_select
 	if _bounty_scroll != null:
 		_bounty_scroll.visible = false
+	_hide_waystation_detail_art()
 	main_menu.visible = false
 	detail_panel.visible = true
 	detail_back_button.grab_focus()
@@ -595,6 +705,7 @@ func _close_detail_panel() -> void:
 		_level_select_scroll.visible = false
 	if _bounty_scroll != null:
 		_bounty_scroll.visible = false
+	_hide_waystation_detail_art()
 	detail_panel.visible = false
 	if _detail_returns_to_pause:
 		_detail_returns_to_pause = false
@@ -741,6 +852,7 @@ func _resume_demo() -> void:
 		_level_select_scroll.visible = false
 	if _bounty_scroll != null:
 		_bounty_scroll.visible = false
+	_hide_waystation_detail_art()
 	pause_menu.visible = false
 	world_map_panel.visible = false
 	failure_panel.visible = false
@@ -778,6 +890,7 @@ func show_story_event(title: String, body: String) -> void:
 		_level_select_scroll.visible = false
 	if _bounty_scroll != null:
 		_bounty_scroll.visible = false
+	_hide_waystation_detail_art()
 	title_background.visible = false
 	main_menu.visible = false
 	pause_menu.visible = false
@@ -788,6 +901,13 @@ func show_story_event(title: String, body: String) -> void:
 	_is_pause_menu_open = false
 	get_tree().paused = true
 	detail_back_button.grab_focus()
+
+
+func _hide_waystation_detail_art() -> void:
+	if _detail_context_icon != null:
+		_detail_context_icon.visible = false
+	if _build_slot_row != null:
+		_build_slot_row.visible = false
 
 
 func _on_failure_continue_pressed() -> void:

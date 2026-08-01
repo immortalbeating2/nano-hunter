@@ -1,12 +1,12 @@
 {
 	"boundary": "Runtime catalog only. It proves resources can be loaded through a Godot ResourcePreloader; it does not replace gameplay scene references or approve final art.",
 	"counts": {
-		"entry_count": 60,
+		"entry_count": 63,
 		"missing_count": 0,
-		"resource_count": 60,
+		"resource_count": 63,
 		"resource_type_counts": {
 			"AtlasTexture": 5,
-			"CompressedTexture2D": 42,
+			"CompressedTexture2D": 45,
 			"SpriteFrames": 10,
 			"StyleBoxTexture": 1,
 			"TileSet": 2
@@ -18,9 +18,9 @@
 			"narrative_or_release": 4,
 			"release_promo": 3,
 			"runtime_animation": 2,
-			"runtime_environment": 10,
-			"runtime_gameplay": 4,
-			"runtime_ui": 9,
+			"runtime_environment": 11,
+			"runtime_gameplay": 5,
+			"runtime_ui": 10,
 			"runtime_vfx": 6,
 			"source_dev": 10
 		}
@@ -625,6 +625,36 @@
 			"target_kind": "boss_animation",
 			"target_system": "boss state animation replacement",
 			"track": "runtime_animation"
+		},
+		{
+			"asset_id": "stage28_waystation_background_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "Texture2D",
+			"resource_path": "res://assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png",
+			"target_kind": "environment_room_background",
+			"target_system": "Stage11 formal waystation display layer",
+			"track": "runtime_environment"
+		},
+		{
+			"asset_id": "stage28_waystation_world_sheet_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "SpriteFrames plus AtlasTexture",
+			"resource_path": "res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+			"target_kind": "prop_atlas",
+			"target_system": "Stage11 bounty board, clerk and route marker presentation",
+			"track": "runtime_gameplay"
+		},
+		{
+			"asset_id": "stage28_waystation_ui_sheet_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "AtlasTexture",
+			"resource_path": "res://assets/art/ui/stage28_waystation_ui_runtime_ai01.png",
+			"target_kind": "ui_atlas",
+			"target_system": "bounty, Build and two-slot DetailPanel presentation",
+			"track": "runtime_ui"
 		}
 	],
 	"missing": [],

@@ -3,9 +3,9 @@
   "status": "review_required",
   "boundary": "Candidate pool audit only. It proves raw PNG candidates exist and tracks whether selected sources already use them; it does not approve art quality or runtime replacement.",
   "summary": {
-    "queue_item_count": 60,
-    "candidate_png_count": 138,
-    "selected_source_count": 468,
+    "queue_item_count": 63,
+    "candidate_png_count": 141,
+    "selected_source_count": 471,
     "unselected_candidate_count": 104,
     "review_required_item_count": 55,
     "review_required_items": [
@@ -75,7 +75,7 @@
       "completion_ui": 1,
       "environment_background": 2,
       "environment_boss_room_background": 1,
-      "environment_room_background": 3,
+      "environment_room_background": 4,
       "environment_tiles": 2,
       "equipment_atlas": 1,
       "hud_frame": 2,
@@ -87,7 +87,7 @@
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
-      "prop_atlas": 1,
+      "prop_atlas": 2,
       "prop_sheet": 1,
       "spine_cutout_parts": 2,
       "sprite_sheet": 8,
@@ -96,7 +96,7 @@
       "texture_atlas": 1,
       "tileset_sheet": 2,
       "title_background": 1,
-      "ui_atlas": 1,
+      "ui_atlas": 2,
       "ui_map_foundation": 1,
       "ui_panel": 2,
       "vfx_atlas": 2,
@@ -117,7 +117,8 @@
       "Batch 11": 11,
       "Batch 12": 4,
       "Batch 13": 3,
-      "Batch 27": 4
+      "Batch 27": 4,
+      "Batch 28": 3
     },
     "recovery_ledgers": [
       {
@@ -2791,6 +2792,102 @@
           "index": 1,
           "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_formal_motion_ai01/candidates/stage27_seal_guardian_formal_motion_ai01_candidate_01.png",
           "sha256": "aa7d0d3be6f7e9944c7f9bdffbfe5cecb457a0c24496f0a3f0e902fdbe74f023",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_background_ai01",
+      "batch": "Batch 28",
+      "target_kind": "environment_room_background",
+      "candidate_dir": "assets/source/ai_generated/batch_28/stage28_waystation_background_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_background_ai01/candidates/stage28_waystation_background_ai01_candidate_01.png",
+          "sha256": "ce4868a9e2bc92d5c337112484ea6f18ccbe79fefbf0b7b5ca14fa3213340920",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_world_sheet_ai01",
+      "batch": "Batch 28",
+      "target_kind": "prop_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_28/stage28_waystation_world_sheet_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_world_sheet_ai01/candidates/stage28_waystation_world_sheet_ai01_candidate_01.png",
+          "sha256": "d8c3131f79f980d075cc7496b5ea6ad29de8f9785b5cdfb658c2e14d97d895c1",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_ui_sheet_ai01",
+      "batch": "Batch 28",
+      "target_kind": "ui_atlas",
+      "candidate_dir": "assets/source/ai_generated/batch_28/stage28_waystation_ui_sheet_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/ui/stage28_waystation_ui_runtime_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_ui_sheet_ai01/candidates/stage28_waystation_ui_sheet_ai01_candidate_01.png",
+          "sha256": "56c99ca2babaea4b83a7fb4ea282d82109998137d03e26dfe24fb23f76f98c19",
           "width": 1254,
           "height": 1254,
           "mode": "RGB"

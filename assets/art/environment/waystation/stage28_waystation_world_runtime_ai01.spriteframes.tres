@@ -1,0 +1,135 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01"]
+atlas = ExtResource("1")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02"]
+atlas = ExtResource("1")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03"]
+atlas = ExtResource("1")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04"]
+atlas = ExtResource("1")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05"]
+atlas = ExtResource("1")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06"]
+atlas = ExtResource("1")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07"]
+atlas = ExtResource("1")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08"]
+atlas = ExtResource("1")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_09"]
+atlas = ExtResource("1")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10"]
+atlas = ExtResource("1")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11"]
+atlas = ExtResource("1")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12"]
+atlas = ExtResource("1")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13"]
+atlas = ExtResource("1")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14"]
+atlas = ExtResource("1")
+region = Rect2(512, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15"]
+atlas = ExtResource("1")
+region = Rect2(768, 768, 256, 256)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_00")}],
+"loop": false,
+"name": &"bounty_available",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_01")}],
+"loop": false,
+"name": &"bounty_accepted",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_02")}],
+"loop": false,
+"name": &"bounty_completed",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_03")}],
+"loop": false,
+"name": &"bounty_turned_in",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_04")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_05")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_06")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_07")}],
+"loop": true,
+"name": &"clerk_idle",
+"speed": 5.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_08")}],
+"loop": false,
+"name": &"lantern",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_09")}],
+"loop": false,
+"name": &"bell",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_10")}],
+"loop": false,
+"name": &"route_locked",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_11")}],
+"loop": false,
+"name": &"route_open",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_12")}],
+"loop": false,
+"name": &"travel_left",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_13")}],
+"loop": false,
+"name": &"travel_right",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_14")}],
+"loop": false,
+"name": &"checkpoint",
+"speed": 1.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_15")}],
+"loop": false,
+"name": &"document_chest",
+"speed": 1.0
+}]

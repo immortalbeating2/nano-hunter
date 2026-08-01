@@ -85,6 +85,9 @@ func test_stage11_route_requires_all_bounties_turned_in() -> void:
 		main.call("advance_bounty", bounty_id)
 	assert_true(bool(room.call("is_thunder_waste_route_unlocked")))
 
+	# Stage28 在第三榜回交后复用 DetailPanel 显示一次性驿卒事件；确认后才恢复房间处理。
+	await get_tree().process_frame
+	_close_detail_panel(main)
 	await _advance_process_frames(2)
 	assert_eq(main.get_node("Room").scene_file_path, STAGE25_ENTRY_ROOM_PATH)
 

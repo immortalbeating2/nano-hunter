@@ -11,10 +11,10 @@
   },
   "license_boundary": "AI-generated source records are present for project tracking. Commercial release and external distribution still require manual terms review for the active tool/account and any downstream platform.",
   "summary": {
-    "record_count": 60,
-    "candidate_hash_count": 138,
-    "output_hash_count": 60,
-    "prompt_hash_count": 60,
+    "record_count": 63,
+    "candidate_hash_count": 141,
+    "output_hash_count": 63,
+    "prompt_hash_count": 63,
     "recovery_ledger_count": 1
   },
   "recovery_ledgers": [
@@ -2777,7 +2777,7 @@
       "tool": "Codex built-in image_gen",
       "tool_mode": "built_in",
       "source_type": "ai_generated_bitmap",
-      "source_status": "project_session_confirmed",
+      "source_status": "source_recorded",
       "license_record_status": "source_recorded_terms_review_required",
       "commercial_use_status": "manual_terms_review_required_before_external_release",
       "prompt": "Create one production-ready 2D side-view character animation sprite sheet for Nano Hunter, matching the exact adult female character Luna from the reference sheets: same face, black hair and topknot, white and teal Southern-Northern Dynasties fantasy robes, dark leggings, magenta edge accent, proportions, brush-painted game art, and facing RIGHT in every frame. Output a perfectly square 4 columns by 4 rows sheet, exactly 16 equal cells, one centered full-body character per cell, consistent foot/root anchor, consistent scale, no cropping, no overlap, no text, no numbers, no borders, no grid lines, no shadows outside the character. Row 1: four progressive frames of a heavy defensive Buddhist seal palm attack, grounded and braced. Row 2: four progressive frames of a forward aerial palm strike, body airborne. Row 3: four progressive frames of a wind-to-thunder piercing finisher, narrow forward thrust pose and clean recovery. Row 4: four progressive frames of a thunder-to-wind scattering finisher, broad outward seal-breaking pose and clean recovery. Character body only: exclude detached VFX, particles, lightning, wind, weapons, UI, scenery. Background must be one single perfectly flat chroma-key color RGB #FF00FF across every empty pixel; never use magenta on the character. Preserve animation continuity left-to-right in each row. No watermark.",
@@ -2786,11 +2786,22 @@
       "output_path": "assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.png",
       "output_sha256": "625c56954a345ce9b0c964b4996e0d5c5757d06ad85cd130d5bf4d2845a3ce98",
       "candidate_count": 1,
-      "candidate_hashes": [{"index": 1, "path": "assets/source/ai_generated/batch_27/stage27_luna_formal_combat_body_ai01/candidates/stage27_luna_formal_combat_body_ai01_candidate_01.png", "sha256": "71bae2ede04c7396e0223eb4058002ea68f29c10ccb08f2dd70d07af774c66ee", "width": 1254, "height": 1254, "mode": "RGB"}],
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_luna_formal_combat_body_ai01/candidates/stage27_luna_formal_combat_body_ai01_candidate_01.png",
+          "sha256": "71bae2ede04c7396e0223eb4058002ea68f29c10ccb08f2dd70d07af774c66ee",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
       "selected_source_count": 1,
-      "selected_candidate_indices": [1],
+      "selected_candidate_indices": [
+        1
+      ],
       "unselected_candidate_indices": [],
-      "processing_boundary": "Built-in image_gen fixed 4x4 chroma-key source was alpha-cleaned and normalized to 192x192 runtime cells. Runtime integration does not approve external-release terms or replace Gate26H visual acceptance."
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
     },
     {
       "asset_id": "stage27_core_combat_vfx_ai01",
@@ -2802,7 +2813,7 @@
       "tool": "Codex built-in image_gen",
       "tool_mode": "built_in",
       "source_type": "ai_generated_bitmap",
-      "source_status": "project_session_confirmed",
+      "source_status": "source_recorded",
       "license_record_status": "source_recorded_terms_review_required",
       "commercial_use_status": "manual_terms_review_required_before_external_release",
       "prompt": "Project context: Nano Hunter. Create one production-ready 2D hand-painted VFX sprite atlas for a Southern-Northern Dynasties Chinese fantasy action game, matching elegant ink-brush and luminous seal-magic style. Perfectly square 4 columns by 4 rows, exactly 16 equal cells, animation progresses left-to-right, one isolated effect per cell, consistent center and scale, no text, no numbers, no labels, no borders, no grid lines, no characters, no weapons, no UI, no scenery. Row 1: four frames of a fast pale-cyan WIND attack, a thin horizontal crescent slash that expands forward and dissipates. Row 2: four frames of a violet-gold THUNDER attack, a compact vertical lightning seal that strikes down and leaves a brief spark impact. Row 3: four frames of WIND-TO-THUNDER piercing reaction, a narrow cyan-violet forward spear/lance with a sharp pointed silhouette, bright impact core, then fading trail. Row 4: four frames of THUNDER-TO-WIND scattering reaction, a broad radial fan/burst of violet and cyan shards, clearly wider than all other rows, then dissipating. Make every row unmistakably different in silhouette and timing, with transparent-looking glow edges but no haze crossing cell boundaries. Background must be one single perfectly flat chroma-key color RGB #FF00FF across every empty pixel; never use magenta/pink in the effects. No watermark.",
@@ -2811,11 +2822,22 @@
       "output_path": "assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.png",
       "output_sha256": "1a2bfbc51c80b1af6e8aff5b58dfe3c559262e446e7490224c0220d18be0e263",
       "candidate_count": 1,
-      "candidate_hashes": [{"index": 1, "path": "assets/source/ai_generated/batch_27/stage27_core_combat_vfx_ai01/candidates/stage27_core_combat_vfx_ai01_candidate_01.png", "sha256": "f2ad63393cf4956f98a29d56f40109c62a2a7ace94a8031bcbd5d2ec177c5707", "width": 1254, "height": 1254, "mode": "RGB"}],
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_core_combat_vfx_ai01/candidates/stage27_core_combat_vfx_ai01_candidate_01.png",
+          "sha256": "f2ad63393cf4956f98a29d56f40109c62a2a7ace94a8031bcbd5d2ec177c5707",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
       "selected_source_count": 1,
-      "selected_candidate_indices": [1],
+      "selected_candidate_indices": [
+        1
+      ],
       "unselected_candidate_indices": [],
-      "processing_boundary": "Four distinct visual silhouettes are normalized into runtime SpriteFrames; gameplay hitboxes, damage and timing remain authoritative in player_placeholder.gd. Gate26H visual acceptance remains manual."
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
     },
     {
       "asset_id": "stage27_seal_guardian_vfx_ai01",
@@ -2827,7 +2849,7 @@
       "tool": "Codex built-in image_gen",
       "tool_mode": "built_in",
       "source_type": "ai_generated_bitmap",
-      "source_status": "project_session_confirmed",
+      "source_status": "source_recorded",
       "license_record_status": "source_recorded_terms_review_required",
       "commercial_use_status": "manual_terms_review_required_before_external_release",
       "prompt": "Create one production-ready 2D VFX sprite atlas for the Seal Guardian boss from the references, using the same teal jade Buddhist seal energy, stone dust, ink-brush edges, and restrained gold highlights. Perfectly square 4 columns by 4 rows, exactly 16 equal cells, animation progresses left-to-right, one isolated effect per cell, consistent center, no character body, no text, no numbers, no labels, no borders, no grid lines, no scenery. Row 1: four-frame warning seal, a compact circular teal-gold ground sigil that grows and brightens. Row 2: four-frame heavy ground impact, a low broad teal stone shockwave with dust and seal fragments. Row 3: four-frame guard-break effect, a cracked jade seal ring shattering outward. Row 4: four-frame phase-transition then dissipation effect, vertical teal-gold aura rising and breaking into quiet motes; the last frame should be nearly gone and suitable for defeat fade. Keep silhouettes readable at small game scale and prevent any effect from crossing cell boundaries. Background must be one single perfectly flat chroma-key color RGB #FF00FF across every empty pixel; never use magenta/pink in the effects. No watermark.",
@@ -2836,11 +2858,22 @@
       "output_path": "assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.png",
       "output_sha256": "d4e12179bfe7a83bf737e370c20f0a9d6de736667ee783feebc7bd3b0f324d4f",
       "candidate_count": 1,
-      "candidate_hashes": [{"index": 1, "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_vfx_ai01/candidates/stage27_seal_guardian_vfx_ai01_candidate_01.png", "sha256": "89a92879e498b6adc0e9688d131477a5e0b94526918d2d2c50b8f0ea259b5c29", "width": 1254, "height": 1254, "mode": "RGB"}],
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_vfx_ai01/candidates/stage27_seal_guardian_vfx_ai01_candidate_01.png",
+          "sha256": "89a92879e498b6adc0e9688d131477a5e0b94526918d2d2c50b8f0ea259b5c29",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
       "selected_source_count": 1,
-      "selected_candidate_indices": [1],
+      "selected_candidate_indices": [
+        1
+      ],
       "unselected_candidate_indices": [],
-      "processing_boundary": "Warning, impact, guard-break, phase and defeat clips are visual-only runtime layers; the existing Boss state machine remains authoritative. Gate26H visual acceptance remains manual."
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
     },
     {
       "asset_id": "stage27_seal_guardian_formal_motion_ai01",
@@ -2852,7 +2885,7 @@
       "tool": "Codex built-in image_gen",
       "tool_mode": "built_in",
       "source_type": "ai_generated_bitmap",
-      "source_status": "project_session_confirmed",
+      "source_status": "source_recorded",
       "license_record_status": "source_recorded_terms_review_required",
       "commercial_use_status": "manual_terms_review_required_before_external_release",
       "prompt": "Create one production-ready 2D side-view boss animation sprite sheet for Nano Hunter, matching the exact Seal Guardian from the reference sheets: same massive stone lion/quadruped body, teal jade Buddhist seal core, dark stone plates, gold seal markings, proportions, brush-painted Chinese dark-fantasy style, and facing LEFT in every frame. Perfectly square 4 columns by 4 rows, exactly 16 equal cells, one centered full-body boss per cell, consistent foot/root anchor and scale, no cropping, no overlap, no text, no numbers, no labels, no borders, no grid lines, no detached VFX, no scenery. Row 1: four progressive frames of a close-range ground pressure attack, crouch warning into heavy forward slam. Row 2: four progressive frames of a ranged/air-punish attack, head and seal core aim upward then release, body remains grounded. Row 3: four progressive frames of guard-break stagger into phase-transition recovery, cracked posture then rising empowered stance. Row 4: four progressive frames of hit reaction into defeated stone-collapse/dissipation pose, ending low and still. Body only; exclude detached particles, shockwaves, projectiles, UI. Background must be one single perfectly flat chroma-key color RGB #FF00FF across every empty pixel; never use magenta/pink on the boss. Preserve animation continuity left-to-right in each row. No watermark.",
@@ -2861,11 +2894,130 @@
       "output_path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.png",
       "output_sha256": "78c06243fe05f147c2084f74ea94c6a3e7c60ed300ec30f3285fb52d9ce0354f",
       "candidate_count": 1,
-      "candidate_hashes": [{"index": 1, "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_formal_motion_ai01/candidates/stage27_seal_guardian_formal_motion_ai01_candidate_01.png", "sha256": "aa7d0d3be6f7e9944c7f9bdffbfe5cecb457a0c24496f0a3f0e902fdbe74f023", "width": 1254, "height": 1254, "mode": "RGB"}],
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_27/stage27_seal_guardian_formal_motion_ai01/candidates/stage27_seal_guardian_formal_motion_ai01_candidate_01.png",
+          "sha256": "aa7d0d3be6f7e9944c7f9bdffbfe5cecb457a0c24496f0a3f0e902fdbe74f023",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
       "selected_source_count": 1,
-      "selected_candidate_indices": [1],
+      "selected_candidate_indices": [
+        1
+      ],
       "unselected_candidate_indices": [],
-      "processing_boundary": "Built-in image_gen fixed 4x4 chroma-key source was alpha-cleaned and normalized to 256x192 runtime cells. Runtime integration does not replace Gate26H motion/readability acceptance or release terms review."
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage28_waystation_background_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "environment_room_background",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Create one polished 2D side-view environment background for the Godot metroidvania Nano Hunter. Scene: a Southern and Northern Dynasties inspired Chinese fantasy demon-warden waystation (镇妖驿站) built into an old mountain pass, seen straight from the side like a playable platform-game room. Ink-wash and meticulous gongbi hybrid, hand-painted stone, dark cedar beams, worn red-black official banners, bronze ward bells, paper talismans, restrained jade-green seal light, warm lantern pools, misty teal mountains behind. The room must read clearly at gameplay scale: broad continuous stone floor along the lower quarter, left return passage, central ceremonial checkpoint space, a prominent wooden bounty-board alcove slightly right of center, an open standing area for one station clerk NPC, a sealed thunder-route gate farther right, and a final exit at the far right. Keep foreground silhouettes clear and collision-friendly; layered parallax depth but no extreme perspective. No character, no creature, no UI, no text, no letters, no logos, no watermark. Composition should support a 16:9 crop, formal demo quality, cohesive with elegant dark green, parchment, cinnabar, bronze and moonlit cyan palette.",
+      "prompt_sha256": "b79c6768ec589d1c3cd122ba2a8927fc241d2c967351f48854f367a22648f6b5",
+      "source_dir": "assets/source/ai_generated/batch_28/stage28_waystation_background_ai01/candidates",
+      "output_path": "assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png",
+      "output_sha256": "cbfa9c29b597eb6236b7fcb9bc3c0bbe967c580d2a30ff797f0768248e0886de",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_background_ai01/candidates/stage28_waystation_background_ai01_candidate_01.png",
+          "sha256": "ce4868a9e2bc92d5c337112484ea6f18ccbe79fefbf0b7b5ca14fa3213340920",
+          "width": 1672,
+          "height": 941,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage28_waystation_world_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "prop_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Exact 4x4 sprite sheet, 16 isolated cells, even grid, centered objects, generous padding, on perfectly flat solid #00ff00 chroma-key background only. No floor, cast shadows, labels, text, letters, logos, watermark, or overlap. Polished 2D Chinese fantasy metroidvania art, Southern-Northern Dynasties demon-warden waystation, ink-wash/gongbi, dark cedar, bronze, parchment, cinnabar, jade seal light. Row 1: the SAME wooden bounty board in four states: available with three parchments; tracked with jade cord; reward claimable with gold seal glow; all turned in with three stamped scroll silhouettes and cyan route token. Row 2: four sequential subtle idle frames of the SAME full-body station clerk NPC facing left, red-black official uniform, cloth cap, bronze waist seal, stable feet and proportions. Row 3: bronze ward lantern; hanging bronze ward bell; inactive dim thunder-route stone tablet; active cyan lightning route tablet. Row 4: left abstract travel arrow plaque; right abstract travel arrow plaque; checkpoint incense brazier with jade flame; official sealed document chest. Crisp silhouettes readable at 64 pixels; abstract sigils only.",
+      "prompt_sha256": "c7fd9b8e845f0e3774f7d4c5c20865b451ff36ae0b9b9876e8cbfd4a25e643a5",
+      "source_dir": "assets/source/ai_generated/batch_28/stage28_waystation_world_sheet_ai01/candidates",
+      "output_path": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "output_sha256": "b50da0659751c27956b89a923924b33833cf59bd1b4516bfd6bfbd9d432b63c3",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_world_sheet_ai01/candidates/stage28_waystation_world_sheet_ai01_candidate_01.png",
+          "sha256": "d8c3131f79f980d075cc7496b5ea6ad29de8f9785b5cdfb658c2e14d97d895c1",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "stage28_waystation_ui_sheet_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "ui_atlas",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Create one exact 4 columns by 4 rows UI icon sheet for a polished 2D Chinese fantasy metroidvania. Every cell isolated, centered, fully visible, same visual scale, generous padding, no overlap, on a perfectly flat solid #00ff00 chroma-key background only. No floor, shadows outside icons, labels, text, letters, logos, or watermark. Style: Southern and Northern Dynasties demon-warden bureaucracy, ink-wash plus meticulous gongbi, dark bronze, parchment, cinnabar, jade green and moonlit cyan, crisp silhouettes readable at 32px and 64px. Cell map left-to-right top-to-bottom: 0 station clerk NPC half-body portrait in red-black official uniform and cloth cap; 1 bounty icon for hunting a corrupted miasma caster, ritual mask silhouette with green smoke; 2 bounty icon for recovering demon-bone evidence, bone fragment wrapped in official evidence cord; 3 bounty icon for clearing a seal pulse, broken circular seal with wind and lightning; 4 Build icon: miasma marsh relic, green ancient bead; 5 Build icon: demon-warden challenge sigil, red-bronze talisman; 6 Build icon: corrupted caster core, violet-green ritual orb; 7 Build icon: seal guardian vajra heart, gold stone core; 8 empty relic slot frame, dark bronze ring; 9 equipped relic slot frame, jade-lit bronze ring with small lock tabs; 10 focused empty slot frame, cinnabar outer focus corners; 11 focused equipped slot frame, jade fill plus gold focus corners; 12 reward ready stamp, gold official seal shape without characters; 13 new-item notification spark, jade paper talisman silhouette; 14 compare/swap icon, two opposing curved arrows made from abstract ribbons; 15 thunder-route token, cyan lightning compass medallion. Keep icons distinct by silhouette, not only color. Abstract seals only, no written characters.",
+      "prompt_sha256": "af5e004b42e5c65abe6dda1f7e3ccfbc956101f0cee45cdefa3de973350798ba",
+      "source_dir": "assets/source/ai_generated/batch_28/stage28_waystation_ui_sheet_ai01/candidates",
+      "output_path": "assets/art/ui/stage28_waystation_ui_runtime_ai01.png",
+      "output_sha256": "ff9d76dbc90d2d1c121f0f3362fd62f6a11af58c70e3073f736d44ef1fee113f",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_waystation_ui_sheet_ai01/candidates/stage28_waystation_ui_sheet_ai01_candidate_01.png",
+          "sha256": "56c99ca2babaea4b83a7fb4ea282d82109998137d03e26dfe24fb23f76f98c19",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
     }
   ]
 }

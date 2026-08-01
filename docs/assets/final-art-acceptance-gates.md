@@ -5,20 +5,20 @@
 
 ## Summary
 
-- 资产总数：`60`
+- 资产总数：`63`
 - Final ready：`55`
-- 仍有阻塞门槛的资产：`5`
+- 仍有阻塞门槛的资产：`8`
 - 每个资产验收门槛数：`7`
 
 ## Gate Summary
 
-- `source_traceability` / 来源 / prompt / hash 可追溯: passed `56`, blocked `4`
-- `license_terms` / 商业使用条款人工复核: passed `55`, blocked `5`
-- `godot_structural_resource` / Godot 结构资源可用: passed `60`, blocked `0`
-- `editor_review_card` / 编辑器复核卡可用: passed `60`, blocked `0`
-- `runtime_replacement` / 运行时引用替换与验证: passed `56`, blocked `4`
-- `family_specific_polish` / 按资产族清稿 / 读值 / 帧序 / 布局复核: passed `59`, blocked `1`
-- `final_approval` / 最终美术批准: passed `55`, blocked `5`
+- `source_traceability` / 来源 / prompt / hash 可追溯: passed `56`, blocked `7`
+- `license_terms` / 商业使用条款人工复核: passed `55`, blocked `8`
+- `godot_structural_resource` / Godot 结构资源可用: passed `63`, blocked `0`
+- `editor_review_card` / 编辑器复核卡可用: passed `63`, blocked `0`
+- `runtime_replacement` / 运行时引用替换与验证: passed `58`, blocked `5`
+- `family_specific_polish` / 按资产族清稿 / 读值 / 帧序 / 布局复核: passed `59`, blocked `4`
+- `final_approval` / 最终美术批准: passed `55`, blocked `8`
 
 ## Blocked Assets
 
@@ -94,6 +94,22 @@
   - `source_traceability`: source_or_hash_record_missing
   - `license_terms`: license_terms_manual_review
   - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P1` `stage28_waystation_background_ai01` (environment / environment_room_background) - blocked gates `4`
+  - `source_traceability`: source_or_hash_record_missing
+  - `license_terms`: license_terms_manual_review
+  - `family_specific_polish`: parallax_layer_split, foreground_occlusion_review
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P0` `stage28_waystation_ui_sheet_ai01` (ui / ui_atlas) - blocked gates `5`
+  - `source_traceability`: source_or_hash_record_missing
+  - `license_terms`: license_terms_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `family_specific_polish`: small_size_readability_review, pseudo_text_cleanup, theme_mapping_manual_review
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P1` `stage28_waystation_world_sheet_ai01` (props_equipment / prop_atlas) - blocked gates `4`
+  - `source_traceability`: source_or_hash_record_missing
+  - `license_terms`: license_terms_manual_review
+  - `family_specific_polish`: state_variant_naming, scale_readability_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `storyboard_intro_bounty_ai01` (story / storyboard_sheet) - blocked gates `0`
 - [ ] `P2` `storyboard_miasma_marsh_ai01` (story / storyboard_sheet) - blocked gates `0`

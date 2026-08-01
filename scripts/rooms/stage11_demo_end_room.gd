@@ -16,6 +16,15 @@ const STAGE10_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage10_zone_challenge_
 const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn"
 const STAGE25_ENTRY_ROOM_PATH := "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn"
 const DEMO_END_SPAWN_ID: StringName = &"stage11_demo_end_start"
+const WAYSTATION_WORLD_ATLAS: Texture2D = preload(
+	"res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png"
+)
+const BOARD_VISUAL_INDEX := {
+	&"available": 0,
+	&"accepted": 1,
+	&"completed": 2,
+	&"turned_in": 3,
+}
 
 const STEP_TITLES := {
 	STEP_FINISH: "镇妖驿厅 · 确认封印回响",
@@ -42,6 +51,9 @@ var _continue_requested := false
 var _checkpoint_activated := false
 var _bounty_board_near := false
 var _thunder_route_requested := false
+var _displayed_board_state: StringName = &""
+var _displayed_route_open := false
+var _route_marker_initialized := false
 
 
 # 驿厅一进入就注册最近恢复点，确保失败后仍从安全位置重来。
@@ -175,15 +187,47 @@ func _try_request_thunder_waste() -> bool:
 	return true
 
 
-# 同一枚入口标识用灰 / 青两色表达未取得与已取得路引。
+# 榜牌与雷泽入口只读取 Main 快照并替换图集区域，不参与任务或门控写入。
 func _refresh_thunder_route_marker() -> void:
-	var marker := thunder_route_zone.get_node_or_null("ThunderRouteMarkerArt") as CanvasItem
-	if marker != null:
-		marker.modulate = (
-			Color(0.52, 0.9, 1.0, 0.96)
-			if is_thunder_waste_route_unlocked()
-			else Color(0.42, 0.46, 0.52, 0.56)
+	var snapshot: Dictionary = {}
+	if _main != null and _main.has_method("get_bounty_board_snapshot"):
+		snapshot = _main.call("get_bounty_board_snapshot")
+
+	var board_state := _get_board_visual_state(snapshot)
+	var board_marker := bounty_board_zone.get_node_or_null("BountyBoardMarkerArt") as Sprite2D
+	if board_marker != null and board_state != _displayed_board_state:
+		_displayed_board_state = board_state
+		board_marker.texture = _atlas_texture(int(BOARD_VISUAL_INDEX.get(board_state, 0)))
+		board_marker.set_meta("runtime_source", "stage28_waystation_world_runtime_ai01.bounty_%s" % board_state)
+
+	var route_open := bool(snapshot.get("waystation_intel_unlocked", false))
+	var route_marker := thunder_route_zone.get_node_or_null("ThunderRouteMarkerArt") as Sprite2D
+	if route_marker != null and (not _route_marker_initialized or route_open != _displayed_route_open):
+		_route_marker_initialized = true
+		_displayed_route_open = route_open
+		route_marker.texture = _atlas_texture(11 if route_open else 10)
+		route_marker.modulate = Color.WHITE
+		route_marker.set_meta(
+			"runtime_source",
+			"stage28_waystation_world_runtime_ai01.route_open" if route_open else "stage28_waystation_world_runtime_ai01.route_locked"
 		)
+
+
+func _get_board_visual_state(snapshot: Dictionary) -> StringName:
+	if int(snapshot.get("turned_in_count", 0)) >= 3:
+		return &"turned_in"
+	if int(snapshot.get("completed_count", 0)) > int(snapshot.get("turned_in_count", 0)):
+		return &"completed"
+	if int(snapshot.get("accepted_count", 0)) > 0:
+		return &"accepted"
+	return &"available"
+
+
+func _atlas_texture(index: int) -> AtlasTexture:
+	var texture := AtlasTexture.new()
+	texture.atlas = WAYSTATION_WORLD_ATLAS
+	texture.region = Rect2((index % 4) * 256, (index / 4) * 256, 256, 256)
+	return texture
 
 
 func _get_prompt_text() -> String:

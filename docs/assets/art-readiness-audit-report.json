@@ -3,8 +3,8 @@
   "status": "placeholder_ready",
   "boundary": "Art readiness audit. structural_ready means generated PNGs and metadata are usable by the pipeline. final_ready remains false until license records, manual cleanup, semantic naming, runtime replacement, and gameplay readability checks are completed.",
   "summary": {
-    "item_count": 60,
-    "structural_ready_count": 60,
+    "item_count": 63,
+    "structural_ready_count": 63,
     "final_ready_count": 55,
     "kind_counts": {
       "boss_animation": 1,
@@ -16,7 +16,7 @@
       "completion_ui": 1,
       "environment_background": 2,
       "environment_boss_room_background": 1,
-      "environment_room_background": 3,
+      "environment_room_background": 4,
       "environment_tiles": 2,
       "equipment_atlas": 1,
       "hud_frame": 2,
@@ -28,7 +28,7 @@
       "promo_capsule": 1,
       "promo_key_art": 1,
       "prop": 3,
-      "prop_atlas": 1,
+      "prop_atlas": 2,
       "prop_sheet": 1,
       "spine_cutout_parts": 2,
       "sprite_sheet": 8,
@@ -37,7 +37,7 @@
       "texture_atlas": 1,
       "tileset_sheet": 2,
       "title_background": 1,
-      "ui_atlas": 1,
+      "ui_atlas": 2,
       "ui_map_foundation": 1,
       "ui_panel": 2,
       "vfx_atlas": 2,
@@ -47,11 +47,17 @@
     },
     "warnings_by_type": {},
     "blockers_by_type": {
-      "license_terms_manual_review": 5,
-      "runtime_catalog_ready_manual_replacement": 4,
+      "foreground_occlusion_review": 1,
+      "license_terms_manual_review": 8,
+      "parallax_layer_split": 1,
+      "pseudo_text_cleanup": 1,
+      "runtime_catalog_ready_manual_replacement": 5,
       "runtime_layout_review": 1,
-      "small_size_readability_review": 1,
-      "text_safe_area_review": 1
+      "scale_readability_review": 1,
+      "small_size_readability_review": 2,
+      "state_variant_naming": 1,
+      "text_safe_area_review": 1,
+      "theme_mapping_manual_review": 1
     },
     "error_items": [],
     "warning_items": []
@@ -5574,6 +5580,229 @@
       "polish_blockers": [
         "license_terms_manual_review",
         "runtime_catalog_ready_manual_replacement"
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_background_ai01",
+      "target_kind": "environment_room_background",
+      "output_path": "assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1152,
+        "height": 512,
+        "mode": "RGB",
+        "has_alpha": false,
+        "transparent_pixel_ratio": 0.0,
+        "opaque_pixel_ratio": 1.0,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "project_session_confirmed",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "b79c6768ec589d1c3cd122ba2a8927fc241d2c967351f48854f367a22648f6b5",
+        "candidate_count": 1,
+        "output_sha256": "cbfa9c29b597eb6236b7fcb9bc3c0bbe967c580d2a30ff797f0768248e0886de"
+      },
+      "runtime_map": {
+        "track": "runtime_environment",
+        "target_system": "Stage11 formal waystation display layer",
+        "recommended_resource_type": "Texture2D",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/rooms/stage11_demo_end_room.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 1,
+        "referenced_scenes": [
+          "scenes/rooms/stage11_demo_end_room.tscn"
+        ],
+        "resource_path": "res://assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "parallax_layer_split",
+        "foreground_occlusion_review"
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_world_sheet_ai01",
+      "target_kind": "prop_atlas",
+      "output_path": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.648003,
+        "opaque_pixel_ratio": 0.371019,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": null,
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "project_session_confirmed",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "c7fd9b8e845f0e3774f7d4c5c20865b451ff36ae0b9b9876e8cbfd4a25e643a5",
+        "candidate_count": 1,
+        "output_sha256": "b50da0659751c27956b89a923924b33833cf59bd1b4516bfd6bfbd9d432b63c3"
+      },
+      "runtime_map": {
+        "track": "runtime_gameplay",
+        "target_system": "Stage11 bounty board, clerk and route marker presentation",
+        "recommended_resource_type": "SpriteFrames plus AtlasTexture",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/rooms/stage11_demo_end_room.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 1,
+        "referenced_scenes": [
+          "scenes/rooms/stage11_demo_end_room.tscn"
+        ],
+        "resource_path": "res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "state_variant_naming",
+        "scale_readability_review"
+      ]
+    },
+    {
+      "asset_id": "stage28_waystation_ui_sheet_ai01",
+      "target_kind": "ui_atlas",
+      "output_path": "assets/art/ui/stage28_waystation_ui_runtime_ai01.png",
+      "status": "structural_ready",
+      "structural_ready": true,
+      "final_ready": false,
+      "metrics": {
+        "width": 640,
+        "height": 640,
+        "mode": "RGBA",
+        "has_alpha": true,
+        "transparent_pixel_ratio": 0.775518,
+        "opaque_pixel_ratio": 0.263796,
+        "opaque_green_pixel_ratio": 0.0,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "atlas_expected_target": null,
+      "metadata_region_count": null,
+      "semantic_region_count": null,
+      "tileset_rules": null,
+      "ui_skin_rules": {
+        "path": "assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.rules.json",
+        "theme_resource": "res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres",
+        "theme_exists": true,
+        "stylebox_mapping_count": 9,
+        "standalone_panel_rule_count": 4,
+        "manual_review_required": true
+      },
+      "vfx_rules": null,
+      "animation_rules": null,
+      "provenance": {
+        "tool": "Codex built-in image_gen",
+        "source_status": "project_session_confirmed",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "prompt_sha256": "af5e004b42e5c65abe6dda1f7e3ccfbc956101f0cee45cdefa3de973350798ba",
+        "candidate_count": 1,
+        "output_sha256": "ff9d76dbc90d2d1c121f0f3362fd62f6a11af58c70e3073f736d44ef1fee113f"
+      },
+      "runtime_map": {
+        "track": "runtime_ui",
+        "target_system": "bounty, Build and two-slot DetailPanel presentation",
+        "recommended_resource_type": "AtlasTexture",
+        "integration_status": "scene_reference_verified",
+        "output_path": "assets/art/ui/stage28_waystation_ui_runtime_ai01.png",
+        "existing_target_scene_candidates": [
+          "scenes/ui/demo_shell.tscn"
+        ]
+      },
+      "runtime_catalog": {
+        "resource_path": "res://assets/art/ui/stage28_waystation_ui_runtime_ai01.png",
+        "catalog_resource_type": "CompressedTexture2D",
+        "integration_status": "runtime_catalog_ready_manual_replacement_required"
+      },
+      "runtime_replacement_plan": null,
+      "runtime_map_references": {
+        "target_scene_count": 1,
+        "current_scene_reference_count": 0,
+        "referenced_scenes": [],
+        "resource_path": "res://assets/art/ui/stage28_waystation_ui_runtime_ai01.png"
+      },
+      "background_alpha_policy": null,
+      "finalization_review": null,
+      "errors": [],
+      "warnings": [],
+      "polish_blockers": [
+        "license_terms_manual_review",
+        "runtime_catalog_ready_manual_replacement",
+        "small_size_readability_review",
+        "pseudo_text_cleanup",
+        "theme_mapping_manual_review"
       ]
     }
   ],

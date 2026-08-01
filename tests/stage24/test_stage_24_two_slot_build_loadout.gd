@@ -71,6 +71,7 @@ func test_pause_detail_panel_can_equip_any_two_owned_builds() -> void:
 	assert_true(equipped.has(&"caster_core"))
 	assert_false(equipped.has(&"marsh_relic"))
 	shell.call("_close_detail_panel")
+	await get_tree().process_frame
 
 
 func test_slot_limit_requires_unequip_before_third_build() -> void:
@@ -128,6 +129,7 @@ func test_two_slot_loadout_survives_room_change_and_restart_clears_session() -> 
 	assert_eq(player.call("get_equipped_build_ids"), [&"caster_core", &"guardian_core"])
 
 	main.call("restart_demo")
+	await get_tree().process_frame
 	var reset: Dictionary = main.call("get_build_loadout_snapshot")
 	assert_eq(int(reset.get("available_count", -1)), 0)
 	assert_eq(int(reset.get("equipped_count", -1)), 0)
@@ -173,4 +175,5 @@ func _spawn_started_main() -> Node2D:
 	add_child_autofree(main)
 	await get_tree().process_frame
 	(main.get_node("HUD/DemoShell") as Control).call("start_demo")
+	await get_tree().process_frame
 	return main

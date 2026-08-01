@@ -1,0 +1,18 @@
+{
+  "asset_id": "stage28_waystation_background_ai01",
+  "runtime_asset_id": "stage28_waystation_background_runtime_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "source": "assets/source/ai_generated/batch_28/stage28_waystation_background_ai01/candidates/stage28_waystation_background_ai01_candidate_01.png",
+  "source_sha256": "ce4868a9e2bc92d5c337112484ea6f18ccbe79fefbf0b7b5ca14fa3213340920",
+  "output": "assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png",
+  "output_sha256": "cbfa9c29b597eb6236b7fcb9bc3c0bbe967c580d2a30ff797f0768248e0886de",
+  "process": "built_in_image_gen_stage28_fixed_grid_chroma_to_alpha",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "camera_bounds_1152x512",
+    "display_layer_only"
+  ]
+}
