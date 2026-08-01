@@ -4,6 +4,11 @@
 
 ## 2026-08-01
 
+- **Gate26M Godot MCP Pro 自动技术门禁完成**：用生产主场景验证确定性输入、焦点、暂停、状态和渲染链。
+  结果：主菜单、暂停 / 继续、44 房地图、悬赏榜、两槽 Build 与返回状态走通；运行态 InputMap 读到完整键盘 / 手柄生产映射。风→雷、雷→风和御印切换均进入公开快照，攻击连续捕获 `6` 帧；Stage23 接取与 Stage24 槽满拒绝状态正确。
+  关键验证或结论：同一新鲜基线递归 GUT `301/301`；没有稳定产品缺口。当前插件未实现 `record_frames` 且 editor-only input 查询不含项目动作，分别由 `capture_frames` 和运行态 InputMap 替代。场景、当前 workspace editor 和临时 autoload 已清理，工程配置无 diff；本门禁不替代 Gate26H 真人签核。
+  详情日志链接：`docs/progress/logs/2026-08-01.md`；执行清单：`docs/implementation-plans/2026-08-01-gate26m-automated-technical-baseline.md`。
+
 - **Preflight26A 可审计基线完成**：把既有地形视觉 / 碰撞修复和资产治理收成 Stage27 前的独立技术检查点。
   结果：`stage19_discovery_map_base_ai01` 已纳入 56 项 runtime map、readiness、review、acceptance、catalog 与 gallery 的统一集合；结构门禁 `56/56`，final-ready `55/56`，人工签核阻断保持可见。全 NUL 的资产 manifest 已留存 ignored 原始证据后从 HEAD 精确恢复，个人配置、候选 inbox、backend 与归属不明文件没有混入。
   关键验证或结论：地形专项 `16/16` / `1358`、相邻组合 `97/97` / `1864`、递归 GUT `43` scripts / `301/301` / `8542`，Godot `4.6.3` import、主场景 smoke、strict 资产审计和 diff 校验通过；技术基线提交 `eb98e47`。编辑器运行态错误与完整输入链进入 Gate26M。
