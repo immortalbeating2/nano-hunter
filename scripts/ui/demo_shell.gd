@@ -29,6 +29,7 @@ extends Control
 @onready var quit_button: Button = $MainMenu/MarginContainer/VBoxContainer/QuitButton
 @onready var resume_button: Button = $PauseMenu/MarginContainer/VBoxContainer/ResumeButton
 @onready var map_button: Button = $PauseMenu/MarginContainer/VBoxContainer/MapButton
+@onready var travel_button: Button = $PauseMenu/MarginContainer/VBoxContainer/TravelButton
 @onready var build_button: Button = $PauseMenu/MarginContainer/VBoxContainer/BuildButton
 @onready var restart_button: Button = $PauseMenu/MarginContainer/VBoxContainer/RestartButton
 @onready var world_map_view: Control = $WorldMapPanel/WorldMapView
@@ -49,9 +50,11 @@ var _bounty_scroll: ScrollContainer
 var _bounty_list: VBoxContainer
 var _detail_context_icon: TextureRect
 var _build_slot_row: HBoxContainer
+var _pause_return_focus: Button
 
 const WORLD_MAP_ASPECT := 1511.0 / 1041.0
 const WAYSTATION_UI_ATLAS: Texture2D = preload("res://assets/art/ui/stage28_waystation_ui_runtime_ai01.png")
+const STAGE31_PERSISTENCE_TRAVEL_UI_ATLAS: Texture2D = preload("res://assets/art/ui/stage31_persistence_travel_ui_runtime_ai01.png")
 const STAGE30_REWARD_ATLAS: Texture2D = preload("res://assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png")
 const WAYSTATION_UI_ICON_INDEX := {
 	&"waystation_clerk_portrait": 0,
@@ -64,6 +67,24 @@ const WAYSTATION_UI_ICON_INDEX := {
 	&"build_guardian_core": 7,
 	&"slot_empty": 8,
 	&"slot_equipped": 9,
+}
+const STAGE31_UI_ICON_INDEX := {
+	&"continue_load": 0,
+	&"new_game": 1,
+	&"save_success": 2,
+	&"save_error": 3,
+	&"waystation_main": 4,
+	&"thunder_outpost": 5,
+	&"travel_available": 6,
+	&"travel_locked": 7,
+	&"checkpoint": 8,
+	&"backup": 9,
+	&"return": 10,
+	&"paused_save": 11,
+	&"current_waystation": 12,
+	&"current_outpost": 13,
+	&"save_pending": 14,
+	&"valid_save": 15,
 }
 const LEVEL_SELECT_ENTRIES := [
 	{"label": "01 教程起点", "path": "res://scenes/rooms/tutorial_room.tscn", "spawn": "tutorial_start"},
@@ -123,8 +144,15 @@ func _ready() -> void:
 	resized.connect(_layout_title_menu)
 	_layout_title_menu()
 	_connect_buttons()
-	for button: Button in [resume_button, map_button, build_button, restart_button]:
+	_pause_return_focus = build_button
+	_copy_button_skin(continue_button)
+	continue_button.add_theme_color_override("font_disabled_color", Color(0.62, 0.59, 0.52, 0.72))
+	continue_button.add_theme_color_override("icon_disabled_color", Color(1.0, 1.0, 1.0, 0.42))
+	for button: Button in [resume_button, map_button, travel_button, build_button, restart_button]:
 		_copy_button_skin(button)
+	start_button.icon = _stage31_ui_texture(&"new_game")
+	start_button.expand_icon = true
+	start_button.add_theme_constant_override("icon_max_width", 24)
 	_open_main_menu()
 
 
@@ -243,7 +271,7 @@ func _layout_title_menu() -> void:
 		failure_continue_button.custom_minimum_size = Vector2(clampf(failure_width - 120.0, 180.0, 280.0), button_height)
 		failure_continue_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		failure_continue_button.add_theme_font_size_override("font_size", button_font_size)
-	for button: Button in [resume_button, map_button, build_button, restart_button]:
+	for button: Button in [resume_button, map_button, travel_button, build_button, restart_button]:
 		if button == null:
 			continue
 		button.custom_minimum_size = Vector2(clampf(pause_width - 96.0, 176.0, 280.0), button_height)
@@ -288,7 +316,7 @@ func _unhandled_input(event: InputEvent) -> void:
 # Main 在 _ready 中注入自身，DemoShell 不主动搜索场景树，避免形成隐藏依赖。
 func bind_main(main: Node) -> void:
 	_main = main
-	_refresh_status_text()
+	refresh_save_state()
 
 
 # 公开给 Main 的开始入口；按钮与测试都复用同一条路径。
@@ -317,7 +345,7 @@ func is_demo_paused() -> bool:
 # 连接按钮事件；按钮只调用本脚本，再由本脚本触达 Main 的最小公开接口。
 func _connect_buttons() -> void:
 	start_button.pressed.connect(_on_start_pressed)
-	continue_button.pressed.connect(_open_detail_panel.bind("继续游戏", "当前 Demo 暂无存档。\n请选择开始游戏，从教程起点进入。"))
+	continue_button.pressed.connect(_on_continue_pressed)
 	level_select_button.pressed.connect(_open_level_select_panel)
 	settings_button.pressed.connect(_open_detail_panel.bind("设置", "当前使用默认键鼠配置。\n窗口缩放按 640x360 基准适配，音量设置将在音频包接入后开放。"))
 	controls_button.pressed.connect(_on_controls_pressed)
@@ -325,6 +353,7 @@ func _connect_buttons() -> void:
 	detail_back_button.pressed.connect(_close_detail_panel)
 	resume_button.pressed.connect(_on_resume_pressed)
 	map_button.pressed.connect(_on_map_pressed)
+	travel_button.pressed.connect(_on_travel_pressed)
 	build_button.pressed.connect(_on_build_pressed)
 	restart_button.pressed.connect(_on_restart_pressed)
 	map_back_button.pressed.connect(_on_map_back_pressed)
@@ -493,6 +522,7 @@ func show_build_loadout(snapshot: Dictionary) -> void:
 	_ensure_bounty_list()
 	_detail_returns_to_game = false
 	_detail_returns_to_pause = true
+	_pause_return_focus = build_button
 	detail_back_button.text = "返回暂停"
 	detail_title_label.text = "圣物调谐 · 两槽 Build"
 	detail_body_label.text = "已取得 %d · 槽位 %d/%d" % [
@@ -619,6 +649,14 @@ func _waystation_ui_texture(icon_id: StringName) -> AtlasTexture:
 	return texture
 
 
+func _stage31_ui_texture(icon_id: StringName) -> AtlasTexture:
+	var index := int(STAGE31_UI_ICON_INDEX.get(icon_id, 14))
+	var texture := AtlasTexture.new()
+	texture.atlas = STAGE31_PERSISTENCE_TRAVEL_UI_ATLAS
+	texture.region = Rect2((index % 4) * 160, floori(index / 4.0) * 160, 160, 160)
+	return texture
+
+
 func _on_build_entry_pressed(build_id: StringName) -> void:
 	if _main == null or not _main.has_method("toggle_build_equipped"):
 		return
@@ -655,16 +693,38 @@ func _open_main_menu() -> void:
 	detail_back_button.text = "返回"
 	# 主菜单保持可见覆盖层，但不暂停场景树；这样既保留开始入口，也不破坏既有灰盒 driver 从 Main.tscn 直接推进的自动化。
 	get_tree().paused = false
-	_refresh_status_text()
+	refresh_save_state()
 	_refresh_completion_panel()
 	start_button.grab_focus()
 
 
-# 开始按钮从教程起点重开一轮试玩，复用 Main.restart_demo 的统一清理语义。
+# 开始按钮从教程起点建立正式会话；旧 Main 仍回退到统一重开入口。
 func _on_start_pressed() -> void:
-	if _main != null and _main.has_method("restart_demo"):
+	if _main != null and _main.has_method("start_new_game"):
+		_main.call("start_new_game")
+	elif _main != null and _main.has_method("restart_demo"):
 		_main.call("restart_demo")
 
+	title_background.visible = false
+	main_menu.visible = false
+	detail_panel.visible = false
+	pause_menu.visible = false
+	world_map_panel.visible = false
+	failure_panel.visible = false
+	_is_pause_menu_open = false
+	get_tree().paused = false
+	_refresh_completion_panel()
+
+
+func _on_continue_pressed() -> void:
+	if _main == null or not _main.has_method("continue_saved_game"):
+		_open_detail_panel("继续游戏", "当前 Main 未提供本地存档入口。")
+		return
+	var result: Variant = _main.call("continue_saved_game")
+	if not (result is Dictionary) or not bool(result.get("ok", false)):
+		var message := str(result.get("message", "没有可继续的有效存档。")) if result is Dictionary else "没有可继续的有效存档。"
+		_open_detail_panel("继续游戏", message)
+		return
 	title_background.visible = false
 	main_menu.visible = false
 	detail_panel.visible = false
@@ -720,8 +780,12 @@ func _close_detail_panel() -> void:
 		pause_menu.visible = true
 		_is_pause_menu_open = true
 		get_tree().paused = true
-		build_button.grab_focus()
+		if _pause_return_focus != null and not _pause_return_focus.disabled:
+			_pause_return_focus.grab_focus()
+		else:
+			resume_button.grab_focus()
 		_refresh_build_button()
+		_refresh_travel_button()
 		return
 	if _detail_returns_to_game:
 		_detail_returns_to_game = false
@@ -731,7 +795,7 @@ func _close_detail_panel() -> void:
 		get_tree().paused = false
 		return
 	main_menu.visible = true
-	_refresh_status_text()
+	refresh_save_state()
 	start_button.grab_focus()
 
 
@@ -774,6 +838,7 @@ func _open_pause_menu() -> void:
 	_is_pause_menu_open = true
 	get_tree().paused = true
 	_refresh_build_button()
+	_refresh_travel_button()
 	_refresh_completion_panel()
 	resume_button.grab_focus()
 
@@ -824,6 +889,114 @@ func _on_map_back_pressed() -> void:
 	get_tree().paused = true
 	map_button.grab_focus()
 	_refresh_completion_panel()
+
+
+# 双点传送复用详情面板；Main 决定发现、起点和保存门控，UI 只呈现结果。
+func _on_travel_pressed() -> void:
+	if _main == null or not _main.has_method("get_waystation_travel_snapshot"):
+		return
+	var snapshot: Variant = _main.call("get_waystation_travel_snapshot")
+	if snapshot is Dictionary:
+		show_waystation_travel(snapshot)
+
+
+func show_waystation_travel(snapshot: Dictionary) -> void:
+	_ensure_bounty_list()
+	_detail_returns_to_game = false
+	_detail_returns_to_pause = true
+	_pause_return_focus = travel_button
+	detail_back_button.text = "返回暂停"
+	detail_title_label.text = "镇妖驿站 · 双点传送"
+	var current_label := "非驿站区域"
+	for entry: Dictionary in snapshot.get("entries", []):
+		if bool(entry.get("current", false)):
+			current_label = str(entry.get("label", "未知驿站"))
+			break
+	detail_body_label.text = "当前位置：%s · 已发现 %d/2" % [
+		current_label,
+		int(snapshot.get("discovered_count", 0)),
+	]
+	var status_message := str(snapshot.get("status_message", ""))
+	if not status_message.is_empty():
+		detail_body_label.text += "\n%s" % status_message
+	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	var current_id := StringName(snapshot.get("current_travel_point_id", StringName()))
+	_detail_context_icon.texture = _stage31_ui_texture(
+		&"current_waystation" if current_id == &"waystation_main" else &"current_outpost"
+	)
+	_detail_context_icon.visible = current_id != StringName()
+	_build_slot_row.visible = false
+	if _level_select_scroll != null:
+		_level_select_scroll.visible = false
+	_bounty_scroll.visible = true
+	_rebuild_travel_list(snapshot)
+	title_background.visible = false
+	main_menu.visible = false
+	pause_menu.visible = false
+	world_map_panel.visible = false
+	failure_panel.visible = false
+	completion_panel.visible = false
+	detail_panel.visible = true
+	_is_pause_menu_open = true
+	get_tree().paused = true
+
+	var focus_target := detail_back_button
+	for child: Node in _bounty_list.get_children():
+		var button := child as Button
+		if button != null and not button.disabled:
+			focus_target = button
+			break
+	focus_target.grab_focus()
+	await get_tree().process_frame
+	if is_instance_valid(focus_target):
+		_bounty_scroll.ensure_control_visible(focus_target)
+
+
+func _rebuild_travel_list(snapshot: Dictionary) -> void:
+	for child: Node in _bounty_list.get_children():
+		_bounty_list.remove_child(child)
+		child.queue_free()
+	for entry: Dictionary in snapshot.get("entries", []):
+		var state_id := StringName(entry.get("state_id", &"locked"))
+		var travel_id := StringName(entry.get("id", StringName()))
+		var button := Button.new()
+		button.disabled = state_id != &"available"
+		var action_label := "传送"
+		if state_id == &"current":
+			action_label = "当前位置"
+		elif state_id == &"locked":
+			action_label = "尚未发现"
+		button.text = "%s · %s" % [action_label, str(entry.get("label", "未知驿站"))]
+		var icon_id := StringName(entry.get("icon_id", &"travel_locked"))
+		if state_id == &"locked":
+			icon_id = &"travel_locked"
+		elif state_id == &"current":
+			icon_id = &"current_waystation" if travel_id == &"waystation_main" else &"current_outpost"
+		button.icon = _stage31_ui_texture(icon_id)
+		button.expand_icon = true
+		button.add_theme_constant_override("icon_max_width", 42)
+		button.custom_minimum_size.y = 58.0
+		button.tooltip_text = "目标未发现" if state_id == &"locked" else str(entry.get("room_path", ""))
+		button.set_meta("travel_id", travel_id)
+		button.set_meta("state_id", state_id)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.focus_mode = Control.FOCUS_NONE if button.disabled else Control.FOCUS_ALL
+		_copy_button_skin(button)
+		button.pressed.connect(_on_travel_entry_pressed.bind(travel_id))
+		_bounty_list.add_child(button)
+	_wire_detail_list_focus()
+
+
+func _on_travel_entry_pressed(travel_id: StringName) -> void:
+	if _main == null or not _main.has_method("request_waystation_travel"):
+		return
+	var result: Variant = _main.call("request_waystation_travel", travel_id)
+	if not (result is Dictionary):
+		return
+	if bool(result.get("ok", false)):
+		_resume_demo()
+		return
+	show_waystation_travel(result)
 
 
 # 保留旧调谐焦点循环，再打开复用详情面板的两槽选择列表。
@@ -920,7 +1093,27 @@ func _on_failure_continue_pressed() -> void:
 	failure_panel.visible = false
 
 
-# 主菜单状态文案只读取 Main 快照，帮助人工复核 Stage16 完成态和重开语义。
+# Main 在保存结果变化后调用此入口；Continue 只对有效主档或有效备份开放。
+func refresh_save_state() -> void:
+	if continue_button == null:
+		return
+	var save_status := {}
+	if _main != null and _main.has_method("get_save_status_snapshot"):
+		var candidate: Variant = _main.call("get_save_status_snapshot")
+		if candidate is Dictionary:
+			save_status = candidate
+	var valid := bool(save_status.get("valid", false))
+	continue_button.disabled = not valid
+	continue_button.focus_mode = Control.FOCUS_ALL if valid else Control.FOCUS_NONE
+	continue_button.icon = _stage31_ui_texture(
+		&"continue_load" if valid else (&"save_error" if bool(save_status.get("corrupted_primary", false)) else &"save_pending")
+	)
+	continue_button.expand_icon = true
+	continue_button.add_theme_constant_override("icon_max_width", 24)
+	_refresh_status_text()
+
+
+# 主菜单状态文案同时标出完成态与本地存档健康状态。
 func _refresh_status_text() -> void:
 	if status_label == null:
 		return
@@ -934,7 +1127,17 @@ func _refresh_status_text() -> void:
 		status_label.text = "Alpha Demo 候选"
 		return
 
-	status_label.text = "已完成" if bool(snapshot.get("stage16_alpha_demo_completed", false)) else "从教程起点开始"
+	var completed_prefix := "Alpha Demo 已完成 · " if bool(snapshot.get("stage16_alpha_demo_completed", false)) else ""
+	if _main.has_method("get_save_status_snapshot"):
+		var save_status: Variant = _main.call("get_save_status_snapshot")
+		if save_status is Dictionary and bool(save_status.get("valid", false)):
+			status_label.text = completed_prefix + ("备份可继续" if bool(save_status.get("from_backup", false)) else "已有本地存档")
+		elif save_status is Dictionary and bool(save_status.get("corrupted_primary", false)):
+			status_label.text = completed_prefix + "存档损坏 · 可安全开始新游戏"
+		else:
+			status_label.text = completed_prefix + "从教程起点开始"
+	else:
+		status_label.text = completed_prefix + "从教程起点开始"
 	_refresh_completion_panel_from_snapshot(snapshot)
 
 
@@ -958,7 +1161,13 @@ func _refresh_completion_panel() -> void:
 func _refresh_completion_panel_from_snapshot(snapshot: Dictionary) -> void:
 	if completion_panel == null:
 		return
-	completion_panel.visible = bool(snapshot.get("stage16_alpha_demo_completed", false))
+	completion_panel.visible = (
+		bool(snapshot.get("stage16_alpha_demo_completed", false))
+		and not main_menu.visible
+		and not pause_menu.visible
+		and not detail_panel.visible
+		and not world_map_panel.visible
+	)
 
 
 func _refresh_build_button() -> void:
@@ -967,6 +1176,7 @@ func _refresh_build_button() -> void:
 	if _main == null or not _main.has_method("get_active_build_label"):
 		build_button.text = "圣物：尚未调谐"
 		build_button.disabled = true
+		build_button.focus_mode = Control.FOCUS_NONE
 		return
 
 	var build_label := str(_main.call("get_active_build_label"))
@@ -978,3 +1188,26 @@ func _refresh_build_button() -> void:
 	)
 	build_button.text = "圣物：%s · %d/2" % [build_label, equipped_count]
 	build_button.disabled = available_count == 0
+	build_button.focus_mode = Control.FOCUS_NONE if build_button.disabled else Control.FOCUS_ALL
+
+
+func _refresh_travel_button() -> void:
+	if travel_button == null:
+		return
+	if _main == null or not _main.has_method("get_waystation_travel_snapshot"):
+		travel_button.text = "驿站传送：不可用"
+		travel_button.disabled = true
+		travel_button.focus_mode = Control.FOCUS_NONE
+		return
+	var snapshot: Variant = _main.call("get_waystation_travel_snapshot")
+	if not (snapshot is Dictionary):
+		travel_button.disabled = true
+		travel_button.focus_mode = Control.FOCUS_NONE
+		return
+	var current_id := StringName(snapshot.get("current_travel_point_id", StringName()))
+	travel_button.disabled = current_id == StringName()
+	travel_button.focus_mode = Control.FOCUS_NONE if travel_button.disabled else Control.FOCUS_ALL
+	travel_button.text = "驿站传送 · %d/2" % int(snapshot.get("discovered_count", 0)) if not travel_button.disabled else "驿站传送：仅限驿站"
+	travel_button.icon = _stage31_ui_texture(&"travel_available" if bool(snapshot.get("can_travel", false)) else &"travel_locked")
+	travel_button.expand_icon = true
+	travel_button.add_theme_constant_override("icon_max_width", 24)

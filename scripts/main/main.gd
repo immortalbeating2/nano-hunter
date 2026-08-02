@@ -1,8 +1,7 @@
 extends Node2D
 
-# Main 负责把当前阶段的房间链路串成真正可玩的主入口。
-# 它只管理房间切换、出生点解析、checkpoint 恢复，以及 Room / Player / HUD 的绑定，
-# 不负责单个房间内部的教学、战斗或门控细节。
+# Main 负责房间链路、跨房进度、单档持久化，以及 Room / Player / HUD 的绑定。
+# 单个房间内部的教学、战斗和门控细节仍由房间脚本负责。
 
 const BASE_VIEWPORT_SIZE := Vector2i(640, 360)
 const PLAYER_PLACEHOLDER_SCENE: PackedScene = preload("res://scenes/player/player_placeholder.tscn")
@@ -19,7 +18,13 @@ const STAGE15_COMPLETION_ROOM_PATH := "res://scenes/rooms/stage15_completion_roo
 const STAGE16_ROOM_PREFIX := "res://scenes/rooms/stage16_"
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
 const STAGE25_ROOM_PREFIX := "res://scenes/rooms/stage25_"
+const STAGE25_ENTRY_ROOM_PATH := "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn"
 const FALL_RESET_MARGIN := 96.0
+const SAVE_VERSION := 1
+const SAVE_FILE_PATH := "user://north_star_save.json"
+const BACKUP_SAVE_FILE_PATH := "user://north_star_save.backup.json"
+const TRAVEL_WAYSTATION_MAIN: StringName = &"waystation_main"
+const TRAVEL_THUNDER_OUTPOST: StringName = &"thunder_outpost"
 const WIND_SEAL_REWARD_ID: StringName = &"wind_seal"
 const ELEMENT_WIND: StringName = &"wind"
 const ELEMENT_THUNDER: StringName = &"thunder"
@@ -111,6 +116,53 @@ const STAGE28_THUNDER_RETURN_EVENT_BODY := "镇妖卫驿卒：雷印随你归站
 const STAGE30_DEMON_RESONANCE_EVENT_ID: StringName = &"stage30_demon_resonance"
 const STAGE30_DEMON_RESONANCE_EVENT_TITLE := "雷泽荒原 · 妖雷共鸣"
 const STAGE30_DEMON_RESONANCE_EVENT_BODY := "夔影雷骸的鼓腔归于寂静，残雷却没有散去，而是沿 Luna 的镇妖印没入血脉。\n\nLuna：官府把妖骨制成封印，又命我来斩妖。究竟是谁借谁的血守门？\n\n陌生妖声：你终于肯收回本就属于你的雷。"
+const STAGE14_REWARD_IDS: Array[StringName] = [
+	&"stage14_reward_one",
+	&"stage14_reward_two",
+	&"stage14_reward_three",
+]
+const STORY_EVENT_IDS: Array[StringName] = [
+	STAGE11_STORY_EVENT_ID,
+	STAGE28_ALL_BOUNTIES_EVENT_ID,
+	STAGE28_THUNDER_RETURN_EVENT_ID,
+	STAGE30_DEMON_RESONANCE_EVENT_ID,
+]
+const SAVE_EXPLORATION_REWARD_IDS: Array[StringName] = [
+	WIND_SEAL_REWARD_ID,
+	BUILD_MARSH_RELIC,
+	BUILD_WARDEN_SIGIL,
+	BUILD_CASTER_CORE,
+	BUILD_GUARDIAN_CORE,
+	BUILD_THUNDER_BEAST_CORE,
+]
+const SAVE_BOOLEAN_FIELDS: Array[String] = [
+	"short_chain_completed",
+	"demo_completed",
+	"air_dash_unlocked",
+	"wind_seal_unlocked",
+	"thunder_absorption_unlocked",
+	"stage15_boss_defeated",
+	"stage30_boss_defeated",
+	"stage16_alpha_demo_completed",
+]
+const TRAVEL_POINT_IDS: Array[StringName] = [
+	TRAVEL_WAYSTATION_MAIN,
+	TRAVEL_THUNDER_OUTPOST,
+]
+const TRAVEL_POINT_DEFINITIONS := {
+	TRAVEL_WAYSTATION_MAIN: {
+		"label": "镇妖驿站",
+		"room_path": STAGE11_DEMO_END_ROOM_PATH,
+		"spawn_id": &"stage11_demo_end_start",
+		"icon_id": &"waystation_main",
+	},
+	TRAVEL_THUNDER_OUTPOST: {
+		"label": "雷泽前哨",
+		"room_path": STAGE25_ENTRY_ROOM_PATH,
+		"spawn_id": &"stage25_entry_start",
+		"icon_id": &"thunder_outpost",
+	},
+}
 
 # 默认输入绑定由 Main 兜底创建，保证独立运行测试或新机器启动时输入契约完整。
 const INPUT_BINDINGS := {
@@ -152,12 +204,22 @@ var _active_build_id: StringName = &""
 var _equipped_build_ids: Array[StringName] = []
 var _completed_story_event_ids: Dictionary = {}
 var _visited_room_paths: Dictionary = {}
+var _discovered_travel_point_ids: Dictionary = {}
 var _stage15_boss_defeated := false
 var _stage30_boss_defeated := false
 var _thunder_absorption_unlocked := false
 var _stage16_alpha_demo_completed := false
 var _stage16_release_notes_ready := true
 var _stage16_qa_checklist_ready := true
+var _persistence_session_active := false
+var _save_file_path := SAVE_FILE_PATH
+var _backup_save_file_path := BACKUP_SAVE_FILE_PATH
+var _save_paths_overridden := false
+var _last_save_result := {
+	"ok": false,
+	"code": &"not_saved",
+	"message": "尚未写入存档。",
+}
 
 
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
@@ -275,10 +337,12 @@ func _bind_runtime_dependencies(player: CharacterBody2D) -> void:
 		player.call("set_active_build_id", _active_build_id)
 	if player.has_method("set_thunder_absorption_unlocked"):
 		player.call("set_thunder_absorption_unlocked", _thunder_absorption_unlocked)
-	if player.has_signal("element_changed"):
-		player.connect("element_changed", Callable(self, "_on_player_element_changed"))
-	if player.has_signal("stance_changed"):
-		player.connect("stance_changed", Callable(self, "_on_player_stance_changed"))
+	var element_callback := Callable(self, "_on_player_element_changed")
+	if player.has_signal("element_changed") and not player.is_connected("element_changed", element_callback):
+		player.connect("element_changed", element_callback)
+	var stance_callback := Callable(self, "_on_player_stance_changed")
+	if player.has_signal("stance_changed") and not player.is_connected("stance_changed", stance_callback):
+		player.connect("stance_changed", stance_callback)
 
 	if room != null and room.has_method("bind_player"):
 		room.call("bind_player", player)
@@ -304,10 +368,18 @@ func transition_to_room(room_path: String, spawn_id: StringName) -> void:
 	_change_room(room_path, spawn_id)
 
 
+# 主菜单新开明确启用正式持久化；测试选关继续保持无存档副作用。
+func start_new_game() -> Dictionary:
+	_persistence_session_active = true
+	restart_demo()
+	return _last_save_result
+
+
 # Demo 重开只清理本轮推进状态，保留全局输入和场景结构，方便终点房反复试玩。
 func restart_demo() -> void:
 	_reset_demo_runtime_state()
 	_change_room(TUTORIAL_ROOM_PATH, &"tutorial_start")
+	_persist_if_session_active()
 
 
 # 测试选关入口：仍走生产 Main 的房间、玩家、HUD 和相机装配，只跳过手动主线推进。
@@ -315,6 +387,7 @@ func start_demo_at_room(room_path: String, spawn_id: StringName, debug_progress:
 	if room_path.is_empty() or not ResourceLoader.exists(room_path):
 		return false
 
+	_persistence_session_active = false
 	_reset_demo_runtime_state()
 	if bool(debug_progress.get("air_dash_unlocked", false)):
 		_air_dash_unlocked = true
@@ -391,6 +464,7 @@ func _reset_demo_runtime_state() -> void:
 	_equipped_build_ids.clear()
 	_completed_story_event_ids.clear()
 	_visited_room_paths.clear()
+	_discovered_travel_point_ids.clear()
 	_stage15_boss_defeated = false
 	_stage30_boss_defeated = false
 	_thunder_absorption_unlocked = false
@@ -408,7 +482,7 @@ func start_demo() -> void:
 		demo_shell.call("start_demo")
 		return
 
-	restart_demo()
+	start_new_game()
 	get_tree().paused = false
 
 
@@ -491,6 +565,10 @@ func get_demo_progress_snapshot() -> Dictionary:
 		"stage16_alpha_demo_completed": _stage16_alpha_demo_completed,
 		"stage16_release_notes_ready": _stage16_release_notes_ready,
 		"stage16_qa_checklist_ready": _stage16_qa_checklist_ready,
+		"current_travel_point_id": _get_current_travel_point_id(),
+		"discovered_travel_point_count": _discovered_travel_point_ids.size(),
+		"persistence_session_active": _persistence_session_active,
+		"last_save_code": _last_save_result.get("code", &"not_saved"),
 	}
 
 
@@ -512,6 +590,7 @@ func get_world_map_snapshot() -> Dictionary:
 		"bounty_completed_count": bounty_snapshot.get("completed_count", 0),
 		"bounty_turned_in_count": bounty_snapshot.get("turned_in_count", 0),
 		"waystation_intel_unlocked": bounty_snapshot.get("waystation_intel_unlocked", false),
+		"discovered_travel_point_ids": _sorted_string_ids(_discovered_travel_point_ids),
 	}
 
 
@@ -521,6 +600,7 @@ func unlock_air_dash() -> void:
 	var player := _get_runtime_player()
 	if player != null and player.has_method("set_air_dash_unlocked"):
 		player.call("set_air_dash_unlocked", true)
+	_persist_if_session_active()
 
 
 # 公开查询空中冲刺是否已进入跨房间主流程状态。
@@ -539,6 +619,7 @@ func unlock_wind_seal() -> void:
 	if player != null and player.has_method("set_current_element_id"):
 		player.call("set_current_element_id", _current_element_id)
 	_refresh_hud_progress()
+	_persist_if_session_active()
 
 
 # 查询风印是否已成为本轮可用的第二能力。
@@ -550,11 +631,13 @@ func is_wind_seal_unlocked() -> bool:
 func _on_player_element_changed(element_id: StringName) -> void:
 	_current_element_id = element_id
 	_refresh_hud_progress()
+	_persist_if_session_active()
 
 
 func _on_player_stance_changed(stance_id: StringName) -> void:
 	_current_stance_id = stance_id
 	_refresh_hud_progress()
+	_persist_if_session_active()
 
 
 # 记录 Stage14 回溯收益，使用 reward_id 去重，防止换房或重复触发刷计数。
@@ -563,6 +646,7 @@ func collect_stage14_backtrack_reward(reward_id: StringName) -> void:
 		return
 
 	_stage14_backtrack_reward_ids[reward_id] = true
+	_persist_if_session_active()
 
 
 # 返回已确认的 Stage14 回溯收益数量，HUD 和主线测试都依赖这个读值。
@@ -585,6 +669,7 @@ func collect_exploration_reward(reward_id: StringName) -> void:
 	if reward_id == &"marsh_relic":
 		_complete_bounty(BOUNTY_DEMON_BONE_EVIDENCE)
 	_refresh_hud_progress()
+	_persist_if_session_active()
 
 
 # 驿站悬赏只保留三条固定条目；状态快照同时供榜单、HUD、地图与测试读取。
@@ -630,6 +715,7 @@ func advance_bounty(bounty_id: StringName) -> Dictionary:
 		_refresh_hud_progress()
 		if _turned_in_bounty_ids.size() == BOUNTY_IDS.size():
 			call_deferred("_trigger_stage28_all_bounties_story")
+	_persist_if_session_active()
 	return get_bounty_board_snapshot()
 
 
@@ -646,6 +732,7 @@ func _complete_bounty(bounty_id: StringName) -> void:
 		return
 	_completed_bounty_ids[bounty_id] = true
 	_refresh_hud_progress()
+	_persist_if_session_active()
 
 
 func _get_bounty_state(bounty_id: StringName) -> StringName:
@@ -691,6 +778,7 @@ func cycle_active_build() -> StringName:
 	)
 	_apply_build_loadout_to_current_player()
 	_refresh_hud_progress()
+	_persist_if_session_active()
 	return _active_build_id
 
 
@@ -771,6 +859,7 @@ func toggle_build_equipped(build_id: StringName) -> Dictionary:
 
 	_apply_build_loadout_to_current_player()
 	_refresh_hud_progress()
+	_persist_if_session_active()
 	return get_build_loadout_snapshot()
 
 
@@ -788,6 +877,7 @@ func trigger_story_event(event_id: StringName, title: String, body: String) -> b
 	if demo_shell != null and demo_shell.has_method("show_story_event"):
 		demo_shell.call("show_story_event", title, body)
 	_refresh_hud_progress()
+	_persist_if_session_active()
 	return true
 
 
@@ -801,6 +891,7 @@ func mark_stage15_boss_defeated() -> void:
 	# Boss 房只报告胜利事件；Main 把它转成 demo 进度快照，供完成房和 HUD 继续读取。
 	_stage15_boss_defeated = true
 	collect_exploration_reward(BUILD_GUARDIAN_CORE)
+	_persist_if_session_active()
 
 
 # 公开查询 Stage15 Boss 结果，避免完成房直接读取 Main 私有变量。
@@ -821,6 +912,7 @@ func mark_stage30_boss_defeated() -> void:
 		STAGE30_DEMON_RESONANCE_EVENT_TITLE,
 		STAGE30_DEMON_RESONANCE_EVENT_BODY
 	)
+	_persist_if_session_active()
 
 
 func is_stage30_boss_defeated() -> bool:
@@ -836,6 +928,7 @@ func unlock_thunder_absorption() -> void:
 	if player != null and player.has_method("set_thunder_absorption_unlocked"):
 		player.call("set_thunder_absorption_unlocked", true)
 	_refresh_hud_progress()
+	_persist_if_session_active()
 
 
 func is_thunder_absorption_unlocked() -> bool:
@@ -847,6 +940,7 @@ func mark_stage16_alpha_demo_completed() -> void:
 	_stage16_alpha_demo_completed = true
 	_is_demo_completed = true
 	_refresh_hud_progress()
+	_persist_if_session_active()
 
 
 # 查询 Stage16 Alpha Demo 完成态，避免 Demo 壳、房间或测试读取 Main 私有变量。
@@ -876,6 +970,569 @@ func is_stage16_qa_checklist_ready() -> bool:
 	return _stage16_qa_checklist_ready
 
 
+# Stage31 固定一个 version 1 单档；测试只能覆写到 user:// 内的独立 JSON，避免污染真人档。
+func set_save_paths_for_testing(save_path: String, backup_path: String) -> bool:
+	if (
+		not _is_safe_user_json_path(save_path)
+		or not _is_safe_user_json_path(backup_path)
+		or save_path == backup_path
+	):
+		return false
+	_save_file_path = save_path
+	_backup_save_file_path = backup_path
+	_save_paths_overridden = true
+	_persistence_session_active = true
+	return true
+
+
+# 直接序列化 Main 已持有的权威字段，不创建第二份 SaveGame 领域对象。
+func build_save_snapshot() -> Dictionary:
+	var checkpoint_room_path := _checkpoint_room_path if not _checkpoint_room_path.is_empty() else _current_room_path
+	var checkpoint_spawn_id := _checkpoint_spawn_id if _checkpoint_spawn_id != StringName() else _current_spawn_id
+	return {
+		"version": SAVE_VERSION,
+		"checkpoint": {
+			"room_path": checkpoint_room_path,
+			"spawn_id": String(checkpoint_spawn_id),
+		},
+		"progress": {
+			"short_chain_completed": _is_short_chain_completed,
+			"demo_completed": _is_demo_completed,
+			"air_dash_unlocked": _air_dash_unlocked,
+			"wind_seal_unlocked": _wind_seal_unlocked,
+			"thunder_absorption_unlocked": _thunder_absorption_unlocked,
+			"current_element_id": String(_current_element_id),
+			"current_stance_id": String(_current_stance_id),
+			"stage14_backtrack_reward_ids": _sorted_string_ids(_stage14_backtrack_reward_ids),
+			"exploration_reward_ids": _sorted_string_ids(_exploration_reward_ids),
+			"accepted_bounty_ids": _sorted_string_ids(_accepted_bounty_ids),
+			"completed_bounty_ids": _sorted_string_ids(_completed_bounty_ids),
+			"turned_in_bounty_ids": _sorted_string_ids(_turned_in_bounty_ids),
+			"active_build_id": String(_active_build_id),
+			"equipped_build_ids": _string_name_array_to_strings(_equipped_build_ids),
+			"completed_story_event_ids": _sorted_string_ids(_completed_story_event_ids),
+			"visited_room_paths": _sorted_string_ids(_visited_room_paths),
+			"stage15_boss_defeated": _stage15_boss_defeated,
+			"stage30_boss_defeated": _stage30_boss_defeated,
+			"stage16_alpha_demo_completed": _stage16_alpha_demo_completed,
+		},
+		"travel_point_ids": _sorted_string_ids(_discovered_travel_point_ids),
+	}
+
+
+# 应用前先把整份输入校验并规范化；失败时不会清理或覆盖当前进度。
+func apply_save_snapshot(candidate: Variant) -> Dictionary:
+	var validation := _validate_save_snapshot(candidate)
+	if not bool(validation.get("ok", false)):
+		return validation
+
+	var snapshot: Dictionary = validation.get("snapshot", {})
+	var checkpoint: Dictionary = snapshot.get("checkpoint", {})
+	var progress: Dictionary = snapshot.get("progress", {})
+	_reset_demo_runtime_state()
+	_is_short_chain_completed = bool(progress.get("short_chain_completed", false))
+	_is_demo_completed = bool(progress.get("demo_completed", false))
+	_air_dash_unlocked = bool(progress.get("air_dash_unlocked", false))
+	_wind_seal_unlocked = bool(progress.get("wind_seal_unlocked", false))
+	_thunder_absorption_unlocked = bool(progress.get("thunder_absorption_unlocked", false))
+	_current_element_id = StringName(str(progress.get("current_element_id", ELEMENT_THUNDER)))
+	_current_stance_id = StringName(str(progress.get("current_stance_id", STANCE_SWIFT)))
+	_stage14_backtrack_reward_ids = _dictionary_from_string_ids(progress.get("stage14_backtrack_reward_ids", []))
+	_exploration_reward_ids = _dictionary_from_string_ids(progress.get("exploration_reward_ids", []))
+	_accepted_bounty_ids = _dictionary_from_string_ids(progress.get("accepted_bounty_ids", []))
+	_completed_bounty_ids = _dictionary_from_string_ids(progress.get("completed_bounty_ids", []))
+	_turned_in_bounty_ids = _dictionary_from_string_ids(progress.get("turned_in_bounty_ids", []))
+	_completed_story_event_ids = _dictionary_from_string_ids(progress.get("completed_story_event_ids", []))
+	_visited_room_paths = _dictionary_from_string_ids(progress.get("visited_room_paths", []))
+	_discovered_travel_point_ids = _dictionary_from_string_ids(snapshot.get("travel_point_ids", []))
+	_equipped_build_ids.clear()
+	for build_id: Variant in progress.get("equipped_build_ids", []):
+		_equipped_build_ids.append(StringName(str(build_id)))
+	_active_build_id = StringName(str(progress.get("active_build_id", "")))
+	_stage15_boss_defeated = bool(progress.get("stage15_boss_defeated", false))
+	_stage30_boss_defeated = bool(progress.get("stage30_boss_defeated", false))
+	_stage16_alpha_demo_completed = bool(progress.get("stage16_alpha_demo_completed", false))
+	_checkpoint_room_path = str(checkpoint.get("room_path", TUTORIAL_ROOM_PATH))
+	_checkpoint_spawn_id = StringName(str(checkpoint.get("spawn_id", "tutorial_start")))
+
+	var player := _get_runtime_player()
+	if player != null:
+		_bind_runtime_dependencies(player)
+	_refresh_hud_progress()
+	return {
+		"ok": true,
+		"code": &"applied",
+		"message": "存档状态已应用。",
+		"snapshot": snapshot,
+	}
+
+
+# 写入顺序：新档 temp 校验 -> 旧主档备份 -> 替换主档；任一步失败都不覆盖未轮换的有效档。
+func save_game() -> Dictionary:
+	if not _persistence_session_active:
+		return _save_result(false, &"inactive", "当前会话未启用正式存档。")
+	if not _can_write_persistence():
+		return _save_result(true, &"test_write_skipped", "GUT 默认路径写入已跳过。", {"skipped": true})
+
+	var snapshot := build_save_snapshot()
+	var temp_path := _save_file_path + ".tmp"
+	_remove_file_if_present(temp_path)
+	var write_error := _write_text_file(temp_path, JSON.stringify(snapshot, "\t"))
+	if write_error != OK:
+		return _record_save_result(_save_result(false, &"write_failed", "无法写入临时存档。", {"error": write_error}))
+	var temp_validation := _read_save_file(temp_path)
+	if not bool(temp_validation.get("ok", false)):
+		_remove_file_if_present(temp_path)
+		return _record_save_result(_save_result(false, &"temp_invalid", "临时存档回读校验失败。"))
+
+	var current := _read_save_file(_save_file_path)
+	if bool(current.get("ok", false)):
+		var backup_temp_path := _backup_save_file_path + ".tmp"
+		_remove_file_if_present(backup_temp_path)
+		var backup_text := JSON.stringify(current.get("snapshot", {}), "\t")
+		var backup_write_error := _write_text_file(backup_temp_path, backup_text)
+		if backup_write_error != OK or not bool(_read_save_file(backup_temp_path).get("ok", false)):
+			_remove_file_if_present(backup_temp_path)
+			_remove_file_if_present(temp_path)
+			return _record_save_result(_save_result(false, &"backup_failed", "上一有效档无法安全轮换，已保留当前主档。"))
+		var backup_remove_error := _remove_file_if_present(_backup_save_file_path)
+		if backup_remove_error != OK:
+			_remove_file_if_present(backup_temp_path)
+			_remove_file_if_present(temp_path)
+			return _record_save_result(_save_result(false, &"backup_replace_failed", "旧备份无法替换，已保留当前主档。"))
+		var backup_rename_error := DirAccess.rename_absolute(
+			ProjectSettings.globalize_path(backup_temp_path),
+			ProjectSettings.globalize_path(_backup_save_file_path)
+		)
+		if backup_rename_error != OK:
+			_remove_file_if_present(temp_path)
+			return _record_save_result(_save_result(false, &"backup_replace_failed", "新备份无法就位，已保留当前主档。"))
+
+	var main_remove_error := _remove_file_if_present(_save_file_path)
+	if main_remove_error != OK:
+		_remove_file_if_present(temp_path)
+		return _record_save_result(_save_result(false, &"replace_failed", "主存档无法替换。"))
+	var rename_error := DirAccess.rename_absolute(
+		ProjectSettings.globalize_path(temp_path),
+		ProjectSettings.globalize_path(_save_file_path)
+	)
+	if rename_error != OK:
+		return _record_save_result(_save_result(false, &"replace_failed", "临时存档无法切换为主档；备份仍保留。"))
+	var final_validation := _read_save_file(_save_file_path)
+	if not bool(final_validation.get("ok", false)):
+		return _record_save_result(_save_result(false, &"final_invalid", "主存档写入后校验失败；可继续使用备份。"))
+	return _record_save_result(_save_result(true, &"saved", "进度已保存。"))
+
+
+# 主菜单只检查有效性；真正应用状态只发生在 Continue 点击之后。
+func get_save_status_snapshot() -> Dictionary:
+	var selected := _select_valid_save()
+	if bool(selected.get("ok", false)):
+		var from_backup := StringName(selected.get("source", &"primary")) == &"backup"
+		return {
+			"valid": true,
+			"source": selected.get("source", &"primary"),
+			"from_backup": from_backup,
+			"corrupted_primary": bool(selected.get("corrupted_primary", false)),
+			"message": "主档损坏，可从上一有效备份继续。" if from_backup else "检测到有效本地存档。",
+		}
+	var corrupted := FileAccess.file_exists(_save_file_path) or FileAccess.file_exists(_backup_save_file_path)
+	return {
+		"valid": false,
+		"source": &"none",
+		"from_backup": false,
+		"corrupted_primary": corrupted,
+		"code": selected.get("code", &"missing"),
+		"message": "存档损坏或版本不受支持，可安全开始新游戏。" if corrupted else "尚无本地存档。",
+	}
+
+
+func continue_saved_game() -> Dictionary:
+	var selected := _select_valid_save()
+	if not bool(selected.get("ok", false)):
+		return _save_result(false, selected.get("code", &"invalid_save"), "没有可继续的有效存档。")
+	var previous_session_active := _persistence_session_active
+	_persistence_session_active = false
+	var applied := apply_save_snapshot(selected.get("snapshot", {}))
+	if not bool(applied.get("ok", false)):
+		_persistence_session_active = previous_session_active
+		return applied
+	var checkpoint: Dictionary = (selected.get("snapshot", {}) as Dictionary).get("checkpoint", {})
+	_change_room(
+		str(checkpoint.get("room_path", TUTORIAL_ROOM_PATH)),
+		StringName(str(checkpoint.get("spawn_id", "tutorial_start"))),
+		true
+	)
+	_persistence_session_active = true
+	get_tree().paused = false
+	_last_save_result = _save_result(
+		true,
+		&"continued_from_backup" if StringName(selected.get("source", &"primary")) == &"backup" else &"continued",
+		"已从上一有效备份继续。" if StringName(selected.get("source", &"primary")) == &"backup" else "已继续本地进度。"
+	)
+	return _last_save_result.duplicate(true)
+
+
+# 传送只开放固定两点；目标发现、起点位置和传送前保存缺一不可。
+func get_waystation_travel_snapshot(status_message := "") -> Dictionary:
+	var current_id := _get_current_travel_point_id()
+	var entries: Array[Dictionary] = []
+	var can_travel := false
+	for travel_id: StringName in TRAVEL_POINT_IDS:
+		var definition: Dictionary = TRAVEL_POINT_DEFINITIONS[travel_id]
+		var discovered := _discovered_travel_point_ids.has(travel_id)
+		var is_current := travel_id == current_id
+		if current_id != StringName() and discovered and not is_current:
+			can_travel = true
+		entries.append({
+			"id": travel_id,
+			"label": definition.get("label", "未知驿站"),
+			"room_path": definition.get("room_path", ""),
+			"spawn_id": definition.get("spawn_id", StringName()),
+			"icon_id": definition.get("icon_id", &"travel_locked"),
+			"discovered": discovered,
+			"current": is_current,
+			"state_id": &"current" if is_current else (&"available" if discovered else &"locked"),
+		})
+	return {
+		"entries": entries,
+		"current_travel_point_id": current_id,
+		"discovered_count": _discovered_travel_point_ids.size(),
+		"can_travel": can_travel,
+		"status_message": status_message,
+	}
+
+
+func request_waystation_travel(target_id: StringName) -> Dictionary:
+	var current_id := _get_current_travel_point_id()
+	if current_id == StringName():
+		return _travel_result(false, &"invalid_origin", "只能在镇妖驿站或雷泽前哨传送。")
+	if target_id not in TRAVEL_POINT_IDS or target_id == current_id:
+		return _travel_result(false, &"invalid_target", "请选择另一处固定驿站。")
+	if not _discovered_travel_point_ids.has(target_id):
+		return _travel_result(false, &"undiscovered", "目标驿站尚未发现。")
+	var pre_save := save_game()
+	if not bool(pre_save.get("ok", false)):
+		return _travel_result(false, &"save_failed", "传送前保存失败，位置保持不变。")
+
+	var definition: Dictionary = TRAVEL_POINT_DEFINITIONS[target_id]
+	_change_room(
+		str(definition.get("room_path", "")),
+		StringName(definition.get("spawn_id", StringName())),
+		true
+	)
+	_refresh_hud_progress()
+	return _travel_result(true, &"traveled", "已抵达%s。" % definition.get("label", "目标驿站"))
+
+
+func _validate_save_snapshot(candidate: Variant) -> Dictionary:
+	if not (candidate is Dictionary):
+		return _invalid_save(&"invalid_root", "存档根节点必须是字典。")
+	var root: Dictionary = candidate
+	var version_value: Variant = root.get("version", null)
+	if typeof(version_value) not in [TYPE_INT, TYPE_FLOAT]:
+		return _invalid_save(&"invalid_version", "存档版本字段类型错误。")
+	if float(version_value) != float(int(version_value)) or int(version_value) != SAVE_VERSION:
+		return _invalid_save(&"unsupported_version", "存档版本不受支持。")
+	if not (root.get("checkpoint", null) is Dictionary) or not (root.get("progress", null) is Dictionary):
+		return _invalid_save(&"invalid_sections", "存档缺少 checkpoint 或 progress。")
+	if not (root.get("travel_point_ids", null) is Array):
+		return _invalid_save(&"invalid_travel_points", "传送点字段类型错误。")
+
+	var checkpoint: Dictionary = root.get("checkpoint", {})
+	var progress: Dictionary = root.get("progress", {})
+	for key: String in ["room_path", "spawn_id"]:
+		if not checkpoint.has(key) or typeof(checkpoint[key]) not in [TYPE_STRING, TYPE_STRING_NAME]:
+			return _invalid_save(&"invalid_checkpoint", "checkpoint 字段类型错误。")
+	var checkpoint_room_path := str(checkpoint.get("room_path", ""))
+	var checkpoint_spawn_id := str(checkpoint.get("spawn_id", ""))
+	if not _is_safe_room_path(checkpoint_room_path) or checkpoint_spawn_id.is_empty():
+		return _invalid_save(&"unsafe_checkpoint", "checkpoint 路径或出生点无效。")
+
+	for field: String in SAVE_BOOLEAN_FIELDS:
+		if not progress.has(field) or typeof(progress[field]) != TYPE_BOOL:
+			return _invalid_save(&"invalid_field_type", "%s 字段类型错误。" % field)
+	for field: String in ["current_element_id", "current_stance_id", "active_build_id"]:
+		if not progress.has(field) or typeof(progress[field]) not in [TYPE_STRING, TYPE_STRING_NAME]:
+			return _invalid_save(&"invalid_field_type", "%s 字段类型错误。" % field)
+
+	var stage14 := _sanitize_id_array(progress.get("stage14_backtrack_reward_ids", null), STAGE14_REWARD_IDS)
+	var exploration := _sanitize_id_array(progress.get("exploration_reward_ids", null), SAVE_EXPLORATION_REWARD_IDS)
+	var accepted := _sanitize_id_array(progress.get("accepted_bounty_ids", null), BOUNTY_IDS)
+	var completed := _sanitize_id_array(progress.get("completed_bounty_ids", null), BOUNTY_IDS)
+	var turned_in := _sanitize_id_array(progress.get("turned_in_bounty_ids", null), BOUNTY_IDS)
+	var equipped := _sanitize_id_array(progress.get("equipped_build_ids", null), BUILD_REWARD_IDS)
+	var story := _sanitize_id_array(progress.get("completed_story_event_ids", null), STORY_EVENT_IDS)
+	var travel := _sanitize_id_array(root.get("travel_point_ids", null), TRAVEL_POINT_IDS)
+	for result: Dictionary in [stage14, exploration, accepted, completed, turned_in, equipped, story, travel]:
+		if not bool(result.get("ok", false)):
+			return result
+	var visited := _sanitize_room_path_array(progress.get("visited_room_paths", null))
+	if not bool(visited.get("ok", false)):
+		return visited
+
+	var accepted_ids: Array = accepted.get("values", [])
+	var completed_ids: Array = completed.get("values", [])
+	var turned_in_ids: Array = turned_in.get("values", [])
+	for bounty_id: Variant in completed_ids:
+		if bounty_id not in accepted_ids:
+			return _invalid_save(&"invalid_bounty_state", "完成悬赏必须先处于已接取状态。")
+	for bounty_id: Variant in turned_in_ids:
+		if bounty_id not in completed_ids:
+			return _invalid_save(&"invalid_bounty_state", "回交悬赏必须先处于已完成状态。")
+
+	var exploration_ids: Array = exploration.get("values", [])
+	var wind_seal_unlocked := bool(progress.get("wind_seal_unlocked", false))
+	if wind_seal_unlocked and String(WIND_SEAL_REWARD_ID) not in exploration_ids:
+		exploration_ids.append(String(WIND_SEAL_REWARD_ID))
+	if String(WIND_SEAL_REWARD_ID) in exploration_ids:
+		wind_seal_unlocked = true
+	var stage15_defeated := bool(progress.get("stage15_boss_defeated", false))
+	var stage30_defeated := bool(progress.get("stage30_boss_defeated", false))
+	var thunder_absorption_unlocked := bool(progress.get("thunder_absorption_unlocked", false)) or stage30_defeated
+	if stage15_defeated and String(BUILD_GUARDIAN_CORE) not in exploration_ids:
+		exploration_ids.append(String(BUILD_GUARDIAN_CORE))
+	if String(BOUNTY_CASTER_HUNT) in turned_in_ids and String(BUILD_CASTER_CORE) not in exploration_ids:
+		exploration_ids.append(String(BUILD_CASTER_CORE))
+	if stage30_defeated and String(BUILD_THUNDER_BEAST_CORE) not in exploration_ids:
+		exploration_ids.append(String(BUILD_THUNDER_BEAST_CORE))
+	exploration_ids.sort()
+
+	var equipped_ids: Array = []
+	for build_id: Variant in equipped.get("values", []):
+		if build_id in exploration_ids and equipped_ids.size() < BUILD_SLOT_LIMIT:
+			equipped_ids.append(build_id)
+	var active_build_id := str(progress.get("active_build_id", ""))
+	if active_build_id not in equipped_ids:
+		active_build_id = str(equipped_ids[0]) if not equipped_ids.is_empty() else ""
+	var current_element_id := str(progress.get("current_element_id", String(ELEMENT_THUNDER)))
+	if current_element_id not in [String(ELEMENT_THUNDER), String(ELEMENT_WIND)] or (current_element_id == String(ELEMENT_WIND) and not wind_seal_unlocked):
+		current_element_id = String(ELEMENT_THUNDER)
+	var current_stance_id := str(progress.get("current_stance_id", String(STANCE_SWIFT)))
+	if current_stance_id not in [String(STANCE_SWIFT), String(STANCE_WARD)]:
+		current_stance_id = String(STANCE_SWIFT)
+
+	var visited_paths: Array = visited.get("values", [])
+	if checkpoint_room_path not in visited_paths:
+		visited_paths.append(checkpoint_room_path)
+	visited_paths.sort()
+	var travel_ids: Array = travel.get("values", [])
+	for travel_id: StringName in TRAVEL_POINT_IDS:
+		var definition: Dictionary = TRAVEL_POINT_DEFINITIONS[travel_id]
+		if str(definition.get("room_path", "")) in visited_paths and String(travel_id) not in travel_ids:
+			travel_ids.append(String(travel_id))
+	travel_ids.sort()
+
+	var stage16_completed := bool(progress.get("stage16_alpha_demo_completed", false))
+	return {
+		"ok": true,
+		"snapshot": {
+			"version": SAVE_VERSION,
+			"checkpoint": {
+				"room_path": checkpoint_room_path,
+				"spawn_id": checkpoint_spawn_id,
+			},
+			"progress": {
+				"short_chain_completed": bool(progress.get("short_chain_completed", false)),
+				"demo_completed": bool(progress.get("demo_completed", false)) or stage16_completed,
+				"air_dash_unlocked": bool(progress.get("air_dash_unlocked", false)),
+				"wind_seal_unlocked": wind_seal_unlocked,
+				"thunder_absorption_unlocked": thunder_absorption_unlocked,
+				"current_element_id": current_element_id,
+				"current_stance_id": current_stance_id,
+				"stage14_backtrack_reward_ids": stage14.get("values", []),
+				"exploration_reward_ids": exploration_ids,
+				"accepted_bounty_ids": accepted_ids,
+				"completed_bounty_ids": completed_ids,
+				"turned_in_bounty_ids": turned_in_ids,
+				"active_build_id": active_build_id,
+				"equipped_build_ids": equipped_ids,
+				"completed_story_event_ids": story.get("values", []),
+				"visited_room_paths": visited_paths,
+				"stage15_boss_defeated": stage15_defeated,
+				"stage30_boss_defeated": stage30_defeated,
+				"stage16_alpha_demo_completed": stage16_completed,
+			},
+			"travel_point_ids": travel_ids,
+		},
+	}
+
+
+func _sanitize_id_array(value: Variant, allowed_ids: Array[StringName]) -> Dictionary:
+	if not (value is Array):
+		return _invalid_save(&"invalid_array", "存档 ID 列表类型错误。")
+	var values: Array[String] = []
+	for raw_id: Variant in value:
+		if typeof(raw_id) not in [TYPE_STRING, TYPE_STRING_NAME]:
+			return _invalid_save(&"invalid_id_type", "存档 ID 类型错误。")
+		var resolved_id := StringName(str(raw_id))
+		if resolved_id in allowed_ids and String(resolved_id) not in values:
+			values.append(String(resolved_id))
+	values.sort()
+	return {"ok": true, "values": values}
+
+
+func _sanitize_room_path_array(value: Variant) -> Dictionary:
+	if not (value is Array):
+		return _invalid_save(&"invalid_room_list", "已发现房间列表类型错误。")
+	var paths: Array[String] = []
+	for raw_path: Variant in value:
+		if typeof(raw_path) not in [TYPE_STRING, TYPE_STRING_NAME]:
+			return _invalid_save(&"invalid_room_path", "已发现房间路径类型错误。")
+		var room_path := str(raw_path)
+		if not _is_safe_room_path(room_path):
+			return _invalid_save(&"unsafe_room_path", "存档包含越界或不存在的房间路径。")
+		if room_path not in paths:
+			paths.append(room_path)
+	paths.sort()
+	return {"ok": true, "values": paths}
+
+
+func _read_save_file(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
+		return _invalid_save(&"missing", "存档文件不存在。")
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return _invalid_save(&"read_failed", "存档文件无法读取。")
+	var json := JSON.new()
+	var parse_error := json.parse(file.get_as_text())
+	if parse_error != OK:
+		return _invalid_save(&"corrupted_json", "存档 JSON 损坏。")
+	var validation := _validate_save_snapshot(json.data)
+	if bool(validation.get("ok", false)):
+		validation["path"] = path
+	return validation
+
+
+func _select_valid_save() -> Dictionary:
+	var primary := _read_save_file(_save_file_path)
+	if bool(primary.get("ok", false)):
+		primary["source"] = &"primary"
+		return primary
+	var backup := _read_save_file(_backup_save_file_path)
+	if bool(backup.get("ok", false)):
+		backup["source"] = &"backup"
+		backup["corrupted_primary"] = FileAccess.file_exists(_save_file_path)
+		return backup
+	return primary if FileAccess.file_exists(_save_file_path) else backup
+
+
+func _write_text_file(path: String, text: String) -> Error:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		return FileAccess.get_open_error()
+	file.store_string(text)
+	file.flush()
+	return file.get_error()
+
+
+func _remove_file_if_present(path: String) -> Error:
+	if not FileAccess.file_exists(path):
+		return OK
+	return DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+
+
+func _persist_if_session_active() -> void:
+	if _persistence_session_active and _can_write_persistence():
+		save_game()
+
+
+func _can_write_persistence() -> bool:
+	if _save_paths_overridden:
+		return true
+	return get_tree() == null or get_tree().root.find_child("GutRunner", true, false) == null
+
+
+func _record_save_result(result: Dictionary) -> Dictionary:
+	_last_save_result = result.duplicate(true)
+	if demo_shell != null and demo_shell.has_method("refresh_save_state"):
+		demo_shell.call("refresh_save_state")
+	return result
+
+
+func _save_result(ok: bool, code: StringName, message: String, extra: Dictionary = {}) -> Dictionary:
+	var result := {"ok": ok, "code": code, "message": message}
+	result.merge(extra, true)
+	return result
+
+
+func _travel_result(ok: bool, code: StringName, message: String) -> Dictionary:
+	var result := get_waystation_travel_snapshot(message)
+	result.merge({"ok": ok, "code": code, "message": message}, true)
+	return result
+
+
+func _invalid_save(code: StringName, message: String) -> Dictionary:
+	return {"ok": false, "code": code, "message": message}
+
+
+func _is_safe_room_path(path: String) -> bool:
+	return (
+		not path.is_empty()
+		and not path.contains("..")
+		and not path.contains("\\")
+		and path.begins_with("res://scenes/rooms/")
+		and path.ends_with(".tscn")
+		and ResourceLoader.exists(path)
+	)
+
+
+func _is_safe_user_json_path(path: String) -> bool:
+	return (
+		path.begins_with("user://")
+		and path.ends_with(".json")
+		and not path.contains("..")
+		and not path.contains("\\")
+	)
+
+
+func _sorted_string_ids(values: Dictionary) -> Array[String]:
+	var result: Array[String] = []
+	for raw_id: Variant in values.keys():
+		result.append(str(raw_id))
+	result.sort()
+	return result
+
+
+func _string_name_array_to_strings(values: Array[StringName]) -> Array[String]:
+	var result: Array[String] = []
+	for value: StringName in values:
+		result.append(String(value))
+	return result
+
+
+func _dictionary_from_string_ids(values: Array) -> Dictionary:
+	var result := {}
+	for value: Variant in values:
+		result[StringName(str(value))] = true
+	return result
+
+
+func _get_current_travel_point_id() -> StringName:
+	for travel_id: StringName in TRAVEL_POINT_IDS:
+		var definition: Dictionary = TRAVEL_POINT_DEFINITIONS[travel_id]
+		if str(definition.get("room_path", "")) == _current_room_path:
+			return travel_id
+	return StringName()
+
+
+# 首次进入固定驿站即登记发现并把恢复点收敛到该站的稳定 spawn。
+func _register_travel_point_for_room(room_path: String) -> bool:
+	for travel_id: StringName in TRAVEL_POINT_IDS:
+		var definition: Dictionary = TRAVEL_POINT_DEFINITIONS[travel_id]
+		if str(definition.get("room_path", "")) != room_path:
+			continue
+		var changed := not _discovered_travel_point_ids.has(travel_id)
+		_discovered_travel_point_ids[travel_id] = true
+		var spawn_id := StringName(definition.get("spawn_id", StringName()))
+		if _checkpoint_room_path != room_path or _checkpoint_spawn_id != spawn_id:
+			changed = true
+		_checkpoint_room_path = room_path
+		_checkpoint_spawn_id = spawn_id
+		return changed
+	return false
+
+
 # 房间切换逻辑必须同时覆盖：首次进入、同房间重生，以及真正的场景替换。
 func _change_room(room_path: String, spawn_id: StringName, force_reload := false) -> void:
 	var room_scene: PackedScene = load(room_path) as PackedScene
@@ -888,14 +1545,18 @@ func _change_room(room_path: String, spawn_id: StringName, force_reload := false
 	_current_room_path = room_path
 	_current_spawn_id = spawn_id
 	_visited_room_paths[room_path] = true
+	var travel_progress_changed := _register_travel_point_for_room(room_path)
 
 	if not force_reload and room != null and room.scene_file_path == room_path:
 		_bind_room_signals()
 		_spawn_placeholder_player(spawn_id)
 		_queue_room_entry_story(room_path, spawn_id)
+		if travel_progress_changed:
+			_persist_if_session_active()
 		return
 
 	if room != null:
+		_disconnect_room_signals(room)
 		remove_child(room)
 		room.queue_free()
 		room = null
@@ -910,6 +1571,8 @@ func _change_room(room_path: String, spawn_id: StringName, force_reload := false
 	_bind_room_signals()
 	_spawn_placeholder_player(spawn_id)
 	_queue_room_entry_story(room_path, spawn_id)
+	if travel_progress_changed:
+		_persist_if_session_active()
 
 
 func _queue_room_entry_story(room_path: String, spawn_id: StringName) -> void:
@@ -960,6 +1623,23 @@ func _ensure_room_signal_binding() -> void:
 		room.connect("bounty_board_requested", bounty_board_callback)
 
 	_bind_bounty_target_signals()
+
+
+# 旧房间 queue_free 前先断开指向 Main 的回调，避免延迟 checkpoint / 出口信号覆盖新房间状态。
+func _disconnect_room_signals(source_room: Node) -> void:
+	_disconnect_signal_if_connected(source_room, &"room_transition_requested", &"_on_room_transition_requested")
+	_disconnect_signal_if_connected(source_room, &"goal_completed", &"_on_goal_completed")
+	_disconnect_signal_if_connected(source_room, &"checkpoint_requested", &"_on_checkpoint_requested")
+	_disconnect_signal_if_connected(source_room, &"bounty_board_requested", &"_on_bounty_board_requested")
+	for child: Node in source_room.get_children():
+		_disconnect_signal_if_connected(child, &"defeated", &"_on_bounty_caster_defeated")
+		_disconnect_signal_if_connected(child, &"sequence_disrupted", &"_on_bounty_pulse_disrupted")
+
+
+func _disconnect_signal_if_connected(source: Node, signal_name: StringName, method_name: StringName) -> void:
+	var callback := Callable(self, method_name)
+	if source.has_signal(signal_name) and source.is_connected(signal_name, callback):
+		source.disconnect(signal_name, callback)
 
 
 # 直接复用现有房间子节点的生产信号，不让任务系统接管敌人或机关生命周期。
@@ -1121,11 +1801,11 @@ func _on_goal_completed() -> void:
 		_refresh_hud_progress()
 
 
-# 房间请求 checkpoint 时只记录房间路径与出生点，不在 Main 内保存更多房间状态。
+# 房间请求 checkpoint 时更新最近恢复点；正式会话再通过统一存档入口落盘。
 func _on_checkpoint_requested(room_path: String, spawn_id: StringName) -> void:
-	# checkpoint 仍然只记录运行期最近的恢复点，不扩展成正式存档系统。
 	_checkpoint_room_path = room_path
 	_checkpoint_spawn_id = spawn_id
+	_persist_if_session_active()
 
 
 # 按固定顺序返回已取得 Build，保证两槽 UI 与测试顺序稳定。

@@ -4,6 +4,11 @@
 
 ## 2026-08-02
 
+- **Stage31 单档存档与双驿站传送 Alpha 技术候选完成**：不复制进度模型、不扩任意传送框架，以 Main 既有权威状态完成跨进程 Continue 和两个固定驿站的最小闭环。
+  结果：version `1` 主档 / backup、temp 回读与白名单校验、有效档 Continue、损坏档安全 New Game、`waystation_main` / `thunder_outpost` 发现门控与双向传送进入生产；Stage31 `4x4` UI 图集为既有资产的确定性合成，四条本地 SFX 以并发 `1` 进入 scratch，真人接受前不进入 runtime。
+  关键验证或结论：MCP 生产 Main 发现并修复旧房间延迟 checkpoint 覆盖和传送焦点不可见；最终覆盖无档 / 有效 / backup / 双档损坏、完整状态恢复、真实 UI action 与双向传送，`editor errors=0`、临时 autoload / 存档 / editor 进程树清理完成。Stage31 `5/5` / `78`，Stage23-31 `42/42` / `540`，递归 GUT `48` scripts / `322/322` / `8865`，Godot `4.6.3` import、smoke 与 strict package 通过。当前交付的是 Gate26H 试玩候选，不是已通过真人签核或 Windows release。
+  详情日志链接：`docs/progress/logs/2026-08-02.md`；执行清单：`docs/implementation-plans/2026-08-01-stage31-save-and-waystation-travel.md`；交付：`docs/deliverables/stage31-north-star-alpha-candidate/`；资产矩阵：`docs/assets/stage31-save-travel-asset-matrix.md`。
+
 - **Stage30 雷泽敌群、区域首领与妖雷吸收技术候选完成**：不扩房、不新增通用 Boss 框架，复用既有战斗 / 路由契约形成“敌群 → 两阶段首领 → 吸收成长 → 回访捷径”闭环。
   结果：普通 / 蓄雷雷蚀獠、夔影雷骸两阶段动作与专属 VFX、雷吸收、雷兽妖核、回访 curtain 和一次性妖性共鸣进入生产；十二组图像资产已接入。七条本地音频按并发 `1` 进入 scratch，真人试听前不进入 runtime。资产治理为 `78/78 structural-ready`、`55/78 final-ready`，`23` 个人工阻断保持可见。
   关键验证或结论：MCP 生产 Main 覆盖敌人连续帧、shortcut 前后状态、Boss 两阶段 / 雷风破势 / 击败奖励与事件幂等，最终 `editor errors=0`、临时 autoload 与本轮 editor 精确进程树清理完成。Stage30 `5/5` / `53`，递归 GUT `47` scripts / `317/317` / `8785`，Godot `4.6.3` import、smoke 与 strict package 通过。音频、Boss 手感 / 读招、美术审美和真实 21:9 继续归 Gate26H。

@@ -214,6 +214,13 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 	assert_not_null(demo_shell)
 	if demo_shell == null:
 		return
+	var save_suffix := Time.get_ticks_usec()
+	assert_true(bool(main_scene.call(
+		"set_save_paths_for_testing",
+		"user://stage16_menu_missing_%d.json" % save_suffix,
+		"user://stage16_menu_missing_%d.backup.json" % save_suffix,
+	)))
+	demo_shell.call("refresh_save_state")
 
 	var main_menu := demo_shell.get_node_or_null("MainMenu") as Panel
 	var detail_panel := demo_shell.get_node_or_null("DetailPanel") as Panel
@@ -279,7 +286,8 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 	assert_true(start_button.get_theme_stylebox("pressed") is StyleBoxFlat)
 	assert_eq(start_button.text, "开始游戏")
 	if continue_button != null:
-		assert_false(continue_button.disabled)
+		assert_true(continue_button.disabled)
+		assert_eq(continue_button.focus_mode, Control.FOCUS_NONE)
 		assert_eq(continue_button.custom_minimum_size, start_button.custom_minimum_size)
 		assert_eq(continue_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
 		assert_eq(continue_button.text, "继续游戏")
@@ -308,7 +316,7 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 		assert_false(main_menu.visible)
 		assert_true(detail_panel.visible)
 		assert_eq(detail_title_label.text, "继续游戏")
-		assert_string_contains(detail_body_label.text, "暂无存档")
+		assert_string_contains(detail_body_label.text, "没有可继续")
 		assert_lt(detail_title_label.get_theme_color("font_color").r, 0.5)
 		assert_lt(detail_body_label.get_theme_color("font_color").r, 0.5)
 	if detail_back_button != null and detail_panel != null:

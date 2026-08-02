@@ -238,3 +238,12 @@ Stage 16 之后的 AI 与外部资产生产额外记录 `Batch ID`。批次定�
 | NS30-KuiThunderBossVFX | `stage30_kui_boss_{combat,state}_vfx_runtime_ai01.{png,spriteframes.tres}` | Independent image API two 4x4 sources + local chroma alpha | Source recorded; tool terms require manual external-release review | integrated / Gate26H pending | Stage30 | 32 visual-only combat and state frames; damage remains code-authoritative |
 | NS30-ThunderAbsorptionReward | `stage30_thunder_absorption_reward_vfx_runtime_ai01.{png,spriteframes.tres}` | Independent image API 4x4 source + local chroma alpha | Source recorded; tool terms require manual external-release review | integrated / Gate26H pending | Stage30 | 16 frames for absorption, core, resonance and shortcut states |
 | NS30-Audio | `D:/AI/audio/outputs/scratch/nano-hunter/stage30/*.wav` | local-game-audio / Stable Audio 3 + ACE-Step 1.5, fixed seeds, concurrency 1 | Local candidate only; acceptance and downstream license record pending | candidate_generated / not integrated | Stage30 / Gate26H | Six SFX and one 30s Boss BGM generated serially; listening, peak cleanup, loop seam, mix and authorization remain mandatory |
+
+## Stage31 Persistence and Travel Packs
+
+图标 cell、来源 hash、运行边界和音频候选明细见 `docs/assets/stage31-save-travel-asset-matrix.md`。美术 `integrated` 只表示 DemoShell 已引用；小尺寸可读性、发布条款与音频试听仍留给 Gate26H / release review。
+
+| Pack ID | Runtime outputs | Source / process | License boundary | Status | Stage | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| NS31-PersistenceTravelUI | `assets/art/ui/stage31_persistence_travel_ui_runtime_ai01.{png,frames.json,source.json}` | Existing Stage16 / Stage28 runtime assets + deterministic local composite | Inherits recorded source boundaries; manual external-release review still required | integrated / Gate26H pending | Stage31 | `4x4` display-only atlas for New Game, Continue, save health, checkpoint and fixed two-point travel; gameplay authority remains in Main |
+| NS31-Audio | `D:/AI/audio/outputs/scratch/nano-hunter/stage31/*.wav` | local-game-audio / Stable Audio 3 TFLite, fixed seeds, concurrency 1 | Local candidate only; acceptance and downstream license record pending | candidate_generated / not integrated | Stage31 / Gate26H | Four 3.0s WAV candidates generated serially; listening, trimming, loudness, stacking and authorization remain mandatory |

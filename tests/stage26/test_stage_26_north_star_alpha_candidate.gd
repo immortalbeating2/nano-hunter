@@ -64,6 +64,9 @@ func test_controller_can_operate_main_and_pause_menus() -> void:
 	var continue_button := shell.get_node(
 		"MainMenu/MarginContainer/VBoxContainer/ContinueButton"
 	) as Button
+	var level_select_button := shell.get_node(
+		"MainMenu/MarginContainer/VBoxContainer/LevelSelectButton"
+	) as Button
 	var resume_button := shell.get_node(
 		"PauseMenu/MarginContainer/VBoxContainer/ResumeButton"
 	) as Button
@@ -74,9 +77,10 @@ func test_controller_can_operate_main_and_pause_menus() -> void:
 	assert_true(_action_has_joy_button(&"ui_accept", JOY_BUTTON_A))
 	assert_true(_action_has_joy_button(&"ui_cancel", JOY_BUTTON_B))
 	assert_same(viewport.gui_get_focus_owner(), start_button)
+	assert_true(continue_button.disabled)
 
 	await _send_joy_button(JOY_BUTTON_DPAD_DOWN)
-	assert_same(viewport.gui_get_focus_owner(), continue_button)
+	assert_same(viewport.gui_get_focus_owner(), level_select_button)
 	await _send_joy_button(JOY_BUTTON_A)
 	assert_true((shell.get_node("DetailPanel") as Control).visible)
 	await _send_joy_button(JOY_BUTTON_B)

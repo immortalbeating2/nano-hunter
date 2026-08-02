@@ -1,0 +1,302 @@
+{
+  "id": "stage31_persistence_travel_ui_runtime_ai01",
+  "kind": "ui_icon_sheet",
+  "output": "assets/art/ui/stage31_persistence_travel_ui_runtime_ai01.png",
+  "cell": [
+    160,
+    160
+  ],
+  "columns": 4,
+  "rows": 4,
+  "frame_count": 16,
+  "frames": [
+    {
+      "index": 0,
+      "name": "continue_load",
+      "region": [
+        0,
+        0,
+        160,
+        160
+      ],
+      "source": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "source_index": 1,
+      "source_bounds": [
+        83,
+        69,
+        424,
+        505
+      ]
+    },
+    {
+      "index": 1,
+      "name": "new_game",
+      "region": [
+        160,
+        0,
+        160,
+        160
+      ],
+      "source": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "source_index": 2,
+      "source_bounds": [
+        42,
+        52,
+        372,
+        503
+      ]
+    },
+    {
+      "index": 2,
+      "name": "save_success",
+      "region": [
+        320,
+        0,
+        160,
+        160
+      ],
+      "source": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "source_index": 3,
+      "source_bounds": [
+        142,
+        16,
+        464,
+        457
+      ]
+    },
+    {
+      "index": 3,
+      "name": "save_error",
+      "region": [
+        480,
+        0,
+        160,
+        160
+      ],
+      "source": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "source_index": 5,
+      "source_bounds": [
+        42,
+        25,
+        362,
+        448
+      ]
+    },
+    {
+      "index": 4,
+      "name": "waystation_main",
+      "region": [
+        0,
+        160,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 12,
+      "source_bounds": [
+        11,
+        48,
+        246,
+        207
+      ]
+    },
+    {
+      "index": 5,
+      "name": "thunder_outpost",
+      "region": [
+        160,
+        160,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 13,
+      "source_bounds": [
+        10,
+        48,
+        246,
+        207
+      ]
+    },
+    {
+      "index": 6,
+      "name": "travel_available",
+      "region": [
+        320,
+        160,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 11,
+      "source_bounds": [
+        44,
+        10,
+        212,
+        246
+      ]
+    },
+    {
+      "index": 7,
+      "name": "travel_locked",
+      "region": [
+        480,
+        160,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 10,
+      "source_bounds": [
+        44,
+        10,
+        213,
+        246
+      ]
+    },
+    {
+      "index": 8,
+      "name": "checkpoint",
+      "region": [
+        0,
+        320,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 14,
+      "source_bounds": [
+        10,
+        22,
+        246,
+        234
+      ]
+    },
+    {
+      "index": 9,
+      "name": "backup",
+      "region": [
+        160,
+        320,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 15,
+      "source_bounds": [
+        10,
+        26,
+        246,
+        229
+      ]
+    },
+    {
+      "index": 10,
+      "name": "return",
+      "region": [
+        320,
+        320,
+        160,
+        160
+      ],
+      "source": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "source_index": 4,
+      "source_bounds": [
+        92,
+        10,
+        414,
+        407
+      ]
+    },
+    {
+      "index": 11,
+      "name": "paused_save",
+      "region": [
+        480,
+        320,
+        160,
+        160
+      ],
+      "source": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "source_index": 0,
+      "source_bounds": [
+        146,
+        52,
+        466,
+        447
+      ]
+    },
+    {
+      "index": 12,
+      "name": "current_waystation",
+      "region": [
+        0,
+        480,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 12,
+      "source_bounds": [
+        11,
+        48,
+        246,
+        207
+      ]
+    },
+    {
+      "index": 13,
+      "name": "current_outpost",
+      "region": [
+        160,
+        480,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 13,
+      "source_bounds": [
+        10,
+        48,
+        246,
+        207
+      ]
+    },
+    {
+      "index": 14,
+      "name": "save_pending",
+      "region": [
+        320,
+        480,
+        160,
+        160
+      ],
+      "source": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "source_index": 9,
+      "source_bounds": [
+        26,
+        10,
+        229,
+        246
+      ]
+    },
+    {
+      "index": 15,
+      "name": "valid_save",
+      "region": [
+        480,
+        480,
+        160,
+        160
+      ],
+      "source": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "source_index": 3,
+      "source_bounds": [
+        142,
+        16,
+        464,
+        457
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "asset_id": "NS31-PersistenceTravelUI",
+  "runtime_asset_id": "stage31_persistence_travel_ui_runtime_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "sources": [
+    {
+      "path": "assets/art/ui/stage16_demo_menu_icons_ai01.png",
+      "sha256": "b269e8cbb6fde3ceb7a07d6d406b44b7020ef6d4b0f6b551d9fa2103303d2b3f"
+    },
+    {
+      "path": "assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png",
+      "sha256": "b50da0659751c27956b89a923924b33833cf59bd1b4516bfd6bfbd9d432b63c3"
+    }
+  ],
+  "output": "assets/art/ui/stage31_persistence_travel_ui_runtime_ai01.png",
+  "output_sha256": "dcd3c7496a67339440ac7b08ba75c3e26ded8e1ea4f797d9d91b370aba62d715",
+  "process": "deterministic_composite_from_existing_runtime_assets",
+  "license_record_status": "inherits_recorded_source_boundaries",
+  "commercial_use_status": "manual_release_review_required",
+  "constraints": [
+    "fixed_4x4_grid",
+    "display_only",
+    "no_gameplay_collision",
+    "no_damage_source"
+  ]
+}

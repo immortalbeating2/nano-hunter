@@ -20,9 +20,11 @@
 ## Gate26H：延后真人签核
 
 - [x] 已批准延后到 Stage31 完成后；未完成时 Stage26 保持“待外部人工签核”，但不阻塞 Stage27-31。
+- [x] Stage31 技术候选与正式真人执行单已交付：`docs/deliverables/stage31-north-star-alpha-candidate/gate26h-human-playtest-checklist.md`。
 - [ ] 真人从主菜单完成一次首次通关、能力回访、悬赏回交和两槽 Build 调整。
 - [ ] 用实体手柄记录菜单、元素 / 姿态切换、误按、舒适度和迷路点。
 - [ ] 复核 Luna 全动作、四类技能 VFX、Seal Guardian 与雷泽 Boss 的读招 / 命中 / 阶段表现。
+- [ ] 完成 Stage27-31 音频候选接受 / 拒绝、真实 21:9 和 32px / 64px UI 可读性记录。
 
 ## Stage27：正式战斗美术、Luna 全动作集与首批音频
 
@@ -59,21 +61,21 @@
 ## Stage30：雷泽敌群、区域首领与元素吸收成长
 
 - [x] 专属设计边界与正式计划已冻结，锁定额外护印削减、雷幕捷径与雷兽妖核：`plan/2026-08-01-stage30-thunder-enemies-boss-absorption.md`。
-- [ ] 登记并制作 `NS30-ThunderEnemyFamily` 与 `NS30-ThunderBossFormal`。
-- [ ] 新增一个普通敌人家族和一个两阶段区域首领。
-- [ ] 两种现有序列均有可读优势，普通打法仍可完成。
-- [ ] 首领授予雷系吸收强化与一个大妖组件，并触发妖性共鸣事件。
-- [ ] 雷泽 Boss 至少覆盖两种 warning / attack、两阶段、phase transition、guard break / stagger、hit、defeat 与独立 warning / impact / phase / defeat VFX。
-- [ ] 完成新角色 SpriteFrames、VFX、音频、锚点 / 时序、Boss / 回访和全量验证。
+- [x] 登记并制作 `NS30-ThunderEnemyFamily` 与 `NS30-ThunderBossFormal`。
+- [x] 新增一个普通敌人家族和一个两阶段区域首领。
+- [x] 两种现有序列均有可读优势，普通打法仍可完成。
+- [x] 首领授予雷系吸收强化与一个大妖组件，并触发妖性共鸣事件。
+- [x] 雷泽 Boss 覆盖两种 warning / attack、两阶段、phase transition、guard break / stagger、hit、defeat 与独立 warning / impact / phase / defeat VFX。
+- [x] 完成新角色 SpriteFrames、VFX、音频 scratch、锚点 / 时序、Boss / 回访和全量验证；真人审美 / 试听留 Gate26H。
 
 ## Stage31：单档存档与双驿站传送
 
 - [x] 专属设计边界与正式计划已冻结，字段白名单、version 1、backup 与双点传送契约明确：`plan/2026-08-01-stage31-save-and-waystation-travel.md`。
-- [ ] 登记并制作 `NS31-PersistenceTravelUI`。
-- [ ] 从 Main 快照实现一个本地存档和真实 Continue。
-- [ ] 保留上一有效档，损坏档可安全提示 / 新开。
-- [ ] 只实现 Stage11 与雷泽前哨两点、已发现后可用的传送。
-- [ ] 完成正常 / 旧版 / 损坏 / 写入失败 / 关闭重开 / 门控绕过测试。
+- [x] 登记并制作 `NS31-PersistenceTravelUI`。
+- [x] 从 Main 快照实现一个本地存档和真实 Continue。
+- [x] 保留上一有效档，损坏档可安全提示 / 新开。
+- [x] 只实现 Stage11 与雷泽前哨两点、已发现后可用的传送。
+- [x] 完成正常 / 旧版 / 损坏 / 写入失败 / 关闭重开 / 门控绕过测试，并交付 Gate26H 真人试玩包。
 
 ## Stage32：北极星 Beta Candidate
 
@@ -86,8 +88,8 @@
 
 ## 每阶段共同门禁
 
-- [ ] 只修改当前 Stage 范围，保留无关用户 / 并行工作树改动。
-- [ ] 新资产先登记 manifest，再生成 / 接入；source、candidate、runtime 和 release 状态不混写。
-- [ ] 非平凡脚本 / 测试有中文文件头与职责说明。
-- [ ] 相关 GUT、Godot import、主场景 smoke、运行态复核和 `git diff --check` 有新鲜证据。
-- [ ] 更新 `docs/progress/status.md`、`docs/progress/timeline.md` 和当日日志后才可声称完成。
+- [x] Stage27-31 均保持批准范围，无关用户 / 并行工作树改动未混入阶段提交。
+- [x] 新资产先登记 manifest；source、candidate、runtime 和 release 状态保持分离。
+- [x] 非平凡脚本 / 测试有中文文件头与职责说明。
+- [x] 相关 GUT、Godot import、主场景 smoke、运行态复核和 `git diff --check` 均有新鲜证据。
+- [x] Stage27-31 的状态、时间线和当日日志已逐阶段更新；Gate26H 人工结果仍保持开放。

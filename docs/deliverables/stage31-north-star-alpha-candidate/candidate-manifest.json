@@ -1,0 +1,70 @@
+{
+  "schema": "nano-hunter-candidate-manifest.v1",
+  "candidate_id": "stage31-north-star-alpha-technical-candidate",
+  "date": "2026-08-02",
+  "engine": "Godot 4.6.3",
+  "main_scene": "res://scenes/main/main.tscn",
+  "base_commit": "00a0071",
+  "candidate_revision": "commit-containing-this-manifest",
+  "state": "technical_candidate_gate26h_pending",
+  "content": {
+    "formal_rooms": 44,
+    "remote_connections": 8,
+    "elements": 2,
+    "stances": 2,
+    "two_step_reactions": 2,
+    "bounties": 3,
+    "build_items": 5,
+    "build_slots": 2,
+    "travel_points": [
+      "waystation_main",
+      "thunder_outpost"
+    ]
+  },
+  "persistence": {
+    "version": 1,
+    "primary": "user://north_star_save.json",
+    "backup": "user://north_star_save.backup.json",
+    "continue_requires_valid_save": true,
+    "atomic_temp_readback": true,
+    "unknown_ids_are_discarded": true,
+    "invalid_save_is_not_applied": true
+  },
+  "verification": {
+    "stage31_tests": 5,
+    "stage31_assertions": 78,
+    "stage23_to_stage31_tests": 42,
+    "stage23_to_stage31_assertions": 540,
+    "full_gut_scripts": 48,
+    "full_gut_tests": 322,
+    "full_gut_assertions": 8865,
+    "headless_import": "pass",
+    "main_scene_smoke": "pass",
+    "strict_asset_package": "pass",
+    "godot_mcp_pro_editor_errors": 0,
+    "project_godot_diff_after_mcp": false
+  },
+  "art": {
+    "structural_ready": "78/78",
+    "final_ready": "55/78",
+    "manual_review_pending": 23,
+    "stage31_ui_sha256": "dcd3c7496a67339440ac7b08ba75c3e26ded8e1ea4f797d9d91b370aba62d715",
+    "human_aesthetic_review": "pending"
+  },
+  "audio": {
+    "generation_concurrency": 1,
+    "hard_limit": "<4",
+    "stage31_scratch_candidates": 4,
+    "runtime_integrated": false,
+    "human_listening_and_license": "pending"
+  },
+  "human_gate": {
+    "id": "Gate26H",
+    "status": "pending",
+    "checklist": "docs/deliverables/stage31-north-star-alpha-candidate/gate26h-human-playtest-checklist.md"
+  },
+  "export": {
+    "windows_build_present": false,
+    "owner": "Stage32 Beta Candidate"
+  }
+}
