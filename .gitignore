@@ -21,3 +21,5 @@ assets/source/references/**
 assets/source/imagegen_inbox/**
 !assets/source/imagegen_inbox/
 !assets/source/imagegen_inbox/.gitkeep
+# Added by code-review-graph
+.code-review-graph/

@@ -2,6 +2,40 @@
 
 本文件只记录项目里程碑级事件。每日细节、命令输出、MCP 复核过程、分支操作原因和误判修正过程保存在 `docs/progress/logs/YYYY-MM-DD.md`。每条里程碑默认包含范围、结果、关键验证、详情日志；重要阶段收口或工具链修复可补提交 hash 与遗留风险。
 
+## 2026-08-29
+
+- **Stage17–31 / Blueprint V2 长分支受控收口完成**：冻结新内容后，将原先跨资产、正式房间、HUD、运行时、测试与文档的批量未提交现场拆为两个可审计检查点：`9b6634f` 收口运行视觉资产与审计基线，`2d48fe4` 收口正式房间、Blueprint V2 运行时与回归；归属不明的本机配置、根目录草稿、空 backend 文件和重复场景均未混入。
+  结果：Stage16 的 F18→F03 旧测试改为当前 `WaystationZone + ui_down` 生产合同；全量初跑揭示的 19 个旧 TileMap、旧坐标、旧 F 编号与旧交互期望全部改读当前 Phase2 / 生产契约，F09 Air Dash 顺序脆弱断言同步删除。
+  关键验证或结论：Godot `4.6.3` import、`room_design 64/64 / 2289`、Stage16 `22/22 / 646`、Stage31 `6/6 / 84`、资产 `4/4 / 770`、`81` 项 strict asset package 通过；最终递归 GUT 为 `66` scripts / `446/446` tests / `12076` assertions、exit `0`。既有 ObjectDB orphan/leak warning 保留；Gate26H 真人路线、实体手柄、21:9、美术 / 音频决定仍是合并前硬门禁，因此未 merge、push 或发布。详情见 `docs/progress/logs/2026-08-29.md` 与 `docs/progress/handoff.md`。
+
+## 2026-08-27
+
+- **正式 Demo Blueprint V2 F01–F18 生产灰盒候选完成**：把 18 房完整玩法蓝图落到生产 `.tscn`，复用现有 `FormalRoomGrayboxLayout`、房间 signal、Main 状态和 Player 输入，收口逐房段落、Spawn/相机、遭遇、主动交互、一次性奖励和失败安全；没有新建第二套切房或交互框架。F09 四路线、F07↔F14 主动祭坛、F14→F15 主路和 F18→F03 归驿法坛现为独立通道。
+  结果：`18/18` 房结构与交互采纳通过；主链 24 次进房以及 F09→F10→F08、F09→F11→F12、F12→F09、F06 回访、F09 快线五个 input-only 专项全部 `done=true / P0/P1/P2=0`。运行收口修正 F12 反向出生、F16/F18 返回出生和 F11 地表相机裁切；F11 修正后独立视觉复核无 P0/P1。
+  关键验证或结论：Godot `4.6.3` import 通过；`room_design 64/64 / 2289`，最终 Batch1–8 与 Stage5/7/13/14/15/18/19/20/31 等 `19/19` 专项套件通过；Godot MCP 当前 workspace 正确、F01–F18 截图编号一致、editor errors=`0`，场景与 editor 进程已清理。当前只批准灰盒结构、交互、路线和内部可读性；代理地表/背景不等于正式美术，真人手感和发布签核仍独立。详情见 `docs/progress/logs/2026-08-27.md`。
+
+## 2026-08-13
+
+- **方案 B 第二阶段 F04–F09 实际施工校准闭环**：从六个生产 `.tscn` 反向生成 `6` 张实际施工图和 `6` 张原蓝图叠加图，按移动标尺与偏差连线调校真实地形、锚点和回访落点。F09 的下层资源线从中层实心地板下约 `32u` 伪净空改为单向桥面下 `80u` 可通净空，高速切房触发与蓝图末端锚点分离。最终审计为 `aligned_after_tuning`、最大偏差 `83.2u / 57.6u`、阻断偏差 `0`；房间设计 `45/45 / 584`、Stage13 `14/14 / 370`、Stage14 `16/16 / 271`、Batch4/5/6 `13/13 / 413` 与 import 通过。当前达到六房机器校准候选，真人连续跑跳 / 镜头与手感仍待下一门禁；详情见 `docs/progress/logs/2026-08-13.md`。
+
+- **方案 B 第二阶段 F04–F09 首批生产灰盒落地**：以既定 18 房结构蓝图重做瘴泽六房的真实碰撞、平台、相机边界、关键地标、出生安全区与三高度路线，旧模板 TileMap 碰撞退役；保留既有切房信号并验证 F09→F10→F08 资源回环及 F07↔F14 双能力捷径。专项 `6/6 / 110`、房间设计 `39/39 / 545`、Stage13 `15/15 / 390`、Stage14 `16/16 / 271`、Batch4/5/6 `13/13 / 408` 通过。Godot MCP 运行脚本切房仍受临时执行器 runtime error 阻断，因此该里程碑是机器验证灰盒候选，不等同真人路线 / 手感签核；详情见 `docs/progress/logs/2026-08-13.md`。
+
+- **正式 Demo 18 房方案 B 自动技术候选完成**：将既有 `44` 房生产世界收敛为 F01–F18 纵向切片，保留 `4` 个 merged 入口和 `22` 个 reserve 房；完成风印、Air Dash 获取 / 证明 / 三点回访、两条瘴泽支路、综合战斗、Boss、本地重试和战后返回 Hub，并把普通出口与清场 / 能力 / Boss 屏障的视觉语义分离。
+  结果：旧存档安全迁移、`formal=18 / all=44` 地图范围、移动标尺、五房能力回环、F02 目标合并、F06/F07/F09 回访价值、F18 → F03 返回、九个旧生成器硬锁、试玩遥测与 `18×3=54` 张 Windows/D3D12 诊断截图进入仓库工作树；Stage16 等旧内容保持 reserve 可独立测试。
+  关键验证或结论：RDR `33/33` / `433` assertions，邻近 Stage5/15/18/19/20/31 `61/61`，递归 GUT `62` scripts / `410/410` tests / `11434` assertions。自动证据不替代新玩家 `30–45` 分钟灰盒、实体手柄和最终视觉 / 发布签核，当前仅为技术候选；详情见 `docs/progress/logs/2026-08-13.md` 与 `docs/deliverables/formal-demo-room-recovery-candidate/playtest-checklist.md`。
+
+## 2026-08-09
+
+- **角色 / 怪物 / Boss 通用模型锁非 Stage 专项修复完成**：把此前只覆盖 Luna 的 Live Body Contact Sheet 方法提升为全生产 body 的统一资产契约，并修复 Seal Guardian 在旧 idle 与正式动作之间切换人物模型的问题；未新增 Stage、玩法、房间、攻击、AI 或伤害逻辑。
+  结果：唯一机器可读 v2 清单覆盖 `8` 个模型族、`26` 份 body 证据；`25` 份允许生产绑定，旧 Seal Guardian idle 作为唯一 `reference_rejected` 退出 live runtime。全部 active sidecar 声明 `identity_lock_ready=true`，八族均有 root、脚底、头顶、髋部 / 核心、前后轮廓六类语义锚点；生产测试反向扫描完整 `scripts/` / `scenes/`。八张接触表显示全部锚点，Seal Guardian 与夔影雷骸另有真窗口 `11 + 17 = 28` 个状态的逐状态 JSON / 截图 / 汇总证据。
+  关键验证或结论：通用 strict audit 为 `8/8` families、`26/26` assets、`failures=0`；Boss 连续性为 Windows `forward_plus`、`headless=false`、`28/28` pass、最大 root 偏差约 `0.0001px`；旧动作候选 strict 为 `20/20 active ready`、final-art 保持 `55/78 final-ready` 与 `23 blocked`。定向 GUT `52/52` / `1508`、递归 GUT `51` scripts / `338/338` / `9990`，strict asset package、Godot `4.6.3` import / smoke、MCP editor errors=`0` 与 `project.godot` 无 diff 均通过。`identity_review_status=pending_gate26h` 与 `final_ready` 仍是独立人工 / 发布门禁，自动与代理证据不等于真人身份美术批准。
+  详情日志链接：`docs/progress/logs/2026-08-09.md`；设计：`spec-design/2026-08-09-character-creature-model-lock-repair.md`；执行清单：`docs/implementation-plans/2026-08-09-character-creature-model-lock-repair.md`；机器契约：`docs/assets/character-creature-model-locks.json`。
+
+- **运行态视觉一致性三线自动技术候选完成**：以用户实机截图为入口，同时修复全房地形 / 碰撞二维错位、HUD 物理字号与教程强调、Luna 跨动作人物身份漂移；不改变房间拓扑、玩法碰撞盒、攻击判定或状态机。
+  结果：共享 TileSet polygon 回到格心坐标，结构审计覆盖世界图 `44/44`、`1973` 条可踩面和 `710` 个碰撞节点；HUD 覆盖七档视口并使用唯一青色 / 金色 `TutorialAttention`；Luna live body 锁定 ai03/ai04 `luna_model_v1`，Stage27 独立人物表退出生产 preload 并保持 `final_ready=false`。自动全路线更新到当前 `44` 个生产房，雷泽岔路回环也进入转换证据。
+  关键验证或结论：Windows/OpenGL debug-collision `44/44`、HUD `7` 布局 / `5` 状态、完整路线 `138` 截图且 `P0/P1/P2=0`；纯输入主流程 replay 为 `34` 房 / `360.2167s` / 完成标记真 / `P0/P1/P2=0`；Luna `7` 资产 / `111` 帧严格审计 `7/7`，真实跳跃 `54` 个物理样本无跨模型；全动作候选 `21/21`，asset package strict、Godot `4.6.3` import / smoke、键盘 / synthetic Joypad `14/14` 与递归 GUT `50` scripts / `334/334` / `9220` assertions 通过。ignored 历史截图 UID duplicate 与既有 ObjectDB orphan/leak 警告已记录；真人碰撞读值、HUD 阅读距离 / 动态节奏、Luna 身份美术和实体手柄路线仍归 Gate26H，不写 release-final。
+  详情日志链接：`docs/progress/logs/2026-08-09.md`；设计：`spec-design/2026-08-08-runtime-visual-integrity-repair.md`；执行清单：`docs/implementation-plans/2026-08-08-runtime-visual-integrity-repair.md`。
+
 ## 2026-08-02
 
 - **Stage31 单档存档与双驿站传送 Alpha 技术候选完成**：不复制进度模型、不扩任意传送框架，以 Main 既有权威状态完成跨进程 Continue 和两个固定驿站的最小闭环。
