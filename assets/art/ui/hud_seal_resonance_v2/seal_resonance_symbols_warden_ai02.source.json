@@ -1,0 +1,260 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "seal_resonance_symbols_warden_ai02",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_seal_resonance_command_v2",
+  "candidate_path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/seal_resonance_symbols_warden_ai02_source.png",
+  "source_path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/seal_resonance_symbols_warden_ai02_source.png",
+  "candidate_sha256": "f0e3f7ae9d7727543ad10026f900681e4825c9d669a96287512622e4dfeb08a6",
+  "input_sha256": "f0e3f7ae9d7727543ad10026f900681e4825c9d669a96287512622e4dfeb08a6",
+  "output_path": "assets/art/ui/hud_seal_resonance_v2/seal_resonance_symbols_warden_ai02.png",
+  "output_sha256": "0a8ffaf093464687593d85a2d9f1ec166c74effd270ffa504c98b55436c36d3c",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "output_size": [
+    768,
+    512
+  ],
+  "reference_inputs": [
+    {
+      "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/selected_option_02_command_seal_sha256_941695354052e8fd.png",
+      "sha256": "941695354052e8fdfe561136c36a7441d53e870d7d73257da9eb7b0dd2e07241"
+    },
+    {
+      "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/gameplay_resolved_wind_thunder_sha256_66ec712ad638641f.png",
+      "sha256": "66ec712ad638641f32f7af4d0d9d2adbfaa19073fc5007944d7a84b4809f567b"
+    }
+  ],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_fixed_3x2_equal_cell_crop_per_cell_alpha_core_weighted_centroid_optical_mass_p95_single_uniform_scale_subpixel_focal_recenter_transparent_center_pad",
+  "allowed_process_steps": [
+    "imagegen_component_selection",
+    "official_remove_chroma_key_auto_key_border",
+    "soft_matte",
+    "despill",
+    "edge_contract_1",
+    "fixed_3x2_equal_cell_crop",
+    "alpha_core_weighted_centroid",
+    "single_uniform_optical_scale",
+    "subpixel_focal_recenter",
+    "transparent_center_pad"
+  ],
+  "prompt": "Create ONE exact 3-by-2 production sprite sheet of six simple, high-readability ritual HUD symbols for Nano Hunter's selected Option 02 镇妖官印 resonance apparatus. Use a transparent background. Exact overall layout: 3 equal columns x 2 equal rows, 3:2 aspect ratio, generous clear gap between cells, one centered symbol per cell, no dividers, no frames, no captions.\n\nFixed semantic order, left to right:\nTOP ROW: (1) WIND element — three broad curved cyan-green wind blades forming a simple open swirl; (2) THUNDER element — one bold angular pale-cyan lightning fork inside a loose circular energy stroke; (3) SWIFT stance — a concise forward-sweeping double-chevron / wing stroke in pale blue-white.\nBOTTOM ROW: (4) WARD stance — one strong centered shield/lotus silhouette in muted warm gold; (5) PIERCE reaction — one bold straight spearhead/needle passing through a single ring in warm white-gold with one restrained cinnabar accent; (6) SCATTER reaction — one central point splitting into three broad outward rays in warm white-gold with one restrained cinnabar accent.\n\nVisual language: Southern-Northern Dynasties dark-fantasy official talisman instrument, matching the selected Option 02 and expanded bronze command-seal device. Symbols are runtime-emissive overlays made specifically for 29–62 pixel display: crisp broad strokes, large clean color fields, smooth flat fills, strong negative space and at most one simple brighter inner highlight band. All six use one shared optical radius and comparable ink mass; no isolated long tip may enlarge only the bounding radius. Wind and ward must not be denser than thunder and swift. Pierce is a compact thick complete ring with a short broad spear; scatter uses three short broad joined rays without detached sparks.\n\nCritical constraints: exactly six symbols in exactly the stated positions; NO black interior outline, black inset border, dark dots, speckles, scratches, patina, hammered metal, grain, noise, engraving, filigree, mottling or micro-highlights; NO Chinese or Latin text, numbers, pseudo-characters, runes, decorative frames, extra medallion housings, background panels, chains, hanging tags, contact-sheet labels, glow clouds or extra marks. Keep each cell isolated and clean for atlas slicing. One image only.",
+  "prompt_sha256": "05ba1ec886ca264ddf8923675e26b22119d511cf51045c806b724ce38a0bfa54",
+  "visual_assembly_contract": "seal_resonance_v2_command_seal",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "User selected Option 02 as the visual direction. Runtime promotion still requires real-window fidelity and physical-size readability review, pseudo-text inspection, provenance/license approval and Gate26H before final-art or release promotion.",
+  "symbol_style_reference": {
+    "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/symbol_style_active_candidate_sha256_2ad4bdf8f7909c54.png",
+    "sha256": "2ad4bdf8f7909c54f66e6c0bd895bad272af3cfc650cf94171623b858c25fe96"
+  },
+  "generation_components": [
+    {
+      "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/symbols_micro_clean_grid_sha256_0a7fcf2b809e7853.png",
+      "sha256": "0a7fcf2b809e78539d634a6927d7d8c95d9267dc41e2a3f85116724c21c3d120",
+      "role": "accepted_imagegen_micro_hud_clean_grid"
+    }
+  ],
+  "icon_keyline_contract": {
+    "alpha_core_threshold": 16,
+    "cell_size": [
+      256,
+      256
+    ],
+    "normalized_focal_point": [
+      128.0,
+      128.0
+    ],
+    "focal_tolerance_px": 0.5,
+    "optical_percentile": 0.95,
+    "target_optical_radius_px": 60.0,
+    "optical_radius_range_px": [
+      57.0,
+      63.0
+    ],
+    "maximum_core_radius_px": 104.0,
+    "method": "alpha_weighted_centroid_optical_mass_p95_single_uniform_scale_subpixel_recenter"
+  },
+  "micro_clarity_contract": {
+    "dark_interior_luminance_max": 0.12,
+    "dark_interior_alpha_min": 96,
+    "isolated_dark_component_max_area_px": 2,
+    "isolated_dark_component_max_count": 0,
+    "micro_sample_sizes_px": [
+      29,
+      34
+    ],
+    "minimum_micro_edge_contrast": 0.18,
+    "micro_resample_filter": "lanczos"
+  },
+  "symbol_metrics": {
+    "wind": {
+      "normalized_focal": [
+        127.999561,
+        128.00131
+      ],
+      "focal_error_px": 0.001381,
+      "max_radius_px": 76.972124,
+      "radial_fill": 0.601345,
+      "robust_radius_px": 70.798458,
+      "equivalent_alpha_radius_px": 50.838668,
+      "optical_radius_px": 59.994161,
+      "core_pixel_count": 8353,
+      "border_core_pixels": 0
+    },
+    "thunder": {
+      "normalized_focal": [
+        128.001929,
+        127.998983
+      ],
+      "focal_error_px": 0.00218,
+      "max_radius_px": 74.315099,
+      "radial_fill": 0.580587,
+      "robust_radius_px": 70.360641,
+      "equivalent_alpha_radius_px": 51.142483,
+      "optical_radius_px": 59.986814,
+      "core_pixel_count": 8443,
+      "border_core_pixels": 0
+    },
+    "swift": {
+      "normalized_focal": [
+        127.996184,
+        128.000926
+      ],
+      "focal_error_px": 0.003927,
+      "max_radius_px": 85.843658,
+      "radial_fill": 0.670654,
+      "robust_radius_px": 70.005615,
+      "equivalent_alpha_radius_px": 51.510352,
+      "optical_radius_px": 60.050095,
+      "core_pixel_count": 8492,
+      "border_core_pixels": 0
+    },
+    "ward": {
+      "normalized_focal": [
+        128.029096,
+        128.002704
+      ],
+      "focal_error_px": 0.029222,
+      "max_radius_px": 80.504443,
+      "radial_fill": 0.628941,
+      "robust_radius_px": 67.042045,
+      "equivalent_alpha_radius_px": 53.704478,
+      "optical_radius_px": 60.003817,
+      "core_pixel_count": 9581,
+      "border_core_pixels": 0
+    },
+    "wind_thunder_pierce": {
+      "normalized_focal": [
+        128.000761,
+        127.999245
+      ],
+      "focal_error_px": 0.001072,
+      "max_radius_px": 73.88249,
+      "radial_fill": 0.577207,
+      "robust_radius_px": 66.335353,
+      "equivalent_alpha_radius_px": 54.24934,
+      "optical_radius_px": 59.988741,
+      "core_pixel_count": 9470,
+      "border_core_pixels": 0
+    },
+    "thunder_wind_scatter": {
+      "normalized_focal": [
+        127.998828,
+        128.002297
+      ],
+      "focal_error_px": 0.002579,
+      "max_radius_px": 89.514885,
+      "radial_fill": 0.699335,
+      "robust_radius_px": 74.501614,
+      "equivalent_alpha_radius_px": 48.334148,
+      "optical_radius_px": 60.0081,
+      "core_pixel_count": 7509,
+      "border_core_pixels": 0
+    }
+  },
+  "micro_clarity_metrics": {
+    "wind": {
+      "source_isolated_dark_components": 0,
+      "samples": {
+        "29": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.619716
+        },
+        "34": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.619891
+        }
+      }
+    },
+    "thunder": {
+      "source_isolated_dark_components": 0,
+      "samples": {
+        "29": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.608865
+        },
+        "34": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.624151
+        }
+      }
+    },
+    "swift": {
+      "source_isolated_dark_components": 0,
+      "samples": {
+        "29": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.615653
+        },
+        "34": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.525896
+        }
+      }
+    },
+    "ward": {
+      "source_isolated_dark_components": 0,
+      "samples": {
+        "29": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.625631
+        },
+        "34": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.607573
+        }
+      }
+    },
+    "wind_thunder_pierce": {
+      "source_isolated_dark_components": 0,
+      "samples": {
+        "29": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.635965
+        },
+        "34": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.585621
+        }
+      }
+    },
+    "thunder_wind_scatter": {
+      "source_isolated_dark_components": 0,
+      "samples": {
+        "29": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.551522
+        },
+        "34": {
+          "isolated_dark_components": 0,
+          "edge_contrast": 0.570024
+        }
+      }
+    }
+  }
+}

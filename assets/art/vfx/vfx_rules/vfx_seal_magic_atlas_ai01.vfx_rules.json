@@ -2,7 +2,7 @@
   "version": 1,
   "asset_id": "vfx_seal_magic_atlas_ai01",
   "target_kind": "vfx_atlas",
-  "status": "final_ready_preview",
+  "status": "placeholder_ready",
   "source_texture": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.png",
   "source_metadata": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.frames.json",
   "sprite_frames": "assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres",
@@ -35,11 +35,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -70,11 +69,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -105,11 +103,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -140,11 +137,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -175,11 +171,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -210,11 +205,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -245,11 +239,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -280,11 +273,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -315,11 +307,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -350,11 +341,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -385,11 +375,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -420,11 +409,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -455,11 +443,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -490,11 +477,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -525,11 +511,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -560,11 +545,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -595,11 +579,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -630,11 +613,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -665,11 +647,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -700,11 +681,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -735,11 +715,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -770,11 +749,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -805,11 +783,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -840,11 +817,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -875,11 +851,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -910,11 +885,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -945,11 +919,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -980,11 +953,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -1015,11 +987,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -1050,11 +1021,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -1085,11 +1055,10 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     },
@@ -1120,16 +1089,14 @@
       "recommended_blend": "additive",
       "gameplay_collision": false,
       "damage_source": false,
-      "manual_review_required": false,
+      "manual_review_required": true,
       "notes": [
-        "candidate_05_regenerated_no_text_labels",
-        "center_anchor_confirmed_for_preview",
-        "mask_and_blend_approved_for_alpha_demo_preview",
+        "first_pass_anchor_candidate",
+        "mask_and_blend_manual_review_required",
         "do_not_use_as_collision_or_damage_source"
       ]
     }
   ],
-  "manual_review_required": false,
-  "boundary": "First-pass VFX anchor and blend rules. These rules guide editor/runtime hookup; they do not prove final mask cleanup, timing, hitbox, damage, or gameplay readability.",
-  "review_boundary": "Approved only for Alpha Demo hidden/runtime seal magic VFX preview; collision and damage remain disabled."
+  "manual_review_required": true,
+  "boundary": "First-pass VFX anchor and blend rules. These rules guide editor/runtime hookup; they do not prove final mask cleanup, timing, hitbox, damage, or gameplay readability."
 }

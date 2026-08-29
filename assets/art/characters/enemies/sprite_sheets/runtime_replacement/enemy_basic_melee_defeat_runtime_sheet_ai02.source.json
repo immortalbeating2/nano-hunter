@@ -3,5 +3,91 @@
   "source_asset_id": "enemy_basic_melee_runtime_sheet_ai01",
   "source": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_basic_melee_runtime_sheet_ai01.png",
   "source_sha256": "551d5b2f79e754ca1c38b05633cf669c242c3727e428f6e3c783f63ec7a200c3",
-  "process": "stage17_deterministic_cycle_to_non_gory_defeat"
+  "process": "stage17_deterministic_cycle_to_non_gory_defeat",
+  "model_lock": {
+    "contract_kind": "character_creature_model_lock_v1",
+    "contract_version": 2,
+    "model_id": "basic_melee_model_v1",
+    "canonical_reference": "enemy_basic_melee_runtime_sheet_ai01",
+    "canonical_frame_index": 0,
+    "cell": [
+      160,
+      160
+    ],
+    "root_anchor_kind": "ground_foot",
+    "center_x": 80.0,
+    "center_tolerance_px": 1.0,
+    "root_y": 149,
+    "root_tolerance_px": 2,
+    "identity_height_ratio_min": 0.8,
+    "identity_height_ratio_max": 1.1,
+    "geometry_lock_ready": true,
+    "identity_lock_ready": true,
+    "runtime_binding_allowed": true,
+    "identity_review_status": "pending_gate26h",
+    "semantic_anchor_contract": {
+      "version": 1,
+      "anatomy": "humanoid",
+      "facing": "right",
+      "core_anchor_id": "hip_center",
+      "required_anchors": [
+        "root",
+        "foot_contact",
+        "head_top",
+        "hip_center",
+        "front_contour",
+        "rear_contour"
+      ],
+      "head_search_bbox": [
+        0.25,
+        0.72,
+        0.0,
+        0.52
+      ],
+      "core_search_bbox": [
+        0.18,
+        0.82,
+        0.36,
+        0.88
+      ],
+      "core_target_y_ratio": 0.66,
+      "foot_search_bbox": [
+        0.08,
+        0.92,
+        0.72,
+        1.0
+      ],
+      "contour_y_range": [
+        0.12,
+        0.94
+      ],
+      "root_contact_tolerance_px": 4,
+      "canonical_core_ratio_tolerance": 0.2
+    },
+    "asset_role": "defeat",
+    "asset_status": "active",
+    "identity_sample_indices": [
+      0
+    ],
+    "scale_sample_indices": [
+      0
+    ],
+    "root_sample_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "manual_identity_features": [
+      "head_shape",
+      "limb_count",
+      "weapon_or_claw",
+      "palette",
+      "silhouette"
+    ],
+    "allowed_variants": [
+      "cycle_pose",
+      "controlled_defeat_collapse"
+    ]
+  }
 }

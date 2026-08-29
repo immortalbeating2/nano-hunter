@@ -1,0 +1,22 @@
+{
+  "asset_id": "tutorial_dash_gate_lintel_visual_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "selected_direction": {
+    "path": "assets/source/ai_generated/batch_09/tutorial_dash_gate_lintel_visual_ai01/candidates/tutorial_dash_gate_lintel_visual_ai01_candidate_01.png",
+    "sha256": "12d92d40bffca8f36ca745737d106a1d8c8ca6f4905f9e3fd150521f1dad98e1"
+  },
+  "output": "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png",
+  "output_sha256": "b728aeedd0ec8872745c999e908ea495ce7c3a6c001ff8f021ce12ad266242f0",
+  "process": "generate2dsprite_magenta_key_1x3_64px",
+  "prompt": "Use case: production-ready 2D game terrain tile strip for Nano Hunter. Create exactly one horizontal 1x3 strip of three adjoining 64x64-style tiles: left end, seamless center with one round Buddhist seal lock, right end. This asset is a heavy solid dash-gate lintel that blocks passage, not a one-way jump platform and not a ramp. Preserve one perfectly horizontal, continuous upper surface and a visibly deep, weight-bearing stone-and-bronze body. Use dark shrine masonry, reinforced bronze straps, restrained moss, muted gold, and a thin cyan ward channel. It must read as sealed architecture and be clearly heavier than the jump platform. Match the Northern and Southern Dynasties Chinese dark-fantasy, ink-teal, shrine-ruin visual language of Nano Hunter. Background must be perfectly flat solid magenta #FF00FF for chroma-key removal. No perspective slope, no diagonal top, no stairs, no floating fragments, no text, no watermark, no shadows outside the object. Canvas 1536x1024; the continuous beam crosses all three equal 512px columns and connects exactly at the column boundaries.",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "thin_solid_gate_lintel_only",
+    "horizontal_blocking_top",
+    "visual_only_collision_separate",
+    "not_a_one_way_platform"
+  ]
+}

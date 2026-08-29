@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "seal_resonance_active_frame_warden_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_seal_resonance_v1",
+  "candidate_path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/seal_resonance_active_frame_warden_ai01_source.png",
+  "source_path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/seal_resonance_active_frame_warden_ai01_source.png",
+  "candidate_sha256": "c870b9b5e5956a9c76f44a245ee86962cf6c0abcbf22394206503e5f0aaac177",
+  "input_sha256": "c870b9b5e5956a9c76f44a245ee86962cf6c0abcbf22394206503e5f0aaac177",
+  "output_path": "assets/art/ui/hud_seal_resonance_v1/seal_resonance_active_frame_warden_ai01.png",
+  "output_sha256": "259e84bc6f28d0dc5c771dad9f6bb8df62c0862c7b35cdc835961b0175ecf52c",
+  "source_size": [
+    1909,
+    824
+  ],
+  "output_size": [
+    1012,
+    400
+  ],
+  "reference_inputs": [
+    {
+      "path": "tests/artifacts/local/hud-pause-imagegen-direction-review/direction_02_warden_lacquer_archive.png",
+      "sha256": "282ac16719f31e8a0f4482a23dee7646bb920965a0b694b721665e085a0939bd"
+    },
+    {
+      "path": "assets/art/ui/hud_warden_integrated_v5/element_frame_integrated_warden_ai01.png",
+      "sha256": "f5df218b20616c5e380da099fc76ca171b41534a1a20c58fbd2218a25656af81"
+    },
+    {
+      "path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/references/gameplay_hud_formal_2048x1152_sha256_57557ef621d8e0a1.png",
+      "sha256": "57557ef621d8e0a10a1f1b017646e26a5795df97fe0b0ea6d9ab59229bfc1bfc"
+    }
+  ],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_bbox_crop_single_uniform_downscale_center_pad",
+  "allowed_process_steps": [
+    "official_remove_chroma_key_auto_key_border",
+    "soft_matte",
+    "despill",
+    "edge_contract_1",
+    "alpha_bbox_crop",
+    "single_uniform_downscale_only",
+    "transparent_center_pad"
+  ],
+  "prompt": "Use case: stylized-concept\nAsset type: production-ready 2D game HUD complete frame source, unfolded active state\nPrimary request: Image 4 is the approved collapsed idle state of ONE physical Nano Hunter \"Seal Resonance\" instrument. Generate that exact same device unfolded into active state, not a redesign. Preserve Image 4's exact permanent identity: ONE LEFT concentric Buddhist-wheel mechanical housing; ONE short LEFT blank pendant on the same ring; ONE tiny smooth red cinnabar rivet at the RIGHT corner; the same squared outer rails, center hinge style, line weight, black lacquer, aged bronze, teal patina, and red proportion. Preserve exactly TWO square seal recesses. Mechanically open the center around them and reveal ONE clearly recessed horizontal spiritual-energy CHANNEL directly connecting the inner edges of the two slots, with enough clean negative space around that channel for reaction feedback.\nInput images: Image 1 approved 02 direction; Image 2 v5 Element material/construction; Image 3 live gameplay context; Image 4 mandatory final idle identity and geometry. Image 4 controls all permanent anchors and materials.\nStyle/medium: exact same artist and physical artifact as Image 4; polished hand-painted 2D game UI; Southern and Northern Dynasties eastern fantasy; royal demon-warden bureaucracy; Buddhist seal craft; Shanhaijing restraint; gongbi linework.\nComposition/framing: exactly one complete front-facing orthographic frame, centered and fully visible with modest even green padding. CRITICAL GEOMETRY: visible non-green silhouette including pendant must be 2.43:1 to 2.62:1, target 2.53:1. Active must be slightly taller and more open than Image 4. Subject occupies at least 86% of canvas height. Maintain the LEFT wheel and RIGHT red rivet at the same relative endpoints. Expand only the middle body around the two square slots and one central channel.\nChannel design: one plain recessed dark channel with two clean bronze boundary rails and sparse plain circular rivets. It is one functional track, not two unrelated decorative lines. No plaque, buckle, motif, glyph, or ornament inside the track.\nPendant surface: blank non-semantic material only—random pitting, mottled oxidation, irregular scratches crossing many directions. No organized strokes, vertical ornaments, motif, emblem, or central design.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background, uniform edge-to-edge.\nConstraints: same physical instrument as Image 4; exactly one frame, one LEFT wheel housing, one LEFT blank pendant, two square recesses, one connecting channel, one tiny smooth RIGHT red rivet. No right seal, second pendant, mirrored layout, extra badge, or large red area. No letters, words, Chinese characters, seal script, pseudo-writing, calligraphy, numerals, runes, glyph strings, logos, watermark, faces, masks, animals, humanoids. No vertical mark columns, repeated marks, or symbolic pendant/track engraving. Empty square slots. Uniform key background with no shadow, gradient, texture, reflection, floor plane, or lighting variation. Crisp silhouette; no cast/contact shadow; no green spill; no #00ff00 in subject.\nAvoid: visible ratio above 2.62:1, thin 3:1 banner, redesigning Image 4, moving anchors, double seals, mirrored ceremony kit, large red surface, pseudo-text wear, decorated track clasps, floating pieces, second frame, NinePatch repetition, modern laboratory, biotechnology, sci-fi HUD, neon cyberpunk, western fantasy, cropped edges.",
+  "prompt_sha256": "bdf8cff08806fb905d9d27bec3dcc892446a7facdaa4f7eb4c6516722666d058",
+  "visual_assembly_contract": "seal_resonance_v1_complete_frame",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "Runtime technical candidate only. Human review must still approve visual identity, idle-to-active instrument continuity, pseudo-text absence, physical-size readability, provenance/license terms and Gate26H before final-art or release promotion.",
+  "state_identity_reference": {
+    "path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/seal_resonance_idle_frame_warden_ai01_source.png",
+    "sha256": "86d5e05d70a36a5bf42c79b1e32cb0f96f110c255ba9b2b81b3c1075550eb7c1"
+  }
+}

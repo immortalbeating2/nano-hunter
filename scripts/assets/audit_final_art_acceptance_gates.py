@@ -13,6 +13,7 @@ REPORT_PATH = Path("docs/assets/final-art-acceptance-gates.json")
 MARKDOWN_PATH = Path("docs/assets/final-art-acceptance-gates.md")
 RUNTIME_SOURCE_SAFETY_PATH = Path("docs/assets/runtime-source-safety-report.json")
 READINESS_PATH = Path("docs/assets/art-readiness-audit-report.json")
+MODEL_LOCK_CONTRACT_PATH = Path("docs/assets/character-creature-model-locks.json")
 EXPECTED_GATES = [
     "source_traceability",
     "license_terms",
@@ -45,6 +46,20 @@ def audit(
     summary = report.get("summary", {})
     gate_order = report.get("gate_order", [])
 
+    if int(report.get("version", 0)) != 2:
+        errors.append("report version must be 2")
+    model_lock_contract = report.get("model_lock_contract", {})
+    if model_lock_contract.get("path") != MODEL_LOCK_CONTRACT_PATH.as_posix():
+        errors.append("model_lock_contract path mismatch")
+    if model_lock_contract.get("technical_identity_gate") != "identity_lock_ready":
+        errors.append("technical identity gate mismatch")
+    if model_lock_contract.get("human_identity_gate") != "identity_review_status":
+        errors.append("human identity gate mismatch")
+    if model_lock_contract.get("external_release_gate") != "final_ready":
+        errors.append("external release gate mismatch")
+    if not MODEL_LOCK_CONTRACT_PATH.exists():
+        errors.append("model_lock_contract_missing")
+
     if gate_order != EXPECTED_GATES:
         errors.append("gate_order mismatch")
     expected_ids = {str(item.get("asset_id", "")) for item in readiness_report.get("items", [])}
@@ -66,6 +81,8 @@ def audit(
         errors.append("final_ready_count + blocked_asset_count must equal entry count")
     if not MARKDOWN_PATH.exists():
         errors.append("markdown_missing")
+    elif MODEL_LOCK_CONTRACT_PATH.as_posix() not in MARKDOWN_PATH.read_text(encoding="utf-8"):
+        errors.append("markdown model-lock backlink missing")
 
     gate_summary = summary.get("gate_summary", {})
     for gate_name in EXPECTED_GATES:

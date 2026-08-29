@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="384" viewBox="0 0 720 384">
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#11282d" stop-opacity="0.97"/>
+      <stop offset="1" stop-color="#050e13" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#75562b"/><stop offset="0.5" stop-color="#e7c979"/><stop offset="1" stop-color="#75562b"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect x="12" y="14" width="696" height="356" rx="32" fill="url(#panel)"/>
+  <rect x="16" y="18" width="688" height="348" rx="28" fill="none" stroke="#382817" stroke-width="12"/>
+  <rect x="24" y="26" width="672" height="332" rx="22" fill="none" stroke="url(#gold)" stroke-width="5"/>
+  <rect x="36" y="38" width="648" height="308" rx="15" fill="none" stroke="#5ee3e2" stroke-opacity="0.45" stroke-width="2"/>
+  <path d="M74 62H250M470 62H646M74 322H230M490 322H646" fill="none" stroke="#61e8e7" stroke-opacity="0.5" stroke-width="3" filter="url(#glow)"/>
+  <path d="M46 116V76q0-24 24-24h38M674 116V76q0-24-24-24h-38M46 268v40q0 24 24 24h38M674 268v40q0 24-24 24h-38" fill="none" stroke="#d6b568" stroke-width="7"/>
+  <g transform="translate(360 42)" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linejoin="round">
+    <path d="M0 30C-13 17-20 4 0-17C20 4 13 17 0 30Z"/>
+    <path d="M-2 30C-28 28-42 14-40-6C-18-4-6 8-2 30ZM2 30C28 28 42 14 40-6C18-4 6 8 2 30Z"/>
+    <path d="M-40 12C-59 14-68 24-68 36C-45 38-23 35 0 30C23 35 45 38 68 36C68 24 59 14 40 12"/>
+  </g>
+  <path d="M92 104C210 76 510 76 628 104M92 280C210 308 510 308 628 280" fill="none" stroke="#35aeb5" stroke-opacity="0.12" stroke-width="2"/>
+</svg>

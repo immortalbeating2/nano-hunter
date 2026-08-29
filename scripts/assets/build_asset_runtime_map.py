@@ -150,6 +150,12 @@ TARGET_KIND_RULES = {
         "target_system": "material/decor texture atlas replacement",
         "target_scene_candidates": ["scenes/rooms/stage13_miasma_marsh_entry_room.tscn", "scenes/rooms/stage14_air_dash_gate_room.tscn"],
     },
+    "terrain_tile_strip": {
+        "track": "runtime_environment",
+        "resource_type": "TileSet",
+        "target_system": "semantic terrain surface presentation",
+        "target_scene_candidates": ["scenes/rooms/tutorial_room.tscn"],
+    },
     "tileset_sheet": {
         "track": "runtime_environment",
         "resource_type": "TileSet",
@@ -215,6 +221,14 @@ RELEASE_RULES = {
 }
 
 ASSET_ID_RULE_OVERRIDES = {
+    "tutorial_jump_platform_visual_ai02": {
+        "target_system": "one-way platform visual surface across formal TileMap rooms",
+        "target_scene_candidates": ["scenes/rooms/tutorial_room.tscn", "scenes/rooms/stage14_air_dash_gate_room.tscn"],
+    },
+    "tutorial_dash_gate_lintel_visual_ai01": {
+        "target_system": "tutorial Air Dash solid gate lintel visual surface",
+        "target_scene_candidates": ["scenes/rooms/tutorial_room.tscn"],
+    },
     "stage16_seal_release_threshold_ai01": {
         "target_scene_candidates": ["scenes/rooms/stage16_seal_release_threshold_room.tscn"],
     },
@@ -229,6 +243,10 @@ ASSET_ID_RULE_OVERRIDES = {
     },
     "stage28_waystation_ui_sheet_ai01": {
         "target_system": "bounty, Build and two-slot DetailPanel presentation",
+        "target_scene_candidates": ["scenes/ui/demo_shell.tscn"],
+    },
+    "stage28_bounty_archive_frame_warden_ai01": {
+        "target_system": "bounty-only dark lacquer archive frame",
         "target_scene_candidates": ["scenes/ui/demo_shell.tscn"],
     },
     "stage29_thunder_waste_background_ai01": {

@@ -11,10 +11,10 @@
   },
   "license_boundary": "AI-generated source records are present for project tracking. Commercial release and external distribution still require manual terms review for the active tool/account and any downstream platform.",
   "summary": {
-    "record_count": 78,
-    "candidate_hash_count": 158,
-    "output_hash_count": 78,
-    "prompt_hash_count": 78,
+    "record_count": 81,
+    "candidate_hash_count": 162,
+    "output_hash_count": 81,
+    "prompt_hash_count": 81,
     "recovery_ledger_count": 1
   },
   "recovery_ledgers": [
@@ -3020,6 +3020,52 @@
       "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
     },
     {
+      "asset_id": "stage28_bounty_archive_frame_warden_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "ui_panel",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D Godot game UI frame, isolated transparent PNG\nPrimary request: Generate ONE text-free bounty archive frame for Nano Hunter, matching the selected “02 镇妖官印 / demon-warden official seal” pause-menu visual family.\n\nInput images:\n- Image 1 is the current bounty screen. Use ONLY its information hierarchy: title/status at top, a small portrait zone, three equal bounty rows, and one return action at the bottom. Do NOT copy its parchment/scroll style, text, icons, buttons, or beige background.\n- Image 2 is the current runtime pause screen. Match its dark lacquer, aged bronze frame construction, cyan focus-light restraint, and sober official-archive tone.\n- Image 3 is the selected visual direction and is the primary style authority for material, corner hardware, medallions, chains, seals, and proportions.\n\nOutput composition: a single front-facing near-square vertical official archive frame centered on a genuinely transparent canvas, approximately 1.02:1 visible outer-frame ratio. The frame fills about 86% of the canvas height with generous transparent padding. Opaque low-contrast soot-black lacquer inner field behind future runtime content. Double aged-bronze border, dark inner bevel, thin oxidized-teal inlay, square interlocking bronze corner braces. One circular official demon-warden medallion integrated into the top rail. One smaller matching seal medallion with a short restrained dark-red tassel integrated below the bottom rail. Subtle ink-cloud engraving only near inner edges and corners.\n\nDynamic content safe area: keep the central 72% width and 70% height flat, dark, low-contrast and free of decorations. Leave clean zones for runtime title/status in the upper 14%, portrait below it, three equal horizontal runtime rows in the middle, and a runtime return action in the lower 14%. Do not draw row cards, separators, buttons, focus outlines, text, icons, portraits, or fake controls.\n\nPalette/materials: soot-black blue-green lacquer #101817 and #07100f; aged bronze #8d6931 and muted gold #c19a50; sparse oxidized teal #236b6c and tiny restrained cyan #48d4d0 accents; muted cinnabar #6f241d only as small seal/tassel accents. Premium handcrafted Chinese fantasy official archive, restrained and functional, not palace furniture.\n\nConstraints: genuinely transparent outside the frame; crisp continuous silhouette; transparent corners; no green screen; no background scenery; no characters; no weapons; no text, numbers, Chinese characters, pseudo-writing, labels, logos, watermarks, baked UI controls, parchment, scroll curls, torn paper, beige/white interior, generic fantasy bevels, bright cyan rectangular borders, or large glowing areas. Preserve a clean runtime text-safe field.",
+      "prompt_sha256": "1f616e0f13b73f718db0a4248ed5c01fd634b7c17ffc2fcc97088121717d4c7a",
+      "source_dir": "assets/source/ai_generated/batch_28/stage28_bounty_archive_frame_warden_ai01/candidates",
+      "output_path": "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png",
+      "output_sha256": "b6ee259326b5b6a9933d723f5c1d90ece0098bcbb34afb24173a0823d95f08a2",
+      "candidate_count": 2,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_bounty_archive_frame_warden_ai01/candidates/stage28_bounty_archive_frame_warden_ai01_candidate_01.png",
+          "sha256": "8afe75b56c4f2ed3612fa606a3812d248581a06953941b0a1ca18407c8b90770",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_28/stage28_bounty_archive_frame_warden_ai01/candidates/stage28_bounty_archive_frame_warden_ai01_candidate_02.png",
+          "sha256": "b6ee259326b5b6a9933d723f5c1d90ece0098bcbb34afb24173a0823d95f08a2",
+          "width": 1306,
+          "height": 1205,
+          "mode": "RGBA"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "unselected_candidate_indices": [
+        1
+      ],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
       "asset_id": "stage29_thunder_waste_background_ai01",
       "project_key": "nano-hunter",
       "project_name": "Nano Hunter",
@@ -3569,6 +3615,78 @@
           "sha256": "0e1e83752de7552ab8d2f74341ecc6afd1327cf66e3a60444c527657e187c6aa",
           "width": 1254,
           "height": 1254,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "tutorial_jump_platform_visual_ai02",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 09",
+      "priority": "P0",
+      "target_kind": "terrain_tile_strip",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: production-ready 2D game terrain tile strip for Nano Hunter. Create exactly one horizontal 1x3 strip of three adjoining 64x64-style tiles: left cap, seamless center, right cap. This asset is a light one-way jump platform, not a wall or ramp. Preserve one perfectly horizontal, continuous walkable stone top across all three cells. Use weathered shrine stone, restrained dark bronze brackets, sparse moss, muted gold, and a very small cyan seal accent. Keep the silhouette thin and readable, about the upper 20 percent of each tile cell, with open air below. Match the Northern and Southern Dynasties Chinese dark-fantasy, ink-teal, shrine-ruin visual language of Nano Hunter. Background must be perfectly flat solid magenta #FF00FF for chroma-key removal. No perspective slope, no diagonal top, no stairs, no wall mass, no floating fragments, no text, no watermark, no shadows outside the object. Canvas 1536x1024; each of the three equal 512px columns contains exactly one aligned tile segment and all three segments connect at the column boundaries.",
+      "prompt_sha256": "d6ba38bd8e1e97ea825ceaa169299c63145c584af4c8b618929aeb8173638e74",
+      "source_dir": "assets/source/ai_generated/batch_09/tutorial_jump_platform_visual_ai02/candidates",
+      "output_path": "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png",
+      "output_sha256": "3fd5399a856e2d3e57646b91cfa4289a0b0c8873f06448b2b3b8bbefec83d40d",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_09/tutorial_jump_platform_visual_ai02/candidates/tutorial_jump_platform_visual_ai02_candidate_01.png",
+          "sha256": "67724eeaf3bd46edcb0168dcbc3540b2cf5ff291173755296145cdf7fb3e10a9",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ],
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "unselected_candidate_indices": [],
+      "processing_boundary": "Generated PNG candidates were recovered or copied into the workspace, then processed by project scripts into provisional Godot-facing art outputs. This record proves source and prompt traceability; it does not approve final art quality or commercial release terms."
+    },
+    {
+      "asset_id": "tutorial_dash_gate_lintel_visual_ai01",
+      "project_key": "nano-hunter",
+      "project_name": "Nano Hunter",
+      "batch": "Batch 09",
+      "priority": "P0",
+      "target_kind": "terrain_tile_strip",
+      "tool": "Codex built-in image_gen",
+      "tool_mode": "built_in",
+      "source_type": "ai_generated_bitmap",
+      "source_status": "source_recorded",
+      "license_record_status": "source_recorded_terms_review_required",
+      "commercial_use_status": "manual_terms_review_required_before_external_release",
+      "prompt": "Use case: production-ready 2D game terrain tile strip for Nano Hunter. Create exactly one horizontal 1x3 strip of three adjoining 64x64-style tiles: left end, seamless center with one round Buddhist seal lock, right end. This asset is a heavy solid dash-gate lintel that blocks passage, not a one-way jump platform and not a ramp. Preserve one perfectly horizontal, continuous upper surface and a visibly deep, weight-bearing stone-and-bronze body. Use dark shrine masonry, reinforced bronze straps, restrained moss, muted gold, and a thin cyan ward channel. It must read as sealed architecture and be clearly heavier than the jump platform. Match the Northern and Southern Dynasties Chinese dark-fantasy, ink-teal, shrine-ruin visual language of Nano Hunter. Background must be perfectly flat solid magenta #FF00FF for chroma-key removal. No perspective slope, no diagonal top, no stairs, no floating fragments, no text, no watermark, no shadows outside the object. Canvas 1536x1024; the continuous beam crosses all three equal 512px columns and connects exactly at the column boundaries.",
+      "prompt_sha256": "b69864e53661a10681bc6e7b90de200e204f515e03151649b5581bc0ab254f02",
+      "source_dir": "assets/source/ai_generated/batch_09/tutorial_dash_gate_lintel_visual_ai01/candidates",
+      "output_path": "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png",
+      "output_sha256": "b728aeedd0ec8872745c999e908ea495ce7c3a6c001ff8f021ce12ad266242f0",
+      "candidate_count": 1,
+      "candidate_hashes": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_09/tutorial_dash_gate_lintel_visual_ai01/candidates/tutorial_dash_gate_lintel_visual_ai01_candidate_01.png",
+          "sha256": "12d92d40bffca8f36ca745737d106a1d8c8ca6f4905f9e3fd150521f1dad98e1",
+          "width": 1536,
+          "height": 1024,
           "mode": "RGB"
         }
       ],

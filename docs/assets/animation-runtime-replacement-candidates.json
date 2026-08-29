@@ -479,7 +479,7 @@
       "archival_reason": "Multi-action Boss sheet retained as split source; live Boss uses state-specific runtime clips.",
       "superseded_by": [
         {
-          "id": "seal_guardian_idle_runtime_sheet_ai01"
+          "path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres"
         },
         {
           "id": "seal_guardian_warning_runtime_sheet_ai01"
@@ -635,7 +635,14 @@
     {
       "id": "seal_guardian_idle_runtime_sheet_ai01",
       "source_asset_id": "seal_guardian_boss_runtime_sheet_ai01",
-      "kind": "sprite_sheet",
+      "kind": "archived_sprite_sheet_reference",
+      "status": "reference_rejected",
+      "archival_reason": "Central model-lock contact sheet proves this idle body is undersized against the Stage27 formal canonical body.",
+      "superseded_by": [
+        {
+          "path": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres"
+        }
+      ],
       "batch": "ARP-06",
       "output": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.png",
       "metadata": "assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.frames.json",

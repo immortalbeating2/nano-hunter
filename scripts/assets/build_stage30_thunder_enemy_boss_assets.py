@@ -12,6 +12,7 @@ from PIL import Image
 
 from build_luna_unified_runtime_body_sheets import crop_grid_cell
 from build_stage27_formal_combat_assets import normalize_frame
+from character_creature_model_lock_contract import maybe_attach_model_lock
 
 
 ROOT = Path.cwd()
@@ -348,46 +349,44 @@ def build_asset(asset: dict[str, Any]) -> None:
     source_record = output_dir / f"{asset_id}.source.json"
     atlas.save(texture)
     write_spriteframes(sprite_frames, texture, asset)
-    write_json(
-        frames,
-        {
-            "id": asset_id,
-            "kind": asset["kind"],
-            "output": relative(texture),
-            "sprite_frames": relative(sprite_frames),
-            "cell": list(cell_size),
-            "columns": 4,
-            "rows": 4,
-            "frame_count": 16,
-            "animations": asset["animations"],
-            "anchor": asset["anchor"],
-            "frames": records,
-        },
-    )
-    write_json(
-        source_record,
-        {
-            "asset_id": asset["source_id"],
-            "runtime_asset_id": asset_id,
-            "project_key": "nano-hunter",
-            "project_name": "Nano Hunter",
-            "candidate_index": int(asset["candidate"]),
-            "source": relative(source),
-            "source_sha256": sha256(source),
-            "output": relative(texture),
-            "output_sha256": sha256(texture),
-            "process": "independent_image_api_edit_fixed_grid_chroma_to_alpha_stage30",
-            "license_record_status": "source_recorded_terms_review_required",
-            "commercial_use_status": "manual_terms_review_required_before_external_release",
-            "constraints": [
-                "transparent_png",
-                "fixed_4x4_grid",
-                "stable_scale",
-                "stable_anchor",
-                "visual_only_vfx" if asset["kind"] == "vfx_atlas" else "gameplay_timing_code_authority",
-            ],
-        },
-    )
+    frames_payload = {
+        "id": asset_id,
+        "kind": asset["kind"],
+        "output": relative(texture),
+        "sprite_frames": relative(sprite_frames),
+        "cell": list(cell_size),
+        "columns": 4,
+        "rows": 4,
+        "frame_count": 16,
+        "animations": asset["animations"],
+        "anchor": asset["anchor"],
+        "frames": records,
+    }
+    maybe_attach_model_lock(frames_payload, ROOT.resolve(), asset_id)
+    write_json(frames, frames_payload)
+    source_payload = {
+        "asset_id": asset["source_id"],
+        "runtime_asset_id": asset_id,
+        "project_key": "nano-hunter",
+        "project_name": "Nano Hunter",
+        "candidate_index": int(asset["candidate"]),
+        "source": relative(source),
+        "source_sha256": sha256(source),
+        "output": relative(texture),
+        "output_sha256": sha256(texture),
+        "process": "independent_image_api_edit_fixed_grid_chroma_to_alpha_stage30",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "constraints": [
+            "transparent_png",
+            "fixed_4x4_grid",
+            "stable_scale",
+            "stable_anchor",
+            "visual_only_vfx" if asset["kind"] == "vfx_atlas" else "gameplay_timing_code_authority",
+        ],
+    }
+    maybe_attach_model_lock(source_payload, ROOT.resolve(), asset_id)
+    write_json(source_record, source_payload)
     print(f"built {asset_id}: {texture} ({sha256(texture)})")
 
 

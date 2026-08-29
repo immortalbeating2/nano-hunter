@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "seal_resonance_idle_frame_warden_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_seal_resonance_v1",
+  "candidate_path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/seal_resonance_idle_frame_warden_ai01_source.png",
+  "source_path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/seal_resonance_idle_frame_warden_ai01_source.png",
+  "candidate_sha256": "86d5e05d70a36a5bf42c79b1e32cb0f96f110c255ba9b2b81b3c1075550eb7c1",
+  "input_sha256": "86d5e05d70a36a5bf42c79b1e32cb0f96f110c255ba9b2b81b3c1075550eb7c1",
+  "output_path": "assets/art/ui/hud_seal_resonance_v1/seal_resonance_idle_frame_warden_ai01.png",
+  "output_sha256": "1441b481c693b3fba05e4d5621fdfa162976a81ec9c7e8f6d9414e37afe00a5e",
+  "source_size": [
+    2057,
+    765
+  ],
+  "output_size": [
+    1080,
+    400
+  ],
+  "reference_inputs": [
+    {
+      "path": "tests/artifacts/local/hud-pause-imagegen-direction-review/direction_02_warden_lacquer_archive.png",
+      "sha256": "282ac16719f31e8a0f4482a23dee7646bb920965a0b694b721665e085a0939bd"
+    },
+    {
+      "path": "assets/art/ui/hud_warden_integrated_v5/element_frame_integrated_warden_ai01.png",
+      "sha256": "f5df218b20616c5e380da099fc76ca171b41534a1a20c58fbd2218a25656af81"
+    },
+    {
+      "path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/references/gameplay_hud_formal_2048x1152_sha256_57557ef621d8e0a1.png",
+      "sha256": "57557ef621d8e0a10a1f1b017646e26a5795df97fe0b0ea6d9ab59229bfc1bfc"
+    }
+  ],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_bbox_crop_single_uniform_downscale_center_pad",
+  "allowed_process_steps": [
+    "official_remove_chroma_key_auto_key_border",
+    "soft_matte",
+    "despill",
+    "edge_contract_1",
+    "alpha_bbox_crop",
+    "single_uniform_downscale_only",
+    "transparent_center_pad"
+  ],
+  "prompt": "Use case: stylized-concept\nAsset type: production-ready 2D game HUD complete frame source, collapsed idle state\nPrimary request: Create the collapsed idle state of one physical Nano Hunter \"Seal Resonance\" instrument. Exactly one complete orthographic front-facing frame in approved 02 镇妖官印 style. Permanent anchors: ONE concentric Buddhist-wheel mechanical seal housing on the LEFT; exactly TWO clear SQUARE central seal recesses; ONE tiny smooth round cinnabar-red rivet built into the RIGHT corner, smaller than one quarter of a recess. No red plaque or panel. The left wheel uses circles and clean radial spokes only, no face or writing. Continuous outer rails and center hinges must plausibly unfold later.\nInput images: Image 1 approved 02 art direction; Image 2 v5 Element construction/material; Image 3 live 2048x1152 gameplay context. Use all three as references only.\nStyle/medium: polished hand-painted 2D game UI; Southern and Northern Dynasties eastern fantasy; royal demon-warden bureaucracy; Buddhist seal craft; Shanhaijing restraint; meticulous gongbi lines. Near-black lacquer, aged dark bronze, restrained teal patina, one tiny red accent.\nComposition/framing: exactly one centered complete frame with modest even green padding. CRITICAL GEOMETRY: visible non-green outer silhouette must be 2.62:1 to 2.78:1 width-to-height, target 2.70:1. Make the frame body and both square slots visibly TALLER than a thin banner. Visible subject should occupy about 86% of canvas height. If necessary shorten the horizontal body slightly. Keep one short blank pendant on an explicit ring below-left, but keep it compact and inside the stated total visible silhouette ratio.\nSurface rule for pendant: blank non-semantic material only—random pitting, mottled copper oxidation, irregular scratches crossing many directions. No organized strokes, vertical ornaments, motif, emblem, or central design.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background, uniform edge-to-edge.\nConstraints: one frame, one left wheel housing, one left blank pendant, two square recesses, one tiny smooth right red rivet. No other red surface. Complete uncut contour. No letters, words, Chinese characters, seal script, pseudo-writing, calligraphy, numerals, runes, glyph strings, logos, watermark, face, mask, animal, humanoid. No vertical mark rows, repeated stroke groups, pendant engraving, red-rivet marks, or slot icons. Background without shadow, gradient, texture, reflection, floor plane, or lighting variation. Crisp silhouette; no cast/contact shadow; no green spill; no #00ff00 in subject.\nAvoid: visible ratio over 2.78:1, thin 3:1 banner, large red square/rectangle, stamp face, dominant cinnabar, right-side second seal, mirrored ceremony kit, second frame, detached pieces, directional plaque marks, NinePatch repetition, modern laboratory, biotechnology, sci-fi HUD, neon cyberpunk, western fantasy, cropped edges.",
+  "prompt_sha256": "4210bd96026ef613442155ee0e51e58d0550c61c9fa6bcc0ba27033984f3b0a4",
+  "visual_assembly_contract": "seal_resonance_v1_complete_frame",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "Runtime technical candidate only. Human review must still approve visual identity, idle-to-active instrument continuity, pseudo-text absence, physical-size readability, provenance/license terms and Gate26H before final-art or release promotion."
+}

@@ -3,13 +3,13 @@
   "status": "manual_review_queue_ready",
   "boundary": "Manual final-art review queue. Passing audits means every structural asset has an explicit review task; it does not mean the asset is final-ready.",
   "summary": {
-    "asset_count": 78,
-    "manual_review_required_count": 23,
-    "final_ready_count": 55,
+    "asset_count": 81,
+    "manual_review_required_count": 27,
+    "final_ready_count": 54,
     "family_counts": {
       "animation": 8,
       "characters": 4,
-      "environment": 12,
+      "environment": 14,
       "icons": 4,
       "other": 12,
       "promo_logo_cg": 4,
@@ -17,24 +17,29 @@
       "story": 3,
       "style": 1,
       "textures": 1,
-      "ui": 10,
+      "ui": 11,
       "vfx": 11
     },
     "blocker_counts": {
       "anchor_manual_review": 5,
       "foreground_occlusion_review": 2,
-      "license_terms_manual_review": 23,
+      "license_terms_manual_review": 26,
       "mask_and_blend_manual_review": 5,
       "parallax_layer_split": 2,
-      "pseudo_text_cleanup": 1,
-      "runtime_catalog_ready_manual_replacement": 5,
+      "physics_affordance_review": 2,
+      "pseudo_text_cleanup": 2,
+      "runtime_catalog_ready_manual_replacement": 15,
+      "runtime_layout_manual_review": 1,
       "runtime_layout_review": 1,
-      "runtime_reference_not_replaced": 9,
+      "runtime_reference_not_replaced": 1,
+      "runtime_scale_and_seam_review": 2,
       "scale_readability_review": 2,
       "small_size_readability_review": 2,
       "state_variant_naming": 2,
+      "text_safe_area_manual_review": 1,
       "text_safe_area_review": 1,
-      "theme_mapping_manual_review": 1
+      "theme_mapping_manual_review": 1,
+      "visible_top_and_collision_top_review": 2
     }
   },
   "entries": [
@@ -439,11 +444,15 @@
       "priority": "P0",
       "review_status": "manual_review_required",
       "structural_ready": true,
-      "final_ready": true,
+      "final_ready": false,
       "output_path": "assets/art/ui/stage16_title_background_ai01.png",
-      "blocker_count": 0,
-      "blockers": [],
-      "next_actions": [],
+      "blocker_count": 1,
+      "blockers": [
+        "runtime_catalog_ready_manual_replacement"
+      ],
+      "next_actions": [
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
+      ],
       "evidence_paths": [
         "assets/art/ui/stage16_title_background_ai01.png"
       ]
@@ -472,6 +481,35 @@
       ],
       "evidence_paths": [
         "assets/art/ui/stage19_discovery_map_base_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "stage28_bounty_archive_frame_warden_ai01",
+      "target_kind": "ui_panel",
+      "family": "ui",
+      "priority": "P0",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png",
+      "blocker_count": 5,
+      "blockers": [
+        "license_terms_manual_review",
+        "runtime_reference_not_replaced",
+        "text_safe_area_manual_review",
+        "pseudo_text_cleanup",
+        "runtime_layout_manual_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `runtime_reference_not_replaced`。",
+        "确认 UI 面板文本安全区和缩放边界。",
+        "清理或重绘不可读的生成伪文字。",
+        "在真实运行时容器中复核 UI 面板布局。"
+      ],
+      "evidence_paths": [
+        "assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.rules.json",
+        "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png"
       ]
     },
     {
@@ -608,13 +646,13 @@
       "blocker_count": 4,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced",
+        "runtime_catalog_ready_manual_replacement",
         "anchor_manual_review",
         "mask_and_blend_manual_review"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。",
         "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
         "复核 VFX mask、透明边缘和混合模式。"
       ],
@@ -635,13 +673,13 @@
       "blocker_count": 4,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced",
+        "runtime_catalog_ready_manual_replacement",
         "anchor_manual_review",
         "mask_and_blend_manual_review"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。",
         "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
         "复核 VFX mask、透明边缘和混合模式。"
       ],
@@ -662,13 +700,13 @@
       "blocker_count": 4,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced",
+        "runtime_catalog_ready_manual_replacement",
         "anchor_manual_review",
         "mask_and_blend_manual_review"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。",
         "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
         "复核 VFX mask、透明边缘和混合模式。"
       ],
@@ -689,13 +727,13 @@
       "blocker_count": 4,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced",
+        "runtime_catalog_ready_manual_replacement",
         "anchor_manual_review",
         "mask_and_blend_manual_review"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。",
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。",
         "在测试场景中复核 VFX anchor、spawn offset 和缩放。",
         "复核 VFX mask、透明边缘和混合模式。"
       ],
@@ -950,6 +988,60 @@
       ],
       "evidence_paths": [
         "assets/art/environment/thunder_waste/stage29_thunder_waste_background_runtime_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "tutorial_dash_gate_lintel_visual_ai01",
+      "target_kind": "terrain_tile_strip",
+      "family": "environment",
+      "priority": "P1",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png",
+      "blocker_count": 4,
+      "blockers": [
+        "license_terms_manual_review",
+        "physics_affordance_review",
+        "visible_top_and_collision_top_review",
+        "runtime_scale_and_seam_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `physics_affordance_review`。",
+        "需要人工复核 `visible_top_and_collision_top_review`。",
+        "需要人工复核 `runtime_scale_and_seam_review`。"
+      ],
+      "evidence_paths": [
+        "assets/art/tilesets/editor_tilesets/tutorial_dash_gate_lintel_visual_ai01.tileset.tres",
+        "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png"
+      ]
+    },
+    {
+      "asset_id": "tutorial_jump_platform_visual_ai02",
+      "target_kind": "terrain_tile_strip",
+      "family": "environment",
+      "priority": "P1",
+      "review_status": "manual_review_required",
+      "structural_ready": true,
+      "final_ready": false,
+      "output_path": "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png",
+      "blocker_count": 4,
+      "blockers": [
+        "license_terms_manual_review",
+        "physics_affordance_review",
+        "visible_top_and_collision_top_review",
+        "runtime_scale_and_seam_review"
+      ],
+      "next_actions": [
+        "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
+        "需要人工复核 `physics_affordance_review`。",
+        "需要人工复核 `visible_top_and_collision_top_review`。",
+        "需要人工复核 `runtime_scale_and_seam_review`。"
+      ],
+      "evidence_paths": [
+        "assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres",
+        "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png"
       ]
     },
     {
@@ -1231,11 +1323,11 @@
       "blocker_count": 2,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced"
+        "runtime_catalog_ready_manual_replacement"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。"
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
       ],
       "evidence_paths": [
         "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png"
@@ -1253,11 +1345,11 @@
       "blocker_count": 2,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced"
+        "runtime_catalog_ready_manual_replacement"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。"
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
       ],
       "evidence_paths": [
         "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png"
@@ -1275,11 +1367,11 @@
       "blocker_count": 2,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced"
+        "runtime_catalog_ready_manual_replacement"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。"
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
       ],
       "evidence_paths": [
         "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png"
@@ -1297,11 +1389,11 @@
       "blocker_count": 2,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced"
+        "runtime_catalog_ready_manual_replacement"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。"
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
       ],
       "evidence_paths": [
         "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png"
@@ -1319,11 +1411,11 @@
       "blocker_count": 2,
       "blockers": [
         "license_terms_manual_review",
-        "runtime_reference_not_replaced"
+        "runtime_catalog_ready_manual_replacement"
       ],
       "next_actions": [
         "确认 image gen / 外部来源的商业使用条款，并记录审批结论。",
-        "需要人工复核 `runtime_reference_not_replaced`。"
+        "在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。"
       ],
       "evidence_paths": [
         "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png"

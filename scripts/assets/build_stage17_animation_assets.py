@@ -12,6 +12,8 @@ from typing import Any
 
 from PIL import Image
 
+from character_creature_model_lock_contract import maybe_attach_model_lock, model_lock_for_asset
+
 
 ROOT = Path.cwd()
 PLAYER_DIR = Path("assets/art/characters/player/sprite_sheets/runtime_replacement")
@@ -389,20 +391,18 @@ def build_enemy_defeat(spec: dict[str, str]) -> dict[str, Any]:
             "center_x": 80,
         },
     }
+    maybe_attach_model_lock(metadata, ROOT.resolve(), asset_id)
     metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    source_record = {
+        "asset_id": asset_id,
+        "source_asset_id": source_id,
+        "source": relative(source_path),
+        "source_sha256": sha256(source_path),
+        "process": "stage17_deterministic_cycle_to_non_gory_defeat",
+    }
+    maybe_attach_model_lock(source_record, ROOT.resolve(), asset_id)
     source_record_path.write_text(
-        json.dumps(
-            {
-                "asset_id": asset_id,
-                "source_asset_id": source_id,
-                "source": relative(source_path),
-                "source_sha256": sha256(source_path),
-                "process": "stage17_deterministic_cycle_to_non_gory_defeat",
-            },
-            indent=2,
-            ensure_ascii=False,
-        )
-        + "\n",
+        json.dumps(source_record, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
     return {key: value for key, value in metadata.items() if key != "frames"}
@@ -482,20 +482,18 @@ def build_ground_charger_action() -> dict[str, Any]:
             "center_x": 80,
         },
     }
+    maybe_attach_model_lock(metadata, ROOT.resolve(), asset_id)
     metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    source_record = {
+        "asset_id": asset_id,
+        "source_asset_id": CHARGER_SOURCE_ID,
+        "source": relative(source_path),
+        "source_sha256": sha256(source_path),
+        "process": "stage17_deterministic_cycle_to_telegraph_charge_recover",
+    }
+    maybe_attach_model_lock(source_record, ROOT.resolve(), asset_id)
     source_record_path.write_text(
-        json.dumps(
-            {
-                "asset_id": asset_id,
-                "source_asset_id": CHARGER_SOURCE_ID,
-                "source": relative(source_path),
-                "source_sha256": sha256(source_path),
-                "process": "stage17_deterministic_cycle_to_telegraph_charge_recover",
-            },
-            indent=2,
-            ensure_ascii=False,
-        )
-        + "\n",
+        json.dumps(source_record, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
     return {key: value for key, value in metadata.items() if key != "frames"}
@@ -672,19 +670,7 @@ def build_jump() -> None:
     sheet.save(output_path)
     write_jump_spriteframes(spriteframes_path, output_path, len(frames))
 
-    model_lock = {
-        "model_id": "luna_model_v1",
-        "canonical_reference": "luna_idle_runtime_sheet_ai03",
-        "center_x": 96,
-        "center_tolerance_px": 2,
-        "ground_foot_y": 176,
-        "ground_foot_tolerance_px": 2,
-        "standing_reference_height": 140,
-        "standing_height_tolerance_px": 6,
-        "standing_frame_indices": [9, 10],
-        "grounded_phases": ["jump_start", "land"],
-        "max_cross_action_median_height_deviation_ratio": 0.08,
-    }
+    model_lock = model_lock_for_asset(ROOT.resolve(), JUMP_ASSET_ID)
     metadata = {
         "id": JUMP_ASSET_ID,
         "kind": "sprite_sheet",

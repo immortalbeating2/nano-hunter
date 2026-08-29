@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "battle_frame_integrated_warden_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_integrated_frame_v5",
+  "candidate_path": "assets/source/ai_generated/batch_08/hud_warden_integrated_v5/battle_frame_integrated_warden_ai01_source.png",
+  "candidate_sha256": "b816db0f8f6ff17644cd41323b404d4f3474c7e82af0c0b6048aed616d518332",
+  "output_path": "assets/art/ui/hud_warden_integrated_v5/battle_frame_integrated_warden_ai01.png",
+  "output_sha256": "f8ad7a3a237dfa085249eed17a8310725e04277beda04d9b7fe7a3b4f1058d20",
+  "source_size": [2056, 765],
+  "output_size": [1080, 400],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_crop_single_uniform_downscale_center_pad",
+  "prompt": "Create one 02 Warden Official Seal Battle HUD frame on flat #00ff00. Integrate the circular seal into the left metal socket, recess the chain inside a solid upper rail, house the official plaque and compact tassel inside the right lacquer wing, press the cinnabar mark into the surface, keep the interior empty, and extend only the lacquer field and vertical rails until the visible assembly is approximately 2.70:1 without distorting the circular seal.",
+  "visual_assembly_contract": "02_warden_integrated_frame_assembly",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "Runtime technical candidate for the default Battle HUD. Image Gen art is one unified frame; Godot may only add dynamic content above it. Human visual, provenance terms and Gate26H approval remain pending."
+}

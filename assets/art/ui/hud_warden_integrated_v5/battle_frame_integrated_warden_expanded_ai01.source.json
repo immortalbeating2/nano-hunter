@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "battle_frame_integrated_warden_expanded_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_integrated_frame_v5",
+  "candidate_path": "assets/source/ai_generated/batch_08/hud_warden_integrated_v5/battle_frame_integrated_warden_expanded_ai01_source.png",
+  "candidate_sha256": "8cfa55668ab01ca46fc3a8af509beda81f4476be2c9d4149cdd0c99ca93fdf4e",
+  "output_path": "assets/art/ui/hud_warden_integrated_v5/battle_frame_integrated_warden_expanded_ai01.png",
+  "output_sha256": "6fd69e41d61b8135f6540de94280fb470b0649b3f6ffe5e42efca86699a37913",
+  "source_size": [1733, 908],
+  "output_size": [760, 400],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_crop_single_uniform_downscale_center_pad",
+  "prompt": "Create the taller state of the same 02 Warden Official Seal Battle HUD frame on flat #00ff00. Keep horizontal placement and all ornaments unchanged, extend only the black lacquer field, both vertical rails and right housing downward to an approximately 1.90:1 visible assembly, preserve the seal as a true circle, and leave the interior empty for recovery and boss rows.",
+  "visual_assembly_contract": "02_warden_integrated_frame_assembly",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "Runtime technical candidate used only when Battle HUD recovery or boss rows require increased height. Human visual, provenance terms and Gate26H approval remain pending."
+}

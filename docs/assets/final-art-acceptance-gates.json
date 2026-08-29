@@ -1,7 +1,14 @@
 {
-  "version": 1,
+  "version": 2,
   "status": "acceptance_gates_ready",
   "boundary": "Acceptance gates are review requirements for moving structural image-gen assets toward final-ready. Runtime source safety is an upstream gate, so review-required runtime sources cannot remain final-ready. Passing this report only proves the gates are explicit and auditable; it does not approve final art.",
+  "model_lock_contract": {
+    "path": "docs/assets/character-creature-model-locks.json",
+    "technical_identity_gate": "identity_lock_ready",
+    "human_identity_gate": "identity_review_status",
+    "external_release_gate": "final_ready",
+    "boundary": "identity_lock_ready is a technical prerequisite for registered runtime bodies; it does not approve Gate26H identity art, license terms or final_ready."
+  },
   "gate_order": [
     "source_traceability",
     "license_terms",
@@ -21,50 +28,50 @@
     "final_approval": "最终美术批准"
   },
   "summary": {
-    "asset_count": 78,
-    "final_ready_count": 55,
-    "blocked_asset_count": 23,
+    "asset_count": 81,
+    "final_ready_count": 54,
+    "blocked_asset_count": 27,
     "gate_count": 7,
     "gate_summary": {
       "source_traceability": {
-        "passed": 78,
+        "passed": 81,
         "blocked": 0
       },
       "license_terms": {
         "passed": 55,
-        "blocked": 23
+        "blocked": 26
       },
       "godot_structural_resource": {
-        "passed": 78,
+        "passed": 81,
         "blocked": 0
       },
       "editor_review_card": {
-        "passed": 78,
+        "passed": 81,
         "blocked": 0
       },
       "runtime_replacement": {
-        "passed": 73,
-        "blocked": 5
+        "passed": 66,
+        "blocked": 15
       },
       "family_specific_polish": {
-        "passed": 62,
-        "blocked": 16
+        "passed": 67,
+        "blocked": 14
       },
       "final_approval": {
-        "passed": 55,
-        "blocked": 23
+        "passed": 54,
+        "blocked": 27
       }
     },
     "blocked_by_priority": {
-      "P0": 7,
-      "P1": 4,
+      "P0": 9,
+      "P1": 6,
       "P2": 12
     },
     "blocked_by_family": {
-      "environment": 2,
+      "environment": 4,
       "other": 12,
       "props_equipment": 2,
-      "ui": 2,
+      "ui": 4,
       "vfx": 5
     }
   },
@@ -3483,9 +3490,9 @@
       "family": "ui",
       "priority": "P0",
       "output_path": "assets/art/ui/stage16_title_background_ai01.png",
-      "readiness_final_ready": true,
-      "final_ready": true,
-      "blocked_gate_count": 0,
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 2,
       "gates": {
         "source_traceability": {
           "status": "passed",
@@ -3522,12 +3529,14 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
           "status": "passed",
@@ -3538,13 +3547,16 @@
           "blockers": []
         },
         "final_approval": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "docs/assets/final-art-review-queue.json",
             "docs/assets/runtime-source-safety-report.json"
           ],
-          "blockers": []
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
         }
       }
     },
@@ -3925,6 +3937,87 @@
             "docs/assets/final-art-review-queue.json"
           ],
           "blockers": []
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "stage28_bounty_archive_frame_warden_ai01",
+      "target_kind": "ui_panel",
+      "family": "ui",
+      "priority": "P0",
+      "output_path": "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 3,
+      "gates": {
+        "source_traceability": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png"
+          ],
+          "blockers": []
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png",
+            ""
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": []
+        },
+        "family_specific_polish": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "runtime_reference_not_replaced",
+            "text_safe_area_manual_review",
+            "pseudo_text_cleanup",
+            "runtime_layout_manual_review"
+          ]
         },
         "final_approval": {
           "status": "blocked",
@@ -4425,7 +4518,7 @@
       "output_path": "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
       "readiness_final_ready": false,
       "final_ready": false,
-      "blocked_gate_count": 3,
+      "blocked_gate_count": 4,
       "gates": {
         "source_traceability": {
           "status": "passed",
@@ -4451,7 +4544,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png",
-            ""
+            "res://assets/art/vfx/atlases/stage30_kui_boss_combat_vfx_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -4464,12 +4557,14 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
           "status": "blocked",
@@ -4478,7 +4573,6 @@
             "docs/assets/final-art-review-queue.json"
           ],
           "blockers": [
-            "runtime_reference_not_replaced",
             "anchor_manual_review",
             "mask_and_blend_manual_review"
           ]
@@ -4531,7 +4625,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_attacks_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -4544,22 +4638,22 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
-          "status": "blocked",
+          "status": "passed",
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "docs/assets/final-art-review-queue.json"
           ],
-          "blockers": [
-            "runtime_reference_not_replaced"
-          ]
+          "blockers": []
         },
         "final_approval": {
           "status": "blocked",
@@ -4609,7 +4703,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase1_presence_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -4622,22 +4716,22 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
-          "status": "blocked",
+          "status": "passed",
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "docs/assets/final-art-review-queue.json"
           ],
-          "blockers": [
-            "runtime_reference_not_replaced"
-          ]
+          "blockers": []
         },
         "final_approval": {
           "status": "blocked",
@@ -4687,7 +4781,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_presence_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -4700,22 +4794,22 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
-          "status": "blocked",
+          "status": "passed",
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "docs/assets/final-art-review-queue.json"
           ],
-          "blockers": [
-            "runtime_reference_not_replaced"
-          ]
+          "blockers": []
         },
         "final_approval": {
           "status": "blocked",
@@ -4765,7 +4859,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_phase2_resolution_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -4778,22 +4872,22 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
-          "status": "blocked",
+          "status": "passed",
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "docs/assets/final-art-review-queue.json"
           ],
-          "blockers": [
-            "runtime_reference_not_replaced"
-          ]
+          "blockers": []
         },
         "final_approval": {
           "status": "blocked",
@@ -4817,7 +4911,7 @@
       "output_path": "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
       "readiness_final_ready": false,
       "final_ready": false,
-      "blocked_gate_count": 3,
+      "blocked_gate_count": 4,
       "gates": {
         "source_traceability": {
           "status": "passed",
@@ -4843,7 +4937,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png",
-            ""
+            "res://assets/art/vfx/atlases/stage30_kui_boss_state_vfx_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -4856,12 +4950,14 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
           "status": "blocked",
@@ -4870,7 +4966,6 @@
             "docs/assets/final-art-review-queue.json"
           ],
           "blockers": [
-            "runtime_reference_not_replaced",
             "anchor_manual_review",
             "mask_and_blend_manual_review"
           ]
@@ -4923,7 +5018,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_kui_boss_transition_reaction_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -4936,22 +5031,22 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
-          "status": "blocked",
+          "status": "passed",
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "docs/assets/final-art-review-queue.json"
           ],
-          "blockers": [
-            "runtime_reference_not_replaced"
-          ]
+          "blockers": []
         },
         "final_approval": {
           "status": "blocked",
@@ -4975,7 +5070,7 @@
       "output_path": "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
       "readiness_final_ready": false,
       "final_ready": false,
-      "blocked_gate_count": 3,
+      "blocked_gate_count": 4,
       "gates": {
         "source_traceability": {
           "status": "passed",
@@ -5001,7 +5096,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png",
-            ""
+            "res://assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -5014,12 +5109,14 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
           "status": "blocked",
@@ -5028,7 +5125,6 @@
             "docs/assets/final-art-review-queue.json"
           ],
           "blockers": [
-            "runtime_reference_not_replaced",
             "anchor_manual_review",
             "mask_and_blend_manual_review"
           ]
@@ -5081,7 +5177,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_attack_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -5157,7 +5253,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_locomotion_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -5233,7 +5329,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png",
-            ""
+            "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/stage30_thunder_fang_reaction_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -5283,7 +5379,7 @@
       "output_path": "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
       "readiness_final_ready": false,
       "final_ready": false,
-      "blocked_gate_count": 3,
+      "blocked_gate_count": 4,
       "gates": {
         "source_traceability": {
           "status": "passed",
@@ -5309,7 +5405,7 @@
           "evidence": [
             "docs/assets/art-readiness-audit-report.json",
             "assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png",
-            ""
+            "res://assets/art/vfx/atlases/stage30_thunder_fang_vfx_runtime_ai01.png"
           ],
           "blockers": []
         },
@@ -5322,12 +5418,14 @@
           "blockers": []
         },
         "runtime_replacement": {
-          "status": "passed",
+          "status": "blocked",
           "evidence": [
             "docs/assets/asset-runtime-integration-map.json",
             "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
           ],
-          "blockers": []
+          "blockers": [
+            "runtime_catalog_ready_manual_replacement"
+          ]
         },
         "family_specific_polish": {
           "status": "blocked",
@@ -5336,7 +5434,6 @@
             "docs/assets/final-art-review-queue.json"
           ],
           "blockers": [
-            "runtime_reference_not_replaced",
             "anchor_manual_review",
             "mask_and_blend_manual_review"
           ]
@@ -5636,6 +5733,166 @@
             "docs/assets/runtime-source-safety-report.json"
           ],
           "blockers": []
+        }
+      }
+    },
+    {
+      "asset_id": "tutorial_dash_gate_lintel_visual_ai01",
+      "target_kind": "terrain_tile_strip",
+      "family": "environment",
+      "priority": "P1",
+      "output_path": "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 3,
+      "gates": {
+        "source_traceability": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png"
+          ],
+          "blockers": []
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png",
+            "res://assets/art/tilesets/editor_tilesets/tutorial_dash_gate_lintel_visual_ai01.tileset.tres"
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": []
+        },
+        "family_specific_polish": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "physics_affordance_review",
+            "visible_top_and_collision_top_review",
+            "runtime_scale_and_seam_review"
+          ]
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "tutorial_jump_platform_visual_ai02",
+      "target_kind": "terrain_tile_strip",
+      "family": "environment",
+      "priority": "P1",
+      "output_path": "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png",
+      "readiness_final_ready": false,
+      "final_ready": false,
+      "blocked_gate_count": 3,
+      "gates": {
+        "source_traceability": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/runtime-source-safety-report.json",
+            "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png"
+          ],
+          "blockers": []
+        },
+        "license_terms": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/asset-provenance-records.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "license_terms_manual_review"
+          ]
+        },
+        "godot_structural_resource": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png",
+            "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
+          ],
+          "blockers": []
+        },
+        "editor_review_card": {
+          "status": "passed",
+          "evidence": [
+            "scenes/dev/final_art_review_workbench.tscn",
+            "docs/assets/final-art-review-workbench-manifest.json"
+          ],
+          "blockers": []
+        },
+        "runtime_replacement": {
+          "status": "passed",
+          "evidence": [
+            "docs/assets/asset-runtime-integration-map.json",
+            "docs/assets/imagegen-runtime-asset-catalog-manifest.json"
+          ],
+          "blockers": []
+        },
+        "family_specific_polish": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json"
+          ],
+          "blockers": [
+            "physics_affordance_review",
+            "visible_top_and_collision_top_review",
+            "runtime_scale_and_seam_review"
+          ]
+        },
+        "final_approval": {
+          "status": "blocked",
+          "evidence": [
+            "docs/assets/art-readiness-audit-report.json",
+            "docs/assets/final-art-review-queue.json",
+            "docs/assets/runtime-source-safety-report.json"
+          ],
+          "blockers": [
+            "readiness_final_ready_false",
+            "upstream_acceptance_gate_blocked"
+          ]
         }
       }
     },

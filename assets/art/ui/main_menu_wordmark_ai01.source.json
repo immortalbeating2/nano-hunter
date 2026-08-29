@@ -1,0 +1,22 @@
+{
+  "asset_id": "main_menu_wordmark_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "visual_target": "tests/artifacts/local/main-menu-redesign-2026-08-04/05-c2-recomposed-negative-space.png",
+  "source": {
+    "path": "assets/source/ai_generated/batch_08/main_menu_wordmark_ai01/candidates/main_menu_wordmark_ai01_c2_chroma.png",
+    "sha256": "27f89fa16abf5f578be21a786b078062be74636e1a40164eba92b9a8e4b608b4",
+    "generated_on": "2026-08-05"
+  },
+  "output": "assets/art/ui/main_menu_wordmark_ai01.png",
+  "output_sha256": "4c0b0680b6a1ccbd9e44d53f18b53cecab04ef3d7af0cca0cd71c3b39ae42cd8",
+  "process": "codex_built_in_imagegen_chroma_key_then_local_alpha_trim",
+  "prompt_summary": "Create exactly NANO HUNTER as a C2-matched weathered moon-gray gothic wordmark on a flat #00ff00 key background, without other UI or scenery.",
+  "license_record_status": "internal_alpha_direction_selected",
+  "commercial_use_status": "manual_release_review_required",
+  "constraints": [
+    "exact_text_nano_hunter",
+    "transparent_background",
+    "no_baked_menu_controls"
+  ]
+}

@@ -48,7 +48,11 @@
         54,
         50
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 50,
+      "foot_y": 143,
+      "body_height": 93
     },
     {
       "index": 1,
@@ -79,7 +83,11 @@
         54,
         49
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 49,
+      "foot_y": 143,
+      "body_height": 94
     },
     {
       "index": 2,
@@ -110,7 +118,11 @@
         46,
         50
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 50,
+      "foot_y": 141,
+      "body_height": 91
     },
     {
       "index": 3,
@@ -141,7 +153,11 @@
         44,
         50
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 50,
+      "foot_y": 141,
+      "body_height": 91
     },
     {
       "index": 4,
@@ -172,7 +188,11 @@
         31,
         52
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 52,
+      "foot_y": 139,
+      "body_height": 87
     },
     {
       "index": 5,
@@ -203,7 +223,11 @@
         27,
         56
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 56,
+      "foot_y": 136,
+      "body_height": 80
     },
     {
       "index": 6,
@@ -234,7 +258,11 @@
         26,
         56
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 56,
+      "foot_y": 135,
+      "body_height": 79
     },
     {
       "index": 7,
@@ -265,7 +293,11 @@
         24,
         59
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 59,
+      "foot_y": 133,
+      "body_height": 74
     },
     {
       "index": 8,
@@ -296,7 +328,11 @@
         38,
         58
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.5,
+      "head_y": 58,
+      "foot_y": 134,
+      "body_height": 76
     },
     {
       "index": 9,
@@ -327,7 +363,11 @@
         47,
         52
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 52,
+      "foot_y": 141,
+      "body_height": 89
     },
     {
       "index": 10,
@@ -358,7 +398,11 @@
         49,
         48
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.0,
+      "head_y": 48,
+      "foot_y": 143,
+      "body_height": 95
     },
     {
       "index": 11,
@@ -389,7 +433,11 @@
         46,
         49
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 95.5,
+      "head_y": 49,
+      "foot_y": 143,
+      "body_height": 94
     },
     {
       "index": 12,
@@ -420,7 +468,11 @@
         50,
         43
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 95.5,
+      "head_y": 43,
+      "foot_y": 149,
+      "body_height": 106
     },
     {
       "index": 13,
@@ -451,7 +503,11 @@
         54,
         41
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.5,
+      "head_y": 41,
+      "foot_y": 151,
+      "body_height": 110
     },
     {
       "index": 14,
@@ -482,7 +538,11 @@
         56,
         42
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.5,
+      "head_y": 42,
+      "foot_y": 151,
+      "body_height": 109
     },
     {
       "index": 15,
@@ -513,7 +573,11 @@
         56,
         41
       ],
-      "scale": 0.527473
+      "scale": 0.527473,
+      "center_x": 96.5,
+      "head_y": 41,
+      "foot_y": 151,
+      "body_height": 110
     }
   ],
   "normalization": {
@@ -529,5 +593,95 @@
     "scale_min": 0.527473,
     "scale_max": 0.527473,
     "transparent_png": true
+  },
+  "model_lock": {
+    "contract_kind": "character_creature_model_lock_v1",
+    "contract_version": 2,
+    "model_id": "luna_model_v1",
+    "canonical_reference": "luna_idle_runtime_sheet_ai03",
+    "canonical_frame_index": 0,
+    "cell": [
+      192,
+      192
+    ],
+    "root_anchor_kind": "ground_foot_or_air_pose",
+    "center_x": 96.0,
+    "center_tolerance_px": 2.0,
+    "root_y": 176,
+    "root_tolerance_px": 4,
+    "identity_height_ratio_min": 0.45,
+    "identity_height_ratio_max": 1.3,
+    "geometry_lock_ready": true,
+    "identity_lock_ready": true,
+    "runtime_binding_allowed": true,
+    "identity_review_status": "pending_gate26h",
+    "semantic_anchor_contract": {
+      "version": 1,
+      "anatomy": "humanoid",
+      "facing": "right",
+      "core_anchor_id": "hip_center",
+      "required_anchors": [
+        "root",
+        "foot_contact",
+        "head_top",
+        "hip_center",
+        "front_contour",
+        "rear_contour"
+      ],
+      "head_search_bbox": [
+        0.28,
+        0.78,
+        0.0,
+        0.48
+      ],
+      "core_search_bbox": [
+        0.24,
+        0.78,
+        0.38,
+        0.86
+      ],
+      "core_target_y_ratio": 0.68,
+      "foot_search_bbox": [
+        0.08,
+        0.92,
+        0.28,
+        1.0
+      ],
+      "contour_y_range": [
+        0.12,
+        0.92
+      ],
+      "root_contact_tolerance_px": 6,
+      "canonical_core_ratio_tolerance": 0.24
+    },
+    "asset_role": "air_dash",
+    "asset_status": "active",
+    "identity_sample_indices": [
+      0,
+      4,
+      7,
+      8
+    ],
+    "scale_sample_indices": [
+      0,
+      4,
+      7,
+      8
+    ],
+    "root_sample_indices": [],
+    "manual_identity_features": [
+      "face",
+      "hair",
+      "costume",
+      "talisman_bag",
+      "body_proportions",
+      "silhouette"
+    ],
+    "allowed_variants": [
+      "pose",
+      "cloth_motion",
+      "airborne_extension",
+      "controlled_defeat_collapse"
+    ]
   }
 }

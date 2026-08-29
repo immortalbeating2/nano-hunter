@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "tutorial_frame_integrated_warden_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_integrated_frame_v5",
+  "candidate_path": "assets/source/ai_generated/batch_08/hud_warden_integrated_v5/tutorial_frame_integrated_warden_ai01_source.png",
+  "candidate_sha256": "ca3b2172c225dd2eedf6129271425eac323365e9cc1a5f969b25705dec0ab792",
+  "output_path": "assets/art/ui/hud_warden_integrated_v5/tutorial_frame_integrated_warden_ai01.png",
+  "output_sha256": "cbecf9a1679c972e8e95636ea1444c62be32fb79c3f4af8744d6856a8c4e2856",
+  "source_size": [1947, 808],
+  "output_size": [1404, 360],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_crop_single_uniform_downscale_center_pad",
+  "prompt": "Create one very wide 02 Warden Official Seal Tutorial HUD frame on flat #00ff00. Seat a small seal into the left wing, show one readable bronze chain relief recessed into the solid upper rail, house one official plaque and compact tassel inside the right wing, press one cinnabar mark into the lacquer margin, remove any duplicate left hanging plaque, and keep the wide interior empty for a title and two wrapped instruction lines.",
+  "visual_assembly_contract": "02_warden_integrated_frame_assembly",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "Runtime technical candidate for Tutorial HUD. The frame is one Image Gen assembly with no runtime ornament overlay. Human visual, provenance terms and Gate26H approval remain pending."
+}

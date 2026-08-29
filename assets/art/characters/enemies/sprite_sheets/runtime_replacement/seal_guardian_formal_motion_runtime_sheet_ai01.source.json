@@ -14,5 +14,116 @@
     "fixed_4x4_grid",
     "stable_scale",
     "stable_anchor"
-  ]
+  ],
+  "model_lock": {
+    "contract_kind": "character_creature_model_lock_v1",
+    "contract_version": 2,
+    "model_id": "seal_guardian_model_v1",
+    "canonical_reference": "seal_guardian_formal_motion_runtime_sheet_ai01",
+    "canonical_frame_index": 0,
+    "cell": [
+      256,
+      192
+    ],
+    "root_anchor_kind": "ground_foot",
+    "center_x": 128.0,
+    "center_tolerance_px": 1.0,
+    "root_y": 184,
+    "root_tolerance_px": 1,
+    "identity_height_ratio_min": 0.75,
+    "identity_height_ratio_max": 1.05,
+    "geometry_lock_ready": true,
+    "identity_lock_ready": true,
+    "runtime_binding_allowed": true,
+    "identity_review_status": "pending_gate26h",
+    "semantic_anchor_contract": {
+      "version": 1,
+      "anatomy": "quadruped_guardian",
+      "facing": "left",
+      "core_anchor_id": "body_core",
+      "required_anchors": [
+        "root",
+        "foot_contact",
+        "head_top",
+        "body_core",
+        "front_contour",
+        "rear_contour"
+      ],
+      "head_search_bbox": [
+        0.0,
+        0.48,
+        0.0,
+        0.72
+      ],
+      "core_search_bbox": [
+        0.22,
+        0.86,
+        0.18,
+        0.88
+      ],
+      "core_target_y_ratio": 0.58,
+      "foot_search_bbox": [
+        0.04,
+        0.96,
+        0.7,
+        1.0
+      ],
+      "contour_y_range": [
+        0.08,
+        0.94
+      ],
+      "root_contact_tolerance_px": 3,
+      "canonical_core_ratio_tolerance": 0.18
+    },
+    "asset_role": "canonical_all_live_states",
+    "asset_status": "active",
+    "identity_sample_indices": [
+      0,
+      4,
+      8,
+      10,
+      12
+    ],
+    "scale_sample_indices": [
+      0,
+      4,
+      8,
+      10,
+      12
+    ],
+    "root_sample_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "manual_identity_features": [
+      "guardian_head",
+      "armor_layout",
+      "limb_count",
+      "seal_marks",
+      "body_proportions",
+      "silhouette"
+    ],
+    "allowed_variants": [
+      "warning",
+      "attack_extension",
+      "guard_break",
+      "phase_glow",
+      "hit",
+      "defeat_collapse"
+    ]
+  }
 }

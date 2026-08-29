@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "warden_cinnabar_stamp_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_official_corrective_v4",
+  "candidate_path": "assets/source/ai_generated/batch_08/hud_warden_official_v4/warden_ornament_kit_ai01_source.png",
+  "candidate_sha256": "89514a638b311a0fa7289f621be1f822569d02582b9f60599e4eb41755c8e12e",
+  "output_path": "assets/art/ui/hud_warden_official_v4/warden_cinnabar_stamp_ai01.png",
+  "output_sha256": "afe97f29cafa998374ee4380726490c2db1bd885c6c9e7309d0df57073ecb679",
+  "process": "remove_chroma_key_then_crop_resize_only",
+  "visual_anchor_contract": "02_warden_seal_chains_tassel",
+  "boundary": "Runtime-integrated correction candidate. Keeps official seal, chains, hanging talisman and tassel as approved independent non-stretch layers; final human screenshot approval remains required."
+}

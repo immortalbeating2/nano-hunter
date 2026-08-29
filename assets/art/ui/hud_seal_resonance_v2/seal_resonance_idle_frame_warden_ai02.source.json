@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "seal_resonance_idle_frame_warden_ai02",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_seal_resonance_command_v2",
+  "candidate_path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/seal_resonance_idle_frame_warden_ai02_source.png",
+  "source_path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/seal_resonance_idle_frame_warden_ai02_source.png",
+  "candidate_sha256": "e2bf94cb244cec26d38afad2aba06699b5adb8381af4de6543677e0d9be7b85f",
+  "input_sha256": "e2bf94cb244cec26d38afad2aba06699b5adb8381af4de6543677e0d9be7b85f",
+  "output_path": "assets/art/ui/hud_seal_resonance_v2/seal_resonance_idle_frame_warden_ai02.png",
+  "output_sha256": "e3b4c8f2c1eadbcad8af5769a1ede19d5c7a83cfd35b4d0fb906dc3d759576c0",
+  "source_size": [
+    1779,
+    884
+  ],
+  "output_size": [
+    928,
+    464
+  ],
+  "reference_inputs": [
+    {
+      "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/selected_option_02_command_seal_sha256_941695354052e8fd.png",
+      "sha256": "941695354052e8fdfe561136c36a7441d53e870d7d73257da9eb7b0dd2e07241"
+    },
+    {
+      "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/gameplay_resolved_wind_thunder_sha256_66ec712ad638641f.png",
+      "sha256": "66ec712ad638641f32f7af4d0d9d2adbfaa19073fc5007944d7a84b4809f567b"
+    }
+  ],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_bbox_crop_single_uniform_downscale_center_pad",
+  "allowed_process_steps": [
+    "official_remove_chroma_key_auto_key_border",
+    "soft_matte",
+    "despill",
+    "edge_contract_1",
+    "alpha_bbox_crop",
+    "single_uniform_downscale_only",
+    "transparent_center_pad"
+  ],
+  "prompt": "Create ONE corrected production-ready IDLE / compact frame for Nano Hunter's selected Option 02 镇妖官印 resonance HUD. Reference image 1 is the selected hierarchy. Reference image 2 is the accepted expanded state and controls the exact physical identity, material, large element ring, smaller stance ring, hinge language, bronze/black-lacquer construction, and tiny red rivets. Show that SAME apparatus mechanically folded closed.\n\nIsolate one orthographic front-facing asset on a perfectly flat pure #00FF00 chroma-key background. The complete visible non-green silhouette, INCLUDING every pendant, must be between 1.90:1 and 2.08:1 width-to-height. This ratio is mandatory. Make the artifact occupy at least 84% of the canvas height and most of its width. Keep the large element seal recess at least 48% of total visible height, and the smaller stance recess at least 32%, so runtime overlays remain readable at 232x116. Place the large main seal on the left and the clearly separate smaller stance satellite to its right. Fold the long lower sequence rail completely closed behind/into the horizontal body; only a short hinge seam may remain.\n\nThe blank official tag must be VERY SHORT and tucked close beside or immediately below the large seal; it may not extend more than 12% of total artifact height below the main body and must not make the silhouette tall. No long dangling tag. Preserve the broad, simple, coherent construction. Blank nearly-black display wells. Aged dark bronze, black lacquer, restrained teal patina, tiny cinnabar pins. Crisp hard edges, no fuzzy halo, no kitbash seams.\n\nAbsolutely NO text, characters, numbers, pseudo-writing, runes, elemental glyphs, lightning, wind, baked energy, labels, logos, or extra ornaments. No screen mockup, scene, character, multiple variants, contact sheet, perspective, shadows, floor, gradient, or texture in the chroma background. One isolated frame only.",
+  "prompt_sha256": "6bc2bc757852276c739f2302e75a876a30817cfa063d078258b5964bd2b7b9e9",
+  "visual_assembly_contract": "seal_resonance_v2_command_seal",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "User selected Option 02 as the visual direction. Runtime promotion still requires real-window fidelity and physical-size readability review, pseudo-text inspection, provenance/license approval and Gate26H before final-art or release promotion."
+}

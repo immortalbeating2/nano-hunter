@@ -11,6 +11,7 @@ from typing import Any
 from PIL import Image
 
 from build_luna_unified_runtime_body_sheets import crop_grid_cell
+from character_creature_model_lock_contract import maybe_attach_model_lock
 
 
 ROOT = Path.cwd()
@@ -208,46 +209,40 @@ def build_asset(asset: dict[str, Any]) -> None:
     source_path = output_dir / f"{stem}.source.json"
     atlas.save(texture_path)
     write_spriteframes(spriteframes_path, texture_path, asset)
+    frames_payload = {
+        "id": stem,
+        "kind": "sprite_sheet" if "vfx" not in stem else "vfx_atlas",
+        "output": relative(texture_path),
+        "sprite_frames": relative(spriteframes_path),
+        "cell": list(cell_size),
+        "columns": 4,
+        "rows": 4,
+        "frame_count": 16,
+        "animations": asset["animations"],
+        "anchor": asset["anchor"],
+        "frames": frame_records,
+    }
+    maybe_attach_model_lock(frames_payload, ROOT.resolve(), stem)
     frames_path.write_text(
-        json.dumps(
-            {
-                "id": stem,
-                "kind": "sprite_sheet" if "vfx" not in stem else "vfx_atlas",
-                "output": relative(texture_path),
-                "sprite_frames": relative(spriteframes_path),
-                "cell": list(cell_size),
-                "columns": 4,
-                "rows": 4,
-                "frame_count": 16,
-                "animations": asset["animations"],
-                "anchor": asset["anchor"],
-                "frames": frame_records,
-            },
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
+        json.dumps(frames_payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    source_payload = {
+        "asset_id": asset["source_asset_id"],
+        "runtime_asset_id": stem,
+        "project_key": "nano-hunter",
+        "project_name": "Nano Hunter",
+        "candidate_index": 1,
+        "source": relative(source),
+        "source_sha256": sha256(source),
+        "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_stage27",
+        "license_record_status": "source_recorded_terms_review_required",
+        "commercial_use_status": "manual_terms_review_required_before_external_release",
+        "constraints": ["transparent_png", "fixed_4x4_grid", "stable_scale", "stable_anchor"],
+    }
+    maybe_attach_model_lock(source_payload, ROOT.resolve(), stem)
     source_path.write_text(
-        json.dumps(
-            {
-                "asset_id": asset["source_asset_id"],
-                "runtime_asset_id": stem,
-                "project_key": "nano-hunter",
-                "project_name": "Nano Hunter",
-                "candidate_index": 1,
-                "source": relative(source),
-                "source_sha256": sha256(source),
-                "process": "built_in_image_gen_fixed_grid_chroma_to_alpha_stage27",
-                "license_record_status": "source_recorded_terms_review_required",
-                "commercial_use_status": "manual_terms_review_required_before_external_release",
-                "constraints": ["transparent_png", "fixed_4x4_grid", "stable_scale", "stable_anchor"],
-            },
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
+        json.dumps(source_payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(f"built {stem}: {texture_path} ({sha256(texture_path)})")

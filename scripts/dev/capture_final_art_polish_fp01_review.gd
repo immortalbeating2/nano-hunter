@@ -48,7 +48,7 @@ const SCENE_SPECS := [
 		"path": "res://scenes/rooms/stage15_seal_guardian_boss_room.tscn",
 		"visuals": [
 			{"node": "SealGuardianBossRoomBackgroundArt", "asset_id": "stage15_seal_guardian_boss_room_ai01"},
-			{"node": "SealGuardianBoss/SealGuardianRuntimeAnimationVisual", "asset_id": "seal_guardian_idle_runtime_sheet_ai01"},
+			{"node": "SealGuardianBoss/SealGuardianRuntimeAnimationVisual", "asset_id": "seal_guardian_formal_motion_runtime_sheet_ai01"},
 			{"node": "FormalTerrainTilemapDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
 			{"node": "FormalForegroundEdgeDecor", "asset_id": "dac_formal_terrain_tileset_ai01_64"},
 		],

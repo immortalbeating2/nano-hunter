@@ -12,6 +12,8 @@ from typing import Any
 
 from PIL import Image
 
+from character_creature_model_lock_contract import model_lock_for_asset
+
 
 DEFAULT_ATLAS_MANIFEST = "docs/assets/asset-atlas-build-manifest.json"
 DEFAULT_REPORT_JSON = "docs/assets/animation-runtime-replacement-audit-report.json"
@@ -26,6 +28,7 @@ ARCHIVED_REFERENCE_STATUSES = {
     "archived_blocked_reference",
     "superseded_reference",
     "blocked_candidate_reference",
+    "reference_rejected",
 }
 
 
@@ -293,6 +296,139 @@ def duplicate_groups(frames: list[dict[str, Any]]) -> list[list[int]]:
     return [indexes for indexes in by_hash.values() if len(indexes) > 1]
 
 
+def audit_character_creature_model_lock(
+    texture_path: Path,
+    metadata: dict[str, Any],
+    audited_frames: list[dict[str, Any]],
+    lock: dict[str, Any],
+) -> tuple[dict[str, Any], list[str], list[str]]:
+    """兼容通用模型锁；旧动作审计继续检查几何，但不再硬编码 Luna schema。"""
+    blockers: list[str] = []
+    warnings: list[str] = []
+    asset_id = str(metadata.get("id", ""))
+    try:
+        expected_lock = model_lock_for_asset(Path.cwd().resolve(), asset_id)
+        if lock != expected_lock:
+            blockers.append("model_lock_central_contract_drift")
+    except (FileNotFoundError, KeyError, ValueError, json.JSONDecodeError):
+        blockers.append("model_lock_missing_central_contract")
+
+    model_id = str(lock.get("model_id", ""))
+    canonical_id = str(lock.get("canonical_reference", ""))
+    canonical_frame_index = int(lock.get("canonical_frame_index", 0))
+    expected_center = float(lock.get("center_x", 0))
+    center_tolerance = float(lock.get("center_tolerance_px", 0))
+    expected_root = int(lock.get("root_y", 0))
+    root_tolerance = int(lock.get("root_tolerance_px", 0))
+    root_indexes = {int(index) for index in lock.get("root_sample_indices", [])}
+    scale_indexes = {int(index) for index in lock.get("scale_sample_indices", [])}
+    ratio_min = float(lock.get("identity_height_ratio_min", 0))
+    ratio_max = float(lock.get("identity_height_ratio_max", 0))
+    geometry_ready = bool(lock.get("geometry_lock_ready", False))
+    runtime_allowed = bool(lock.get("runtime_binding_allowed", False))
+    asset_status = str(lock.get("asset_status", "active"))
+    if not model_id:
+        blockers.append("model_lock_id_missing")
+    if asset_status != "active":
+        blockers.append("model_lock_asset_not_active")
+    if not geometry_ready:
+        blockers.append("model_lock_geometry_not_ready")
+    if not runtime_allowed:
+        blockers.append("model_lock_runtime_binding_blocked")
+
+    frame_by_index = {
+        int(frame["index"]): frame for frame in audited_frames if not bool(frame.get("empty", True))
+    }
+    center_failures = [
+        index
+        for index, frame in frame_by_index.items()
+        if abs(float(frame["center"][0]) - expected_center) > center_tolerance
+    ]
+    root_failures: list[int] = []
+    missing_root_samples: list[int] = []
+    for index in sorted(root_indexes):
+        frame = frame_by_index.get(index)
+        if frame is None:
+            missing_root_samples.append(index)
+        elif abs((int(frame["foot_y"]) - 1) - expected_root) > root_tolerance:
+            root_failures.append(index)
+
+    canonical_height: int | None = None
+    canonical_metadata_path = texture_path.parent / f"{canonical_id}.frames.json"
+    canonical_texture_path = texture_path.parent / f"{canonical_id}.png"
+    if canonical_id and canonical_metadata_path.exists() and canonical_texture_path.exists():
+        canonical_metadata = load_json(canonical_metadata_path)
+        canonical_cell = [int(value) for value in canonical_metadata.get("cell", lock.get("cell", []))]
+        canonical_image = Image.open(canonical_texture_path).convert("RGBA")
+        for frame_record in canonical_metadata.get("frames", []):
+            if int(frame_record.get("index", -1)) != canonical_frame_index:
+                continue
+            canonical_frame = audit_frame(canonical_image, frame_record, canonical_cell)
+            if not canonical_frame["empty"]:
+                canonical_height = int(canonical_frame["content_size"][1])
+            break
+    else:
+        blockers.append("model_lock_missing_canonical_reference")
+
+    scale_ratios: dict[str, float] = {}
+    scale_failures: list[int] = []
+    missing_scale_samples: list[int] = []
+    if canonical_height is None or canonical_height <= 0:
+        blockers.append("model_lock_canonical_height_missing")
+    else:
+        for index in sorted(scale_indexes):
+            frame = frame_by_index.get(index)
+            if frame is None:
+                missing_scale_samples.append(index)
+                continue
+            ratio = float(frame["content_size"][1]) / canonical_height
+            scale_ratios[str(index)] = round(ratio, 4)
+            if ratio < ratio_min or ratio > ratio_max:
+                scale_failures.append(index)
+
+    if geometry_ready and center_failures:
+        blockers.append("model_lock_center_line_drift")
+    if geometry_ready and (root_failures or missing_root_samples):
+        blockers.append("model_lock_root_anchor_drift")
+    if geometry_ready and (scale_failures or missing_scale_samples):
+        blockers.append("model_lock_canonical_height_ratio_drift")
+    if center_failures:
+        warnings.append(f"model_lock_center_failures={center_failures}")
+    if root_failures or missing_root_samples:
+        warnings.append(
+            f"model_lock_root_failures={root_failures};missing={missing_root_samples}"
+        )
+    if scale_failures or missing_scale_samples:
+        warnings.append(
+            f"model_lock_scale_failures={scale_failures};missing={missing_scale_samples}"
+        )
+
+    return (
+        {
+            "contract_kind": str(lock.get("contract_kind", "")),
+            "model_id": model_id,
+            "canonical_reference": canonical_id,
+            "canonical_frame_index": canonical_frame_index,
+            "canonical_body_height": canonical_height,
+            "center_x": expected_center,
+            "center_tolerance_px": center_tolerance,
+            "center_failures": center_failures,
+            "root_y": expected_root,
+            "root_tolerance_px": root_tolerance,
+            "root_sample_indices": sorted(root_indexes),
+            "root_failures": root_failures,
+            "scale_sample_indices": sorted(scale_indexes),
+            "scale_height_ratios": scale_ratios,
+            "scale_failures": scale_failures,
+            "geometry_lock_ready": geometry_ready,
+            "runtime_binding_allowed": runtime_allowed,
+            "asset_status": asset_status,
+        },
+        blockers,
+        warnings,
+    )
+
+
 def audit_model_lock(
     texture_path: Path,
     metadata: dict[str, Any],
@@ -305,6 +441,10 @@ def audit_model_lock(
 
     blockers: list[str] = []
     warnings: list[str] = []
+    contract_kind = str(lock.get("contract_kind", "phase_locked"))
+    if contract_kind == "character_creature_model_lock_v1":
+        return audit_character_creature_model_lock(texture_path, metadata, audited_frames, lock)
+    is_shared_runtime_body = contract_kind == "shared_runtime_body_v1"
     expected_center = float(lock.get("center_x", 96))
     center_tolerance = float(lock.get("center_tolerance_px", 2))
     expected_foot = int(lock.get("ground_foot_y", 176))
@@ -313,6 +453,8 @@ def audit_model_lock(
     height_tolerance = int(lock.get("standing_height_tolerance_px", 6))
     standing_indexes = {int(index) for index in lock.get("standing_frame_indices", [])}
     grounded_phases = {str(phase) for phase in lock.get("grounded_phases", [])}
+    requires_ground_foot = bool(lock.get("requires_ground_foot", not is_shared_runtime_body))
+    requires_standing_height = bool(lock.get("requires_standing_height", not is_shared_runtime_body))
     metadata_by_index = {
         int(frame.get("index", -1)): frame
         for frame in metadata.get("frames", [])
@@ -324,14 +466,17 @@ def audit_model_lock(
         for frame in audited_frames
         if not frame["empty"] and abs(float(frame["center"][0]) - expected_center) > center_tolerance
     ]
-    grounded_frames = [
-        frame
-        for frame in audited_frames
-        if (
-            not frame["empty"]
-            and str(metadata_by_index.get(int(frame["index"]), {}).get("phase", "")) in grounded_phases
-        )
-    ]
+    if is_shared_runtime_body and requires_ground_foot:
+        grounded_frames = [frame for frame in audited_frames if not frame["empty"]]
+    else:
+        grounded_frames = [
+            frame
+            for frame in audited_frames
+            if (
+                not frame["empty"]
+                and str(metadata_by_index.get(int(frame["index"]), {}).get("phase", "")) in grounded_phases
+            )
+        ]
     foot_failures = [
         int(frame["index"])
         for frame in grounded_frames
@@ -383,9 +528,9 @@ def audit_model_lock(
         blockers.append("model_lock_id_mismatch")
     if center_failures:
         blockers.append("model_lock_center_line_drift")
-    if not grounded_frames or foot_failures:
+    if requires_ground_foot and (not grounded_frames or foot_failures):
         blockers.append("model_lock_grounded_foot_baseline_drift")
-    if not standing_frames or standing_height_failures:
+    if requires_standing_height and (not standing_frames or standing_height_failures):
         blockers.append("model_lock_standing_height_drift")
     if center_failures:
         warnings.append(f"model_lock_center_failures={center_failures}")
@@ -396,6 +541,7 @@ def audit_model_lock(
 
     return (
         {
+            "contract_kind": contract_kind,
             "model_id": str(lock.get("model_id", "")),
             "canonical_reference": canonical_id,
             "center_x": expected_center,
@@ -403,10 +549,12 @@ def audit_model_lock(
             "center_failures": center_failures,
             "ground_foot_y": expected_foot,
             "ground_foot_tolerance_px": foot_tolerance,
+            "requires_ground_foot": requires_ground_foot,
             "grounded_frame_count": len(grounded_frames),
             "foot_failures": foot_failures,
             "standing_reference_height": expected_height,
             "standing_height_tolerance_px": height_tolerance,
+            "requires_standing_height": requires_standing_height,
             "standing_frame_indices": sorted(standing_indexes),
             "standing_heights": standing_heights,
             "standing_height_failures": standing_height_failures,

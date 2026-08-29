@@ -7,8 +7,9 @@
 | `stage28_waystation_background_ai01` | `assets/art/environment/waystation/stage28_waystation_background_runtime_ai01.png` | Stage11 `1152x512` 正式背景显示层 | SHA256 `cbfa9c29b597eb6236b7fcb9bc3c0bbe967c580d2a30ff797f0768248e0886de` | Gate26H 构图 / 对比度 / 授权 |
 | `stage28_waystation_world_sheet_ai01` | `stage28_waystation_world_runtime_ai01.{png,spriteframes.tres}` | 四状态榜牌、驿卒 4 帧 idle、雷泽路引、左右 marker、checkpoint | SHA256 `b50da0659751c27956b89a923924b33833cf59bd1b4516bfd6bfbd9d432b63c3` | Gate26H 64px 读值 / 动作审美 / 授权 |
 | `stage28_waystation_ui_sheet_ai01` | `assets/art/ui/stage28_waystation_ui_runtime_ai01.png` | 驿卒 portrait、3 悬赏、4 Build、空 / 已装备槽位 | SHA256 `ff9d76dbc90d2d1c121f0f3362fd62f6a11af58c70e3073f736d44ef1fee113f` | Gate26H 32px / 64px 读值 / 授权 |
+| `stage28_bounty_archive_frame_warden_ai01` | `assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png` | 悬赏榜专用暗漆铜框；标题、统计、任务、图标、焦点和返回均由 Godot 动态绘制 | RGBA `1306×1205`；SHA256 `b6ee259326b5b6a9933d723f5c1d90ece0098bcbb34afb24173a0823d95f08a2`；2K 视觉复核 PASS | 用户最终审美 / 物理显示距离 / 外部发布授权 |
 
-原始候选保存在 ignored `assets/source/ai_generated/batch_28/`；色键清理结果在各自 `prepared/`。`build_stage28_waystation_assets.py` 只生成显示资源，不改变 Stage11 碰撞、出口、checkpoint、任务或 Stage25 路引逻辑。
+原始候选保存在 ignored `assets/source/ai_generated/batch_28/`；色键或 Alpha 清理结果在各自 `prepared/`。`build_stage28_waystation_assets.py` 只生成原有背景 / 图集；新增悬赏框是独立单图，不塞入既有 `4×4` 图集，也不改变 Stage11 碰撞、出口、checkpoint、任务或 Stage25 路引逻辑。
 
 ### 世界表 4x4
 

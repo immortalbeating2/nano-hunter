@@ -3,22 +3,28 @@
 本文件把最终美术从 `structural_ready` 推进到 `final_ready` 所需的门槛拆成机器可审计清单。
 它不是最终批准记录；当前所有未通过项仍需要人工清稿、授权确认、运行时替换或玩法读值复核。
 
+## Related Character / Creature Model Lock
+
+- 机器契约：`docs/assets/character-creature-model-locks.json`
+- `identity_lock_ready` 只证明逐帧语义锚点、跨 sheet 比例与生产绑定的技术身份连续；它不会设置 `final_ready`。
+- `identity_review_status` 继续由 Gate26H 真人审美签核；授权与外部发布仍由本文件各资产的 `final_approval / final_ready` 决定。
+
 ## Summary
 
-- 资产总数：`78`
-- Final ready：`55`
-- 仍有阻塞门槛的资产：`23`
+- 资产总数：`81`
+- Final ready：`54`
+- 仍有阻塞门槛的资产：`27`
 - 每个资产验收门槛数：`7`
 
 ## Gate Summary
 
-- `source_traceability` / 来源 / prompt / hash 可追溯: passed `78`, blocked `0`
-- `license_terms` / 商业使用条款人工复核: passed `55`, blocked `23`
-- `godot_structural_resource` / Godot 结构资源可用: passed `78`, blocked `0`
-- `editor_review_card` / 编辑器复核卡可用: passed `78`, blocked `0`
-- `runtime_replacement` / 运行时引用替换与验证: passed `73`, blocked `5`
-- `family_specific_polish` / 按资产族清稿 / 读值 / 帧序 / 布局复核: passed `62`, blocked `16`
-- `final_approval` / 最终美术批准: passed `55`, blocked `23`
+- `source_traceability` / 来源 / prompt / hash 可追溯: passed `81`, blocked `0`
+- `license_terms` / 商业使用条款人工复核: passed `55`, blocked `26`
+- `godot_structural_resource` / Godot 结构资源可用: passed `81`, blocked `0`
+- `editor_review_card` / 编辑器复核卡可用: passed `81`, blocked `0`
+- `runtime_replacement` / 运行时引用替换与验证: passed `66`, blocked `15`
+- `family_specific_polish` / 按资产族清稿 / 读值 / 帧序 / 布局复核: passed `67`, blocked `14`
+- `final_approval` / 最终美术批准: passed `54`, blocked `27`
 
 ## Blocked Assets
 
@@ -70,7 +76,9 @@
 - [ ] `P0` `stage16_pause_panel_ui_ai01` (ui / ui_panel) - blocked gates `0`
 - [ ] `P1` `stage16_seal_release_threshold_ai01` (props_equipment / prop) - blocked gates `0`
 - [ ] `P0` `stage16_talisman_relay_ai01` (vfx / vfx_sheet) - blocked gates `0`
-- [ ] `P0` `stage16_title_background_ai01` (ui / title_background) - blocked gates `0`
+- [ ] `P0` `stage16_title_background_ai01` (ui / title_background) - blocked gates `2`
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P0` `stage19_discovery_map_base_ai01` (ui / ui_map_foundation) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
   - `family_specific_polish`: small_size_readability_review, text_safe_area_review, runtime_layout_review
@@ -90,6 +98,10 @@
 - [ ] `P2` `stage27_seal_guardian_vfx_ai01` (other / boss_vfx) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
   - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P0` `stage28_bounty_archive_frame_warden_ai01` (ui / ui_panel) - blocked gates `3`
+  - `license_terms`: license_terms_manual_review
+  - `family_specific_polish`: runtime_reference_not_replaced, text_safe_area_manual_review, pseudo_text_cleanup, runtime_layout_manual_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P1` `stage28_waystation_background_ai01` (environment / environment_room_background) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
@@ -116,37 +128,40 @@
   - `license_terms`: license_terms_manual_review
   - `family_specific_polish`: anchor_manual_review, mask_and_blend_manual_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
-- [ ] `P0` `stage30_kui_boss_combat_vfx_ai01` (vfx / vfx_atlas) - blocked gates `3`
+- [ ] `P0` `stage30_kui_boss_combat_vfx_ai01` (vfx / vfx_atlas) - blocked gates `4`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced, anchor_manual_review, mask_and_blend_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `family_specific_polish`: anchor_manual_review, mask_and_blend_manual_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `stage30_kui_boss_phase1_attacks_ai01` (other / boss_animation) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `stage30_kui_boss_phase1_presence_ai01` (other / boss_animation) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `stage30_kui_boss_phase2_presence_ai01` (other / boss_animation) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `stage30_kui_boss_phase2_resolution_ai01` (other / boss_animation) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
-- [ ] `P0` `stage30_kui_boss_state_vfx_ai01` (vfx / vfx_atlas) - blocked gates `3`
+- [ ] `P0` `stage30_kui_boss_state_vfx_ai01` (vfx / vfx_atlas) - blocked gates `4`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced, anchor_manual_review, mask_and_blend_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `family_specific_polish`: anchor_manual_review, mask_and_blend_manual_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `stage30_kui_boss_transition_reaction_ai01` (other / boss_animation) - blocked gates `3`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
-- [ ] `P0` `stage30_thunder_absorption_reward_vfx_ai01` (vfx / vfx_atlas) - blocked gates `3`
+- [ ] `P0` `stage30_thunder_absorption_reward_vfx_ai01` (vfx / vfx_atlas) - blocked gates `4`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced, anchor_manual_review, mask_and_blend_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `family_specific_polish`: anchor_manual_review, mask_and_blend_manual_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `stage30_thunder_fang_attack_ai01` (other / enemy_animation) - blocked gates `2`
   - `license_terms`: license_terms_manual_review
@@ -157,13 +172,22 @@
 - [ ] `P2` `stage30_thunder_fang_reaction_ai01` (other / enemy_animation) - blocked gates `2`
   - `license_terms`: license_terms_manual_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
-- [ ] `P0` `stage30_thunder_fang_vfx_ai01` (vfx / vfx_atlas) - blocked gates `3`
+- [ ] `P0` `stage30_thunder_fang_vfx_ai01` (vfx / vfx_atlas) - blocked gates `4`
   - `license_terms`: license_terms_manual_review
-  - `family_specific_polish`: runtime_reference_not_replaced, anchor_manual_review, mask_and_blend_manual_review
+  - `runtime_replacement`: runtime_catalog_ready_manual_replacement
+  - `family_specific_polish`: anchor_manual_review, mask_and_blend_manual_review
   - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P2` `storyboard_intro_bounty_ai01` (story / storyboard_sheet) - blocked gates `0`
 - [ ] `P2` `storyboard_miasma_marsh_ai01` (story / storyboard_sheet) - blocked gates `0`
 - [ ] `P2` `storyboard_narrative_sheet_ai01` (story / storyboard_sheet) - blocked gates `0`
 - [ ] `P1` `style_board_global_ai01` (style / style_board) - blocked gates `0`
+- [ ] `P1` `tutorial_dash_gate_lintel_visual_ai01` (environment / terrain_tile_strip) - blocked gates `3`
+  - `license_terms`: license_terms_manual_review
+  - `family_specific_polish`: physics_affordance_review, visible_top_and_collision_top_review, runtime_scale_and_seam_review
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
+- [ ] `P1` `tutorial_jump_platform_visual_ai02` (environment / terrain_tile_strip) - blocked gates `3`
+  - `license_terms`: license_terms_manual_review
+  - `family_specific_polish`: physics_affordance_review, visible_top_and_collision_top_review, runtime_scale_and_seam_review
+  - `final_approval`: readiness_final_ready_false, upstream_acceptance_gate_blocked
 - [ ] `P0` `vfx_combat_atlas_ai01` (vfx / vfx_atlas) - blocked gates `0`
 - [ ] `P0` `vfx_seal_magic_atlas_ai01` (vfx / vfx_atlas) - blocked gates `0`

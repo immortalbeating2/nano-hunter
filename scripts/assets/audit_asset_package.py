@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -15,7 +16,7 @@ DEFAULT_REPORT = "docs/assets/asset-package-audit-report.json"
 REQUIRED_TARGET_KIND_FAMILIES = {
     "style": {"style_board"},
     "characters": {"character_direction", "sprite_sheet", "boss_direction", "spine_cutout_parts"},
-    "environment": {"tileset_sheet", "environment_tiles", "environment_background", "environment_room_background", "environment_boss_room_background"},
+    "environment": {"tileset_sheet", "terrain_tile_strip", "environment_tiles", "environment_background", "environment_room_background", "environment_boss_room_background"},
     "ui": {"ui_atlas", "ui_panel", "ui_map_foundation", "hud_frame", "completion_ui", "title_background", "ninepatch_sheet"},
     "icons": {"icon", "icon_sheet"},
     "props_equipment": {"prop", "prop_atlas", "prop_sheet", "equipment_atlas"},
@@ -193,7 +194,8 @@ def audit_tilesets(root: Path) -> dict[str, Any]:
         "formal_terrain_kit_ai01.tileset.tres",
         "miasma_marsh_tileset_ai01.tileset.tres",
         "shrine_trial_tileset_ai01.tileset.tres",
-        "tutorial_thin_platform_visual_ai01.tileset.tres",
+        "tutorial_dash_gate_lintel_visual_ai01.tileset.tres",
+        "tutorial_jump_platform_visual_ai02.tileset.tres",
     }
     present = {path.name for path in paths}
     expected_rules = {
@@ -303,69 +305,356 @@ def audit_ui_skin(root: Path) -> dict[str, Any]:
 
 
 def audit_runtime_ui_skin_binding(root: Path) -> dict[str, Any]:
-    theme = "res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres"
-    stylebox = (
+    shell_theme = "res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres"
+    hud_theme = "res://assets/art/ui/hud_warden_official_v4.theme.tres"
+    legacy_panel_stylebox = (
         "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/"
         "000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres"
     )
+    v4_stylebox_root = "res://assets/art/ui/styleboxes/hud_warden_official_v4/"
+    v4_texture_root = "res://assets/art/ui/hud_warden_official_v4/"
+    v5_stylebox_root = "res://assets/art/ui/styleboxes/hud_warden_integrated_v5/"
+    v5_texture_root = "res://assets/art/ui/hud_warden_integrated_v5/"
+    seal_stylebox_root = "res://assets/art/ui/styleboxes/hud_seal_resonance_v2/"
+    seal_texture_root = "res://assets/art/ui/hud_seal_resonance_v2/"
+    seal_atlas_root = "res://assets/art/editor_resources/seal_resonance_symbols_warden_ai02/"
+    seal_symbols_texture = seal_texture_root + "seal_resonance_symbols_warden_ai02.png"
+    seal_runtime_script = "res://scripts/ui/seal_resonance_hud.gd"
+    action_focus_shader = "res://assets/shaders/ui/main_menu_focus_band.gdshader"
+    legacy_v5_element_frame = v5_texture_root + "element_frame_integrated_warden_ai01.png"
+    v5_assembly_contract = "02_warden_integrated_frame_assembly"
+    seal_assembly_contract = "seal_resonance_v2_command_seal"
+    atlas_specs = {
+        "wind": (0.0, 0.0, 256.0, 256.0),
+        "thunder": (256.0, 0.0, 256.0, 256.0),
+        "swift": (512.0, 0.0, 256.0, 256.0),
+        "ward": (0.0, 256.0, 256.0, 256.0),
+        "wind_thunder_pierce": (256.0, 256.0, 256.0, 256.0),
+        "thunder_wind_scatter": (512.0, 256.0, 256.0, 256.0),
+    }
     scene_specs = {
         "scenes/ui/demo_shell.tscn": {
-            "panels": ["MainMenu", "PauseMenu", "CompletionPanel"],
+            "root_node": "DemoShell",
+            "theme": shell_theme,
+            "panels": ["MainMenu", "PauseMenu", "FailurePanel", "CompletionPanel"],
+            "panel_styleboxes": {
+                "PauseMenu": v4_stylebox_root + "pause_frame_base_warden_official_ai01.stylebox_texture.tres",
+                "FailurePanel": v4_stylebox_root + "pause_frame_base_warden_official_ai01.stylebox_texture.tres",
+                "CompletionPanel": legacy_panel_stylebox,
+            },
+            "empty_panel_styles": {
+                "MainMenu": "StyleBoxEmpty_title_menu_panel",
+            },
+            "ornament_panels": {
+                "PauseMenu": {
+                    "SealMedallion": v4_texture_root + "warden_seal_medallion_ai01.png",
+                    "TopChainLeft": v4_texture_root + "warden_chain_hook_ai01.png",
+                    "TopChainRight": v4_texture_root + "warden_chain_hook_ai01.png",
+                    "HangingTalisman": v4_texture_root + "warden_chain_talisman_tassel_ai01.png",
+                    "CinnabarStamp": v4_texture_root + "warden_cinnabar_stamp_ai01.png",
+                },
+                "FailurePanel": {
+                    "SealMedallion": v4_texture_root + "warden_seal_medallion_ai01.png",
+                    "TopChain": v4_texture_root + "warden_chain_hook_ai01.png",
+                    "HangingTalisman": v4_texture_root + "warden_chain_talisman_tassel_ai01.png",
+                    "CinnabarStamp": v4_texture_root + "warden_cinnabar_stamp_ai01.png",
+                },
+            },
+            "shared_focus_band": "ActionFocusBand",
             "textures": {
-                "TitleBackground": "res://assets/art/ui/stage16_title_background_ai01.png",
-                "MenuIconStrip": "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
-                "PausePanelArt": "res://assets/art/ui/stage16_pause_panel_ui_ai01.png",
-                "CompletionPanelArt": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
+                "TitleBackground": "res://assets/art/ui/main_menu_shell_ai02.png",
+                "MainMenu/MarginContainer/VBoxContainer/TitleWordmark": "res://assets/art/ui/main_menu_wordmark_ai01.png",
+                "MainMenu/MenuIconStrip": "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
+                "CompletionPanel/CompletionPanelArt": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
             },
         },
         "scenes/ui/tutorial_hud.tscn": {
-            "panels": ["PromptPanel", "BattlePanel"],
-            "textures": {},
+            "root_node": "TutorialHUD",
+            "theme": hud_theme,
+            "panels": ["PromptPanel", "BattlePanel", "ElementPanel"],
+            "panel_styleboxes": {
+                "PromptPanel": v5_stylebox_root + "tutorial_content_safe.stylebox_empty.tres",
+                "BattlePanel": v5_stylebox_root + "battle_content_safe.stylebox_empty.tres",
+                "ElementPanel": seal_stylebox_root + "seal_resonance_idle_content_safe.stylebox_empty.tres",
+            },
+            "ornament_panels": {},
+            "forbidden_ornament_panels": ["PromptPanel", "BattlePanel", "ElementPanel"],
+            "textures": {
+                "PromptPanel/FrameArt": v5_texture_root + "tutorial_frame_integrated_warden_ai01.png",
+                "BattlePanel/FrameArt": v5_texture_root + "battle_frame_integrated_warden_ai01.png",
+                "BattlePanel/FrameArtExpanded": v5_texture_root + "battle_frame_integrated_warden_expanded_ai01.png",
+                "ElementPanel/FrameArt": seal_texture_root + "seal_resonance_idle_frame_warden_ai02.png",
+                "ElementPanel/FrameArtActive": seal_texture_root + "seal_resonance_active_frame_warden_ai02.png",
+            },
+            "frame_contracts": {
+                "PromptPanel/FrameArt": v5_assembly_contract,
+                "BattlePanel/FrameArt": v5_assembly_contract,
+                "BattlePanel/FrameArtExpanded": v5_assembly_contract,
+                "ElementPanel/FrameArt": seal_assembly_contract,
+                "ElementPanel/FrameArtActive": seal_assembly_contract,
+            },
+            "panel_scripts": {
+                "ElementPanel": seal_runtime_script,
+            },
+            "panel_metadata": {
+                "ElementPanel": {
+                    "hud_role": "seal_resonance",
+                    "asset_id_idle": "seal_resonance_idle_frame_warden_ai02",
+                    "asset_id_active": "seal_resonance_active_frame_warden_ai02",
+                    "visual_assembly_contract": seal_assembly_contract,
+                },
+            },
+            "forbidden_nodes": ["ElementPanel/ElementStatusLabel"],
         },
     }
+
+    def section_block(text: str, header: str) -> str:
+        start = text.find(header)
+        if start < 0:
+            return ""
+        end = text.find("\n[", start + len(header))
+        return text[start:] if end < 0 else text[start:end]
+
+    def node_block(text: str, node_path: str, node_type: str) -> str:
+        node_name = node_path.rsplit("/", 1)[-1]
+        parent_path = node_path.rsplit("/", 1)[0] if "/" in node_path else "."
+        header = f'[node name="{node_name}" type="{node_type}" parent="{parent_path}"]'
+        return section_block(text, header)
+
+    def ext_resource_paths(text: str) -> dict[str, str]:
+        resources: dict[str, str] = {}
+        for line in text.splitlines():
+            if not line.startswith("[ext_resource "):
+                continue
+            path_match = re.search(r'\bpath="([^"]+)"', line)
+            id_match = re.search(r'\bid="([^"]+)"', line)
+            if path_match and id_match:
+                resources[id_match.group(1)] = path_match.group(1)
+        return resources
+
+    def referenced_path(block: str, property_name: str, resources: dict[str, str]) -> str:
+        match = re.search(
+            rf'^{re.escape(property_name)} = ExtResource\("([^"]+)"\)$',
+            block,
+            flags=re.MULTILINE,
+        )
+        return resources.get(match.group(1), "") if match else ""
+
+    def referenced_subresource(block: str, property_name: str) -> str:
+        match = re.search(
+            rf'^{re.escape(property_name)} = SubResource\("([^"]+)"\)$',
+            block,
+            flags=re.MULTILINE,
+        )
+        return match.group(1) if match else ""
+
+    def metadata_value(block: str, metadata_name: str) -> str:
+        match = re.search(
+            rf'^metadata/{re.escape(metadata_name)} = "([^"]*)"$',
+            block,
+            flags=re.MULTILINE,
+        )
+        return match.group(1) if match else ""
+
+    def resource_exists(resource_path: str) -> bool:
+        return bool(resource_path) and resolve_res_path(root, resource_path).exists()
+
     missing: list[str] = []
-    theme_path = resolve_res_path(root, theme)
-    theme_text = theme_path.read_text(encoding="utf-8", errors="ignore") if theme_path.exists() else ""
-    if not theme_path.exists():
-        missing.append("runtime_ui_skin:missing_theme_resource")
-    elif stylebox not in theme_text:
-        missing.append("runtime_ui_skin:theme_missing_panel_stylebox")
     scene_count = 0
     panel_count = 0
     texture_count = 0
+    ornament_layer_count = 0
+    atlas_region_count = 0
+    atlas_runtime_reference_count = 0
+    shared_focus_band_count = 0
+    retired_element_consumer_count = 0
+    frame_contract_texture_counts = {
+        v5_assembly_contract: 0,
+        seal_assembly_contract: 0,
+    }
+    audited_scene_texts: dict[str, str] = {}
     for scene, spec in scene_specs.items():
         path = root / scene
         if not path.exists():
             missing.append(f"{scene}:missing_scene")
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
-        if theme not in text:
+        audited_scene_texts[scene] = text
+        resources = ext_resource_paths(text)
+        expected_theme = str(spec["theme"])
+        theme_path = resolve_res_path(root, expected_theme)
+        if not theme_path.exists():
+            missing.append(f"{scene}:missing_theme_resource")
+        root_header = f'[node name="{spec["root_node"]}" type="Control"]'
+        root_block = section_block(text, root_header)
+        if not root_block:
+            missing.append(f"{scene}:missing_root_control")
+        elif referenced_path(root_block, "theme", resources) != expected_theme:
             missing.append(f"{scene}:missing_theme")
-        if stylebox not in text and (theme not in text or stylebox not in theme_text):
-            missing.append(f"{scene}:missing_panel_stylebox")
         scene_count += 1
         for panel in spec["panels"]:
-            marker = f'[node name="{panel}" type="Panel"'
-            if marker not in text:
+            panel_block = node_block(text, str(panel), "Panel")
+            if not panel_block:
                 missing.append(f"{scene}:{panel}:missing_panel_node")
                 continue
             panel_count += 1
-        for node_name, texture_path in spec["textures"].items():
-            marker = f'[node name="{node_name}" type="TextureRect"'
-            if marker not in text:
-                missing.append(f"{scene}:{node_name}:missing_texture_node")
+            expected_panel_style = spec.get("panel_styleboxes", {}).get(panel)
+            if expected_panel_style and referenced_path(
+                panel_block,
+                "theme_override_styles/panel",
+                resources,
+            ) != expected_panel_style:
+                missing.append(f"{scene}:{panel}:missing_stylebox_reference")
+            elif expected_panel_style and not resource_exists(str(expected_panel_style)):
+                missing.append(f"{scene}:{panel}:missing_stylebox_resource")
+            expected_empty_style = spec.get("empty_panel_styles", {}).get(panel)
+            if expected_empty_style:
+                actual_empty_style = referenced_subresource(panel_block, "theme_override_styles/panel")
+                style_header = f'[sub_resource type="StyleBoxEmpty" id="{expected_empty_style}"]'
+                if actual_empty_style != expected_empty_style or not section_block(text, style_header):
+                    missing.append(f"{scene}:{panel}:missing_empty_panel_style")
+            expected_script = spec.get("panel_scripts", {}).get(panel)
+            if expected_script and referenced_path(panel_block, "script", resources) != expected_script:
+                missing.append(f"{scene}:{panel}:missing_runtime_script")
+            elif expected_script and not resource_exists(str(expected_script)):
+                missing.append(f"{scene}:{panel}:missing_runtime_script_resource")
+            for metadata_name, expected_value in spec.get("panel_metadata", {}).get(panel, {}).items():
+                if metadata_value(panel_block, str(metadata_name)) != str(expected_value):
+                    missing.append(f"{scene}:{panel}:metadata_{metadata_name}_mismatch")
+        for panel, ornament_textures in spec.get("ornament_panels", {}).items():
+            ornament_block = node_block(text, f"{panel}/OrnamentLayer", "Control")
+            if not ornament_block:
+                missing.append(f"{scene}:{panel}:missing_ornament_layer")
                 continue
-            if str(texture_path) not in text:
-                missing.append(f"{scene}:{node_name}:missing_texture_reference")
+            if "metadata/non_stretch_visual_layer = true" not in ornament_block:
+                missing.append(f"{scene}:{panel}:missing_non_stretch_contract")
+            if metadata_value(ornament_block, "visual_anchor_contract") != "02_warden_seal_chains_tassel":
+                missing.append(f"{scene}:{panel}:missing_visual_anchor_contract")
+            for ornament_name, expected_texture in ornament_textures.items():
+                ornament_path = f"{panel}/OrnamentLayer/{ornament_name}"
+                ornament_texture_block = node_block(text, ornament_path, "TextureRect")
+                if not ornament_texture_block:
+                    missing.append(f"{scene}:{ornament_path}:missing_texture_node")
+                    continue
+                if referenced_path(ornament_texture_block, "texture", resources) != expected_texture:
+                    missing.append(f"{scene}:{ornament_path}:missing_texture_reference")
+                elif not resource_exists(str(expected_texture)):
+                    missing.append(f"{scene}:{ornament_path}:missing_texture_resource")
+                if "stretch_mode = 5" not in ornament_texture_block:
+                    missing.append(f"{scene}:{ornament_path}:may_stretch")
+            ornament_layer_count += 1
+        for panel in spec.get("forbidden_ornament_panels", []):
+            if node_block(text, f"{panel}/OrnamentLayer", "Control"):
+                missing.append(f"{scene}:{panel}:unexpected_ornament_layer")
+                if panel == "ElementPanel":
+                    retired_element_consumer_count += 1
+        for forbidden_node_path in spec.get("forbidden_nodes", []):
+            forbidden_node_name = str(forbidden_node_path).rsplit("/", 1)[-1]
+            if f'[node name="{forbidden_node_name}" ' in text:
+                missing.append(f"{scene}:{forbidden_node_path}:retired_node_present")
+                retired_element_consumer_count += 1
+        for node_path, texture_path in spec["textures"].items():
+            texture_block = node_block(text, str(node_path), "TextureRect")
+            if not texture_block:
+                missing.append(f"{scene}:{node_path}:missing_texture_node")
                 continue
+            if referenced_path(texture_block, "texture", resources) != str(texture_path):
+                missing.append(f"{scene}:{node_path}:missing_texture_reference")
+                continue
+            if not resource_exists(str(texture_path)):
+                missing.append(f"{scene}:{node_path}:missing_texture_resource")
             texture_count += 1
+            expected_contract = spec.get("frame_contracts", {}).get(node_path)
+            if expected_contract:
+                if "stretch_mode = 5" not in texture_block:
+                    missing.append(f"{scene}:{node_path}:frame_may_stretch")
+                parent_path = str(node_path).rsplit("/", 1)[0]
+                frame_panel_block = node_block(text, parent_path, "Panel")
+                if metadata_value(frame_panel_block, "visual_assembly_contract") != expected_contract:
+                    missing.append(f"{scene}:{node_path}:frame_contract_mismatch")
+                else:
+                    frame_contract_texture_counts[str(expected_contract)] += 1
+        shared_focus_band = str(spec.get("shared_focus_band", ""))
+        if shared_focus_band:
+            focus_headers = re.findall(
+                rf'^\[node name="{re.escape(shared_focus_band)}" type="ColorRect" parent="\."\]$',
+                text,
+                flags=re.MULTILINE,
+            )
+            focus_block = node_block(text, shared_focus_band, "ColorRect")
+            focus_material_id = referenced_subresource(focus_block, "material")
+            focus_material_block = section_block(
+                text,
+                f'[sub_resource type="ShaderMaterial" id="{focus_material_id}"]',
+            ) if focus_material_id else ""
+            if len(focus_headers) != 1:
+                missing.append(f"{scene}:shared_focus_band_count_expected_1")
+            elif metadata_value(focus_block, "focus_role") != "shared_pause_failure_focus":
+                missing.append(f"{scene}:shared_focus_band_role_mismatch")
+            elif referenced_path(focus_material_block, "shader", resources) != action_focus_shader:
+                missing.append(f"{scene}:shared_focus_band_shader_mismatch")
+            elif not resource_exists(action_focus_shader):
+                missing.append(f"{scene}:missing_shared_focus_band_shader")
+            else:
+                shared_focus_band_count += 1
+
+    tutorial_scene = "scenes/ui/tutorial_hud.tscn"
+    tutorial_text = audited_scene_texts.get(tutorial_scene, "")
+    seal_script_path = resolve_res_path(root, seal_runtime_script)
+    seal_script_text = seal_script_path.read_text(encoding="utf-8", errors="ignore") if seal_script_path.exists() else ""
+    if not seal_script_path.exists():
+        missing.append("runtime_ui_skin:missing_seal_runtime_script")
+    if not resource_exists(seal_symbols_texture):
+        missing.append("runtime_ui_skin:missing_seal_symbols_texture")
+    for source_name, source_text in ((tutorial_scene, tutorial_text), (seal_runtime_script, seal_script_text)):
+        if legacy_v5_element_frame in source_text:
+            missing.append(f"{source_name}:retired_v5_element_texture_consumer")
+            retired_element_consumer_count += 1
+
+    for glyph_name, expected_region in atlas_specs.items():
+        atlas_path = seal_atlas_root + glyph_name + ".atlas_texture.tres"
+        atlas_resource_path = resolve_res_path(root, atlas_path)
+        if not atlas_resource_path.exists():
+            missing.append(f"{atlas_path}:missing_atlas_texture")
+            continue
+        atlas_text = atlas_resource_path.read_text(encoding="utf-8", errors="ignore")
+        atlas_resources = ext_resource_paths(atlas_text)
+        resource_block = section_block(atlas_text, "[resource]")
+        region_match = re.search(r'^region = Rect2\(([^)]+)\)$', resource_block, flags=re.MULTILINE)
+        try:
+            actual_region = tuple(float(value.strip()) for value in region_match.group(1).split(",")) if region_match else ()
+        except ValueError:
+            actual_region = ()
+        atlas_ok = True
+        if not atlas_text.startswith('[gd_resource type="AtlasTexture"'):
+            missing.append(f"{atlas_path}:resource_type_mismatch")
+            atlas_ok = False
+        if referenced_path(resource_block, "atlas", atlas_resources) != seal_symbols_texture:
+            missing.append(f"{atlas_path}:symbols_atlas_mismatch")
+            atlas_ok = False
+        if actual_region != expected_region:
+            missing.append(f"{atlas_path}:region_mismatch")
+            atlas_ok = False
+        if atlas_ok:
+            atlas_region_count += 1
+        if f'preload("{atlas_path}")' not in seal_script_text:
+            missing.append(f"{atlas_path}:missing_runtime_reference")
+        else:
+            atlas_runtime_reference_count += 1
+
     return {
         "present": not missing,
-        "theme": theme,
-        "panel_stylebox": stylebox,
+        "themes": [shell_theme, hud_theme],
+        "panel_stylebox": legacy_panel_stylebox,
         "scene_count": scene_count,
         "panel_count": panel_count,
         "texture_count": texture_count,
+        "ornament_layer_count": ornament_layer_count,
+        "atlas_region_count": atlas_region_count,
+        "atlas_runtime_reference_count": atlas_runtime_reference_count,
+        "shared_focus_band_count": shared_focus_band_count,
+        "retired_element_consumer_count": retired_element_consumer_count,
+        "frame_contract_texture_counts": frame_contract_texture_counts,
         "missing": missing,
     }
 
@@ -664,6 +953,14 @@ def audit_final_art_acceptance_gates(root: Path) -> dict[str, Any]:
     errors: list[str] = []
     if not markdown_path.exists():
         errors.append("markdown_missing")
+    model_lock_path = "docs/assets/character-creature-model-locks.json"
+    model_lock_contract = report.get("model_lock_contract", {})
+    if int(report.get("version", 0)) != 2:
+        errors.append("report version expected 2")
+    if model_lock_contract.get("path") != model_lock_path:
+        errors.append("model_lock_contract path mismatch")
+    if not (root / model_lock_path).exists():
+        errors.append("model_lock_contract_missing")
     if int(summary.get("asset_count", -1)) != expected_count:
         errors.append(f"asset_count expected {expected_count}")
     final_ready_count = int(summary.get("final_ready_count", -1))
@@ -1382,8 +1679,8 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
     editor = report["editor_resources"]
     if editor["atlas_textures"]["resource_count"] != 302:
         errors.append("AtlasTexture resource_count expected 302")
-    if editor["tilesets"]["resource_count"] != 5:
-        errors.append("TileSet resource_count expected 5")
+    if editor["tilesets"]["resource_count"] != 6:
+        errors.append("TileSet resource_count expected 6")
     if editor["tilesets"]["rule_file_count"] != 3:
         errors.append("TileSet rule_file_count expected 3")
     if editor["tilesets"]["total_rule_tiles"] != 144:
@@ -1406,10 +1703,29 @@ def collect_errors(report: dict[str, Any]) -> list[str]:
         errors.append("runtime UI skin binding missing")
     if int(runtime_ui_skin.get("scene_count", -1)) != 2:
         errors.append("runtime UI skin scene_count expected 2")
-    if int(runtime_ui_skin.get("panel_count", -1)) != 5:
-        errors.append("runtime UI skin panel_count expected 5")
-    if int(runtime_ui_skin.get("texture_count", -1)) != 4:
-        errors.append("runtime UI skin texture_count expected 4")
+    if int(runtime_ui_skin.get("panel_count", -1)) != 7:
+        errors.append("runtime UI skin panel_count expected 7")
+    if int(runtime_ui_skin.get("texture_count", -1)) != 9:
+        errors.append("runtime UI skin texture_count expected 9")
+    if int(runtime_ui_skin.get("ornament_layer_count", -1)) != 2:
+        errors.append("runtime UI skin ornament_layer_count expected 2")
+    if int(runtime_ui_skin.get("atlas_region_count", -1)) != 6:
+        errors.append("runtime UI skin atlas_region_count expected 6")
+    if int(runtime_ui_skin.get("atlas_runtime_reference_count", -1)) != 6:
+        errors.append("runtime UI skin atlas_runtime_reference_count expected 6")
+    if int(runtime_ui_skin.get("shared_focus_band_count", -1)) != 1:
+        errors.append("runtime UI skin shared_focus_band_count expected 1")
+    if int(runtime_ui_skin.get("retired_element_consumer_count", -1)) != 0:
+        errors.append("runtime UI skin retired_element_consumer_count expected 0")
+    expected_frame_contract_counts = {
+        "02_warden_integrated_frame_assembly": 3,
+        "seal_resonance_v2_command_seal": 2,
+    }
+    if runtime_ui_skin.get("frame_contract_texture_counts") != expected_frame_contract_counts:
+        errors.append(
+            "runtime UI skin frame_contract_texture_counts expected "
+            f"{expected_frame_contract_counts}"
+        )
     if runtime_ui_skin.get("missing"):
         errors.append(f"runtime UI skin missing: {runtime_ui_skin['missing']}")
 

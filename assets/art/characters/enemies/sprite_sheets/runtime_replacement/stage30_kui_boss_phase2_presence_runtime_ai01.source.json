@@ -17,5 +17,115 @@
     "stable_scale",
     "stable_anchor",
     "gameplay_timing_code_authority"
-  ]
+  ],
+  "model_lock": {
+    "contract_kind": "character_creature_model_lock_v1",
+    "contract_version": 2,
+    "model_id": "kui_thunder_boss_model_v1",
+    "canonical_reference": "stage30_kui_boss_phase1_presence_runtime_ai01",
+    "canonical_frame_index": 0,
+    "cell": [
+      288,
+      256
+    ],
+    "root_anchor_kind": "ground_foot",
+    "center_x": 144.0,
+    "center_tolerance_px": 2.0,
+    "root_y": 245,
+    "root_tolerance_px": 1,
+    "identity_height_ratio_min": 0.8,
+    "identity_height_ratio_max": 1.05,
+    "geometry_lock_ready": true,
+    "identity_lock_ready": true,
+    "runtime_binding_allowed": true,
+    "identity_review_status": "pending_gate26h",
+    "semantic_anchor_contract": {
+      "version": 1,
+      "anatomy": "quadruped_boss",
+      "facing": "left",
+      "core_anchor_id": "body_core",
+      "required_anchors": [
+        "root",
+        "foot_contact",
+        "head_top",
+        "body_core",
+        "front_contour",
+        "rear_contour"
+      ],
+      "head_search_bbox": [
+        0.0,
+        0.5,
+        0.0,
+        0.72
+      ],
+      "core_search_bbox": [
+        0.2,
+        0.88,
+        0.16,
+        0.9
+      ],
+      "core_target_y_ratio": 0.57,
+      "foot_search_bbox": [
+        0.03,
+        0.97,
+        0.7,
+        1.0
+      ],
+      "contour_y_range": [
+        0.06,
+        0.95
+      ],
+      "root_contact_tolerance_px": 3,
+      "canonical_core_ratio_tolerance": 0.16
+    },
+    "asset_role": "phase2_presence",
+    "asset_status": "active",
+    "identity_sample_indices": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "scale_sample_indices": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "root_sample_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "manual_identity_features": [
+      "kui_head",
+      "horns",
+      "limb_count",
+      "armor_layout",
+      "thunder_marks",
+      "body_proportions",
+      "silhouette"
+    ],
+    "allowed_variants": [
+      "phase2_thunder_charge",
+      "attack_extension",
+      "guard_break",
+      "stagger",
+      "phase_transition",
+      "defeat"
+    ]
+  }
 }

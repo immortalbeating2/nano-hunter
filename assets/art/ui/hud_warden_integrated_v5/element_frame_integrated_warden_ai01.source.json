@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "element_frame_integrated_warden_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_integrated_frame_v5",
+  "candidate_path": "assets/source/ai_generated/batch_08/hud_warden_integrated_v5/element_frame_integrated_warden_ai01_source.png",
+  "candidate_sha256": "a358482513862ff32edad0e5d887663c04e2edacc2063eea7981a55ed9ed62f4",
+  "output_path": "assets/art/ui/hud_warden_integrated_v5/element_frame_integrated_warden_ai01.png",
+  "output_sha256": "f5df218b20616c5e380da099fc76ca171b41534a1a20c58fbd2218a25656af81",
+  "source_size": [1993, 789],
+  "output_size": [1012, 400],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_crop_single_uniform_downscale_center_pad",
+  "prompt": "Create one compact 02 Warden Official Seal Element Status HUD frame on flat #00ff00. Mount the seal in the left socket, recess a visible bronze chain inside a solid upper rail, place the official plaque and compact tassel fully inside the right housing, press a small cinnabar mark into the lower-right lacquer, extend the vertical field until the visible assembly is close to 2.53:1 without distorting the seal, and leave room for three status lines.",
+  "visual_assembly_contract": "02_warden_integrated_frame_assembly",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "Runtime technical candidate for Element Status HUD. The frame is one Image Gen assembly with no runtime ornament overlay. Human visual, provenance terms and Gate26H approval remain pending."
+}

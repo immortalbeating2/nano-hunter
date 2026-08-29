@@ -1,0 +1,21 @@
+[gd_resource type="TileSet" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png" id="1_lintel"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dash_gate_lintel"]
+texture = ExtResource("1_lintel")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 0)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -3)
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_dash_gate_lintel")
+metadata/asset_id = "tutorial_dash_gate_lintel_visual_ai01"
+metadata/physics_affordance = "thin_solid"
+metadata/allowed_surface_roles = PackedStringArray("thin_solid")
+metadata/visual_only = true

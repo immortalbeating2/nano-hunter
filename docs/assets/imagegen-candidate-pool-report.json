@@ -3,11 +3,11 @@
   "status": "review_required",
   "boundary": "Candidate pool audit only. It proves raw PNG candidates exist and tracks whether selected sources already use them; it does not approve art quality or runtime replacement.",
   "summary": {
-    "queue_item_count": 78,
-    "candidate_png_count": 158,
-    "selected_source_count": 486,
-    "unselected_candidate_count": 106,
-    "review_required_item_count": 57,
+    "queue_item_count": 81,
+    "candidate_png_count": 162,
+    "selected_source_count": 489,
+    "unselected_candidate_count": 107,
+    "review_required_item_count": 58,
     "review_required_items": [
       "style_board_global_ai01",
       "stage16_luna_player_readability_ai01",
@@ -64,6 +64,7 @@
       "stage16_completion_panel_ui_ai01",
       "stage15_boss_hud_frame_ai01",
       "stage14_ability_status_hud_ai01",
+      "stage28_bounty_archive_frame_warden_ai01",
       "stage30_thunder_fang_locomotion_ai01",
       "stage30_kui_boss_phase2_presence_ai01"
     ],
@@ -96,12 +97,13 @@
       "sprite_sheet": 8,
       "storyboard_sheet": 3,
       "style_board": 1,
+      "terrain_tile_strip": 2,
       "texture_atlas": 1,
       "tileset_sheet": 2,
       "title_background": 1,
       "ui_atlas": 2,
       "ui_map_foundation": 1,
-      "ui_panel": 2,
+      "ui_panel": 3,
       "vfx_atlas": 7,
       "vfx_direction": 1,
       "vfx_sheet": 2,
@@ -115,13 +117,13 @@
       "Batch 06": 43,
       "Batch 07": 3,
       "Batch 08": 20,
-      "Batch 09": 8,
+      "Batch 09": 10,
       "Batch 10": 10,
       "Batch 11": 11,
       "Batch 12": 4,
       "Batch 13": 3,
       "Batch 27": 4,
-      "Batch 28": 3,
+      "Batch 28": 5,
       "Batch 29": 3,
       "Batch 30": 14
     },
@@ -2900,6 +2902,49 @@
       ]
     },
     {
+      "asset_id": "stage28_bounty_archive_frame_warden_ai01",
+      "batch": "Batch 28",
+      "target_kind": "ui_panel",
+      "candidate_dir": "assets/source/ai_generated/batch_28/stage28_bounty_archive_frame_warden_ai01/candidates",
+      "candidate_count": 2,
+      "candidate_indices": [
+        1,
+        2
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        2
+      ],
+      "selected_candidate_usage": {
+        "02": 1
+      },
+      "standalone_source_record": "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.source.json",
+      "unselected_candidate_indices": [
+        1
+      ],
+      "review_required": true,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_28/stage28_bounty_archive_frame_warden_ai01/candidates/stage28_bounty_archive_frame_warden_ai01_candidate_01.png",
+          "sha256": "8afe75b56c4f2ed3612fa606a3812d248581a06953941b0a1ca18407c8b90770",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB"
+        },
+        {
+          "index": 2,
+          "path": "assets/source/ai_generated/batch_28/stage28_bounty_archive_frame_warden_ai01/candidates/stage28_bounty_archive_frame_warden_ai01_candidate_02.png",
+          "sha256": "b6ee259326b5b6a9933d723f5c1d90ece0098bcbb34afb24173a0823d95f08a2",
+          "width": 1306,
+          "height": 1205,
+          "mode": "RGBA"
+        }
+      ]
+    },
+    {
       "asset_id": "stage29_thunder_waste_background_ai01",
       "batch": "Batch 29",
       "target_kind": "environment_room_background",
@@ -3397,6 +3442,70 @@
           "sha256": "0e1e83752de7552ab8d2f74341ecc6afd1327cf66e3a60444c527657e187c6aa",
           "width": 1254,
           "height": 1254,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "tutorial_jump_platform_visual_ai02",
+      "batch": "Batch 09",
+      "target_kind": "terrain_tile_strip",
+      "candidate_dir": "assets/source/ai_generated/batch_09/tutorial_jump_platform_visual_ai02/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/tilesets/tutorial_jump_platform_visual_ai02.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_09/tutorial_jump_platform_visual_ai02/candidates/tutorial_jump_platform_visual_ai02_candidate_01.png",
+          "sha256": "67724eeaf3bd46edcb0168dcbc3540b2cf5ff291173755296145cdf7fb3e10a9",
+          "width": 1536,
+          "height": 1024,
+          "mode": "RGB"
+        }
+      ]
+    },
+    {
+      "asset_id": "tutorial_dash_gate_lintel_visual_ai01",
+      "batch": "Batch 09",
+      "target_kind": "terrain_tile_strip",
+      "candidate_dir": "assets/source/ai_generated/batch_09/tutorial_dash_gate_lintel_visual_ai01/candidates",
+      "candidate_count": 1,
+      "candidate_indices": [
+        1
+      ],
+      "selected_dir": null,
+      "selected_source_count": 1,
+      "selected_candidate_indices": [
+        1
+      ],
+      "selected_candidate_usage": {
+        "01": 1
+      },
+      "standalone_source_record": "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.source.json",
+      "unselected_candidate_indices": [],
+      "review_required": false,
+      "duplicate_candidate_hash_groups": [],
+      "candidates": [
+        {
+          "index": 1,
+          "path": "assets/source/ai_generated/batch_09/tutorial_dash_gate_lintel_visual_ai01/candidates/tutorial_dash_gate_lintel_visual_ai01_candidate_01.png",
+          "sha256": "12d92d40bffca8f36ca745737d106a1d8c8ca6f4905f9e3fd150521f1dad98e1",
+          "width": 1536,
+          "height": 1024,
           "mode": "RGB"
         }
       ]

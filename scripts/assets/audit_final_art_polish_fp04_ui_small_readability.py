@@ -23,7 +23,8 @@ RUNTIME_SCENES = [
         "required_paths": [
             "res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres",
             "res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres",
-            "res://assets/art/ui/stage16_title_background_ai01.png",
+            "res://assets/art/ui/main_menu_shell_ai02.png",
+            "res://assets/art/ui/main_menu_wordmark_ai01.png",
             "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
             "res://assets/art/ui/stage16_pause_panel_ui_ai01.png",
             "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",

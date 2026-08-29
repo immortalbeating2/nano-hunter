@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "tutorial_prompt_panel_warden_lacquer_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "candidate_index": 2,
+  "candidate_path": "assets/source/ai_generated/batch_08/tutorial_prompt_panel_warden_lacquer_ai01/candidates/tutorial_prompt_panel_warden_lacquer_ai01_candidate_02.png",
+  "candidate_sha256": "86c39891583f589855e73099c2cc90bd7b16e8d8d416f0b7a0f11db931318364",
+  "output_path": "assets/art/ui/hud_warden_lacquer_v3/tutorial_prompt_panel_warden_lacquer_ai01.png",
+  "output_sha256": "31635d6411b13b9c744c7066d79b5615c0391fc9529dc2c22305278c1b616bfc",
+  "boundary": "Direction 02 Image Gen candidate exported through chroma removal, despill, alpha crop, and runtime downsampling. This records derivation, not final human art approval."
+}

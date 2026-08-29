@@ -1,0 +1,21 @@
+[gd_resource type="TileSet" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/tilesets/tutorial_jump_platform_visual_ai02.png" id="1_jump"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jump_platform"]
+texture = ExtResource("1_jump")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 7)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 7)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 7)
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_jump_platform")
+metadata/asset_id = "tutorial_jump_platform_visual_ai02"
+metadata/physics_affordance = "one_way_platform"
+metadata/allowed_surface_roles = PackedStringArray("one_way_platform")
+metadata/visual_only = true

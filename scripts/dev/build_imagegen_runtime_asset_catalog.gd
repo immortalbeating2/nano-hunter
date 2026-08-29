@@ -139,7 +139,9 @@ func _build_stylebox_index(stylebox_index: Dictionary) -> Dictionary:
 func _build_tileset_index() -> Dictionary:
 	return {
 		"miasma_marsh_tileset_ai01": "res://assets/art/tilesets/editor_tilesets/miasma_marsh_tileset_ai01.tileset.tres",
-		"shrine_trial_tileset_ai01": "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
+		"shrine_trial_tileset_ai01": "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres",
+		"tutorial_jump_platform_visual_ai02": "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres",
+		"tutorial_dash_gate_lintel_visual_ai01": "res://assets/art/tilesets/editor_tilesets/tutorial_dash_gate_lintel_visual_ai01.tileset.tres"
 	}
 
 

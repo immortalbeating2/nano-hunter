@@ -1,0 +1,15 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/ui/hud_warden_lacquer_v3/battle_status_panel_warden_lacquer_ai01.png" id="1_texture"]
+
+[resource]
+content_margin_left = 44.0
+content_margin_top = 14.0
+content_margin_right = 28.0
+content_margin_bottom = 12.0
+texture = ExtResource("1_texture")
+texture_margin_left = 42.0
+texture_margin_top = 40.0
+texture_margin_right = 38.0
+texture_margin_bottom = 30.0
+region_rect = Rect2(0, 0, 640, 188)

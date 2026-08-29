@@ -1,15 +1,15 @@
 {
 	"boundary": "Runtime catalog only. It proves resources can be loaded through a Godot ResourcePreloader; it does not replace gameplay scene references or approve final art.",
 	"counts": {
-		"entry_count": 78,
+		"entry_count": 81,
 		"missing_count": 0,
-		"resource_count": 78,
+		"resource_count": 81,
 		"resource_type_counts": {
 			"AtlasTexture": 5,
-			"CompressedTexture2D": 60,
+			"CompressedTexture2D": 61,
 			"SpriteFrames": 10,
 			"StyleBoxTexture": 1,
-			"TileSet": 2
+			"TileSet": 4
 		},
 		"track_counts": {
 			"animation_pipeline": 2,
@@ -19,9 +19,9 @@
 			"narrative_or_release": 4,
 			"release_promo": 3,
 			"runtime_animation": 7,
-			"runtime_environment": 12,
+			"runtime_environment": 14,
 			"runtime_gameplay": 6,
-			"runtime_ui": 10,
+			"runtime_ui": 11,
 			"runtime_vfx": 11,
 			"source_dev": 10
 		}
@@ -658,6 +658,16 @@
 			"track": "runtime_ui"
 		},
 		{
+			"asset_id": "stage28_bounty_archive_frame_warden_ai01",
+			"catalog_resource_type": "CompressedTexture2D",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "Texture2D",
+			"resource_path": "res://assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png",
+			"target_kind": "ui_panel",
+			"target_system": "bounty-only dark lacquer archive frame",
+			"track": "runtime_ui"
+		},
+		{
 			"asset_id": "stage29_thunder_waste_background_ai01",
 			"catalog_resource_type": "CompressedTexture2D",
 			"integration_status": "runtime_catalog_ready_manual_replacement_required",
@@ -806,6 +816,26 @@
 			"target_kind": "vfx_atlas",
 			"target_system": "VFX atlas animation replacement",
 			"track": "runtime_vfx"
+		},
+		{
+			"asset_id": "tutorial_jump_platform_visual_ai02",
+			"catalog_resource_type": "TileSet",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "TileSet",
+			"resource_path": "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres",
+			"target_kind": "terrain_tile_strip",
+			"target_system": "one-way platform visual surface across formal TileMap rooms",
+			"track": "runtime_environment"
+		},
+		{
+			"asset_id": "tutorial_dash_gate_lintel_visual_ai01",
+			"catalog_resource_type": "TileSet",
+			"integration_status": "runtime_catalog_ready_manual_replacement_required",
+			"recommended_resource_type": "TileSet",
+			"resource_path": "res://assets/art/tilesets/editor_tilesets/tutorial_dash_gate_lintel_visual_ai01.tileset.tres",
+			"target_kind": "terrain_tile_strip",
+			"target_system": "tutorial Air Dash solid gate lintel visual surface",
+			"track": "runtime_environment"
 		}
 	],
 	"missing": [],

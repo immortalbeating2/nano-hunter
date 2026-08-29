@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "element_frame_base_warden_official_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_official_corrective_v4",
+  "candidate_path": "assets/source/ai_generated/batch_08/hud_warden_official_v4/element_frame_base_warden_official_ai01_source.png",
+  "candidate_sha256": "ff8cf964d230e14a8ac5c320a5007639106a6d89c844c9b0bd05127b8155157a",
+  "output_path": "assets/art/ui/hud_warden_official_v4/element_frame_base_warden_official_ai01.png",
+  "output_sha256": "477b249dd05c4fda3693e1133c343665281dcd40132046cb74b50eb545ea9e29",
+  "process": "remove_chroma_key_then_crop_resize_only",
+  "visual_anchor_contract": "02_warden_seal_chains_tassel",
+  "boundary": "Runtime-integrated correction candidate. Keeps official seal, chains, hanging talisman and tassel as approved independent non-stretch layers; final human screenshot approval remains required."
+}

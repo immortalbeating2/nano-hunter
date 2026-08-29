@@ -3,7 +3,7 @@
   "status": "runtime_map_scene_reference_split_ready",
   "boundary": "Runtime/release integration map only. It assigns generated assets to target systems, resource types and candidate scenes, and records production and development consumer references separately; it does not approve final art quality.",
   "summary": {
-    "entry_count": 78,
+    "entry_count": 81,
     "track_counts": {
       "animation_pipeline": 2,
       "archive": 9,
@@ -12,19 +12,19 @@
       "narrative_or_release": 4,
       "release_promo": 3,
       "runtime_animation": 7,
-      "runtime_environment": 12,
+      "runtime_environment": 14,
       "runtime_gameplay": 6,
-      "runtime_ui": 10,
+      "runtime_ui": 11,
       "runtime_vfx": 11,
       "source_dev": 10
     },
     "status_counts": {
-      "binding_map_ready_manual_replacement_required": 1,
+      "binding_map_ready_manual_replacement_required": 6,
       "not_runtime_target": 32,
-      "scene_reference_verified": 45
+      "scene_reference_verified": 43
     },
-    "directly_referenced_entry_count": 45,
-    "development_referenced_entry_count": 66,
+    "directly_referenced_entry_count": 43,
+    "development_referenced_entry_count": 81,
     "missing_output_count": 0,
     "missing_target_scene_candidate_count": 0
   },
@@ -608,7 +608,8 @@
         "scenes/rooms/stage9_zone_entry_room.tscn",
         "scenes/rooms/stage9_zone_final_room.tscn",
         "scenes/rooms/stage9_zone_switch_room.tscn",
-        "scenes/rooms/tutorial_room.tscn"
+        "scenes/rooms/tutorial_room.tscn",
+        "scripts/rooms/formal_room_graybox_layout.gd"
       ],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
@@ -711,9 +712,7 @@
         "scenes/ui/demo_shell.tscn",
         "scenes/ui/tutorial_hud.tscn"
       ],
-      "direct_scene_references": [
-        "scenes/ui/tutorial_hud.tscn"
-      ],
+      "direct_scene_references": [],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
@@ -721,10 +720,11 @@
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
         "scenes/dev/p0_runtime_replacement_rehearsal.tscn"
       ],
-      "integration_status": "scene_reference_verified",
+      "integration_status": "binding_map_ready_manual_replacement_required",
       "manual_gates": [
         "art_quality_review",
         "scale_and_readability_review",
+        "runtime_reference_replacement",
         "scene_or_release_context_review"
       ]
     },
@@ -748,9 +748,7 @@
         "scenes/ui/demo_shell.tscn",
         "scenes/ui/tutorial_hud.tscn"
       ],
-      "direct_scene_references": [
-        "scenes/ui/tutorial_hud.tscn"
-      ],
+      "direct_scene_references": [],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
@@ -761,10 +759,11 @@
         "scenes/dev/runtime_source_review_workbench.tscn",
         "scripts/dev/build_imagegen_asset_integration_showcase.gd"
       ],
-      "integration_status": "scene_reference_verified",
+      "integration_status": "binding_map_ready_manual_replacement_required",
       "manual_gates": [
         "art_quality_review",
         "scale_and_readability_review",
+        "runtime_reference_replacement",
         "scene_or_release_context_review"
       ]
     },
@@ -788,7 +787,7 @@
       ],
       "direct_scene_references": [
         "scenes/ui/demo_shell.tscn",
-        "scenes/ui/tutorial_hud.tscn"
+        "scripts/ui/demo_shell.gd"
       ],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
@@ -923,6 +922,7 @@
         "scenes/rooms/stage10_zone_challenge_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_miasma_room.tscn",
         "scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn",
         "scenes/rooms/stage14_backtrack_hub_room.tscn",
         "scenes/rooms/stage14_loop_return_room.tscn",
@@ -1324,20 +1324,18 @@
       "existing_target_scene_candidates": [
         "scenes/ui/demo_shell.tscn"
       ],
-      "direct_scene_references": [
-        "scenes/ui/demo_shell.tscn"
-      ],
+      "direct_scene_references": [],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_candidate_review_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
-        "scripts/dev/audit_runtime_ui_skin_binding.gd"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
-      "integration_status": "scene_reference_verified",
+      "integration_status": "binding_map_ready_manual_replacement_required",
       "manual_gates": [
         "art_quality_review",
         "scale_and_readability_review",
+        "runtime_reference_replacement",
         "scene_or_release_context_review"
       ]
     },
@@ -2033,9 +2031,7 @@
       "existing_target_scene_candidates": [
         "scenes/ui/demo_shell.tscn"
       ],
-      "direct_scene_references": [
-        "scenes/ui/demo_shell.tscn"
-      ],
+      "direct_scene_references": [],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
@@ -2043,13 +2039,13 @@
         "scenes/dev/imagegen_runtime_asset_catalog.tscn",
         "scenes/dev/p0_runtime_replacement_rehearsal.tscn",
         "scenes/dev/runtime_source_review_workbench.tscn",
-        "scripts/dev/audit_runtime_ui_skin_binding.gd",
         "scripts/dev/build_editor_ui_skin.gd"
       ],
-      "integration_status": "scene_reference_verified",
+      "integration_status": "binding_map_ready_manual_replacement_required",
       "manual_gates": [
         "art_quality_review",
         "scale_and_readability_review",
+        "runtime_reference_replacement",
         "scene_or_release_context_review"
       ]
     },
@@ -2213,18 +2209,17 @@
       "existing_target_scene_candidates": [
         "scenes/player/player_placeholder.tscn"
       ],
-      "direct_scene_references": [
-        "scripts/player/player_placeholder.gd"
-      ],
+      "direct_scene_references": [],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
-      "integration_status": "scene_reference_verified",
+      "integration_status": "binding_map_ready_manual_replacement_required",
       "manual_gates": [
         "art_quality_review",
         "scale_and_readability_review",
+        "runtime_reference_replacement",
         "scene_or_release_context_review"
       ]
     },
@@ -2313,12 +2308,14 @@
         "scenes/enemies/seal_guardian_boss.tscn"
       ],
       "direct_scene_references": [
+        "scenes/enemies/seal_guardian_boss.tscn",
         "scripts/combat/seal_guardian_boss.gd"
       ],
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
-        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/capture_final_art_polish_fp01_review.gd"
       ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
@@ -2379,7 +2376,9 @@
         "scenes/rooms/stage11_demo_end_room.tscn"
       ],
       "direct_scene_references": [
+        "scenes/rooms/combat_trial_room.tscn",
         "scenes/rooms/stage11_demo_end_room.tscn",
+        "scenes/rooms/stage15_completion_room.tscn",
         "scripts/rooms/stage11_demo_end_room.gd"
       ],
       "development_scene_references": [
@@ -2418,6 +2417,40 @@
       "development_scene_references": [
         "scenes/dev/final_art_review_workbench.tscn",
         "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "stage28_bounty_archive_frame_warden_ai01",
+      "batch": "Batch 28",
+      "priority": "P0",
+      "target_kind": "ui_panel",
+      "track": "runtime_ui",
+      "disposition": "runtime_keep",
+      "target_system": "bounty-only dark lacquer archive frame",
+      "recommended_resource_type": "Texture2D",
+      "output_path": "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png",
+      "output_exists": true,
+      "output_sha256": "b6ee259326b5b6a9933d723f5c1d90ece0098bcbb34afb24173a0823d95f08a2",
+      "target_scene_candidates": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "direct_scene_references": [
+        "scenes/ui/demo_shell.tscn"
+      ],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_candidate_review_gallery.tscn",
         "scenes/dev/imagegen_runtime_asset_catalog.tscn"
       ],
       "integration_status": "scene_reference_verified",
@@ -2550,7 +2583,12 @@
         "scenes/enemies/thunder_fang_enemy.tscn",
         "scripts/combat/thunder_fang_enemy.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_candidate_review_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
         "art_quality_review",
@@ -2578,7 +2616,11 @@
       "direct_scene_references": [
         "scripts/combat/thunder_fang_enemy.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
         "art_quality_review",
@@ -2606,7 +2648,11 @@
       "direct_scene_references": [
         "scripts/combat/thunder_fang_enemy.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "not_runtime_target",
       "manual_gates": [
         "art_quality_review",
@@ -2637,7 +2683,11 @@
         "scenes/enemies/thunder_fang_enemy.tscn",
         "scripts/combat/thunder_fang_enemy.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2667,7 +2717,11 @@
         "scenes/enemies/kui_thunder_boss.tscn",
         "scripts/combat/kui_thunder_boss.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2696,7 +2750,11 @@
       "direct_scene_references": [
         "scripts/combat/kui_thunder_boss.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2725,7 +2783,11 @@
       "direct_scene_references": [
         "scripts/combat/kui_thunder_boss.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2754,7 +2816,12 @@
       "direct_scene_references": [
         "scripts/combat/kui_thunder_boss.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_candidate_review_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2783,7 +2850,11 @@
       "direct_scene_references": [
         "scripts/combat/kui_thunder_boss.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2815,7 +2886,11 @@
         "scenes/enemies/kui_thunder_boss.tscn",
         "scripts/combat/kui_thunder_boss.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2846,7 +2921,11 @@
       "direct_scene_references": [
         "scripts/combat/kui_thunder_boss.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",
@@ -2879,7 +2958,134 @@
         "scenes/rooms/stage25_thunder_waste_stormfield_room.tscn",
         "scripts/ui/demo_shell.gd"
       ],
-      "development_scene_references": [],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn"
+      ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "tutorial_jump_platform_visual_ai02",
+      "batch": "Batch 09",
+      "priority": "P0",
+      "target_kind": "terrain_tile_strip",
+      "track": "runtime_environment",
+      "disposition": "runtime_keep",
+      "target_system": "one-way platform visual surface across formal TileMap rooms",
+      "recommended_resource_type": "TileSet",
+      "output_path": "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png",
+      "output_exists": true,
+      "output_sha256": "3fd5399a856e2d3e57646b91cfa4289a0b0c8873f06448b2b3b8bbefec83d40d",
+      "target_scene_candidates": [
+        "scenes/rooms/tutorial_room.tscn",
+        "scenes/rooms/stage14_air_dash_gate_room.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/rooms/tutorial_room.tscn",
+        "scenes/rooms/stage14_air_dash_gate_room.tscn"
+      ],
+      "direct_scene_references": [
+        "scenes/rooms/combat_trial_room.tscn",
+        "scenes/rooms/goal_trial_room.tscn",
+        "scenes/rooms/stage10_zone_aerial_room.tscn",
+        "scenes/rooms/stage10_zone_branch_room.tscn",
+        "scenes/rooms/stage10_zone_challenge_room.tscn",
+        "scenes/rooms/stage11_demo_end_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_caster_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_gate_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_goal_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_miasma_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_pressure_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn",
+        "scenes/rooms/stage13_miasma_marsh_return_room.tscn",
+        "scenes/rooms/stage14_air_dash_gate_room.tscn",
+        "scenes/rooms/stage14_air_dash_shrine_room.tscn",
+        "scenes/rooms/stage14_backtrack_hub_room.tscn",
+        "scenes/rooms/stage14_loop_return_room.tscn",
+        "scenes/rooms/stage15_challenge_branch_room.tscn",
+        "scenes/rooms/stage15_completion_room.tscn",
+        "scenes/rooms/stage15_mixed_gauntlet_room.tscn",
+        "scenes/rooms/stage15_seal_guardian_boss_room.tscn",
+        "scenes/rooms/stage15_seal_pressure_room.tscn",
+        "scenes/rooms/stage16_alpha_demo_end_room.tscn",
+        "scenes/rooms/stage16_backtrack_confirmation_room.tscn",
+        "scenes/rooms/stage16_corruption_purge_room.tscn",
+        "scenes/rooms/stage16_seal_release_threshold_room.tscn",
+        "scenes/rooms/stage16_talisman_relay_room.tscn",
+        "scenes/rooms/stage9_zone_charger_room.tscn",
+        "scenes/rooms/stage9_zone_combat_room.tscn",
+        "scenes/rooms/stage9_zone_entry_room.tscn",
+        "scenes/rooms/stage9_zone_final_room.tscn",
+        "scenes/rooms/stage9_zone_switch_room.tscn",
+        "scenes/rooms/tutorial_room.tscn",
+        "scripts/rooms/formal_room_graybox_layout.gd"
+      ],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/apply_formal_map_batch1_rooms.gd",
+        "scripts/dev/apply_formal_map_batch2_stage9_rooms.gd",
+        "scripts/dev/apply_formal_map_batch3_stage10_rooms.gd",
+        "scripts/dev/apply_formal_map_batch4_stage11_stage13_entry.gd",
+        "scripts/dev/apply_formal_map_batch5_stage13_mid_rooms.gd",
+        "scripts/dev/apply_formal_map_batch6_stage13_branches_goal.gd",
+        "scripts/dev/apply_formal_map_batch7_stage14_remaining_rooms.gd",
+        "scripts/dev/apply_formal_map_batch8_stage15_remaining_rooms.gd",
+        "scripts/dev/apply_formal_map_batch9_stage16_rooms.gd",
+        "scripts/dev/apply_formal_terrain_kit_stage14_gate_trial.gd",
+        "scripts/dev/apply_formal_terrain_kit_stage15_gauntlet_trial.gd",
+        "scripts/dev/apply_formal_terrain_kit_tutorial_trial.gd",
+        "scripts/dev/build_imagegen_runtime_asset_catalog.gd",
+        "scripts/dev/capture_tutorial_collision_driven_terrain_review.gd"
+      ],
+      "integration_status": "scene_reference_verified",
+      "manual_gates": [
+        "art_quality_review",
+        "scale_and_readability_review",
+        "scene_or_release_context_review"
+      ]
+    },
+    {
+      "asset_id": "tutorial_dash_gate_lintel_visual_ai01",
+      "batch": "Batch 09",
+      "priority": "P0",
+      "target_kind": "terrain_tile_strip",
+      "track": "runtime_environment",
+      "disposition": "runtime_keep",
+      "target_system": "tutorial Air Dash solid gate lintel visual surface",
+      "recommended_resource_type": "TileSet",
+      "output_path": "assets/art/tilesets/tutorial_dash_gate_lintel_visual_ai01.png",
+      "output_exists": true,
+      "output_sha256": "b728aeedd0ec8872745c999e908ea495ce7c3a6c001ff8f021ce12ad266242f0",
+      "target_scene_candidates": [
+        "scenes/rooms/tutorial_room.tscn"
+      ],
+      "existing_target_scene_candidates": [
+        "scenes/rooms/tutorial_room.tscn"
+      ],
+      "direct_scene_references": [
+        "scenes/rooms/tutorial_room.tscn"
+      ],
+      "development_scene_references": [
+        "scenes/dev/final_art_review_workbench.tscn",
+        "scenes/dev/imagegen_asset_gallery.tscn",
+        "scenes/dev/imagegen_runtime_asset_catalog.tscn",
+        "scripts/dev/apply_formal_terrain_kit_tutorial_trial.gd",
+        "scripts/dev/build_imagegen_runtime_asset_catalog.gd",
+        "scripts/dev/capture_tutorial_collision_driven_terrain_review.gd"
+      ],
       "integration_status": "scene_reference_verified",
       "manual_gates": [
         "art_quality_review",

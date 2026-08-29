@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="372" viewBox="0 0 1200 372">
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10262c" stop-opacity="0.97"/>
+      <stop offset="0.55" stop-color="#08171d" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#050d12" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6f5328"/>
+      <stop offset="0.18" stop-color="#d3ad5c"/>
+      <stop offset="0.5" stop-color="#f0d48c"/>
+      <stop offset="0.82" stop-color="#d3ad5c"/>
+      <stop offset="1" stop-color="#6f5328"/>
+    </linearGradient>
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="12" y="14" width="1176" height="344" rx="34" fill="url(#panel)"/>
+  <rect x="14" y="16" width="1172" height="340" rx="32" fill="none" stroke="#392a17" stroke-width="12"/>
+  <rect x="22" y="24" width="1156" height="324" rx="25" fill="none" stroke="url(#gold)" stroke-width="5"/>
+  <rect x="34" y="36" width="1132" height="300" rx="18" fill="none" stroke="#58d7d9" stroke-opacity="0.48" stroke-width="2"/>
+  <path d="M74 60H300M900 60H1126M74 312H350M850 312H1126" fill="none" stroke="#66eced" stroke-opacity="0.42" stroke-width="3" filter="url(#cyanGlow)"/>
+  <path d="M44 112V70Q44 46 68 46H112M1156 112V70Q1156 46 1132 46H1088M44 260v42q0 24 24 24h44M1156 260v42q0 24-24 24h-44" fill="none" stroke="#d8b769" stroke-width="7"/>
+  <g transform="translate(600 42)" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linejoin="round">
+    <path d="M0 32C-15 19-25 4 0-20C25 4 15 19 0 32Z"/>
+    <path d="M-2 32C-32 29-50 13-48-10C-21-7-7 7-2 32Z"/>
+    <path d="M2 32C32 29 50 13 48-10C21-7 7 7 2 32Z"/>
+    <path d="M-49 8C-69 9-82 20-84 36C-56 39-31 36-2 32C31 36 56 39 84 36C82 20 69 9 49 8"/>
+  </g>
+  <path d="M318 86C430 58 770 58 882 86M318 288C430 316 770 316 882 288" fill="none" stroke="#2fb6bd" stroke-opacity="0.13" stroke-width="2"/>
+</svg>

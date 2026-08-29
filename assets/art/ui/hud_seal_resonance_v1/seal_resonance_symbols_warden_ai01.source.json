@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "seal_resonance_symbols_warden_ai01",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_seal_resonance_v1",
+  "candidate_path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/seal_resonance_symbols_warden_ai01_source.png",
+  "source_path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/seal_resonance_symbols_warden_ai01_source.png",
+  "candidate_sha256": "ddb2148cf0c766cebfdbd95f18f1e76d99bb49055a66acb620fbca7a679948f2",
+  "input_sha256": "ddb2148cf0c766cebfdbd95f18f1e76d99bb49055a66acb620fbca7a679948f2",
+  "output_path": "assets/art/ui/hud_seal_resonance_v1/seal_resonance_symbols_warden_ai01.png",
+  "output_sha256": "112200c39c8c2052340eb53c62d741adb813ddb17d219ce3f50ea2c8595867e2",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "output_size": [
+    576,
+    384
+  ],
+  "reference_inputs": [
+    {
+      "path": "tests/artifacts/local/hud-pause-imagegen-direction-review/direction_02_warden_lacquer_archive.png",
+      "sha256": "282ac16719f31e8a0f4482a23dee7646bb920965a0b694b721665e085a0939bd"
+    },
+    {
+      "path": "assets/art/ui/hud_warden_integrated_v5/element_frame_integrated_warden_ai01.png",
+      "sha256": "f5df218b20616c5e380da099fc76ca171b41534a1a20c58fbd2218a25656af81"
+    },
+    {
+      "path": "assets/source/ai_generated/batch_09/hud_seal_resonance_v1/references/gameplay_hud_formal_2048x1152_sha256_57557ef621d8e0a1.png",
+      "sha256": "57557ef621d8e0a10a1f1b017646e26a5795df97fe0b0ea6d9ab59229bfc1bfc"
+    }
+  ],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_fixed_3x2_equal_cell_crop_per_cell_alpha_bbox_single_uniform_downscale_center_pad",
+  "allowed_process_steps": [
+    "official_remove_chroma_key_auto_key_border",
+    "soft_matte",
+    "despill",
+    "edge_contract_1",
+    "fixed_3x2_equal_cell_crop",
+    "alpha_bbox_crop",
+    "single_uniform_downscale_only",
+    "transparent_center_pad"
+  ],
+  "prompt": "Use case: stylized-concept\nAsset type: production-ready 2D game UI symbol contact sheet, fixed 3 columns by 2 rows\nPrimary request: Create exactly six distinct non-text symbolic seal glyphs for Nano Hunter's \"Seal Resonance\" HUD, arranged in a strict 3x2 contact sheet. Fixed order: top-left WIND = feather-like outward spiral; top-center THUNDER = branching angular shock pattern; top-right SWIFT STANCE = forward-thrusting open-form pattern; bottom-left WARD STANCE = concentric closed-form protective pattern; bottom-center PURSUIT PIERCING = strong horizontal penetration pattern; bottom-right SCATTER BREAK = outward-spreading radial burst pattern. These are abstract pictorial combat symbols, not language characters.\nInput images: Image 1 is the approved 02 镇妖官印 art-direction anchor; Image 2 is the existing v5 Element frame material and line-language reference; Image 3 is the live 2048x1152 gameplay screenshot for actual HUD scale and dark-world contrast. Use them as references only; generate a new clean sheet.\nStyle/medium: one artist, one consistent line weight, polished hand-painted 2D game UI seals; Southern and Northern Dynasties eastern fantasy; royal demon-warden craft; Buddhist seal geometry; Shanhaijing restraint; Chinese ink and meticulous gongbi detail. Dark aged bronze structural strokes with restrained pale cyan/blue-violet/cinnabar energy accents. Each symbol must remain readable at 64px.\nComposition/framing: exact 3 columns x 2 rows on a 3:2 landscape canvas; six equal square cells; exactly one centered symbol per cell; generous and equal internal padding; no grid lines, no cell frames, no shadow plates, no background tiles. Each symbol has equal visual weight and fits completely inside its own cell without touching or crossing cell boundaries.\nScene/backdrop: perfectly flat solid #00ff00 chroma-key background across the entire canvas, including gutters. Uniform edge-to-edge green only.\nConstraints: exactly six symbols and no more; strict fixed positional order; every symbol must have a materially different silhouette and directional grammar, not merely a color swap. No letters, no words, no Chinese characters, no seal script, no pseudo-writing, no calligraphy, no numerals, no labels, no logos, no watermark. No people, faces, animals, masks, hands, weapons, or character silhouettes. No frames, rings used as cell borders, plaques, panels, shadows, glows spreading into adjacent cells, or decorative objects. Do not use #00ff00 anywhere in a symbol. Background must have no shadows, gradients, texture, reflections, floor plane, or lighting variation. Crisp edges, no cast shadow, no contact shadow, no green spill.\nAvoid: reordered cells, duplicate silhouettes, color-only variants, personified symbols, textual or rune-like marks, western heraldry, modern laboratory, biotechnology, sci-fi HUD, neon cyberpunk, overlapping cells, cropped symbols, extra ornaments.",
+  "prompt_sha256": "712a273de2b8590af4fd3d3cffc25b293418bcbb5739838841524f2a33018492",
+  "visual_assembly_contract": "seal_resonance_v1_complete_frame",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "Runtime technical candidate only. Human review must still approve visual identity, idle-to-active instrument continuity, pseudo-text absence, physical-size readability, provenance/license terms and Gate26H before final-art or release promotion."
+}

@@ -67,6 +67,7 @@ FAMILY_BY_KIND = {
     "environment_tiles": "environment",
     "texture_atlas": "textures",
     "tileset_sheet": "environment",
+    "terrain_tile_strip": "environment",
     "completion_ui": "ui",
     "hud_frame": "ui",
     "icon": "icons",

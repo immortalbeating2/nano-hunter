@@ -28,6 +28,7 @@ ALPHA_EXPECTED_KINDS = {
     "prop_sheet",
     "spine_cutout_parts",
     "sprite_sheet",
+    "terrain_tile_strip",
     "ui_atlas",
     "ui_panel",
     "vfx_atlas",
@@ -69,6 +70,11 @@ MANUAL_POLISH_NOTES = {
         "semantic_tile_naming",
         "collision_and_terrain_configuration",
         "hazard_safe_boundary_review",
+    ],
+    "terrain_tile_strip": [
+        "physics_affordance_review",
+        "visible_top_and_collision_top_review",
+        "runtime_scale_and_seam_review",
     ],
     "environment_background": [
         "parallax_layer_split",

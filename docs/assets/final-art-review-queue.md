@@ -4,15 +4,15 @@
 
 ## Summary
 
-- 资产总数：`78`
-- 需要人工复核：`23`
-- Final ready：`55`
+- 资产总数：`81`
+- 需要人工复核：`27`
+- Final ready：`54`
 
 ## By Family
 
 - `animation`: `8`
 - `characters`: `4`
-- `environment`: `12`
+- `environment`: `14`
 - `icons`: `4`
 - `other`: `12`
 - `promo_logo_cg`: `4`
@@ -20,7 +20,7 @@
 - `story`: `3`
 - `style`: `1`
 - `textures`: `1`
-- `ui`: `10`
+- `ui`: `11`
 - `vfx`: `11`
 
 ## Queue
@@ -48,12 +48,19 @@
 - [ ] `P0` `stage16_alpha_demo_completion_ai01` (ui / completion_ui) - 0 blockers
 - [ ] `P0` `stage16_completion_panel_ui_ai01` (ui / ui_panel) - 0 blockers
 - [ ] `P0` `stage16_pause_panel_ui_ai01` (ui / ui_panel) - 0 blockers
-- [ ] `P0` `stage16_title_background_ai01` (ui / title_background) - 0 blockers
+- [ ] `P0` `stage16_title_background_ai01` (ui / title_background) - 1 blockers
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P0` `stage19_discovery_map_base_ai01` (ui / ui_map_foundation) - 4 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
   - 按目标 HUD / icon 像素尺寸检查读值。
   - 需要人工复核 `text_safe_area_review`。
   - 需要人工复核 `runtime_layout_review`。
+- [ ] `P0` `stage28_bounty_archive_frame_warden_ai01` (ui / ui_panel) - 5 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 确认 UI 面板文本安全区和缩放边界。
+  - 清理或重绘不可读的生成伪文字。
+  - 在真实运行时容器中复核 UI 面板布局。
 - [ ] `P0` `stage28_waystation_ui_sheet_ai01` (ui / ui_atlas) - 5 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
   - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
@@ -70,22 +77,22 @@
   - 复核 VFX mask、透明边缘和混合模式。
 - [ ] `P0` `stage30_kui_boss_combat_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
   - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
   - 复核 VFX mask、透明边缘和混合模式。
 - [ ] `P0` `stage30_kui_boss_state_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
   - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
   - 复核 VFX mask、透明边缘和混合模式。
 - [ ] `P0` `stage30_thunder_absorption_reward_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
   - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
   - 复核 VFX mask、透明边缘和混合模式。
 - [ ] `P0` `stage30_thunder_fang_vfx_ai01` (vfx / vfx_atlas) - 4 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
   - 在测试场景中复核 VFX anchor、spawn offset 和缩放。
   - 复核 VFX mask、透明边缘和混合模式。
 - [ ] `P0` `vfx_combat_atlas_ai01` (vfx / vfx_atlas) - 0 blockers
@@ -108,6 +115,16 @@
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
   - 把背景拆成前景、中景、远景等可配置 parallax 层。
   - 检查前景装饰不会遮挡玩家、危险物或交互物。
+- [ ] `P1` `tutorial_dash_gate_lintel_visual_ai01` (environment / terrain_tile_strip) - 4 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `physics_affordance_review`。
+  - 需要人工复核 `visible_top_and_collision_top_review`。
+  - 需要人工复核 `runtime_scale_and_seam_review`。
+- [ ] `P1` `tutorial_jump_platform_visual_ai02` (environment / terrain_tile_strip) - 4 blockers
+  - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
+  - 需要人工复核 `physics_affordance_review`。
+  - 需要人工复核 `visible_top_and_collision_top_review`。
+  - 需要人工复核 `runtime_scale_and_seam_review`。
 - [ ] `P1` `equipment_pickup_atlas_ai01` (props_equipment / equipment_atlas) - 0 blockers
 - [ ] `P1` `reusable_seal_props_ai01` (props_equipment / prop_sheet) - 0 blockers
 - [ ] `P1` `shrine_gate_prop_atlas_ai01` (props_equipment / prop_atlas) - 0 blockers
@@ -138,19 +155,19 @@
   - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P2` `stage30_kui_boss_phase1_attacks_ai01` (other / boss_animation) - 2 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P2` `stage30_kui_boss_phase1_presence_ai01` (other / boss_animation) - 2 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P2` `stage30_kui_boss_phase2_presence_ai01` (other / boss_animation) - 2 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P2` `stage30_kui_boss_phase2_resolution_ai01` (other / boss_animation) - 2 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P2` `stage30_kui_boss_transition_reaction_ai01` (other / boss_animation) - 2 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
-  - 需要人工复核 `runtime_reference_not_replaced`。
+  - 在对应场景、HUD 或内容资源中替换占位引用，并记录运行时验证结果。
 - [ ] `P2` `stage30_thunder_fang_attack_ai01` (other / enemy_animation) - 1 blockers
   - 确认 image gen / 外部来源的商业使用条款，并记录审批结论。
 - [ ] `P2` `stage30_thunder_fang_locomotion_ai01` (other / enemy_animation) - 1 blockers

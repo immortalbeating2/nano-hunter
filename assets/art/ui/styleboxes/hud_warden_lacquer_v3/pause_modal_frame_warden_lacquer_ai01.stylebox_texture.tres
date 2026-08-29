@@ -1,0 +1,15 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/ui/hud_warden_lacquer_v3/pause_modal_frame_warden_lacquer_ai01.png" id="1_texture"]
+
+[resource]
+content_margin_left = 78.0
+content_margin_top = 148.0
+content_margin_right = 78.0
+content_margin_bottom = 56.0
+texture = ExtResource("1_texture")
+texture_margin_left = 72.0
+texture_margin_top = 164.0
+texture_margin_right = 72.0
+texture_margin_bottom = 62.0
+region_rect = Rect2(0, 0, 640, 916)

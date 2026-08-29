@@ -1,0 +1,20 @@
+{
+  "asset_id": "stage28_bounty_archive_frame_warden_ai01",
+  "runtime_asset_id": "stage28_bounty_archive_frame_warden_ai01",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 2,
+  "source": "assets/source/ai_generated/batch_28/stage28_bounty_archive_frame_warden_ai01/candidates/stage28_bounty_archive_frame_warden_ai01_candidate_02.png",
+  "source_sha256": "b6ee259326b5b6a9933d723f5c1d90ece0098bcbb34afb24173a0823d95f08a2",
+  "output": "assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png",
+  "output_sha256": "b6ee259326b5b6a9933d723f5c1d90ece0098bcbb34afb24173a0823d95f08a2",
+  "process": "built_in_image_gen_frame_then_targeted_alpha_extraction",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "transparent_png",
+    "bounty_only_runtime_binding",
+    "no_baked_text_icons_or_controls",
+    "dark_lacquer_warden_official_visual_family"
+  ]
+}

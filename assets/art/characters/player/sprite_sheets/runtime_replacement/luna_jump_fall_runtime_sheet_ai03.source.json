@@ -13,5 +13,25 @@
     "stable_scale",
     "stable_anchor"
   ],
-  "anchor": "body_center"
+  "anchor": "body_center",
+  "model_lock": {
+    "contract_kind": "shared_runtime_body_v1",
+    "model_id": "luna_model_v1",
+    "canonical_reference": "luna_idle_runtime_sheet_ai03",
+    "source_family": "luna_unified_runtime_body_2026_07_03",
+    "canvas": [
+      192,
+      192
+    ],
+    "center_x": 96,
+    "center_tolerance_px": 2,
+    "ground_foot_y": 176,
+    "ground_foot_tolerance_px": 2,
+    "requires_ground_foot": false,
+    "requires_standing_height": false,
+    "standing_reference_height": 144,
+    "standing_height_tolerance_px": 2,
+    "standing_frame_indices": [],
+    "runtime_status": "runtime_replacement_ready"
+  }
 }

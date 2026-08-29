@@ -7,6 +7,13 @@
 - 原始候选保存在 ignored `assets/source/ai_generated/batch_30/`；运行输出由 `scripts/assets/build_stage30_thunder_enemy_boss_assets.py` 确定性构建。
 - `integrated` 只证明生产场景真实引用，不表示动作连贯性、特效亮度、音频试听、商业授权或 Gate26H 已批准。
 
+## 通用模型锁
+
+- 雷蚀獠三张 body 统一登记为 `thunder_fang_model_v1`，canonical 为 `stage30_thunder_fang_locomotion_runtime_ai01#0`；夔影雷骸五张 body 统一登记为 `kui_thunder_boss_model_v1`，canonical 为 `stage30_kui_boss_phase1_presence_runtime_ai01#0`。
+- 唯一机器权威为 `docs/assets/character-creature-model-locks.json`。Stage30 构建器会把相同 contract 写入每张 `.frames.json` / `.source.json`；严格像素审计和生产 GUT 会阻止未知、缺少 metadata 或 `runtime_binding_allowed=false` 的 body 进入 live binding。
+- 当前两族均为 `geometry_lock_ready=true / identity_lock_ready=true / runtime_binding_allowed=true / identity_review_status=pending_gate26h`。其中 `identity_lock_ready` 来自头顶、身体核心、脚底、根节点、前后轮廓和 canonical 比例的逐帧 alpha 技术审计，不是人工身份审美批准。
+- 全生产反向扫描覆盖 `res://scripts` / `res://scenes` 并排除资产工具、开发审查场景与测试证据；夔影雷骸真窗口连续性报告位于 ignored `tests/artifacts/local/character-creature-model-lock/runtime-continuity/boss_runtime_continuity_report.json`，新鲜覆盖 `17/17` 状态、五套允许 body 和恒定根锚。阶段变化、头角 / 肢体 / 甲胄 / 轮廓、动作重量、授权和外部发布仍按 Gate26H / `docs/assets/final-art-acceptance-gates.json` 的 `final_ready` 分别签核。
+
 ## 正式 Demo 帧数基线
 
 | Pack | Body / VFX 帧 | 运行用途 | 当前结论 |

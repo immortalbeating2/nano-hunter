@@ -48,7 +48,11 @@
         51,
         62
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 62,
+      "foot_y": 130,
+      "body_height": 68
     },
     {
       "index": 1,
@@ -79,7 +83,11 @@
         52,
         61
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 95.5,
+      "head_y": 61,
+      "foot_y": 131,
+      "body_height": 70
     },
     {
       "index": 2,
@@ -110,7 +118,11 @@
         54,
         54
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 54,
+      "foot_y": 137,
+      "body_height": 83
     },
     {
       "index": 3,
@@ -141,7 +153,11 @@
         54,
         38
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.5,
+      "head_y": 38,
+      "foot_y": 153,
+      "body_height": 115
     },
     {
       "index": 4,
@@ -172,7 +188,11 @@
         58,
         42
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 42,
+      "foot_y": 151,
+      "body_height": 109
     },
     {
       "index": 5,
@@ -203,7 +223,11 @@
         57,
         40
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 40,
+      "foot_y": 152,
+      "body_height": 112
     },
     {
       "index": 6,
@@ -234,7 +258,11 @@
         54,
         44
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.5,
+      "head_y": 44,
+      "foot_y": 149,
+      "body_height": 105
     },
     {
       "index": 7,
@@ -265,7 +293,11 @@
         58,
         46
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 95.5,
+      "head_y": 46,
+      "foot_y": 145,
+      "body_height": 99
     },
     {
       "index": 8,
@@ -296,7 +328,11 @@
         60,
         48
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.5,
+      "head_y": 48,
+      "foot_y": 144,
+      "body_height": 96
     },
     {
       "index": 9,
@@ -327,7 +363,11 @@
         62,
         50
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 95.5,
+      "head_y": 50,
+      "foot_y": 142,
+      "body_height": 92
     },
     {
       "index": 10,
@@ -358,7 +398,11 @@
         58,
         45
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 45,
+      "foot_y": 147,
+      "body_height": 102
     },
     {
       "index": 11,
@@ -389,7 +433,11 @@
         59,
         42
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 42,
+      "foot_y": 149,
+      "body_height": 107
     },
     {
       "index": 12,
@@ -420,7 +468,11 @@
         59,
         44
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 44,
+      "foot_y": 148,
+      "body_height": 104
     },
     {
       "index": 13,
@@ -451,7 +503,11 @@
         60,
         44
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 44,
+      "foot_y": 149,
+      "body_height": 105
     },
     {
       "index": 14,
@@ -482,7 +538,11 @@
         60,
         42
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 42,
+      "foot_y": 149,
+      "body_height": 107
     },
     {
       "index": 15,
@@ -513,7 +573,11 @@
         60,
         24
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 95.5,
+      "head_y": 24,
+      "foot_y": 168,
+      "body_height": 144
     },
     {
       "index": 16,
@@ -544,7 +608,11 @@
         65,
         24
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 24,
+      "foot_y": 168,
+      "body_height": 144
     },
     {
       "index": 17,
@@ -575,7 +643,11 @@
         64,
         24
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 95.5,
+      "head_y": 24,
+      "foot_y": 167,
+      "body_height": 143
     },
     {
       "index": 18,
@@ -606,7 +678,11 @@
         54,
         56
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 56,
+      "foot_y": 135,
+      "body_height": 79
     },
     {
       "index": 19,
@@ -637,7 +713,11 @@
         54,
         62
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.5,
+      "head_y": 62,
+      "foot_y": 131,
+      "body_height": 69
     },
     {
       "index": 20,
@@ -668,7 +748,11 @@
         62,
         52
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 95.5,
+      "head_y": 52,
+      "foot_y": 140,
+      "body_height": 88
     },
     {
       "index": 21,
@@ -699,7 +783,11 @@
         58,
         48
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 48,
+      "foot_y": 144,
+      "body_height": 96
     },
     {
       "index": 22,
@@ -730,7 +818,11 @@
         60,
         48
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 95.5,
+      "head_y": 48,
+      "foot_y": 144,
+      "body_height": 96
     },
     {
       "index": 23,
@@ -761,7 +853,11 @@
         61,
         48
       ],
-      "scale": 0.62069
+      "scale": 0.62069,
+      "center_x": 96.0,
+      "head_y": 48,
+      "foot_y": 143,
+      "body_height": 95
     }
   ],
   "normalization": {
@@ -777,5 +873,25 @@
     "scale_min": 0.62069,
     "scale_max": 0.62069,
     "transparent_png": true
+  },
+  "model_lock": {
+    "contract_kind": "shared_runtime_body_v1",
+    "model_id": "luna_model_v1",
+    "canonical_reference": "luna_idle_runtime_sheet_ai03",
+    "source_family": "luna_unified_runtime_body_2026_07_03",
+    "canvas": [
+      192,
+      192
+    ],
+    "center_x": 96,
+    "center_tolerance_px": 2,
+    "ground_foot_y": 176,
+    "ground_foot_tolerance_px": 2,
+    "requires_ground_foot": false,
+    "requires_standing_height": false,
+    "standing_reference_height": 144,
+    "standing_height_tolerance_px": 2,
+    "standing_frame_indices": [],
+    "runtime_status": "runtime_replacement_ready"
   }
 }

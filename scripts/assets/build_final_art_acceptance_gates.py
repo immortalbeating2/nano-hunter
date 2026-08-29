@@ -12,6 +12,7 @@ READINESS_PATH = Path("docs/assets/art-readiness-audit-report.json")
 REVIEW_QUEUE_PATH = Path("docs/assets/final-art-review-queue.json")
 WORKBENCH_MANIFEST_PATH = Path("docs/assets/final-art-review-workbench-manifest.json")
 RUNTIME_SOURCE_SAFETY_PATH = Path("docs/assets/runtime-source-safety-report.json")
+MODEL_LOCK_CONTRACT_PATH = Path("docs/assets/character-creature-model-locks.json")
 OUT_JSON = Path("docs/assets/final-art-acceptance-gates.json")
 OUT_MD = Path("docs/assets/final-art-acceptance-gates.md")
 
@@ -223,6 +224,12 @@ def write_markdown(report: dict[str, Any]) -> None:
         "本文件把最终美术从 `structural_ready` 推进到 `final_ready` 所需的门槛拆成机器可审计清单。",
         "它不是最终批准记录；当前所有未通过项仍需要人工清稿、授权确认、运行时替换或玩法读值复核。",
         "",
+        "## Related Character / Creature Model Lock",
+        "",
+        f"- 机器契约：`{report['model_lock_contract']['path']}`",
+        "- `identity_lock_ready` 只证明逐帧语义锚点、跨 sheet 比例与生产绑定的技术身份连续；它不会设置 `final_ready`。",
+        "- `identity_review_status` 继续由 Gate26H 真人审美签核；授权与外部发布仍由本文件各资产的 `final_approval / final_ready` 决定。",
+        "",
         "## Summary",
         "",
         f"- 资产总数：`{summary['asset_count']}`",
@@ -273,13 +280,23 @@ def main() -> int:
         for asset_id in sorted(review_entries)
     ]
     report = {
-        "version": 1,
+        "version": 2,
         "status": "acceptance_gates_ready",
         "boundary": (
             "Acceptance gates are review requirements for moving structural image-gen assets toward final-ready. "
             "Runtime source safety is an upstream gate, so review-required runtime sources cannot remain final-ready. "
             "Passing this report only proves the gates are explicit and auditable; it does not approve final art."
         ),
+        "model_lock_contract": {
+            "path": MODEL_LOCK_CONTRACT_PATH.as_posix(),
+            "technical_identity_gate": "identity_lock_ready",
+            "human_identity_gate": "identity_review_status",
+            "external_release_gate": "final_ready",
+            "boundary": (
+                "identity_lock_ready is a technical prerequisite for registered runtime bodies; "
+                "it does not approve Gate26H identity art, license terms or final_ready."
+            ),
+        },
         "gate_order": GATE_ORDER,
         "gate_labels": GATE_LABELS,
         "summary": summarize(entries),

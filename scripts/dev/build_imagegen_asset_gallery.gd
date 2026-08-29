@@ -18,6 +18,7 @@ const CATEGORY_LABELS := {
 	"boss_direction": "Boss 方向稿",
 	"spine_cutout_parts": "Spine 拆件图集",
 	"tileset_sheet": "TileSet",
+	"terrain_tile_strip": "语义地形条带",
 	"environment_tiles": "关卡地块",
 	"environment_background": "区域背景",
 	"environment_room_background": "房间背景",

@@ -11,6 +11,8 @@ from typing import Any
 
 from PIL import Image
 
+from character_creature_model_lock_contract import maybe_attach_model_lock
+
 
 DEFAULT_ATLAS_MANIFEST = "docs/assets/asset-atlas-build-manifest.json"
 DEFAULT_OUT_DIR = "assets/art/characters/player/sprite_sheets/runtime_replacement"
@@ -262,6 +264,8 @@ def build_candidate(
         ),
         "normalization": summary,
     }
+    maybe_attach_model_lock(candidate_metadata, root.resolve(), candidate_id)
+    maybe_attach_model_lock(source_record, root.resolve(), candidate_id)
     if not dry_run:
         sheet.save(output_path)
         metadata_path.write_text(json.dumps(candidate_metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -277,7 +281,7 @@ def build_candidate(
             columns,
         )
 
-    return {
+    manifest_entry = {
         "id": candidate_id,
         "source_asset_id": source_asset_id,
         "kind": "sprite_sheet",
@@ -291,6 +295,22 @@ def build_candidate(
         "frame_count": len(candidate_frames),
         "normalization": summary,
     }
+    model_lock = candidate_metadata.get("model_lock", {})
+    if isinstance(model_lock, dict) and str(model_lock.get("asset_status", "active")) != "active":
+        canonical_id = str(model_lock.get("canonical_reference", ""))
+        manifest_entry.update(
+            {
+                "kind": "archived_sprite_sheet_reference",
+                "status": str(model_lock.get("asset_status", "reference_rejected")),
+                "archival_reason": "Rejected by the central character / creature model-lock contract.",
+                "superseded_by": [
+                    {
+                        "path": rel(out_dir / f"{canonical_id}.spriteframes.tres", root),
+                    }
+                ],
+            }
+        )
+    return manifest_entry
 
 
 def main() -> int:

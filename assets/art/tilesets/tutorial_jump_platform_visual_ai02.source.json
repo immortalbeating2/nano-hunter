@@ -1,0 +1,24 @@
+{
+  "asset_id": "tutorial_jump_platform_visual_ai02",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "candidate_index": 1,
+  "selected_direction": {
+    "path": "assets/source/ai_generated/batch_09/tutorial_jump_platform_visual_ai02/candidates/tutorial_jump_platform_visual_ai02_candidate_01.png",
+    "sha256": "67724eeaf3bd46edcb0168dcbc3540b2cf5ff291173755296145cdf7fb3e10a9",
+    "selected_by": "codex_visual_qc",
+    "selected_on": "2026-08-09"
+  },
+  "output": "assets/art/tilesets/tutorial_jump_platform_visual_ai02.png",
+  "output_sha256": "3fd5399a856e2d3e57646b91cfa4289a0b0c8873f06448b2b3b8bbefec83d40d",
+  "process": "generate2dsprite_magenta_key_1x3_64px",
+  "prompt": "Use case: production-ready 2D game terrain tile strip for Nano Hunter. Create exactly one horizontal 1x3 strip of three adjoining 64x64-style tiles: left cap, seamless center, right cap. This asset is a light one-way jump platform, not a wall or ramp. Preserve one perfectly horizontal, continuous walkable stone top across all three cells. Use weathered shrine stone, restrained dark bronze brackets, sparse moss, muted gold, and a very small cyan seal accent. Keep the silhouette thin and readable, about the upper 20 percent of each tile cell, with open air below. Match the Northern and Southern Dynasties Chinese dark-fantasy, ink-teal, shrine-ruin visual language of Nano Hunter. Background must be perfectly flat solid magenta #FF00FF for chroma-key removal. No perspective slope, no diagonal top, no stairs, no wall mass, no floating fragments, no text, no watermark, no shadows outside the object. Canvas 1536x1024; each of the three equal 512px columns contains exactly one aligned tile segment and all three segments connect at the column boundaries.",
+  "license_record_status": "source_recorded_terms_review_required",
+  "commercial_use_status": "manual_terms_review_required_before_external_release",
+  "constraints": [
+    "one_way_platform_only",
+    "horizontal_walkable_top",
+    "visual_only_collision_separate",
+    "no_slope_or_stairs"
+  ]
+}

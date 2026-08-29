@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import math
@@ -12,6 +13,8 @@ from typing import Any
 
 from PIL import Image
 
+from character_creature_model_lock_contract import model_lock_for_asset
+
 
 INBOX_DIR = Path("assets/source/imagegen_inbox/luna_unified_runtime_body_2026_07_03")
 SOURCE_DIR = INBOX_DIR
@@ -20,8 +23,6 @@ MANIFEST_PATH = Path("docs/assets/luna-unified-runtime-body-candidates-2026-07-0
 CELL = [192, 192]
 SAFE_SIZE = [144, 144]
 MAGENTA = (255, 0, 255)
-
-
 ASSETS: list[dict[str, Any]] = [
     {
         "id": "luna_idle_runtime_sheet_ai03",
@@ -88,6 +89,11 @@ def rel(path: Path) -> str:
 
 def res_path(path: Path) -> str:
     return "res://" + rel(path)
+
+
+def build_model_lock(asset: dict[str, Any]) -> dict[str, Any]:
+    """从中央清单读取 Luna 契约，避免生成器与审查规则分叉。"""
+    return model_lock_for_asset(Path.cwd().resolve(), str(asset["id"]))
 
 
 def sha256(path: Path) -> str:
@@ -295,6 +301,7 @@ def build_asset(asset: dict[str, Any]) -> dict[str, Any]:
     max_content_width = max(int(bbox[2] - bbox[0]) for bbox in bboxes if bbox is not None)
     max_content_height = max(int(bbox[3] - bbox[1]) for bbox in bboxes if bbox is not None)
     action_scale = min(SAFE_SIZE[0] / max_content_width, SAFE_SIZE[1] / max_content_height, 1.0)
+    model_lock = build_model_lock(asset)
     scales: list[float] = []
     for index in range(frame_count):
         normalized, info = normalize_frame(cell_sources[index], str(asset["anchor"]), action_scale)
@@ -310,6 +317,10 @@ def build_asset(asset: dict[str, Any]) -> dict[str, Any]:
                 "source_frame_index": index,
                 "region": [x, y, CELL[0], CELL[1]],
                 **info,
+                "center_x": round(float(info["paste"][0]) + float(info["normalized_size"][0]) / 2.0, 2),
+                "head_y": int(info["paste"][1]),
+                "foot_y": int(info["paste"][1]) + int(info["normalized_size"][1]),
+                "body_height": int(info["normalized_size"][1]),
             }
         )
 
@@ -331,6 +342,7 @@ def build_asset(asset: dict[str, Any]) -> dict[str, Any]:
         "frame_count": frame_count,
         "animation": asset["animation"],
         "anchor": asset["anchor"],
+        "model_lock": model_lock,
         "frames": frame_records,
         "normalization": {
             "safe_size": SAFE_SIZE,
@@ -360,6 +372,7 @@ def build_asset(asset: dict[str, Any]) -> dict[str, Any]:
                     "stable_anchor",
                 ],
                 "anchor": asset["anchor"],
+                "model_lock": model_lock,
             },
             indent=2,
             ensure_ascii=False,
@@ -371,8 +384,46 @@ def build_asset(asset: dict[str, Any]) -> dict[str, Any]:
     return metadata
 
 
+def enrich_existing_asset(asset: dict[str, Any]) -> dict[str, Any]:
+    """源图不在当前 checkout 时，只为已存在且已审计的运行表补写 Model Lock 元数据。"""
+    metadata_path = OUT_DIR / f"{asset['id']}.frames.json"
+    source_record_path = OUT_DIR / f"{asset['id']}.source.json"
+    if not metadata_path.exists() or not source_record_path.exists():
+        raise FileNotFoundError(f"Missing existing Luna runtime metadata for {asset['id']}")
+
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    model_lock = build_model_lock(asset)
+    metadata["model_lock"] = model_lock
+    for frame in metadata.get("frames", []):
+        paste = [int(value) for value in frame.get("paste", [0, 0])]
+        size = [int(value) for value in frame.get("normalized_size", [0, 0])]
+        frame["center_x"] = round(float(paste[0]) + float(size[0]) / 2.0, 2)
+        frame["head_y"] = paste[1]
+        frame["foot_y"] = paste[1] + size[1]
+        frame["body_height"] = size[1]
+    metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    source_record = json.loads(source_record_path.read_text(encoding="utf-8"))
+    source_record["model_lock"] = model_lock
+    source_record_path.write_text(
+        json.dumps(source_record, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    return metadata
+
+
 def main() -> None:
-    outputs = [build_asset(asset) for asset in ASSETS]
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--metadata-only",
+        action="store_true",
+        help="enrich existing audited outputs when original image-gen source files are unavailable",
+    )
+    args = parser.parse_args()
+    outputs = [
+        enrich_existing_asset(asset) if args.metadata_only else build_asset(asset)
+        for asset in ASSETS
+    ]
     MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
     MANIFEST_PATH.write_text(
         json.dumps(
@@ -388,7 +439,8 @@ def main() -> None:
         + "\n",
         encoding="utf-8",
     )
-    print(f"Built {len(outputs)} Luna unified runtime body sheets")
+    action = "Enriched" if args.metadata_only else "Built"
+    print(f"{action} {len(outputs)} Luna unified runtime body sheets")
     print(MANIFEST_PATH)
 
 

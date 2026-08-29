@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "asset_id": "seal_resonance_active_frame_warden_ai02",
+  "provider": "official OpenAI built-in image_gen",
+  "direction": "02_warden_seal_resonance_command_v2",
+  "candidate_path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/seal_resonance_active_frame_warden_ai02_source.png",
+  "source_path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/seal_resonance_active_frame_warden_ai02_source.png",
+  "candidate_sha256": "569e392d85302ebfe42d578f4074ec4410aa147f8de4584577f0bf9263413cfa",
+  "input_sha256": "569e392d85302ebfe42d578f4074ec4410aa147f8de4584577f0bf9263413cfa",
+  "output_path": "assets/art/ui/hud_seal_resonance_v2/seal_resonance_active_frame_warden_ai02.png",
+  "output_sha256": "a1ce4ec7dd54300c77bf0b0622dd75263afa465a3e4e7cb73e9ce0f6a250edb7",
+  "source_size": [
+    1778,
+    885
+  ],
+  "output_size": [
+    1296,
+    624
+  ],
+  "reference_inputs": [
+    {
+      "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/selected_option_02_command_seal_sha256_941695354052e8fd.png",
+      "sha256": "941695354052e8fdfe561136c36a7441d53e870d7d73257da9eb7b0dd2e07241"
+    },
+    {
+      "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/references/gameplay_resolved_wind_thunder_sha256_66ec712ad638641f.png",
+      "sha256": "66ec712ad638641f32f7af4d0d9d2adbfaa19073fc5007944d7a84b4809f567b"
+    }
+  ],
+  "process": "official_remove_chroma_key_soft_matte_despill_edge_contract_1_then_alpha_bbox_crop_single_uniform_downscale_center_pad",
+  "allowed_process_steps": [
+    "official_remove_chroma_key_auto_key_border",
+    "soft_matte",
+    "despill",
+    "edge_contract_1",
+    "alpha_bbox_crop",
+    "single_uniform_downscale_only",
+    "transparent_center_pad"
+  ],
+  "prompt": "Targeted production correction of reference image 1, preserving its accepted design. Return ONE isolated active HUD frame on perfectly flat pure #00FF00. Keep the exact large left element housing, smaller stance housing, black-lacquer top body, short tag, lower rail, exactly two small sequence wells, and exactly one large reaction well. Keep the same 2.02:1–2.14:1 overall silhouette and the same Option 02 materials.\n\nFix ONE structural defect: the upper body and lower rail currently read as two panels with a green gap. Mechanically join them into a single continuous L-shaped artifact using ONE clearly visible broad vertical folding hinge / bronze bridge at the rail's left joint, approximately under the stance housing. The hinge must physically touch both the upper body's lower edge and the lower rail's upper edge. No green gap may remain at this joint. Use a substantial 32–48 px-at-runtime joint with matching black lacquer, bronze side plates, two plain rivets and one restrained cyan seam. It must look engineered as one unfolding device, not a panel pasted below another.\n\nDo not change the semantic wells or add any new well. Keep all display wells empty and nearly black. Do not add text, characters, pseudo-writing, runes, symbols, labels, lightning, wind, energy glyphs, logos, shadows, background scene, multiple variants, or perspective. Crisp edges, no fuzzy seam, no floating components.",
+  "prompt_sha256": "79c0cf7d9abda268e00d49290ed27de721eb3debeba8949e61f4855af561c4d8",
+  "visual_assembly_contract": "seal_resonance_v2_command_seal",
+  "runtime_binding_allowed": true,
+  "final_ready": false,
+  "boundary": "User selected Option 02 as the visual direction. Runtime promotion still requires real-window fidelity and physical-size readability review, pseudo-text inspection, provenance/license approval and Gate26H before final-art or release promotion.",
+  "state_identity_reference": {
+    "path": "assets/source/ai_generated/batch_10/hud_seal_resonance_v2/seal_resonance_idle_frame_warden_ai02_source.png",
+    "sha256": "e2bf94cb244cec26d38afad2aba06699b5adb8381af4de6543677e0d9be7b85f"
+  }
+}

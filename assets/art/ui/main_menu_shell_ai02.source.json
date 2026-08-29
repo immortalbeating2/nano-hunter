@@ -1,0 +1,23 @@
+{
+  "asset_id": "main_menu_shell_ai02",
+  "project_key": "nano-hunter",
+  "project_name": "Nano Hunter",
+  "selected_direction": {
+    "path": "assets/source/ai_generated/batch_08/main_menu_shell_ai02/candidates/main_menu_shell_ai02_c2_selected.png",
+    "sha256": "c3e46a7d2be81719ca28771bcc81292296d52bf2122cc4edd4595e25181bf929",
+    "selected_by": "user",
+    "selected_on": "2026-08-04"
+  },
+  "output": "assets/art/ui/main_menu_shell_ai02.png",
+  "output_sha256": "cce1690acac5141c6225a3ec66b265c58b5e24595236c08ff4c481ffaa45ff4a",
+  "process": "codex_built_in_imagegen_precise_object_edit",
+  "prompt": "Remove only NANO HUNTER, the six Chinese menu labels, and the cyan selected-item line from the approved C2 mockup; reconstruct seamless dark ink-blue mist and distant water while preserving the left gate, moon, chains, ward sigils, framing, palette, and right-side UI negative space.",
+  "license_record_status": "internal_alpha_direction_selected",
+  "commercial_use_status": "manual_release_review_required",
+  "constraints": [
+    "background_only",
+    "no_baked_ui_text",
+    "no_baked_focus_indicator",
+    "live_godot_controls_required"
+  ]
+}
