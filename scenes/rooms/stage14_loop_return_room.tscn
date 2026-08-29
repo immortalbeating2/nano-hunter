@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/022_equipment_pickup_atlas_ai01_auto_023_c02.atlas_texture.tres" id="5_goal_marker"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="7_drgi7"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="8_jgmea"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="9_c8rm7"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="9_c8rm7"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)

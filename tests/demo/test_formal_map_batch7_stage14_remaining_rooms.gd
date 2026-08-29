@@ -21,15 +21,16 @@ func test_shrine_is_20x8_single_focus_ability_room() -> void:
 		assert_false(bool(room.get_node(old_art).visible))
 
 
-func test_hub_is_26x10_three_reward_ascent() -> void:
+func test_hub_is_26x10_revisit_progress_and_boss_assembly() -> void:
 	var room := _room(HUB)
 	_assert_layout(room, Rect2i(-384, -320, 1664, 640), Vector2i(-6, 4), 26, 12)
 	_assert_previous(room, GATE, &"stage14_gate_return", 224.0)
 	assert_eq(room.call("get_spawn_position", &"stage14_backtrack_hub_start"), Vector2(-256, 268))
 	assert_eq(room.call("get_spawn_position", &"stage14_hub_return"), Vector2(1088, 268))
-	assert_eq(room.get_node("BacktrackRewardOne").position, Vector2(128, 184))
-	assert_eq(room.get_node("BacktrackRewardTwo").position, Vector2(512, 120))
-	assert_eq(room.get_node("BacktrackRewardThree").position, Vector2(896, 56))
+	assert_not_null(room.get_node_or_null("RevisitProgress/Marker1"))
+	assert_not_null(room.get_node_or_null("RevisitProgress/Marker2"))
+	assert_not_null(room.get_node_or_null("RevisitProgress/Marker3"))
+	assert_not_null(room.get_node_or_null("BossRouteSeal"))
 	assert_eq(room.get_node("ExitZone").position, Vector2(1248, 224))
 
 
@@ -45,8 +46,8 @@ func test_loop_return_is_20x8_upper_goal_room() -> void:
 func test_adjacent_rooms_expose_safe_return_spawns() -> void:
 	var stage13_goal := _room(STAGE13_GOAL)
 	var gate := _room(GATE)
-	assert_eq(stage13_goal.call("get_spawn_position", &"stage13_goal_return"), Vector2(640, 204))
-	assert_eq(gate.call("get_spawn_position", &"stage14_gate_return"), Vector2(864, 60))
+	assert_eq(stage13_goal.call("get_spawn_position", &"stage13_goal_return"), Vector2(520, 204))
+	assert_eq(gate.call("get_spawn_position", &"stage14_gate_return"), Vector2(864, 76))
 
 
 func _assert_layout(room: Node2D, limits: Rect2i, floor_start: Vector2i, floor_length: int, platform_cells: int) -> void:
@@ -65,8 +66,14 @@ func _assert_layout(room: Node2D, limits: Rect2i, floor_start: Vector2i, floor_l
 	assert_eq(surface.get_used_cells().size(), floor_length)
 	assert_eq(platform.get_used_cells().size(), platform_cells)
 	assert_eq(thin.get_used_cells().size(), platform_cells)
-	assert_true(bool(terrain.get("collision_enabled")))
-	assert_true(bool(platform.get("collision_enabled")))
+	var production_layout := room.get_node_or_null("Phase2GrayboxLayout")
+	if production_layout != null:
+		assert_gt(int(production_layout.call("get_runtime_platform_count")), 0)
+		assert_false(bool(terrain.get("collision_enabled")))
+		assert_false(bool(platform.get("collision_enabled")))
+	else:
+		assert_true(bool(terrain.get("collision_enabled")))
+		assert_true(bool(platform.get("collision_enabled")))
 	assert_false(bool(surface.get("collision_enabled")))
 	assert_false(bool(thin.get("collision_enabled")))
 	for offset: int in range(floor_length):

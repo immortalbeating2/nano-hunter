@@ -12,6 +12,20 @@ extends "res://scripts/rooms/stage10_room_base.gd"
 @export var miasma_damage := 1
 @export var seal_gate := false
 @export var persistent_reward_id: StringName = &""
+@export var air_dash_fast_route_room_path := ""
+@export var air_dash_fast_route_spawn_id: StringName = &""
+@export var grants_wind_seal := false
+@export var air_dash_revisit_reward_id: StringName = &""
+@export var shortcut_revisit_reward_id: StringName = &""
+@export var air_dash_fast_route_reward_id: StringName = &""
+@export var challenge_branch_requires_down_input := false
+@export var reward_requires_down_input := false
+@export var wind_seal_requires_down_input := false
+@export var air_dash_revisit_reward_requires_down_input := false
+@export var seal_node_requires_down_input := false
+@export var seal_node_requires_air_dash := false
+@export var seal_node_required_reward_id: StringName = &""
+@export var goal_requires_down_input := false
 
 # 运行期状态保存本房间奖励去重、镇妖印节点、支路请求和瘴气伤害去重。
 var _stage13_collected_reward_ids: Dictionary = {}
@@ -19,6 +33,10 @@ var _seal_node_activated := false
 var _resource_branch_requested := false
 var _challenge_branch_requested := false
 var _miasma_damage_dealt := false
+var _air_dash_fast_route_requested := false
+var _wind_seal_granted := false
+var _stage14_revisit_reward_ids: Dictionary = {}
+var _air_dash_revisit_reward_available := false
 
 
 # 公开资源支路路径，供区域 hub、测试和流程文档核对支路入口。
@@ -63,6 +81,11 @@ func is_seal_node_activated() -> bool:
 	return _seal_node_activated
 
 
+# 查询本房的风印神龛是否已结算，供 F05 HUD、回访恢复和回归测试读取。
+func is_wind_seal_granted() -> bool:
+	return _wind_seal_granted
+
+
 # 激活镇妖印节点并解开当前房间门控，不创建跨房间钥匙状态。
 func activate_seal_node() -> void:
 	# 镇妖印节点是 Stage13 的局部门控钥匙：触发后只解当前房间门，不创建全局钥匙系统。
@@ -97,13 +120,23 @@ func get_stage13_progress_snapshot() -> Dictionary:
 		"miasma_hazard_present": has_miasma_hazard(),
 		"persistent_reward_id": persistent_reward_id,
 		"persistent_reward_collected": persistent_reward_id != StringName() and _main != null and _main.has_method("has_exploration_reward") and bool(_main.call("has_exploration_reward", persistent_reward_id)),
+		"air_dash_fast_route_available": is_air_dash_fast_route_available(),
+		"wind_seal_granted": _wind_seal_granted,
+		"air_dash_revisit_reward_count": _stage14_revisit_reward_ids.size(),
 	}
+
+
+# F09 上层高速线只在 Air Dash 已取得时显示为可用，真正切房仍要求玩家以冲刺状态触发。
+func is_air_dash_fast_route_available() -> bool:
+	return not air_dash_fast_route_room_path.is_empty() and _is_air_dash_unlocked()
 
 
 # 在父类 HUD 上下文基础上追加 Stage13 的支路、危险和封印状态。
 func get_hud_context() -> Dictionary:
 	# 在 Stage10 上下文基础上追加 Stage13 支路、危险和封印状态。
 	var context := super.get_hud_context()
+	if not resource_branch_room_path.is_empty() and str(context.get("prompt_text", "")).is_empty():
+		context["prompt_text"] = "下层资源支路：按住下方向并跳跃，穿过单向平台。"
 	context.merge(get_stage13_progress_snapshot(), true)
 	return context
 
@@ -124,18 +157,148 @@ func _ready() -> void:
 		_apply_gate_lock_state()
 
 
+# 注入 Main 时恢复已经取得的风印，避免回访 F05 时神龛重新亮起或重复结算。
+func bind_main(main: Node) -> void:
+	super.bind_main(main)
+	if (
+		grants_wind_seal
+		and _main != null
+		and _main.has_method("is_wind_seal_unlocked")
+		and bool(_main.call("is_wind_seal_unlocked"))
+	):
+		_wind_seal_granted = true
+		_apply_wind_seal_shrine_state()
+	_restore_stage14_revisit_rewards()
+	if shortcut_revisit_reward_id != StringName() and _stage14_revisit_reward_ids.has(shortcut_revisit_reward_id):
+		_seal_node_activated = true
+		unlock_gate(&"seal_released")
+
+
 # 集中处理瘴气、镇妖印节点、支路入口、奖励和 Stage14 入口触发。
 func _update_stage13_triggers() -> void:
 	if _player == null:
 		return
 
-	# 本阶段所有交互仍用位置触发，便于灰盒快速调房间，不提前引入复杂交互组件。
+	# 连续边界与单向地形仍可位置触发；明确选择的挑战和遗物复用现有 ui_down 确认。
 	_try_apply_miasma_hazard()
 	_try_activate_seal_node()
+	_try_grant_wind_seal()
+	_try_collect_air_dash_revisit_reward()
+	_try_request_air_dash_fast_route()
+	if _transition_requested:
+		return
 	_try_request_resource_branch()
 	_try_request_challenge_branch()
 	_try_collect_stage13_reward("Stage13Reward", &"stage13_reward")
 	_try_request_stage14_from_goal_zone()
+
+
+# F05 先完成远程敌教学，再触达神龛取得风印；清场前不会提前越过教学顺序。
+func _try_grant_wind_seal() -> void:
+	if not grants_wind_seal or _wind_seal_granted or not _gate_unlocked:
+		return
+
+	var shrine := get_node_or_null("WindSealShrine") as Node2D
+	if shrine == null or _player.global_position.distance_to(shrine.global_position) > 44.0:
+		return
+	if wind_seal_requires_down_input and not _is_down_confirmation_pressed():
+		return
+
+	_wind_seal_granted = true
+	if _main != null and _main.has_method("unlock_wind_seal"):
+		_main.call("unlock_wind_seal")
+	if _player.has_method("set_wind_seal_unlocked"):
+		_player.call("set_wind_seal_unlocked", true)
+	_apply_wind_seal_shrine_state()
+	_emit_hud_context()
+
+
+# 神龛只承担一次性能力授予反馈；碰撞和出口均不依赖它的可见状态。
+func _apply_wind_seal_shrine_state() -> void:
+	var shrine := get_node_or_null("WindSealShrine") as Node2D
+	if shrine != null:
+		shrine.visible = not _wind_seal_granted
+
+
+# F06 的可选回访奖励必须由一次真实空中 Dash 触达，持有能力或普通跳跃都不结算。
+func _try_collect_air_dash_revisit_reward() -> void:
+	if air_dash_revisit_reward_id == StringName() or _stage14_revisit_reward_ids.has(air_dash_revisit_reward_id):
+		return
+
+	var reward := get_node_or_null("AirDashRevisitReward") as Node2D
+	if reward == null:
+		return
+	if not _air_dash_revisit_reward_available:
+		if not _is_air_dash_unlocked() or _player.is_on_floor() or not _player.has_method("get_current_state_id"):
+			return
+		if _player.call("get_current_state_id") != &"dash" or _player.global_position.distance_to(reward.global_position) > 56.0:
+			return
+		_air_dash_revisit_reward_available = true
+		if not air_dash_revisit_reward_requires_down_input:
+			_collect_stage14_revisit_reward(air_dash_revisit_reward_id)
+			_apply_air_dash_revisit_reward_state()
+		return
+	if _player.global_position.distance_to(reward.global_position) > 72.0:
+		return
+	if air_dash_revisit_reward_requires_down_input and not _is_down_confirmation_pressed():
+		return
+
+	_collect_stage14_revisit_reward(air_dash_revisit_reward_id)
+	_apply_air_dash_revisit_reward_state()
+
+
+# F07 仍复用标准 ShortcutZone；成功请求跨区捷径时同时记下唯一必需回访事实。
+func _try_request_shortcut() -> bool:
+	var requested := super._try_request_shortcut()
+	if requested and shortcut_revisit_reward_id != StringName():
+		_collect_stage14_revisit_reward(shortcut_revisit_reward_id)
+	return requested
+
+
+# 三处回访共用 Main 的持久化去重入口，本房字典只负责即时 HUD 与隐藏反馈。
+func _collect_stage14_revisit_reward(reward_id: StringName) -> void:
+	if reward_id == StringName() or _stage14_revisit_reward_ids.has(reward_id):
+		return
+	_stage14_revisit_reward_ids[reward_id] = true
+	if _main != null and _main.has_method("collect_stage14_backtrack_reward"):
+		_main.call("collect_stage14_backtrack_reward", reward_id)
+	_emit_hud_context()
+
+
+# 回访已结算状态从 Main 恢复，避免换房后 F06 奖励重新出现。
+func _restore_stage14_revisit_rewards() -> void:
+	if _main == null or not _main.has_method("has_stage14_backtrack_reward"):
+		return
+	for reward_id: StringName in [air_dash_revisit_reward_id, shortcut_revisit_reward_id, air_dash_fast_route_reward_id]:
+		if reward_id != StringName() and bool(_main.call("has_stage14_backtrack_reward", reward_id)):
+			_stage14_revisit_reward_ids[reward_id] = true
+	_apply_air_dash_revisit_reward_state()
+
+
+func _apply_air_dash_revisit_reward_state() -> void:
+	var reward := get_node_or_null("AirDashRevisitReward") as Node2D
+	if reward != null and air_dash_revisit_reward_id != StringName():
+		reward.visible = not _stage14_revisit_reward_ids.has(air_dash_revisit_reward_id)
+
+
+# Air Dash 高速线复用标准切房信号；要求空中 dash 是为了让上层路线形成真实动作差异。
+func _try_request_air_dash_fast_route() -> void:
+	if _air_dash_fast_route_requested or not is_air_dash_fast_route_available():
+		return
+
+	var fast_zone := get_node_or_null("AirDashFastRouteZone") as Node2D
+	if fast_zone == null or _player.global_position.distance_to(fast_zone.global_position) > 64.0:
+		return
+	if _player.is_on_floor() or not _player.has_method("get_current_state_id"):
+		return
+	if _player.call("get_current_state_id") != &"dash":
+		return
+
+	_air_dash_fast_route_requested = true
+	_transition_requested = true
+	if air_dash_fast_route_reward_id != StringName():
+		_collect_stage14_revisit_reward(air_dash_fast_route_reward_id)
+	room_transition_requested.emit(air_dash_fast_route_room_path, air_dash_fast_route_spawn_id)
 
 
 # 检查玩家是否触碰瘴气危险；当前房间只造成一次伤害。
@@ -165,8 +328,14 @@ func _try_activate_seal_node() -> void:
 	var seal_node := get_node_or_null("SealNode") as Node2D
 	if seal_node == null:
 		return
+	if seal_node_requires_air_dash and not _is_air_dash_unlocked():
+		return
+	if seal_node_required_reward_id != StringName() and not _has_exploration_reward(seal_node_required_reward_id):
+		return
 
 	if _player.global_position.distance_to(seal_node.global_position) > 44.0:
+		return
+	if seal_node_requires_down_input and not _is_down_confirmation_pressed():
 		return
 
 	activate_seal_node()
@@ -186,6 +355,7 @@ func _try_request_resource_branch() -> void:
 		return
 
 	_resource_branch_requested = true
+	_transition_requested = true
 	room_transition_requested.emit(resource_branch_room_path, &"stage13_resource_branch_start")
 
 
@@ -201,8 +371,11 @@ func _try_request_challenge_branch() -> void:
 
 	if _player.global_position.distance_to(branch_zone.global_position) > 48.0:
 		return
+	if challenge_branch_requires_down_input and not _is_down_confirmation_pressed():
+		return
 
 	_challenge_branch_requested = true
+	_transition_requested = true
 	room_transition_requested.emit(challenge_branch_room_path, &"stage13_challenge_branch_start")
 
 
@@ -215,8 +388,12 @@ func _try_collect_stage13_reward(node_name: String, reward_id: StringName) -> vo
 	var reward := get_node_or_null(node_name) as Node2D
 	if reward == null:
 		return
+	if challenge_reward_branch and not _gate_unlocked:
+		return
 
 	if _player.global_position.distance_to(reward.global_position) > 40.0:
+		return
+	if reward_requires_down_input and not _is_down_confirmation_pressed():
 		return
 
 	collect_stage13_reward(reward_id)
@@ -234,6 +411,8 @@ func _try_request_stage14_from_goal_zone() -> void:
 		return
 
 	if _player.global_position.distance_to(goal_zone.global_position) > 64.0:
+		return
+	if goal_requires_down_input and not _is_down_confirmation_pressed():
 		return
 
 	_transition_requested = true

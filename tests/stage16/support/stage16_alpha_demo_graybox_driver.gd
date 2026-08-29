@@ -13,7 +13,7 @@ const STAGE16_CORRUPTION_PURGE_ROOM_PATH := "res://scenes/rooms/stage16_corrupti
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
 
 
-# 公开 driver 入口：从 Main 加载后跳到 Stage15 完成房，验证真实接入能一路推进到 Stage16 终点。
+# 公开 driver 入口：Stage16 已是 reserve 内容，直接从其第一房验证独立链路仍可试玩。
 static func drive_to_stage16_alpha_demo_end(test: GutTest) -> Dictionary:
 	var result := _make_result()
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
@@ -34,7 +34,7 @@ static func drive_to_stage16_alpha_demo_end(test: GutTest) -> Dictionary:
 		await _advance_process_frames(test, 2)
 
 	_prepare_stage16_preconditions(main_scene)
-	main_scene.call("transition_to_room", STAGE15_COMPLETION_ROOM_PATH, &"stage15_completion_start")
+	main_scene.call("transition_to_room", STAGE16_SEAL_RELEASE_THRESHOLD_ROOM_PATH, &"stage16_seal_release_threshold_start")
 	await _advance_process_frames(test, 4)
 
 	if not await _drive_stage16_chain(test, main_scene, result):

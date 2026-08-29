@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/010_shrine_gate_prop_atlas_ai01_auto_011_c02.atlas_texture.tres" id="13_pressure_focus"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="14_wabxs"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="15_504js"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="16_bf0b2"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="16_bf0b2"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="17_wmpl7"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/material_texture_atlas_ai01.png" id="nh_mat"]
 

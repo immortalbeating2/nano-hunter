@@ -1,7 +1,7 @@
 extends Node2D
 
 # CombatTrialRoom 是阶段 6 的最小真实战斗房。
-# 它负责“敌人未清 -> 门锁住；敌人清掉 -> 门打开并推进到目标房”的局部闭环，
+# 它负责“敌人未清 -> 妖气结界锁住；敌人清掉 -> 结界消散并直达驿站”的局部闭环，
 # 不负责主线总进度或 checkpoint 记录。
 
 
@@ -11,8 +11,8 @@ signal hud_context_changed(step_title: String, prompt_text: String)
 const STEP_COMBAT: StringName = &"combat"
 const STEP_CLEAR: StringName = &"clear"
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
-const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
-const CAMERA_LIMITS := Rect2i(-384, -192, 1152, 384)
+const WAYSTATION_HUB_ROOM_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
+const CAMERA_LIMITS := Rect2i(-384, -256, 1920, 512)
 const RoomFlowConfig := preload("res://scripts/configs/room_flow_config.gd")
 const GateStateVfx := preload("res://scripts/rooms/gate_state_vfx.gd")
 const SEAL_GATE_LOCKED_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres")
@@ -20,18 +20,18 @@ const SEAL_GATE_OPEN_TEXTURE := preload("res://assets/art/editor_resources/shrin
 
 const STEP_TITLES := {
 	STEP_COMBAT: "实战 1/1 · 击败敌人",
-	STEP_CLEAR: "实战完成 · 前往目标房",
+	STEP_CLEAR: "首次镇妖完成 · 确认悬令",
 }
 
 const STEP_PROMPTS := {
 	STEP_COMBAT: "前方出现了第一只近战敌人。观察接敌压力，利用冲刺与攻击击败它。",
-	STEP_CLEAR: "敌人已被击败，出口打开了。继续向右前进，进入目标房完成这条短链路。",
+	STEP_CLEAR: "妖气结界已消散。前往悬令台按 ↓ 确认首赏，再返回镇妖驿站。",
 }
 
 const SPAWN_POSITIONS := {
 	&"combat_entry": Vector2(-256, 140),
 	&"combat_retry": Vector2(-256, 140),
-	&"combat_return": Vector2(640, 140),
+	&"combat_return": Vector2(1408, 108),
 }
 
 @onready var basic_melee_enemy: StaticBody2D = $BasicMeleeEnemy
@@ -43,6 +43,7 @@ var _player: CharacterBody2D
 var _current_step: StringName = STEP_COMBAT
 var _exit_unlocked := false
 var _transition_requested := false
+var _main: Node
 
 @export var flow_config: RoomFlowConfig
 @export var previous_room_path := TUTORIAL_ROOM_PATH
@@ -63,6 +64,21 @@ func bind_player(player: CharacterBody2D) -> void:
 	_player = player
 
 
+# 回访实战房时恢复已经完成过的出口，不强迫玩家重复清敌后才能离开旧房间。
+func bind_main(main: Node) -> void:
+	_main = main
+	if main != null and main.has_method("is_room_forward_route_completed") and bool(main.call("is_room_forward_route_completed", scene_file_path)):
+		_exit_unlocked = true
+		_current_step = STEP_CLEAR
+		_apply_exit_lock_state()
+		_emit_hud_context()
+
+
+# 声明实战房唯一向前目标，供 Main 只在真实推进时记录房间完成态。
+func get_forward_room_path() -> String:
+	return WAYSTATION_HUB_ROOM_PATH
+
+
 # 战斗房的运行态逻辑非常单一：只有清房后才允许进入下一个房间。
 func _process(_delta: float) -> void:
 	if _player == null or _transition_requested:
@@ -74,9 +90,16 @@ func _process(_delta: float) -> void:
 	if not _exit_unlocked:
 		return
 
-	if _player.global_position.x >= $ExitZone.global_position.x - 36.0:
-		_transition_requested = true
-		room_transition_requested.emit(GOAL_TRIAL_ROOM_PATH, &"goal_entry")
+	var bounty_board := get_node_or_null("BountyBoardZone") as Node2D
+	if bounty_board == null or _player.global_position.distance_to(bounty_board.global_position) > 56.0:
+		return
+	if not Input.is_action_just_pressed("ui_down"):
+		return
+
+	if _main != null and _main.has_method("collect_exploration_reward"):
+		_main.call("collect_exploration_reward", &"first_bounty")
+	_transition_requested = true
+	room_transition_requested.emit(WAYSTATION_HUB_ROOM_PATH, &"stage11_demo_end_start")
 
 
 # 返回战斗房相机边界，保证实战区不会暴露灰盒外部。

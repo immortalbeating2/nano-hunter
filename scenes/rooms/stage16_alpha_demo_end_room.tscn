@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="5"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="7_76dta"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="8_yhbuu"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="9_rrkd1"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="9_rrkd1"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)

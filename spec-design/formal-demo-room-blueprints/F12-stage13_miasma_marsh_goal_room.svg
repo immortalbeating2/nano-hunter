@@ -1,0 +1,37 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1500' height='800' viewBox='0 0 1500 800' data-view='topology'>
+<defs><marker id='arrow' markerWidth='9' markerHeight='9' refX='8' refY='3' orient='auto'><path d='M0,0 L0,6 L9,3 z' fill='context-stroke'/></marker><pattern id='grid' width='32' height='32' patternUnits='userSpaceOnUse'><path d='M32 0 L0 0 0 32' fill='none' stroke='#223746' stroke-width='1'/></pattern></defs>
+<rect width='1500' height='800' fill='#0d1822'/><rect x='1' y='1' width='1498' height='798' fill='none' stroke='#5e7686' stroke-width='2'/>
+<text x='70' y='58' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F12 · 瘴泽封印目标</text>
+<text x='70' y='92' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='18'>区域目标与能力前置 · 2 屏 · 1280×360u</text>
+<text x='1430' y='58' text-anchor='end' fill='#d9bf77' font-family='Microsoft YaHei,Segoe UI' font-size='17'>记忆点：泽心封印轮</text>
+<rect x='70' y='150' width='1360' height='300' rx='10' fill='#132532' stroke='#506a79' stroke-width='2'/><rect x='70' y='150' width='1360' height='300' rx='10' fill='url(#grid)' opacity='0.7'/>
+<text x='82' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S1</text>
+<line x1='750' y1='150' x2='750' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='762' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S2</text>
+<polyline points='104,324 491.6,324 784,282 1103.6,282 1375.6,258' fill='none' stroke='#55d6e8' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='124.4,222 491.6,282 784,282' fill='none' stroke='#c984f7' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='10 7' marker-end='url(#arrow)' opacity='0.95'/>
+<circle cx='124.4' cy='324' r='10' fill='#6fd3ff' stroke='#071118' stroke-width='3'/>
+<text x='138.4' y='312' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>来自 F09</text>
+<circle cx='124.4' cy='222' r='10' fill='#6fd3ff' stroke='#071118' stroke-width='3'/>
+<text x='138.4' y='210' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>来自 F11</text>
+<circle cx='784' cy='282' r='10' fill='#f1e4b3' stroke='#071118' stroke-width='3'/>
+<text x='798' y='270' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>封印轮</text>
+<circle cx='1090' cy='282' r='10' fill='#f0c75e' stroke='#071118' stroke-width='3'/>
+<text x='1104' y='270' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>区域目标</text>
+<circle cx='1375.6' cy='258' r='10' fill='#77e39f' stroke='#071118' stroke-width='3'/>
+<text x='1389.6' y='246' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>通往 F13</text>
+<rect x='70' y='485' width='675' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='84' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S1 · 汇流岸</text>
+<text x='84' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：合并主路与挑战支路</text>
+<text x='84' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：上下两个入口在目标前安全汇流</text>
+<text x='84' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5</text>
+<text x='84' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：两个出生点均不与目标触发器重叠</text>
+<rect x='755' y='485' width='675' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='769' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S2 · 泽心封印</text>
+<text x='769' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：完成区域目标并指向神龛</text>
+<text x='769' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：中央大轮、右侧上行石阶形成明确下一目标</text>
+<text x='769' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5</text>
+<text x='769' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：完成后永久开放；无强制伤害</text>
+<text x='70' y='752' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='14'>俯视结构审阅图；横版玩法不变。1 屏 = 640×360u。first=首次路线 ｜ branch=支路 ｜ revisit=能力回访 ｜ speed=熟练快线 ｜ fallback/retry=安全回落或重试</text>
+<text x='1430' y='780' text-anchor='end' fill='#668091' font-family='Segoe UI' font-size='12'>formal_demo_room_recovery_b · blueprint v2 · view=topology</text>
+</svg>

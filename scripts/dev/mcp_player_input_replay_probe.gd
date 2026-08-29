@@ -12,6 +12,7 @@ const ROOM_TIMEOUT := 48.0
 const TOTAL_TIMEOUT := 480.0
 const MID_CAPTURE_DELAY := 4.0
 const ELEVATED_ATTACK_PREP_DISTANCE := 72.0
+const SCENARIO_ENV := "NANO_HUNTER_REPLAY_SCENARIO"
 
 var _main: Node2D
 var _running := false
@@ -26,8 +27,8 @@ var _stuck_elapsed := 0.0
 var _mid_captured := false
 var _rows: Array[Dictionary] = []
 var _issues: Array[Dictionary] = []
-var _tap_timers := {"jump": 0.0, "attack": 0.0, "dash": 0.0, "recover": 0.0}
-var _tap_active := {"jump": false, "attack": false, "dash": false, "recover": false}
+var _tap_timers := {"jump": 0.0, "attack": 0.0, "dash": 0.0, "recover": 0.0, "stance_switch": 0.0, "ui_down": 0.0}
+var _tap_active := {"jump": false, "attack": false, "dash": false, "recover": false, "stance_switch": false, "ui_down": false}
 var _objective_jump_hold_remaining := 0.0
 var _objective_jump_cooldown_remaining := 0.0
 var _start_room_override := ""
@@ -36,11 +37,17 @@ var _debug_sample_elapsed := 0.0
 var _debug_samples: Array[Dictionary] = []
 var _room_objective_phase := 0
 var _objective_action_elapsed := 0.0
+var _confirmed_room_nodes: Dictionary = {}
+var _needs_f07_shortcut := false
+var _formal_return_complete := false
+var _scenario := ""
+var _scenario_complete := false
 
 
 func start(main: Node2D, start_room_override: String = "") -> void:
 	_main = main
 	_start_room_override = start_room_override
+	_scenario = OS.get_environment(SCENARIO_ENV)
 	_running = true
 	_finished = false
 	_elapsed = 0.0
@@ -49,6 +56,10 @@ func start(main: Node2D, start_room_override: String = "") -> void:
 	_rows.clear()
 	_issues.clear()
 	_debug_samples.clear()
+	_confirmed_room_nodes.clear()
+	_needs_f07_shortcut = false
+	_formal_return_complete = false
+	_scenario_complete = false
 	_debug_sample_elapsed = 0.0
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(SCREENSHOT_DIR))
 	set_physics_process(true)
@@ -197,11 +208,39 @@ func _drive_room_objective(delta: float) -> bool:
 		return false
 	if _drive_tutorial_step_route(delta, room):
 		return true
+	if _drive_formal_resource_loop_scenario(delta, room, player):
+		return true
+	if _drive_formal_challenge_scenario(delta, room, player):
+		return true
+	if _drive_formal_goal_return_scenario(room):
+		return true
+	if _drive_f06_air_dash_reward_scenario(delta, room, player):
+		return true
+	if _drive_f09_air_dash_fast_scenario(delta, room, player):
+		return true
+	if _drive_first_bounty_route(delta, room, player):
+		return true
+	if _drive_waystation_goal_route(delta, room, player):
+		return true
+	if _drive_wind_seal_shrine_route(delta, room, player):
+		return true
+	if _drive_miasma_upper_route(delta, room, player):
+		return true
+	if _drive_checkpoint_confirmation_route(delta, room, player):
+		return true
+	if _drive_boss_entry_confirmation_route(delta, room, player):
+		return true
+	if _drive_waystation_return_route(delta, room, player):
+		return true
+	if _drive_branch_hub_main_route(delta, room, player):
+		return true
 	if _drive_goal_trial_route(delta, room, player):
 		return true
 	if _drive_stage13_goal_route(delta, room, player):
 		return true
 	if _drive_stage14_air_dash_shrine_route(delta, room, player):
+		return true
+	if _drive_f14_f07_altar_route(delta, room, player):
 		return true
 	if _drive_stage14_air_dash_gate_route(delta, room, player):
 		return true
@@ -219,11 +258,17 @@ func _drive_room_objective(delta: float) -> bool:
 		return true
 	if _drive_stage15_pressure_caster_route(delta, room, player):
 		return true
+	if _drive_stage15_mixed_aerial_route(delta, room, player):
+		return true
 	if _drive_stage10_aerial_platform_route(delta, room, player):
 		return true
 	if _drive_stage13_caster_platform_route(delta, room, player):
 		return true
 	if _drive_stage13_gate_seal_route(delta, room, player):
+		return true
+	if _drive_f07_shortcut_return_route(delta, room, player):
+		return true
+	if _drive_stage13_gate_bypass_route(delta, room, player):
 		return true
 	if not room.scene_file_path.ends_with("stage9_zone_switch_room.tscn"):
 		return false
@@ -238,11 +283,373 @@ func _drive_room_objective(delta: float) -> bool:
 	return _drive_two_level_trigger_ascent(delta, room, player, switch_node, 96.0, 176.0, 1.0, false)
 
 
+# 独立覆盖 F09→F10→F08：下穿主桥、攻击破墙、确认遗物，再从单向滑道落回恢复房。
+func _drive_formal_resource_loop_scenario(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if _scenario != "f09_resource_loop":
+		return false
+	if room.scene_file_path.ends_with("stage13_miasma_marsh_branch_hub_room.tscn"):
+		var branch := room.get_node_or_null("ResourceBranchZone") as Node2D
+		if branch == null:
+			return false
+		Input.action_release("attack")
+		Input.action_release("dash")
+		_tap_active["attack"] = false
+		_tap_active["dash"] = false
+		var player_local := room.to_local(player.global_position)
+		_drive_objective_x(player_local.x, branch.position.x, 18.0)
+		if player_local.y < 240.0 and absf(player_local.x - branch.position.x) <= 32.0:
+			_release_objective_jump()
+			Input.action_press("ui_down")
+			_tick_tap("jump", delta, 0.12)
+		elif player_local.y < 240.0:
+			Input.action_release("ui_down")
+			_tick_objective_jump(delta)
+		else:
+			Input.action_release("ui_down")
+			_release_objective_jump()
+		return true
+	if not room.scene_file_path.ends_with("stage13_miasma_marsh_resource_branch_room.tscn"):
+		return false
+	var wall := room.get_node_or_null("SecretWall") as Node2D
+	if wall != null and wall.has_method("is_revealed") and not bool(wall.call("is_revealed")):
+		var wall_local := room.to_local(wall.global_position)
+		var player_local := room.to_local(player.global_position)
+		_release_objective_jump()
+		if absf(wall_local.x - player_local.x) > 64.0:
+			Input.action_release("attack")
+			_tap_active["attack"] = false
+			_drive_objective_x(player_local.x, wall_local.x - 48.0, 12.0)
+		else:
+			_set_horizontal_input(0.0)
+			_tick_tap("attack", delta, 0.16)
+		return true
+	var reward := room.get_node_or_null("Stage13Reward") as Node2D
+	if not bool(_snapshot().get("marsh_relic_collected", false)) and reward != null:
+		Input.action_release("attack")
+		_tap_active["attack"] = false
+		var player_state := str(player.call("get_current_state_id")) if player.has_method("get_current_state_id") else ""
+		if player_state in ["attack", "air_attack"]:
+			_set_horizontal_input(0.0)
+			_release_objective_jump()
+			return true
+		var player_local := room.to_local(player.global_position)
+		_drive_objective_x(player_local.x, reward.position.x, 14.0)
+		if player.global_position.distance_to(reward.global_position) <= 40.0:
+			_release_objective_jump()
+			_tick_tap("ui_down", delta, 0.12)
+		else:
+			_tick_objective_jump(delta)
+		return true
+	var exit_zone := room.get_node_or_null("OneWayExitZone") as Node2D
+	if exit_zone == null:
+		return false
+	Input.action_release("attack")
+	_tap_active["attack"] = false
+	var player_local := room.to_local(player.global_position)
+	if player_local.y < 200.0:
+		_drive_objective_x(player_local.x, 680.0, 12.0)
+		_release_objective_jump()
+		if absf(player_local.x - 680.0) <= 18.0:
+			Input.action_press("ui_down")
+			_tick_tap("jump", delta, 0.12)
+	else:
+		Input.action_release("ui_down")
+		_drive_objective_x(player_local.x, exit_zone.position.x, 14.0)
+		_release_objective_jump()
+	return true
+
+
+# 独立覆盖 F09→F11→F12：登上挑战台确认入口，清场后确认镇妖符，再自然进入目标房。
+func _drive_formal_challenge_scenario(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if _scenario != "f09_challenge_route":
+		return false
+	if room.scene_file_path.ends_with("stage13_miasma_marsh_branch_hub_room.tscn"):
+		var branch := room.get_node_or_null("ChallengeBranchZone") as Node2D
+		if branch == null:
+			return false
+		Input.action_release("attack")
+		Input.action_release("dash")
+		_tap_active["attack"] = false
+		_tap_active["dash"] = false
+		var player_local := room.to_local(player.global_position)
+		_drive_objective_x(player_local.x, branch.position.x, 18.0)
+		if player.global_position.distance_to(branch.global_position) <= 48.0:
+			_release_objective_jump()
+			_tick_tap("ui_down", delta, 0.12)
+		else:
+			_tick_objective_jump(delta)
+		return true
+	if not room.scene_file_path.ends_with("stage13_miasma_marsh_challenge_branch_room.tscn"):
+		return false
+	if not room.has_method("is_gate_unlocked") or not bool(room.call("is_gate_unlocked")):
+		return false
+	var reward := room.get_node_or_null("Stage13Reward") as Node2D
+	if not bool(_snapshot().get("warden_sigil_collected", false)) and reward != null:
+		Input.action_release("attack")
+		Input.action_release("dash")
+		_tap_active["attack"] = false
+		_tap_active["dash"] = false
+		var player_local := room.to_local(player.global_position)
+		_drive_objective_x(player_local.x, reward.position.x, 14.0)
+		if player.global_position.distance_to(reward.global_position) <= 40.0:
+			_release_objective_jump()
+			_tick_tap("ui_down", delta, 0.12)
+		else:
+			_tick_objective_jump(delta)
+		return true
+	return false
+
+
+# 独立覆盖 F12→F09 返回口；只发送向左移动，不触碰目标法坛。
+func _drive_formal_goal_return_scenario(room: Node2D) -> bool:
+	if _scenario != "f12_return_f09" or not room.scene_file_path.ends_with("stage13_miasma_marsh_goal_room.tscn"):
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	_set_horizontal_input(-1.0)
+	_release_objective_jump()
+	return true
+
+
+# 独立覆盖 F06 可选回访：从真实地面起跳并进入 Air Dash，再在奖励点按 ↓ 确认。
+func _drive_f06_air_dash_reward_scenario(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if _scenario != "f06_air_dash_reward" or not room.scene_file_path.ends_with("stage13_miasma_marsh_miasma_room.tscn"):
+		return false
+	if int(_snapshot().get("stage14_backtrack_reward_count", 0)) > 0:
+		_scenario_complete = true
+		return true
+	var reward := room.get_node_or_null("AirDashRevisitReward") as Node2D
+	if reward == null:
+		return false
+	Input.action_release("attack")
+	_tap_active["attack"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, reward.position.x, 10.0)
+	if _room_objective_phase == 0:
+		if absf(player_local.x - reward.position.x) > 88.0 or player.is_on_floor():
+			Input.action_release("dash")
+			_tap_active["dash"] = false
+			_tick_objective_jump(delta)
+		else:
+			_release_objective_jump()
+			_tick_tap("dash", delta, 0.20)
+			if player.has_method("get_current_state_id") and player.call("get_current_state_id") == &"dash" and player.global_position.distance_to(reward.global_position) <= 56.0:
+				_room_objective_phase = 1
+		return true
+	Input.action_release("dash")
+	_tap_active["dash"] = false
+	_release_objective_jump()
+	if player.global_position.distance_to(reward.global_position) <= 72.0:
+		_tick_tap("ui_down", delta, 0.12)
+	else:
+		_tick_objective_jump(delta)
+	return true
+
+
+# 独立覆盖 F09 上层高速线：从挑战台自然起跳并以 Air Dash 穿过高速线标记。
+func _drive_f09_air_dash_fast_scenario(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if _scenario != "f09_air_dash_fast" or not room.scene_file_path.ends_with("stage13_miasma_marsh_branch_hub_room.tscn"):
+		return false
+	var fast_zone := room.get_node_or_null("AirDashFastRouteZone") as Node2D
+	if fast_zone == null:
+		return false
+	Input.action_release("attack")
+	_tap_active["attack"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, fast_zone.position.x, 8.0)
+	if player.is_on_floor():
+		Input.action_release("dash")
+		_tap_active["dash"] = false
+		_tick_objective_jump(delta)
+	else:
+		_release_objective_jump()
+		_tick_tap("dash", delta, 0.20)
+	return true
+
+
+# F02 清敌后沿两级地形前往悬令台，并用生产交互键确认首赏。
+func _drive_first_bounty_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("combat_trial_room.tscn"):
+		return false
+	if not room.has_method("is_exit_unlocked") or not bool(room.call("is_exit_unlocked")):
+		return false
+	var board := room.get_node_or_null("BountyBoardZone") as Node2D
+	if board == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, board.position.x, 18.0)
+	if player.global_position.distance_to(board.global_position) <= 56.0:
+		_release_objective_jump()
+		_tick_tap("ui_down", delta, 0.12)
+	else:
+		_tick_objective_jump(delta)
+	return true
+
+
+# F03 首访先在中央封印标记确认 checkpoint，再由通用向右输入进入 F04。
+func _drive_waystation_goal_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage11_demo_end_room.tscn"):
+		return false
+	if room.has_method("is_demo_goal_finished") and bool(room.call("is_demo_goal_finished")):
+		return false
+	var goal := room.get_node_or_null("GoalZone") as Node2D
+	if goal == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, goal.position.x, 18.0)
+	_release_objective_jump()
+	if player.global_position.distance_to(goal.global_position) <= 56.0:
+		_tick_tap("ui_down", delta, 0.12)
+	return true
+
+
+# F05 清掉施法者后必须靠近神龛确认风印，不能让持有状态或路过距离自动授予。
+func _drive_wind_seal_shrine_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage13_miasma_marsh_caster_room.tscn"):
+		return false
+	if room.has_method("is_wind_seal_granted") and bool(room.call("is_wind_seal_granted")):
+		return false
+	if not room.has_method("is_gate_unlocked") or not bool(room.call("is_gate_unlocked")):
+		return false
+	var shrine := room.get_node_or_null("WindSealShrine") as Node2D
+	if shrine == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, shrine.position.x, 14.0)
+	if player.global_position.distance_to(shrine.global_position) <= 44.0:
+		_release_objective_jump()
+		_tick_tap("ui_down", delta, 0.12)
+	else:
+		_tick_objective_jump(delta)
+	return true
+
+
+# F06 首访持续使用完整跳跃走上层；若失足落入洼地，同一输入会沿右侧踏台安全回升。
+func _drive_miasma_upper_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage13_miasma_marsh_miasma_room.tscn"):
+		return false
+	var player_local := room.to_local(player.global_position)
+	if player_local.x >= 1440.0:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	_set_horizontal_input(1.0)
+	_tick_objective_jump(delta)
+	return true
+
+
+# 需要主动休整的房间先靠近真实 CheckpointZone 并确认一次，随后再走生产出口。
+func _drive_checkpoint_confirmation_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if room.get("checkpoint_requires_down_input") != true:
+		return false
+	var checkpoint := room.get_node_or_null("CheckpointZone") as Node2D
+	if checkpoint == null:
+		return false
+	var key := "%s:%s" % [room.scene_file_path, checkpoint.name]
+	if _confirmed_room_nodes.has(key):
+		Input.action_release("ui_down")
+		_tap_active["ui_down"] = false
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, checkpoint.position.x, 14.0)
+	_release_objective_jump()
+	if player.global_position.distance_to(checkpoint.global_position) <= 56.0:
+		_tick_tap("ui_down", delta, 0.12)
+		if bool(_tap_active.get("ui_down", false)):
+			_confirmed_room_nodes[key] = true
+	return true
+
+
+# F17 checkpoint 完成后在前室 Boss 门前再次确认，随后才把控制交给 Boss 战斗策略。
+func _drive_boss_entry_confirmation_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage15_seal_guardian_boss_room.tscn"):
+		return false
+	if room.has_method("is_boss_encounter_started") and bool(room.call("is_boss_encounter_started")):
+		return false
+	var entry := room.get_node_or_null("BossEntryZone") as Node2D
+	if entry == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, entry.position.x, 12.0)
+	_release_objective_jump()
+	if player.global_position.distance_to(entry.global_position) <= 56.0:
+		_tick_tap("ui_down", delta, 0.12)
+	return true
+
+
+# F18 战后沿连续安全地面登上归驿法坛，确认一次同时结算奖励并返回 F03。
+func _drive_waystation_return_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage15_completion_room.tscn"):
+		return false
+	var waystation := room.get_node_or_null("WaystationZone") as Node2D
+	if waystation == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, waystation.position.x, 14.0)
+	if player.global_position.distance_to(waystation.global_position) <= 56.0:
+		_release_objective_jump()
+		_tick_tap("ui_down", delta, 0.12)
+	else:
+		_tick_objective_jump(delta)
+	return true
+
+
+# F09 首访明确走中层 F12 主路；完整跳跃越过桥面，不触碰下落支路或上层 Air Dash 线。
+func _drive_branch_hub_main_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage13_miasma_marsh_branch_hub_room.tscn"):
+		return false
+	if not _scenario.is_empty():
+		return false
+	if bool(_snapshot().get("air_dash_unlocked", false)):
+		return false
+	var player_local := room.to_local(player.global_position)
+	if player_local.x >= 1400.0:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	_set_horizontal_input(1.0)
+	_tick_objective_jump(delta)
+	return true
+
+
 # 教程按公开 step_id 一次只发送一种目标动作，避免 Dash/Attack 抢占必须发生的跳跃输入。
 func _drive_tutorial_step_route(delta: float, room: Node2D) -> bool:
 	if not room.scene_file_path.ends_with("tutorial_room.tscn") or not room.has_method("get_current_step_id"):
 		return false
 	var step := str(room.call("get_current_step_id"))
+	if step != "stance":
+		Input.action_release("stance_switch")
+		_tap_active["stance_switch"] = false
 	_set_horizontal_input(1.0)
 	match step:
 		"move_jump":
@@ -261,6 +668,13 @@ func _drive_tutorial_step_route(delta: float, room: Node2D) -> bool:
 			Input.action_release("dash")
 			_tap_active["dash"] = false
 			_tick_tap("attack", delta, 0.12)
+		"stance":
+			_release_objective_jump()
+			Input.action_release("attack")
+			Input.action_release("dash")
+			_tap_active["attack"] = false
+			_tap_active["dash"] = false
+			_tick_tap("stance_switch", delta, 0.12)
 		_:
 			Input.action_release("attack")
 			Input.action_release("dash")
@@ -289,6 +703,11 @@ func _drive_stage13_goal_route(delta: float, room: Node2D, player: CharacterBody
 	var goal := room.get_node_or_null("GoalZone") as Node2D
 	if goal == null:
 		return false
+	if player.global_position.distance_to(goal.global_position) <= 64.0:
+		_set_horizontal_input(0.0)
+		_release_objective_jump()
+		_tick_tap("ui_down", delta, 0.12)
+		return true
 	return _drive_upper_goal_platform(delta, room, player, goal, 504.0, 672.0)
 
 
@@ -339,89 +758,133 @@ func _drive_stage14_air_dash_shrine_route(delta: float, room: Node2D, player: Ch
 	var player_local := room.to_local(player.global_position)
 	var delta_x := shrine.position.x - player_local.x
 	_set_horizontal_input(signf(delta_x) if absf(delta_x) > 18.0 else 0.0)
-	_tick_objective_jump(delta)
+	if player.global_position.distance_to(shrine.global_position) <= 48.0:
+		_release_objective_jump()
+		_tick_tap("ui_down", delta, 0.12)
+	else:
+		_tick_objective_jump(delta)
 	return true
 
 
-# Stage14 能力门复用正式 GUT 的真实输入节奏：两级上行后长按跳跃，再在空中触发一次 Dash。
+# F14 按生产几何完成“下层回落 -> 练习台 -> 起跳台 -> 空中 Dash”证明。
 func _drive_stage14_air_dash_gate_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage14_air_dash_gate_room.tscn"):
 		return false
 	if not bool(_snapshot().get("air_dash_unlocked", false)):
 		return false
 	var player_local := room.to_local(player.global_position)
-	if player.is_on_floor() and player_local.y > 150.0 and _room_objective_phase >= 1:
-		_room_objective_phase = 0
-		_objective_action_elapsed = 0.0
-		_release_objective_jump()
-	if player.is_on_floor() and player_local.y <= 150.0 and player_local.y > 96.0 and _room_objective_phase == 0:
-		_room_objective_phase = 1
-		_release_objective_jump()
-		_objective_jump_cooldown_remaining = 0.08
-	if player.is_on_floor() and player_local.y < 96.0 and player_local.x >= 120.0 and player_local.x < 224.0 and _room_objective_phase <= 1:
-		_room_objective_phase = 2
-		_objective_action_elapsed = -0.08
-		_release_objective_jump()
-	if player.is_on_floor() and player_local.x > 428.0 and player_local.y < 96.0:
-		_room_objective_phase = 5
-	if _room_objective_phase >= 5:
-		return false
-
+	var gate_unlocked := room.has_method("is_air_dash_gate_unlocked") and bool(room.call("is_air_dash_gate_unlocked"))
 	Input.action_release("attack")
 	_tap_active["attack"] = false
-	if _room_objective_phase < 2:
+	if gate_unlocked and player.is_on_floor() and player_local.y <= 108.0:
+		var exit_zone := room.get_node_or_null("ExitZone") as Node2D
+		if exit_zone == null:
+			return false
+		_drive_objective_x(player_local.x, exit_zone.position.x, 12.0)
+		_release_objective_jump()
 		Input.action_release("dash")
 		_tap_active["dash"] = false
-		if _room_objective_phase == 1:
-			_set_horizontal_input(1.0)
-			if player.is_on_floor() and player_local.y < 96.0:
-				_release_objective_jump()
-				return true
-			if player_local.x < -160.0:
-				_release_objective_jump()
-				return true
-		else:
-			var delta_x := -224.0 - player_local.x
-			_set_horizontal_input(signf(delta_x) if absf(delta_x) > 18.0 else 0.0)
-		_tick_objective_jump(delta)
 		return true
+	if player.is_on_floor() and _room_objective_phase < 3:
+		if player_local.y > 150.0:
+			_room_objective_phase = 0
+		elif player_local.y > 108.0:
+			_room_objective_phase = 1
+		elif player_local.x >= 376.0:
+			_room_objective_phase = 2
 
-	_set_horizontal_input(1.0)
-	_objective_action_elapsed += delta
-	if _room_objective_phase == 2:
-		if _objective_action_elapsed < 0.0:
+	match _room_objective_phase:
+		0:
+			Input.action_release("dash")
+			_tap_active["dash"] = false
+			_set_horizontal_input(1.0)
+			_tick_objective_jump(delta)
+			return true
+		1:
+			Input.action_release("dash")
+			_tap_active["dash"] = false
+			_set_horizontal_input(1.0)
+			_tick_objective_jump(delta)
+			return true
+		2:
+			_drive_objective_x(player_local.x, 416.0, 12.0)
+			_release_objective_jump()
+			Input.action_release("dash")
+			_tap_active["dash"] = false
+			if player.is_on_floor() and absf(player_local.x - 416.0) <= 16.0:
+				_room_objective_phase = 3
+				_objective_action_elapsed = -0.08
+			return true
+		3:
+			_set_horizontal_input(1.0)
+			_objective_action_elapsed += delta
+			if _objective_action_elapsed < 0.0:
+				Input.action_release("jump")
+				Input.action_release("dash")
+			elif _objective_action_elapsed < 0.42:
+				Input.action_press("jump")
+				Input.action_release("dash")
+			elif _objective_action_elapsed < 0.48:
+				Input.action_release("jump")
+				Input.action_press("dash")
+			else:
+				Input.action_release("jump")
+				Input.action_release("dash")
+				_room_objective_phase = 4
+			return true
+		_:
+			_set_horizontal_input(1.0)
 			Input.action_release("jump")
 			Input.action_release("dash")
 			return true
-		Input.action_press("jump")
-		Input.action_release("dash")
-		if _objective_action_elapsed >= 44.0 / 60.0:
-			_room_objective_phase = 3
-			_objective_action_elapsed = 0.0
-	elif _room_objective_phase == 3:
-		Input.action_release("jump")
-		Input.action_press("dash")
-		if _objective_action_elapsed >= 2.0 / 60.0:
-			_room_objective_phase = 4
-			_objective_action_elapsed = 0.0
-	else:
-		Input.action_release("jump")
-		Input.action_release("dash")
-	return true
 
 
-# Stage14 Hub 与 Stage16 符印中继共享同一套三层正式网格，按真实节点计数顺序完成攀爬。
+# F15 缺少必需的 F07 回访事实时返回 F14；事实齐备后在 Boss 路线前明确确认。
 func _drive_stage14_backtrack_hub_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage14_backtrack_hub_room.tscn"):
 		return false
-	var count := int(_snapshot().get("stage14_backtrack_reward_count", 0))
-	return _drive_three_level_marker_ascent(
-		delta,
-		room,
-		player,
-		["BacktrackRewardOne", "BacktrackRewardTwo", "BacktrackRewardThree"],
-		count
-	)
+	var ready := room.has_method("is_boss_route_ready") and bool(room.call("is_boss_route_ready"))
+	if not ready:
+		_needs_f07_shortcut = true
+		Input.action_release("attack")
+		Input.action_release("dash")
+		_tap_active["attack"] = false
+		_tap_active["dash"] = false
+		_set_horizontal_input(-1.0)
+		_release_objective_jump()
+		return true
+	var exit_zone := room.get_node_or_null("ExitZone") as Node2D
+	if exit_zone == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, exit_zone.position.x, 14.0)
+	_release_objective_jump()
+	if player.global_position.distance_to(exit_zone.global_position) <= 56.0:
+		_tick_tap("ui_down", delta, 0.12)
+	return true
+
+
+# 从 F15 退回后沿 F14 安全回落层接近下层祭坛，确认进入 F07；上层 F15 出口不共用该触发。
+func _drive_f14_f07_altar_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not _needs_f07_shortcut or not room.scene_file_path.ends_with("stage14_air_dash_gate_room.tscn"):
+		return false
+	var altar := room.get_node_or_null("ShortcutZone") as Node2D
+	if altar == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, altar.position.x, 14.0)
+	_release_objective_jump()
+	if player.global_position.distance_to(altar.global_position) <= 48.0:
+		_tick_tap("ui_down", delta, 0.12)
+	return true
 
 
 # Stage16 三符印房复用同一几何路线，激活数量仍从房间公开快照读取。
@@ -452,7 +915,7 @@ func _drive_stage16_seal_release_route(delta: float, room: Node2D, player: Chara
 	return true
 
 
-# 回溯确认房从低台登上高台，节点会自行检查 Main 中的三收益计数。
+# 回溯确认房从低台真实右缘发送 Air Dash 登上高台，节点自行检查 Main 的三收益计数。
 func _drive_stage16_backtrack_confirmation_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage16_backtrack_confirmation_room.tscn"):
 		return false
@@ -461,7 +924,7 @@ func _drive_stage16_backtrack_confirmation_route(delta: float, room: Node2D, pla
 	var node := room.get_node_or_null("BacktrackConfirmationNode") as Node2D
 	if node == null:
 		return false
-	return _drive_two_level_trigger_ascent(delta, room, player, node, 352.0, 416.0, 1.0, false)
+	return _drive_two_level_trigger_ascent(delta, room, player, node, 352.0, 372.0, 1.0, true)
 
 
 # 净化房从右侧低台反向登上中央高台，避开 192px 左侧大缺口。
@@ -558,7 +1021,7 @@ func _drive_two_level_trigger_ascent(
 	return true
 
 
-# 三层标记路线只发送移动和跳跃；节点触发、隐藏、计数与开门全部保留给生产房间脚本。
+# 三层标记路线只发送移动和跳跃；每级从可站立右缘内侧起跳，节点与开门仍由生产脚本处理。
 func _drive_three_level_marker_ascent(
 	delta: float,
 	room: Node2D,
@@ -589,13 +1052,13 @@ func _drive_three_level_marker_ascent(
 				_drive_objective_x(player_local.x, 128.0)
 				_tick_objective_jump(delta)
 			elif player.is_on_floor() and player_local.y > 150.0:
-				_drive_objective_x(player_local.x, 276.0, 4.0)
+				_drive_objective_x(player_local.x, 244.0, 4.0)
 				_release_objective_jump()
-				if player_local.x >= 272.0:
+				if player_local.x >= 240.0:
 					_room_objective_phase = 2
 					_objective_jump_cooldown_remaining = 0.08
 			else:
-				_drive_objective_x(player_local.x, 276.0)
+				_drive_objective_x(player_local.x, 244.0)
 				_tick_objective_jump(delta)
 		2:
 			if player.is_on_floor() and player_local.y > 220.0:
@@ -615,13 +1078,13 @@ func _drive_three_level_marker_ascent(
 				_tick_objective_jump(delta)
 				return true
 			if player.is_on_floor() and player_local.y > 90.0:
-				_drive_objective_x(player_local.x, 656.0, 4.0)
+				_drive_objective_x(player_local.x, 628.0, 4.0)
 				_release_objective_jump()
-				if player_local.x >= 652.0:
+				if player_local.x >= 624.0:
 					_room_objective_phase = 4
 					_objective_jump_cooldown_remaining = 0.08
 			else:
-				_drive_objective_x(player_local.x, 656.0)
+				_drive_objective_x(player_local.x, 628.0)
 				_tick_objective_jump(delta)
 		4:
 			if player.is_on_floor() and player_local.y > 150.0:
@@ -639,9 +1102,9 @@ func _drive_three_level_marker_ascent(
 				_drive_objective_x(player_local.x, 128.0)
 				_tick_objective_jump(delta)
 			elif player.is_on_floor() and player_local.y > 150.0:
-				_drive_objective_x(player_local.x, 276.0, 4.0)
+				_drive_objective_x(player_local.x, 244.0, 4.0)
 				_release_objective_jump()
-				if player_local.x >= 272.0:
+				if player_local.x >= 240.0:
 					_room_objective_phase = 6
 					_objective_jump_cooldown_remaining = 0.08
 			elif player.is_on_floor():
@@ -670,34 +1133,14 @@ func _drive_objective_x(current_x: float, target_x: float, tolerance: float = 18
 	_set_horizontal_input(signf(delta_x) if absf(delta_x) > tolerance else 0.0)
 
 
-# Stage14 回环终点位于第二层平台；输入探针只负责登台并触达 GoalZone。
+# Stage14 回环终点位于第二层平台；从低台真实右缘起跳并发送已解锁 Air Dash 触达 GoalZone。
 func _drive_stage14_loop_goal_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage14_loop_return_room.tscn"):
 		return false
 	var goal := room.get_node_or_null("GoalZone") as Node2D
 	if goal == null:
 		return false
-	var player_local := room.to_local(player.global_position)
-	if player.is_on_floor():
-		if player_local.y > 150.0:
-			_room_objective_phase = 0
-		elif player_local.y > 90.0:
-			_room_objective_phase = 1
-		else:
-			_room_objective_phase = 2
-
-	Input.action_release("attack")
-	Input.action_release("dash")
-	_tap_active["attack"] = false
-	_tap_active["dash"] = false
-	var target_x := 416.0 if _room_objective_phase == 0 else goal.position.x
-	var delta_x := target_x - player_local.x
-	_set_horizontal_input(signf(delta_x) if absf(delta_x) > 18.0 else 0.0)
-	if _room_objective_phase < 2:
-		_tick_objective_jump(delta)
-	else:
-		_release_objective_jump()
-	return true
+	return _drive_two_level_trigger_ascent(delta, room, player, goal, 416.0, 436.0, 1.0, true)
 
 
 # Stage15 压力房先处理地面冲锋敌，再登右侧低台与施法者交战，仍由真实攻击完成全清。
@@ -737,7 +1180,33 @@ func _drive_stage15_pressure_caster_route(delta: float, room: Node2D, player: Ch
 	return true
 
 
-# Stage10 空战主房的空中敌位于第三层；先沿正式两级平台登高，再把攻击交回通用战斗输入。
+# F16 两名地面敌清除后，从普通跳踏台链登上空中层；接近后交回统一战斗输入。
+func _drive_stage15_mixed_aerial_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage15_mixed_gauntlet_room.tscn"):
+		return false
+	var melee := room.get_node_or_null("BasicMeleeEnemy") as Node2D
+	var charger := room.get_node_or_null("GroundChargerEnemy") as Node2D
+	var aerial := room.get_node_or_null("AerialSentinelEnemy") as Node2D
+	if aerial == null or aerial.has_method("is_defeated") and bool(aerial.call("is_defeated")):
+		return false
+	for ground_enemy: Node2D in [melee, charger]:
+		if ground_enemy != null and ground_enemy.has_method("is_defeated") and not bool(ground_enemy.call("is_defeated")):
+			return false
+	var combat_delta := _enemy_combat_position(aerial) - player.global_position
+	if absf(combat_delta.x) <= 96.0 and absf(combat_delta.y) <= ELEVATED_ATTACK_PREP_DISTANCE:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	var target_x := 416.0 if player.is_on_floor() and player_local.y > 180.0 else aerial.position.x
+	_drive_objective_x(player_local.x, target_x, 16.0)
+	_tick_objective_jump(delta)
+	return true
+
+
+# Stage10 空战主房的空中敌位于第三层；从左侧低台右缘登高，避开同台的可选支路触发点。
 func _drive_stage10_aerial_platform_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage10_zone_aerial_room.tscn"):
 		return false
@@ -748,10 +1217,10 @@ func _drive_stage10_aerial_platform_route(delta: float, room: Node2D, player: Ch
 	if absf(combat_delta.x) <= 96.0 and absf(combat_delta.y) <= 112.0:
 		_room_objective_phase = 2
 		return false
-	return _drive_two_level_trigger_ascent(delta, room, player, aerial, -64.0, 96.0, 1.0, false)
+	return _drive_two_level_trigger_ascent(delta, room, player, aerial, 96.0, 96.0, 1.0, false)
 
 
-# Stage13 首个施法者房要求先踩低台再登高台；路标只负责抵达战斗层，不替代攻击或门控。
+# Stage13 首个施法者房要求先踩低台再登高台；从低台右缘起跳，不能把起跳阈值放到台外。
 func _drive_stage13_caster_platform_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage13_miasma_marsh_caster_room.tscn"):
 		return false
@@ -763,38 +1232,78 @@ func _drive_stage13_caster_platform_route(delta: float, room: Node2D, player: Ch
 	if absf(combat_delta.x) <= 96.0 and absf(combat_delta.y) <= 72.0:
 		_room_objective_phase = 2
 		return false
-	return _drive_two_level_trigger_ascent(delta, room, player, caster, 224.0, 288.0, 1.0, false)
+	return _drive_two_level_trigger_ascent(delta, room, player, caster, 224.0, 224.0, 1.0, false)
 
 
-# Stage13 封印门同样要求两级上行；到达高台后靠近真实 SealNode，让房间脚本自行解门。
+# Stage13 封印门按当前正式几何逐级接近 SealNode，并发送明确的下方向确认。
 func _drive_stage13_gate_seal_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
 	if not room.scene_file_path.ends_with("stage13_miasma_marsh_gate_room.tscn"):
+		return false
+	if not bool(_snapshot().get("air_dash_unlocked", false)):
 		return false
 	if room.has_method("is_gate_unlocked") and bool(room.call("is_gate_unlocked")):
 		return false
 	var seal_node := room.get_node_or_null("SealNode") as Node2D
 	if seal_node == null:
 		return false
-	var player_local := room.to_local(player.global_position)
-	if player.is_on_floor():
-		if player_local.y > 150.0:
-			_room_objective_phase = 0
-		elif player_local.y > 90.0:
-			_room_objective_phase = 1
-		else:
-			_room_objective_phase = 2
-
 	Input.action_release("attack")
 	Input.action_release("dash")
 	_tap_active["attack"] = false
 	_tap_active["dash"] = false
-	var target_x := 224.0 if _room_objective_phase == 0 else seal_node.position.x
-	var delta_x := target_x - player_local.x
-	_set_horizontal_input(signf(delta_x) if absf(delta_x) > 18.0 else 0.0)
-	if _room_objective_phase < 2:
-		_tick_objective_jump(delta)
-	else:
+	var player_local := room.to_local(player.global_position)
+	_drive_objective_x(player_local.x, seal_node.position.x, 14.0)
+	if player.global_position.distance_to(seal_node.global_position) <= 48.0:
 		_release_objective_jump()
+		_tick_tap("ui_down", delta, 0.12)
+	else:
+		_tick_objective_jump(delta)
+	return true
+
+
+# F07 双能力门打开后再走到独立祭坛确认返回 F14；只在 F15 已明确要求该回访时执行。
+func _drive_f07_shortcut_return_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not _needs_f07_shortcut or not room.scene_file_path.ends_with("stage13_miasma_marsh_gate_room.tscn"):
+		return false
+	if not room.has_method("is_gate_unlocked") or not bool(room.call("is_gate_unlocked")):
+		return false
+	var altar := room.get_node_or_null("ShortcutZone") as Node2D
+	if altar == null:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	var player_local := room.to_local(player.global_position)
+	if player_local.y < 190.0:
+		# SealNode 位于两级单向桥；复用玩家正式“下+跳”逐层落回祭坛地面。
+		_set_horizontal_input(0.0)
+		_release_objective_jump()
+		Input.action_press("ui_down")
+		_tick_tap("jump", delta, 0.12)
+		return true
+	Input.action_release("ui_down")
+	_drive_objective_x(player_local.x, altar.position.x, 14.0)
+	_release_objective_jump()
+	if player.global_position.distance_to(altar.global_position) <= 48.0:
+		_tick_tap("ui_down", delta, 0.12)
+	return true
+
+
+# F07 首访没有 Air Dash 时走上层绕行；普通 F08 出口不再错误依赖双能力门。
+func _drive_stage13_gate_bypass_route(delta: float, room: Node2D, player: CharacterBody2D) -> bool:
+	if not room.scene_file_path.ends_with("stage13_miasma_marsh_gate_room.tscn"):
+		return false
+	if bool(_snapshot().get("air_dash_unlocked", false)):
+		return false
+	var player_local := room.to_local(player.global_position)
+	if player_local.x >= 1440.0:
+		return false
+	Input.action_release("attack")
+	Input.action_release("dash")
+	_tap_active["attack"] = false
+	_tap_active["dash"] = false
+	_set_horizontal_input(1.0)
+	_tick_objective_jump(delta)
 	return true
 
 
@@ -976,8 +1485,21 @@ func _check_room_change() -> void:
 	var path := _room_path()
 	if path.is_empty() or path == _current_room_path:
 		return
+	var previous_path := _current_room_path
 	_capture(_current_room_id, "exit")
 	_enter_current_room("entry")
+	if previous_path.ends_with("stage13_miasma_marsh_gate_room.tscn") and path.ends_with("stage14_air_dash_gate_room.tscn"):
+		_needs_f07_shortcut = false
+	if previous_path.ends_with("stage15_completion_room.tscn") and path.ends_with("stage11_demo_end_room.tscn"):
+		_formal_return_complete = true
+	if _scenario == "f09_resource_loop" and previous_path.ends_with("stage13_miasma_marsh_resource_branch_room.tscn") and path.ends_with("stage13_miasma_marsh_checkpoint_room.tscn"):
+		_scenario_complete = true
+	if _scenario == "f09_challenge_route" and previous_path.ends_with("stage13_miasma_marsh_challenge_branch_room.tscn") and path.ends_with("stage13_miasma_marsh_goal_room.tscn"):
+		_scenario_complete = true
+	if _scenario == "f12_return_f09" and previous_path.ends_with("stage13_miasma_marsh_goal_room.tscn") and path.ends_with("stage13_miasma_marsh_branch_hub_room.tscn"):
+		_scenario_complete = true
+	if _scenario == "f09_air_dash_fast" and previous_path.ends_with("stage13_miasma_marsh_branch_hub_room.tscn") and path.ends_with("stage13_miasma_marsh_goal_room.tscn"):
+		_scenario_complete = true
 
 
 func _enter_current_room(phase: String) -> void:
@@ -989,11 +1511,15 @@ func _enter_current_room(phase: String) -> void:
 	_room_elapsed = 0.0
 	_stuck_elapsed = 0.0
 	_mid_captured = false
+	_release_objective_jump()
+	Input.action_release("ui_down")
+	_tap_active["ui_down"] = false
 	var player := _player()
 	_last_player_x = player.global_position.x if player != null else 0.0
 	_rows.append({
 		"index": _room_index,
 		"id": _current_room_id,
+		"formal_id": str(_room().get_meta("formal_room_id", "")) if _room() != null else "",
 		"path": _current_room_path,
 		"entered_at": _elapsed,
 		"screenshots": {phase: _capture(_current_room_id, phase)},
@@ -1021,6 +1547,10 @@ func _append_screenshot(phase: String, path: String) -> void:
 
 
 func _check_completion() -> void:
+	if _formal_return_complete or _scenario_complete:
+		_append_screenshot("complete", _capture(_current_room_id, "complete"))
+		_finish()
+		return
 	var snapshot := _snapshot()
 	if bool(snapshot.get("stage16_alpha_demo_completed", false)):
 		_append_screenshot("complete", _capture(_current_room_id, "complete"))
@@ -1062,7 +1592,7 @@ func _capture(room_id: String, phase: String) -> String:
 func _release_all() -> void:
 	_release_ui_cancel_event_if_active()
 	_release_objective_jump()
-	for action: String in ["move_left", "move_right", "jump", "attack", "dash", "recover", "ui_accept"]:
+	for action: String in ["move_left", "move_right", "jump", "attack", "dash", "recover", "stance_switch", "ui_accept", "ui_down"]:
 		if InputMap.has_action(action):
 			Input.action_release(action)
 
@@ -1134,6 +1664,7 @@ func _write_report(done: bool) -> void:
 		"runtime_debug": _runtime_debug_snapshot(),
 		"debug_samples": _debug_samples,
 		"start_room_override": _start_room_override,
+		"scenario": _scenario,
 		"boundary": "Measured replay uses Input.action_press/release plus UI focus for visible failure continue; it never calls transition_to_room or moves the player. An optional runner-only start room may shorten diagnostics before the probe begins.",
 	}
 	_write_text(OUT_JSON, JSON.stringify(report, "\t"))
@@ -1212,11 +1743,12 @@ func _markdown(report: Dictionary) -> String:
 	lines.append("- P0 / P1 / P2：%s / %s / %s" % [counts.get("P0", 0), counts.get("P1", 0), counts.get("P2", 0)])
 	lines.append("- 边界：%s" % str(report.get("boundary", "")))
 	lines.append("")
-	lines.append("| # | Room | Path | Screenshots |")
-	lines.append("| --- | --- | --- | --- |")
+	lines.append("| # | Formal | Room | Path | Screenshots |")
+	lines.append("| --- | --- | --- | --- | --- |")
 	for row: Dictionary in report.get("rows", []):
-		lines.append("| %d | `%s` | `%s` | `%s` |" % [
+		lines.append("| %d | `%s` | `%s` | `%s` | `%s` |" % [
 			int(row.get("index", 0)),
+			str(row.get("formal_id", "")),
 			str(row.get("id", "")),
 			str(row.get("path", "")),
 			JSON.stringify(row.get("screenshots", {})),

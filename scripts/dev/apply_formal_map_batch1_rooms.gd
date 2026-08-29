@@ -3,12 +3,15 @@ extends SceneTree
 # 正式地图 Batch 1：test_room / combat_trial_room / goal_trial_room。
 # ponytail: 一个批次脚本共享铺层小函数，房间差异仍保留在三个显式方法中。
 
+const FORMAL_DEMO_RECOVERY_LOCKED := true
+const FORMAL_DEMO_RECOVERY_PROGRAM_ID := "formal_demo_recovery_b"
+
 const TEST_ROOM_PATH := "res://scenes/rooms/test_room.tscn"
 const COMBAT_ROOM_PATH := "res://scenes/rooms/combat_trial_room.tscn"
 const GOAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
 const TERRAIN_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 
 const TERRAIN_SCALE := Vector2(1.0 / 6.0, 1.0 / 6.0)
 const PLATFORM_OFFSET := Vector2(0.0, -16.0)
@@ -32,6 +35,10 @@ const TEST_MASS_COLOR := Color(0.34, 0.38, 0.39, 0.62)
 
 
 func _init() -> void:
+	if FORMAL_DEMO_RECOVERY_LOCKED:
+		push_error("该历史生成器已由 formal_demo_recovery_b 冻结，禁止覆盖 F01–F18。")
+		quit(2)
+		return
 	var terrain_tileset := load(TERRAIN_TILESET_PATH) as TileSet
 	var surface_tileset := load(SURFACE_TILESET_PATH) as TileSet
 	var thin_surface_tileset := load(THIN_SURFACE_TILESET_PATH) as TileSet

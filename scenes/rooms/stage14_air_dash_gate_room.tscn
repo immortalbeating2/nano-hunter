@@ -7,10 +7,12 @@
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="8"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="10_843df"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="11_1x6d2"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="11_4q05g"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="11_4q05g"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/001_shrine_gate_prop_atlas_ai01_auto_002_c01.atlas_texture.tres" id="11_shrine"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="12_gate"]
+[ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/006_shrine_gate_prop_atlas_ai01_auto_007_c01.atlas_texture.tres" id="13_talisman"]
 [ext_resource type="Script" path="res://scripts/rooms/seal_pulse_hazard.gd" id="stage20_seal_pulse"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -27,9 +29,13 @@ size = Vector2(96, 128)
 [sub_resource type="RectangleShape2D" id="stage20_seal_pulse_shape"]
 size = Vector2(128, 28)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_proof_takeoff"]
+size = Vector2(144, 16)
+
 [node name="Stage14AirDashGateRoom" type="Node2D" unique_id=1447692722]
 script = ExtResource("1_4q05g")
 air_dash_gate_room = true
+air_dash_requires_proof = true
 next_room_path = "res://scenes/rooms/stage14_backtrack_hub_room.tscn"
 next_spawn_id = &"stage14_backtrack_hub_start"
 previous_room_path = "res://scenes/rooms/stage14_air_dash_shrine_room.tscn"
@@ -38,14 +44,35 @@ shortcut_room_path = "res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn"
 shortcut_spawn_id = &"stage13_gate_from_wind_cross"
 shortcut_requires_air_dash = true
 shortcut_required_reward_id = &"wind_seal"
+shortcut_requires_down_input = true
+narrative_stele_title = "双印回返法坛"
+narrative_stele_text = "风印与空中冲刺已共鸣：在下层法坛按 ↓ 返回 F07；右上封印门通往 F15。"
 spawn_positions = {
-&"stage14_air_dash_gate_start": Vector2(-384, 160),
-&"stage14_gate_from_wind_cross": Vector2(864, 60),
-&"stage14_gate_return": Vector2(864, 60),
-&"stage14_shrine_return": Vector2(-384, 160)
+&"stage14_air_dash_gate_start": Vector2(-384, 172),
+&"stage14_gate_from_wind_cross": Vector2(176, 204),
+&"stage14_gate_return": Vector2(864, 76),
+&"stage14_shrine_return": Vector2(-384, 172)
 }
 checkpoint_spawn_id = &"stage14_air_dash_gate_start"
 default_step_id = &"stage14_air_dash_gate"
+metadata/formal_room_id = "F14"
+metadata/route_role = "air_dash_immediate_proof_and_permanent_shortcut"
+metadata/safe_floor_y = 160.0
+metadata/normal_exit_uses_generic_door = false
+metadata/transition_visual_type = "seal_threshold"
+metadata/gate_semantics = "ability_gate"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 3
+layout_profile = &"air_dash_show_practice_proof"
+solid_rects = Array[Rect2]([Rect2(-512, 192, 640, 64), Rect2(128, 224, 496, 64), Rect2(624, 96, 400, 64)])
+one_way_rects = Array[Rect2]([Rect2(176, 144, 160, 16)])
+route_heights = {
+&"f07_altar": 224.0,
+&"f15_main": 96.0,
+&"takeoff": 112.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=1731047140]
 color = Color(0.109804, 0.0980392, 0.152941, 1)
@@ -100,7 +127,8 @@ metadata/asset_binding_note = "hidden_after_sample_tilemap_author"
 
 [node name="AirDashGateSensor" type="Marker2D" parent="." unique_id=2008408654]
 z_index = 2
-position = Vector2(160, 54)
+position = Vector2(560, 56)
+metadata/proof_requires = "airborne_dash"
 
 [node name="ShrineEchoArt" type="Sprite2D" parent="AirDashGateSensor" unique_id=121880122]
 modulate = Color(1, 1, 1, 0.82)
@@ -110,8 +138,22 @@ texture = ExtResource("11_shrine")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
 
+[node name="AirDashProofTakeoff" type="StaticBody2D" parent="."]
+position = Vector2(448, 112)
+metadata/route_role = "safe_air_dash_takeoff"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AirDashProofTakeoff"]
+shape = SubResource("RectangleShape2D_proof_takeoff")
+one_way_collision = true
+
+[node name="PlatformVisual" type="Polygon2D" parent="AirDashProofTakeoff"]
+visible = false
+color = Color(0.32549, 0.737255, 0.85098, 0.46)
+polygon = PackedVector2Array(-72, -8, 72, -8, 72, 8, -72, 8)
+metadata/asset_binding_note = "hidden_after_thin_platform_surface_visual_takeover"
+
 [node name="SealPulseHazard" type="Area2D" parent="."]
-position = Vector2(608, 60)
+position = Vector2(816, 60)
 collision_layer = 0
 collision_mask = 1
 monitoring = true
@@ -119,22 +161,30 @@ script = ExtResource("stage20_seal_pulse")
 rest_duration = 1.25
 warning_duration = 0.72
 metadata/hazard_family = "timed_seal_pulse"
+metadata/placement_role = "post_proof_exit_pressure_not_landing_punish"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SealPulseHazard"]
 shape = SubResource("stage20_seal_pulse_shape")
 
-[node name="WarningVisual" type="Polygon2D" parent="SealPulseHazard"]
+[node name="WarningVisual" type="Sprite2D" parent="SealPulseHazard"]
 visible = false
-color = Color(0.86, 0.66, 0.25, 0.34)
-polygon = PackedVector2Array(-64, -14, 64, -14, 64, 14, -64, 14)
+modulate = Color(1, 0.78, 0.36, 0.62)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("11_shrine")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
 
-[node name="ActiveVisual" type="Polygon2D" parent="SealPulseHazard"]
+[node name="ActiveVisual" type="Sprite2D" parent="SealPulseHazard"]
 visible = false
-color = Color(0.31, 0.91, 0.88, 0.78)
-polygon = PackedVector2Array(-64, -14, 64, -14, 64, 14, -64, 14)
+modulate = Color(0.45, 1, 0.96, 0.92)
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("11_shrine")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
 metadata/damage_source = true
 
 [node name="GateBarrier" type="StaticBody2D" parent="." unique_id=1261473779]
+metadata/gate_semantics = "ability_gate"
 z_index = 2
 position = Vector2(672, 40)
 
@@ -217,6 +267,7 @@ z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAD7//3////////////7//7////////////7///////////////7/wAA///////////7/wEA///////////7/wIA///////////6/wIA///////////8/wIA///////////9/wIA///////////+/wIA/////////////wIA//////////8AAAIA//////////8BAAIA//////////8CAAIA//////////8DAAIA//////////8EAAIA//////////8FAAIA//////////8GAAIAAAABAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAABAAAAAAAJAAIAAAAAAAAAAAD4/wMAAAACAAAAAAD5/wMAAAABAAAAAAD6/wMAAAAAAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAABAAAAAAD+/wMAAAAAAAAAAAD//wMAAAABAAAAAAAAAAMAAAAAAAAAAAABAAMAAAABAAAAAAACAAMAAAAAAAAAAAADAAMAAAABAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAADAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAABAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAABAAAAAAAKAAEAAAAAAAAAAAALAAEAAAABAAAAAAAMAAEAAAAAAAAAAAANAAEAAAABAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAAAAAAAAAAMAAIAAAABAAAAAAANAAIAAAAAAAAAAAAOAAIAAAABAAAAAAAPAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAABAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAABAAAAAAAKAAMAAAAAAAAAAAALAAMAAAABAAAAAAAMAAMAAAAAAAAAAAANAAMAAAABAAAAAAAOAAMAAAAAAAAAAAAPAAMAAAABAAAAAAAGAAQAAAABAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAABAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAABAAAAAAALAAQAAAAAAAAAAAAMAAQAAAABAAAAAAANAAQAAAAAAAAAAAAOAAQAAAABAAAAAAAPAAQAAAAAAAAAAAA=")
 tile_set = ExtResource("11_1x6d2")
+collision_enabled = false
 metadata/asset_id = "formal_terrain_kit_ai01"
 metadata/asset_binding_note = "tilemap_collision_authority_static_terrain"
 metadata/terrain_template_layer = true
@@ -272,6 +323,7 @@ position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAD6/wIAAAABAAIAAAD7/wIAAAAAAAIAAAD8/wIAAAACAAIAAAD//wEAAAABAAIAAAAAAAEAAAAAAAIAAAABAAEAAAAAAAIAAAACAAEAAAACAAIAAAA=")
 tile_set = ExtResource("11_1x6d2")
+collision_enabled = false
 metadata/terrain_template_layer = true
 metadata/asset_binding_note = "tilemap_one_way_collision_authority_platform"
 metadata/asset_id = "formal_terrain_kit_ai01"
@@ -293,7 +345,7 @@ tile_set = ExtResource("11_4q05g")
 collision_enabled = false
 metadata/terrain_template_layer = true
 metadata/asset_binding_note = "thin_platform_surface_visual_aligned_to_one_way_collision"
-metadata/asset_id = "tutorial_thin_platform_visual_ai01"
+metadata/asset_id = "tutorial_jump_platform_visual_ai02"
 
 [node name="CliffMassVisual" type="Node2D" parent="." unique_id=1918647116]
 z_index = 1
@@ -308,13 +360,17 @@ polygon = PackedVector2Array(416, 96, 1024, 96, 1024, 288, 416, 288)
 metadata/asset_id = "dac_continuous_stone_underlay"
 
 [node name="ShortcutZone" type="Marker2D" parent="."]
-position = Vector2(736, 60)
+position = Vector2(256, 204)
 metadata/route_role = "wind_seal_air_dash_cross_gate"
 
 [node name="ShortcutMarkerArt" type="Sprite2D" parent="ShortcutZone"]
 z_index = 4
-scale = Vector2(0.34, 0.34)
-texture = ExtResource("11_shrine")
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("13_talisman")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
-metadata/runtime_source = "shrine_gate_prop_atlas_ai01.air_dash_shrine_active"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.talisman_stake_idle"
 metadata/anchor_role = "stage20_cross_ability_gate"
+
+[node name="NarrativeStele" type="Marker2D" parent="."]
+position = Vector2(128, 204)
+metadata/route_role = "f07_shortcut_preview_before_trigger"

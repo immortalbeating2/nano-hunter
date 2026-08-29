@@ -14,6 +14,7 @@ const VIEWPORT_SIZE := Vector2i(1280, 720)
 const GROUND_UNDERLAY_NAME := "GroundUnderlayVisual"
 const SURFACE_LAYER_NAME := "GroundSurfaceVisual"
 const THIN_PLATFORM_SURFACE_LAYER_NAME := "ThinPlatformSurfaceVisual"
+const DASH_GATE_LINTEL_LAYER_NAME := "DashGateLintelVisual"
 const TERRAIN_LAYER_NAME := "TerrainCollisionVisual"
 const PLATFORM_LAYER_NAME := "PlatformCollisionVisual"
 const LANDMARK_ROOT_NAME := "TutorialLandmarks"
@@ -97,6 +98,7 @@ func _capture() -> int:
 	var platform_layer := room.get_node_or_null(PLATFORM_LAYER_NAME) as TileMapLayer if room != null else null
 	var surface_layer := room.get_node_or_null(SURFACE_LAYER_NAME) as TileMapLayer if room != null else null
 	var thin_surface_layer := room.get_node_or_null(THIN_PLATFORM_SURFACE_LAYER_NAME) as TileMapLayer if room != null else null
+	var lintel_surface_layer := room.get_node_or_null(DASH_GATE_LINTEL_LAYER_NAME) as TileMapLayer if room != null else null
 	var collision_authority_ok := (
 		terrain_layer != null
 		and platform_layer != null
@@ -109,7 +111,7 @@ func _capture() -> int:
 	var legacy_collision_disabled := room != null and _legacy_terrain_collision_disabled(room)
 	var logic_collision_kept := room != null and _logic_collision_kept(room)
 	var grid_blueprint_ok := terrain_layer != null and platform_layer != null and _grid_blueprint_ok(terrain_layer, platform_layer)
-	var surface_visual_ok := surface_layer != null and thin_surface_layer != null and terrain_layer != null and _surface_visual_ok(surface_layer, thin_surface_layer, terrain_layer)
+	var surface_visual_ok := surface_layer != null and thin_surface_layer != null and lintel_surface_layer != null and terrain_layer != null and _surface_visual_ok(surface_layer, thin_surface_layer, lintel_surface_layer, terrain_layer)
 	var ground_underlay_retired := room != null and _ground_underlay_retired(room)
 	var landmark_layout_ok := room != null and _landmark_layout_ok(room)
 	var background_coverage_ok := room != null and _background_coverage_ok(room)
@@ -196,6 +198,7 @@ func _capture() -> int:
 		"grid_blueprint_ok": grid_blueprint_ok,
 		"surface_visual_ok": surface_visual_ok,
 		"thin_platform_surface_visible": thin_surface_layer != null and thin_surface_layer.visible,
+		"dash_gate_lintel_visible": lintel_surface_layer != null and lintel_surface_layer.visible,
 		"ground_underlay_retired": ground_underlay_retired,
 		"landmark_layout_ok": landmark_layout_ok,
 		"background_coverage_ok": background_coverage_ok,
@@ -261,7 +264,12 @@ func _grid_blueprint_ok(terrain_layer: TileMapLayer, platform_layer: TileMapLaye
 	return true
 
 
-func _surface_visual_ok(surface_layer: TileMapLayer, thin_surface_layer: TileMapLayer, terrain_layer: TileMapLayer) -> bool:
+func _surface_visual_ok(
+	surface_layer: TileMapLayer,
+	thin_surface_layer: TileMapLayer,
+	lintel_surface_layer: TileMapLayer,
+	terrain_layer: TileMapLayer
+) -> bool:
 	if (
 		not surface_layer.visible
 		or bool(surface_layer.get("collision_enabled"))
@@ -271,7 +279,13 @@ func _surface_visual_ok(surface_layer: TileMapLayer, thin_surface_layer: TileMap
 		or not thin_surface_layer.visible
 		or bool(thin_surface_layer.get("collision_enabled"))
 		or thin_surface_layer.z_index <= terrain_layer.z_index
-		or thin_surface_layer.get_meta("asset_id", "") != "tutorial_thin_platform_visual_ai01"
+		or thin_surface_layer.get_meta("asset_id", "") != "tutorial_jump_platform_visual_ai02"
+		or thin_surface_layer.get_meta("physics_affordance", "") != "one_way_platform"
+		or not lintel_surface_layer.visible
+		or bool(lintel_surface_layer.get("collision_enabled"))
+		or lintel_surface_layer.z_index <= terrain_layer.z_index
+		or lintel_surface_layer.get_meta("asset_id", "") != "tutorial_dash_gate_lintel_visual_ai01"
+		or lintel_surface_layer.get_meta("physics_affordance", "") != "thin_solid"
 	):
 		return false
 	for offset: int in range(MAIN_GROUND_LENGTH):
@@ -302,8 +316,10 @@ func _surface_visual_ok(surface_layer: TileMapLayer, thin_surface_layer: TileMap
 		var cell := Vector2i(DASH_CEILING_START.x + offset, DASH_CEILING_START.y)
 		if surface_layer.get_cell_source_id(cell) != -1:
 			return false
+		if thin_surface_layer.get_cell_source_id(cell) != -1:
+			return false
 		var expected := Vector2i(0, 0) if offset == 0 else Vector2i(2, 0)
-		if thin_surface_layer.get_cell_source_id(cell) != 0 or thin_surface_layer.get_cell_atlas_coords(cell) != expected:
+		if lintel_surface_layer.get_cell_source_id(cell) != 0 or lintel_surface_layer.get_cell_atlas_coords(cell) != expected:
 			return false
 	return true
 

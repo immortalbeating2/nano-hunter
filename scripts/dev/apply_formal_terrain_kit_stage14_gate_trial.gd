@@ -3,11 +3,14 @@ extends SceneTree
 # Stage14 Air Dash gate 正式 24x9 蓝图生成。
 # ponytail: 单房间显式蓝图；三类样板稳定前不抽通用关卡生成器。
 
+const FORMAL_DEMO_RECOVERY_LOCKED := true
+const FORMAL_DEMO_RECOVERY_PROGRAM_ID := "formal_demo_recovery_b"
+
 const ROOM_PATH := "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
 const ROOM_SCRIPT_PATH := "res://scripts/rooms/stage14_air_dash_gate_room.gd"
 const TERRAIN_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 const CLIFF_MASS_TEXTURE_PATH := "res://assets/art/textures/dac_continuous_stone_underlay.png"
 
 const TERRAIN_SCALE := Vector2(1.0 / 6.0, 1.0 / 6.0)
@@ -57,6 +60,9 @@ func _init() -> void:
 
 
 func _run() -> int:
+	if FORMAL_DEMO_RECOVERY_LOCKED:
+		push_error("该历史生成器已由 formal_demo_recovery_b 冻结，禁止覆盖 F01–F18。")
+		return 2
 	var terrain_tileset := load(TERRAIN_TILESET_PATH) as TileSet
 	var surface_tileset := load(SURFACE_TILESET_PATH) as TileSet
 	var thin_surface_tileset := load(THIN_SURFACE_TILESET_PATH) as TileSet
@@ -162,7 +168,7 @@ func _asset_id_for_tileset(tileset: TileSet) -> String:
 	if tileset.resource_path == SURFACE_TILESET_PATH:
 		return "shrine_trial_tileset_ai01"
 	if tileset.resource_path == THIN_SURFACE_TILESET_PATH:
-		return "tutorial_thin_platform_visual_ai01"
+		return "tutorial_jump_platform_visual_ai02"
 	return "formal_terrain_kit_ai01"
 
 

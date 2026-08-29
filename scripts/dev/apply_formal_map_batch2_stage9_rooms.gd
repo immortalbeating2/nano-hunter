@@ -5,7 +5,7 @@ extends SceneTree
 
 const TERRAIN_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 const CHECKPOINT_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/015_shrine_gate_prop_atlas_ai01_auto_016_c02.atlas_texture.tres"
 const TERRAIN_SCALE := Vector2(1.0 / 6.0, 1.0 / 6.0)
 const PLATFORM_OFFSET := Vector2(0, -16)

@@ -20,7 +20,7 @@ const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_r
 const STAGE9_ENTRY_SPAWN_ID: StringName = &"zone_entry_start"
 
 
-# 公开 driver 入口：加载真实 Main 场景并依次驾驶教程、战斗、Stage9/10 和镇妖驿厅。
+# 公开 driver 入口：加载真实 Main 场景并驾驶方案 B 的教程、首次战斗和镇妖驿厅。
 static func drive_mainline(test: GutTest) -> Dictionary:
 	# 驱动入口只加载生产 Main.tscn，不拼装测试专用主流程，确保覆盖真实房间切换契约。
 	var result := _make_result()
@@ -36,8 +36,7 @@ static func drive_mainline(test: GutTest) -> Dictionary:
 
 	if not await _drive_from_tutorial_to_goal_trial(test, main_scene, result):
 		return _finalize_result(main_scene, result)
-
-	if not await _drive_stage9_to_stage11_demo_end(test, main_scene, result):
+	if not await _finish_demo_end_room(test, main_scene, result):
 		return _finalize_result(main_scene, result)
 
 	var snapshot: Dictionary = main_scene.call("get_demo_progress_snapshot")
@@ -53,13 +52,11 @@ static func drive_mainline(test: GutTest) -> Dictionary:
 	return _finalize_result(main_scene, result)
 
 
-# 驾驶早期三房间链路，保留为独立函数方便失败时判断卡在 Stage5-7 哪一段。
+# 驾驶方案 B 早期两段链路；旧 GoalTrial 与 Stage9/10 已退出正式路线。
 static func _drive_from_tutorial_to_goal_trial(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	if not await _drive_tutorial_room(test, main_scene, result):
 		return false
 	if not await _drive_combat_trial_room(test, main_scene, result):
-		return false
-	if not await _drive_goal_trial_room(test, main_scene, result):
 		return false
 	return true
 
@@ -133,6 +130,16 @@ static func _drive_tutorial_room(test: GutTest, main_scene: Node2D, result: Dict
 		return false
 	dummy.call("receive_attack", Vector2.RIGHT, 120.0)
 	await _advance_process_frames(test, 2)
+	if str(room.call("get_current_step_id")) != "stance" or not player.has_method("cycle_current_stance"):
+		result.failure_reason = "教程攻击后未进入姿态教学"
+		return false
+
+	result.last_strategy_step = "tutorial_stance"
+	player.call("cycle_current_stance")
+	await _advance_process_frames(test, 2)
+	if str(room.call("get_current_step_id")) != "exit":
+		result.failure_reason = "教程姿态切换后未进入出口步骤"
+		return false
 
 	result.last_strategy_step = "tutorial_exit"
 	player.global_position = Vector2(796.0, 96.0)
@@ -145,15 +152,28 @@ static func _drive_tutorial_room(test: GutTest, main_scene: Node2D, result: Dict
 	return true
 
 
-# 驾驶战斗试炼房：击败基础敌人后移动到出口，验证清敌开门和切到目标房。
+# 驾驶战斗试炼房：击败基础敌人后在悬令台确认首赏，验证 F02 直达 F03。
 static func _drive_combat_trial_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	result.last_strategy_step = "combat_trial_clear"
 	if not await _defeat_enemy_node(test, main_scene, "BasicMeleeEnemy"):
 		result.failure_reason = "CombatTrialRoom 清敌失败"
 		return false
 
-	result.last_strategy_step = "combat_trial_exit"
-	return await _move_player_to_exit_zone(test, main_scene, GOAL_TRIAL_ROOM_SCENE_PATH, "CombatTrialRoom 未推进到 GoalTrialRoom")
+	result.last_strategy_step = "combat_trial_bounty_confirm"
+	var room := _get_room(main_scene)
+	var player := _get_player(main_scene)
+	var bounty_board := room.get_node_or_null("BountyBoardZone") as Area2D if room != null else null
+	if player == null or bounty_board == null:
+		result.failure_reason = "CombatTrialRoom 缺少悬令确认节点"
+		return false
+	player.global_position = bounty_board.global_position
+	Input.action_press("ui_down")
+	await _advance_process_frames(test, 4)
+	Input.action_release("ui_down")
+	if _get_room(main_scene).scene_file_path != STAGE11_DEMO_END_ROOM_SCENE_PATH:
+		result.failure_reason = "CombatTrialRoom 未通过悬令台推进到镇妖驿厅"
+		return false
+	return true
 
 
 # 驾驶目标房：击败敌人解锁目标区，然后进入目标区完成短链路。
@@ -232,7 +252,7 @@ static func _clear_switch_gate_room(test: GutTest, main_scene: Node2D, result: D
 	return await _move_player_to_exit_zone(test, main_scene, "", "")
 
 
-# 确认镇妖驿厅：移动到 GoalZone，让房间自己的完成逻辑发出 goal_completed。
+# 确认镇妖驿厅：在 GoalZone 主动确认，让房间自己的完成逻辑发出 goal_completed。
 static func _finish_demo_end_room(test: GutTest, main_scene: Node2D, result: Dictionary) -> bool:
 	result.last_strategy_step = "stage11_finish_demo"
 	var room: Node2D = _get_room(main_scene)
@@ -240,6 +260,12 @@ static func _finish_demo_end_room(test: GutTest, main_scene: Node2D, result: Dic
 	if room == null or player == null:
 		result.failure_reason = "Stage11 镇妖驿厅运行态缺失"
 		return false
+	var story_continue := main_scene.get_node_or_null(
+		"HUD/DemoShell/DetailPanel/MarginContainer/VBoxContainer/DetailBackButton"
+	) as Button
+	if story_continue != null and test.get_tree().paused:
+		story_continue.pressed.emit()
+		await _advance_process_frames(test, 1)
 
 	var goal_zone: Area2D = room.get_node_or_null("GoalZone") as Area2D
 	if goal_zone == null:
@@ -247,7 +273,9 @@ static func _finish_demo_end_room(test: GutTest, main_scene: Node2D, result: Dic
 		return false
 
 	player.global_position = goal_zone.global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(test, 4)
+	Input.action_release("ui_down")
 
 	return true
 

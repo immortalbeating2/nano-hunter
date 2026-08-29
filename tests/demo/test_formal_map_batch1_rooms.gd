@@ -10,7 +10,7 @@ const PLAYER_PATH := "res://scenes/player/player_placeholder.tscn"
 
 const TERRAIN_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 const TERRAIN_SCALE := Vector2(1.0 / 6.0, 1.0 / 6.0)
 const SURFACE_OFFSET := Vector2(0.0, -7.0)
 
@@ -48,22 +48,29 @@ func test_batch1_test_room_keeps_mechanics_and_uses_clean_composition() -> void:
 			assert_gte(visual.color.a, 0.24)
 
 
-# 首战房保持单敌规则，但扩大反应距离、入口和出口安全区。
-func test_batch1_combat_room_is_18x6_first_encounter() -> void:
+# 首战房保持单敌规则，并按 V2 扩为观察、清剿、悬令确认三段。
+func test_batch1_combat_room_is_three_segment_first_encounter() -> void:
 	var room := _instantiate_room(COMBAT_ROOM_PATH)
-	assert_eq(room.call("get_camera_limits"), Rect2i(-384, -192, 1152, 384))
+	assert_eq(room.call("get_camera_limits"), Rect2i(-384, -256, 1920, 512))
 	_assert_formal_layers(room, Vector2i(-6, 2), 18, [], 0)
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
+	assert_not_null(layout)
+	if layout != null:
+		assert_eq(int(layout.call("get_segment_count")), 3)
+		assert_eq(layout.call("get_layout_profile"), &"observe_combat_bounty")
+		assert_eq(int(layout.call("get_runtime_platform_count")), 5)
 	# TileMap 第 2 行实际可踩顶面为 y=160，出生点记录 Luna 的稳定中心 y=140。
 	assert_eq(room.call("get_spawn_position", &"combat_entry"), Vector2(-256.0, 140.0))
 	assert_eq(room.call("get_spawn_position", &"combat_retry"), Vector2(-256.0, 140.0))
 	assert_eq(room.call("get_spawn_position", &"combat_return"), Vector2(640.0, 140.0))
-	assert_eq(room.get_node("BasicMeleeEnemy").position, Vector2(-40.0, 152.0))
-	assert_eq(room.get_node("ExitBarrier").position, Vector2(512.0, 104.0))
-	assert_eq(room.get_node("ExitZone").position, Vector2(704.0, 96.0))
+	assert_eq(room.get_node("BasicMeleeEnemy").position, Vector2(256.0, 184.0))
+	assert_eq(room.get_node("ExitBarrier").position, Vector2(704.0, 128.0))
+	assert_eq(room.get_node("BountyBoardZone").position, Vector2(1280.0, 108.0))
+	assert_eq(room.get_node("ExitZone").position, Vector2(1472.0, 96.0))
 	assert_eq(room.get_node("LeftExitZone").position, Vector2(-352.0, 96.0))
-	assert_lte(room.call("get_spawn_position", &"combat_entry").distance_to(room.get_node("BasicMeleeEnemy").position), 224.0)
+	assert_between(room.call("get_spawn_position", &"combat_entry").distance_to(room.get_node("BasicMeleeEnemy").position), 480.0, 640.0)
 	_assert_legacy_terrain_disabled(room, ["LeftWall", "RightWall", "Floor"])
-	_assert_background(room, Vector2(192.0, 0.0), Vector2(0.7, 0.7), Rect2i(-384, -192, 1152, 384))
+	_assert_background(room, Vector2.ZERO, Vector2.ZERO, Rect2i(-384, -256, 1920, 512), false)
 
 
 # 目标房必须在清敌后要求玩家真正登上右侧平台，而不是从下层跑过 x 阈值完成。
@@ -116,10 +123,11 @@ func _assert_formal_layers(room: Node2D, floor_start: Vector2i, floor_length: in
 	assert_not_null(thin_surface)
 	if terrain == null or platform == null or surface == null or thin_surface == null:
 		return
-	assert_true(bool(terrain.get("collision_enabled")))
+	var phase2_layout := room.get_node_or_null("Phase2GrayboxLayout")
+	assert_eq(bool(terrain.get("collision_enabled")), phase2_layout == null)
 	assert_eq(terrain.tile_set.resource_path, TERRAIN_TILESET_PATH)
 	assert_eq(terrain.scale, TERRAIN_SCALE)
-	assert_true(bool(platform.get("collision_enabled")))
+	assert_eq(bool(platform.get("collision_enabled")), phase2_layout == null)
 	assert_eq(platform.tile_set.resource_path, TERRAIN_TILESET_PATH)
 	assert_false(bool(surface.get("collision_enabled")))
 	assert_eq(surface.tile_set.resource_path, SURFACE_TILESET_PATH)
@@ -162,13 +170,17 @@ func _assert_legacy_terrain_disabled(room: Node2D, body_names: Array[String]) ->
 			assert_false(bool(old_layer.get("collision_enabled")))
 
 
-func _assert_background(room: Node2D, position: Vector2, scale: Vector2, limits: Rect2i) -> void:
+func _assert_background(room: Node2D, position: Vector2, scale: Vector2, limits: Rect2i, exact_transform := true) -> void:
 	var background := room.get_node_or_null("DemoBackgroundArt") as Sprite2D
 	assert_not_null(background)
 	if background == null:
 		return
-	assert_eq(background.position, position)
-	assert_eq(background.scale, scale)
+	if exact_transform:
+		assert_eq(background.position, position)
+		assert_eq(background.scale, scale)
+	else:
+		position = background.position
+		scale = background.scale
 	var half_size := Vector2(background.texture.get_width(), background.texture.get_height()) * scale * 0.5
 	assert_true(position.x - half_size.x <= limits.position.x)
 	assert_true(position.x + half_size.x >= limits.end.x)

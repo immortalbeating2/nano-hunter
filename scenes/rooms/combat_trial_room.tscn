@@ -9,10 +9,16 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="10_jcnil"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="11_5jxqn"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="12_y4sy1"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="13_40lf6"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="13_40lf6"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_01_shrine_trial/biome01_shrine_trial_background_ai01.png" id="nh_bg"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="nh_gate"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/material_texture_atlas_ai01.png" id="nh_mat"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
+[ext_resource type="Texture2D" path="res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png" id="stage28_world"]
+
+[sub_resource type="AtlasTexture" id="Stage28BoardAvailable"]
+atlas = ExtResource("stage28_world")
+region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -29,6 +35,24 @@ size = Vector2(96, 128)
 [node name="CombatTrialRoom" type="Node2D" unique_id=308800714]
 script = ExtResource("1")
 flow_config = ExtResource("3")
+metadata/formal_room_id = "F02"
+metadata/route_role = "first_combat_and_merged_goal"
+metadata/safe_floor_y = 160.0
+metadata/gate_semantics = "clear_barrier"
+metadata/normal_exit_uses_generic_door = false
+metadata/transition_visual_type = "waystation_passage"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 3
+layout_profile = &"observe_combat_bounty"
+solid_rects = Array[Rect2]([Rect2(-384, 160, 384, 64), Rect2(0, 192, 672, 64), Rect2(736, 128, 800, 64)])
+one_way_rects = Array[Rect2]([Rect2(608, 160, 192, 16), Rect2(704, 128, 192, 16)])
+route_heights = {
+&"bounty": 128.0,
+&"combat": 192.0,
+&"observe": 160.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=1323079377]
 z_index = -4
@@ -107,12 +131,13 @@ polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
 [node name="BasicMeleeEnemy" type="StaticBody2D" parent="." unique_id=2081023900 instance=ExtResource("2")]
-position = Vector2(-40, 152)
+position = Vector2(256, 184)
 script = ExtResource("6_410q1")
 config = ExtResource("7_vorwr")
 
 [node name="ExitBarrier" type="StaticBody2D" parent="." unique_id=2093103071]
-position = Vector2(512, 104)
+metadata/gate_semantics = "clear_barrier"
+position = Vector2(704, 128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitBarrier" unique_id=377317091]
 shape = SubResource("3")
@@ -128,8 +153,25 @@ texture = ExtResource("nh_gate")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
 
+[node name="BountyBoardZone" type="Area2D" parent="."]
+position = Vector2(1280, 108)
+metadata/interaction_verb = "ui_down"
+metadata/interaction_role = "first_bounty_confirmation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BountyBoardZone"]
+shape = SubResource("4")
+
+[node name="BountyBoardMarkerArt" type="Sprite2D" parent="BountyBoardZone"]
+z_index = 4
+position = Vector2(0, -52)
+scale = Vector2(0.48, 0.48)
+texture = SubResource("Stage28BoardAvailable")
+metadata/asset_id = "stage28_waystation_world_sheet_ai01"
+metadata/runtime_source = "stage28_waystation_world_runtime_ai01.bounty_available"
+metadata/runtime_role = "graybox_proxy"
+
 [node name="ExitZone" type="Area2D" parent="." unique_id=319996874]
-position = Vector2(704, 96)
+position = Vector2(1472, 96)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1502696501]
 shape = SubResource("4")
@@ -179,6 +221,7 @@ z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAD6/wIAAAACAAAAAAD7/wIAAAABAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAABAAAAAAD+/wIAAAAAAAAAAAD//wIAAAABAAAAAAAAAAIAAAAAAAAAAAABAAIAAAABAAAAAAACAAIAAAAAAAAAAAADAAIAAAABAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAABAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAABAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAABAAAAAAAKAAIAAAAAAAAAAAALAAIAAAADAAAAAAA=")
 tile_set = ExtResource("11_5jxqn")
+collision_enabled = false
 metadata/terrain_template_layer = true
 
 [node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=1065656844]
@@ -187,6 +230,7 @@ z_index = 2
 position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
 tile_set = ExtResource("11_5jxqn")
+collision_enabled = false
 metadata/terrain_template_layer = true
 
 [node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1568466238]

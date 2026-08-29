@@ -1,13 +1,14 @@
 extends GutTest
 
-# 阶段 7 回归测试保护 Tutorial -> Combat -> Goal 的短链路主流程。
-# 它验证三段房间串联、目标房完成态和战斗房失败只做局部重置。
+# 阶段 7 回归测试保护方案 B 的 Tutorial -> Combat -> Hub 短链路。
+# 旧 GoalTrial 仍保留兼容契约，但已退出正式主路线。
 
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
 const COMBAT_ROOM_SCENE_PATH := "res://scenes/rooms/combat_trial_room.tscn"
 const GOAL_ROOM_SCENE_PATH := "res://scenes/rooms/goal_trial_room.tscn"
+const HUB_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 const GOAL_GATE_LOCKED_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
 const GOAL_GATE_OPEN_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres"
 const GATE_UNLOCK_VFX_FRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
@@ -27,8 +28,8 @@ func after_each() -> void:
 	_reset_input_actions()
 
 
-# 保护短主线串联：教程房能进入战斗房，清敌出门后能进入目标房，并同步 HUD。
-func test_main_advances_from_tutorial_to_combat_to_goal_and_updates_hud() -> void:
+# 保护正式短主线串联：教程房进入战斗房，F02 清敌并确认悬令后回到 F03 Hub。
+func test_main_advances_from_tutorial_to_combat_to_hub_and_updates_hud() -> void:
 	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
 
 	assert_not_null(packed_scene)
@@ -49,28 +50,30 @@ func test_main_advances_from_tutorial_to_combat_to_goal_and_updates_hud() -> voi
 	var prompt_label: Label = main_scene.get_node_or_null("HUD/TutorialHUD/PromptPanel/PromptLabel") as Label
 	var player: CharacterBody2D = main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
 	var combat_enemy: Node2D = combat_room.get_node_or_null("BasicMeleeEnemy") as Node2D
-	var combat_exit_zone: Area2D = combat_room.get_node_or_null("ExitZone") as Area2D
+	var bounty_board: Area2D = combat_room.get_node_or_null("BountyBoardZone") as Area2D
 
 	assert_not_null(combat_room)
 	assert_not_null(step_label)
 	assert_not_null(prompt_label)
 	assert_not_null(player)
 	assert_not_null(combat_enemy)
-	assert_not_null(combat_exit_zone)
+	assert_not_null(bounty_board)
 	assert_eq(combat_room.scene_file_path, COMBAT_ROOM_SCENE_PATH)
 	assert_string_contains(step_label.text, "实战")
 
 	combat_enemy.call("receive_attack", Vector2.RIGHT, 120.0)
 	await _advance_process_frames(2)
-	player.global_position = combat_exit_zone.global_position
+	player.global_position = bounty_board.global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(2)
+	Input.action_release("ui_down")
 
-	var goal_room: Node2D = main_scene.get_node_or_null("Room") as Node2D
+	var hub_room: Node2D = main_scene.get_node_or_null("Room") as Node2D
 
-	assert_not_null(goal_room)
-	assert_eq(goal_room.scene_file_path, GOAL_ROOM_SCENE_PATH)
-	assert_string_contains(step_label.text, "目标")
-	assert_string_contains(prompt_label.text, "目标")
+	assert_not_null(hub_room)
+	assert_eq(hub_room.scene_file_path, HUB_ROOM_SCENE_PATH)
+	assert_string_contains(step_label.text, "驿厅")
+	assert_string_contains(prompt_label.text, "封印")
 
 
 # 保护目标房契约：击败敌人解锁目标门，进入目标区后发出完成信号。

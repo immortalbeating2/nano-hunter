@@ -1,17 +1,23 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=34 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/demo_shell.gd" id="1"]
 [ext_resource type="Theme" path="res://assets/art/ui/editor_ui_skin/nano_hunter_imagegen_ui.theme.tres" id="2"]
 [ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres" id="3"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_title_background_ai01.png" id="4"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/stage16_pause_panel_ui_ai01.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu_shell_ai02.png" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage16_completion_panel_ui_ai01.png" id="6"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage16_demo_menu_icons_ai01.png" id="7"]
-[ext_resource type="Texture2D" path="res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/001_stage16_demo_menu_icons_ai01_continue_play.atlas_texture.tres" id="8"]
-[ext_resource type="Texture2D" path="res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/002_stage16_demo_menu_icons_ai01_restart.atlas_texture.tres" id="9"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/004_stage16_demo_menu_icons_ai01_back.atlas_texture.tres" id="10"]
 [ext_resource type="Script" path="res://scripts/ui/world_map_view.gd" id="11"]
 [ext_resource type="Texture2D" path="res://assets/art/ui/stage19_discovery_map_base_ai01.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu_wordmark_ai01.png" id="13"]
+[ext_resource type="Shader" path="res://assets/shaders/ui/main_menu_focus_band.gdshader" id="14"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/hud_warden_official_v4/pause_frame_base_warden_official_ai01.stylebox_texture.tres" id="15_pause_frame"]
+[ext_resource type="StyleBox" path="res://assets/art/ui/styleboxes/hud_warden_official_v4/pause_frame_base_warden_official_ai01.stylebox_texture.tres" id="16_failure_frame"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/hud_warden_official_v4/warden_seal_medallion_ai01.png" id="17_warden_seal"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/hud_warden_official_v4/warden_chain_hook_ai01.png" id="18_warden_chain"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/hud_warden_official_v4/warden_chain_talisman_tassel_ai01.png" id="19_warden_talisman"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/hud_warden_official_v4/warden_cinnabar_stamp_ai01.png" id="20_warden_stamp"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/stage28_bounty_archive_frame_warden_ai01.png" id="21_bounty_frame"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main_button_normal"]
 content_margin_left = 28.0
@@ -77,6 +83,79 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_title_menu_panel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title_button_normal"]
+content_margin_left = 24.0
+content_margin_top = 4.0
+content_margin_right = 24.0
+content_margin_bottom = 6.0
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title_button_hover"]
+content_margin_left = 24.0
+content_margin_top = 4.0
+content_margin_right = 24.0
+content_margin_bottom = 6.0
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title_button_pressed"]
+content_margin_left = 24.0
+content_margin_top = 5.0
+content_margin_right = 24.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title_button_focus"]
+content_margin_left = 24.0
+content_margin_top = 4.0
+content_margin_right = 24.0
+content_margin_bottom = 6.0
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_main_menu_focus_band"]
+shader = ExtResource("14")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_action_focus_band"]
+shader = ExtResource("14")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pause_action"]
+content_margin_left = 20.0
+content_margin_top = 4.0
+content_margin_right = 20.0
+content_margin_bottom = 4.0
+
+[sub_resource type="SystemFont" id="SystemFont_title_menu"]
+font_names = PackedStringArray("KaiTi", "STKaiti", "Microsoft YaHei")
+font_weight = 500
+
+[sub_resource type="Theme" id="Theme_title_menu"]
+Button/colors/font_color = Color(0.721569, 0.756863, 0.776471, 0.96)
+Button/colors/font_disabled_color = Color(0.486275, 0.521569, 0.541176, 0.56)
+Button/colors/font_focus_color = Color(0.878431, 0.945098, 0.956863, 1)
+Button/colors/font_hover_color = Color(0.878431, 0.945098, 0.956863, 1)
+Button/colors/font_pressed_color = Color(0.627451, 0.921569, 0.937255, 1)
+Button/fonts/font = SubResource("SystemFont_title_menu")
+Button/styles/disabled = SubResource("StyleBoxFlat_title_button_normal")
+Button/styles/focus = SubResource("StyleBoxFlat_title_button_focus")
+Button/styles/hover = SubResource("StyleBoxFlat_title_button_hover")
+Button/styles/normal = SubResource("StyleBoxFlat_title_button_normal")
+Button/styles/pressed = SubResource("StyleBoxFlat_title_button_pressed")
+Panel/styles/panel = SubResource("StyleBoxEmpty_title_menu_panel")
+
+[sub_resource type="Theme" id="Theme_pause_actions"]
+Button/colors/font_color = Color(0.878431, 0.901961, 0.870588, 1)
+Button/colors/font_disabled_color = Color(0.486275, 0.521569, 0.541176, 0.56)
+Button/colors/font_focus_color = Color(0.917647, 0.984314, 0.992157, 1)
+Button/colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
+Button/colors/font_pressed_color = Color(0.627451, 0.921569, 0.937255, 1)
+Button/fonts/font = SubResource("SystemFont_title_menu")
+Button/styles/disabled = SubResource("StyleBoxEmpty_pause_action")
+Button/styles/focus = SubResource("StyleBoxEmpty_pause_action")
+Button/styles/hover = SubResource("StyleBoxEmpty_pause_action")
+Button/styles/normal = SubResource("StyleBoxEmpty_pause_action")
+Button/styles/pressed = SubResource("StyleBoxEmpty_pause_action")
+
 [node name="DemoShell" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -97,7 +176,7 @@ mouse_filter = 2
 texture = ExtResource("4")
 expand_mode = 1
 stretch_mode = 6
-metadata/asset_id = "stage16_title_background_ai01"
+metadata/asset_id = "main_menu_shell_ai02"
 
 [node name="MainMenu" type="Panel" parent="."]
 layout_mode = 0
@@ -111,7 +190,8 @@ offset_right = 170.0
 offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("3")
+theme = SubResource("Theme_title_menu")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_title_menu_panel")
 
 [node name="MenuIconStrip" type="TextureRect" parent="MainMenu"]
 visible = false
@@ -128,6 +208,14 @@ expand_mode = 1
 stretch_mode = 5
 metadata/asset_id = "stage16_demo_menu_icons_ai01"
 
+[node name="FocusBand" type="ColorRect" parent="MainMenu"]
+visible = false
+layout_mode = 0
+offset_right = 232.0
+offset_bottom = 36.0
+mouse_filter = 2
+material = SubResource("ShaderMaterial_main_menu_focus_band")
+
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 0
 anchor_right = 1.0
@@ -136,118 +224,78 @@ offset_left = 34.0
 offset_top = 26.0
 offset_right = -34.0
 offset_bottom = -26.0
-theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 18
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
+[node name="TitleWordmark" type="TextureRect" parent="MainMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(232, 72)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
-theme_override_font_sizes/font_size = 17
-text = "Nano Hunter Alpha Demo"
-horizontal_alignment = 1
-
-[node name="StatusLabel" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
-theme_override_font_sizes/font_size = 11
-text = "从教程起点开始"
-horizontal_alignment = 1
-autowrap_mode = 3
+size_flags_horizontal = 4
+self_modulate = Color(0.76, 0.78, 0.78, 0.94)
+mouse_filter = 2
+texture = ExtResource("13")
+expand_mode = 1
+stretch_mode = 0
+metadata/asset_id = "main_menu_wordmark_ai01"
 
 [node name="StartButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(232, 28)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
-theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
-theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
-theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
 text = "开始游戏"
 
 [node name="ContinueButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(232, 28)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
-theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
-theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
-theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
 text = "继续游戏"
 
 [node name="LevelSelectButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(232, 28)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
-theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
-theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
-theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
 text = "选择关卡"
 
 [node name="SettingsButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(232, 28)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
-theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
-theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
-theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
 text = "设置"
 
 [node name="ControlsButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(232, 28)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
-theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
-theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
-theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
 text = "控制说明"
 
 [node name="QuitButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(232, 28)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.941176, 0.917647, 0.827451, 1)
-theme_override_colors/font_hover_color = Color(1, 0.952941, 0.760784, 1)
-theme_override_colors/font_pressed_color = Color(0.870588, 0.760784, 0.509804, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = SubResource("StyleBoxFlat_main_button_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_main_button_hover")
-theme_override_styles/normal = SubResource("StyleBoxFlat_main_button_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_main_button_pressed")
 text = "退出游戏"
+
+[node name="DetailScrim" type="ColorRect" parent="."]
+visible = false
+z_index = 40
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.00784314, 0.0196078, 0.0235294, 0.64)
 
 [node name="DetailPanel" type="Panel" parent="."]
 visible = false
+z_index = 41
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -260,6 +308,21 @@ offset_bottom = 196.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3")
+
+[node name="BountyFrameArt" type="TextureRect" parent="DetailPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("21_bounty_frame")
+expand_mode = 1
+stretch_mode = 5
+metadata/asset_id = "stage28_bounty_archive_frame_warden_ai01"
+metadata/visual_contract = "bounty-only dark lacquer archive frame; runtime text and icons remain native"
 
 [node name="MarginContainer" type="MarginContainer" parent="DetailPanel"]
 layout_mode = 0
@@ -324,20 +387,88 @@ offset_right = 130.0
 offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("3")
+theme_override_styles/panel = ExtResource("15_pause_frame")
+metadata/asset_id = "pause_frame_base_warden_official_ai01"
 
-[node name="PausePanelArt" type="TextureRect" parent="PauseMenu"]
-visible = false
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 212.0
-offset_bottom = 176.0
+[node name="OrnamentLayer" type="Control" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("5")
+metadata/non_stretch_visual_layer = true
+metadata/visual_anchor_contract = "02_warden_seal_chains_tassel"
+
+[node name="SealMedallion" type="TextureRect" parent="PauseMenu/OrnamentLayer"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = -26.0
+offset_right = 38.0
+offset_bottom = 50.0
+mouse_filter = 2
+texture = ExtResource("17_warden_seal")
 expand_mode = 1
 stretch_mode = 5
-metadata/asset_id = "stage16_pause_panel_ui_ai01"
+
+[node name="TopChainLeft" type="TextureRect" parent="PauseMenu/OrnamentLayer"]
+modulate = Color(1, 1, 1, 0.82)
+layout_mode = 0
+anchor_left = 0.25
+anchor_right = 0.25
+offset_left = -64.0
+offset_top = 10.0
+offset_right = 64.0
+offset_bottom = 52.0
+mouse_filter = 2
+texture = ExtResource("18_warden_chain")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TopChainRight" type="TextureRect" parent="PauseMenu/OrnamentLayer"]
+modulate = Color(1, 1, 1, 0.82)
+layout_mode = 0
+anchor_left = 0.75
+anchor_right = 0.75
+offset_left = -64.0
+offset_top = 10.0
+offset_right = 64.0
+offset_bottom = 52.0
+mouse_filter = 2
+texture = ExtResource("18_warden_chain")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HangingTalisman" type="TextureRect" parent="PauseMenu/OrnamentLayer"]
+modulate = Color(1, 1, 1, 0.92)
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 74.0
+offset_right = 10.0
+offset_bottom = 162.0
+mouse_filter = 2
+texture = ExtResource("19_warden_talisman")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CinnabarStamp" type="TextureRect" parent="PauseMenu/OrnamentLayer"]
+modulate = Color(1, 1, 1, 0.74)
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -58.0
+offset_right = 56.0
+offset_bottom = -26.0
+mouse_filter = 2
+texture = ExtResource("20_warden_stamp")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
 layout_mode = 0
@@ -358,7 +489,7 @@ theme_override_constants/separation = 8
 
 [node name="TitleLabel" type="Label" parent="PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_colors/font_color = Color(0.941176, 0.843137, 0.6, 1)
 theme_override_font_sizes/font_size = 14
 text = "暂停"
 horizontal_alignment = 1
@@ -366,30 +497,31 @@ horizontal_alignment = 1
 [node name="ResumeButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
-icon = ExtResource("8")
-expand_icon = true
+theme = SubResource("Theme_pause_actions")
 text = "继续"
 
 [node name="MapButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
+theme = SubResource("Theme_pause_actions")
 text = "地图"
 
 [node name="TravelButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
+theme = SubResource("Theme_pause_actions")
 text = "驿站传送：仅限驿站"
 
 [node name="BuildButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
+theme = SubResource("Theme_pause_actions")
 text = "圣物：尚未调谐"
 
 [node name="RestartButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
-icon = ExtResource("9")
-expand_icon = true
+theme = SubResource("Theme_pause_actions")
 text = "重开"
 
 [node name="WorldMapPanel" type="Panel" parent="."]
@@ -451,7 +583,7 @@ anchor_right = 0.92
 anchor_bottom = 0.89
 theme_override_colors/font_color = Color(0.113725, 0.164706, 0.152941, 1)
 theme_override_font_sizes/font_size = 13
-text = "当前位置：01  教程起点  ·  已发现 1 / 38"
+text = "当前位置：F01 · 初印试炼  ·  已发现 1 / 18"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -484,7 +616,74 @@ offset_left = 200.0
 offset_top = 100.0
 offset_right = 440.0
 offset_bottom = 268.0
-theme_override_styles/panel = ExtResource("3")
+theme_override_styles/panel = ExtResource("16_failure_frame")
+metadata/asset_id = "failure_frame_base_warden_official_ai01"
+
+[node name="OrnamentLayer" type="Control" parent="FailurePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/non_stretch_visual_layer = true
+metadata/visual_anchor_contract = "02_warden_seal_chains_tassel"
+
+[node name="SealMedallion" type="TextureRect" parent="FailurePanel/OrnamentLayer"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("17_warden_seal")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TopChain" type="TextureRect" parent="FailurePanel/OrnamentLayer"]
+modulate = Color(1, 1, 1, 0.8)
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.0
+offset_top = 10.0
+offset_right = 92.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = ExtResource("18_warden_chain")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HangingTalisman" type="TextureRect" parent="FailurePanel/OrnamentLayer"]
+modulate = Color(1, 1, 1, 0.88)
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -38.0
+offset_top = 62.0
+offset_right = 8.0
+offset_bottom = 138.0
+mouse_filter = 2
+texture = ExtResource("19_warden_talisman")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CinnabarStamp" type="TextureRect" parent="FailurePanel/OrnamentLayer"]
+modulate = Color(1, 1, 1, 0.72)
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -22.0
+mouse_filter = 2
+texture = ExtResource("20_warden_stamp")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="FailurePanel"]
 layout_mode = 0
@@ -500,10 +699,11 @@ theme_override_constants/margin_bottom = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="FailurePanel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
+alignment = 1
 
 [node name="FailureLabel" type="Label" parent="FailurePanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.168627, 0.109804, 0.0705882, 1)
+theme_override_colors/font_color = Color(0.870588, 0.917647, 0.901961, 1)
 theme_override_font_sizes/font_size = 10
 text = "已跌落，回到最近检查点。"
 horizontal_alignment = 1
@@ -512,9 +712,19 @@ autowrap_mode = 3
 [node name="FailureContinueButton" type="Button" parent="FailurePanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
-icon = ExtResource("8")
-expand_icon = true
+theme = SubResource("Theme_pause_actions")
 text = "继续"
+
+[node name="ActionFocusBand" type="ColorRect" parent="."]
+visible = false
+z_index = 60
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 40.0
+mouse_filter = 2
+material = SubResource("ShaderMaterial_action_focus_band")
+color = Color(1, 1, 1, 1)
+metadata/focus_role = "shared_pause_failure_focus"
 
 [node name="CompletionPanel" type="Panel" parent="."]
 visible = false

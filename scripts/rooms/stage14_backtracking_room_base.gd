@@ -7,10 +7,13 @@ extends "res://scripts/rooms/stage13_miasma_marsh_room_base.gd"
 # 房间角色由场景勾选：神龛房负责授予能力，能力门房负责验证能力。
 @export var air_dash_shrine_room := false
 @export var air_dash_gate_room := false
+@export var air_dash_requires_proof := false
+@export var air_dash_shrine_requires_down_input := false
 
 # Main 引用由 Stage9RoomBase 统一保存；本层只保留能力与收益的房间即时状态。
 var _air_dash_granted := false
 var _stage14_reward_ids: Dictionary = {}
+var _air_dash_proof_complete := false
 
 
 # 公开本房是否已经触发过空中冲刺授予。
@@ -23,6 +26,11 @@ func has_air_dash_been_granted() -> bool:
 func is_air_dash_gate_unlocked() -> bool:
 	# 能力门状态复用基类门控读值，避免 Stage14 自建第二套门系统。
 	return is_gate_unlocked()
+
+
+# F14 证明门区分“已持有能力”和“已完成一次真实空中冲刺”。
+func is_air_dash_proof_complete() -> bool:
+	return _air_dash_proof_complete or is_gate_unlocked()
 
 
 # 公开 Stage14 回溯收益总数，优先以 Main 的跨房间计数为准。
@@ -52,8 +60,15 @@ func _ready() -> void:
 	if air_dash_gate_room:
 		# 能力门初始状态必须从 Main / Player 的运行期能力状态恢复，
 		# 否则玩家跨房间回来时会看到已解锁能力却仍被灰盒门挡住。
-		_gate_unlocked = _is_air_dash_unlocked()
+		_gate_unlocked = _is_air_dash_unlocked() and not air_dash_requires_proof
 		_apply_gate_lock_state()
+
+
+# 回访时 Main 的房间完成事实仍可永久恢复已通过的证明门。
+func bind_main(main: Node) -> void:
+	super.bind_main(main)
+	if air_dash_gate_room and is_gate_unlocked():
+		_air_dash_proof_complete = true
 
 
 # 每帧先处理 Stage14 能力 / 奖励触发，再交回父类通用推进。
@@ -87,6 +102,8 @@ func _try_grant_air_dash() -> void:
 
 	if _player.global_position.distance_to(shrine.global_position) > 48.0:
 		return
+	if air_dash_shrine_requires_down_input and not _is_down_confirmation_pressed():
+		return
 
 	# 能力状态同时写入 Player 和 Main：Player 负责即时手感，Main 负责跨房间持久化。
 	_air_dash_granted = true
@@ -105,6 +122,15 @@ func _try_unlock_air_dash_gate() -> void:
 
 	if not _is_air_dash_unlocked():
 		return
+	if air_dash_requires_proof:
+		var proof_sensor := get_node_or_null("AirDashGateSensor") as Node2D
+		if proof_sensor == null or _player.global_position.distance_to(proof_sensor.global_position) > 112.0:
+			return
+		if _player.is_on_floor() or not _player.has_method("get_current_state_id"):
+			return
+		if _player.call("get_current_state_id") != &"dash":
+			return
+		_air_dash_proof_complete = true
 
 	unlock_gate(&"stage14_air_dash_gate_open")
 

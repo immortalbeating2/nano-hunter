@@ -53,6 +53,8 @@ func test_tutorial_room_exposes_hud_context_from_flow_config() -> void:
 	assert_eq(hud_context.get("prompt_text"), room.call("get_current_prompt_text"))
 	assert_eq(hud_context.get("dash_available"), room.call("is_dash_available_in_hud"))
 	assert_eq(room.call("get_spawn_position", &"tutorial_start"), flow_config.call("get_spawn_position", &"tutorial_start", Vector2.ZERO))
+	assert_eq(flow_config.get("step_titles").get(&"stance"), "教程 4/5 · 疾御换印")
+	assert_string_contains(str(flow_config.get("step_prompts").get(&"stance", "")), "疾印 / 御印")
 
 
 # 保护基础敌人配置数据化：BasicMeleeEnemy 运行时参数必须从 Resource 同步。

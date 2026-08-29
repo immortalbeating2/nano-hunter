@@ -25,6 +25,9 @@ const STATE_AIR_ATTACK: StringName = &"air_attack"
 const STATE_DASH: StringName = &"dash"
 
 const FLOOR_VELOCITY_TOLERANCE := 0.5
+const ONE_WAY_PLATFORM_GROUP: StringName = &"one_way_platform"
+const DROP_THROUGH_OFFSET := 10.0
+const DROP_THROUGH_SPEED := 80.0
 # 命中与击败奖励拆开，便于 Stage15 调整 Boss 容错节奏而不触碰攻击判定本身。
 const RECOVERY_CHARGE_PER_HIT := 0.35
 const RECOVERY_CHARGE_DEFEAT_BONUS := 0.65
@@ -68,7 +71,6 @@ const LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/charact
 const LUNA_AIR_DASH_BODY_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_air_dash_body_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_hit_react_runtime_sheet_ai03.spriteframes.tres")
 const LUNA_DEATH_IDLE_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_death_idle_runtime_sheet_ai03.spriteframes.tres")
-const LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.spriteframes.tres")
 const LUNA_ATTACK_SEAL_ARC_VFX_SPRITEFRAMES := preload("res://assets/art/vfx/atlases/luna_attack_seal_arc_vfx_runtime_ai01.spriteframes.tres")
 const STAGE27_CORE_COMBAT_VFX_SPRITEFRAMES := preload("res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.spriteframes.tres")
 
@@ -232,6 +234,11 @@ func _physics_process(delta: float) -> void:
 	var element_switch_pressed := InputMap.has_action("element_switch") and Input.is_action_just_pressed("element_switch")
 	var stance_switch_pressed := InputMap.has_action("stance_switch") and Input.is_action_just_pressed("stance_switch")
 	var was_grounded := is_on_floor()
+	var drop_through_pressed := (
+		jump_pressed
+		and Input.is_action_pressed("ui_down")
+		and _can_drop_through_one_way(was_grounded)
+	)
 
 	_update_jump_window_timers(delta, was_grounded, jump_pressed)
 	_update_dash_cooldown(delta)
@@ -247,7 +254,9 @@ func _physics_process(delta: float) -> void:
 		_apply_horizontal_movement(delta)
 		_apply_vertical_motion(delta, was_grounded)
 
-		if _can_start_dash(was_grounded, dash_pressed):
+		if drop_through_pressed:
+			_start_drop_through()
+		elif _can_start_dash(was_grounded, dash_pressed):
 			_start_dash()
 		elif recover_pressed:
 			spend_recovery_charge()
@@ -326,6 +335,20 @@ func _can_start_jump(was_grounded: bool) -> bool:
 	return was_grounded or _coyote_timer > 0.0
 
 
+# 下+跳只接受脚下由房间布局声明的单向平台，实体地面继续执行普通跳跃。
+func _can_drop_through_one_way(was_grounded: bool) -> bool:
+	if not was_grounded or _is_attacking() or _is_dashing():
+		return false
+	for index: int in range(get_slide_collision_count()):
+		var collision := get_slide_collision(index)
+		if collision.get_normal().dot(up_direction) < 0.7:
+			continue
+		var collider := collision.get_collider() as Node
+		if collider != null and collider.is_in_group(ONE_WAY_PLATFORM_GROUP):
+			return true
+	return false
+
+
 # 判断普通攻击是否能起手；参数保留地面状态，便于后续分地面 / 空中规则扩展。
 func _can_start_attack(was_grounded: bool, attack_pressed: bool) -> bool:
 	return attack_pressed and not _is_attacking() and not _is_dashing()
@@ -356,6 +379,16 @@ func _start_jump() -> void:
 	_landing_state_timer = 0.0
 	_jump_visual_elapsed = 0.0
 	current_state = STATE_JUMP_RISE
+
+
+# 越过单向碰撞的 8u 容差后给一个小向下速度，避免下一帧重新吸附到同一平台。
+func _start_drop_through() -> void:
+	position.y += DROP_THROUGH_OFFSET
+	velocity.y = DROP_THROUGH_SPEED
+	_jump_buffer_timer = 0.0
+	_coyote_timer = 0.0
+	_landing_state_timer = 0.0
+	current_state = STATE_JUMP_FALL
 
 
 # 进入攻击动作窗口，清空上一次命中缓存并启动正式攻击视觉反馈。
@@ -678,57 +711,28 @@ func _update_runtime_animation_visual() -> void:
 		target_asset_id = "luna_air_dash_body_runtime_sheet_ai03"
 		manual_frame = _select_keyframe(LUNA_AIR_DASH_KEYFRAMES, _dash_elapsed, dash_duration)
 	elif current_state == STATE_ATTACK or current_state == STATE_AIR_ATTACK:
-		if _active_attack_reaction_id == REACTION_WIND_THUNDER:
-			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
-			target_animation = &"wind_thunder_finisher"
-			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
-			manual_frame = _get_formal_attack_body_keyframe()
-		elif _active_attack_reaction_id == REACTION_THUNDER_WIND:
-			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
-			target_animation = &"thunder_wind_finisher"
-			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
-			manual_frame = _get_formal_attack_body_keyframe()
-		elif current_state == STATE_AIR_ATTACK:
-			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
-			target_animation = &"air_attack"
-			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
-			manual_frame = _get_formal_attack_body_keyframe()
-		elif _current_stance_id == STANCE_WARD:
-			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
-			target_animation = &"ward_attack"
-			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
-			manual_frame = _get_formal_attack_body_keyframe()
-		else:
-			target_frames = LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES
-			target_animation = &"attack_body"
-			target_asset_id = "luna_attack_body_runtime_sheet_ai03"
-			manual_frame = _get_attack_body_keyframe()
+		# 元素、姿态与序列差异由独立 VFX 表达；人物 body 始终留在 Luna Model Lock v1。
+		target_frames = LUNA_ATTACK_BODY_RUNTIME_SPRITEFRAMES
+		target_animation = &"attack_body"
+		target_asset_id = "luna_attack_body_runtime_sheet_ai03"
+		manual_frame = _get_attack_body_keyframe()
 	elif _presentation_action_remaining > 0.0:
-		target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
-		target_animation = _presentation_action_id
-		target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
+		# 切换与恢复只短暂收束到 canonical idle；未验收的独立动作表不得进入 live body。
+		target_frames = LUNA_IDLE_RUNTIME_SPRITEFRAMES
+		target_animation = &"idle"
+		target_asset_id = "luna_idle_runtime_sheet_ai03"
 	elif current_state == STATE_RUN:
 		target_frames = LUNA_RUN_RUNTIME_SPRITEFRAMES
 		target_animation = &"run"
 		target_asset_id = "luna_run_runtime_sheet_ai03"
 	elif current_state == STATE_JUMP_RISE:
-		if absf(velocity.y) < 80.0:
-			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
-			target_animation = &"apex"
-			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
-		else:
-			target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
-			target_animation = &"jump_start" if _jump_visual_elapsed < 0.25 else &"rise_hold"
-			target_asset_id = "luna_jump_state_runtime_sheet_ai04"
+		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
+		target_animation = &"jump_start" if _jump_visual_elapsed < 0.25 else &"rise_hold"
+		target_asset_id = "luna_jump_state_runtime_sheet_ai04"
 	elif current_state == STATE_JUMP_FALL:
-		if absf(velocity.y) < 80.0:
-			target_frames = LUNA_FORMAL_COMBAT_RUNTIME_SPRITEFRAMES
-			target_animation = &"apex"
-			target_asset_id = "luna_formal_combat_body_runtime_sheet_ai01"
-		else:
-			target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
-			target_animation = &"fall_hold"
-			target_asset_id = "luna_jump_state_runtime_sheet_ai04"
+		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
+		target_animation = &"fall_hold"
+		target_asset_id = "luna_jump_state_runtime_sheet_ai04"
 	elif current_state == STATE_LAND:
 		target_frames = LUNA_JUMP_STATE_RUNTIME_SPRITEFRAMES
 		target_animation = &"land"
@@ -781,11 +785,6 @@ func _get_attack_body_keyframe() -> int:
 		_attack_elapsed - active_end,
 		attack_recovery_duration
 	)
-
-
-# Stage27 四帧动作补片只映射现有攻击窗口，不改变 startup / active / recovery 时序。
-func _get_formal_attack_body_keyframe() -> int:
-	return _select_keyframe([0, 1, 2, 3], _attack_elapsed, _get_attack_total_duration())
 
 
 # 把动作内归一化进度映射到少量可读关键帧，避免长素材被短 gameplay 状态截断。

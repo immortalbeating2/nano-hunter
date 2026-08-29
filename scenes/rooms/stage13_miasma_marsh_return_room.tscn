@@ -7,7 +7,7 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="6_ousg8"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="7_7gcsj"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="8_molsu"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="9_cjtoh"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="9_cjtoh"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)

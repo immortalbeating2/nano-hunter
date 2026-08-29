@@ -1,11 +1,13 @@
 extends GutTest
 
-# Stage27 回归保护 Luna / Seal Guardian 正式动作映射、四类 VFX 与 debug-only 巡检入口。
+# Stage27 回归保护 Luna canonical body、Seal Guardian 正式动作、四类语义 VFX 与 debug-only 巡检入口。
 
 const PLAYER_SCENE := preload("res://scenes/player/player_placeholder.tscn")
 const BOSS_SCENE := preload("res://scenes/enemies/seal_guardian_boss.tscn")
 const MAIN_SCENE := preload("res://scenes/main/main.tscn")
+# Stage27 Luna sheet 只保留在审图资源库；生产玩家绑定由专门的 final-ready 反向门禁保护。
 const LUNA_FORMAL_FRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_formal_combat_body_runtime_sheet_ai01.spriteframes.tres")
+const LUNA_ATTACK_BODY_FRAMES := preload("res://assets/art/characters/player/sprite_sheets/runtime_replacement/luna_attack_body_runtime_sheet_ai03.spriteframes.tres")
 const CORE_VFX_FRAMES := preload("res://assets/art/vfx/atlases/stage27_core_combat_vfx_runtime_ai01.spriteframes.tres")
 const BOSS_FORMAL_FRAMES := preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres")
 const BOSS_VFX_FRAMES := preload("res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.spriteframes.tres")
@@ -15,7 +17,7 @@ func after_each() -> void:
 	get_tree().paused = false
 
 
-func test_luna_formal_library_and_four_vfx_shapes_exist() -> void:
+func test_luna_review_only_library_and_four_vfx_shapes_exist() -> void:
 	for animation_name: StringName in [
 		&"ward_attack", &"air_attack", &"apex", &"wind_thunder_finisher",
 		&"thunder_wind_finisher", &"element_switch", &"stance_switch", &"recover",
@@ -27,7 +29,7 @@ func test_luna_formal_library_and_four_vfx_shapes_exist() -> void:
 		assert_true(CORE_VFX_FRAMES.has_animation(animation_name), String(animation_name))
 
 
-func test_luna_uses_stance_air_and_sequence_specific_clips_without_changing_hitbox_owner() -> void:
+func test_luna_keeps_canonical_body_while_stance_air_and_sequence_vfx_remain_specific() -> void:
 	var player := PLAYER_SCENE.instantiate() as CharacterBody2D
 	add_child_autofree(player)
 	await get_tree().process_frame
@@ -40,19 +42,22 @@ func test_luna_uses_stance_air_and_sequence_specific_clips_without_changing_hitb
 
 	player.call("set_current_stance_id", &"ward")
 	player.call("_update_runtime_animation_visual")
-	assert_eq(body.sprite_frames, LUNA_FORMAL_FRAMES)
-	assert_eq(body.animation, &"ward_attack")
+	assert_eq(body.sprite_frames, LUNA_ATTACK_BODY_FRAMES)
+	assert_eq(body.animation, &"attack_body")
+	assert_eq(body.get_meta("asset_id", ""), "luna_attack_body_runtime_sheet_ai03")
 	assert_true(seal_vfx.visible)
 
 	player.current_state = &"air_attack"
 	player.call("set_current_stance_id", &"swift")
 	player.call("_update_runtime_animation_visual")
-	assert_eq(body.animation, &"air_attack")
+	assert_eq(body.sprite_frames, LUNA_ATTACK_BODY_FRAMES)
+	assert_eq(body.animation, &"attack_body")
 	assert_false(seal_vfx.visible)
 
 	player.set("_active_attack_reaction_id", &"wind_thunder_pierce")
 	player.call("_update_runtime_animation_visual")
-	assert_eq(body.animation, &"wind_thunder_finisher")
+	assert_eq(body.sprite_frames, LUNA_ATTACK_BODY_FRAMES)
+	assert_eq(body.animation, &"attack_body")
 	assert_eq(vfx.sprite_frames, CORE_VFX_FRAMES)
 	assert_eq(vfx.animation, &"wind_thunder_pierce")
 	assert_false(bool(vfx.get_meta("gameplay_collision")))
@@ -60,7 +65,8 @@ func test_luna_uses_stance_air_and_sequence_specific_clips_without_changing_hitb
 
 	player.set("_active_attack_reaction_id", &"thunder_wind_scatter")
 	player.call("_update_runtime_animation_visual")
-	assert_eq(body.animation, &"thunder_wind_finisher")
+	assert_eq(body.sprite_frames, LUNA_ATTACK_BODY_FRAMES)
+	assert_eq(body.animation, &"attack_body")
 	assert_eq(vfx.animation, &"thunder_wind_scatter")
 
 

@@ -10,7 +10,7 @@ const SWITCH := "res://scenes/rooms/stage9_zone_switch_room.tscn"
 const FINAL := "res://scenes/rooms/stage9_zone_final_room.tscn"
 const TERRAIN_TILESET := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_TILESET := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_TILESET := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 
 
 func test_stage9_entry_is_calm_18x6_region_reveal() -> void:

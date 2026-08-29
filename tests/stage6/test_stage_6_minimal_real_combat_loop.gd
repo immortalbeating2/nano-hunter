@@ -120,7 +120,7 @@ func test_combat_trial_room_unlocks_exit_after_enemy_is_defeated() -> void:
 	await _advance_process_frames(2)
 
 	assert_true(room.call("is_exit_unlocked"))
-	assert_string_contains(str(room.call("get_current_prompt_text")), "出口")
+	assert_string_contains(str(room.call("get_current_prompt_text")), "悬令")
 	if exit_art != null:
 		assert_eq(exit_art.texture.resource_path, GATE_OPEN_TEXTURE_PATH)
 		assert_eq(exit_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_open")
@@ -134,14 +134,26 @@ func test_combat_trial_room_unlocks_exit_after_enemy_is_defeated() -> void:
 		assert_true(exit_vfx.visible)
 
 
-# 保护运行态复核后的接敌距离：首个敌人不能离出生点过远导致实战压力偏弱。
-func test_combat_trial_room_keeps_first_enemy_pressure_within_reaction_range() -> void:
+# Blueprint V2 把 F02 拆为观察、战斗、悬令三段；保护其空间顺序而非旧单屏距离。
+func test_combat_trial_room_keeps_observe_combat_bounty_order() -> void:
 	var room: Node2D = await _spawn_combat_room()
 	var enemy: Node2D = room.get_node_or_null("BasicMeleeEnemy") as Node2D
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
+	var bounty_board := room.get_node_or_null("BountyBoardZone") as Node2D
+	var exit_zone := room.get_node_or_null("ExitZone") as Node2D
 	var spawn_position: Vector2 = room.call("get_spawn_position", &"combat_entry")
 
 	assert_not_null(enemy)
-	assert_lte(spawn_position.distance_to(enemy.global_position), 224.0)
+	assert_not_null(layout)
+	assert_not_null(bounty_board)
+	assert_not_null(exit_zone)
+	if enemy == null or layout == null or bounty_board == null or exit_zone == null:
+		return
+	assert_eq(int(layout.call("get_segment_count")), 3)
+	assert_eq(layout.call("get_layout_profile"), &"observe_combat_bounty")
+	assert_lt(spawn_position.x, enemy.global_position.x)
+	assert_lt(enemy.global_position.x, bounty_board.global_position.x)
+	assert_lt(bounty_board.global_position.x, exit_zone.global_position.x)
 
 
 # 保护受击手感收敛：玩家被打后短时间内必须产生清晰水平脱离和上抬反馈。

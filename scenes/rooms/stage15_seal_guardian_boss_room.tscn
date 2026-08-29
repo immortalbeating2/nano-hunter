@@ -9,7 +9,8 @@
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="10_8hths"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="10_gggoh"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="12_opig0"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="13_dtjga"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="13_dtjga"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -43,7 +44,27 @@ spawn_positions = {
 checkpoint_spawn_id = &"stage15_boss_start"
 default_step_id = &"stage15_seal_guardian_boss"
 cleared_step_id = &"stage15_seal_guardian_clear"
-checkpoint_on_ready = true
+checkpoint_on_ready = false
+checkpoint_requires_down_input = true
+boss_entry_requires_down_input = true
+metadata/formal_room_id = "F17"
+metadata/route_role = "boss_read_buffer_local_retry_and_victory"
+metadata/safe_floor_y = 224.0
+metadata/normal_exit_uses_generic_door = false
+metadata/gate_semantics = "boss_gate"
+metadata/transition_visual_type = "boss_approach"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 2
+layout_profile = &"boss_foyer_and_locked_arena"
+solid_rects = Array[Rect2]([Rect2(-384, 288, 480, 64), Rect2(96, 288, 1312, 64)])
+one_way_rects = Array[Rect2]([Rect2(448, 192, 192, 16), Rect2(768, 160, 192, 16)])
+route_heights = {
+&"arena": 288.0,
+&"boss_dais": 192.0,
+&"foyer": 288.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=1870969445]
 z_index = -4
@@ -87,6 +108,29 @@ texture = ExtResource("3_5kesn")
 polygon = PackedVector2Array(-432, -16, 432, -16, 432, 16, -432, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
+[node name="CheckpointZone" type="Marker2D" parent="."]
+position = Vector2(-192, 268)
+metadata/interaction_verb = "ui_down"
+metadata/interaction_role = "boss_local_retry"
+
+[node name="BossEntryZone" type="Marker2D" parent="."]
+position = Vector2(32, 268)
+metadata/interaction_verb = "ui_down"
+metadata/interaction_role = "boss_encounter_start"
+
+[node name="BossEntryBarrier" type="StaticBody2D" parent="."]
+position = Vector2(96, 224)
+metadata/gate_semantics = "boss_gate"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossEntryBarrier"]
+shape = SubResource("RectangleShape2D_ng1m0")
+
+[node name="BarrierArt" type="Sprite2D" parent="BossEntryBarrier"]
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("10_8hths")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
+
 [node name="SealDais" type="StaticBody2D" parent="." unique_id=696809448]
 position = Vector2(192, 116)
 collision_layer = 0
@@ -111,6 +155,7 @@ script = ExtResource("5_t6ihb")
 
 [node name="GateBarrier" type="StaticBody2D" parent="." unique_id=1218913637]
 position = Vector2(1280, 232)
+metadata/gate_semantics = "boss_gate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier" unique_id=2013837550]
 shape = SubResource("RectangleShape2D_ng1m0")
@@ -166,6 +211,7 @@ z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAD6/wQAAAACAAAAAAD7/wQAAAABAAAAAAD8/wQAAAAAAAAAAAD9/wQAAAABAAAAAAD+/wQAAAAAAAAAAAD//wQAAAABAAAAAAAAAAQAAAAAAAAAAAABAAQAAAABAAAAAAACAAQAAAAAAAAAAAADAAQAAAABAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAABAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAABAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAABAAAAAAAKAAQAAAAAAAAAAAALAAQAAAABAAAAAAAMAAQAAAAAAAAAAAANAAQAAAABAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAABAAAAAAAQAAQAAAAAAAAAAAARAAQAAAABAAAAAAASAAQAAAAAAAAAAAATAAQAAAABAAAAAAAUAAQAAAAAAAAAAAAVAAQAAAADAAAAAAA=")
 tile_set = ExtResource("12_opig0")
+collision_enabled = false
 
 [node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=296072362]
 visible = false
@@ -174,6 +220,7 @@ position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAABAAMAAAABAAIAAAACAAMAAAAAAAIAAAADAAMAAAAAAAIAAAAEAAMAAAACAAIAAAAPAAMAAAABAAIAAAAQAAMAAAAAAAIAAAARAAMAAAAAAAIAAAASAAMAAAACAAIAAAA=")
 tile_set = ExtResource("12_opig0")
+collision_enabled = false
 
 [node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1106877632]
 modulate = Color(0.82, 0.78, 0.78, 0.94)

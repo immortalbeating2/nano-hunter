@@ -15,14 +15,40 @@ const HUD_SCENE_PATH := "res://scenes/ui/tutorial_hud.tscn"
 const STAGE11_DEMO_END_ROOM_SCENE_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 const STAGE9_SWITCH_ROOM_SCENE_PATH := "res://scenes/rooms/stage9_zone_switch_room.tscn"
 
-const AIR_DASH_ICON_ASSET_PATH := "res://assets/art/editor_resources/icon_sheet_core_ai01/000_icon_sheet_core_ai01_auto_001_c01.atlas_texture.tres"
-const RECOVERY_CHARGE_ICON_ASSET_PATH := "res://assets/art/editor_resources/icon_sheet_core_ai01/001_icon_sheet_core_ai01_auto_002_c01.atlas_texture.tres"
-const HUD_CORE_METER_RAIL_RESOURCE_PATH := "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/008_hud_core_ui_atlas_ai01_auto_009.atlas_texture.tres"
-const HUD_GOAL_MARKER_RESOURCE_PATH := "res://assets/art/editor_resources/hud_core_ui_atlas_ai01/011_hud_core_ui_atlas_ai01_auto_012_c01.atlas_texture.tres"
-const HUD_BATTLE_PANEL_ART_PATH := "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/001_menu_ninepatch_ui_ai01_auto_002_c01.atlas_texture.tres"
-const HUD_PROMPT_PANEL_ART_PATH := "res://assets/art/editor_resources/menu_ninepatch_ui_ai01/002_menu_ninepatch_ui_ai01_auto_003_c01.atlas_texture.tres"
-const HEALTH_ICON_RESOURCE_PATH := "res://assets/art/editor_resources/icon_sheet_core_ai01/009_icon_sheet_core_ai01_auto_010_c02.atlas_texture.tres"
+const HUD_V4_ROOT := "res://assets/art/ui/hud_warden_official_v4/"
+const HUD_V4_STYLEBOX_ROOT := "res://assets/art/ui/styleboxes/hud_warden_official_v4/"
+const HUD_V5_ROOT := "res://assets/art/ui/hud_warden_integrated_v5/"
+const HUD_V5_STYLEBOX_ROOT := "res://assets/art/ui/styleboxes/hud_warden_integrated_v5/"
+const AIR_DASH_ICON_ASSET_PATH := HUD_V4_ROOT + "hud_icon_dash_warden_official_ai01.png"
+const RECOVERY_CHARGE_ICON_ASSET_PATH := HUD_V4_ROOT + "hud_icon_recovery_warden_official_ai01.png"
+const HUD_CORE_METER_RAIL_RESOURCE_PATH := HUD_V4_ROOT + "hud_meter_rail_warden_official_ai01.png"
+const HUD_GOAL_MARKER_RESOURCE_PATH := HUD_V4_ROOT + "hud_icon_objective_warden_official_ai01.png"
+const HUD_BATTLE_PANEL_STYLEBOX_PATH := HUD_V5_STYLEBOX_ROOT + "battle_content_safe.stylebox_empty.tres"
+const HUD_PROMPT_PANEL_STYLEBOX_PATH := HUD_V5_STYLEBOX_ROOT + "tutorial_content_safe.stylebox_empty.tres"
+const HUD_ELEMENT_PANEL_STYLEBOX_PATH := "res://assets/art/ui/styleboxes/hud_seal_resonance_v2/seal_resonance_idle_content_safe.stylebox_empty.tres"
+const HEALTH_ICON_RESOURCE_PATH := HUD_V4_ROOT + "hud_icon_health_warden_official_ai01.png"
 const STAGE28_WAYSTATION_WORLD_ATLAS_PATH := "res://assets/art/environment/waystation/stage28_waystation_world_runtime_ai01.png"
+const HUD_V4_ASSET_IDS := [
+	"battle_frame_base_warden_official_ai01",
+	"tutorial_frame_base_warden_official_ai01",
+	"element_frame_base_warden_official_ai01",
+	"pause_frame_base_warden_official_ai01",
+	"warden_seal_medallion_ai01",
+	"warden_chain_hook_ai01",
+	"warden_chain_talisman_tassel_ai01",
+	"warden_cinnabar_stamp_ai01",
+	"hud_icon_health_warden_official_ai01",
+	"hud_icon_dash_warden_official_ai01",
+	"hud_icon_objective_warden_official_ai01",
+	"hud_icon_recovery_warden_official_ai01",
+	"hud_meter_rail_warden_official_ai01",
+]
+const HUD_V5_ASSET_IDS := [
+	"battle_frame_integrated_warden_ai01",
+	"battle_frame_integrated_warden_expanded_ai01",
+	"tutorial_frame_integrated_warden_ai01",
+	"element_frame_integrated_warden_ai01",
+]
 
 
 # 保护资产管线目录：Stage12 必须建立角色、敌人、环境、VFX、UI、音频和源文件目录。
@@ -72,6 +98,58 @@ func test_stage12_manifest_contains_required_fields_and_first_batch_entries() ->
 
 	for term in required_terms:
 		assert_string_contains(manifest, term)
+
+
+# 保护 v4 生图来源：每个 live PNG 必须能反查隔离源图，且旁置散列与磁盘内容一致。
+func test_hud_warden_official_v4_keeps_complete_provenance_sidecars() -> void:
+	for asset_id: String in HUD_V4_ASSET_IDS:
+		var record_path := HUD_V4_ROOT + asset_id + ".source.json"
+		assert_true(FileAccess.file_exists(record_path), "%s 缺少来源记录。" % asset_id)
+		if not FileAccess.file_exists(record_path):
+			continue
+		var parsed: Variant = JSON.parse_string(_read_text_file(record_path))
+		assert_true(parsed is Dictionary, "%s 来源记录不是合法 JSON object。" % asset_id)
+		if not parsed is Dictionary:
+			continue
+		var record := parsed as Dictionary
+		var output_path := "res://" + String(record.get("output_path", ""))
+		var candidate_path := "res://" + String(record.get("candidate_path", ""))
+		assert_eq(String(record.get("asset_id", "")), asset_id)
+		assert_eq(String(record.get("provider", "")), "official OpenAI built-in image_gen")
+		assert_eq(String(record.get("visual_anchor_contract", "")), "02_warden_seal_chains_tassel")
+		assert_eq(output_path, HUD_V4_ROOT + asset_id + ".png")
+		assert_true(FileAccess.file_exists(output_path), "%s 运行 PNG 缺失。" % asset_id)
+		assert_true(FileAccess.file_exists(candidate_path), "%s 隔离源图缺失。" % asset_id)
+		if FileAccess.file_exists(output_path):
+			assert_eq(FileAccess.get_sha256(output_path), String(record.get("output_sha256", "")), "%s 输出散列漂移。" % asset_id)
+		if FileAccess.file_exists(candidate_path):
+			assert_eq(FileAccess.get_sha256(candidate_path), String(record.get("candidate_sha256", "")), "%s 候选散列漂移。" % asset_id)
+
+
+# gameplay HUD v5 必须由三张一体化 Image Gen 框体组成；来源记录要能反查源图并锁定输出散列。
+func test_hud_warden_integrated_v5_keeps_complete_provenance_sidecars() -> void:
+	for asset_id: String in HUD_V5_ASSET_IDS:
+		var record_path := HUD_V5_ROOT + asset_id + ".source.json"
+		assert_true(FileAccess.file_exists(record_path), "%s 缺少 v5 来源记录。" % asset_id)
+		if not FileAccess.file_exists(record_path):
+			continue
+		var parsed: Variant = JSON.parse_string(_read_text_file(record_path))
+		assert_true(parsed is Dictionary, "%s v5 来源记录不是合法 JSON object。" % asset_id)
+		if not parsed is Dictionary:
+			continue
+		var record := parsed as Dictionary
+		var output_path := "res://" + String(record.get("output_path", ""))
+		var candidate_path := "res://" + String(record.get("candidate_path", ""))
+		assert_eq(String(record.get("asset_id", "")), asset_id)
+		assert_eq(String(record.get("provider", "")), "official OpenAI built-in image_gen")
+		assert_eq(String(record.get("visual_assembly_contract", "")), "02_warden_integrated_frame_assembly")
+		assert_eq(output_path, HUD_V5_ROOT + asset_id + ".png")
+		assert_true(FileAccess.file_exists(output_path), "%s v5 运行 PNG 缺失。" % asset_id)
+		assert_true(FileAccess.file_exists(candidate_path), "%s v5 隔离源图缺失。" % asset_id)
+		if FileAccess.file_exists(output_path):
+			assert_eq(FileAccess.get_sha256(output_path), String(record.get("output_sha256", "")), "%s v5 输出散列漂移。" % asset_id)
+		if FileAccess.file_exists(candidate_path):
+			assert_eq(FileAccess.get_sha256(candidate_path), String(record.get("candidate_sha256", "")), "%s v5 候选散列漂移。" % asset_id)
 
 
 # 保护资产接入 checklist：导入、碰撞、HUD、授权和人工复核等检查项必须保留。
@@ -130,14 +208,17 @@ func test_stage12_hud_contains_polish_icons_and_keeps_demo_completion_feedback()
 	add_child_autofree(hud)
 	await get_tree().process_frame
 
-	assert_eq(float(hud.call("_runtime_hud_scale", Vector2(640.0, 360.0))), 1.0)
-	assert_eq(float(hud.call("_runtime_hud_scale", Vector2(1280.0, 720.0))), 1.0)
+	assert_almost_eq(float(hud.call("_runtime_hud_scale", Vector2(640.0, 360.0))), 3.2, 0.001)
+	assert_eq(float(hud.call("_runtime_hud_scale", Vector2(1280.0, 720.0))), 2.0)
 	assert_eq(float(hud.call("_runtime_hud_scale", Vector2(2560.0, 1440.0))), 2.0)
 	assert_gte((hud.get_node("BattlePanel") as Panel).scale.x, 1.0)
 	assert_gte((hud.get_node("PromptPanel") as Panel).scale.x, 1.0)
 	assert_not_null(hud.get_node_or_null("BattlePanel/HealthIcon"))
-	assert_not_null(hud.get_node_or_null("BattlePanel/BattlePanelArt"))
-	assert_not_null(hud.get_node_or_null("PromptPanel/PromptPanelArt"))
+	assert_not_null(hud.get_node_or_null("BattlePanel/FrameArt"))
+	assert_not_null(hud.get_node_or_null("BattlePanel/FrameArtExpanded"))
+	assert_not_null(hud.get_node_or_null("PromptPanel/FrameArt"))
+	assert_not_null(hud.get_node_or_null("ElementPanel/FrameArt"))
+	assert_not_null(hud.get_node_or_null("TutorialAttention"))
 	assert_not_null(hud.get_node_or_null("BattlePanel/DashIcon"))
 	assert_not_null(hud.get_node_or_null("BattlePanel/RecoveryChargeIcon"))
 	assert_null(hud.get_node_or_null("BattlePanel/AbilityStatusFrameArt"))
@@ -159,23 +240,45 @@ func test_stage12_hud_contains_polish_icons_and_keeps_demo_completion_feedback()
 	assert_string_contains((hud.get_node("BattlePanel/DashLabel") as Label).text, "冲刺")
 
 	var prompt_panel := hud.get_node("PromptPanel") as Panel
+	var battle_panel := hud.get_node("BattlePanel") as Panel
 	var prompt_label := hud.get_node("PromptPanel/PromptLabel") as Label
-	var prompt_panel_art := hud.get_node("PromptPanel/PromptPanelArt") as TextureRect
-	var battle_panel_art := hud.get_node("BattlePanel/BattlePanelArt") as TextureRect
+	var prompt_panel_style := prompt_panel.get_theme_stylebox("panel")
+	var battle_panel_style := battle_panel.get_theme_stylebox("panel")
+	var element_panel := hud.get_node("ElementPanel") as Panel
+	var element_panel_style := element_panel.get_theme_stylebox("panel")
 	assert_gte(prompt_panel.size.y, 44.0)
 	assert_gte(prompt_panel.size.x, 300.0)
-	assert_eq(prompt_panel_art.texture.resource_path, HUD_PROMPT_PANEL_ART_PATH)
-	assert_eq(prompt_panel_art.get_meta("asset_id", ""), "menu_ninepatch_ui_ai01.hud_prompt_panel_art")
-	assert_eq(battle_panel_art.texture.resource_path, HUD_BATTLE_PANEL_ART_PATH)
-	assert_eq(battle_panel_art.get_meta("asset_id", ""), "menu_ninepatch_ui_ai01.hud_battle_panel_art")
-	assert_lte(battle_panel_art.size.x, 200.0, "HUD 面板贴图层必须跟随固定面板尺寸，不能按源图尺寸撑开。")
-	assert_lte(battle_panel_art.size.y, 110.0, "HUD 面板贴图层必须跟随固定面板尺寸，不能压住运行画面。")
+	assert_true(prompt_panel_style is StyleBoxEmpty, "PromptPanel 的 StyleBox 只负责内容安全区，不得再承载可拉伸纹理。")
+	assert_true(battle_panel_style is StyleBoxEmpty, "BattlePanel 的完整框体由 FrameArt 等比显示。")
+	assert_true(element_panel_style is StyleBoxEmpty, "ElementPanel 的完整框体由 FrameArt 等比显示。")
+	assert_eq(prompt_panel_style.resource_path, HUD_PROMPT_PANEL_STYLEBOX_PATH)
+	assert_eq(battle_panel_style.resource_path, HUD_BATTLE_PANEL_STYLEBOX_PATH)
+	assert_eq(element_panel_style.resource_path, HUD_ELEMENT_PANEL_STYLEBOX_PATH)
+	assert_eq(prompt_panel.get_meta("asset_id", ""), "tutorial_frame_integrated_warden_ai01")
+	assert_eq(battle_panel.get_meta("asset_id", ""), "battle_frame_integrated_warden_ai01")
+	assert_eq(element_panel.get_meta("asset_id_idle", ""), "seal_resonance_idle_frame_warden_ai02")
+	assert_eq(element_panel.get_meta("asset_id_active", ""), "seal_resonance_active_frame_warden_ai02")
+	for panel: Panel in [prompt_panel, battle_panel]:
+		assert_null(panel.get_node_or_null("OrnamentLayer"), "%s 不得继续叠加独立官印装饰套件。" % panel.name)
+		assert_eq(String(panel.get_meta("visual_assembly_contract", "")), "02_warden_integrated_frame_assembly")
+		var frame_art := panel.get_node_or_null("FrameArt") as TextureRect
+		assert_not_null(frame_art, "%s 缺少 v5 一体化框体。" % panel.name)
+		if frame_art != null:
+			assert_eq(frame_art.stretch_mode, TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
+	assert_null(element_panel.get_node_or_null("OrnamentLayer"), "ElementPanel 不得叠加独立装饰套件。")
+	assert_eq(String(element_panel.get_meta("visual_assembly_contract", "")), "seal_resonance_v2_command_seal")
+	var element_frame_art := element_panel.get_node_or_null("FrameArt") as TextureRect
+	var element_frame_art_active := element_panel.get_node_or_null("FrameArtActive") as TextureRect
+	assert_not_null(element_frame_art, "ElementPanel 缺少 idle 完整框体。")
+	assert_not_null(element_frame_art_active, "ElementPanel 缺少 active 完整框体。")
+	for frame_art: TextureRect in [element_frame_art, element_frame_art_active]:
+		if frame_art != null:
+			assert_eq(frame_art.stretch_mode, TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
+	assert_true(hud.has_method("get_hud_content_safe_rects"))
 	hud.call("_on_hud_context_changed", "区域推进中", "")
 	assert_false(prompt_label.visible)
-	assert_lte(prompt_panel.size.y, 28.0)
-	assert_lte(prompt_panel.size.x, 180.0)
-	assert_lte(prompt_panel_art.size.x, 180.0)
-	assert_lte(prompt_panel_art.size.y, 28.0)
+	assert_lte(prompt_panel.size.y, 118.0)
+	assert_lte(prompt_panel.size.x, 400.0)
 	hud.call("_on_hud_context_changed", "教程", "A/D 移动。")
 	assert_true(prompt_label.visible)
 	assert_gte(prompt_panel.size.y, 44.0)
@@ -191,28 +294,33 @@ func test_stage12_hud_contains_polish_icons_and_keeps_demo_completion_feedback()
 	var boss_meter_frame := hud.get_node("BattlePanel/BossMeterFrameArt") as TextureRect
 	assert_not_null(health_icon, "生命图标必须使用正式 TextureRect 资产，不能退回运行态红色色块。")
 	assert_eq(health_icon.texture.resource_path, HEALTH_ICON_RESOURCE_PATH)
-	assert_eq(health_icon.get_meta("asset_id", ""), "icon_sheet_core_ai01.health")
-	assert_lte(health_icon.size.x, 16.0, "生命图标必须按 HUD 小控件尺寸缩放，不能被原始大图尺寸撑开。")
-	assert_lte(health_icon.size.y, 16.0, "生命图标必须按 HUD 小控件尺寸缩放，不能遮挡运行画面。")
+	assert_eq(health_icon.get_meta("asset_id", ""), "hud_icon_health_warden_official_ai01")
+	assert_lte(health_icon.size.x, 24.0, "生命图标必须按正式 HUD 小控件尺寸缩放，不能被原始大图尺寸撑开。")
+	assert_lte(health_icon.size.y, 24.0, "生命图标必须按正式 HUD 小控件尺寸缩放，不能遮挡运行画面。")
 	assert_eq(dash_icon.texture.resource_path, AIR_DASH_ICON_ASSET_PATH)
-	assert_eq(dash_icon.get_meta("asset_id", ""), "icon_sheet_core_ai01.air_dash")
-	assert_lte(dash_icon.size.x, 16.0, "Dash 图标必须按 HUD 小控件尺寸缩放，不能被原始大图尺寸撑开。")
-	assert_lte(dash_icon.size.y, 16.0, "Dash 图标必须按 HUD 小控件尺寸缩放，不能遮挡运行画面。")
+	assert_eq(dash_icon.get_meta("asset_id", ""), "hud_icon_dash_warden_official_ai01")
+	assert_lte(dash_icon.size.x, 24.0, "Dash 图标必须按正式 HUD 小控件尺寸缩放，不能被原始大图尺寸撑开。")
+	assert_lte(dash_icon.size.y, 24.0, "Dash 图标必须按正式 HUD 小控件尺寸缩放，不能遮挡运行画面。")
 	assert_eq(recovery_icon.texture.resource_path, RECOVERY_CHARGE_ICON_ASSET_PATH)
-	assert_eq(recovery_icon.get_meta("asset_id", ""), "icon_sheet_core_ai01.recovery_charge")
-	assert_lte(recovery_icon.size.x, 16.0, "Recovery 图标必须按 HUD 小控件尺寸缩放，不能被原始大图尺寸撑开。")
-	assert_lte(recovery_icon.size.y, 16.0, "Recovery 图标必须按 HUD 小控件尺寸缩放，不能遮挡运行画面。")
+	assert_eq(recovery_icon.get_meta("asset_id", ""), "hud_icon_recovery_warden_official_ai01")
+	assert_lte(recovery_icon.size.x, 24.0, "Recovery 图标必须按正式 HUD 小控件尺寸缩放，不能被原始大图尺寸撑开。")
+	assert_lte(recovery_icon.size.y, 24.0, "Recovery 图标必须按正式 HUD 小控件尺寸缩放，不能遮挡运行画面。")
 	assert_eq(objective_icon.texture.resource_path, HUD_GOAL_MARKER_RESOURCE_PATH)
-	assert_eq(objective_icon.get_meta("asset_id", ""), "hud_core_ui_atlas_ai01.room_goal_marker")
+	assert_eq(objective_icon.get_meta("asset_id", ""), "hud_icon_objective_warden_official_ai01")
 	assert_true(objective_icon.visible, "普通目标行必须显示同源 HUD atlas 目标徽标。")
-	assert_lte(objective_icon.size.x, 16.0, "目标徽标必须锁在 HUD 小控件尺寸内，不能遮挡目标文本。")
-	assert_lte(objective_icon.size.y, 16.0, "目标徽标必须锁在 HUD 小控件尺寸内，不能遮挡目标文本。")
+	assert_lte(objective_icon.size.x, 24.0, "目标徽标必须锁在正式 HUD 小控件尺寸内，不能遮挡目标文本。")
+	assert_lte(objective_icon.size.y, 24.0, "目标徽标必须锁在正式 HUD 小控件尺寸内，不能遮挡目标文本。")
 	assert_gte((hud.get_node("BattlePanel/ProgressLabel") as Label).position.x, 26.0)
 	for meter_frame: TextureRect in [health_meter_frame, dash_meter_frame, recovery_meter_frame, boss_meter_frame]:
 		assert_eq(meter_frame.texture.resource_path, HUD_CORE_METER_RAIL_RESOURCE_PATH)
-		assert_eq(meter_frame.get_meta("asset_id", ""), "hud_core_ui_atlas_ai01.meter_rail")
-		assert_lte(meter_frame.size.x, 132.0, "HUD 条形资产必须锁在战斗面板内，不能按原图尺寸撑开。")
-		assert_lte(meter_frame.size.y, 20.0, "HUD 条形资产必须是细条装饰，不能遮挡目标文本。")
+		assert_eq(meter_frame.get_meta("asset_id", ""), "hud_meter_rail_warden_official_ai01")
+		assert_gte(meter_frame.position.x, battle_panel_style.get_content_margin(SIDE_LEFT), "HUD 条形资产不能压住左侧纹样。")
+		assert_lte(
+			meter_frame.position.x + meter_frame.size.x,
+			battle_panel.size.x - battle_panel_style.get_content_margin(SIDE_RIGHT),
+			"HUD 条形资产必须锁在 NinePatch 内容安全区内。",
+		)
+		assert_lte(meter_frame.size.y, 30.0, "HUD 条形资产必须是细条装饰，不能遮挡目标文本。")
 	assert_true(health_meter_frame.visible, "生命条必须在运行态显示核心 HUD atlas 的条形装饰。")
 	assert_true(dash_meter_frame.visible, "冲刺条必须在运行态显示核心 HUD atlas 的条形装饰。")
 	assert_false(recovery_meter_frame.visible, "恢复条装饰只在 Stage15 恢复机制相关房间显示。")

@@ -8,6 +8,7 @@ const SCREENSHOT_DIR := "%s/screenshots" % OUT_DIR
 const OUT_JSON := "%s/full_content_flow_evidence.json" % OUT_DIR
 const OUT_MD := "%s/full_content_flow_evidence.md" % OUT_DIR
 const MAIN_SCENE := "res://scenes/main/main.tscn"
+const WORLD_MAP_LAYOUT := "res://assets/configs/world_map/alpha_demo_world_map.json"
 
 const MAIN_ROUTE := [
 	{"id": "tutorial", "path": "res://scenes/rooms/tutorial_room.tscn", "expect": "res://scenes/rooms/combat_trial_room.tscn"},
@@ -51,7 +52,18 @@ const OPTIONAL_ROOMS := [
 	{"id": "stage13_resource_branch", "path": "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"},
 	{"id": "stage13_challenge_branch", "path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn"},
 	{"id": "stage15_challenge_branch", "path": "res://scenes/rooms/stage15_challenge_branch_room.tscn"},
-	{"id": "test_room_internal", "path": "res://scenes/rooms/test_room.tscn", "internal": true},
+]
+
+# 雷泽主路包含一次岔路回环；重复经过坡道 / 岔口是生产拓扑的一部分，唯一房间覆盖仍为 6。
+const WASTE_ROUTE := [
+	{"id": "stage25_entry", "path": "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn", "expect": "res://scenes/rooms/stage25_thunder_waste_stormfield_room.tscn"},
+	{"id": "stage25_storm", "path": "res://scenes/rooms/stage25_thunder_waste_stormfield_room.tscn", "expect": "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn"},
+	{"id": "stage25_slope", "path": "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn", "expect": "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn"},
+	{"id": "stage25_fork_branch", "path": "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn", "expect": "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn"},
+	{"id": "stage25_relay", "path": "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn", "expect": "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn"},
+	{"id": "stage25_slope_return", "path": "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn", "expect": "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn"},
+	{"id": "stage25_fork_main", "path": "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn", "expect": "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn"},
+	{"id": "stage25_outlook", "path": "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn", "expect": "res://scenes/rooms/stage11_demo_end_room.tscn"},
 ]
 
 var _main: Node2D
@@ -87,18 +99,36 @@ func _run() -> void:
 	for step: Dictionary in OPTIONAL_ROOMS:
 		optional_results.append(await _capture_optional_room(step))
 
+	var waste_route_results: Array[Dictionary] = []
+	_main.call("transition_to_room", str(WASTE_ROUTE[0].path), &"stage25_entry_start")
+	await _settle()
+	_hide_shell()
+	for step: Dictionary in WASTE_ROUTE:
+		waste_route_results.append(await _drive_route_step(step))
+
+	var coverage := _build_production_room_coverage(route_results, optional_results, waste_route_results)
+	if int(coverage.get("expected_count", 0)) != 44:
+		_add_issue("P0", "world_map", "unexpected_production_room_count", str(coverage))
+	if not Array(coverage.get("missing_paths", [])).is_empty():
+		_add_issue("P0", "world_map", "production_rooms_not_covered", str(coverage.get("missing_paths", [])))
+	if not Array(coverage.get("unexpected_paths", [])).is_empty():
+		_add_issue("P0", "world_map", "non_production_rooms_in_evidence", str(coverage.get("unexpected_paths", [])))
+
 	var snapshot: Dictionary = _main.call("get_demo_progress_snapshot")
 	var report := {
 		"review_id": "full_content_flow_route_evidence",
 		"generated_at": Time.get_datetime_string_from_system(),
 		"route_count": route_results.size(),
 		"optional_count": optional_results.size(),
+		"waste_transition_count": waste_route_results.size(),
+		"production_room_coverage": coverage,
 		"route": route_results,
 		"optional": optional_results,
+		"waste_route": waste_route_results,
 		"issues": _issues,
 		"issue_counts": _count_issues(_issues),
 		"final_snapshot": snapshot,
-		"boundary": "Production Main / real room transition evidence. This is not a full human-input replay; MCP input recording remains the final proof gap.",
+		"boundary": "Production Main / real room transition driver covering 44 world-map rooms. This is automated state/transition evidence, not a human-input route playtest or art approval.",
 	}
 	_write_text(OUT_JSON, JSON.stringify(report, "\t"))
 	_write_text(OUT_MD, _build_markdown(report))
@@ -108,6 +138,8 @@ func _run() -> void:
 
 
 func _drive_route_step(step: Dictionary) -> Dictionary:
+	_dismiss_detail_panel()
+	paused = false
 	var expected_path := str(step.path)
 	if _room_path() != expected_path:
 		_add_issue("P0", str(step.id), "unexpected_room_before_step", "expected=%s actual=%s" % [expected_path, _room_path()])
@@ -176,9 +208,25 @@ func _prepare_room(step_id: String) -> void:
 		if dummy != null and dummy.has_method("receive_attack"):
 			dummy.call("receive_attack", Vector2.RIGHT, 120.0)
 		await _settle()
+		if player.has_method("cycle_current_stance"):
+			player.call("cycle_current_stance")
+		await _settle()
 		return
 
 	_defeat_targets(room)
+	if step_id == "stage25_relay":
+		var relay := room.get_node_or_null("StormRelay")
+		if relay != null and relay.has_method("receive_elemental_attack"):
+			relay.call("receive_elemental_attack", Vector2.RIGHT, 120.0, {
+				"element_id": &"thunder",
+				"reaction_id": &"wind_thunder_pierce",
+			})
+	if step_id == "stage25_outlook":
+		var thunder_boss := room.get_node_or_null("KuiThunderBoss")
+		if thunder_boss != null and thunder_boss.has_method("receive_attack"):
+			var hit_count := int(thunder_boss.call("get_max_health")) if thunder_boss.has_method("get_max_health") else 24
+			for _hit_index in range(hit_count):
+				thunder_boss.call("receive_attack", Vector2.RIGHT, 120.0)
 	await _activate_named_nodes(room, player, [
 		"GateSwitch",
 		"SealNode",
@@ -212,6 +260,9 @@ func _trigger_room_exit(step_id: String) -> void:
 	if step_id == "stage11_end":
 		_move_to_node(room, player, "GoalZone")
 		await _settle()
+		_dismiss_detail_panel()
+		paused = false
+		await process_frame
 		_move_to_node(room, player, "ContinueZone")
 		return
 
@@ -224,6 +275,9 @@ func _trigger_room_exit(step_id: String) -> void:
 
 	if step_id == "stage16_end":
 		_move_to_node(room, player, "ExitZone")
+		return
+	if step_id == "stage25_fork_branch":
+		_move_to_node(room, player, "BranchZone")
 		return
 
 	if room.get_node_or_null("GoalZone") != null:
@@ -250,7 +304,9 @@ func _defeat_targets(room: Node) -> void:
 		if child.name == "SealGuardianBoss":
 			continue
 		if child.has_method("receive_attack"):
-			child.call("receive_attack", Vector2.RIGHT, 120.0)
+			var hit_count := int(child.call("get_max_health")) if child.has_method("get_max_health") else 1
+			for _hit_index in range(maxi(hit_count, 1)):
+				child.call("receive_attack", Vector2.RIGHT, 120.0)
 
 
 func _move_to_node(room: Node, player: CharacterBody2D, node_name: String) -> void:
@@ -274,18 +330,41 @@ func _capture(step_id: String, phase: String) -> String:
 func _settle() -> void:
 	for _i: int in range(4):
 		await process_frame
+	_dismiss_detail_panel()
+	paused = false
+	await process_frame
 
 
 func _hide_shell() -> void:
 	var shell := _main.get_node_or_null("HUD/DemoShell")
 	if shell == null:
 		return
+	_dismiss_detail_panel()
 	var menu := shell.get_node_or_null("MainMenu") as CanvasItem
 	var title := shell.get_node_or_null("TitleBackground") as CanvasItem
 	if menu != null:
 		menu.visible = false
 	if title != null:
 		title.visible = false
+
+
+# 自动路线按正式“返回”按钮确认一次性叙事 / 详情面板，避免暂停树吞掉后续房间信号。
+func _dismiss_detail_panel() -> void:
+	if _main == null:
+		return
+	var shell := _main.get_node_or_null("HUD/DemoShell")
+	if shell == null:
+		return
+	var detail_panel := shell.get_node_or_null("DetailPanel") as Control
+	if detail_panel == null or not detail_panel.visible:
+		return
+	var back_button := shell.get_node_or_null(
+		"DetailPanel/MarginContainer/VBoxContainer/DetailBackButton"
+	) as Button
+	if back_button != null:
+		back_button.pressed.emit()
+	else:
+		detail_panel.visible = false
 
 
 func _room() -> Node2D:
@@ -337,13 +416,57 @@ func _count_issues(issues: Array[Dictionary]) -> Dictionary:
 	return counts
 
 
+# 世界图是生产房间唯一事实源；路线报告不得以旧常量或内部 test_room 凑数。
+func _build_production_room_coverage(
+	route_results: Array[Dictionary],
+	optional_results: Array[Dictionary],
+	waste_route_results: Array[Dictionary]
+) -> Dictionary:
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(WORLD_MAP_LAYOUT))
+	var expected_paths: Array[String] = []
+	if parsed is Dictionary:
+		for room: Dictionary in parsed.get("rooms", []):
+			expected_paths.append(String(room.get("path", "")))
+	var covered_set: Dictionary = {}
+	for rows: Array in [route_results, optional_results, waste_route_results]:
+		for row: Dictionary in rows:
+			covered_set[String(row.get("path", ""))] = true
+	var covered_paths: Array[String] = []
+	for path: Variant in covered_set.keys():
+		covered_paths.append(String(path))
+	expected_paths.sort()
+	covered_paths.sort()
+	var missing_paths: Array[String] = []
+	for path: String in expected_paths:
+		if not covered_set.has(path):
+			missing_paths.append(path)
+	var expected_set: Dictionary = {}
+	for path: String in expected_paths:
+		expected_set[path] = true
+	var unexpected_paths: Array[String] = []
+	for path: String in covered_paths:
+		if not expected_set.has(path):
+			unexpected_paths.append(path)
+	return {
+		"ok": expected_paths.size() == 44 and missing_paths.is_empty() and unexpected_paths.is_empty(),
+		"expected_count": expected_paths.size(),
+		"covered_unique_count": covered_paths.size(),
+		"expected_paths": expected_paths,
+		"covered_paths": covered_paths,
+		"missing_paths": missing_paths,
+		"unexpected_paths": unexpected_paths,
+	}
+
+
 func _build_markdown(report: Dictionary) -> String:
 	var lines: Array[String] = []
 	lines.append("# Full Content Flow Evidence")
 	lines.append("")
 	lines.append("- 生成时间：%s" % str(report.generated_at))
 	lines.append("- 主线房间：%s" % int(report.route_count))
-	lines.append("- 支路 / 内部房：%s" % int(report.optional_count))
+	lines.append("- 正式支路房：%s" % int(report.optional_count))
+	lines.append("- 雷泽转换步骤：%s" % int(report.waste_transition_count))
+	lines.append("- 世界图生产房覆盖：%s / %s" % [report.production_room_coverage.covered_unique_count, report.production_room_coverage.expected_count])
 	lines.append("- P0 / P1 / P2：%s / %s / %s" % [report.issue_counts.P0, report.issue_counts.P1, report.issue_counts.P2])
 	lines.append("- 边界：%s" % str(report.boundary))
 	lines.append("")
@@ -359,7 +482,7 @@ func _build_markdown(report: Dictionary) -> String:
 			str(row.screenshots.exit),
 		])
 	lines.append("")
-	lines.append("## Optional / Internal Rooms")
+	lines.append("## Optional Production Rooms")
 	lines.append("")
 	lines.append("| Room | Path | Internal | Entry | Mid |")
 	lines.append("| --- | --- | ---: | --- | --- |")
@@ -370,6 +493,20 @@ func _build_markdown(report: Dictionary) -> String:
 			bool(row.internal),
 			str(row.screenshots.entry),
 			str(row.screenshots.mid),
+		])
+	lines.append("")
+	lines.append("## Thunder Waste Route")
+	lines.append("")
+	lines.append("| Step | Expected Next | Actual After Exit | Entry | Mid | Exit |")
+	lines.append("| --- | --- | --- | --- | --- | --- |")
+	for row: Dictionary in report.waste_route:
+		lines.append("| `%s` | `%s` | `%s` | `%s` | `%s` | `%s` |" % [
+			str(row.id),
+			str(row.expected_next),
+			str(row.actual_after_exit),
+			str(row.screenshots.entry),
+			str(row.screenshots.mid),
+			str(row.screenshots.exit),
 		])
 	lines.append("")
 	lines.append("## Issues")

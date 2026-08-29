@@ -5,6 +5,7 @@ extends GutTest
 # 灰盒主线 driver，以及资产 / QA / release notes 文档门禁。
 
 const Stage16AlphaDemoGrayboxDriver := preload("res://tests/stage16/support/stage16_alpha_demo_graybox_driver.gd")
+const InputBindingFormatter := preload("res://scripts/ui/input_binding_formatter.gd")
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const STAGE14_AIR_DASH_GATE_ROOM_PATH := "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
@@ -35,10 +36,15 @@ const STAGE16_ROOM_PATHS := [
 	STAGE16_ALPHA_DEMO_END_ROOM_PATH,
 ]
 
+const FORMAL_ROOM_IDS := [
+	"F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09",
+	"F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18",
+]
+
 
 # 输入清理保护 Demo shell 暂停 / 继续和重开测试不会被上一条残留动作污染。
 func before_each() -> void:
-	for action_name in ["move_left", "move_right", "jump", "attack", "dash", "recover", "ui_cancel", "ui_accept"]:
+	for action_name in ["move_left", "move_right", "jump", "attack", "dash", "recover", "ui_down", "ui_cancel", "ui_accept"]:
 		_release_action_if_present(action_name)
 
 
@@ -53,8 +59,8 @@ func test_stage16_five_room_resources_exist() -> void:
 		assert_true(ResourceLoader.exists(room_path), "缺少 Stage16 房间资源：%s" % room_path)
 
 
-# 保护 Stage15 到 Stage16 的接入：completion room 的出口必须进入 Stage16 第一房。
-func test_stage15_completion_room_links_to_stage16_entry() -> void:
+# 方案 B 正式完成房返回 F03；Stage16 五房只保留 reserve 独立测试入口。
+func test_stage15_completion_room_returns_to_formal_waystation() -> void:
 	var room := await _spawn_room(STAGE15_COMPLETION_ROOM_PATH)
 	var player := await _spawn_player_with_floor(Vector2.ZERO)
 	var transitions: Array = []
@@ -64,14 +70,19 @@ func test_stage15_completion_room_links_to_stage16_entry() -> void:
 		transitions.append({"target": target_room_path, "spawn": spawn_id})
 	)
 
-	player.global_position = room.get_node("ExitZone").global_position
-	await _advance_process_frames(4)
+	player.global_position = room.get_node("WaystationZone").global_position
+	await _advance_process_frames(2)
+	assert_true(transitions.is_empty(), "F18 归驿法坛必须等待玩家按下方向确认。")
+
+	Input.action_press("ui_down")
+	await _advance_process_frames(2)
+	Input.action_release("ui_down")
 
 	assert_eq(transitions.size(), 1)
 	if transitions.is_empty():
 		return
-	assert_eq(transitions[0].get("target"), STAGE16_SEAL_RELEASE_THRESHOLD_ROOM_PATH)
-	assert_eq(transitions[0].get("spawn"), &"stage16_seal_release_threshold_start")
+	assert_eq(transitions[0].get("target"), "res://scenes/rooms/stage11_demo_end_room.tscn")
+	assert_eq(transitions[0].get("spawn"), &"stage11_demo_end_start")
 
 
 # 保护 Main 快照契约：Stage16 完成态、release notes 和 QA checklist 必须是稳定读值。
@@ -146,7 +157,7 @@ func test_demo_shell_exposes_start_pause_resume_and_restart_contract() -> void:
 	assert_eq(_get_room_path(main_scene), "res://scenes/rooms/tutorial_room.tscn")
 
 
-# 保护 DemoShell 的 image gen UI 壳资源：正式 UI 场景应引用标题背景、菜单图标和暂停 / 完成面板候选。
+# 保护 DemoShell 的 image gen UI 壳资源：暂停已从旧整图预览迁移到批准的 02 NinePatch 外框。
 func test_demo_shell_references_imagegen_ui_shell_assets() -> void:
 	var main_scene := await _spawn_main_scene()
 	var demo_shell := main_scene.get_node_or_null("HUD/DemoShell")
@@ -155,9 +166,8 @@ func test_demo_shell_references_imagegen_ui_shell_assets() -> void:
 		return
 
 	var expected_textures := {
-		"TitleBackground": "res://assets/art/ui/stage16_title_background_ai01.png",
+		"TitleBackground": "res://assets/art/ui/main_menu_shell_ai02.png",
 		"MainMenu/MenuIconStrip": "res://assets/art/ui/stage16_demo_menu_icons_ai01.png",
-		"PauseMenu/PausePanelArt": "res://assets/art/ui/stage16_pause_panel_ui_ai01.png",
 		"CompletionPanel/CompletionPanelArt": "res://assets/art/ui/stage16_completion_panel_ui_ai01.png",
 	}
 	for node_path: String in expected_textures.keys():
@@ -172,10 +182,24 @@ func test_demo_shell_references_imagegen_ui_shell_assets() -> void:
 	assert_not_null(menu_icon_strip)
 	if menu_icon_strip != null:
 		assert_false(menu_icon_strip.visible, "整张菜单 icon sheet 只保留资源引用，不能压缩成运行态装饰条。")
-	var pause_panel_art := demo_shell.get_node_or_null("PauseMenu/PausePanelArt") as TextureRect
-	assert_not_null(pause_panel_art)
-	if pause_panel_art != null:
-		assert_false(pause_panel_art.visible, "暂停面板整图只保留资源引用，不能与当前按钮布局错位叠显。")
+	var pause_menu := demo_shell.get_node_or_null("PauseMenu") as Panel
+	assert_not_null(pause_menu)
+	assert_null(demo_shell.get_node_or_null("PauseMenu/PausePanelArt"), "旧暂停整图预览已由可伸缩外框替代。")
+	if pause_menu != null:
+		var pause_style := pause_menu.get_theme_stylebox("panel") as StyleBoxTexture
+		assert_not_null(pause_style)
+		if pause_style != null and pause_style.texture != null:
+			assert_eq(pause_style.texture.resource_path, "res://assets/art/ui/hud_warden_official_v4/pause_frame_base_warden_official_ai01.png")
+			assert_almost_eq(float(pause_style.texture.get_width()) / float(pause_style.texture.get_height()), 1.05, 0.01)
+		_assert_warden_official_ornament_layer(pause_menu)
+	var failure_panel := demo_shell.get_node_or_null("FailurePanel") as Panel
+	assert_not_null(failure_panel)
+	if failure_panel != null:
+		var failure_style := failure_panel.get_theme_stylebox("panel") as StyleBoxTexture
+		assert_not_null(failure_style)
+		if failure_style != null and failure_style.texture != null:
+			assert_eq(failure_style.texture.resource_path, "res://assets/art/ui/hud_warden_official_v4/pause_frame_base_warden_official_ai01.png")
+		_assert_warden_official_ornament_layer(failure_panel)
 	var pause_title_label := demo_shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/TitleLabel") as Label
 	var completion_label := demo_shell.get_node_or_null("CompletionPanel/MarginContainer/CompletionLabel") as Label
 	var resume_button := demo_shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/ResumeButton") as Button
@@ -187,28 +211,19 @@ func test_demo_shell_references_imagegen_ui_shell_assets() -> void:
 	assert_not_null(restart_button)
 	assert_not_null(failure_continue_button)
 	if pause_title_label != null:
-		assert_lt(pause_title_label.get_theme_color("font_color").r, 0.5)
+		assert_gt(pause_title_label.get_theme_color("font_color").r, 0.7)
 	if completion_label != null:
 		assert_lt(completion_label.get_theme_color("font_color").r, 0.5)
 	if resume_button != null:
-		_assert_button_icon_resource(
-			resume_button,
-			"res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/001_stage16_demo_menu_icons_ai01_continue_play.atlas_texture.tres"
-		)
+		assert_null(resume_button.icon, "暂停操作项使用固定几何文字按钮，不再混入方形 icon sheet。")
 	if restart_button != null:
-		_assert_button_icon_resource(
-			restart_button,
-			"res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/002_stage16_demo_menu_icons_ai01_restart.atlas_texture.tres"
-		)
+		assert_null(restart_button.icon, "重开操作项使用固定几何文字按钮，不再混入方形 icon sheet。")
 	if failure_continue_button != null:
-		_assert_button_icon_resource(
-			failure_continue_button,
-			"res://assets/art/editor_resources/stage16_demo_menu_icons_ai01/001_stage16_demo_menu_icons_ai01_continue_play.atlas_texture.tres"
-		)
+		assert_null(failure_continue_button.icon, "失败继续操作项使用固定几何文字按钮。")
 
 
-# 保护主菜单构图：六项入口必须可读，但面板不能吃掉整张标题背景。
-func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
+# 保护 C2 主菜单构图：无框菜单位于右侧雾区，六项入口共用一条流动符光且没有冗余图标或提示。
+func test_demo_shell_main_menu_uses_c2_right_side_layout() -> void:
 	var main_scene := await _spawn_main_scene()
 	var demo_shell := main_scene.get_node_or_null("HUD/DemoShell")
 	assert_not_null(demo_shell)
@@ -225,7 +240,9 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 	var main_menu := demo_shell.get_node_or_null("MainMenu") as Panel
 	var detail_panel := demo_shell.get_node_or_null("DetailPanel") as Panel
 	var margin_container := demo_shell.get_node_or_null("MainMenu/MarginContainer") as MarginContainer
-	var status_label := demo_shell.get_node_or_null("MainMenu/MarginContainer/VBoxContainer/StatusLabel") as Label
+	var focus_band := demo_shell.get_node_or_null("MainMenu/FocusBand") as ColorRect
+	var title_wordmark := demo_shell.get_node_or_null("MainMenu/MarginContainer/VBoxContainer/TitleWordmark") as TextureRect
+	var status_label := demo_shell.get_node_or_null("MainMenu/MarginContainer/VBoxContainer/StatusLabel")
 	var detail_title_label := demo_shell.get_node_or_null("DetailPanel/MarginContainer/VBoxContainer/DetailTitleLabel") as Label
 	var detail_body_label := demo_shell.get_node_or_null("DetailPanel/MarginContainer/VBoxContainer/DetailBodyLabel") as Label
 	var detail_back_button := demo_shell.get_node_or_null("DetailPanel/MarginContainer/VBoxContainer/DetailBackButton") as Button
@@ -238,7 +255,10 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 	assert_not_null(main_menu)
 	assert_not_null(detail_panel)
 	assert_not_null(margin_container)
-	assert_not_null(status_label)
+	assert_not_null(focus_band)
+	assert_not_null(title_wordmark)
+	assert_null(status_label, "C2 主菜单不应保留存档状态提示。")
+	assert_eq(demo_shell.find_children("FocusBand", "ColorRect", true, false).size(), 1)
 	assert_not_null(detail_title_label)
 	assert_not_null(detail_body_label)
 	assert_not_null(detail_back_button)
@@ -251,20 +271,38 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 	if main_menu == null or margin_container == null or start_button == null:
 		return
 
-	assert_eq(main_menu.anchor_left, 0.5)
-	assert_eq(main_menu.anchor_top, 0.5)
-	assert_eq(main_menu.anchor_right, 0.5)
-	assert_eq(main_menu.anchor_bottom, 0.5)
+	assert_almost_eq(main_menu.anchor_left, 0.745, 0.001)
+	assert_almost_eq(main_menu.anchor_top, 0.515, 0.001)
+	assert_almost_eq(main_menu.anchor_right, 0.745, 0.001)
+	assert_almost_eq(main_menu.anchor_bottom, 0.515, 0.001)
 	assert_eq(main_menu.grow_horizontal, Control.GROW_DIRECTION_BOTH)
 	assert_eq(main_menu.grow_vertical, Control.GROW_DIRECTION_BOTH)
 	assert_lte(absf((main_menu.offset_left + main_menu.offset_right) * 0.5), 1.0)
 	var main_menu_width := main_menu.offset_right - main_menu.offset_left
 	var main_menu_height := main_menu.offset_bottom - main_menu.offset_top
 	assert_gte(main_menu_width, 300.0)
-	assert_lte(main_menu_width, 570.0)
-	assert_gte(main_menu_height, 288.0)
-	assert_lte(main_menu_height, 440.0)
-	assert_lte(main_menu_width * main_menu_height, 570.0 * 440.0)
+	assert_lte(main_menu_width, 900.0)
+	assert_gte(main_menu_height, 300.0)
+	assert_lte(main_menu_height, 980.0)
+	assert_lte(main_menu_width * main_menu_height, 900.0 * 980.0)
+	if title_wordmark != null:
+		assert_not_null(title_wordmark.texture)
+		assert_eq(title_wordmark.texture.resource_path, "res://assets/art/ui/main_menu_wordmark_ai01.png")
+		assert_eq(title_wordmark.get_meta("asset_id"), "main_menu_wordmark_ai01")
+		assert_eq(title_wordmark.stretch_mode, TextureRect.STRETCH_SCALE)
+		assert_eq(title_wordmark.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
+	if focus_band != null:
+		assert_true(focus_band.visible)
+		assert_eq(focus_band.mouse_filter, Control.MOUSE_FILTER_IGNORE)
+		var shader_material := focus_band.material as ShaderMaterial
+		assert_not_null(shader_material)
+		if shader_material != null:
+			assert_not_null(shader_material.shader)
+			if shader_material.shader != null:
+				assert_eq(shader_material.shader.resource_path, "res://assets/shaders/ui/main_menu_focus_band.gdshader")
+				assert_string_contains(shader_material.shader.code, "TIME")
+		assert_almost_eq(focus_band.get_global_rect().get_center().y, start_button.get_global_rect().end.y, 1.5)
+		assert_almost_eq(focus_band.size.x, start_button.size.x, 1.5)
 	if detail_panel != null:
 		assert_false(detail_panel.visible)
 		assert_eq(detail_panel.anchor_left, 0.5)
@@ -272,25 +310,43 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 		assert_eq(detail_panel.anchor_right, 0.5)
 		assert_eq(detail_panel.anchor_bottom, 0.5)
 		assert_lte(absf((detail_panel.offset_left + detail_panel.offset_right) * 0.5), 1.0)
-		assert_lte(detail_panel.offset_right - detail_panel.offset_left, 470.0)
-	assert_lte(detail_panel.offset_bottom - detail_panel.offset_top, 310.0)
+		var viewport_size: Vector2 = demo_shell.get_viewport_rect().size
+		var detail_width: float = detail_panel.offset_right - detail_panel.offset_left
+		var detail_height: float = detail_panel.offset_bottom - detail_panel.offset_top
+		assert_between(detail_width / viewport_size.x, 0.32, 0.46)
+		assert_between(detail_height / viewport_size.y, 0.42, 0.60)
 	assert_eq(margin_container.anchor_right, 1.0)
 	assert_eq(margin_container.anchor_bottom, 1.0)
-	assert_gte(start_button.custom_minimum_size.y, 26.0)
-	assert_lte(start_button.custom_minimum_size.y, 38.0)
-	assert_gte(start_button.custom_minimum_size.x, 196.0)
-	assert_lte(start_button.custom_minimum_size.x, main_menu_width - 96.0)
+	assert_gte(start_button.custom_minimum_size.y, 28.0)
+	assert_lte(start_button.custom_minimum_size.y, 62.0)
+	assert_gte(start_button.custom_minimum_size.x, 220.0)
+	assert_lte(start_button.custom_minimum_size.x, 720.0)
 	assert_eq(start_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
 	assert_true(start_button.get_theme_stylebox("normal") is StyleBoxFlat)
 	assert_true(start_button.get_theme_stylebox("hover") is StyleBoxFlat)
 	assert_true(start_button.get_theme_stylebox("pressed") is StyleBoxFlat)
+	var normal_style := start_button.get_theme_stylebox("normal") as StyleBoxFlat
+	var focus_style := start_button.get_theme_stylebox("focus") as StyleBoxFlat
+	assert_not_null(normal_style)
+	assert_not_null(focus_style)
+	if normal_style != null:
+		assert_almost_eq(normal_style.bg_color.a, 0.0, 0.001)
+	if focus_style != null:
+		assert_eq(focus_style.border_width_bottom, 0)
+	for state: String in ["hover", "pressed"]:
+		var state_style := start_button.get_theme_stylebox(state) as StyleBoxFlat
+		assert_not_null(state_style)
+		if state_style != null:
+			assert_eq(state_style.border_width_bottom, 0)
 	assert_eq(start_button.text, "开始游戏")
+	assert_null(start_button.icon)
 	if continue_button != null:
 		assert_true(continue_button.disabled)
 		assert_eq(continue_button.focus_mode, Control.FOCUS_NONE)
 		assert_eq(continue_button.custom_minimum_size, start_button.custom_minimum_size)
 		assert_eq(continue_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
 		assert_eq(continue_button.text, "继续游戏")
+		assert_null(continue_button.icon)
 	if level_select_button != null:
 		assert_false(level_select_button.disabled)
 		assert_eq(level_select_button.custom_minimum_size, start_button.custom_minimum_size)
@@ -301,6 +357,10 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 		assert_eq(settings_button.custom_minimum_size, start_button.custom_minimum_size)
 		assert_eq(settings_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
 		assert_eq(settings_button.text, "设置")
+		settings_button.grab_focus()
+		await get_tree().create_timer(0.25).timeout
+		assert_same(demo_shell.get_node("MainMenu/FocusBand"), focus_band)
+		assert_almost_eq(focus_band.get_global_rect().get_center().y, settings_button.get_global_rect().end.y, 2.0)
 	if controls_button != null:
 		assert_false(controls_button.disabled)
 		assert_eq(controls_button.custom_minimum_size, start_button.custom_minimum_size)
@@ -331,11 +391,22 @@ func test_demo_shell_main_menu_uses_compact_art_directed_layout() -> void:
 		controls_button.emit_signal("pressed")
 		assert_true(detail_panel.visible)
 		assert_eq(detail_title_label.text, "控制说明")
-		assert_string_contains(detail_body_label.text, "攻击 J")
+		var expected_attack_binding := "攻击：%s · %s" % [
+			InputBindingFormatter.action_label(&"attack", InputBindingFormatter.DEVICE_KEYBOARD),
+			InputBindingFormatter.action_label(&"attack", InputBindingFormatter.DEVICE_CONTROLLER),
+		]
+		assert_string_contains(detail_body_label.text, expected_attack_binding)
+		assert_string_contains(detail_body_label.text, "下穿平台：按住")
 	if settings_button != null and detail_title_label != null and detail_body_label != null:
 		settings_button.emit_signal("pressed")
 		assert_eq(detail_title_label.text, "设置")
-		assert_string_contains(detail_body_label.text, "默认键鼠配置")
+		var expected_element_switch_binding := "元素切换：%s · %s" % [
+			InputBindingFormatter.action_label(&"element_switch", InputBindingFormatter.DEVICE_KEYBOARD),
+			InputBindingFormatter.action_label(&"element_switch", InputBindingFormatter.DEVICE_CONTROLLER),
+		]
+		var reduced_motion_label := "开启" if bool(ProjectSettings.get_setting("accessibility/reduced_motion", false)) else "关闭"
+		assert_string_contains(detail_body_label.text, expected_element_switch_binding)
+		assert_string_contains(detail_body_label.text, "降低动态效果：%s" % reduced_motion_label)
 
 
 # 保护暂停菜单布局：暂停发生在运行态 HUD 上，不能沿用早期固定左上角坐标。
@@ -377,10 +448,10 @@ func test_demo_shell_pause_menu_uses_centered_runtime_layout() -> void:
 	assert_lte(absf((pause_menu.offset_top + pause_menu.offset_bottom) * 0.5), 1.0)
 	var pause_width := pause_menu.offset_right - pause_menu.offset_left
 	var pause_height := pause_menu.offset_bottom - pause_menu.offset_top
-	assert_gte(pause_width, 260.0)
-	assert_lte(pause_width, 370.0)
-	assert_gte(pause_height, 280.0)
-	assert_lte(pause_height, 360.0)
+	var viewport_size: Vector2 = demo_shell.get_viewport_rect().size
+	assert_between(pause_width / viewport_size.x, 0.24, 0.28)
+	assert_between(pause_height / viewport_size.y, 0.40, 0.47)
+	assert_almost_eq(pause_width / pause_height, 1.05, 0.02)
 	assert_eq(pause_margin_container.anchor_right, 1.0)
 	assert_eq(pause_margin_container.anchor_bottom, 1.0)
 	assert_gte(resume_button.custom_minimum_size.x, 176.0)
@@ -439,8 +510,13 @@ func test_demo_shell_level_select_starts_selected_room_for_testing() -> void:
 	assert_eq(detail_title_label.text, "选择关卡")
 	assert_string_contains(detail_body_label.text, "测试入口")
 	assert_gt(level_select_list.get_child_count(), 10)
+	for index: int in range(FORMAL_ROOM_IDS.size()):
+		var formal_button := level_select_list.get_child(index) as Button
+		assert_not_null(formal_button)
+		if formal_button != null:
+			assert_true(formal_button.text.begins_with("%s · " % FORMAL_ROOM_IDS[index]))
 
-	var stage14_gate_button := _find_button_by_text(level_select_list, "23 Stage14 空冲门禁")
+	var stage14_gate_button := _find_button_by_text(level_select_list, "F14 · 空冲证明")
 	assert_not_null(stage14_gate_button)
 	if stage14_gate_button == null:
 		return
@@ -456,6 +532,10 @@ func test_demo_shell_level_select_starts_selected_room_for_testing() -> void:
 	assert_true(bool(snapshot.get("air_dash_unlocked", false)))
 	var player := main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
 	assert_not_null(player)
+	var step_label := main_scene.get_node_or_null("HUD/TutorialHUD/PromptPanel/StepLabel") as Label
+	assert_not_null(step_label)
+	if step_label != null:
+		assert_true(step_label.text.begins_with("F14 · "))
 	if player != null and player.has_method("is_air_dash_unlocked"):
 		assert_true(bool(player.call("is_air_dash_unlocked")))
 
@@ -489,6 +569,8 @@ func test_main_resets_player_and_shows_notice_after_fall_out_of_bounds() -> void
 	var main_scene := await _spawn_main_scene()
 	main_scene.call("start_demo")
 	await _advance_process_frames(2)
+	# 房间生成的 0.2 秒接触重建保护不属于正常跌落路径，先在安全位置显式结束该窗口。
+	main_scene.call("_process", 0.25)
 
 	var player := main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
 	assert_not_null(player)
@@ -517,12 +599,97 @@ func test_main_resets_player_and_shows_notice_after_fall_out_of_bounds() -> void
 	assert_eq(failure_panel.anchor_bottom, 0.5)
 	assert_lte(absf((failure_panel.offset_left + failure_panel.offset_right) * 0.5), 1.0)
 	assert_gte(failure_panel.offset_right - failure_panel.offset_left, 300.0)
-	assert_lte(failure_panel.offset_right - failure_panel.offset_left, 470.0)
+	assert_lte(failure_panel.offset_right - failure_panel.offset_left, 700.0)
 	assert_gte(failure_panel.offset_bottom - failure_panel.offset_top, 160.0)
 	assert_gte(failure_continue_button.custom_minimum_size.x, 180.0)
 	assert_eq(failure_continue_button.size_flags_horizontal, Control.SIZE_SHRINK_CENTER)
 	assert_string_contains(failure_label.text, "跌落")
-	assert_lt(failure_label.get_theme_color("font_color").r, 0.5)
+	assert_gt(failure_label.get_theme_color("font_color").r, 0.7)
+
+
+# 暂停和失败操作项必须保持固定几何；焦点只能改光色/描边，不能从方块突然变成长条或越出面板。
+func test_pause_and_failure_actions_keep_fixed_geometry_inside_their_panels() -> void:
+	var main_scene := await _spawn_main_scene()
+	main_scene.call("start_demo")
+	await _advance_process_frames(2)
+	main_scene.call("pause_demo")
+	await _advance_process_frames(2)
+
+	var shell := main_scene.get_node_or_null("HUD/DemoShell")
+	var pause_panel := shell.get_node_or_null("PauseMenu") as Panel
+	var pause_vbox := shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer") as VBoxContainer
+	assert_not_null(pause_panel)
+	assert_not_null(pause_vbox)
+	if pause_panel == null or pause_vbox == null:
+		return
+	assert_true(pause_panel.visible)
+	_assert_control_is_inside_panel(pause_panel, pause_vbox, "暂停按钮列必须完整位于暂停外框内。")
+
+	var pause_buttons: Array[Button] = [
+		shell.get_node("PauseMenu/MarginContainer/VBoxContainer/ResumeButton") as Button,
+		shell.get_node("PauseMenu/MarginContainer/VBoxContainer/MapButton") as Button,
+		shell.get_node("PauseMenu/MarginContainer/VBoxContainer/TravelButton") as Button,
+		shell.get_node("PauseMenu/MarginContainer/VBoxContainer/BuildButton") as Button,
+		shell.get_node("PauseMenu/MarginContainer/VBoxContainer/RestartButton") as Button,
+	]
+	for button: Button in pause_buttons:
+		_assert_button_states_keep_same_minimum_geometry(button)
+		assert_null(button.icon, "%s 不再使用会挤压文字或漂出按钮的方形图标。" % button.name)
+
+	shell.call("show_failure_notice", "已跌落，回到最近检查点。")
+	await _advance_process_frames(1)
+	var failure_panel := shell.get_node_or_null("FailurePanel") as Panel
+	var failure_vbox := shell.get_node_or_null("FailurePanel/MarginContainer/VBoxContainer") as VBoxContainer
+	var failure_button := shell.get_node_or_null("FailurePanel/MarginContainer/VBoxContainer/FailureContinueButton") as Button
+	assert_not_null(failure_panel)
+	assert_not_null(failure_vbox)
+	assert_not_null(failure_button)
+	if failure_panel == null or failure_vbox == null or failure_button == null:
+		return
+	_assert_control_is_inside_panel(failure_panel, failure_vbox, "失败提示与继续按钮必须完整位于失败外框内。")
+	_assert_button_states_keep_same_minimum_geometry(failure_button)
+	assert_null(failure_button.icon, "失败继续按钮不再使用漂浮方形图标。")
+
+
+# A 方案要求暂停和失败共用一条 Shader 符光；每个按钮各放一条会造成多焦点与视觉噪音。
+func test_pause_and_failure_share_one_flowing_action_focus_band() -> void:
+	var main_scene := await _spawn_main_scene()
+	main_scene.call("start_demo")
+	await _advance_process_frames(2)
+	main_scene.call("pause_demo")
+	await _advance_process_frames(2)
+
+	var shell := main_scene.get_node_or_null("HUD/DemoShell")
+	var band := shell.get_node_or_null("ActionFocusBand") as ColorRect
+	var resume_button := shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/ResumeButton") as Button
+	var map_button := shell.get_node_or_null("PauseMenu/MarginContainer/VBoxContainer/MapButton") as Button
+	var failure_button := shell.get_node_or_null("FailurePanel/MarginContainer/VBoxContainer/FailureContinueButton") as Button
+	assert_not_null(band)
+	assert_not_null(resume_button)
+	assert_not_null(map_button)
+	assert_not_null(failure_button)
+	if band == null or resume_button == null or map_button == null or failure_button == null:
+		return
+
+	assert_eq(shell.find_children("ActionFocusBand", "ColorRect", true, false).size(), 1)
+	assert_true(band.visible)
+	assert_eq(band.mouse_filter, Control.MOUSE_FILTER_IGNORE)
+	var material := band.material as ShaderMaterial
+	assert_not_null(material)
+	if material != null:
+		assert_not_null(material.shader)
+		if material.shader != null:
+			assert_eq(material.shader.resource_path, "res://assets/shaders/ui/main_menu_focus_band.gdshader")
+	assert_almost_eq(band.get_global_rect().get_center().y, resume_button.get_global_rect().end.y, 2.0)
+
+	map_button.grab_focus()
+	await _advance_process_frames(20)
+	assert_almost_eq(band.get_global_rect().get_center().y, map_button.get_global_rect().end.y, 2.0)
+
+	shell.call("show_failure_notice", "已跌落，回到最近检查点。")
+	await _advance_process_frames(2)
+	assert_true(band.visible)
+	assert_almost_eq(band.get_global_rect().get_center().y, failure_button.get_global_rect().end.y, 2.0)
 
 
 # 保护 Stage16 终点房完成反馈：终点房应直接引用 Alpha Demo completion 候选图。
@@ -953,6 +1120,40 @@ func _assert_split_chain_anchor_prop(parent: Node, node_path: String, runtime_so
 	assert_lte(sprite.scale.x, 0.24)
 	assert_lte(sprite.scale.y, 0.24)
 	assert_gte(sprite.position.y, 36.0)
+
+
+# 02 官印框只允许底框 NinePatch；官印、链条、官牌和朱砂印必须留在保持比例的独立层。
+func _assert_warden_official_ornament_layer(panel: Panel) -> void:
+	var ornament_layer := panel.get_node_or_null("OrnamentLayer") as Control
+	assert_not_null(ornament_layer, "%s 缺少独立官印装饰层。" % panel.name)
+	if ornament_layer == null:
+		return
+	assert_true(bool(ornament_layer.get_meta("non_stretch_visual_layer", false)))
+	assert_eq(String(ornament_layer.get_meta("visual_anchor_contract", "")), "02_warden_seal_chains_tassel")
+	var ornaments := ornament_layer.find_children("*", "TextureRect", true, false)
+	assert_gte(ornaments.size(), 2)
+	for ornament_variant: Variant in ornaments:
+		var ornament := ornament_variant as TextureRect
+		assert_eq(ornament.stretch_mode, TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
+
+
+# 面板 containment 用全局矩形判断，覆盖 Container 计算出的真实最小尺寸而非场景初始 offset。
+func _assert_control_is_inside_panel(panel: Control, control: Control, message: String) -> void:
+	assert_true(panel.get_global_rect().encloses(control.get_global_rect()), message)
+
+
+# 四态允许换颜色和描边，但 content margin / 最小几何必须一致，避免焦点态视觉突然换宽高。
+func _assert_button_states_keep_same_minimum_geometry(button: Button) -> void:
+	var normal := button.get_theme_stylebox("normal")
+	assert_not_null(normal, "%s 缺少 normal 样式。" % button.name)
+	if normal == null:
+		return
+	var expected_minimum := normal.get_minimum_size()
+	for state: String in ["hover", "pressed", "focus"]:
+		var state_style := button.get_theme_stylebox(state)
+		assert_not_null(state_style, "%s 缺少 %s 样式。" % [button.name, state])
+		if state_style != null:
+			assert_eq(state_style.get_minimum_size(), expected_minimum, "%s 的 %s 态不得改变按钮几何。" % [button.name, state])
 
 
 # DemoShell 按钮只接入语义匹配的切片图标，避免整张 icon sheet 上屏或错配主菜单语义。

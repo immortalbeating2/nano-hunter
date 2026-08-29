@@ -18,6 +18,9 @@ const BOUNTY_IDS: Array[StringName] = [
 	&"seal_pulse_cleanup",
 ]
 
+var _saved_element_switch_events: Array[InputEvent] = []
+var _element_switch_rebound := false
+
 
 func after_each() -> void:
 	get_tree().paused = false
@@ -36,6 +39,12 @@ func after_each() -> void:
 	]:
 		if InputMap.has_action(action_name):
 			Input.action_release(action_name)
+	if _element_switch_rebound:
+		InputMap.action_erase_events(&"element_switch")
+		for event: InputEvent in _saved_element_switch_events:
+			InputMap.action_add_event(&"element_switch", event)
+		_element_switch_rebound = false
+		_saved_element_switch_events.clear()
 
 
 func test_candidate_controller_map_has_non_conflicting_core_actions() -> void:
@@ -57,6 +66,11 @@ func test_candidate_controller_map_has_non_conflicting_core_actions() -> void:
 func test_controller_can_operate_main_and_pause_menus() -> void:
 	var main := await _spawn_main()
 	var shell := main.get_node("HUD/DemoShell") as Control
+	var save_suffix := Time.get_ticks_usec()
+	var save_path := "user://stage26_controller_%s.json" % save_suffix
+	var backup_path := "user://stage26_controller_%s.backup.json" % save_suffix
+	assert_true(bool(main.call("set_save_paths_for_testing", save_path, backup_path)))
+	shell.call("refresh_save_state")
 	var viewport := shell.get_viewport()
 	var start_button := shell.get_node(
 		"MainMenu/MarginContainer/VBoxContainer/StartButton"
@@ -105,6 +119,9 @@ func test_controller_can_operate_main_and_pause_menus() -> void:
 	await _send_joy_button(JOY_BUTTON_B)
 	assert_true((shell.get_node("PauseMenu") as Control).visible)
 	assert_same(viewport.gui_get_focus_owner(), map_button)
+	for path: String in [save_path, backup_path, save_path + ".tmp", backup_path + ".tmp"]:
+		if FileAccess.file_exists(path):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
 
 func test_controls_and_level_select_expose_stage21_and_stage25_candidate_entries() -> void:
@@ -128,6 +145,48 @@ func test_controls_and_level_select_expose_stage21_and_stage25_candidate_entries
 		if button != null and button.text.contains("Stage25"):
 			stage25_labels.append(button.text)
 	assert_eq(stage25_labels.size(), 6)
+
+
+func test_controls_and_settings_refresh_element_switch_label_from_real_inputmap() -> void:
+	var main := await _spawn_main()
+	var shell := main.get_node("HUD/DemoShell") as Control
+	shell.call("_on_controls_pressed")
+	var detail_body := shell.get_node(
+		"DetailPanel/MarginContainer/VBoxContainer/DetailBodyLabel"
+	) as Label
+	for term: String in ["Q", "E", "LB", "RB"]:
+		assert_string_contains(detail_body.text, term)
+
+	assert_true(shell.has_method("_on_settings_pressed"), "Settings 必须通过独立入口显示真实 InputMap 绑定。")
+	if not shell.has_method("_on_settings_pressed"):
+		return
+	shell.call("_close_detail_panel")
+	shell.call("_on_settings_pressed")
+	for term: String in ["Q", "E", "LB", "RB"]:
+		assert_string_contains(detail_body.text, term)
+	var reduced_motion_label := "开启" if bool(ProjectSettings.get_setting("accessibility/reduced_motion", false)) else "关闭"
+	assert_string_contains(detail_body.text, "降低动态效果：%s" % reduced_motion_label)
+
+	_rebind_element_switch_to_r()
+	shell.call("_close_detail_panel")
+	shell.call("_on_controls_pressed")
+	assert_string_contains(detail_body.text, "R")
+	assert_eq(detail_body.text.find("Q"), -1, "Controls 不得保留硬编码 Q。")
+
+	shell.call("_close_detail_panel")
+	shell.call("_on_settings_pressed")
+	assert_string_contains(detail_body.text, "R")
+	assert_eq(detail_body.text.find("Q"), -1, "Settings 不得保留硬编码 Q。")
+
+
+func _rebind_element_switch_to_r() -> void:
+	_saved_element_switch_events.assign(InputMap.action_get_events(&"element_switch"))
+	_element_switch_rebound = true
+	InputMap.action_erase_events(&"element_switch")
+	var replacement := InputEventKey.new()
+	replacement.keycode = KEY_R
+	replacement.physical_keycode = KEY_R
+	InputMap.action_add_event(&"element_switch", replacement)
 
 
 func test_stage21_to_stage25_loop_reaches_candidate_state_and_survives_checkpoint_failure() -> void:
@@ -198,8 +257,8 @@ func test_stage21_to_stage25_loop_reaches_candidate_state_and_survives_checkpoin
 	assert_true((shell.get_node("WorldMapPanel") as Control).visible)
 	assert_string_contains(
 		(shell.get_node("WorldMapPanel/CurrentRoomLabel") as Label).text,
-		"/ 44",
-		"候选地图计数必须来自当前 44 房布局，不能保留旧阶段硬编码。",
+		"/ 18",
+		"正式候选地图必须只显示 F01-F18，开发留存房仍可从选关单独进入。",
 	)
 	shell.call("_on_map_back_pressed")
 	shell.call("_on_build_pressed")

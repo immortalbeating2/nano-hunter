@@ -78,7 +78,9 @@ func test_stage11_demo_end_continue_zone_links_into_stage13_entry_room_after_dem
 	)
 
 	player.global_position = room.get_node("GoalZone").global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(4)
+	Input.action_release("ui_down")
 
 	assert_true(room.call("is_demo_goal_finished"))
 
@@ -171,7 +173,13 @@ func test_miasma_hazard_warning_uses_miasma_purge_vfx_asset() -> void:
 func test_seal_gate_starts_locked_and_unlocks_after_node_activation() -> void:
 	var room := await _spawn_room(STAGE13_MAIN_ROOM_PATHS[3])
 	var player := await _spawn_player(Vector2.ZERO)
+	var main_scene := (load(MAIN_SCENE_PATH) as PackedScene).instantiate() as Node2D
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+	main_scene.call("unlock_wind_seal")
+	player.call("set_air_dash_unlocked", true)
 
+	room.call("bind_main", main_scene)
 	room.call("bind_player", player)
 
 	assert_false(room.call("is_gate_unlocked"))
@@ -187,7 +195,9 @@ func test_seal_gate_starts_locked_and_unlocks_after_node_activation() -> void:
 		assert_eq(gate_art.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.seal_gate_locked")
 
 	player.global_position = room.get_node("SealNode").global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(3)
+	Input.action_release("ui_down")
 
 	assert_true(room.call("is_gate_unlocked"))
 	assert_true(room.call("is_seal_node_activated"))
@@ -334,6 +344,14 @@ func _assert_floor_reaches_exit_or_goal(room: Node2D) -> void:
 	if target_zone == null:
 		return
 
+	var graybox := room.get_node_or_null("Phase2GrayboxLayout")
+	if graybox != null:
+		var floor_right_edge := -INF
+		for rect: Rect2 in graybox.get("solid_rects"):
+			floor_right_edge = maxf(floor_right_edge, rect.end.x)
+		assert_gte(floor_right_edge, target_zone.position.x - 36.0)
+		return
+
 	var terrain := room.get_node_or_null("TerrainCollisionVisual") as TileMapLayer
 	if terrain != null and bool(terrain.get("collision_enabled")) and not terrain.get_used_cells().is_empty():
 		var used := terrain.get_used_rect()
@@ -429,14 +447,15 @@ func test_stage13_graybox_driver_can_reach_second_zone_goal_from_main_scene() ->
 	assert_eq((main_scene.get_node("Room") as Node2D).scene_file_path, STAGE13_MAIN_ROOM_PATHS[9])
 
 
-# Stage14 空中冲刺解锁前，Stage13 的所有上行台阶都必须能用当前正常跑跳到达。
+# Stage14 空中冲刺解锁前，Stage13 的主路径台阶必须能用当前正常跑跳到达；
+# F09 蓝图中的上层高速线属于 Air Dash 回访路线，不再纳入首次正常跳跃契约。
 func test_stage13_platform_routes_are_reachable_before_air_dash_unlock() -> void:
 	var cases: Array[Dictionary] = [
-		{"path": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn", "spawn": Vector2(228, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": ["MiasmaCasterEnemy"]},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn", "spawn": Vector2(100, 204), "start_foot": 224.0, "target_foot": 192.0, "enemies": ["MiasmaCasterEnemy"]},
 		{"path": "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn", "spawn": Vector2(228, 160), "start_foot": 208.0, "target_foot": 144.0, "enemies": ["MiasmaCasterEnemyA"]},
 		{"path": "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn", "spawn": Vector2(484, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": ["MiasmaCasterEnemy"]},
-		{"path": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "spawn": Vector2(228, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": []},
-		{"path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "spawn": Vector2(228, 96), "start_foot": 144.0, "target_foot": 80.0, "enemies": ["MiasmaCasterEnemy"]},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "spawn": Vector2(400, 204), "start_foot": 224.0, "target_foot": 128.0, "enemies": []},
+		{"path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "spawn": Vector2(228, 188), "start_foot": 208.0, "target_foot": 112.0, "enemies": ["MiasmaCasterEnemy", "BasicMeleeEnemy"]},
 		{"path": "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn", "spawn": Vector2(116, 160), "start_foot": 224.0, "target_foot": 144.0, "enemies": []},
 	]
 	for case: Dictionary in cases:
@@ -503,7 +522,9 @@ func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 			if goal_zone == null or continue_zone == null:
 				return false
 			player.global_position = goal_zone.global_position
+			Input.action_press("ui_down")
 			await _advance_process_frames(4)
+			Input.action_release("ui_down")
 			var story_continue := main_scene.get_node_or_null(
 				"HUD/DemoShell/DetailPanel/MarginContainer/VBoxContainer/DetailBackButton"
 			) as Button
@@ -531,7 +552,10 @@ func _drive_to_stage13_goal(main_scene: Node2D) -> bool:
 			return false
 
 		player.global_position = target_zone.global_position
+		if bool(room.get("goal_requires_down_input")):
+			Input.action_press("ui_down")
 		await _advance_process_frames(4)
+		Input.action_release("ui_down")
 
 	return false
 
@@ -603,7 +627,7 @@ func _assert_animated_sprite_references_asset(parent: Node, node_path: String, a
 	assert_eq(animated_sprite.animation, animation_name)
 
 
-# 正式地形断言 helper：碰撞和可见表面都必须有实际 tile，旧 Preview 节点必须不存在。
+# 正式地形断言 helper：本批次房间以 Phase2 实体灰盒接管碰撞；未重做房间继续验证 TileMap。
 func _assert_formal_runtime_terrain_without_preview(parent: Node) -> void:
 	assert_null(parent.get_node_or_null("MiasmaTilesetPreview"))
 	var terrain := parent.get_node_or_null("TerrainCollisionVisual") as TileMapLayer
@@ -611,6 +635,13 @@ func _assert_formal_runtime_terrain_without_preview(parent: Node) -> void:
 	assert_not_null(terrain)
 	assert_not_null(surface)
 	if terrain == null or surface == null:
+		return
+	var graybox := parent.get_node_or_null("Phase2GrayboxLayout")
+	if graybox != null:
+		assert_false(bool(terrain.get("collision_enabled")))
+		assert_gt(int(graybox.call("get_runtime_platform_count")), 0)
+		assert_false(bool(surface.get("collision_enabled")))
+		assert_gt(surface.get_used_cells().size(), 0)
 		return
 	assert_true(bool(terrain.get("collision_enabled")))
 	assert_false(bool(surface.get("collision_enabled")))

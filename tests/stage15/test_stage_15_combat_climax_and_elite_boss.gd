@@ -26,7 +26,6 @@ const ENEMY_GROUND_CHARGER_DEFEAT_SPRITEFRAMES_PATH := "res://assets/art/charact
 const ENEMY_AERIAL_SENTINEL_DEFEAT_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_aerial_sentinel_defeat_runtime_sheet_ai02.spriteframes.tres"
 const ENEMY_MIASMA_CASTER_DEFEAT_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/enemy_miasma_caster_defeat_runtime_sheet_ai02.spriteframes.tres"
 const SEAL_GUARDIAN_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/seal_guardian_boss_sheet_ai01.spriteframes.tres"
-const SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres"
 const SEAL_GUARDIAN_WARNING_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_warning_runtime_sheet_ai01.spriteframes.tres"
 const SEAL_GUARDIAN_ATTACK_BODY_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_attack_body_runtime_sheet_ai02.spriteframes.tres"
 const SEAL_GUARDIAN_DEFEAT_RUNTIME_SPRITEFRAMES_PATH := "res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_defeat_runtime_sheet_ai01.spriteframes.tres"
@@ -259,9 +258,9 @@ func test_stage15_boss_scene_and_room_use_runtime_boss_art_assets() -> void:
 	_assert_animated_sprite_references_asset(
 		boss,
 		"SealGuardianRuntimeAnimationVisual",
-		"seal_guardian_idle_runtime_sheet_ai01",
-		SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES_PATH,
-		&"idle"
+		"seal_guardian_formal_motion_runtime_sheet_ai01",
+		SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES_PATH,
+		&"close_pressure"
 	)
 	var runtime_visual := boss.get_node("SealGuardianRuntimeAnimationVisual") as AnimatedSprite2D
 	assert_true(runtime_visual.visible)
@@ -408,11 +407,11 @@ func test_seal_guardian_runtime_visual_uses_ready_clips_only() -> void:
 
 	assert_true(visual.visible)
 	_assert_seal_guardian_runtime_visual_not_mixed_with_legacy_layers(boss)
-	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_idle_runtime_sheet_ai01")
+	assert_eq(visual.get_meta("asset_id", ""), "seal_guardian_formal_motion_runtime_sheet_ai01")
 	assert_not_null(visual.sprite_frames)
 	if visual.sprite_frames != null:
-		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES_PATH)
-	assert_eq(visual.animation, &"idle")
+		assert_eq(visual.sprite_frames.resource_path, SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES_PATH)
+	assert_eq(visual.animation, &"close_pressure")
 	assert_false(attack_vfx_visual.visible)
 	assert_false(attack_vfx_visual.get_meta("gameplay_collision", true))
 	assert_false(attack_vfx_visual.get_meta("damage_source", true))
@@ -723,6 +722,15 @@ func _assert_floor_reaches_exit(room: Node2D) -> void:
 	var exit_zone := room.get_node_or_null("ExitZone") as Area2D
 	assert_not_null(exit_zone)
 	if exit_zone == null:
+		return
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
+	if layout != null:
+		var floor_right_edge := -INF
+		for rect: Rect2 in layout.get("solid_rects"):
+			floor_right_edge = maxf(floor_right_edge, rect.end.x)
+		for rect: Rect2 in layout.get("one_way_rects"):
+			floor_right_edge = maxf(floor_right_edge, rect.end.x)
+		assert_gte(floor_right_edge, exit_zone.position.x - 36.0)
 		return
 
 	var terrain := room.get_node_or_null("TerrainCollisionVisual") as TileMapLayer

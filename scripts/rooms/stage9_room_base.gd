@@ -29,11 +29,18 @@ const SEAL_GATE_OPEN_TEXTURE := preload("res://assets/art/editor_resources/shrin
 @export var default_step_id: StringName = &"room"
 @export var cleared_step_id: StringName = &"clear"
 @export var checkpoint_on_ready := false
+@export var checkpoint_requires_down_input := false
 @export var require_all_enemies_defeated := false
+@export var exit_zone_node_name: StringName = &"ExitZone"
+@export var exit_requires_down_input := false
+@export var exit_requires_proximity := false
+@export var exit_requires_gate_unlocked := true
+@export var restore_forward_gate_on_bind := true
 @export var shortcut_room_path := ""
 @export var shortcut_spawn_id: StringName = &""
 @export var shortcut_requires_air_dash := false
 @export var shortcut_required_reward_id: StringName = &""
+@export var shortcut_requires_down_input := false
 @export var narrative_stele_title := ""
 @export_multiline var narrative_stele_text := ""
 
@@ -54,7 +61,7 @@ func _ready() -> void:
 	_gate_unlocked = _get_gate_shape() == null
 	_bind_enemy_signals()
 	_apply_gate_lock_state()
-	if checkpoint_on_ready and checkpoint_spawn_id != StringName():
+	if checkpoint_on_ready and not checkpoint_requires_down_input and checkpoint_spawn_id != StringName():
 		# 动态换房时 Main 会在 add_child 之后立刻绑定信号；延后一帧可避免 ready 阶段的 checkpoint 信号被错过。
 		call_deferred("activate_checkpoint")
 	_emit_hud_context()
@@ -66,22 +73,31 @@ func _process(_delta: float) -> void:
 		return
 
 	_update_narrative_stele()
+	_try_activate_checkpoint_zone()
 	if _try_request_shortcut():
 		return
 
 	if _try_request_previous_room():
 		return
 
-	if not _gate_unlocked:
+	if exit_requires_gate_unlocked and not _gate_unlocked:
 		return
 
-	var exit_zone: Area2D = get_node_or_null("ExitZone") as Area2D
+	var exit_zone := get_node_or_null(str(exit_zone_node_name)) as Node2D
 	if exit_zone == null:
 		return
 
-	if _player.global_position.x >= exit_zone.global_position.x - 36.0:
-		_transition_requested = true
-		_handle_exit_reached()
+	if exit_requires_down_input:
+		if _player.global_position.distance_to(exit_zone.global_position) > 56.0 or not _is_down_confirmation_pressed():
+			return
+	elif exit_requires_proximity:
+		if _player.global_position.distance_to(exit_zone.global_position) > 56.0:
+			return
+	elif _player.global_position.x < exit_zone.global_position.x - 36.0:
+		return
+
+	_transition_requested = true
+	_handle_exit_reached()
 
 
 # 接收 Main 注入的玩家实例，并继续转交给房间内可绑定的敌人和机关。
@@ -93,9 +109,22 @@ func bind_player(player: CharacterBody2D) -> void:
 			child.call("bind_player", player)
 
 
-# 接收 Main 引用，让共享房间基类能读取跨房间探索收益；没有捷径的房间不会使用它。
+# 接收 Main 引用，同时恢复本房确实完成过的向前门控；支路与捷径仍只读取各自探索收益。
 func bind_main(main: Node) -> void:
 	_main = main
+	if (
+		restore_forward_gate_on_bind
+		and
+		_main != null
+		and _main.has_method("is_room_forward_route_completed")
+		and bool(_main.call("is_room_forward_route_completed", scene_file_path))
+	):
+		unlock_gate(cleared_step_id)
+
+
+# Main 用统一前进目标识别“完成房间”而不是普通回程、支路或捷径切换。
+func get_forward_room_path() -> String:
+	return next_room_path
 
 
 # 返回 Stage9 系列房间统一相机边界。
@@ -155,7 +184,10 @@ func get_hud_context() -> Dictionary:
 		"dash_available": true,
 		"shortcut_available": is_shortcut_available(),
 		"shortcut_target": shortcut_room_path,
-		"narrative_stele_active": _narrative_stele_active,
+			"shortcut_requires_down_input": shortcut_requires_down_input,
+			"exit_requires_down_input": exit_requires_down_input,
+			"checkpoint_requires_down_input": checkpoint_requires_down_input,
+			"narrative_stele_active": _narrative_stele_active,
 	}
 
 
@@ -185,6 +217,18 @@ func activate_checkpoint() -> void:
 
 	_checkpoint_activated = true
 	checkpoint_requested.emit(scene_file_path, checkpoint_spawn_id)
+
+
+# 需要明确休整的房间只在玩家靠近 CheckpointZone 并新按下“下”时激活恢复点。
+func _try_activate_checkpoint_zone() -> void:
+	if not checkpoint_requires_down_input or _checkpoint_activated:
+		return
+	var checkpoint_zone := get_node_or_null("CheckpointZone") as Node2D
+	if checkpoint_zone == null or _player.global_position.distance_to(checkpoint_zone.global_position) > 56.0:
+		return
+	if not _is_down_confirmation_pressed():
+		return
+	activate_checkpoint()
 
 
 # 解锁当前房间门控，并可选推进 HUD 步骤。
@@ -247,7 +291,7 @@ func is_shortcut_available() -> bool:
 	return true
 
 
-# 玩家进入 ShortcutZone 且条件满足时，继续复用标准房间切换信号。
+# 玩家进入 ShortcutZone 且条件满足时，按房间配置选择是否需要“下”确认，再复用标准切房信号。
 func _try_request_shortcut() -> bool:
 	if not is_shortcut_available():
 		return false
@@ -255,10 +299,17 @@ func _try_request_shortcut() -> bool:
 	var shortcut_zone := get_node_or_null("ShortcutZone") as Node2D
 	if shortcut_zone == null or _player.global_position.distance_to(shortcut_zone.global_position) > 48.0:
 		return false
+	if shortcut_requires_down_input and not _is_down_confirmation_pressed():
+		return false
 
 	_transition_requested = true
 	room_transition_requested.emit(shortcut_room_path, shortcut_spawn_id)
 	return true
+
+
+# 主动门、祭坛和法坛共用“下”键的新按下边沿，避免按住输入跨房连续触发。
+func _is_down_confirmation_pressed() -> bool:
+	return Input.is_action_just_pressed("ui_down")
 
 
 # 叙事碑只在玩家靠近时临时接管提示区，离开后恢复房间原有目标文本。

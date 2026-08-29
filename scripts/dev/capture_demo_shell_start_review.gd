@@ -10,7 +10,7 @@ const OUT_STARTED_IMAGE := "%s/demo_shell_started.png" % OUT_DIR
 const OUT_PAUSE_IMAGE := "%s/demo_shell_pause.png" % OUT_DIR
 const OUT_FAILURE_IMAGE := "%s/demo_shell_failure.png" % OUT_DIR
 const OUT_REPORT := "%s/demo_shell_start_review_report.json" % OUT_DIR
-const VIEWPORT_SIZE := Vector2i(1024, 576)
+const VIEWPORT_SIZE := Vector2i(2048, 1152)
 
 
 func _init() -> void:
@@ -52,6 +52,9 @@ func _capture() -> int:
 	var pause_title_label := main_scene.get_node_or_null("HUD/DemoShell/PauseMenu/MarginContainer/VBoxContainer/TitleLabel") as Label
 	var failure_panel := main_scene.get_node_or_null("HUD/DemoShell/FailurePanel") as Panel
 	var failure_label := main_scene.get_node_or_null("HUD/DemoShell/FailurePanel/MarginContainer/VBoxContainer/FailureLabel") as Label
+	var resume_button := main_scene.get_node_or_null("HUD/DemoShell/PauseMenu/MarginContainer/VBoxContainer/ResumeButton") as Button
+	var failure_continue_button := main_scene.get_node_or_null("HUD/DemoShell/FailurePanel/MarginContainer/VBoxContainer/FailureContinueButton") as Button
+	var action_focus_band := main_scene.get_node_or_null("HUD/DemoShell/ActionFocusBand") as ColorRect
 	var tutorial_hud := main_scene.get_node_or_null("HUD/TutorialHUD") as Control
 	var battle_panel := main_scene.get_node_or_null("HUD/TutorialHUD/BattlePanel") as Panel
 	var prompt_panel := main_scene.get_node_or_null("HUD/TutorialHUD/PromptPanel") as Panel
@@ -99,7 +102,13 @@ func _capture() -> int:
 	await _wait_frames(4)
 	var pause_save_ok := _save_screenshot(OUT_PAUSE_IMAGE)
 	var pause_visible := pause_menu != null and pause_menu.visible
-	var pause_text_ok := pause_title_label != null and pause_title_label.get_theme_color("font_color").r < 0.5
+	var pause_text_ok := pause_title_label != null and pause_title_label.get_theme_color("font_color").r > 0.7
+	var pause_focus_band_ok := (
+		action_focus_band != null
+		and action_focus_band.visible
+		and resume_button != null
+		and absf(action_focus_band.get_global_rect().get_center().y - resume_button.get_global_rect().end.y) <= 2.0
+	)
 	var pause_rect := Rect2()
 	var pause_layout_ok := false
 	if pause_menu != null:
@@ -121,7 +130,13 @@ func _capture() -> int:
 	await _wait_frames(4)
 	var failure_save_ok := _save_screenshot(OUT_FAILURE_IMAGE)
 	var failure_visible := failure_panel != null and failure_panel.visible
-	var failure_text_ok := failure_label != null and failure_label.get_theme_color("font_color").r < 0.5
+	var failure_text_ok := failure_label != null and failure_label.get_theme_color("font_color").r > 0.7
+	var failure_focus_band_ok := (
+		action_focus_band != null
+		and action_focus_band.visible
+		and failure_continue_button != null
+		and absf(action_focus_band.get_global_rect().get_center().y - failure_continue_button.get_global_rect().end.y) <= 2.0
+	)
 	var failure_rect := Rect2()
 	var failure_layout_ok := false
 	if failure_panel != null:
@@ -149,9 +164,11 @@ func _capture() -> int:
 		and pause_visible
 		and pause_text_ok
 		and pause_layout_ok
+		and pause_focus_band_ok
 		and failure_visible
 		and failure_text_ok
 		and failure_layout_ok
+		and failure_focus_band_ok
 		and runtime_hud_layout_ok
 		and not started_background_visible
 		and not started_menu_visible
@@ -171,9 +188,12 @@ func _capture() -> int:
 		"pause_menu_visible_after_pause": pause_visible,
 		"pause_text_ok": pause_text_ok,
 		"pause_layout_ok": pause_layout_ok,
+		"pause_focus_band_ok": pause_focus_band_ok,
 		"failure_panel_visible_after_notice": failure_visible,
 		"failure_text_ok": failure_text_ok,
 		"failure_layout_ok": failure_layout_ok,
+		"failure_focus_band_ok": failure_focus_band_ok,
+		"shared_action_focus_band_count": demo_shell.find_children("ActionFocusBand", "ColorRect", true, false).size() if demo_shell != null else 0,
 		"viewport_size": {
 			"width": root.get_visible_rect().size.x,
 			"height": root.get_visible_rect().size.y,

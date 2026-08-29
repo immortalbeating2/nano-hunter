@@ -4,6 +4,8 @@ extends GutTest
 
 const MAIN_SCENE := preload("res://scenes/main/main.tscn")
 const TUTORIAL_ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
+const GOAL_TRIAL_ROOM_PATH := "res://scenes/rooms/goal_trial_room.tscn"
+const STAGE9_ENTRY_ROOM_PATH := "res://scenes/rooms/stage9_zone_entry_room.tscn"
 const STAGE11_ROOM_PATH := "res://scenes/rooms/stage11_demo_end_room.tscn"
 const STAGE25_ENTRY_ROOM_PATH := "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn"
 
@@ -61,6 +63,35 @@ func test_save_validation_is_whitelisted_and_atomic() -> void:
 	assert_false(bool(main.call("set_save_paths_for_testing", "user://../unsafe.json", _backup_path)))
 
 
+# 已完成的房间前进资格必须随 v1 存档恢复；缺少新字段的旧 v1 存档仍按空集合兼容加载。
+func test_completed_forward_room_routes_persist_and_legacy_v1_saves_remain_compatible() -> void:
+	var main := await _spawn_main()
+	main.call("transition_to_room", GOAL_TRIAL_ROOM_PATH, &"goal_entry")
+	await get_tree().process_frame
+	var goal_room := main.get_node_or_null("Room") as Node2D
+	assert_not_null(goal_room)
+	if goal_room == null:
+		return
+	goal_room.emit_signal("room_transition_requested", STAGE9_ENTRY_ROOM_PATH, &"zone_entry_start")
+	await get_tree().process_frame
+
+	var snapshot := main.call("build_save_snapshot") as Dictionary
+	var progress := snapshot.get("progress") as Dictionary
+	assert_has(progress.get("completed_forward_room_paths") as Array, GOAL_TRIAL_ROOM_PATH)
+
+	var restored := await _spawn_main()
+	var applied := restored.call("apply_save_snapshot", snapshot) as Dictionary
+	assert_true(bool(applied.get("ok", false)))
+	assert_true(bool(restored.call("is_room_forward_route_completed", GOAL_TRIAL_ROOM_PATH)))
+
+	var legacy_snapshot := snapshot.duplicate(true)
+	(legacy_snapshot.get("progress") as Dictionary).erase("completed_forward_room_paths")
+	var legacy_loaded := await _spawn_main()
+	var legacy_applied := legacy_loaded.call("apply_save_snapshot", legacy_snapshot) as Dictionary
+	assert_true(bool(legacy_applied.get("ok", false)))
+	assert_false(bool(legacy_loaded.call("is_room_forward_route_completed", GOAL_TRIAL_ROOM_PATH)))
+
+
 func test_save_backup_continue_and_ui_survive_a_new_main_instance() -> void:
 	var main := await _spawn_main()
 	assert_true(bool(main.call("set_save_paths_for_testing", _save_path, _backup_path)))
@@ -90,7 +121,7 @@ func test_save_backup_continue_and_ui_survive_a_new_main_instance() -> void:
 	shell.call("refresh_save_state")
 	var continue_button := shell.get_node("MainMenu/MarginContainer/VBoxContainer/ContinueButton") as Button
 	assert_false(continue_button.disabled)
-	assert_not_null(continue_button.icon)
+	assert_null(continue_button.icon)
 	shell.call("_on_continue_pressed")
 	await get_tree().process_frame
 	var progress := loaded.call("get_demo_progress_snapshot") as Dictionary
@@ -144,8 +175,10 @@ func test_corrupt_primary_falls_back_to_backup_and_corrupt_only_can_start_new() 
 	assert_true(bool(status.get("corrupted_primary")))
 	var shell := corrupt_only.get_node("HUD/DemoShell") as Control
 	shell.call("refresh_save_state")
-	assert_true((shell.get_node("MainMenu/MarginContainer/VBoxContainer/ContinueButton") as Button).disabled)
-	assert_string_contains((shell.get_node("MainMenu/MarginContainer/VBoxContainer/StatusLabel") as Label).text, "存档损坏")
+	var continue_button := shell.get_node("MainMenu/MarginContainer/VBoxContainer/ContinueButton") as Button
+	assert_true(continue_button.disabled)
+	assert_string_contains(continue_button.text, "存档损坏")
+	assert_null(shell.get_node_or_null("MainMenu/MarginContainer/VBoxContainer/StatusLabel"))
 	assert_true(bool((corrupt_only.call("start_new_game") as Dictionary).get("ok")))
 	assert_true(bool((corrupt_only.call("get_save_status_snapshot") as Dictionary).get("valid")))
 
@@ -199,7 +232,7 @@ func test_two_point_travel_is_discovery_gated_and_controller_accessible() -> voi
 	await _advance_frames(2)
 	var travel_button := shell.get_node("PauseMenu/MarginContainer/VBoxContainer/TravelButton") as Button
 	assert_false(travel_button.disabled)
-	assert_not_null(travel_button.icon)
+	assert_null(travel_button.icon, "暂停主操作使用固定文字行，不再显示无语义前置图标。")
 	await _send_joy_button(JOY_BUTTON_DPAD_DOWN)
 	await _send_joy_button(JOY_BUTTON_DPAD_DOWN)
 	assert_same(shell.get_viewport().gui_get_focus_owner(), travel_button)

@@ -46,6 +46,7 @@ const SPAWN_POSITIONS := {
 @onready var goal_zone: Area2D = $GoalZone
 
 var _player: CharacterBody2D
+var _main: Node
 var _current_step: StringName = STEP_GOAL_GATE
 var _goal_unlocked := false
 var _goal_finished := false
@@ -73,16 +74,31 @@ func _process(_delta: float) -> void:
 	if _try_request_previous_room():
 		return
 
-	if not _goal_unlocked or _goal_finished:
+	if not _goal_unlocked:
 		return
 
 	if _player.global_position.distance_to(goal_zone.global_position) <= 48.0:
-		_complete_goal()
+		if _goal_finished:
+			_request_stage9_entry()
+		else:
+			_complete_goal()
 
 
 # 接收 Main 注入的玩家实例，目标完成判定只读取其位置。
 func bind_player(player: CharacterBody2D) -> void:
 	_player = player
+
+
+# Main 注入后恢复跨房完成态；只认 Main 已记录的 Room3 真实向前完成事实。
+func bind_main(main: Node) -> void:
+	_main = main
+	if _main != null and _main.has_method("is_room_forward_route_completed") and bool(_main.call("is_room_forward_route_completed", scene_file_path)):
+		_restore_completed_route()
+
+
+# 声明目标房唯一向前目标，供 Main 记录真实完成而不是仅凭目标房曾被访问来推断。
+func get_forward_room_path() -> String:
+	return STAGE9_ENTRY_ROOM_PATH
 
 
 # 返回目标房相机边界，保护短链路终点构图。
@@ -166,11 +182,28 @@ func _complete_goal() -> void:
 		return
 
 	_goal_finished = true
-	_transition_requested = true
 	_current_step = STEP_COMPLETE
 	_emit_hud_context()
 	goal_completed.emit()
+	_request_stage9_entry()
+
+
+# 已完成路线再次抵达右侧时只切房，不重复发放完成信号或重置局部目标。
+func _request_stage9_entry() -> void:
+	if _transition_requested:
+		return
+
+	_transition_requested = true
 	room_transition_requested.emit(STAGE9_ENTRY_ROOM_PATH, STAGE9_ENTRY_SPAWN_ID)
+
+
+# 回访时恢复开门视觉和完成提示，让右侧 GoalZone 成为稳定、可重复使用的房间出口。
+func _restore_completed_route() -> void:
+	_goal_unlocked = true
+	_goal_finished = true
+	_current_step = STEP_COMPLETE
+	_apply_goal_lock_state()
+	_emit_hud_context()
 
 
 # 目标房不是 Boss 锁门房，玩家应能从左侧回到战斗房复查路线。

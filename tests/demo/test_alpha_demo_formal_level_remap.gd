@@ -219,8 +219,20 @@ func _get_right_transition_zone(room: Node) -> Node2D:
 	return room.get_node_or_null("GoalZone") as Node2D
 
 
-# 正式房间读取 TileMap 实体覆盖，尚未重做的房间继续读取旧 Floor rectangle。
+# Blueprint V2 房间优先读取 Phase2 几何真源；旧房间才回退到 TileMap / Floor。
 func _get_walkable_floor_edges(room: Node2D) -> Vector2:
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
+	if layout != null:
+		var solid_rects: Array[Rect2] = layout.get("solid_rects")
+		var one_way_rects: Array[Rect2] = layout.get("one_way_rects")
+		if not solid_rects.is_empty() or not one_way_rects.is_empty():
+			var left := INF
+			var right := -INF
+			for rect: Rect2 in solid_rects + one_way_rects:
+				left = minf(left, rect.position.x)
+				right = maxf(right, rect.end.x)
+			return Vector2(left, right)
+
 	var terrain := room.get_node_or_null("TerrainCollisionVisual") as TileMapLayer
 	if terrain != null and bool(terrain.get("collision_enabled")) and not terrain.get_used_cells().is_empty():
 		var left := INF

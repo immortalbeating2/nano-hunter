@@ -6,7 +6,7 @@ const AERIAL := "res://scenes/rooms/stage10_zone_aerial_room.tscn"
 const BRANCH := "res://scenes/rooms/stage10_zone_branch_room.tscn"
 const CHALLENGE := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
 const PLAYER := "res://scenes/player/player_placeholder.tscn"
-const THIN_PLATFORM_TILESET := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_PLATFORM_TILESET := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 const PLATFORM_TOP_IN_CELL := 16.0
 const PLAYER_HALF_HEIGHT := 20.0
 

@@ -61,9 +61,8 @@ func test_stage13_manual_review_checklist_runtime_closure() -> void:
 			STAGE13_GATE_ROOM_PATH:
 				review.seal_gate_verified = await _verify_seal_gate(main_scene)
 				await _clear_current_room_to_next(main_scene)
-			STAGE13_PRESSURE_ROOM_PATH:
+			STAGE13_CHECKPOINT_ROOM_PATH:
 				review.checkpoint_recovery_triggered = await _verify_checkpoint_recovery(main_scene)
-				await _clear_current_room_to_next(main_scene)
 			STAGE13_BRANCH_HUB_ROOM_PATH:
 				review.resource_branch_completed = await _complete_resource_branch(main_scene)
 				main_scene.call("transition_to_room", STAGE13_BRANCH_HUB_ROOM_PATH, &"stage13_branch_hub_start")
@@ -124,9 +123,8 @@ func _trigger_miasma_feedback(main_scene: Node2D) -> bool:
 	return player.call("get_current_health") < health_before
 
 
-# 验证封印门从锁住到打开的完整过程。
+# 首访 F07 时验证回访封印保持锁住；真正开启由取得 Air Dash 后的 F14→F07 回环覆盖。
 func _verify_seal_gate(main_scene: Node2D) -> bool:
-	# 封印门复核要同时确认“之前锁住”和“触发后打开”，避免只测最终状态。
 	var room := _get_room(main_scene)
 	var player := _get_player(main_scene)
 	if room == null or player == null:
@@ -138,20 +136,30 @@ func _verify_seal_gate(main_scene: Node2D) -> bool:
 		return false
 
 	player.global_position = seal_node.global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(4)
-	return locked_before and room.call("is_gate_unlocked") and room.call("is_seal_node_activated")
+	Input.action_release("ui_down")
+	return locked_before and not room.call("is_gate_unlocked") and not room.call("is_seal_node_activated")
 
 
 # 验证 checkpoint 恢复：触发失败后应回到 checkpoint 房，再能继续进入压力房。
 func _verify_checkpoint_recovery(main_scene: Node2D) -> bool:
-	# checkpoint 复核直接触发 Main 的失败入口，保护最近 checkpoint 房间恢复契约。
+	var room := _get_room(main_scene)
+	var player := _get_player(main_scene)
+	var checkpoint_zone := room.get_node_or_null("CheckpointZone") as Node2D if room != null else null
+	if player == null or checkpoint_zone == null:
+		return false
+	player.global_position = checkpoint_zone.global_position
+	Input.action_press("ui_down")
+	await _advance_process_frames(3)
+	Input.action_release("ui_down")
 	main_scene.call("_on_player_defeated")
 	await _advance_process_frames(4)
 	if _get_room_path(main_scene) != STAGE13_CHECKPOINT_ROOM_PATH:
 		return false
 
 	await _clear_current_room_to_next(main_scene)
-	return _get_room_path(main_scene) == STAGE13_PRESSURE_ROOM_PATH
+	return _get_room_path(main_scene) == STAGE13_BRANCH_HUB_ROOM_PATH
 
 
 # 完成资源支路：进入支路、收集奖励、回到旧 checkpoint 形成安全回环。
@@ -180,7 +188,9 @@ func _complete_challenge_branch(main_scene: Node2D) -> bool:
 		return false
 
 	player.global_position = branch_zone.global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(4)
+	Input.action_release("ui_down")
 	if _get_room_path(main_scene) != STAGE13_CHALLENGE_BRANCH_ROOM_PATH:
 		return false
 
@@ -195,7 +205,15 @@ func _collect_branch_reward_and_exit(main_scene: Node2D) -> void:
 	var reward := room.get_node_or_null("Stage13Reward") as Node2D
 	if player != null and reward != null:
 		player.global_position = reward.global_position
+		Input.action_press("ui_down")
 		await _advance_process_frames(3)
+		Input.action_release("ui_down")
+		var story_continue := main_scene.get_node_or_null(
+			"HUD/DemoShell/DetailPanel/MarginContainer/VBoxContainer/DetailBackButton"
+		) as Button
+		if story_continue != null and get_tree().paused:
+			story_continue.pressed.emit()
+			await _advance_process_frames(1)
 
 	await _clear_current_room_to_next(main_scene)
 
@@ -211,13 +229,20 @@ func _clear_current_room_to_next(main_scene: Node2D) -> void:
 	for child in room.get_children():
 		if child.has_method("receive_attack"):
 			child.call("receive_attack", Vector2.RIGHT, 120.0)
+	var wind_shrine := room.get_node_or_null("WindSealShrine") as Node2D
+	if wind_shrine != null:
+		player.global_position = wind_shrine.global_position
+		Input.action_press("ui_down")
+		await _advance_process_frames(3)
+		Input.action_release("ui_down")
 
 	if room.has_method("unlock_gate") and room.scene_file_path != STAGE13_GATE_ROOM_PATH:
 		room.call("unlock_gate", &"clear")
 
 	var target_zone := room.get_node_or_null("GoalZone") as Node2D
 	if target_zone == null:
-		target_zone = room.get_node_or_null("ExitZone") as Node2D
+		var exit_node_name := str(room.get("exit_zone_node_name"))
+		target_zone = room.get_node_or_null(exit_node_name) as Node2D
 
 	if target_zone == null:
 		return

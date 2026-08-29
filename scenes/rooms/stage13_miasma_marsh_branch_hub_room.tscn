@@ -1,6 +1,7 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_5mg8e"]
@@ -10,7 +11,7 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="9_lf5el"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="10_hyikc"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="11_w06k2"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="12_m8lhl"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="12_m8lhl"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -27,22 +28,47 @@ size = Vector2(96, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3d8tr"]
 size = Vector2(96, 128)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fast_route"]
+size = Vector2(160, 16)
+
 [node name="Stage13MiasmaMarshBranchHubRoom" type="Node2D" unique_id=767962408]
 script = ExtResource("1")
 resource_branch_room_path = "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"
 challenge_branch_room_path = "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn"
-camera_limits = Rect2i(-384, -320, 1536, 576)
-next_room_path = "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn"
-next_spawn_id = &"stage13_return_start"
-previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn"
-previous_spawn_id = &"stage13_pressure_return"
+camera_limits = Rect2i(-320, -240, 1920, 540)
+next_room_path = "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
+next_spawn_id = &"stage13_goal_start"
+previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn"
+previous_spawn_id = &"stage13_checkpoint_return"
 spawn_positions = {
-&"stage13_branch_hub_return": Vector2(896, 204),
+&"stage13_branch_hub_return": Vector2(1456, 172),
 &"stage13_branch_hub_start": Vector2(-256, 204),
-&"stage13_challenge_branch_return": Vector2(832, 204),
-&"stage13_resource_branch_return": Vector2(768, 204)
+&"stage13_challenge_branch_return": Vector2(1200, 44),
+&"stage13_resource_branch_return": Vector2(1088, 264)
 }
 default_step_id = &"stage13_branch_hub"
+air_dash_fast_route_room_path = "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
+air_dash_fast_route_spawn_id = &"stage13_goal_from_fast_route"
+air_dash_fast_route_reward_id = &"stage14_reward_three"
+challenge_branch_requires_down_input = true
+metadata/formal_room_id = "F09"
+metadata/route_role = "three_route_hub_and_air_dash_revisit"
+metadata/safe_floor_y = 160.0
+metadata/normal_exit_uses_generic_door = false
+metadata/transition_visual_type = "miasma_boundary"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 3
+layout_profile = &"three_route_hub"
+solid_rects = Array[Rect2]([Rect2(-320, 224, 960, 64), Rect2(1216, 192, 384, 64), Rect2(960, 288, 256, 64)])
+one_way_rects = Array[Rect2]([Rect2(64, 64, 320, 16), Rect2(464, 64, 320, 16), Rect2(864, 64, 400, 16), Rect2(1344, 64, 256, 16), Rect2(640, 192, 576, 16), Rect2(480, 128, 192, 16), Rect2(832, 144, 192, 16), Rect2(960, 96, 192, 16), Rect2(1024, 128, 192, 16)])
+route_heights = {
+&"challenge_upper": 64.0,
+&"main": 192.0,
+&"resource_lower": 288.0,
+&"air_dash_fast": 64.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=955977794]
 z_index = -4
@@ -96,7 +122,7 @@ polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
 [node name="ResourceBranchZone" type="Area2D" parent="." unique_id=868998094]
-position = Vector2(128, 120)
+position = Vector2(1088, 264)
 metadata/anchor_role = "stage13_three_route_landmark"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResourceBranchZone" unique_id=1864072045]
@@ -117,7 +143,7 @@ metadata/asset_id = "equipment_pickup_atlas_ai01"
 metadata/runtime_source = "equipment_pickup_atlas_ai01.reward_orb_small"
 
 [node name="ChallengeBranchZone" type="Area2D" parent="." unique_id=601444388]
-position = Vector2(448, 56)
+position = Vector2(1200, 44)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChallengeBranchZone" unique_id=1210981011]
 shape = SubResource("3")
@@ -137,7 +163,7 @@ metadata/asset_id = "equipment_pickup_atlas_ai01"
 metadata/runtime_source = "equipment_pickup_atlas_ai01.boss_core_shard"
 
 [node name="ExitZone" type="Area2D" parent="." unique_id=701098749]
-position = Vector2(1120, 160)
+position = Vector2(1552, 172)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=126326864]
 shape = SubResource("4")
@@ -155,6 +181,42 @@ scale = Vector2(0.32, 0.32)
 texture = ExtResource("7_exit_marker")
 metadata/asset_id = "equipment_pickup_atlas_ai01"
 metadata/runtime_source = "equipment_pickup_atlas_ai01.map_scrap"
+
+[node name="AirDashFastRoutePlatform" type="StaticBody2D" parent="."]
+position = Vector2(880, 72)
+metadata/route_role = "air_dash_revisit_takeoff"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AirDashFastRoutePlatform"]
+shape = SubResource("RectangleShape2D_fast_route")
+one_way_collision = true
+disabled = true
+
+[node name="PlatformVisual" type="Polygon2D" parent="AirDashFastRoutePlatform"]
+visible = false
+color = Color(0.239216, 0.67451, 0.72549, 0.42)
+polygon = PackedVector2Array(-80, -8, 80, -8, 80, 8, -80, 8)
+
+[node name="AirDashFastRouteZone" type="Marker2D" parent="."]
+position = Vector2(1088, 44)
+metadata/route_role = "air_dash_fast_route_to_f12"
+
+[node name="FastRouteGuide" type="Polygon2D" parent="AirDashFastRouteZone"]
+visible = false
+z_index = 3
+color = Color(0.258824, 0.862745, 0.92549, 0.62)
+polygon = PackedVector2Array(-24, -8, 0, -8, 0, -18, 28, 0, 0, 18, 0, 8, -24, 8)
+
+[node name="AirDashFastRouteEntryMarker" type="Marker2D" parent="."]
+position = Vector2(128, 44)
+metadata/route_role = "air_dash_fast_route_preview"
+
+[node name="AirDashFastRouteExitMarker" type="Marker2D" parent="."]
+position = Vector2(1552, 44)
+metadata/route_role = "air_dash_fast_route_blueprint_endpoint"
+
+[node name="ThreeRouteLandmark" type="Marker2D" parent="."]
+position = Vector2(608, 172)
+metadata/route_role = "main_resource_challenge_decision"
 
 [node name="FormalTerrainTilemapDecor" type="TileMapLayer" parent="." unique_id=1767971364]
 visible = false
@@ -178,6 +240,7 @@ metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
 metadata/asset_binding_note = "dac_formal_foreground_edge_decor"
 
 [node name="TerrainCollisionVisual" type="TileMapLayer" parent="." unique_id=1426805650]
+collision_enabled = false
 visible = false
 z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
@@ -185,6 +248,7 @@ tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAA
 tile_set = ExtResource("10_hyikc")
 
 [node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=183541002]
+collision_enabled = false
 visible = false
 z_index = 2
 position = Vector2(0, -16)
@@ -232,7 +296,7 @@ tile_set = ExtResource("10_hyikc")
 collision_enabled = false
 
 [node name="LeftExitZone" type="Area2D" parent="." unique_id=670550679]
-position = Vector2(-352, 160)
+position = Vector2(-304, 204)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=277871089]
 shape = SubResource("RectangleShape2D_3d8tr")

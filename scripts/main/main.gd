@@ -19,7 +19,9 @@ const STAGE16_ROOM_PREFIX := "res://scenes/rooms/stage16_"
 const STAGE16_ALPHA_DEMO_END_ROOM_PATH := "res://scenes/rooms/stage16_alpha_demo_end_room.tscn"
 const STAGE25_ROOM_PREFIX := "res://scenes/rooms/stage25_"
 const STAGE25_ENTRY_ROOM_PATH := "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn"
+const FORMAL_DEMO_ROOM_PROGRAM_PATH := "res://assets/configs/world_map/formal_demo_room_program.json"
 const FALL_RESET_MARGIN := 96.0
+const ROOM_ENTRY_FALL_GUARD_DURATION := 0.2
 const SAVE_VERSION := 1
 const SAVE_FILE_PATH := "user://north_star_save.json"
 const BACKUP_SAVE_FILE_PATH := "user://north_star_save.backup.json"
@@ -189,6 +191,7 @@ var _current_room_path := TUTORIAL_ROOM_PATH
 var _current_spawn_id: StringName = &"tutorial_start"
 var _checkpoint_room_path := ""
 var _checkpoint_spawn_id: StringName = &""
+var _room_entry_fall_guard_remaining := 0.0
 var _is_short_chain_completed := false
 var _is_demo_completed := false
 var _air_dash_unlocked := false
@@ -204,6 +207,7 @@ var _active_build_id: StringName = &""
 var _equipped_build_ids: Array[StringName] = []
 var _completed_story_event_ids: Dictionary = {}
 var _visited_room_paths: Dictionary = {}
+var _completed_forward_room_paths: Dictionary = {}
 var _discovered_travel_point_ids: Dictionary = {}
 var _stage15_boss_defeated := false
 var _stage30_boss_defeated := false
@@ -220,6 +224,7 @@ var _last_save_result := {
 	"code": &"not_saved",
 	"message": "尚未写入存档。",
 }
+var _formal_demo_room_program: Dictionary = {}
 
 
 # 主入口初始化只做一次：窗口基线、默认输入契约和首房间加载。
@@ -235,7 +240,10 @@ func _ready() -> void:
 
 
 # 主流程每帧只做跨房间安全检查；房间内教学、战斗和门控仍由房间脚本负责。
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if _room_entry_fall_guard_remaining > 0.0:
+		_room_entry_fall_guard_remaining = maxf(_room_entry_fall_guard_remaining - maxf(delta, 0.0), 0.0)
+		return
 	_check_player_fall_out_of_bounds()
 
 
@@ -464,6 +472,7 @@ func _reset_demo_runtime_state() -> void:
 	_equipped_build_ids.clear()
 	_completed_story_event_ids.clear()
 	_visited_room_paths.clear()
+	_completed_forward_room_paths.clear()
 	_discovered_travel_point_ids.clear()
 	_stage15_boss_defeated = false
 	_stage30_boss_defeated = false
@@ -484,6 +493,12 @@ func start_demo() -> void:
 
 	start_new_game()
 	get_tree().paused = false
+
+
+# DemoShell 用这一公开入口声明标题流程与游戏流程的边界；完整 HUD 必须连同共享注意层一起切换。
+func set_gameplay_hud_visible(is_visible: bool) -> void:
+	if tutorial_hud != null:
+		tutorial_hud.visible = is_visible
 
 
 # 暂停状态由 Demo 壳负责显示；Main 暴露统一入口给测试和后续外层 UI。
@@ -594,6 +609,76 @@ func get_world_map_snapshot() -> Dictionary:
 	}
 
 
+# 正式 Demo program 只读快照供地图、兼容迁移和测试使用；实际切房仍由房间 signal 决定。
+func get_formal_demo_room_program_snapshot() -> Dictionary:
+	var program := _get_formal_demo_room_program()
+	var formal_ids: Array[String] = []
+	var formal_paths: Array[String] = []
+	var formal_rooms: Variant = program.get("formal_rooms", [])
+	if formal_rooms is Array:
+		for room_definition: Variant in formal_rooms:
+			if not (room_definition is Dictionary):
+				continue
+			formal_ids.append(str(room_definition.get("id", "")))
+			formal_paths.append(str(room_definition.get("path", "")))
+	var merged_rooms: Variant = program.get("merged_rooms", [])
+	var reserve_rooms: Variant = program.get("reserve_room_paths", [])
+	return {
+		"program_id": str(program.get("program_id", "")),
+		"formal_room_count": formal_paths.size(),
+		"reserve_room_count": (merged_rooms.size() if merged_rooms is Array else 0) + (reserve_rooms.size() if reserve_rooms is Array else 0),
+		"formal_room_ids": formal_ids,
+		"formal_room_paths": formal_paths,
+		"formal_main_route": (program.get("formal_main_route", []) as Array).duplicate(),
+		"formal_branch_connections": (program.get("formal_branch_connections", []) as Array).duplicate(true),
+	}
+
+
+# 旧房间仍可加载；正式 Continue 遇到 merged / reserve 房间时统一迁移到安全入口。
+func resolve_formal_demo_room_entry(room_path: String, spawn_id: StringName) -> Dictionary:
+	var program := _get_formal_demo_room_program()
+	var formal_rooms: Variant = program.get("formal_rooms", [])
+	if formal_rooms is Array:
+		for room_definition: Variant in formal_rooms:
+			if room_definition is Dictionary and str(room_definition.get("path", "")) == room_path:
+				return {
+					"status": &"formal",
+					"source_path": room_path,
+					"room_path": room_path,
+					"spawn_id": spawn_id,
+				}
+	var merged_rooms: Variant = program.get("merged_rooms", [])
+	if merged_rooms is Array:
+		for merged: Variant in merged_rooms:
+			if merged is Dictionary and str(merged.get("source_path", "")) == room_path:
+				return {
+					"status": &"merged",
+					"source_path": room_path,
+					"room_path": str(merged.get("target_path", TUTORIAL_ROOM_PATH)),
+					"spawn_id": StringName(str(merged.get("target_spawn_id", "tutorial_start"))),
+				}
+	var reserve_rooms: Variant = program.get("reserve_room_paths", [])
+	if reserve_rooms is Array and room_path in reserve_rooms:
+		var fallback: Dictionary = program.get("default_fallback", {})
+		return {
+			"status": &"reserve",
+			"source_path": room_path,
+			"room_path": str(fallback.get("room_path", TUTORIAL_ROOM_PATH)),
+			"spawn_id": StringName(str(fallback.get("spawn_id", "tutorial_start"))),
+		}
+	return {
+		"status": &"unknown",
+		"source_path": room_path,
+		"room_path": room_path,
+		"spawn_id": spawn_id,
+	}
+
+
+# 房间只读查询自身是否确实完成过向前切换；不能用“目标房已访问”替代，否则环路会误开门。
+func is_room_forward_route_completed(room_path: String) -> bool:
+	return not room_path.is_empty() and _completed_forward_room_paths.has(room_path)
+
+
 # 解锁 Stage14 空中冲刺，并立即同步到当前房间里已经生成的玩家实例。
 func unlock_air_dash() -> void:
 	_air_dash_unlocked = true
@@ -652,6 +737,11 @@ func collect_stage14_backtrack_reward(reward_id: StringName) -> void:
 # 返回已确认的 Stage14 回溯收益数量，HUD 和主线测试都依赖这个读值。
 func get_stage14_backtrack_reward_count() -> int:
 	return _stage14_backtrack_reward_ids.size()
+
+
+# 精确查询单个回访事实，供分散在旧房间的奖励恢复与 F15 主路线门禁使用。
+func has_stage14_backtrack_reward(reward_id: StringName) -> bool:
+	return reward_id != StringName() and _stage14_backtrack_reward_ids.has(reward_id)
 
 
 # 记录跨房间探索 / 战斗收益；固定 Build 共用该去重入口，不扩展成物品栏或经济系统。
@@ -889,6 +979,8 @@ func has_completed_story_event(event_id: StringName) -> bool:
 # 标记 Stage15 Boss 已击败；实际胜利房间跳转仍由房间脚本发起。
 func mark_stage15_boss_defeated() -> void:
 	# Boss 房只报告胜利事件；Main 把它转成 demo 进度快照，供完成房和 HUD 继续读取。
+	if _stage15_boss_defeated:
+		return
 	_stage15_boss_defeated = true
 	collect_exploration_reward(BUILD_GUARDIAN_CORE)
 	_persist_if_session_active()
@@ -1012,6 +1104,7 @@ func build_save_snapshot() -> Dictionary:
 			"equipped_build_ids": _string_name_array_to_strings(_equipped_build_ids),
 			"completed_story_event_ids": _sorted_string_ids(_completed_story_event_ids),
 			"visited_room_paths": _sorted_string_ids(_visited_room_paths),
+			"completed_forward_room_paths": _sorted_string_ids(_completed_forward_room_paths),
 			"stage15_boss_defeated": _stage15_boss_defeated,
 			"stage30_boss_defeated": _stage30_boss_defeated,
 			"stage16_alpha_demo_completed": _stage16_alpha_demo_completed,
@@ -1044,6 +1137,7 @@ func apply_save_snapshot(candidate: Variant) -> Dictionary:
 	_turned_in_bounty_ids = _dictionary_from_string_ids(progress.get("turned_in_bounty_ids", []))
 	_completed_story_event_ids = _dictionary_from_string_ids(progress.get("completed_story_event_ids", []))
 	_visited_room_paths = _dictionary_from_string_ids(progress.get("visited_room_paths", []))
+	_completed_forward_room_paths = _dictionary_from_string_ids(progress.get("completed_forward_room_paths", []))
 	_discovered_travel_point_ids = _dictionary_from_string_ids(snapshot.get("travel_point_ids", []))
 	_equipped_build_ids.clear()
 	for build_id: Variant in progress.get("equipped_build_ids", []):
@@ -1052,8 +1146,12 @@ func apply_save_snapshot(candidate: Variant) -> Dictionary:
 	_stage15_boss_defeated = bool(progress.get("stage15_boss_defeated", false))
 	_stage30_boss_defeated = bool(progress.get("stage30_boss_defeated", false))
 	_stage16_alpha_demo_completed = bool(progress.get("stage16_alpha_demo_completed", false))
-	_checkpoint_room_path = str(checkpoint.get("room_path", TUTORIAL_ROOM_PATH))
-	_checkpoint_spawn_id = StringName(str(checkpoint.get("spawn_id", "tutorial_start")))
+	var resolved_checkpoint := resolve_formal_demo_room_entry(
+		str(checkpoint.get("room_path", TUTORIAL_ROOM_PATH)),
+		StringName(str(checkpoint.get("spawn_id", "tutorial_start")))
+	)
+	_checkpoint_room_path = str(resolved_checkpoint.get("room_path", TUTORIAL_ROOM_PATH))
+	_checkpoint_spawn_id = StringName(resolved_checkpoint.get("spawn_id", &"tutorial_start"))
 
 	var player := _get_runtime_player()
 	if player != null:
@@ -1063,7 +1161,7 @@ func apply_save_snapshot(candidate: Variant) -> Dictionary:
 		"ok": true,
 		"code": &"applied",
 		"message": "存档状态已应用。",
-		"snapshot": snapshot,
+		"snapshot": build_save_snapshot(),
 	}
 
 
@@ -1248,6 +1346,9 @@ func _validate_save_snapshot(candidate: Variant) -> Dictionary:
 	var checkpoint_spawn_id := str(checkpoint.get("spawn_id", ""))
 	if not _is_safe_room_path(checkpoint_room_path) or checkpoint_spawn_id.is_empty():
 		return _invalid_save(&"unsafe_checkpoint", "checkpoint 路径或出生点无效。")
+	var resolved_checkpoint := resolve_formal_demo_room_entry(checkpoint_room_path, StringName(checkpoint_spawn_id))
+	checkpoint_room_path = str(resolved_checkpoint.get("room_path", checkpoint_room_path))
+	checkpoint_spawn_id = str(resolved_checkpoint.get("spawn_id", checkpoint_spawn_id))
 
 	for field: String in SAVE_BOOLEAN_FIELDS:
 		if not progress.has(field) or typeof(progress[field]) != TYPE_BOOL:
@@ -1270,6 +1371,10 @@ func _validate_save_snapshot(candidate: Variant) -> Dictionary:
 	var visited := _sanitize_room_path_array(progress.get("visited_room_paths", null))
 	if not bool(visited.get("ok", false)):
 		return visited
+	# 旧版 v1 存档没有该字段时按空集合加载，保持现有存档向后兼容。
+	var completed_forward := _sanitize_room_path_array(progress.get("completed_forward_room_paths", []))
+	if not bool(completed_forward.get("ok", false)):
+		return completed_forward
 
 	var accepted_ids: Array = accepted.get("values", [])
 	var completed_ids: Array = completed.get("values", [])
@@ -1349,6 +1454,7 @@ func _validate_save_snapshot(candidate: Variant) -> Dictionary:
 				"equipped_build_ids": equipped_ids,
 				"completed_story_event_ids": story.get("values", []),
 				"visited_room_paths": visited_paths,
+				"completed_forward_room_paths": completed_forward.get("values", []),
 				"stage15_boss_defeated": stage15_defeated,
 				"stage30_boss_defeated": stage30_defeated,
 				"stage16_alpha_demo_completed": stage16_completed,
@@ -1539,6 +1645,9 @@ func _change_room(room_path: String, spawn_id: StringName, force_reload := false
 	if room_scene == null:
 		return
 
+	# 新玩家生成后的极短窗口可能仍处在接触重建/画面切换帧；只跳过该瞬态，随后恢复正常跌落判定。
+	_room_entry_fall_guard_remaining = ROOM_ENTRY_FALL_GUARD_DURATION
+
 	if room == null:
 		room = get_node_or_null("Room") as Node2D
 
@@ -1696,7 +1805,22 @@ func _on_room_transition_requested(target_room_path: String, spawn_id: StringNam
 		restart_demo()
 		return
 
+	_register_completed_forward_route(target_room_path)
 	transition_to_room(target_room_path, spawn_id)
+
+
+# 只有房间真实请求了它声明的向前目标时才记录完成，避免支路/回程或已访问枢纽造成误判。
+func _register_completed_forward_route(target_room_path: String) -> void:
+	if room == null or not room.has_method("get_forward_room_path"):
+		return
+	if str(room.call("get_forward_room_path")) != target_room_path:
+		return
+	var source_room_path := room.scene_file_path
+	if source_room_path.is_empty() or _completed_forward_room_paths.has(source_room_path):
+		return
+
+	_completed_forward_room_paths[source_room_path] = true
+	_persist_if_session_active()
 
 
 # 玩家失败后优先回 checkpoint，没有 checkpoint 时按当前房间的失败规则决定是否重置。
@@ -1770,9 +1894,22 @@ func _get_current_element_sequence_snapshot() -> Dictionary:
 			"reaction_id": StringName(),
 			"reaction_label": "",
 		}
-
 	var snapshot: Variant = player.call("get_element_sequence_snapshot")
 	return snapshot if snapshot is Dictionary else {}
+
+
+func _get_formal_demo_room_program() -> Dictionary:
+	if not _formal_demo_room_program.is_empty():
+		return _formal_demo_room_program
+	if not FileAccess.file_exists(FORMAL_DEMO_ROOM_PROGRAM_PATH):
+		push_error("正式 Demo 房间 program 不存在：%s" % FORMAL_DEMO_ROOM_PROGRAM_PATH)
+		return {}
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(FORMAL_DEMO_ROOM_PROGRAM_PATH))
+	if not (parsed is Dictionary):
+		push_error("正式 Demo 房间 program 不是有效 Dictionary：%s" % FORMAL_DEMO_ROOM_PROGRAM_PATH)
+		return {}
+	_formal_demo_room_program = (parsed as Dictionary).duplicate(true)
+	return _formal_demo_room_program
 
 
 # 把玩家恢复充能 ready 状态转成 Main 快照字段，供 HUD 展示 stage15 战斗容错。
@@ -1872,7 +2009,7 @@ func _get_demo_goal_text() -> String:
 		STAGE10_CHALLENGE_ROOM_PATH:
 			return "目标：完成挑战"
 		STAGE11_DEMO_END_ROOM_PATH:
-			return "目标：确认镇妖驿厅通路"
+			return "目标：确认驿厅通路"
 		_:
 			return "目标：推进 Demo"
 
@@ -1916,6 +2053,6 @@ func _get_demo_goal_hint_text() -> String:
 		STAGE10_CHALLENGE_ROOM_PATH:
 			return "提示：通过挑战房后，右侧出口会接入镇妖驿厅"
 		STAGE11_DEMO_END_ROOM_PATH:
-			return "提示：左返试炼 / 右入瘴泽"
+			return "提示：左返 / 右进"
 		_:
 			return ""

@@ -9,7 +9,7 @@ signal checkpoint_requested(room_path: String, spawn_id: StringName)
 signal goal_completed
 signal bounty_board_requested
 
-const CAMERA_LIMITS := Rect2i(-384, -256, 1152, 512)
+const CAMERA_LIMITS := Rect2i(-384, -256, 1152, 480)
 const STEP_FINISH: StringName = &"finish"
 const STEP_COMPLETE: StringName = &"complete"
 const STAGE10_CHALLENGE_ROOM_PATH := "res://scenes/rooms/stage10_zone_challenge_room.tscn"
@@ -32,7 +32,7 @@ const STEP_TITLES := {
 }
 
 const STEP_PROMPTS := {
-	STEP_FINISH: "触碰中央封印标记，确认镇妖驿厅与瘴泽通路。",
+	STEP_FINISH: "靠近中央封印标记并按 ↓，确认镇妖驿厅与瘴泽通路。",
 	STEP_COMPLETE: "通路已确认：向左返回镇妖试炼，向右进入瘴泽妖域。",
 }
 
@@ -56,9 +56,8 @@ var _displayed_route_open := false
 var _route_marker_initialized := false
 
 
-# 驿厅一进入就注册最近恢复点，确保失败后仍从安全位置重来。
+# 驿厅进入后只显示恢复点；玩家确认中央法坛时再注册最近恢复点。
 func _ready() -> void:
-	_activate_checkpoint()
 	_emit_hud_context()
 
 
@@ -71,8 +70,9 @@ func _process(_delta: float) -> void:
 	_refresh_thunder_route_marker()
 
 	if not _goal_finished:
-		# 未完成前先确认中央封印标记，避免玩家绕过本房 checkpoint 与 HUD 状态。
-		if _player.global_position.x >= goal_zone.global_position.x - 24.0:
+		# 未完成前必须在中央法坛按下确认，避免走过即激活 checkpoint。
+		if _player.global_position.distance_to(goal_zone.global_position) <= 56.0 and Input.is_action_just_pressed("ui_down"):
+			_activate_checkpoint()
 			_complete_demo()
 		return
 
@@ -109,6 +109,11 @@ func bind_main(main: Node) -> void:
 	_emit_hud_context()
 
 
+# 驿站的正式向前目标是瘴泽入口；返回旧区、悬赏榜与雷蚀荒原均不计入该完成事实。
+func get_forward_room_path() -> String:
+	return STAGE13_ENTRY_ROOM_PATH
+
+
 # 返回驿厅相机边界，保证中央标记和左右出口都在可见范围。
 func get_camera_limits() -> Rect2i:
 	return CAMERA_LIMITS
@@ -117,13 +122,13 @@ func get_camera_limits() -> Rect2i:
 # 返回终点房出生点；当前只有一个稳定起点。
 func get_spawn_position(spawn_id: StringName = DEMO_END_SPAWN_ID) -> Vector2:
 	if spawn_id == DEMO_END_SPAWN_ID:
-		return Vector2(-128, 204)
+		return Vector2(-128, 172)
 	if spawn_id == &"stage11_demo_end_return":
-		return Vector2(560, 204)
+		return Vector2(560, 172)
 	if spawn_id == &"stage11_thunder_waste_return":
-		return Vector2(240, 204)
+		return Vector2(240, 172)
 
-	return Vector2(-128, 204)
+	return Vector2(-128, 172)
 
 
 # 汇总驿厅 HUD 上下文，展示封印确认前后的路线提示。
@@ -165,10 +170,10 @@ func _activate_checkpoint() -> void:
 	checkpoint_requested.emit(scene_file_path, DEMO_END_SPAWN_ID)
 
 
-# 玩家首次靠近榜牌时打开榜单，离开后才允许再次触发。
+# 榜牌只在玩家靠近并新按下“下”时打开，避免路过 Hub 被 UI 打断。
 func _update_bounty_board() -> void:
 	var is_near := _player.global_position.distance_to(bounty_board_zone.global_position) <= 56.0
-	if is_near and not _bounty_board_near:
+	if is_near and not _bounty_board_near and Input.is_action_just_pressed("ui_down"):
 		_bounty_board_near = true
 		bounty_board_requested.emit()
 	elif not is_near:

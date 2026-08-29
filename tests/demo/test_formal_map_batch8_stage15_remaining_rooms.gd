@@ -38,7 +38,7 @@ func test_challenge_is_26x10_hazard_two_enemy_reward_room() -> void:
 
 func test_boss_is_28x10_wide_arena() -> void:
 	var room := _room(BOSS)
-	_assert_layout(room, Rect2i(-384, -320, 1792, 640), Vector2i(-6, 4), 28, 8)
+	_assert_phase2_layout(room, Rect2i(-384, -320, 1792, 640), 2, &"boss_foyer_and_locked_arena")
 	_assert_previous(room, GAUNTLET, &"stage15_boss_return", 224.0)
 	assert_eq(room.call("get_spawn_position", &"stage15_boss_start"), Vector2(-256, 268))
 	assert_eq(room.call("get_spawn_position", &"stage15_boss_return"), Vector2(1216, 268))
@@ -50,9 +50,9 @@ func test_boss_is_28x10_wide_arena() -> void:
 	assert_null(room.get_node_or_null("SealGuardianRoomAnimationPreview"))
 
 
-func test_completion_is_18x8_ceremonial_hall() -> void:
+func test_completion_is_two_segment_ceremonial_hall() -> void:
 	var room := _room(COMPLETION)
-	_assert_layout(room, Rect2i(-384, -256, 1152, 512), Vector2i(-6, 3), 18, 5)
+	_assert_phase2_layout(room, Rect2i(-384, -256, 1408, 512), 2, &"post_boss_waystation_return")
 	_assert_previous(room, BOSS, &"stage15_boss_return", 160.0)
 	assert_eq(room.call("get_spawn_position", &"stage15_completion_start"), Vector2(-256, 204))
 	assert_eq(room.call("get_spawn_position", &"stage15_completion_return"), Vector2(576, 204))
@@ -88,6 +88,19 @@ func _assert_layout(room: Node2D, limits: Rect2i, floor_start: Vector2i, floor_l
 	assert_false(bool(thin.get("collision_enabled")))
 	for offset: int in range(floor_length):
 		assert_eq(terrain.get_cell_source_id(floor_start + Vector2i(offset, 0)), 0)
+
+
+func _assert_phase2_layout(room: Node2D, limits: Rect2i, segments: int, profile: StringName) -> void:
+	assert_eq(room.call("get_camera_limits"), limits)
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
+	assert_not_null(layout)
+	if layout == null:
+		return
+	assert_eq(int(layout.call("get_segment_count")), segments)
+	assert_eq(layout.call("get_layout_profile"), profile)
+	assert_gte(int(layout.call("get_runtime_platform_count")), segments)
+	assert_false(bool((room.get_node("TerrainCollisionVisual") as TileMapLayer).collision_enabled))
+	assert_false(bool((room.get_node("PlatformCollisionVisual") as TileMapLayer).collision_enabled))
 
 
 func _assert_previous(room: Node2D, path: String, spawn: StringName, left_exit_y: float) -> void:

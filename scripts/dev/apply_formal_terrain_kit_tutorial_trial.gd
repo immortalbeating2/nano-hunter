@@ -3,15 +3,20 @@ extends SceneTree
 # Tutorial terrain 正式房间模板生成。
 # ponytail: 只服务 tutorial_room，推广到其它房间时再抽通用铺设器。
 
+const FORMAL_DEMO_RECOVERY_LOCKED := true
+const FORMAL_DEMO_RECOVERY_PROGRAM_ID := "formal_demo_recovery_b"
+
 const ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
 const TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_PLATFORM_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const JUMP_PLATFORM_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
+const DASH_GATE_LINTEL_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_dash_gate_lintel_visual_ai01.tileset.tres"
 const ENTRY_LANDMARK_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/017_shrine_gate_prop_atlas_ai01_auto_018_c02.atlas_texture.tres")
 const DASH_LANDMARK_TEXTURE := preload("res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/001_shrine_gate_prop_atlas_ai01_auto_002_c01.atlas_texture.tres")
 const ASSET_ID := "formal_terrain_kit_ai01"
 const SURFACE_ASSET_ID := "shrine_trial_tileset_ai01"
-const THIN_PLATFORM_SURFACE_ASSET_ID := "tutorial_thin_platform_visual_ai01"
+const JUMP_PLATFORM_SURFACE_ASSET_ID := "tutorial_jump_platform_visual_ai02"
+const DASH_GATE_LINTEL_ASSET_ID := "tutorial_dash_gate_lintel_visual_ai01"
 const TILE_WORLD_SIZE := 64.0
 const TILE_OFFSET := Vector2(0.0, 0.0)
 const THIN_TILE_OFFSET := Vector2(0.0, -16.0)
@@ -19,7 +24,8 @@ const TILE_SCALE := Vector2(1.0 / 6.0, 1.0 / 6.0)
 
 const GROUND_UNDERLAY_NAME := "GroundUnderlayVisual"
 const SURFACE_LAYER_NAME := "GroundSurfaceVisual"
-const THIN_PLATFORM_SURFACE_LAYER_NAME := "ThinPlatformSurfaceVisual"
+const JUMP_PLATFORM_SURFACE_LAYER_NAME := "ThinPlatformSurfaceVisual"
+const DASH_GATE_LINTEL_LAYER_NAME := "DashGateLintelVisual"
 const TERRAIN_LAYER_NAME := "TerrainCollisionVisual"
 const PLATFORM_LAYER_NAME := "PlatformCollisionVisual"
 const DOOR_LAYER_NAME := "DoorVisual"
@@ -78,9 +84,12 @@ const SURFACE_GROUND_RIGHT := Vector2i(2, 0)
 const SURFACE_PLATFORM_LEFT := Vector2i(0, 1)
 const SURFACE_PLATFORM_CENTER := Vector2i(1, 1)
 const SURFACE_PLATFORM_RIGHT := Vector2i(2, 1)
-const THIN_SURFACE_PLATFORM_LEFT := Vector2i(0, 0)
-const THIN_SURFACE_PLATFORM_CENTER := Vector2i(1, 0)
-const THIN_SURFACE_PLATFORM_RIGHT := Vector2i(2, 0)
+const JUMP_SURFACE_LEFT := Vector2i(0, 0)
+const JUMP_SURFACE_CENTER := Vector2i(1, 0)
+const JUMP_SURFACE_RIGHT := Vector2i(2, 0)
+const LINTEL_SURFACE_LEFT := Vector2i(0, 0)
+const LINTEL_SURFACE_CENTER := Vector2i(1, 0)
+const LINTEL_SURFACE_RIGHT := Vector2i(2, 0)
 
 const MAIN_GROUND_START := Vector2i(-7, 2)
 const MAIN_GROUND_LENGTH := 23
@@ -109,6 +118,9 @@ func _init() -> void:
 
 
 func _run() -> int:
+	if FORMAL_DEMO_RECOVERY_LOCKED:
+		push_error("该历史生成器已由 formal_demo_recovery_b 冻结，禁止覆盖 F01–F18。")
+		return 2
 	var tileset := load(TILESET_PATH) as TileSet
 	if tileset == null:
 		push_error("Missing formal terrain kit TileSet: %s" % TILESET_PATH)
@@ -117,9 +129,13 @@ func _run() -> int:
 	if surface_tileset == null:
 		push_error("Missing tutorial surface TileSet: %s" % SURFACE_TILESET_PATH)
 		return 1
-	var thin_platform_surface_tileset := load(THIN_PLATFORM_SURFACE_TILESET_PATH) as TileSet
-	if thin_platform_surface_tileset == null:
-		push_error("Missing tutorial thin platform surface TileSet: %s" % THIN_PLATFORM_SURFACE_TILESET_PATH)
+	var jump_platform_surface_tileset := load(JUMP_PLATFORM_SURFACE_TILESET_PATH) as TileSet
+	if jump_platform_surface_tileset == null:
+		push_error("Missing tutorial jump platform surface TileSet: %s" % JUMP_PLATFORM_SURFACE_TILESET_PATH)
+		return 1
+	var dash_gate_lintel_tileset := load(DASH_GATE_LINTEL_TILESET_PATH) as TileSet
+	if dash_gate_lintel_tileset == null:
+		push_error("Missing tutorial dash gate lintel TileSet: %s" % DASH_GATE_LINTEL_TILESET_PATH)
 		return 1
 
 	var packed := load(ROOM_PATH) as PackedScene
@@ -128,7 +144,7 @@ func _run() -> int:
 		return 1
 
 	var root := packed.instantiate()
-	_apply_template(root, tileset, surface_tileset, thin_platform_surface_tileset)
+	_apply_template(root, tileset, surface_tileset, jump_platform_surface_tileset, dash_gate_lintel_tileset)
 
 	var repacked := PackedScene.new()
 	var pack_result := repacked.pack(root)
@@ -146,7 +162,13 @@ func _run() -> int:
 	return 0
 
 
-func _apply_template(root: Node, tileset: TileSet, surface_tileset: TileSet, thin_platform_surface_tileset: TileSet) -> void:
+func _apply_template(
+	root: Node,
+	tileset: TileSet,
+	surface_tileset: TileSet,
+	jump_platform_surface_tileset: TileSet,
+	dash_gate_lintel_tileset: TileSet
+) -> void:
 	_hide_old_tile_layers(root)
 	_disable_legacy_terrain_collision(root)
 	_retire_ground_underlay(root)
@@ -154,7 +176,8 @@ func _apply_template(root: Node, tileset: TileSet, surface_tileset: TileSet, thi
 	var terrain := _ensure_layer(root, TERRAIN_LAYER_NAME, tileset, TILE_OFFSET, true, 1, "tilemap_collision_authority_static_terrain")
 	var platform := _ensure_layer(root, PLATFORM_LAYER_NAME, tileset, THIN_TILE_OFFSET, true, 2, "tilemap_one_way_collision_authority_platform")
 	var surface := _ensure_surface_layer(root, surface_tileset)
-	var thin_platform_surface := _ensure_thin_platform_surface_layer(root, thin_platform_surface_tileset)
+	var jump_platform_surface := _ensure_jump_platform_surface_layer(root, jump_platform_surface_tileset)
+	var dash_gate_lintel := _ensure_dash_gate_lintel_layer(root, dash_gate_lintel_tileset)
 	var door := _ensure_layer(root, DOOR_LAYER_NAME, tileset, TILE_OFFSET, false, 3, "door_frame_visual_only_exit_logic_kept_separate")
 	var background := _ensure_layer(root, BACKGROUND_LAYER_NAME, tileset, TILE_OFFSET, false, -1, "background_visual_only_not_walkable")
 	var decor := _ensure_layer(root, DECOR_LAYER_NAME, tileset, TILE_OFFSET, false, 4, "decor_visual_only_not_walkable")
@@ -163,7 +186,8 @@ func _apply_template(root: Node, tileset: TileSet, surface_tileset: TileSet, thi
 	terrain.modulate = Color(1.0, 1.0, 1.0, 0.08)
 	platform.modulate = Color(1.0, 1.0, 1.0, 0.08)
 	surface.modulate = Color(1.0, 1.0, 1.0, 1.0)
-	thin_platform_surface.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	jump_platform_surface.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	dash_gate_lintel.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	door.modulate = Color(1.0, 1.0, 1.0, 0.96)
 	background.modulate = Color(0.72, 0.82, 0.9, 0.36)
 	decor.modulate = Color(1.0, 1.0, 1.0, 0.72)
@@ -176,7 +200,8 @@ func _apply_template(root: Node, tileset: TileSet, surface_tileset: TileSet, thi
 	_paint_wall_run(terrain, RIGHT_WALL_START, WALL_LENGTH, RIGHT_WALL_SIDE)
 	_paint_thin_ceiling_run(terrain, DASH_CEILING_START, DASH_CEILING_LENGTH)
 	_paint_surface_layer(surface)
-	_paint_thin_platform_surface_layer(thin_platform_surface)
+	_paint_jump_platform_surface_layer(jump_platform_surface)
+	_paint_dash_gate_lintel_layer(dash_gate_lintel)
 	_paint_door_layer(door)
 	_paint_background_layer(background)
 	_paint_decor_layer(decor)
@@ -263,11 +288,11 @@ func _ensure_surface_layer(root: Node, tileset: TileSet) -> TileMapLayer:
 	return layer
 
 
-func _ensure_thin_platform_surface_layer(root: Node, tileset: TileSet) -> TileMapLayer:
-	var layer := root.get_node_or_null(NodePath(THIN_PLATFORM_SURFACE_LAYER_NAME)) as TileMapLayer
+func _ensure_jump_platform_surface_layer(root: Node, tileset: TileSet) -> TileMapLayer:
+	var layer := root.get_node_or_null(NodePath(JUMP_PLATFORM_SURFACE_LAYER_NAME)) as TileMapLayer
 	if layer == null:
 		layer = TileMapLayer.new()
-		layer.name = THIN_PLATFORM_SURFACE_LAYER_NAME
+		layer.name = JUMP_PLATFORM_SURFACE_LAYER_NAME
 		root.add_child(layer)
 		layer.owner = root
 	layer.visible = true
@@ -276,8 +301,30 @@ func _ensure_thin_platform_surface_layer(root: Node, tileset: TileSet) -> TileMa
 	layer.scale = Vector2.ONE
 	layer.z_index = 3
 	layer.set("collision_enabled", false)
-	layer.set_meta(&"asset_id", THIN_PLATFORM_SURFACE_ASSET_ID)
-	layer.set_meta(&"asset_binding_note", "thin_platform_surface_visual_only_collision_kept_in_formal_layer")
+	layer.set_meta(&"asset_id", JUMP_PLATFORM_SURFACE_ASSET_ID)
+	layer.set_meta(&"physics_affordance", "one_way_platform")
+	layer.set_meta(&"asset_binding_note", "one_way_jump_platform_visual_only_collision_kept_in_platform_layer")
+	layer.set_meta(&"terrain_template_layer", true)
+	layer.clear()
+	return layer
+
+
+func _ensure_dash_gate_lintel_layer(root: Node, tileset: TileSet) -> TileMapLayer:
+	var layer := root.get_node_or_null(NodePath(DASH_GATE_LINTEL_LAYER_NAME)) as TileMapLayer
+	if layer == null:
+		layer = TileMapLayer.new()
+		layer.name = DASH_GATE_LINTEL_LAYER_NAME
+		root.add_child(layer)
+		layer.owner = root
+	layer.visible = true
+	layer.tile_set = tileset
+	layer.position = Vector2.ZERO
+	layer.scale = Vector2.ONE
+	layer.z_index = 3
+	layer.set("collision_enabled", false)
+	layer.set_meta(&"asset_id", DASH_GATE_LINTEL_ASSET_ID)
+	layer.set_meta(&"physics_affordance", "thin_solid")
+	layer.set_meta(&"asset_binding_note", "solid_dash_gate_lintel_visual_only_collision_kept_in_terrain_layer")
 	layer.set_meta(&"terrain_template_layer", true)
 	layer.clear()
 	return layer
@@ -323,18 +370,23 @@ func _paint_surface_layer(layer: TileMapLayer) -> void:
 		layer.set_cell(Vector2i(MAIN_GROUND_START.x + offset, MAIN_GROUND_START.y), 0, atlas, 0)
 
 
-func _paint_thin_platform_surface_layer(layer: TileMapLayer) -> void:
+func _paint_jump_platform_surface_layer(layer: TileMapLayer) -> void:
 	for offset: int in range(JUMP_PLATFORM_LENGTH):
-		var atlas := THIN_SURFACE_PLATFORM_CENTER
+		var atlas := JUMP_SURFACE_CENTER
 		if offset == 0:
-			atlas = THIN_SURFACE_PLATFORM_LEFT
+			atlas = JUMP_SURFACE_LEFT
 		elif offset == JUMP_PLATFORM_LENGTH - 1:
-			atlas = THIN_SURFACE_PLATFORM_RIGHT
+			atlas = JUMP_SURFACE_RIGHT
 		layer.set_cell(Vector2i(JUMP_PLATFORM_START.x + offset, JUMP_PLATFORM_START.y), 0, atlas, 0)
+
+
+func _paint_dash_gate_lintel_layer(layer: TileMapLayer) -> void:
 	for offset: int in range(DASH_CEILING_LENGTH):
-		var atlas := THIN_SURFACE_PLATFORM_LEFT
+		var atlas := LINTEL_SURFACE_CENTER
+		if offset == 0:
+			atlas = LINTEL_SURFACE_LEFT
 		if offset == DASH_CEILING_LENGTH - 1:
-			atlas = THIN_SURFACE_PLATFORM_RIGHT
+			atlas = LINTEL_SURFACE_RIGHT
 		layer.set_cell(Vector2i(DASH_CEILING_START.x + offset, DASH_CEILING_START.y), 0, atlas, 0)
 
 

@@ -21,8 +21,7 @@ const STATE_RECOVERY: StringName = &"recovery"
 const STATE_STAGGERED: StringName = &"staggered"
 const STATE_DEFEATED: StringName = &"defeated"
 
-# Seal Guardian 的正式替换动作只接入通过几何审查的 body clips；攻击 VFX 仍由独立视觉层承担。
-const SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres")
+# Seal Guardian 的全部生产状态共享同一份正式 body，避免旧待机表切换攻击时发生模型比例跳变。
 const SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres")
 const SEAL_GUARDIAN_FORMAL_VFX_SPRITEFRAMES: SpriteFrames = preload("res://assets/art/vfx/atlases/stage27_seal_guardian_vfx_runtime_ai01.spriteframes.tres")
 const PHASE_TRANSITION_VISUAL_DURATION := 0.5
@@ -484,9 +483,10 @@ func _sync_runtime_animation_visual() -> void:
 	else:
 		match current_state:
 			STATE_IDLE:
-				target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
-				target_animation = &"idle"
-				target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
+				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+				target_animation = &"close_pressure"
+				target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+				manual_frame = 0
 			STATE_CLOSE_PRESSURE:
 				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
 				target_animation = &"air_warning" if _planned_strike_state == STATE_AIR_PUNISH else &"close_pressure"
@@ -514,9 +514,10 @@ func _sync_runtime_animation_visual() -> void:
 				manual_frame = _map_attack_contract_frame(0, 1, stagger_duration)
 			_:
 				push_error("Seal Guardian runtime animation has no state mapping: %s" % current_state)
-				target_frames = SEAL_GUARDIAN_IDLE_RUNTIME_SPRITEFRAMES
-				target_animation = &"idle"
-				target_asset_id = "seal_guardian_idle_runtime_sheet_ai01"
+				target_frames = SEAL_GUARDIAN_FORMAL_MOTION_SPRITEFRAMES
+				target_animation = &"close_pressure"
+				target_asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+				manual_frame = 0
 
 	_runtime_animation_visual.visible = true
 	var clip_changed := false

@@ -4,6 +4,10 @@ extends GutTest
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
+const ROOMS_DIRECTORY := "res://scenes/rooms"
+const TUTORIAL_ROOM := "res://scenes/rooms/tutorial_room.tscn"
+const COMBAT_TRIAL_ROOM := "res://scenes/rooms/combat_trial_room.tscn"
+const STAGE11_HUB := "res://scenes/rooms/stage11_demo_end_room.tscn"
 
 const STAGE9_SWITCH := "res://scenes/rooms/stage9_zone_switch_room.tscn"
 const STAGE9_FINAL := "res://scenes/rooms/stage9_zone_final_room.tscn"
@@ -11,6 +15,7 @@ const STAGE10_AERIAL := "res://scenes/rooms/stage10_zone_aerial_room.tscn"
 const STAGE10_BRANCH := "res://scenes/rooms/stage10_zone_branch_room.tscn"
 const STAGE13_ENTRY := "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn"
 const STAGE13_CHECKPOINT := "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn"
+const STAGE13_BRANCH_HUB := "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn"
 const STAGE13_RESOURCE := "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn"
 const STAGE13_CHALLENGE := "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn"
 const STAGE13_GOAL := "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn"
@@ -38,20 +43,6 @@ const SHORTCUT_LINKS := [
 		"reward": StringName(),
 	},
 	{
-		"from": STAGE13_ENTRY,
-		"target": STAGE10_AERIAL,
-		"spawn": &"stage10_aerial_from_stage13_shortcut",
-		"air_dash": true,
-		"reward": StringName(),
-	},
-	{
-		"from": STAGE14_HUB,
-		"target": STAGE15_CHALLENGE,
-		"spawn": &"stage15_challenge_from_stage14_shortcut",
-		"air_dash": false,
-		"reward": &"warden_sigil",
-	},
-	{
 		"from": STAGE13_GATE,
 		"target": STAGE14_GATE,
 		"spawn": &"stage14_gate_from_wind_cross",
@@ -67,6 +58,77 @@ const SHORTCUT_LINKS := [
 	},
 ]
 
+
+func after_each() -> void:
+	Input.action_release("ui_down")
+
+
+# 已走通的下一房是永久探索事实；回访任何旧门控房都必须恢复右侧通路，不能要求重做局部机关后再切房。
+func test_all_completed_gated_rooms_restore_their_forward_route_on_revisit() -> void:
+	var main := await _spawn_main()
+	var audited_room_count := 0
+	for file_name: String in DirAccess.get_files_at(ROOMS_DIRECTORY):
+		if not file_name.ends_with(".tscn"):
+			continue
+
+		var room_path := "%s/%s" % [ROOMS_DIRECTORY, file_name]
+		if room_path in [STAGE13_GATE, STAGE14_HUB]:
+			continue
+		var packed := load(room_path) as PackedScene
+		if packed == null:
+			continue
+		var probe := packed.instantiate() as Node2D
+		if probe == null:
+			continue
+		var is_shared_gated_room := (
+			probe.has_node("GateBarrier")
+			and probe.has_method("is_gate_unlocked")
+			and _has_property(probe, "next_room_path")
+			and not str(probe.get("next_room_path")).is_empty()
+		)
+		var next_room_path := str(probe.get("next_room_path")) if is_shared_gated_room else ""
+		probe.free()
+		if not is_shared_gated_room:
+			continue
+
+		main.call("transition_to_room", room_path, StringName())
+		await _advance_process_frames(2)
+		var initial_room := main.get_node_or_null("Room") as Node2D
+		assert_not_null(initial_room, "门控房必须成功实例化：%s" % room_path)
+		if initial_room == null:
+			continue
+		initial_room.emit_signal("room_transition_requested", next_room_path, StringName())
+		await _advance_process_frames(2)
+		main.call("transition_to_room", room_path, StringName())
+		await _advance_process_frames(2)
+		var revisited_room := main.get_node_or_null("Room") as Node2D
+		assert_not_null(revisited_room, "回访房间必须成功实例化：%s" % room_path)
+		if revisited_room != null:
+			assert_true(bool(revisited_room.call("is_gate_unlocked")), "已完成房间回访时应恢复右侧门控：%s" % room_path)
+		audited_room_count += 1
+
+	for custom_case: Dictionary in [
+		{"room": TUTORIAL_ROOM, "next": COMBAT_TRIAL_ROOM},
+		{"room": COMBAT_TRIAL_ROOM, "next": STAGE11_HUB},
+	]:
+		main.call("transition_to_room", str(custom_case.room), StringName())
+		await _advance_process_frames(2)
+		var initial_room := main.get_node_or_null("Room") as Node2D
+		assert_not_null(initial_room, "自定义门控房必须成功实例化：%s" % custom_case.room)
+		if initial_room == null:
+			continue
+		initial_room.emit_signal("room_transition_requested", str(custom_case.next), StringName())
+		await _advance_process_frames(2)
+		main.call("transition_to_room", str(custom_case.room), StringName())
+		await _advance_process_frames(2)
+		var revisited_room := main.get_node_or_null("Room") as Node2D
+		assert_not_null(revisited_room, "回访自定义门控房必须成功实例化：%s" % custom_case.room)
+		if revisited_room != null:
+			assert_true(bool(revisited_room.call("is_exit_unlocked")), "已完成自定义门控房应恢复右侧出口：%s" % custom_case.room)
+		audited_room_count += 1
+
+	assert_gt(audited_room_count, 2, "审计必须覆盖自定义门控房和共享基类门控房。")
+
 const ANCHOR_REQUIREMENTS := [
 	{"path": "res://scenes/rooms/tutorial_room.tscn", "node": "NarrativeStele"},
 	{"path": "res://scenes/rooms/stage9_zone_entry_room.tscn", "node": "RegionCheckpoint"},
@@ -79,12 +141,12 @@ const ANCHOR_REQUIREMENTS := [
 	{"path": STAGE13_RESOURCE, "node": "SecretWall"},
 	{"path": STAGE13_CHALLENGE, "node": "MiasmaHazard"},
 	{"path": "res://scenes/rooms/stage14_air_dash_shrine_room.tscn", "node": "NarrativeStele"},
-	{"path": STAGE14_HUB, "node": "ShortcutZone"},
+	{"path": STAGE14_HUB, "node": "RevisitProgress"},
 	{"path": STAGE15_CHALLENGE, "node": "ChallengeBackgroundArt"},
 ]
 
 
-func test_world_graph_declares_three_region_loops_and_six_remote_connections() -> void:
+func test_world_graph_declares_formal_region_loops_and_maintained_remote_connections() -> void:
 	for link: Dictionary in SHORTCUT_LINKS:
 		var room := await _spawn_room(str(link.from))
 		_assert_shortcut_contract(room, link)
@@ -98,15 +160,15 @@ func test_world_graph_declares_three_region_loops_and_six_remote_connections() -
 	var challenge_branch := await _spawn_room(STAGE13_CHALLENGE)
 	assert_eq(challenge_branch.get("next_room_path"), STAGE13_GOAL, "挑战支路前送到区域目标")
 
-	var stage15_challenge := await _spawn_room(STAGE15_CHALLENGE)
-	assert_eq(stage15_challenge.get("previous_room_path"), STAGE14_HUB, "环路 C 返回 Stage14 Hub")
+	var stage14_hub := await _spawn_room(STAGE14_HUB)
+	assert_eq(stage14_hub.get("next_room_path"), STAGE15_GAUNTLET, "F15 完成主回访后直达 F16")
 
 
 func test_world_graph_contains_three_closed_region_cycles() -> void:
 	var loops := [
 		[STAGE9_SWITCH, STAGE9_FINAL, STAGE10_AERIAL, STAGE10_BRANCH, STAGE9_SWITCH],
-		[STAGE13_CHECKPOINT, "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn", "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", STAGE13_RESOURCE, STAGE13_CHECKPOINT],
-		[STAGE14_HUB, STAGE14_LOOP_RETURN, STAGE15_PRESSURE, STAGE15_GAUNTLET, STAGE15_CHALLENGE, STAGE14_HUB],
+		[STAGE13_CHECKPOINT, STAGE13_BRANCH_HUB, STAGE13_RESOURCE, STAGE13_CHECKPOINT],
+		[STAGE13_GATE, STAGE14_GATE, STAGE13_GATE],
 	]
 
 	for loop: Array in loops:
@@ -194,7 +256,9 @@ func test_stage13_rewards_write_distinct_long_term_state() -> void:
 	resource_branch.call("bind_main", main)
 	resource_branch.call("bind_player", player)
 	player.global_position = (resource_branch.get_node("Stage13Reward") as Node2D).global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(3)
+	Input.action_release("ui_down")
 	assert_true(bool(main.call("has_exploration_reward", &"marsh_relic")))
 
 	resource_branch.queue_free()
@@ -202,13 +266,16 @@ func test_stage13_rewards_write_distinct_long_term_state() -> void:
 	var challenge_branch := await _spawn_room(STAGE13_CHALLENGE)
 	challenge_branch.call("bind_main", main)
 	challenge_branch.call("bind_player", player)
+	challenge_branch.call("unlock_gate", &"challenge_cleared")
 	player.global_position = (challenge_branch.get_node("Stage13Reward") as Node2D).global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(3)
+	Input.action_release("ui_down")
 	assert_true(bool(main.call("has_exploration_reward", &"warden_sigil")))
 	assert_eq(int(main.call("get_exploration_reward_count")), 2)
 
 
-func test_stage14_high_risk_shortcut_requires_warden_sigil() -> void:
+func test_stage14_hub_requires_primary_f07_revisit_before_boss_route() -> void:
 	var main := await _spawn_main()
 	var room := await _spawn_room(STAGE14_HUB)
 	var player := await _spawn_player()
@@ -219,17 +286,19 @@ func test_stage14_high_risk_shortcut_requires_warden_sigil() -> void:
 	room.connect("room_transition_requested", func(target: String, spawn: StringName) -> void:
 		transitions.append({"target": target, "spawn": spawn})
 	)
-	player.global_position = (room.get_node("ShortcutZone") as Node2D).global_position
+	player.global_position = (room.get_node("ExitZone") as Node2D).global_position
 
 	await _advance_process_frames(3)
-	assert_true(transitions.is_empty(), "未取得挑战符时高风险捷径关闭")
+	assert_true(transitions.is_empty(), "未完成 F07 主回访时 Boss 路线关闭")
 
-	main.call("collect_exploration_reward", &"warden_sigil")
+	main.call("collect_stage14_backtrack_reward", &"stage14_reward_two")
+	Input.action_press("ui_down")
 	await _advance_process_frames(3)
+	Input.action_release("ui_down")
 	assert_eq(transitions.size(), 1)
 	if not transitions.is_empty():
-		assert_eq(transitions[0].target, STAGE15_CHALLENGE)
-		assert_eq(transitions[0].spawn, &"stage15_challenge_from_stage14_shortcut")
+		assert_eq(transitions[0].target, STAGE15_GAUNTLET)
+		assert_eq(transitions[0].spawn, &"stage15_mixed_gauntlet_start")
 
 
 func test_narrative_stele_temporarily_replaces_room_prompt() -> void:

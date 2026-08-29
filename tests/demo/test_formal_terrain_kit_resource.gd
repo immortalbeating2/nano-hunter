@@ -81,6 +81,14 @@ func test_formal_terrain_kit_collision_roles_are_encoded() -> void:
 		var polygon_count := tile_data.get_collision_polygons_count(0)
 		if collision_role in ["solid", "thin_solid", "one_way_platform"]:
 			assert_eq(polygon_count, 1, "collision candidate exists: %s" % rule["semantic_name"])
+			var points := tile_data.get_collision_polygon_points(0, 0)
+			var min_x := INF
+			var max_x := -INF
+			for point: Vector2 in points:
+				min_x = minf(min_x, point.x)
+				max_x = maxf(max_x, point.x)
+			assert_almost_eq(min_x, -float(EXPECTED_TILE_SIZE.x) * 0.5, 0.01, "polygon left is cell-centered")
+			assert_almost_eq(max_x, float(EXPECTED_TILE_SIZE.x) * 0.5, 0.01, "polygon right is cell-centered")
 		else:
 			assert_eq(polygon_count, 0, "visual-only tile has no collision: %s" % rule["semantic_name"])
 		if collision_role == "one_way_platform":

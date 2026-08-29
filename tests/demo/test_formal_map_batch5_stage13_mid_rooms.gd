@@ -9,17 +9,19 @@ const CHECKPOINT := "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tsc
 const PRESSURE := "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn"
 
 
-func test_gate_is_22x9_seal_then_gate_room() -> void:
+func test_gate_is_three_segment_cross_ability_room() -> void:
 	var room := _room(GATE)
-	_assert_layout(room, Rect2i(-384, -320, 1408, 576), Vector2i(-6, 3), 22, 8)
-	_assert_previous(room, MIASMA, &"stage13_miasma_return")
+	_assert_phase2_layout(room, Rect2i(-320, -240, 1920, 480), 3, &"cross_ability_gate")
+	_assert_previous(room, MIASMA, &"stage13_miasma_return", -304.0)
 	assert_eq(room.call("get_spawn_position", &"stage13_gate_start"), Vector2(-256, 204))
-	assert_eq(room.call("get_spawn_position", &"stage13_gate_return"), Vector2(768, 204))
-	assert_eq(room.get_node("SealNode").position, Vector2(384, 56))
+	assert_eq(room.call("get_spawn_position", &"stage13_gate_return"), Vector2(1500, 172))
+	assert_eq(room.get_node("SealNode").position, Vector2(480, 88))
 	assert_true(room.get_node("SealNode/SealArt").visible)
 	assert_eq(room.get_node("SealNode/SealArt").get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.talisman_stake_idle")
-	assert_eq(room.get_node("GateBarrier").position, Vector2(832, 168))
-	assert_eq(room.get_node("ExitZone").position, Vector2(992, 160))
+	assert_eq(room.get_node("GateBarrier").position, Vector2(608, 168))
+	assert_eq(room.get_node("ShortcutZone").position, Vector2(928, 192))
+	assert_eq(room.call("get_spawn_position", &"stage13_gate_from_wind_cross"), Vector2(984, 172))
+	assert_eq(room.get_node("ExitZone").position, Vector2(1552, 172))
 	assert_false(bool(room.call("is_gate_unlocked")))
 
 
@@ -34,14 +36,14 @@ func test_crossfire_is_26x10_three_layer_ranged_arena() -> void:
 	assert_eq(room.get_node("ExitZone").position, Vector2(1248, 224))
 
 
-func test_checkpoint_is_18x8_quiet_recovery_hall() -> void:
+func test_checkpoint_is_two_segment_safe_recovery_hall() -> void:
 	var room := _room(CHECKPOINT)
-	_assert_layout(room, Rect2i(-384, -256, 1152, 512), Vector2i(-6, 3), 18, 3)
-	_assert_previous(room, CROSSFIRE, &"stage13_crossfire_return")
+	_assert_phase2_layout(room, Rect2i(-320, -240, 1280, 480), 2, &"safe_recovery")
+	_assert_previous(room, GATE, &"stage13_gate_return", -304.0)
 	assert_eq(room.call("get_spawn_position", &"stage13_checkpoint_start"), Vector2(-256, 204))
-	assert_eq(room.call("get_spawn_position", &"stage13_checkpoint_return"), Vector2(576, 204))
+	assert_eq(room.call("get_spawn_position", &"stage13_checkpoint_return"), Vector2(880, 172))
 	assert_eq(room.get_node("RecoveryPoint").position, Vector2(128, 192))
-	assert_eq(room.get_node("ExitZone").position, Vector2(736, 160))
+	assert_eq(room.get_node("ExitZone").position, Vector2(912, 172))
 	assert_true(room.get_node("RecoveryPoint/CheckpointArt").visible)
 
 
@@ -84,10 +86,23 @@ func _assert_layout(room: Node2D, limits: Rect2i, floor_start: Vector2i, floor_l
 		assert_false(bool(old.get("collision_enabled")))
 
 
-func _assert_previous(room: Node2D, path: String, spawn: StringName) -> void:
+func _assert_phase2_layout(room: Node2D, limits: Rect2i, segments: int, profile: StringName) -> void:
+	assert_eq(room.call("get_camera_limits"), limits)
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
+	assert_not_null(layout)
+	if layout == null:
+		return
+	assert_eq(int(layout.call("get_segment_count")), segments)
+	assert_eq(layout.call("get_layout_profile"), profile)
+	assert_gte(int(layout.call("get_runtime_platform_count")), segments)
+	assert_false(bool((room.get_node("TerrainCollisionVisual") as TileMapLayer).collision_enabled))
+	assert_false(bool((room.get_node("PlatformCollisionVisual") as TileMapLayer).collision_enabled))
+
+
+func _assert_previous(room: Node2D, path: String, spawn: StringName, left_exit_x := -352.0) -> void:
 	assert_eq(str(room.get("previous_room_path")), path)
 	assert_eq(room.get("previous_spawn_id"), spawn)
-	assert_eq(room.get_node("LeftExitZone").position.x, -352.0)
+	assert_eq(room.get_node("LeftExitZone").position.x, left_exit_x)
 
 
 func _room(path: String) -> Node2D:

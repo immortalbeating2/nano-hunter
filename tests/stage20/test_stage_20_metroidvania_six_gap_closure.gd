@@ -18,6 +18,7 @@ const STAGE14_GATE := "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
 
 func after_each() -> void:
 	get_tree().paused = false
+	Input.action_release("ui_down")
 
 
 func test_early_second_route_grants_persistent_wind_seal() -> void:
@@ -137,6 +138,11 @@ func test_sc06_requires_wind_seal_and_air_dash_at_both_ends() -> void:
 	assert_true(transitions.is_empty(), "只有风印时交叉门仍关闭")
 	player.call("set_air_dash_unlocked", true)
 	await _advance_process_frames(2)
+	assert_true(transitions.is_empty(), "交叉法坛必须等待下方向确认。")
+	player.global_position = (stage13.get_node("ShortcutZone") as Node2D).global_position
+	Input.action_press("ui_down")
+	await _advance_process_frames(2)
+	Input.action_release("ui_down")
 	assert_eq(transitions.size(), 1)
 	if not transitions.is_empty():
 		assert_eq(transitions[0].target, STAGE14_GATE)
@@ -167,7 +173,8 @@ func test_two_rewards_form_switchable_builds_and_survive_room_change() -> void:
 		"PauseMenu/MarginContainer/VBoxContainer/BuildButton"
 	) as Button
 	assert_false(build_button.disabled)
-	assert_true(build_button.has_theme_stylebox_override("normal"))
+	assert_false(build_button.has_theme_stylebox_override("normal"), "暂停动作使用共享符光带，不再给单个按钮叠加变形外框。")
+	assert_true(build_button.get_theme_stylebox("normal") is StyleBoxEmpty)
 	build_button.pressed.emit()
 	assert_eq(main.call("get_active_build_id"), &"warden_sigil")
 	assert_eq((player.call("get_effective_attack_hitbox_size") as Vector2).x, base_reach + 16.0)
@@ -193,7 +200,9 @@ func test_stage11_story_event_pauses_once_and_continue_returns_to_game() -> void
 	var room := main.get_node("Room") as Node2D
 	var player := main.get_node("Runtime/PlayerPlaceholder") as CharacterBody2D
 	player.global_position = (room.get_node("GoalZone") as Node2D).global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(2)
+	Input.action_release("ui_down")
 
 	var snapshot: Dictionary = main.call("get_demo_progress_snapshot")
 	var detail_panel := shell.get_node("DetailPanel") as Control

@@ -1,6 +1,7 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 [ext_resource type="PackedScene" path="res://scenes/combat/miasma_caster_enemy.tscn" id="2"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_pp0wr"]
@@ -10,7 +11,7 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="9_lp8sq"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="10_b1k0w"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="11_nq14k"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="12_2mjrr"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="12_2mjrr"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres" id="13_4pmt4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -30,16 +31,36 @@ size = Vector2(24, 128)
 
 [node name="Stage13MiasmaMarshMiasmaRoom" type="Node2D" unique_id=1158252242]
 script = ExtResource("1")
-camera_limits = Rect2i(-384, -320, 1536, 576)
+grants_wind_seal = true
+wind_seal_requires_down_input = true
+camera_limits = Rect2i(-320, -240, 1920, 480)
 next_room_path = "res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn"
 next_spawn_id = &"stage13_miasma_start"
 previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn"
 previous_spawn_id = &"stage13_entry_return"
 spawn_positions = {
-&"stage13_caster_return": Vector2(960, 204),
+&"stage13_caster_return": Vector2(1500, 204),
 &"stage13_miasma_start": Vector2(-256, 204)
 }
 default_step_id = &"stage13_miasma"
+metadata/formal_room_id = "F05"
+metadata/route_role = "wind_seal_projectile_tutorial"
+metadata/safe_floor_y = 160.0
+metadata/normal_exit_uses_generic_door = false
+metadata/transition_visual_type = "miasma_boundary"
+metadata/gate_semantics = "clear_barrier"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 3
+layout_profile = &"wind_seal_tutorial"
+solid_rects = Array[Rect2]([Rect2(-320, 224, 520, 64), Rect2(160, 192, 320, 64), Rect2(480, 160, 480, 64), Rect2(960, 224, 640, 64)])
+one_way_rects = Array[Rect2]([Rect2(1120, 128, 192, 16), Rect2(1376, 96, 160, 16)])
+route_heights = {
+&"projectile_observe": 192.0,
+&"wind_seal_shrine": 160.0,
+&"movement_apply": 128.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=1664413070]
 z_index = -4
@@ -93,12 +114,31 @@ polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
 [node name="MiasmaCasterEnemy" type="StaticBody2D" parent="." unique_id=1920858478 instance=ExtResource("2")]
-position = Vector2(448, 56)
+position = Vector2(320, 172)
 script = ExtResource("7_lp8sq")
 config = ExtResource("8_o6oto")
 
+[node name="ProjectileObservationMarker" type="Marker2D" parent="."]
+position = Vector2(128, 204)
+metadata/teaching_role = "safe_projectile_observation"
+
+[node name="WindSealShrine" type="Marker2D" parent="."]
+position = Vector2(576, 120)
+
+[node name="ProjectilePracticeMarker" type="Marker2D" parent="."]
+position = Vector2(1168, 184)
+metadata/ability_id = "wind_seal"
+metadata/teaching_order = "after_caster_clear"
+
+[node name="ShrineArt" type="Sprite2D" parent="WindSealShrine"]
+modulate = Color(0.52, 1, 0.82, 0.92)
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("13_4pmt4")
+metadata/asset_id = "shrine_gate_prop_atlas_ai01"
+metadata/runtime_source = "wind_seal_shrine_placeholder"
+
 [node name="ExitZone" type="Area2D" parent="." unique_id=258390935]
-position = Vector2(1120, 160)
+position = Vector2(1552, 204)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=38557246]
 shape = SubResource("3")
@@ -110,7 +150,7 @@ polygon = PackedVector2Array(-48, -64, 48, -64, 48, 64, -48, 64)
 metadata/asset_binding_note = "dac_subtle_trigger_readability_marker"
 
 [node name="LeftExitZone" type="Area2D" parent="." unique_id=690834967]
-position = Vector2(-352, 160)
+position = Vector2(-304, 204)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=1437496557]
 shape = SubResource("RectangleShape2D_b1k0w")
@@ -143,6 +183,7 @@ metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
 metadata/asset_binding_note = "dac_formal_foreground_edge_decor"
 
 [node name="TerrainCollisionVisual" type="TileMapLayer" parent="." unique_id=1457214470]
+collision_enabled = false
 visible = false
 z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
@@ -150,6 +191,7 @@ tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAA
 tile_set = ExtResource("10_b1k0w")
 
 [node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=23050252]
+collision_enabled = false
 visible = false
 z_index = 2
 position = Vector2(0, -16)
@@ -197,7 +239,8 @@ tile_set = ExtResource("10_b1k0w")
 collision_enabled = false
 
 [node name="GateBarrier" type="StaticBody2D" parent="." unique_id=2080470276]
-position = Vector2(1024, 168)
+metadata/gate_semantics = "clear_barrier"
+position = Vector2(1480, 168)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier" unique_id=1144250010]
 shape = SubResource("RectangleShape2D_nq14k")

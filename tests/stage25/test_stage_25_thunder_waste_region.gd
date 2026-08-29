@@ -26,8 +26,13 @@ const BOUNTY_IDS: Array[StringName] = [
 ]
 
 
+func before_each() -> void:
+	Input.action_release("ui_down")
+
+
 func after_each() -> void:
 	get_tree().paused = false
+	Input.action_release("ui_down")
 
 
 func test_world_map_adds_six_waste_rooms_and_two_remote_connections() -> void:
@@ -73,6 +78,9 @@ func test_stage11_route_requires_all_bounties_turned_in() -> void:
 
 	player.global_position = (room.get_node("GoalZone") as Node2D).global_position
 	await _advance_process_frames(2)
+	Input.action_press("ui_down")
+	await _advance_process_frames(2)
+	Input.action_release("ui_down")
 	_close_detail_panel(main)
 	player.global_position = (room.get_node("ThunderRouteZone") as Node2D).global_position
 	await _advance_process_frames(2)

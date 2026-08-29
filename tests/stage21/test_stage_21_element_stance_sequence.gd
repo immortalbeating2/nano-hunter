@@ -129,7 +129,7 @@ func test_element_and_stance_persist_across_three_combat_rooms_but_sequence_rese
 	assert_true((player.call("get_element_sequence_snapshot") as Dictionary).get("element_ids", []).is_empty())
 
 
-func test_hud_displays_element_stance_sequence_and_window() -> void:
+func test_hud_exposes_seal_resonance_snapshot_reaction_glyphs_and_window_shader() -> void:
 	var main := await _spawn_main()
 	var shell := main.get_node("HUD/DemoShell") as Control
 	shell.call("start_demo")
@@ -143,12 +143,130 @@ func test_hud_displays_element_stance_sequence_and_window() -> void:
 	var hud := main.get_node("HUD/TutorialHUD") as Control
 	hud.call("_process", 0.0)
 	var element_panel := hud.get_node("ElementPanel") as Panel
-	var element_label := hud.get_node("ElementPanel/ElementStatusLabel") as Label
 	assert_true(element_panel.visible)
-	assert_true(element_label.text.contains("御印 · 雷"))
-	assert_true(element_label.text.contains("风 → 雷"))
-	assert_true(element_label.text.contains("追击贯穿"))
-	assert_true(element_label.text.contains("s"))
+	assert_true(element_panel.has_method("get_visual_snapshot"), "ElementPanel 必须由 SealResonanceHud 输出视觉快照。")
+	if not element_panel.has_method("get_visual_snapshot"):
+		return
+	var visual: Dictionary = element_panel.call("get_visual_snapshot")
+	assert_eq(visual.get("state"), &"resolved")
+	assert_eq(visual.get("reaction_id"), &"wind_thunder_pierce")
+	var pierce_glyph_path := str(visual.get("reaction_glyph_path", ""))
+	assert_string_contains(pierce_glyph_path, "seal_resonance_symbols_warden_ai02")
+
+	var sequence_link := element_panel.get_node_or_null("ContentRoot/SequenceRoot/SequenceLink") as Control
+	assert_not_null(sequence_link, "展开态必须有独立灵力链节点。")
+	if sequence_link == null:
+		return
+	var link_material := sequence_link.material as ShaderMaterial
+	assert_not_null(link_material, "灵力链必须由专用 Shader 读取窗口比例。")
+	if link_material != null:
+		var window_ratio := float(link_material.get_shader_parameter("window_ratio"))
+		assert_gte(window_ratio, 0.0)
+		assert_lte(window_ratio, 1.0)
+
+	player.call("clear_element_sequence")
+	_perform_element_step(player, &"thunder", true)
+	player.call("set_current_element_id", &"wind")
+	player.call("_start_attack")
+	hud.call("_process", 0.0)
+	visual = element_panel.call("get_visual_snapshot")
+	assert_eq(visual.get("reaction_id"), &"thunder_wind_scatter")
+	var scatter_glyph_path := str(visual.get("reaction_glyph_path", ""))
+	assert_string_contains(scatter_glyph_path, "seal_resonance_symbols_warden_ai02")
+	assert_ne(scatter_glyph_path, pierce_glyph_path, "贯穿与散射必须绑定不同 glyph 资源。")
+
+
+# 这条回归捕获正式换房把 HUD 级激活提示误当成 Player 实例状态清空的断裂。
+func test_wind_unlock_prompt_survives_production_room_transition_until_new_player_switches_element() -> void:
+	var main := await _spawn_main()
+	var shell := main.get_node("HUD/DemoShell") as Control
+	shell.call("start_demo")
+	var hud := main.get_node("HUD/TutorialHUD") as Control
+	var player := main.get_node("Runtime/PlayerPlaceholder") as CharacterBody2D
+	hud.call("_process", 0.0)
+	assert_true(hud.has_method("get_contextual_tutorial_snapshot"), "HUD 必须公开实际 PromptPanel / attention 快照。")
+	if not hud.has_method("get_contextual_tutorial_snapshot"):
+		return
+
+	var contextual: Dictionary = hud.call("get_contextual_tutorial_snapshot")
+	assert_false(bool(contextual.get("active", true)), "风印未解锁时不得提前显示元素切换教学。")
+	var resonance_text := ""
+	for label_node: Node in (hud.get_node("ElementPanel") as Panel).find_children("*", "Label", true, false):
+		resonance_text += (label_node as Label).text
+	assert_eq(resonance_text.find("Q"), -1, "常驻符印共鸣盘不得重新塞入固定按键。")
+
+	main.call("unlock_wind_seal")
+	hud.call("_process", 0.0)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_true(bool(contextual.get("active", false)))
+	assert_eq(contextual.get("step_id"), &"wind_switch")
+	assert_eq(contextual.get("title"), "F01 · 风印已解 · 元素切换")
+	assert_string_contains(str(contextual.get("body", "")), "Q")
+	assert_true(bool(contextual.get("attention_visible", false)), "风印提示必须复用当前唯一 TutorialAttention。")
+	var joy_event := InputEventJoypadButton.new()
+	joy_event.button_index = JOY_BUTTON_LEFT_SHOULDER
+	joy_event.pressed = true
+	hud.call("_input", joy_event)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_eq(contextual.get("step_id"), &"wind_switch", "设备变化只能重算同一条提示。")
+	assert_string_contains(str(contextual.get("body", "")), "LB / L1")
+
+	var room := main.get_node("Room") as Node
+	room.emit_signal("hud_context_changed", "房间缓存标题", "房间缓存正文")
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_eq(contextual.get("title"), "F01 · 风印已解 · 元素切换", "提示期间房间 signal 只能更新缓存。")
+
+	main.call("transition_to_room", COMBAT_ROOM, &"combat_entry")
+	await get_tree().process_frame
+	hud.call("_process", 0.0)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_true(bool(contextual.get("active", false)), "换房生成新 Player 不得撤销未完成的风印提示。")
+	assert_eq(contextual.get("step_id"), &"wind_switch")
+	assert_eq(contextual.get("title"), "F02 · 风印已解 · 元素切换")
+
+	player = main.get_node("Runtime/PlayerPlaceholder") as CharacterBody2D
+	player.call("cycle_current_element")
+	hud.call("_process", 0.0)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_false(bool(contextual.get("active", true)))
+	assert_eq(contextual.get("title"), "F02 · 实战 1/1 · 击败敌人")
+	assert_eq(contextual.get("body"), "前方出现了第一只近战敌人。观察接敌压力，利用冲刺与攻击击败它。")
+
+	main.call("transition_to_room", STAGE10_CHALLENGE, &"stage10_challenge_start")
+	await get_tree().process_frame
+	hud.call("_process", 0.0)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_false(bool(contextual.get("active", true)), "完成后已解锁玩家再次换房不得补弹提示。")
+
+
+# 临时解绑不代表新游戏；相同已解锁实例重绑后仍需由真实元素变化完成提示。
+func test_active_wind_prompt_survives_null_then_same_player_rebind() -> void:
+	var main := await _spawn_main()
+	var shell := main.get_node("HUD/DemoShell") as Control
+	shell.call("start_demo")
+	var hud := main.get_node("HUD/TutorialHUD") as Control
+	var player := main.get_node("Runtime/PlayerPlaceholder") as CharacterBody2D
+	hud.call("_process", 0.0)
+	main.call("unlock_wind_seal")
+	hud.call("_process", 0.0)
+	var contextual: Dictionary = hud.call("get_contextual_tutorial_snapshot")
+	assert_true(bool(contextual.get("active", false)))
+
+	hud.call("bind_player", null)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_true(bool(contextual.get("active", false)), "bind_player(null) 只能断开来源，不能完成 HUD 教学。")
+	assert_eq(contextual.get("step_id"), &"wind_switch")
+	hud.call("bind_player", player)
+	hud.call("_process", 0.0)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_true(bool(contextual.get("active", false)), "同一已解锁实例重绑后提示必须继续。")
+	assert_eq(contextual.get("step_id"), &"wind_switch")
+
+	player.call("cycle_current_element")
+	hud.call("_process", 0.0)
+	contextual = hud.call("get_contextual_tutorial_snapshot")
+	assert_false(bool(contextual.get("active", true)))
+	assert_eq(contextual.get("title"), "F01 · 教程 1/5 · 移动与跳跃")
 
 
 func _perform_element_step(player: CharacterBody2D, element_id: StringName, finish: bool) -> void:

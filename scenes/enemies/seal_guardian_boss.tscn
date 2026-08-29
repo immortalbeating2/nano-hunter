@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/combat/seal_guardian_boss.gd" id="1"]
-[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_idle_runtime_sheet_ai01.spriteframes.tres" id="7_sgridle"]
+[ext_resource type="SpriteFrames" path="res://assets/art/characters/enemies/sprite_sheets/runtime_replacement/seal_guardian_formal_motion_runtime_sheet_ai01.spriteframes.tres" id="7_sgrformal"]
 [ext_resource type="SpriteFrames" path="res://assets/art/vfx/atlases/seal_guardian_attack_vfx_atlas_ai01.spriteframes.tres" id="11_sgrvfx"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -41,10 +41,10 @@ polygon = PackedVector2Array(-20, 0, 0, -28, 20, 0, 0, 28)
 position = Vector2(0, -58)
 scale = Vector2(0.42, 0.42)
 modulate = Color(1, 1, 1, 0.82)
-sprite_frames = ExtResource("7_sgridle")
-animation = &"idle"
-metadata/asset_id = "seal_guardian_idle_runtime_sheet_ai01"
-metadata/asset_binding_note = "runtime_visual_only_idle_warning_attack_body_defeat"
+sprite_frames = ExtResource("7_sgrformal")
+animation = &"close_pressure"
+metadata/asset_id = "seal_guardian_formal_motion_runtime_sheet_ai01"
+metadata/asset_binding_note = "single_model_lock_body_for_all_live_states"
 
 [node name="SealGuardianAttackVfxVisual" type="AnimatedSprite2D" parent="."]
 visible = false

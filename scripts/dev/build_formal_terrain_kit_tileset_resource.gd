@@ -258,29 +258,33 @@ func _collision_role_for(category: String) -> String:
 
 
 func _apply_collision(tile_data: TileData, collision_role: String) -> void:
+	# TileData polygon 以 tile 格心为局部原点；使用 0..CELL 会把碰撞整体推向右侧半格。
+	var left := -float(CELL.x) * 0.5
+	var right := float(CELL.x) * 0.5
 	if collision_role == "solid":
 		tile_data.set_collision_polygons_count(PHYSICS_LAYER, 1)
 		tile_data.set_collision_polygon_points(PHYSICS_LAYER, 0, PackedVector2Array([
-			Vector2(0, 0),
-			Vector2(CELL.x, 0),
-			Vector2(CELL.x, CELL.y),
-			Vector2(0, CELL.y),
+			Vector2(left, 0),
+			Vector2(right, 0),
+			Vector2(right, CELL.y),
+			Vector2(left, CELL.y),
 		]))
 	elif collision_role == "thin_solid":
 		tile_data.set_collision_polygons_count(PHYSICS_LAYER, 1)
 		tile_data.set_collision_polygon_points(PHYSICS_LAYER, 0, PackedVector2Array([
-			Vector2(0, 36),
-			Vector2(CELL.x, 36),
-			Vector2(CELL.x, 84),
-			Vector2(0, 84),
+			# 门楣落脚面必须与格子顶部视觉一致；保留 22px 世界厚度，不再下沉到资产中腰。
+			Vector2(left, -96),
+			Vector2(right, -96),
+			Vector2(right, 36),
+			Vector2(left, 36),
 		]))
 	elif collision_role == "one_way_platform":
 		tile_data.set_collision_polygons_count(PHYSICS_LAYER, 1)
 		tile_data.set_collision_polygon_points(PHYSICS_LAYER, 0, PackedVector2Array([
-			Vector2(0, 0),
-			Vector2(CELL.x, 0),
-			Vector2(CELL.x, 16),
-			Vector2(0, 16),
+			Vector2(left, 0),
+			Vector2(right, 0),
+			Vector2(right, 16),
+			Vector2(left, 16),
 		]))
 		tile_data.set_collision_polygon_one_way(PHYSICS_LAYER, 0, true)
 		tile_data.set_collision_polygon_one_way_margin(PHYSICS_LAYER, 0, 8.0)

@@ -5,25 +5,28 @@
 [resource]
 script = ExtResource("1")
 step_titles = {
-&"attack": "教程 3/4 · 基础攻击",
+&"attack": "教程 3/5 · 基础攻击",
 &"complete": "教程完成",
-&"dash": "教程 2/4 · 冲刺穿门",
-&"exit": "教程 4/4 · 离开教程区",
-&"move_jump": "教程 1/4 · 移动与跳跃"
+&"dash": "教程 2/5 · 冲刺穿门",
+&"exit": "教程 5/5 · 离开教程区",
+&"move_jump": "教程 1/5 · 移动与跳跃",
+&"stance": "教程 4/5 · 疾御换印"
 }
 step_prompts = {
-&"attack": "J 攻击训练目标或红色封印柱，打开出口。",
+&"attack": "J 攻击训练目标或红色封印柱，完成攻击训练。",
 &"complete": "阶段 5 教程区已完成，可以继续扩展主流程。",
 &"dash": "按 K 冲刺穿过低顶门槛。",
 &"exit": "出口已打开，继续向右离开教程区。",
-&"move_jump": "A/D 或 ←/→ 移动，Space/W/↑ 跳上平台。"
+&"move_jump": "A/D 或 ←/→ 移动，Space/W/↑ 跳上平台。",
+&"stance": "切换一次疾印 / 御印，观察攻守差异。"
 }
 step_dash_visibility = {
 &"attack": true,
 &"complete": true,
 &"dash": true,
 &"exit": true,
-&"move_jump": false
+&"move_jump": false,
+&"stance": true
 }
 spawn_positions = {
 &"tutorial_return": Vector2(760, 96),

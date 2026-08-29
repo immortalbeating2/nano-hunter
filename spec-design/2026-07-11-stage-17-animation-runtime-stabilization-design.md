@@ -27,6 +27,15 @@ Stage 17 的唯一主目标是把 Luna、四类普通敌人与 Seal Guardian 的
 - Seal Guardian 已拆分 strike / recovery / staggered；body 与 VFX 到达帧 `7`，单次攻击只结算一次伤害，未知状态回退到可见 idle。
 - Stage17 专项、全量 GUT、严格资产审计、OpenGL 时间序列探针、键盘 / synthetic Joypad smoke 与 input-only Demo 重放均通过；实体手柄硬件认证不在自动化结论内。
 
+### 2026-08-09 通用模型锁治理引用
+
+- Stage17 的 Luna、四类普通敌人与 Seal Guardian 动作状态契约保持不变；跨 sheet 身份、cell、中心轴、视觉根锚和生产绑定现统一由 `docs/assets/character-creature-model-locks.json` 管理。
+- `luna_model_v1` 继续保留原 Model ID；普通敌人和 Seal Guardian 获得各自独立 `model_id`，不得因共享画布或状态机而误认为同一模型。
+- 旧 `seal_guardian_idle_runtime_sheet_ai01` 已因体量不连续退出生产，所有 Seal Guardian live 状态统一绑定 Stage27 formal motion body。该修复不改变 Stage17 的攻击、恢复、硬直、伤害或完成契约。
+- v2 在既有几何锁上增加 `identity_lock_ready`：逐帧 alpha 推导 `root / foot_contact / head_top / hip_center|body_core / front_contour / rear_contour`，并校验跨 sheet canonical 比例；增强接触表必须把这些锚点可视化。
+- 生产反向扫描覆盖全部 `res://scripts` 与 `res://scenes` 运行路径，并显式排除 `scripts/assets`、`scripts/dev`、`scenes/dev` 与测试证据，避免生成器或审查场景中的文本引用冒充 live binding。
+- Seal Guardian 新鲜真窗口报告位于 ignored `tests/artifacts/local/character-creature-model-lock/runtime-continuity/boss_runtime_continuity_report.json`，覆盖 `11/11` 状态并保持单一正式 body 与恒定根锚。通用严格审计、接触表和该运行报告只能批准技术身份锁；脸型 / 头部、服装 / 甲胄、肢体、轮廓和动作重量仍为 `identity_review_status=pending_gate26h`，外部发布继续由 `docs/assets/final-art-acceptance-gates.json` 的 `final_ready` 决定。
+
 ### Boundary Deviation
 
 - input-only replay 暴露一个实现前已存在的 Formal Demo 可达性缺陷：Stage10 Challenge 的 Aerial Sentinel 根节点在 `y=120` 时，其真实 Hurtbox 比 Luna 的最高有效空中攻击窗口高约 `2px`，会永久锁住全清门。

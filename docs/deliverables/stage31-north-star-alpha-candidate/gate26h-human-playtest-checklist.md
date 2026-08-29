@@ -7,6 +7,22 @@
 - 任一 P0 未关闭则 Gate26H 失败；P1 必须修复或由负责人书面接受；P2 可带入 Stage32 polish backlog。
 - 当前初始状态为 `PENDING`。未填写测试人、设备、结果与问题编号前，不得改成 PASS。
 
+## Godot MCP Pro 自动预检（2026-08-03）
+
+### 已自动覆盖
+
+- 从异常结束的旧任务 `019fafba-4dae-7fb0-84e1-1af02ba7934b` 只读恢复完整运行证据：生产 Main 已模拟主菜单开始 / Continue、移动 / 跳跃 / 攻击 / 冲刺、暂停 / 返回、元素 / 姿态与风→雷 / 雷→风两序列、Stage30 Boss 两阶段 / 击败 / 妖雷吸收奖励、存档 / backup / 双档损坏降级，以及 `waystation_main ↔ thunder_outpost` 双向传送；最终运行场景、临时存档和三个 MCP autoload 均已清理，旧轮 `editor errors=0`。
+- 当前任务做了最小新鲜复核：bridge、workspace、Godot `4.6.3` 与 `res://scenes/main/main.tscn` 精确匹配；主菜单焦点落在 Start，`ui_accept` 可进入教程，模拟移动后玩家 x 从 `-320.0` 变为 `-308.3054`。随后停止场景、移除三个 MCP autoload、关闭本轮 editor，`project.godot` 无 diff。
+- 上述结果只把重复的技术状态矩阵前移，不勾选下方真人项目，也不把 Gate26H 改为 PASS。实体手柄舒适度、首次理解、读招 / 审美、声音偏好和真实 `21:9` 仍必须由人判断。
+
+### 真人最短路线
+
+1. 用实体手柄从 New Game 自然完成首次路线与一次能力回访，集中记录首次误解、迷路、误按、疲劳和 Boss warning 反应时间。
+2. 完成一次真实进程重启后的 Continue，并在自然路线中走一次双驿站往返；无需另行重复自动预检已覆盖的全字段、奖励幂等和双档损坏矩阵。
+3. 在真实 `21:9` 下集中复核 Luna / Seal Guardian / 夔影雷骸、雷泽六房、`32px / 64px` UI 与无 HUD 可读性；随后逐条试听 scratch 音频并记录决定。
+
+若真人路线没有暴露存档症状，C 节“可选破坏性 QA”默认不执行；出现异常时再按备份前提启用。
+
 ## 测试环境
 
 - [ ] 记录测试日期、候选 Git commit、Godot `4.6.3`、Windows 版本、GPU、显示器分辨率与缩放。

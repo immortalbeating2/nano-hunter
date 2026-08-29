@@ -105,7 +105,7 @@ func test_air_dash_recharges_after_landing() -> void:
 	assert_true(player.call("is_air_dash_available"))
 
 
-# 保护 Stage14 房间集合和能力门：门房默认阻挡，能力解锁后自动开门。
+# 保护 Stage14 房间集合和能力门：门房默认阻挡，能力解锁后仍需完成一次空中冲刺证明。
 func test_stage14_rooms_exist_and_gate_requires_air_dash() -> void:
 	assert_not_null(load(STAGE14_SHRINE_ROOM_PATH))
 	assert_not_null(load(STAGE14_GATE_ROOM_PATH))
@@ -126,6 +126,14 @@ func test_stage14_rooms_exist_and_gate_requires_air_dash() -> void:
 
 	player.call("set_air_dash_unlocked", true)
 	await _advance_process_frames(3)
+	assert_false(gate_room.call("is_air_dash_gate_unlocked"))
+
+	player.global_position = (gate_room.get_node("AirDashGateSensor") as Node2D).global_position
+	await _advance_physics_frames(1)
+	Input.action_press("dash")
+	await _advance_physics_frames(2)
+	Input.action_release("dash")
+	await _advance_process_frames(2)
 
 	assert_true(gate_room.call("is_air_dash_gate_unlocked"))
 	if gate_art != null:
@@ -201,31 +209,15 @@ func test_stage14_backtrack_rooms_reference_shrine_visual_stack() -> void:
 		assert_null(room.get_node_or_null("ShrineTrialTilesetPreview"))
 		if room_path == STAGE14_HUB_ROOM_PATH:
 			for reward_name in ["BacktrackRewardOne", "BacktrackRewardTwo", "BacktrackRewardThree"]:
-				var reward_visual := room.get_node_or_null("%s/RewardVisual" % reward_name) as Polygon2D
-				assert_not_null(reward_visual, "缺少旧奖励占位节点：%s/RewardVisual" % reward_name)
-				if reward_visual != null:
-					assert_false(reward_visual.visible)
+				assert_null(room.get_node_or_null(reward_name), "方案 B 已把旧奖励分散到 F06/F07/F09")
+			for marker_name in ["Marker1", "Marker2", "Marker3"]:
 				_assert_sprite_references_asset(
 					room,
-					"%s/RewardArt" % reward_name,
+					"RevisitProgress/%s" % marker_name,
 					"equipment_pickup_atlas_ai01",
 					BACKTRACK_REWARD_TEXTURE_PATH
 				)
-				_assert_sprite_references_asset(
-					room,
-					"%s/RewardPedestalArt" % reward_name,
-					"shrine_gate_prop_atlas_ai01",
-					BACKTRACK_REWARD_PEDESTAL_TEXTURE_PATH
-				)
-				var reward_art := room.get_node_or_null("%s/RewardArt" % reward_name) as Sprite2D
-				var reward_pedestal := room.get_node_or_null("%s/RewardPedestalArt" % reward_name) as Sprite2D
-				if reward_pedestal != null:
-					assert_eq(reward_pedestal.get_meta("runtime_source", ""), "shrine_gate_prop_atlas_ai01.reward_marker_idle")
-					assert_eq(reward_pedestal.get_meta("asset_binding_note", ""), "formal_demo_backtrack_reward_pedestal")
-					assert_lte(reward_pedestal.scale.x, 0.18)
-					assert_gte(reward_pedestal.z_index, 1)
-					if reward_art != null:
-						assert_gt(reward_art.z_index, reward_pedestal.z_index)
+			assert_not_null(room.get_node_or_null("BossRouteSeal"))
 		if room_path == STAGE14_LOOP_RETURN_ROOM_PATH:
 			_assert_sprite_references_asset(
 				room,
@@ -468,26 +460,31 @@ func test_stage14_player_runtime_animation_visual_uses_hit_and_death_candidates(
 	assert_ne(lethal_visual.sprite_frames.resource_path, LUNA_HIT_REACT_RUNTIME_SPRITEFRAMES_PATH)
 
 
-# 保护能力获得与回溯收益：神龛授予 Air Dash，hub 能累计 3 个奖励。
+# 保护能力获得与回溯收益：神龛授予 Air Dash，F15 只读取跨房的三处回访进度。
 func test_stage14_shrine_unlocks_air_dash_and_hub_tracks_three_backtrack_rewards() -> void:
 	var shrine := await _spawn_room(STAGE14_SHRINE_ROOM_PATH)
 	var hub := await _spawn_room(STAGE14_HUB_ROOM_PATH)
 	var player := await _spawn_player_with_floor(Vector2.ZERO)
+	var main_scene := await _spawn_main_scene()
 
 	shrine.call("bind_player", player)
 	player.global_position = shrine.get_node("AirDashShrine").global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(3)
+	Input.action_release("ui_down")
 
 	assert_true(player.call("is_air_dash_unlocked"))
 	assert_true(shrine.call("has_air_dash_been_granted"))
 
+	for reward_id in [&"stage14_reward_one", &"stage14_reward_two", &"stage14_reward_three"]:
+		main_scene.call("collect_stage14_backtrack_reward", reward_id)
+	hub.call("bind_main", main_scene)
 	hub.call("bind_player", player)
-	for reward_name in ["BacktrackRewardOne", "BacktrackRewardTwo", "BacktrackRewardThree"]:
-		player.global_position = hub.get_node(reward_name).global_position
-		await _advance_process_frames(3)
+	await _advance_process_frames(2)
 
 	var context: Dictionary = hub.call("get_hud_context")
 	assert_eq(context.get("stage14_backtrack_reward_count"), 3)
+	assert_true(context.get("boss_route_ready"))
 
 
 # 保护 Stage13 到 Stage14 的接入：Stage13 目标房 GoalZone 必须进入 Air Dash 神龛房。
@@ -502,27 +499,29 @@ func test_stage13_goal_links_to_stage14_air_dash_shrine() -> void:
 	)
 
 	player.global_position = room.get_node("GoalZone").global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(4)
+	Input.action_release("ui_down")
 
 	assert_eq(transitions.size(), 1)
 	assert_eq(transitions[0].get("target"), STAGE14_SHRINE_ROOM_PATH)
 	assert_eq(transitions[0].get("spawn"), &"stage14_air_dash_shrine_start")
 
 
-# 保护 Stage14 灰盒主线：从 Stage13 终点获得能力、收集奖励并到达回环房。
-func test_stage14_graybox_mainline_unlocks_air_dash_collects_rewards_and_reaches_loop_return() -> void:
+# 保护方案 B 的立即能力闭环：从 Stage13 终点获得能力、通过空冲证明并到达 F15 回访 Hub。
+func test_stage14_graybox_mainline_unlocks_air_dash_and_reaches_backtrack_hub() -> void:
 	var main_scene := await _spawn_main_scene()
 
 	main_scene.call("transition_to_room", STAGE13_GOAL_ROOM_PATH, &"stage13_goal_start")
 	await _advance_process_frames(4)
 
-	var reached_loop := await _drive_stage14_loop(main_scene)
+	var reached_hub := await _drive_stage14_loop(main_scene)
 	var snapshot: Dictionary = main_scene.call("get_demo_progress_snapshot")
 
-	assert_true(reached_loop)
+	assert_true(reached_hub)
 	assert_true(snapshot.get("air_dash_unlocked", false))
-	assert_eq(snapshot.get("stage14_backtrack_reward_count", 0), 3)
-	assert_eq(_get_room_path(main_scene), STAGE14_LOOP_RETURN_ROOM_PATH)
+	assert_eq(snapshot.get("stage14_backtrack_reward_count", 0), 0)
+	assert_eq(_get_room_path(main_scene), STAGE14_HUB_ROOM_PATH)
 
 
 # 保护运行态出生和 HUD 优先级：Stage14 房间出生应落地，HUD 应优先显示空中冲刺状态。
@@ -540,7 +539,9 @@ func test_stage14_runtime_spawn_lands_on_room_floor_and_hud_prioritizes_air_dash
 	assert_almost_eq(player.global_position.y + 20.0, 224.0, 0.6, "正式神龛房出生脚底必须落在 TileMap 地面顶面。")
 
 	player.global_position = room.get_node("AirDashShrine").global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(4)
+	Input.action_release("ui_down")
 
 	var progress_label := main_scene.get_node("HUD/TutorialHUD/BattlePanel/ProgressLabel") as Label
 	assert_not_null(progress_label)
@@ -575,24 +576,26 @@ func _drive_stage14_loop(main_scene: Node2D) -> bool:
 		if room == null or player == null:
 			return false
 
-		if room.scene_file_path == STAGE14_LOOP_RETURN_ROOM_PATH:
+		if room.scene_file_path == STAGE14_HUB_ROOM_PATH:
 			return true
 
 		match room.scene_file_path:
 			STAGE13_GOAL_ROOM_PATH:
 				player.global_position = room.get_node("GoalZone").global_position
+				Input.action_press("ui_down")
 			STAGE14_SHRINE_ROOM_PATH:
 				player.global_position = room.get_node("AirDashShrine").global_position
+				Input.action_press("ui_down")
 				await _advance_process_frames(4)
+				Input.action_release("ui_down")
 				player.global_position = room.get_node("ExitZone").global_position
 			STAGE14_GATE_ROOM_PATH:
 				player.global_position = room.get_node("AirDashGateSensor").global_position
-				await _advance_process_frames(4)
-				player.global_position = room.get_node("ExitZone").global_position
-			STAGE14_HUB_ROOM_PATH:
-				for reward_name in ["BacktrackRewardOne", "BacktrackRewardTwo", "BacktrackRewardThree"]:
-					player.global_position = room.get_node(reward_name).global_position
-					await _advance_process_frames(3)
+				await _advance_physics_frames(1)
+				Input.action_press("dash")
+				await _advance_physics_frames(2)
+				Input.action_release("dash")
+				await _advance_process_frames(2)
 				player.global_position = room.get_node("ExitZone").global_position
 			_:
 				var exit_zone := room.get_node_or_null("ExitZone") as Node2D
@@ -601,6 +604,7 @@ func _drive_stage14_loop(main_scene: Node2D) -> bool:
 				player.global_position = exit_zone.global_position
 
 		await _advance_process_frames(5)
+		Input.action_release("ui_down")
 
 	return false
 

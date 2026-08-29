@@ -1,0 +1,57 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1500' height='800' viewBox='0 0 1500 800' data-view='topology'>
+<defs><marker id='arrow' markerWidth='9' markerHeight='9' refX='8' refY='3' orient='auto'><path d='M0,0 L0,6 L9,3 z' fill='context-stroke'/></marker><pattern id='grid' width='32' height='32' patternUnits='userSpaceOnUse'><path d='M32 0 L0 0 0 32' fill='none' stroke='#223746' stroke-width='1'/></pattern></defs>
+<rect width='1500' height='800' fill='#0d1822'/><rect x='1' y='1' width='1498' height='798' fill='none' stroke='#5e7686' stroke-width='2'/>
+<text x='70' y='58' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F16 · 封妖综合试炼</text>
+<text x='70' y='92' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='18'>能力参与的综合战斗 · 4 屏 · 2560×360u</text>
+<text x='1430' y='58' text-anchor='end' fill='#d9bf77' font-family='Microsoft YaHei,Segoe UI' font-size='17'>记忆点：四象缚妖阵</text>
+<rect x='70' y='150' width='1360' height='300' rx='10' fill='#132532' stroke='#506a79' stroke-width='2'/><rect x='70' y='150' width='1360' height='300' rx='10' fill='url(#grid)' opacity='0.7'/>
+<text x='82' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S1</text>
+<line x1='410' y1='150' x2='410' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='422' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S2</text>
+<line x1='750' y1='150' x2='750' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='762' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S3</text>
+<line x1='1090' y1='150' x2='1090' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='1102' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S4</text>
+<polyline points='87,330 301.2,330 478,330 654.8,294 811.2,240 994.8,240 1151.2,294 1402.8,294' fill='none' stroke='#55d6e8' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='87,330 437.2,330 688.8,240 981.2,240 1402.8,294' fill='none' stroke='#e9b95d' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='12 7' marker-end='url(#arrow)' opacity='0.95'/>
+<circle cx='97.2' cy='330' r='10' fill='#6fd3ff' stroke='#071118' stroke-width='3'/>
+<text x='111.2' y='318' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>来自 F15</text>
+<circle cx='325' cy='330' r='10' fill='#ef7d7d' stroke='#071118' stroke-width='3'/>
+<text x='339' y='318' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>地面近战</text>
+<circle cx='552.8' cy='330' r='10' fill='#ef7d7d' stroke='#071118' stroke-width='3'/>
+<text x='566.8' y='318' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>冲锋通道</text>
+<circle cx='872.4' cy='240' r='10' fill='#ef7d7d' stroke='#071118' stroke-width='3'/>
+<text x='886.4' y='228' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>空中层</text>
+<circle cx='1192' cy='294' r='10' fill='#e68b8b' stroke='#071118' stroke-width='3'/>
+<text x='1206' y='282' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>清场妖气结界</text>
+<circle cx='1402.8' cy='294' r='10' fill='#77e39f' stroke='#071118' stroke-width='3'/>
+<text x='1416.8' y='282' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>通往 F17</text>
+<rect x='70' y='485' width='332.5' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='84' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S1 · 阵前缓冲</text>
+<text x='84' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：读场与首个近战</text>
+<text x='84' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：宽地面、一名近战、可退回入口</text>
+<text x='84' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：2/5</text>
+<text x='84' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：战斗锁区在出生点右侧 160u 后</text>
+<rect x='412.5' y='485' width='332.5' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='426.5' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S2 · 冲锋廊</text>
+<text x='426.5' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：用 Dash 改写地面交锋</text>
+<text x='426.5' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：长直通道带一处侧台，冲锋敌可被跨越</text>
+<text x='426.5' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：3/5</text>
+<text x='426.5' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：通道两端各有脱战凹槽</text>
+<rect x='755' y='485' width='332.5' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='769' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S3 · 悬阵层</text>
+<text x='769' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：用 Air Dash 争夺高度</text>
+<text x='769' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：两层平台与空中敌；上层是快线而非唯</text>
+<text x='769' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>一线</text>
+<text x='769' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：4/5</text>
+<text x='769' y='627' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：跌落回 S2/S3 下层，不判死亡</text>
+<rect x='1097.5' y='485' width='332.5' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='1111.5' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S4 · 缚妖门</text>
+<text x='1111.5' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：完成清场并进入 Boss</text>
+<text x='1111.5' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：汇流宽台、妖气结界、Boss 门远</text>
+<text x='1111.5' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>景</text>
+<text x='1111.5' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5</text>
+<text x='1111.5' y='627' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：结界消散后出口前 192u 无敌区</text>
+<text x='70' y='752' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='14'>俯视结构审阅图；横版玩法不变。1 屏 = 640×360u。first=首次路线 ｜ branch=支路 ｜ revisit=能力回访 ｜ speed=熟练快线 ｜ fallback/retry=安全回落或重试</text>
+<text x='1430' y='780' text-anchor='end' fill='#668091' font-family='Segoe UI' font-size='12'>formal_demo_room_recovery_b · blueprint v2 · view=topology</text>
+</svg>

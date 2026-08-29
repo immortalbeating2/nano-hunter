@@ -12,6 +12,7 @@ signal room_transition_requested(target_room_path: String, spawn_id: StringName)
 const STEP_MOVE_JUMP: StringName = &"move_jump"
 const STEP_DASH: StringName = &"dash"
 const STEP_ATTACK: StringName = &"attack"
+const STEP_STANCE: StringName = &"stance"
 const STEP_EXIT: StringName = &"exit"
 const STEP_COMPLETE: StringName = &"complete"
 const COMBAT_TRIAL_ROOM_PATH := "res://scenes/rooms/combat_trial_room.tscn"
@@ -25,16 +26,18 @@ const CAMERA_LIMITS := Rect2i(-512, -192, 1536, 384)
 const STEP_PROMPTS := {
 	STEP_MOVE_JUMP: "A/D 或 ←/→ 移动，Space/W/↑ 跳上平台。",
 	STEP_DASH: "按 K 冲刺穿过低顶门槛。",
-	STEP_ATTACK: "J 攻击训练目标或红色封印柱，打开出口。",
+	STEP_ATTACK: "J 攻击训练目标或红色封印柱，完成攻击训练。",
+	STEP_STANCE: "切换一次疾印 / 御印，观察攻守差异。",
 	STEP_EXIT: "出口已打开，继续向右离开教程区。",
 	STEP_COMPLETE: "阶段 5 教程区已完成，可以继续扩展主流程。",
 }
 
 const STEP_TITLES := {
-	STEP_MOVE_JUMP: "教程 1/4 · 移动与跳跃",
-	STEP_DASH: "教程 2/4 · 冲刺穿门",
-	STEP_ATTACK: "教程 3/4 · 基础攻击",
-	STEP_EXIT: "教程 4/4 · 离开教程区",
+	STEP_MOVE_JUMP: "教程 1/5 · 移动与跳跃",
+	STEP_DASH: "教程 2/5 · 冲刺穿门",
+	STEP_ATTACK: "教程 3/5 · 基础攻击",
+	STEP_STANCE: "教程 4/5 · 疾御换印",
+	STEP_EXIT: "教程 5/5 · 离开教程区",
 	STEP_COMPLETE: "教程完成",
 }
 
@@ -42,8 +45,9 @@ const STEP_ORDER := {
 	STEP_MOVE_JUMP: 0,
 	STEP_DASH: 1,
 	STEP_ATTACK: 2,
-	STEP_EXIT: 3,
-	STEP_COMPLETE: 4,
+	STEP_STANCE: 3,
+	STEP_EXIT: 4,
+	STEP_COMPLETE: 5,
 }
 
 @onready var tutorial_dummy: StaticBody2D = $TutorialDummy
@@ -94,9 +98,28 @@ func _process(_delta: float) -> void:
 				_request_combat_trial_transition()
 
 
-# 接收 Main 注入的当前玩家实例，教程推进只读取这个运行时位置。
+# 接收 Main 注入的当前玩家实例；重绑定必须先断开旧信号，避免旧玩家延迟事件开门。
 func bind_player(player: CharacterBody2D) -> void:
+	var stance_callback := Callable(self, "_on_player_stance_changed")
+	if _player != null and _player.has_signal("stance_changed") and _player.is_connected("stance_changed", stance_callback):
+		_player.disconnect("stance_changed", stance_callback)
 	_player = player
+	if _player != null and _player.has_signal("stance_changed") and not _player.is_connected("stance_changed", stance_callback):
+		_player.connect("stance_changed", stance_callback)
+
+
+# 回访教程房时读取 Main 已记录的真实向前完成态，避免整套教学被新实例重置后堵住出口。
+func bind_main(main: Node) -> void:
+	if main != null and main.has_method("is_room_forward_route_completed") and bool(main.call("is_room_forward_route_completed", scene_file_path)):
+		_exit_unlocked = true
+		_current_step = STEP_EXIT
+		_apply_exit_lock_state()
+		_emit_step_changed()
+
+
+# 声明教程房唯一向前目标，供 Main 区分完成推进与其他切房来源。
+func get_forward_room_path() -> String:
+	return COMBAT_TRIAL_ROOM_PATH
 
 
 # 返回教程房相机边界，保护首段教学构图。
@@ -215,8 +238,20 @@ func _on_exit_barrier_hit_registered(_hit_count: int) -> void:
 	_unlock_exit_after_attack()
 
 
-# 攻击教学完成后打开出口并推进到离开教程步骤。
+# 攻击教学完成后只进入换印步骤；出口继续锁定，等待玩家主动姿态变化。
 func _unlock_exit_after_attack() -> void:
+	_set_current_step(STEP_STANCE)
+
+
+# 初始化注入和其他阶段的 stance_changed 都不能跳步，只有姿态教学中的真实变化有效。
+func _on_player_stance_changed(_stance_id: StringName) -> void:
+	if _current_step != STEP_STANCE:
+		return
+	_unlock_exit_after_stance_switch()
+
+
+# 姿态教学完成后由房间统一开门，并推进到最后的离开步骤。
+func _unlock_exit_after_stance_switch() -> void:
 	_exit_unlocked = true
 	_apply_exit_lock_state()
 	_set_current_step(STEP_EXIT)

@@ -4,6 +4,7 @@ extends Control
 # 图片只负责宣纸和外框；房间、路线、门控与探索状态始终由 Godot 动态叠加。
 
 const DEFAULT_LAYOUT_PATH := "res://assets/configs/world_map/alpha_demo_world_map.json"
+const DEFAULT_FORMAL_PROGRAM_PATH := "res://assets/configs/world_map/formal_demo_room_program.json"
 const MAP_PADDING := Vector2(10.0, 8.0)
 
 const REGION_COLORS := {
@@ -18,12 +19,16 @@ const REGION_COLORS := {
 @export_file("*.json") var layout_path := DEFAULT_LAYOUT_PATH
 
 var _layout: Dictionary = {}
+var _formal_program: Dictionary = {}
+var _formal_room_definitions: Array = []
 var _room_definitions: Array = []
+var _all_room_definitions: Array = []
 var _room_by_id: Dictionary = {}
 var _room_by_path: Dictionary = {}
 var _visited_room_paths: Dictionary = {}
 var _current_room_path := ""
 var _map_snapshot: Dictionary = {}
+var _room_scope: StringName = &"all"
 
 
 func _ready() -> void:
@@ -61,12 +66,40 @@ func get_room_count() -> int:
 	return _room_definitions.size()
 
 
+# 正式地图默认可切换为 18 房切片；开发审计仍可显示完整 44 房。
+func set_room_scope(scope: StringName) -> void:
+	if scope not in [&"formal", &"all"]:
+		return
+	_room_scope = scope
+	_apply_room_scope()
+	queue_redraw()
+
+
+func get_room_scope() -> StringName:
+	return _room_scope
+
+
 func get_room_paths() -> Array:
 	_ensure_layout()
 	var room_paths: Array = []
 	for room_definition: Dictionary in _room_definitions:
 		room_paths.append(str(room_definition.get("path", "")))
 	return room_paths
+
+
+# 选关菜单复用同一份正式房间定义，避免再次维护 F 编号和标题。
+func get_formal_room_definitions() -> Array:
+	_ensure_layout()
+	return _formal_room_definitions.duplicate(true)
+
+
+func get_visited_room_count() -> int:
+	_ensure_layout()
+	var count := 0
+	for room_definition: Dictionary in _room_definitions:
+		if _visited_room_paths.has(str(room_definition.get("path", ""))):
+			count += 1
+	return count
 
 
 func get_remote_connection_ids() -> Array:
@@ -83,8 +116,14 @@ func get_current_room_label() -> String:
 	_ensure_layout()
 	var room_definition: Dictionary = _room_by_path.get(_current_room_path, {})
 	if room_definition.is_empty():
+		for legacy_definition: Dictionary in _all_room_definitions:
+			if str(legacy_definition.get("path", "")) == _current_room_path:
+				return "开发留存 · %s · %s" % [
+					str(legacy_definition.get("id", "?")),
+					str(legacy_definition.get("title", "未知房间")),
+				]
 		return "未知房间"
-	return "%s  %s" % [str(room_definition.get("id", "?")), str(room_definition.get("title", "未知房间"))]
+	return "%s · %s" % [str(room_definition.get("id", "?")), str(room_definition.get("title", "未知房间"))]
 
 
 func _ensure_layout() -> void:
@@ -94,7 +133,10 @@ func _ensure_layout() -> void:
 
 func _load_layout() -> void:
 	_layout.clear()
+	_formal_program.clear()
+	_formal_room_definitions.clear()
 	_room_definitions.clear()
+	_all_room_definitions.clear()
 	_room_by_id.clear()
 	_room_by_path.clear()
 	if not FileAccess.file_exists(layout_path):
@@ -113,24 +155,79 @@ func _load_layout() -> void:
 		_layout.clear()
 		return
 	for room_definition: Dictionary in rooms:
+		_all_room_definitions.append(room_definition)
+	_load_formal_program()
+	_apply_room_scope()
+	queue_redraw()
+
+
+func _apply_room_scope() -> void:
+	_room_definitions.clear()
+	_room_by_id.clear()
+	_room_by_path.clear()
+	if _room_scope == &"formal":
+		var layout_by_path := {}
+		for layout_definition: Dictionary in _all_room_definitions:
+			layout_by_path[str(layout_definition.get("path", ""))] = layout_definition
+		for formal_definition: Dictionary in _formal_room_definitions:
+			var room_path := str(formal_definition.get("path", ""))
+			var layout_definition: Dictionary = layout_by_path.get(room_path, {})
+			if layout_definition.is_empty():
+				continue
+			var room_definition := layout_definition.duplicate(true)
+			for key: String in ["id", "legacy_id", "title", "role", "route_index"]:
+				if formal_definition.has(key):
+					room_definition[key] = formal_definition[key]
+			_room_definitions.append(room_definition)
+			_room_by_id[str(room_definition.get("id", ""))] = room_definition
+			_room_by_path[room_path] = room_definition
+		return
+
+	for room_definition: Dictionary in _all_room_definitions:
+		var room_path := str(room_definition.get("path", ""))
 		_room_definitions.append(room_definition)
 		_room_by_id[str(room_definition.get("id", ""))] = room_definition
-		_room_by_path[str(room_definition.get("path", ""))] = room_definition
-	queue_redraw()
+		_room_by_path[room_path] = room_definition
+
+
+func _load_formal_program() -> void:
+	if not FileAccess.file_exists(DEFAULT_FORMAL_PROGRAM_PATH):
+		push_error("正式 Demo 房间 program 不存在：%s" % DEFAULT_FORMAL_PROGRAM_PATH)
+		return
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(DEFAULT_FORMAL_PROGRAM_PATH))
+	if not (parsed is Dictionary):
+		push_error("正式 Demo 房间 program 无效：%s" % DEFAULT_FORMAL_PROGRAM_PATH)
+		return
+	_formal_program = parsed
+	var rooms: Variant = _formal_program.get("formal_rooms", [])
+	if rooms is Array:
+		for room_definition: Variant in rooms:
+			if room_definition is Dictionary:
+				_formal_room_definitions.append((room_definition as Dictionary).duplicate(true))
 
 
 func _get_connections() -> Array[Dictionary]:
 	var connections: Array[Dictionary] = []
-	var main_route: Variant = _layout.get("main_route", [])
+	var connection_source := _formal_program if _room_scope == &"formal" else _layout
+	var main_route_key := "formal_main_route" if _room_scope == &"formal" else "main_route"
+	var branch_key := "formal_branch_connections" if _room_scope == &"formal" else "branch_connections"
+	var main_route: Variant = connection_source.get(main_route_key, [])
 	if main_route is Array:
 		for index: int in range(main_route.size() - 1):
 			connections.append({"kind": "main", "from": main_route[index], "to": main_route[index + 1]})
 
-	var branches: Variant = _layout.get("branch_connections", [])
+	var branches: Variant = connection_source.get(branch_key, [])
 	if branches is Array:
 		for branch: Dictionary in branches:
-			connections.append({"kind": "branch", "from": branch.get("from", ""), "to": branch.get("to", "")})
+			connections.append({
+				"kind": "shortcut" if str(branch.get("kind", "")) == "ability_shortcut" else "branch",
+				"from": branch.get("from", ""),
+				"to": branch.get("to", ""),
+				"requirements": branch.get("requirements", []),
+			})
 
+	if _room_scope == &"formal":
+		return connections
 	var shortcuts: Variant = _layout.get("remote_connections", [])
 	if shortcuts is Array:
 		for shortcut: Dictionary in shortcuts:

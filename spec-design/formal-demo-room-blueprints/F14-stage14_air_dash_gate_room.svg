@@ -1,0 +1,50 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1500' height='800' viewBox='0 0 1500 800' data-view='topology'>
+<defs><marker id='arrow' markerWidth='9' markerHeight='9' refX='8' refY='3' orient='auto'><path d='M0,0 L0,6 L9,3 z' fill='context-stroke'/></marker><pattern id='grid' width='32' height='32' patternUnits='userSpaceOnUse'><path d='M32 0 L0 0 0 32' fill='none' stroke='#223746' stroke-width='1'/></pattern></defs>
+<rect width='1500' height='800' fill='#0d1822'/><rect x='1' y='1' width='1498' height='798' fill='none' stroke='#5e7686' stroke-width='2'/>
+<text x='70' y='58' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F14 · 空冲证明</text>
+<text x='70' y='92' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='18'>Air Dash 展示、练习与强制应用 · 3 屏 · 1920×360u</text>
+<text x='1430' y='58' text-anchor='end' fill='#d9bf77' font-family='Microsoft YaHei,Segoe UI' font-size='17'>记忆点：断空石梁与回风印桥</text>
+<rect x='70' y='150' width='1360' height='300' rx='10' fill='#132532' stroke='#506a79' stroke-width='2'/><rect x='70' y='150' width='1360' height='300' rx='10' fill='url(#grid)' opacity='0.7'/>
+<text x='82' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S1</text>
+<line x1='523.333333333333' y1='150' x2='523.333333333333' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='535.333333333333' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S2</text>
+<line x1='976.666666666667' y1='150' x2='976.666666666667' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='988.666666666667' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S3</text>
+<polyline points='92.7,324 332.9,324 546,276 750,276 1022,258 1303.1,258 1393.7,294' fill='none' stroke='#55d6e8' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='1022,258 1139.9,384 895.1,384 750,276' fill='none' stroke='#aab7c4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='5 7' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='895.1,384 614,384' fill='none' stroke='#e9b95d' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='12 7' marker-end='url(#arrow)' opacity='0.95'/>
+<circle cx='106.266666666667' cy='324' r='10' fill='#6fd3ff' stroke='#071118' stroke-width='3'/>
+<text x='120.3' y='312' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>来自 F13</text>
+<circle cx='387.333333333333' cy='270' r='10' fill='#a8c9d8' stroke='#071118' stroke-width='3'/>
+<text x='401.3' y='258' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>NPC/残影展示</text>
+<circle cx='727.333333333333' cy='276' r='10' fill='#9db6c5' stroke='#071118' stroke-width='3'/>
+<text x='741.3' y='264' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>安全短跨</text>
+<circle cx='1076.4' cy='258' r='10' fill='#c58cff' stroke='#071118' stroke-width='3'/>
+<text x='1090.4' y='246' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>真实空冲证明</text>
+<circle cx='1139.86666666667' cy='384' r='10' fill='#87a8b8' stroke='#071118' stroke-width='3'/>
+<text x='1153.9' y='372' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>失败回落</text>
+<circle cx='614' cy='384' r='10' fill='#dfb967' stroke='#071118' stroke-width='3'/>
+<text x='628' y='372' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>双向连接 F07</text>
+<circle cx='1393.73333333333' cy='294' r='10' fill='#77e39f' stroke='#071118' stroke-width='3'/>
+<text x='1407.7' y='282' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>通往 F15</text>
+<rect x='70' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='84' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S1 · 观空台</text>
+<text x='84' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：无压力展示空冲</text>
+<text x='84' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：入口与演示跨口同屏，跨距小于能力距离 60%</text>
+<text x='84' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5</text>
+<text x='84' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：出生点连续地面 192u</text>
+<rect x='526.666666666667' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='540.666666666667' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S2 · 回风练习</text>
+<text x='540.666666666667' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：自由练习并发现捷径回落层</text>
+<text x='540.666666666667' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：上层短跨、下层安全回落；回落层通向 F07</text>
+<text x='540.666666666667' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5</text>
+<text x='540.666666666667' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：任何失败都落在本房地板</text>
+<rect x='983.333333333333' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='997.333333333333' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S3 · 断空证明</text>
+<text x='997.333333333333' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：要求真实 airborne Air Dash</text>
+<text x='997.333333333333' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：105–110u 跨距、宽落点、通过后开门</text>
+<text x='997.333333333333' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：2/5</text>
+<text x='997.333333333333' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：危险区不覆盖起跳、落点或回落层</text>
+<text x='70' y='752' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='14'>俯视结构审阅图；横版玩法不变。1 屏 = 640×360u。first=首次路线 ｜ branch=支路 ｜ revisit=能力回访 ｜ speed=熟练快线 ｜ fallback/retry=安全回落或重试</text>
+<text x='1430' y='780' text-anchor='end' fill='#668091' font-family='Segoe UI' font-size='12'>formal_demo_room_recovery_b · blueprint v2 · view=topology</text>
+</svg>

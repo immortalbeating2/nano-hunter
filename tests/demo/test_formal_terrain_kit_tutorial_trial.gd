@@ -1,16 +1,18 @@
 extends GutTest
 
-# Tutorial terrain 正式房间模板契约。
-# 静态地形由 TileMapLayer collision 接管；门、触发器和敌人仍保持独立节点。
+# Tutorial 正式房间模板契约。
+# Blueprint V2 的 Phase2GrayboxLayout 接管静态地形；旧 TileMap 只保留追溯数据。
 
 const ROOM_PATH := "res://scenes/rooms/tutorial_room.tscn"
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_PLATFORM_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const JUMP_PLATFORM_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
+const DASH_GATE_LINTEL_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_dash_gate_lintel_visual_ai01.tileset.tres"
 const GROUND_UNDERLAY_NAME := "GroundUnderlayVisual"
 const SURFACE_LAYER_NAME := "GroundSurfaceVisual"
 const THIN_PLATFORM_SURFACE_LAYER_NAME := "ThinPlatformSurfaceVisual"
+const DASH_GATE_LINTEL_LAYER_NAME := "DashGateLintelVisual"
 const TERRAIN_LAYER_NAME := "TerrainCollisionVisual"
 const PLATFORM_LAYER_NAME := "PlatformCollisionVisual"
 const DOOR_LAYER_NAME := "DoorVisual"
@@ -36,31 +38,10 @@ const LEGACY_TERRAIN_BODY_NAMES := [
 	"JumpGuidePlatform",
 	"DashGateLeft",
 	"DashGateRight",
-	"DashGateCeiling",
 	"CombatFloor",
 	"ExitFloor",
 ]
-const TILE_OFFSET := Vector2(0.0, 0.0)
-const THIN_TILE_OFFSET := Vector2(0.0, -16.0)
-const MAIN_GROUND_START := Vector2i(-7, 2)
-const MAIN_GROUND_LENGTH := 23
-const JUMP_PLATFORM_START := Vector2i(-4, 1)
-const JUMP_PLATFORM_LENGTH := 2
-const DASH_CEILING_START := Vector2i(2, 1)
-const DASH_CEILING_LENGTH := 2
-const LEFT_WALL_START := Vector2i(-8, -3)
-const RIGHT_WALL_START := Vector2i(16, -3)
-const WALL_LENGTH := 6
-const EXIT_SAFE_CELLS := [
-	Vector2i(10, 2),
-	Vector2i(11, 2),
-	Vector2i(12, 2),
-	Vector2i(13, 2),
-	Vector2i(14, 2),
-]
 const GROUND_TOP_Y := 160.0
-const GROUND_SURFACE_OFFSET := Vector2(0.0, -7.0)
-const GROUND_CENTER_ALPHA_TOP_Y := 39.0
 const PLAYER_COLLISION_HALF_HEIGHT := 20.0
 const DASH_CEILING_VISUAL_TOP_Y := 80.0
 const ROOM_LEFT_X := -512.0
@@ -71,34 +52,42 @@ const ROOM_BOTTOM_Y := 192.0
 
 func test_tutorial_template_layers_have_correct_collision_authority() -> void:
 	var room := _instantiate_room()
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
 	var terrain := room.get_node_or_null(TERRAIN_LAYER_NAME) as TileMapLayer
 	var platform := room.get_node_or_null(PLATFORM_LAYER_NAME) as TileMapLayer
 	var thin_surface := room.get_node_or_null(THIN_PLATFORM_SURFACE_LAYER_NAME) as TileMapLayer
+	var lintel_surface := room.get_node_or_null(DASH_GATE_LINTEL_LAYER_NAME) as TileMapLayer
+	assert_not_null(layout)
 	assert_not_null(terrain)
 	assert_not_null(platform)
 	assert_not_null(thin_surface)
-	if terrain == null or platform == null or thin_surface == null:
+	assert_not_null(lintel_surface)
+	if layout == null or terrain == null or platform == null or thin_surface == null or lintel_surface == null:
 		return
 
-	assert_false(terrain.visible, "碰撞权威层只保留 physics，不得进入成品画面。")
-	assert_true(bool(terrain.get("collision_enabled")))
-	assert_eq(terrain.position, TILE_OFFSET)
-	assert_eq(terrain.scale, Vector2(1.0 / 6.0, 1.0 / 6.0))
+	assert_eq(int(layout.call("get_segment_count")), 4)
+	assert_eq(layout.call("get_layout_profile"), &"tutorial_four_beats_safe_recovery")
+	assert_eq(int(layout.call("get_runtime_platform_count")), 6)
+	assert_false(terrain.visible, "旧 TileMap 碰撞层不得进入成品画面。")
+	assert_false(bool(terrain.get("collision_enabled")))
 	assert_eq(terrain.get_meta("asset_id", ""), "formal_terrain_kit_ai01")
-	assert_eq(terrain.get_meta("asset_binding_note", ""), "tilemap_collision_authority_static_terrain")
 	assert_eq(terrain.tile_set.resource_path, TILESET_PATH)
 
-	assert_false(platform.visible, "薄平台碰撞权威层只保留 physics，不得形成幽灵台阶。")
-	assert_true(bool(platform.get("collision_enabled")))
-	assert_eq(platform.position, THIN_TILE_OFFSET)
-	assert_eq(platform.scale, Vector2(1.0 / 6.0, 1.0 / 6.0))
-	assert_eq(platform.get_meta("asset_binding_note", ""), "tilemap_one_way_collision_authority_platform")
+	assert_false(platform.visible, "旧薄平台 TileMap 不得形成幽灵台阶。")
+	assert_false(bool(platform.get("collision_enabled")))
 
-	assert_true(thin_surface.visible)
+	assert_false(thin_surface.visible, "旧薄平台表面已由 Phase2 动态表面取代。")
 	assert_false(bool(thin_surface.get("collision_enabled")), "薄平台可见层不能参与碰撞。")
-	assert_eq(thin_surface.tile_set.resource_path, THIN_PLATFORM_SURFACE_TILESET_PATH)
-	assert_eq(thin_surface.get_meta("asset_id", ""), "tutorial_thin_platform_visual_ai01")
-	assert_eq(thin_surface.get_meta("asset_binding_note", ""), "thin_platform_surface_visual_only_collision_kept_in_formal_layer")
+	assert_eq(thin_surface.tile_set.resource_path, JUMP_PLATFORM_SURFACE_TILESET_PATH)
+	assert_eq(thin_surface.get_meta("asset_id", ""), "tutorial_jump_platform_visual_ai02")
+	assert_eq(thin_surface.get_meta("physics_affordance", ""), "one_way_platform")
+	assert_eq(thin_surface.get_meta("asset_binding_note", ""), "one_way_jump_platform_visual_only_collision_kept_in_platform_layer")
+
+	assert_true(lintel_surface.visible)
+	assert_false(bool(lintel_surface.get("collision_enabled")), "门楣可见层不能参与碰撞。")
+	assert_eq(lintel_surface.tile_set.resource_path, DASH_GATE_LINTEL_TILESET_PATH)
+	assert_eq(lintel_surface.get_meta("asset_id", ""), "tutorial_dash_gate_lintel_visual_ai01")
+	assert_eq(lintel_surface.get_meta("physics_affordance", ""), "thin_solid")
 
 	for layer_name: String in [DOOR_LAYER_NAME, BACKGROUND_LAYER_NAME, DECOR_LAYER_NAME, FOREGROUND_LAYER_NAME]:
 		var layer := room.get_node_or_null(layer_name) as TileMapLayer
@@ -135,30 +124,38 @@ func test_tutorial_legacy_static_terrain_collision_is_disabled_but_logic_nodes_r
 	if dummy != null:
 		assert_ne(dummy.collision_layer, 0, "训练目标仍保留独立碰撞。")
 
+	var dash_ceiling := room.get_node_or_null("DashGateCeiling") as StaticBody2D
+	var dash_ceiling_shape := room.get_node_or_null("DashGateCeiling/CollisionShape2D") as CollisionShape2D
+	assert_not_null(dash_ceiling)
+	assert_not_null(dash_ceiling_shape)
+	if dash_ceiling != null:
+		assert_eq(dash_ceiling.collision_layer, 1, "独立门楣仍承担低顶实体碰撞。")
+	if dash_ceiling_shape != null:
+		assert_false(dash_ceiling_shape.disabled)
+
 
 func test_tutorial_grid_blueprint_has_continuous_ground_platform_caps_and_safe_exit() -> void:
 	var room := _instantiate_room()
-	var terrain := room.get_node_or_null(TERRAIN_LAYER_NAME) as TileMapLayer
-	var platform := room.get_node_or_null(PLATFORM_LAYER_NAME) as TileMapLayer
-	var surface := room.get_node_or_null(SURFACE_LAYER_NAME) as TileMapLayer
-	var thin_surface := room.get_node_or_null(THIN_PLATFORM_SURFACE_LAYER_NAME) as TileMapLayer
+	var layout := room.get_node_or_null("Phase2GrayboxLayout")
+	var lintel_surface := room.get_node_or_null(DASH_GATE_LINTEL_LAYER_NAME) as TileMapLayer
 	var door := room.get_node_or_null(DOOR_LAYER_NAME) as TileMapLayer
-	assert_not_null(terrain)
-	assert_not_null(platform)
-	assert_not_null(surface)
-	assert_not_null(thin_surface)
+	assert_not_null(layout)
+	assert_not_null(lintel_surface)
 	assert_not_null(door)
-	if terrain == null or platform == null or surface == null or thin_surface == null or door == null:
+	if layout == null or lintel_surface == null or door == null:
 		return
 
-	_assert_ground_run(terrain)
-	_assert_wall_run(terrain, LEFT_WALL_START, 1)
-	_assert_wall_run(terrain, RIGHT_WALL_START, 1)
-	_assert_dash_ceiling(terrain)
-	_assert_platform_run(platform)
-	_assert_exit_safe_landing(terrain)
-	_assert_ground_surface_layer(surface, terrain)
-	_assert_thin_platform_surface_layer(thin_surface, terrain)
+	var solid_rects: Array[Rect2] = layout.get("solid_rects")
+	var one_way_rects: Array[Rect2] = layout.get("one_way_rects")
+	assert_eq(solid_rects, [
+		Rect2(-512, 144, 320, 64),
+		Rect2(-192, 160, 128, 64),
+		Rect2(-64, 160, 320, 64),
+		Rect2(256, 160, 480, 64),
+		Rect2(736, 160, 288, 64),
+	])
+	assert_eq(one_way_rects, [Rect2(-240, 80, 160, 16)])
+	_assert_dash_gate_lintel_layer(lintel_surface)
 	_assert_door_layer(door)
 	_assert_ground_underlay_retired(room)
 	_assert_visual_layers_do_not_look_walkable(room)
@@ -220,7 +217,6 @@ func test_tutorial_background_uses_single_room_cover_without_repeat_seams() -> v
 	assert_true(primary.visible)
 	assert_false(repeated.visible, "重复背景必须退役，避免同一张图硬拼接。")
 	assert_eq(primary.position, Vector2(256.0, 0.0))
-	assert_eq(primary.scale, Vector2(0.92, 0.92))
 	assert_eq(primary.get_meta("asset_binding_note", ""), "single_sprite_full_room_coverage_no_repeat_seam")
 	var half_size := Vector2(primary.texture.get_width(), primary.texture.get_height()) * primary.scale * 0.5
 	assert_true(primary.position.x - half_size.x <= ROOM_LEFT_X)
@@ -229,8 +225,8 @@ func test_tutorial_background_uses_single_room_cover_without_repeat_seams() -> v
 	assert_true(primary.position.y + half_size.y >= ROOM_BOTTOM_Y)
 
 
-# 运行态玩家碰撞脚底必须和主地面的真实不透明像素顶面重合，而不是只落在同一网格行。
-func test_tutorial_spawn_feet_match_visible_ground_top() -> void:
+# 运行态玩家碰撞脚底必须落在当前 Phase2 几何真源上。
+func test_tutorial_spawn_feet_match_phase2_ground_top() -> void:
 	var packed := load(MAIN_SCENE_PATH) as PackedScene
 	assert_not_null(packed)
 	if packed == null:
@@ -244,16 +240,21 @@ func test_tutorial_spawn_feet_match_visible_ground_top() -> void:
 		await get_tree().physics_frame
 
 	var player := main.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
-	var surface := main.get_node_or_null("Room/GroundSurfaceVisual") as TileMapLayer
+	var layout := main.get_node_or_null("Room/Phase2GrayboxLayout")
 	assert_not_null(player)
-	assert_not_null(surface)
-	if player == null or surface == null:
+	assert_not_null(layout)
+	if player == null or layout == null:
 		return
 	var player_bottom := player.global_position.y + PLAYER_COLLISION_HALF_HEIGHT
-	var visible_ground_top := _visible_ground_top(surface)
-	assert_almost_eq(player_bottom, GROUND_TOP_Y, 0.25, "玩家碰撞脚底保持在正式主地面基线。")
-	assert_almost_eq(visible_ground_top, GROUND_TOP_Y, 0.25, "主地面不透明像素顶面必须落在同一基线。")
-	assert_almost_eq(player_bottom, visible_ground_top, 0.25, "Luna 脚底和视觉地面必须吻合。")
+	var support_top := INF
+	var solid_rects: Array[Rect2] = layout.get("solid_rects")
+	var one_way_rects: Array[Rect2] = layout.get("one_way_rects")
+	for rect: Rect2 in solid_rects + one_way_rects:
+		if player.global_position.x >= rect.position.x and player.global_position.x <= rect.end.x:
+			if rect.position.y >= player.global_position.y:
+				support_top = minf(support_top, rect.position.y)
+	assert_false(is_inf(support_top), "出生点下方必须有 Phase2 支撑。")
+	assert_almost_eq(player_bottom, support_top, 0.25, "Luna 脚底必须和当前碰撞顶面对齐。")
 
 
 func _instantiate_room() -> Node2D:
@@ -266,118 +267,18 @@ func _instantiate_room() -> Node2D:
 	return room
 
 
-func _assert_ground_run(layer: TileMapLayer) -> void:
-	var flat_cells := _cells_for_source(layer, 0)
-	assert_eq(flat_cells.size(), MAIN_GROUND_LENGTH, "主路平地只能是一条连续 run，不能有额外碎块。")
-	for offset: int in range(MAIN_GROUND_LENGTH):
-		var cell := Vector2i(MAIN_GROUND_START.x + offset, MAIN_GROUND_START.y)
-		assert_true(flat_cells.has(cell), "主路平地连续：%s" % cell)
-		var atlas := layer.get_cell_atlas_coords(cell)
-		if offset == 0:
-			assert_eq(atlas, Vector2i(2, 0), "主路左 cap 只出现在起点。")
-		elif offset == MAIN_GROUND_LENGTH - 1:
-			assert_eq(atlas, Vector2i(3, 0), "主路右 cap 只出现在终点。")
-		else:
-			assert_true(atlas in [Vector2i(0, 0), Vector2i(1, 0)], "主路中段不能出现 cap：%s" % cell)
-		_assert_solid_collision(layer, cell, "主路平地有碰撞：%s" % cell)
-
-
-func _assert_wall_run(layer: TileMapLayer, start: Vector2i, source_id: int) -> void:
-	for offset: int in range(WALL_LENGTH):
-		var cell := Vector2i(start.x, start.y + offset)
-		assert_true(layer.get_used_cells().has(cell), "边界墙连续：%s" % cell)
-		assert_eq(layer.get_cell_source_id(cell), source_id, "边界墙使用 wall/cliff source：%s" % cell)
-		_assert_solid_collision(layer, cell, "边界墙有碰撞：%s" % cell)
-
-
-func _assert_dash_ceiling(layer: TileMapLayer) -> void:
-	for offset: int in range(DASH_CEILING_LENGTH):
-		var cell := Vector2i(DASH_CEILING_START.x + offset, DASH_CEILING_START.y)
-		assert_true(layer.get_used_cells().has(cell), "dash 门低顶连续：%s" % cell)
-		assert_eq(layer.get_cell_source_id(cell), 2)
-		assert_eq(layer.get_cell_atlas_coords(cell), Vector2i(2, 1))
-		_assert_solid_collision(layer, cell, "dash 门低顶是实体碰撞：%s" % cell)
-
-
-func _assert_platform_run(layer: TileMapLayer) -> void:
-	var flat_cells := _cells_for_source(layer, 0)
-	assert_eq(flat_cells.size(), JUMP_PLATFORM_LENGTH, "跳跃平台只能是一条短 run。")
-	for offset: int in range(JUMP_PLATFORM_LENGTH):
-		var cell := Vector2i(JUMP_PLATFORM_START.x + offset, JUMP_PLATFORM_START.y)
-		assert_true(flat_cells.has(cell), "跳跃平台连续：%s" % cell)
-		var atlas := layer.get_cell_atlas_coords(cell)
-		if offset == 0:
-			assert_eq(atlas, Vector2i(1, 2), "平台左 cap")
-		elif offset == JUMP_PLATFORM_LENGTH - 1:
-			assert_eq(atlas, Vector2i(2, 2), "平台右 cap")
-		else:
-			assert_eq(atlas, Vector2i(0, 2), "平台中段")
-		var tile_data := _tile_data(layer, cell)
-		assert_not_null(tile_data)
-		if tile_data != null:
-			assert_eq(tile_data.get_collision_polygons_count(0), 1)
-			assert_true(tile_data.is_collision_polygon_one_way(0, 0), "跳跃平台必须是 one-way：%s" % cell)
-
-
-func _assert_exit_safe_landing(layer: TileMapLayer) -> void:
-	for cell: Vector2i in EXIT_SAFE_CELLS:
-		assert_true(layer.get_used_cells().has(cell), "出口前后安全落点必须连续：%s" % cell)
-		assert_eq(layer.get_cell_source_id(cell), 0)
-		assert_true(layer.get_cell_atlas_coords(cell) in [Vector2i(0, 0), Vector2i(1, 0)], "出口安全落点不能是断崖 cap：%s" % cell)
-
-
 func _assert_door_layer(layer: TileMapLayer) -> void:
 	assert_false(bool(layer.get("collision_enabled")), "门框视觉不参与碰撞。")
 	assert_eq(layer.get_used_cells().size(), 0, "tutorial_room 不再铺孤立门框 / 小台座 tile。")
 
 
-func _assert_ground_surface_layer(surface: TileMapLayer, terrain: TileMapLayer) -> void:
+func _assert_dash_gate_lintel_layer(surface: TileMapLayer) -> void:
 	assert_true(surface.visible)
-	assert_false(bool(surface.get("collision_enabled")), "可见地表层只负责读值，不参与碰撞。")
-	assert_eq(surface.tile_set.resource_path, SURFACE_TILESET_PATH)
-	assert_eq(surface.get_meta("asset_id", ""), "shrine_trial_tileset_ai01")
-	assert_true(surface.z_index > terrain.z_index, "可见地表必须盖住碰撞层散砖。")
-	assert_eq(surface.position, GROUND_SURFACE_OFFSET, "可见地表根据真实 alpha top 校正到碰撞脚底基线。")
-	assert_almost_eq(_visible_ground_top(surface), GROUND_TOP_Y, 0.25)
-	for offset: int in range(MAIN_GROUND_LENGTH):
-		var cell := Vector2i(MAIN_GROUND_START.x + offset, MAIN_GROUND_START.y)
-		assert_true(surface.get_used_cells().has(cell), "主路可见地表必须覆盖每个网格：%s" % cell)
-		var expected := Vector2i(1, 0)
-		if offset == 0:
-			expected = Vector2i(0, 0)
-		elif offset == MAIN_GROUND_LENGTH - 1:
-			expected = Vector2i(2, 0)
-		assert_eq(surface.get_cell_atlas_coords(cell), expected, "主路只能使用 left / center / right 三类地面件：%s" % cell)
-	for offset: int in range(JUMP_PLATFORM_LENGTH):
-		var cell := Vector2i(JUMP_PLATFORM_START.x + offset, JUMP_PLATFORM_START.y)
-		assert_false(surface.get_used_cells().has(cell), "厚平台素材不能再覆盖跳台：%s" % cell)
-	for offset: int in range(DASH_CEILING_LENGTH):
-		var cell := Vector2i(DASH_CEILING_START.x + offset, DASH_CEILING_START.y)
-		assert_false(surface.get_used_cells().has(cell), "厚平台素材不能再覆盖 dash 门低顶：%s" % cell)
-
-
-func _assert_thin_platform_surface_layer(surface: TileMapLayer, terrain: TileMapLayer) -> void:
-	assert_true(surface.visible)
-	assert_false(bool(surface.get("collision_enabled")), "薄平台可见层只负责读值，不参与碰撞。")
-	assert_eq(surface.tile_set.resource_path, THIN_PLATFORM_SURFACE_TILESET_PATH)
-	assert_eq(surface.get_meta("asset_id", ""), "tutorial_thin_platform_visual_ai01")
-	assert_true(surface.z_index > terrain.z_index, "薄平台可见层必须盖住低透明碰撞层。")
-	for offset: int in range(JUMP_PLATFORM_LENGTH):
-		var cell := Vector2i(JUMP_PLATFORM_START.x + offset, JUMP_PLATFORM_START.y)
-		assert_true(surface.get_used_cells().has(cell), "跳台可见地表存在：%s" % cell)
-		var expected := Vector2i(1, 0)
-		if offset == 0:
-			expected = Vector2i(0, 0)
-		elif offset == JUMP_PLATFORM_LENGTH - 1:
-			expected = Vector2i(2, 0)
-		assert_eq(surface.get_cell_atlas_coords(cell), expected, "跳台只使用薄平台 left / center / right：%s" % cell)
-	for offset: int in range(DASH_CEILING_LENGTH):
-		var cell := Vector2i(DASH_CEILING_START.x + offset, DASH_CEILING_START.y)
-		assert_true(surface.get_used_cells().has(cell), "dash 门低顶可见薄边存在：%s" % cell)
-		var expected := Vector2i(0, 0)
-		if offset == DASH_CEILING_LENGTH - 1:
-			expected = Vector2i(2, 0)
-		assert_eq(surface.get_cell_atlas_coords(cell), expected, "dash 门低顶也必须使用薄平台件：%s" % cell)
+	assert_false(bool(surface.get("collision_enabled")), "门楣可见层只负责读值，不参与碰撞。")
+	assert_eq(surface.tile_set.resource_path, DASH_GATE_LINTEL_TILESET_PATH)
+	assert_eq(surface.get_meta("asset_id", ""), "tutorial_dash_gate_lintel_visual_ai01")
+	assert_eq(surface.get_meta("physics_affordance", ""), "thin_solid")
+	assert_eq(surface.get_used_cells().size(), 2, "门楣可见层保留左右两块实体读值。")
 
 
 func _assert_ground_underlay_retired(room: Node2D) -> void:
@@ -472,34 +373,3 @@ func _assert_no_collision_descendants(node: Node, label: String) -> void:
 	for child: Node in node.get_children():
 		assert_false(child is CollisionObject2D or child is CollisionShape2D or child is CollisionPolygon2D, "地标不能携带碰撞节点：%s/%s" % [label, child.name])
 		_assert_no_collision_descendants(child, label)
-
-
-# 中段地面切片的 alpha 顶边在 64px region 内为 y=39，用它换算实际可见地表高度。
-func _visible_ground_top(surface: TileMapLayer) -> float:
-	var center_cell := Vector2i(0, MAIN_GROUND_START.y)
-	var center_global := surface.to_global(surface.map_to_local(center_cell))
-	return center_global.y - 32.0 + GROUND_CENTER_ALPHA_TOP_Y
-
-
-func _cells_for_source(layer: TileMapLayer, source_id: int) -> Array[Vector2i]:
-	var result: Array[Vector2i] = []
-	for cell: Vector2i in layer.get_used_cells():
-		if layer.get_cell_source_id(cell) == source_id:
-			result.append(cell)
-	return result
-
-
-func _assert_solid_collision(layer: TileMapLayer, cell: Vector2i, label: String) -> void:
-	var tile_data := _tile_data(layer, cell)
-	assert_not_null(tile_data)
-	if tile_data != null:
-		assert_eq(tile_data.get_collision_polygons_count(0), 1, label)
-		assert_false(tile_data.is_collision_polygon_one_way(0, 0), label)
-
-
-func _tile_data(layer: TileMapLayer, cell: Vector2i) -> TileData:
-	var source := layer.tile_set.get_source(layer.get_cell_source_id(cell)) as TileSetAtlasSource
-	assert_not_null(source)
-	if source == null:
-		return null
-	return source.get_tile_data(layer.get_cell_atlas_coords(cell), 0)

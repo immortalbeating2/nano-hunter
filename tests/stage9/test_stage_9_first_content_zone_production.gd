@@ -6,6 +6,7 @@ extends GutTest
 
 const MAIN_SCENE_PATH := "res://scenes/main/main.tscn"
 const PLAYER_SCENE_PATH := "res://scenes/player/player_placeholder.tscn"
+const GOAL_TRIAL_ROOM_SCENE_PATH := "res://scenes/rooms/goal_trial_room.tscn"
 const ZONE_ENTRY_ROOM_SCENE_PATH := "res://scenes/rooms/stage9_zone_entry_room.tscn"
 const ZONE_COMBAT_ROOM_SCENE_PATH := "res://scenes/rooms/stage9_zone_combat_room.tscn"
 const ZONE_CHARGER_ROOM_SCENE_PATH := "res://scenes/rooms/stage9_zone_charger_room.tscn"
@@ -170,6 +171,126 @@ func test_main_resets_stage9_progress_to_last_checkpoint_room() -> void:
 	assert_eq(reset_room.scene_file_path, ZONE_CHARGER_ROOM_SCENE_PATH)
 
 
+# 保护 Room3 -> Room4 -> Room3 -> Room4 回访：第二次进入入口房不能把合法出生瞬间误判成跌落。
+func test_goal_trial_stage9_entry_round_trip_does_not_emit_false_fall_notice() -> void:
+	var packed_scene := load(MAIN_SCENE_PATH) as PackedScene
+	assert_not_null(packed_scene)
+	var main_scene := packed_scene.instantiate() as Node2D
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+
+	main_scene.call("transition_to_room", GOAL_TRIAL_ROOM_SCENE_PATH, &"goal_entry")
+	await _advance_process_frames(2)
+	await _complete_goal_room(main_scene)
+	await _advance_process_frames(6)
+	await _advance_physics_frames(30)
+
+	var entry_room := main_scene.get_node_or_null("Room") as Node2D
+	var player := main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
+	var failure_panel := main_scene.get_node_or_null("HUD/DemoShell/FailurePanel") as Panel
+	assert_not_null(entry_room)
+	assert_not_null(player)
+	assert_not_null(failure_panel)
+	if entry_room == null or player == null or failure_panel == null:
+		return
+	assert_eq(entry_room.scene_file_path, ZONE_ENTRY_ROOM_SCENE_PATH)
+	assert_false(failure_panel.visible, "第一次进入 Room4 不应显示跌落提示。")
+	# 使用真实左移输入穿过 Room4 左出口，并故意让输入跨过切房帧，复现玩家正常回访手势。
+	Input.action_press("move_left")
+	await _advance_until_room(main_scene, GOAL_TRIAL_ROOM_SCENE_PATH, 180)
+	await _advance_physics_frames(12)
+	Input.action_release("move_left")
+
+	var goal_room := main_scene.get_node_or_null("Room") as Node2D
+	assert_not_null(goal_room)
+	assert_eq(goal_room.scene_file_path, GOAL_TRIAL_ROOM_SCENE_PATH)
+	if goal_room == null or goal_room.scene_file_path != GOAL_TRIAL_ROOM_SCENE_PATH:
+		return
+	# 玩家实际回房后不会立刻传送；这里保留落地时间，才能捕获 goal_return 位于无支撑区时的真实误判。
+	await _advance_physics_frames(120)
+	goal_room = main_scene.get_node_or_null("Room") as Node2D
+	var returned_player := main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
+	failure_panel = main_scene.get_node_or_null("HUD/DemoShell/FailurePanel") as Panel
+	assert_not_null(goal_room)
+	assert_not_null(returned_player)
+	assert_not_null(failure_panel)
+	if goal_room == null or returned_player == null or failure_panel == null:
+		return
+	assert_eq(goal_room.scene_file_path, GOAL_TRIAL_ROOM_SCENE_PATH, "从 Room4 返回后必须稳定留在 Room3，而不是跌落回 checkpoint。")
+	assert_true(returned_player.is_on_floor(), "Room3 的 goal_return 必须在自然物理落地后保持接地。")
+	assert_lte(returned_player.global_position.y, 256.0, "Room3 回访落点不得接近跌落阈值。")
+	assert_false(failure_panel.visible, "Room3 的 goal_return 出生点必须有可站立支撑。")
+	if goal_room.scene_file_path != GOAL_TRIAL_ROOM_SCENE_PATH:
+		return
+	# 第二次向右推进必须完全走真实路径；不能再次清敌或传送到 GoalZone，否则会掩盖回访后门控重置。
+	Input.action_press("move_right")
+	await _advance_until_room(main_scene, ZONE_ENTRY_ROOM_SCENE_PATH, 240)
+	Input.action_release("move_right")
+	await _advance_process_frames(6)
+	await _advance_physics_frames(12)
+
+	var second_entry := main_scene.get_node_or_null("Room") as Node2D
+	var second_player := main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
+	assert_not_null(second_entry)
+	assert_not_null(second_player)
+	assert_not_null(failure_panel)
+	if second_entry == null or second_player == null or failure_panel == null:
+		return
+	assert_eq(second_entry.scene_file_path, ZONE_ENTRY_ROOM_SCENE_PATH)
+	assert_lte(second_player.global_position.y, 192.0, "第二次进入 Room4 的玩家必须位于房间相机底边之上。")
+	assert_false(failure_panel.visible, "合法回访不得显示“已跌落”恢复提示。")
+
+
+# 换房帧可能短暂读到旧接触/越界坐标；只允许这段瞬态被忽略，缓冲结束后的真实跌落仍须恢复。
+func test_room_entry_fall_guard_ignores_transition_spike_but_still_detects_real_fall() -> void:
+	var packed_scene := load(MAIN_SCENE_PATH) as PackedScene
+	assert_not_null(packed_scene)
+	var main_scene := packed_scene.instantiate() as Node2D
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+
+	main_scene.call("transition_to_room", ZONE_ENTRY_ROOM_SCENE_PATH, &"zone_entry_start")
+	var player := main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
+	var failure_panel := main_scene.get_node_or_null("HUD/DemoShell/FailurePanel") as Panel
+	assert_not_null(player)
+	assert_not_null(failure_panel)
+	if player == null or failure_panel == null:
+		return
+
+	player.global_position.y = 420.0
+	main_scene.call("_process", 0.016)
+	assert_false(failure_panel.visible, "刚换房的单帧越界读值不能直接弹出跌落失败。")
+	if failure_panel.visible:
+		return
+
+	player.global_position.y = 140.0
+	main_scene.call("_process", 0.5)
+	player.global_position.y = 420.0
+	main_scene.call("_process", 0.016)
+	assert_true(failure_panel.visible, "换房保护结束后，真实跌落仍必须触发恢复。")
+
+
+# 通过敌人的公开受击契约和目标区推进 GoalTrial，不调用房间私有完成函数。
+func _complete_goal_room(main_scene: Node2D) -> void:
+	var goal_room := main_scene.get_node_or_null("Room") as Node2D
+	assert_not_null(goal_room)
+	if goal_room == null:
+		return
+	var enemy := goal_room.get_node_or_null("BasicMeleeEnemy")
+	var player := main_scene.get_node_or_null("Runtime/PlayerPlaceholder") as CharacterBody2D
+	var goal_zone := goal_room.get_node_or_null("GoalZone") as Area2D
+	assert_not_null(enemy)
+	assert_not_null(player)
+	assert_not_null(goal_zone)
+	if enemy == null or player == null or goal_zone == null:
+		return
+	if enemy.has_method("receive_attack"):
+		enemy.call("receive_attack", Vector2.RIGHT, 0.0)
+	await _advance_process_frames(1)
+	player.global_position = goal_zone.global_position
+	await _advance_process_frames(2)
+
+
 # 测试辅助：统一生成房间、玩家和失败流程，减少区域测试里的重复样板。
 # 独立加载指定房间，供开关、敌人和房间链路测试复用。
 func _spawn_room(scene_path: String) -> Node2D:
@@ -217,6 +338,15 @@ func _advance_physics_frames(frame_count: int) -> void:
 func _advance_process_frames(frame_count: int) -> void:
 	for _i in range(frame_count):
 		await get_tree().process_frame
+
+
+# 真实输入回访测试等待指定房间出现，不改玩家坐标或直接发送房间信号。
+func _advance_until_room(main_scene: Node2D, expected_room_path: String, max_physics_frames: int) -> void:
+	for _i in range(max_physics_frames):
+		await get_tree().physics_frame
+		var current_room := main_scene.get_node_or_null("Room") as Node2D
+		if current_room != null and current_room.scene_file_path == expected_room_path:
+			return
 
 
 # 输入清理覆盖当前已定义动作，保证 Stage9 区域测试之间互不串扰。

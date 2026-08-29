@@ -8,7 +8,8 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="7_8mra6"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="8_afh5u"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="9_vgr1l"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="10_ioih6"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="10_ioih6"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -22,21 +23,43 @@ size = Vector2(112, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_07qnc"]
 size = Vector2(96, 128)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_safe_right_cliff"]
+size = Vector2(32, 256)
+
 [node name="Stage13MiasmaMarshGoalRoom" type="Node2D" unique_id=1549357359]
 script = ExtResource("1")
 camera_limits = Rect2i(-384, -256, 1280, 512)
 next_room_path = "res://scenes/rooms/stage14_air_dash_shrine_room.tscn"
 next_spawn_id = &"stage14_air_dash_shrine_start"
-previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn"
-previous_spawn_id = &"stage13_return_return"
+previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn"
+previous_spawn_id = &"stage13_branch_hub_return"
 spawn_positions = {
-&"stage13_goal_from_challenge_branch": Vector2(640, 204),
-&"stage13_goal_return": Vector2(640, 204),
+&"stage13_goal_from_challenge_branch": Vector2(520, 204),
+&"stage13_goal_from_fast_route": Vector2(-192, 140),
+&"stage13_goal_return": Vector2(520, 204),
 &"stage13_goal_start": Vector2(-256, 204)
 }
 checkpoint_spawn_id = &"stage13_goal_start"
 default_step_id = &"stage13_goal"
 checkpoint_on_ready = true
+goal_requires_down_input = true
+metadata/formal_room_id = "F12"
+metadata/route_role = "region_goal_and_reverse_return"
+metadata/safe_floor_y = 160.0
+metadata/normal_exit_uses_generic_door = false
+metadata/transition_visual_type = "shrine_threshold"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 2
+layout_profile = &"dual_entry_goal_convergence"
+solid_rects = Array[Rect2]([Rect2(-384, 224, 640, 64), Rect2(256, 224, 640, 64), Rect2(576, 128, 256, 64)])
+one_way_rects = Array[Rect2]([Rect2(-256, 160, 256, 16), Rect2(416, 176, 192, 16)])
+route_heights = {
+&"fast_route_landing": 160.0,
+&"goal_dais": 128.0,
+&"main_convergence": 224.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=564425592]
 z_index = -4
@@ -89,16 +112,35 @@ texture = ExtResource("4_imyh1")
 polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
+[node name="RightBoundary" type="StaticBody2D" parent="."]
+position = Vector2(864, 160)
+collision_layer = 1
+collision_mask = 0
+metadata/route_role = "goal_room_safe_right_cliff"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBoundary"]
+shape = SubResource("RectangleShape2D_safe_right_cliff")
+
+[node name="RightCliffVisual" type="Polygon2D" parent="RightBoundary"]
+visible = false
+z_index = 1
+texture_repeat = 2
+texture = ExtResource("4_imyh1")
+polygon = PackedVector2Array(-16, -128, 16, -128, 16, 128, -16, 128)
+metadata/asset_id = "dac_continuous_stone_underlay"
+metadata/asset_binding_note = "hidden_collision_boundary_visual"
+
 [node name="GoalDevice" type="Sprite2D" parent="." unique_id=2024217544]
 z_index = 1
-position = Vector2(640, 112)
+position = Vector2(640, 88)
 scale = Vector2(0.34, 0.34)
 texture = ExtResource("5_goal_device")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.miasma_ward_idle"
 
 [node name="GoalZone" type="Area2D" parent="." unique_id=1142811518]
-position = Vector2(704, 96)
+position = Vector2(704, 108)
+metadata/interaction_verb = "ui_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalZone" unique_id=70851144]
 shape = SubResource("3")
@@ -136,6 +178,7 @@ z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAABAAAAAAD+/wMAAAAAAAAAAAD//wMAAAABAAAAAAAAAAMAAAAAAAAAAAABAAMAAAABAAAAAAACAAMAAAAAAAAAAAADAAMAAAABAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAABAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAABAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAABAAAAAAAKAAMAAAAAAAAAAAALAAMAAAABAAAAAAAMAAMAAAAAAAAAAAANAAMAAAADAAAAAAA=")
 tile_set = ExtResource("8_afh5u")
+collision_enabled = false
 
 [node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=1080528409]
 visible = false
@@ -144,6 +187,7 @@ position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAAIAAIAAAABAAIAAAAJAAIAAAAAAAIAAAAKAAIAAAAAAAIAAAALAAIAAAAAAAIAAAAMAAIAAAACAAIAAAA=")
 tile_set = ExtResource("8_afh5u")
+collision_enabled = false
 
 [node name="GroundSurfaceVisual" type="TileMapLayer" parent="." unique_id=1299411847]
 modulate = Color(0.74, 0.84, 0.78, 0.92)

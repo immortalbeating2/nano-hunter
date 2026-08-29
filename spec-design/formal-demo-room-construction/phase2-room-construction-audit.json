@@ -1,0 +1,428 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-24T04:15:09+08:00",
+  "source_of_truth": "production_tscn",
+  "blueprint": "spec-design/formal-demo-room-blueprints/formal-demo-room-blueprints.json",
+  "projection": "side_scroll_mode",
+  "grid_unit": 32,
+  "camera_segment": "640x360",
+  "movement_metrics": {
+    "jump_sample_distance": 96.44,
+    "air_dash_sample_distance": 110.0
+  },
+  "calibration_status": "aligned_after_tuning",
+  "max_anchor_dx": 83.2,
+  "max_anchor_dy": 57.6,
+  "rooms": [
+    {
+      "id": "F04",
+      "title": "瘴泽入口",
+      "scene": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn",
+      "layout_profile": "region_reveal",
+      "segment_count": 3,
+      "runtime_platform_count": 7,
+      "all_spawns_supported": true,
+      "unsupported_spawns": [],
+      "segment_coverage_ok": true,
+      "uncovered_segments": [],
+      "max_anchor_dx": 32.0,
+      "max_anchor_dy": 39.2,
+      "blocking_issue_count": 0,
+      "before_tuning": "Vista x -64 and descent x 544 compressed the three-segment reveal.",
+      "actual_drawing": "F04-stage13_miasma_marsh_entry_room-actual.svg",
+      "overlay_drawing": "F04-stage13_miasma_marsh_entry_room-overlay.svg",
+      "anchors": [
+        {
+          "room": "F04",
+          "name": "entry",
+          "blueprint_x": -268.8,
+          "blueprint_y": 122.4,
+          "actual_x": -256.0,
+          "actual_y": 108.0,
+          "dx": 12.8,
+          "dy": -14.4
+        },
+        {
+          "room": "F04",
+          "name": "region_vista",
+          "blueprint_x": 128.0,
+          "blueprint_y": 100.8,
+          "actual_x": 128.0,
+          "actual_y": 80.0,
+          "dx": 0.0,
+          "dy": -20.8
+        },
+        {
+          "room": "F04",
+          "name": "miasma_warning",
+          "blueprint_x": 652.8,
+          "blueprint_y": 252.0,
+          "actual_x": 656.0,
+          "actual_y": 240.0,
+          "dx": 3.2,
+          "dy": -12.0
+        },
+        {
+          "room": "F04",
+          "name": "cross_gate_vista",
+          "blueprint_x": 1152.0,
+          "blueprint_y": 151.2,
+          "actual_x": 1184.0,
+          "actual_y": 112.0,
+          "dx": 32.0,
+          "dy": -39.2
+        },
+        {
+          "room": "F04",
+          "name": "exit",
+          "blueprint_x": 1548.8,
+          "blueprint_y": 201.6,
+          "actual_x": 1552.0,
+          "actual_y": 188.0,
+          "dx": 3.2,
+          "dy": -13.6
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "title": "断瘴授印",
+      "scene": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn",
+      "layout_profile": "wind_seal_tutorial",
+      "segment_count": 3,
+      "runtime_platform_count": 6,
+      "all_spawns_supported": true,
+      "unsupported_spawns": [],
+      "segment_coverage_ok": true,
+      "uncovered_segments": [],
+      "max_anchor_dx": 25.6,
+      "max_anchor_dy": 38.4,
+      "blocking_issue_count": 0,
+      "before_tuning": "Projectile observation anchor was absent; shrine/practice anchors were not blueprint-auditable.",
+      "actual_drawing": "F05-stage13_miasma_marsh_caster_room-actual.svg",
+      "overlay_drawing": "F05-stage13_miasma_marsh_caster_room-overlay.svg",
+      "anchors": [
+        {
+          "room": "F05",
+          "name": "entry",
+          "blueprint_x": -268.8,
+          "blueprint_y": 208.8,
+          "actual_x": -256.0,
+          "actual_y": 204.0,
+          "dx": 12.8,
+          "dy": -4.8
+        },
+        {
+          "room": "F05",
+          "name": "projectile_observe",
+          "blueprint_x": 102.4,
+          "blueprint_y": 208.8,
+          "actual_x": 128.0,
+          "actual_y": 204.0,
+          "dx": 25.6,
+          "dy": -4.8
+        },
+        {
+          "room": "F05",
+          "name": "wind_shrine",
+          "blueprint_x": 576.0,
+          "blueprint_y": 158.4,
+          "actual_x": 576.0,
+          "actual_y": 120.0,
+          "dx": 0.0,
+          "dy": -38.4
+        },
+        {
+          "room": "F05",
+          "name": "projectile_practice",
+          "blueprint_x": 1164.8,
+          "blueprint_y": 216.0,
+          "actual_x": 1168.0,
+          "actual_y": 184.0,
+          "dx": 3.2,
+          "dy": -32.0
+        },
+        {
+          "room": "F05",
+          "name": "exit",
+          "blueprint_x": 1548.8,
+          "blueprint_y": 172.8,
+          "actual_x": 1552.0,
+          "actual_y": 204.0,
+          "dx": 3.2,
+          "dy": 31.2
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "title": "瘴气洼地",
+      "scene": "res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn",
+      "layout_profile": "upper_lower_hazard",
+      "segment_count": 3,
+      "runtime_platform_count": 7,
+      "all_spawns_supported": true,
+      "unsupported_spawns": [],
+      "segment_coverage_ok": true,
+      "uncovered_segments": [],
+      "max_anchor_dx": 83.2,
+      "max_anchor_dy": 57.6,
+      "blocking_issue_count": 0,
+      "before_tuning": "Air Dash reward sat at (880,64) on the first-visit upper route instead of the lower revisit route.",
+      "actual_drawing": "F06-stage13_miasma_marsh_miasma_room-actual.svg",
+      "overlay_drawing": "F06-stage13_miasma_marsh_miasma_room-overlay.svg",
+      "anchors": [
+        {
+          "room": "F06",
+          "name": "entry",
+          "blueprint_x": -268.8,
+          "blueprint_y": 187.2,
+          "actual_x": -256.0,
+          "actual_y": 204.0,
+          "dx": 12.8,
+          "dy": 16.8
+        },
+        {
+          "room": "F06",
+          "name": "revisit_reward",
+          "blueprint_x": 588.8,
+          "blueprint_y": 273.6,
+          "actual_x": 608.0,
+          "actual_y": 216.0,
+          "dx": 19.2,
+          "dy": -57.6
+        },
+        {
+          "room": "F06",
+          "name": "miasma_hazard",
+          "blueprint_x": 588.8,
+          "blueprint_y": 309.6,
+          "actual_x": 672.0,
+          "actual_y": 256.0,
+          "dx": 83.2,
+          "dy": -53.6
+        },
+        {
+          "room": "F06",
+          "name": "exit",
+          "blueprint_x": 1548.8,
+          "blueprint_y": 180.0,
+          "actual_x": 1552.0,
+          "actual_y": 204.0,
+          "dx": 3.2,
+          "dy": 24.0
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "title": "交叉封印门",
+      "scene": "res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn",
+      "layout_profile": "cross_ability_gate",
+      "segment_count": 3,
+      "runtime_platform_count": 6,
+      "all_spawns_supported": true,
+      "unsupported_spawns": [],
+      "segment_coverage_ok": true,
+      "uncovered_segments": [],
+      "max_anchor_dx": 19.2,
+      "max_anchor_dy": 40.8,
+      "blocking_issue_count": 0,
+      "before_tuning": "Gate and shortcut shared x=800; F14 return spawn was 178.89u from the shortcut marker.",
+      "actual_drawing": "F07-stage13_miasma_marsh_gate_room-actual.svg",
+      "overlay_drawing": "F07-stage13_miasma_marsh_gate_room-overlay.svg",
+      "anchors": [
+        {
+          "room": "F07",
+          "name": "entry",
+          "blueprint_x": -268.8,
+          "blueprint_y": 208.8,
+          "actual_x": -256.0,
+          "actual_y": 204.0,
+          "dx": 12.8,
+          "dy": -4.8
+        },
+        {
+          "room": "F07",
+          "name": "ability_gate",
+          "blueprint_x": 614.4,
+          "blueprint_y": 208.8,
+          "actual_x": 608.0,
+          "actual_y": 168.0,
+          "dx": -6.4,
+          "dy": -40.8
+        },
+        {
+          "room": "F07",
+          "name": "f14_shortcut",
+          "blueprint_x": 908.8,
+          "blueprint_y": 208.8,
+          "actual_x": 928.0,
+          "actual_y": 192.0,
+          "dx": 19.2,
+          "dy": -16.8
+        },
+        {
+          "room": "F07",
+          "name": "exit",
+          "blueprint_x": 1548.8,
+          "blueprint_y": 187.2,
+          "actual_x": 1552.0,
+          "actual_y": 172.0,
+          "dx": 3.2,
+          "dy": -15.2
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "title": "瘴泽镇界点",
+      "scene": "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn",
+      "layout_profile": "safe_recovery",
+      "segment_count": 2,
+      "runtime_platform_count": 3,
+      "all_spawns_supported": true,
+      "unsupported_spawns": [],
+      "segment_coverage_ok": true,
+      "uncovered_segments": [],
+      "max_anchor_dx": 51.2,
+      "max_anchor_dy": 11.2,
+      "blocking_issue_count": 0,
+      "before_tuning": "F10 return spawn was (560,76), outside the blueprint loop landing and lacked a named landing marker.",
+      "actual_drawing": "F08-stage13_miasma_marsh_checkpoint_room-actual.svg",
+      "overlay_drawing": "F08-stage13_miasma_marsh_checkpoint_room-overlay.svg",
+      "anchors": [
+        {
+          "room": "F08",
+          "name": "entry",
+          "blueprint_x": -268.8,
+          "blueprint_y": 198.0,
+          "actual_x": -256.0,
+          "actual_y": 204.0,
+          "dx": 12.8,
+          "dy": 6.0
+        },
+        {
+          "room": "F08",
+          "name": "checkpoint",
+          "blueprint_x": 179.2,
+          "blueprint_y": 187.2,
+          "actual_x": 128.0,
+          "actual_y": 192.0,
+          "dx": -51.2,
+          "dy": 4.8
+        },
+        {
+          "room": "F08",
+          "name": "f10_loop_landing",
+          "blueprint_x": 416.0,
+          "blueprint_y": 64.8,
+          "actual_x": 416.0,
+          "actual_y": 76.0,
+          "dx": 0.0,
+          "dy": 11.2
+        },
+        {
+          "room": "F08",
+          "name": "exit",
+          "blueprint_x": 908.8,
+          "blueprint_y": 172.8,
+          "actual_x": 912.0,
+          "actual_y": 172.0,
+          "dx": 3.2,
+          "dy": -0.8
+        }
+      ]
+    },
+    {
+      "id": "F09",
+      "title": "瘴泽三路枢纽",
+      "scene": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn",
+      "layout_profile": "three_route_hub",
+      "segment_count": 3,
+      "runtime_platform_count": 11,
+      "all_spawns_supported": true,
+      "unsupported_spawns": [],
+      "segment_coverage_ok": true,
+      "uncovered_segments": [],
+      "max_anchor_dx": 19.2,
+      "max_anchor_dy": 42.4,
+      "blocking_issue_count": 0,
+      "before_tuning": "Lower resource branch had only 32u below an overlapping solid main floor; fast entry/decision anchors were absent.",
+      "actual_drawing": "F09-stage13_miasma_marsh_branch_hub_room-actual.svg",
+      "overlay_drawing": "F09-stage13_miasma_marsh_branch_hub_room-overlay.svg",
+      "anchors": [
+        {
+          "room": "F09",
+          "name": "entry",
+          "blueprint_x": -268.8,
+          "blueprint_y": 201.6,
+          "actual_x": -256.0,
+          "actual_y": 204.0,
+          "dx": 12.8,
+          "dy": 2.4
+        },
+        {
+          "room": "F09",
+          "name": "three_route_landmark",
+          "blueprint_x": 588.8,
+          "blueprint_y": 187.2,
+          "actual_x": 608.0,
+          "actual_y": 172.0,
+          "dx": 19.2,
+          "dy": -15.2
+        },
+        {
+          "room": "F09",
+          "name": "resource_branch",
+          "blueprint_x": 1088.0,
+          "blueprint_y": 280.8,
+          "actual_x": 1088.0,
+          "actual_y": 264.0,
+          "dx": 0.0,
+          "dy": -16.8
+        },
+        {
+          "room": "F09",
+          "name": "challenge_branch",
+          "blueprint_x": 1190.4,
+          "blueprint_y": 86.4,
+          "actual_x": 1200.0,
+          "actual_y": 44.0,
+          "dx": 9.6,
+          "dy": -42.4
+        },
+        {
+          "room": "F09",
+          "name": "main_exit",
+          "blueprint_x": 1548.8,
+          "blueprint_y": 187.2,
+          "actual_x": 1552.0,
+          "actual_y": 172.0,
+          "dx": 3.2,
+          "dy": -15.2
+        },
+        {
+          "room": "F09",
+          "name": "fast_entry",
+          "blueprint_x": 128.0,
+          "blueprint_y": 86.4,
+          "actual_x": 128.0,
+          "actual_y": 44.0,
+          "dx": 0.0,
+          "dy": -42.4
+        },
+        {
+          "room": "F09",
+          "name": "fast_exit",
+          "blueprint_x": 1548.8,
+          "blueprint_y": 86.4,
+          "actual_x": 1552.0,
+          "actual_y": 44.0,
+          "dx": 3.2,
+          "dy": -42.4
+        }
+      ]
+    }
+  ]
+}

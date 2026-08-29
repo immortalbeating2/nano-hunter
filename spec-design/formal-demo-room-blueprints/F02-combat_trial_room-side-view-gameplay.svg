@@ -1,0 +1,67 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000' data-view='side_view_gameplay'>
+<defs><marker id='side-arrow' markerWidth='9' markerHeight='9' refX='8' refY='3' orient='auto'><path d='M0,0 L0,6 L9,3 z' fill='context-stroke'/></marker><pattern id='side-grid' width='32' height='32' patternUnits='userSpaceOnUse'><path d='M32 0 L0 0 0 32' fill='none' stroke='#263947' stroke-width='1'/></pattern></defs>
+<rect width='1600' height='1000' fill='#0b151d'/><rect x='1' y='1' width='1598' height='998' fill='none' stroke='#5e7686' stroke-width='2'/>
+<text x='70' y='55' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F02 · 首次镇妖 · 横版玩法施工图</text>
+<text x='70' y='88' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='17'>view=side_view_gameplay · 3 屏 · blueprint_status=gameplay_blueprint_complete</text>
+<text x='1530' y='55' text-anchor='end' fill='#d9bf77' font-family='Microsoft YaHei,Segoe UI' font-size='16'>主地标：镇妖悬令台</text>
+<rect x='70' y='150' width='1460' height='410' rx='10' fill='#132532' stroke='#506a79' stroke-width='2'/>
+<rect x='70' y='150' width='1460' height='82' fill='#102330'/><text x='82' y='174' fill='#5f8193' font-family='Segoe UI' font-size='13'>sky / far</text>
+<rect x='70' y='232' width='1460' height='104' fill='#162c37'/><text x='82' y='257' fill='#6f91a0' font-family='Segoe UI' font-size='13'>mid / landmark</text>
+<rect x='70' y='336' width='1460' height='224' fill='url(#side-grid)' opacity='0.85'/><text x='82' y='361' fill='#7899a8' font-family='Segoe UI' font-size='13'>near / gameplay / foreground-safe</text>
+<rect x='75' y='155' width='476.666666666667' height='400' fill='none' stroke='#4f7182' stroke-width='1' stroke-dasharray='5 6'/>
+<text x='82' y='198' fill='#c6d6dd' font-family='Segoe UI' font-size='16' font-weight='700'>S1 camera</text>
+<line x1='556.666666666667' y1='150' x2='556.666666666667' y2='560' stroke='#88a1ae' stroke-width='2' stroke-dasharray='8 8'/>
+<rect x='561.666666666667' y='155' width='476.666666666667' height='400' fill='none' stroke='#4f7182' stroke-width='1' stroke-dasharray='5 6'/>
+<text x='568.666666666667' y='198' fill='#c6d6dd' font-family='Segoe UI' font-size='16' font-weight='700'>S2 camera</text>
+<line x1='1043.33333333333' y1='150' x2='1043.33333333333' y2='560' stroke='#88a1ae' stroke-width='2' stroke-dasharray='8 8'/>
+<rect x='1048.33333333333' y='155' width='476.666666666667' height='400' fill='none' stroke='#4f7182' stroke-width='1' stroke-dasharray='5 6'/>
+<text x='1055.33333333333' y='198' fill='#c6d6dd' font-family='Segoe UI' font-size='16' font-weight='700'>S3 camera</text>
+<polyline points='94.3,414.6 400.9,414.6 644.3,391.8 936.3,391.8 1179.6,369 1491.1,369' fill='none' stroke='#263d49' stroke-width='20' stroke-linecap='square' stroke-linejoin='round'/>
+<polyline points='94.3,414.6 400.9,414.6 644.3,391.8 936.3,391.8 1179.6,369 1491.1,369' fill='none' stroke='#55d6e8' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' marker-end='url(#side-arrow)'/>
+<polyline points='94.3,414.6 605.3,414.6 1491.1,369' fill='none' stroke='#263d49' stroke-width='20' stroke-linecap='square' stroke-linejoin='round'/>
+<polyline points='94.3,414.6 605.3,414.6 1491.1,369' fill='none' stroke='#e9b95d' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='12 7' marker-end='url(#side-arrow)'/>
+<path d='M108.933333333333 402.6 L120.933333333333 414.6 L108.933333333333 426.6 L96.9333333333333 414.6 Z' fill='#6fd3ff' stroke='#071118' stroke-width='2'/>
+<text x='122.9' y='402.6' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>来自 F01</text>
+<rect x='362.733333333333' y='405.6' width='18' height='18' rx='3' fill='#a8c9d8' stroke='#071118' stroke-width='2'/>
+<text x='385.7' y='402.6' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>敌情观察</text>
+<path d='M780.533333333333 379.8 L792.533333333333 401.8 L768.533333333333 401.8 Z' fill='#ef7d7d' stroke='#071118' stroke-width='2'/>
+<text x='794.5' y='379.8' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>首次单敌</text>
+<rect x='1156' y='360' width='18' height='18' rx='3' fill='#f1e4b3' stroke='#071118' stroke-width='2'/>
+<text x='1179' y='357' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>悬令台</text>
+<path d='M1491.06666666667 357 L1503.06666666667 369 L1491.06666666667 381 L1479.06666666667 369 Z' fill='#77e39f' stroke='#071118' stroke-width='2'/>
+<text x='1505.1' y='357' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>通往 F03</text>
+<circle cx='1491.06666666667' cy='369' r='15' fill='none' stroke='#f4e8c8' stroke-width='2'/><text x='1491.06666666667' y='373' text-anchor='middle' fill='#f4e8c8' font-family='Segoe UI' font-size='10'>SP</text>
+<circle cx='108.933333333333' cy='414.6' r='15' fill='none' stroke='#f4e8c8' stroke-width='2'/><text x='108.933333333333' y='418.6' text-anchor='middle' fill='#f4e8c8' font-family='Segoe UI' font-size='10'>SP</text>
+<rect x='70' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#55d6e8' stroke-width='2'/>
+<text x='86' y='622' fill='#55d6e8' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>1 空间与移动</text>
+<text x='86' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>分段：3 屏 / 1920u</text>
+<text x='86' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>首次：120-180s</text>
+<text x='86' y='701' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>回访：20-35s</text>
+<text x='86' y='724' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>节拍：1→2→0/5，观察-战斗-结算</text>
+<text x='86' y='747' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>路线：首次路线 / 回访直通</text>
+<rect x='438' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#ef7d7d' stroke-width='2'/>
+<text x='454' y='622' fill='#ef7d7d' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>2 遭遇与危险</text>
+<text x='454' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>策略：authored_combat_encounters</text>
+<text x='454' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>遭遇：F02_first_hunt</text>
+<text x='454' y='701' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>危险：单敌攻击</text>
+<text x='454' y='724' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>回落：主战坪和观察台</text>
+<text x='454' y='747' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>重置：重置敌人与战区结界</text>
+<rect x='806' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#c984f7' stroke-width='2'/>
+<text x='822' y='622' fill='#c984f7' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>3 交互、门控与状态</text>
+<text x='822' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>连接：F02_to_F03 / F02_to_F01</text>
+<text x='822' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>交互：镇妖悬令台</text>
+<text x='822' y='701' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>奖励：first_bounty_claimed</text>
+<text x='822' y='724' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>持久状态：forward_room_completed / first_bo</text>
+<text x='822' y='743' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>unty_claimed</text>
+<text x='822' y='766' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>地图：主线出口高；返回口中；可选支路中；秘密低。</text>
+<rect x='1174' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#e9b95d' stroke-width='2'/>
+<text x='1190' y='622' fill='#e9b95d' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>4 相机、地标与表现</text>
+<text x='1190' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>地标：镇妖悬令台</text>
+<text x='1190' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>正向：入口安全地面、主地标与前方第一决策同屏，保留右向 look-ahead</text>
+<text x='1190' y='697' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>。</text>
+<text x='1190' y='720' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>反向：反向出生点、返回地板与最近出口隔离同屏，保留左向 look-ahead</text>
+<text x='1190' y='739' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>。</text>
+<text x='1190' y='762' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>锁镜：只在遭遇触发后锁当前战段；清场或允许退场时解除。</text>
+<text x='1190' y='785' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>遮挡：遮挡角色轮廓超过 15% 或进入 64u 安全圈时淡出</text>
+<text x='70' y='958' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='13'>◆ Spawn/出口 ｜ ▲ 遭遇/危险 ｜ ■ 交互/门控 ｜ 粗灰线=可踩结构 ｜ 彩线=玩家路线 ｜ 四层合同均来自同一 JSON</text>
+<text x='1530' y='980' text-anchor='end' fill='#668091' font-family='Segoe UI' font-size='12'>formal_demo_room_recovery_b · blueprint v2 · view=side_view_gameplay</text></svg>

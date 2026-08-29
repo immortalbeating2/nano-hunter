@@ -2,9 +2,12 @@ extends SceneTree
 
 # 正式地图 Batch 4：Stage11 终点 + Stage13 入口链三房。
 
+const FORMAL_DEMO_RECOVERY_LOCKED := true
+const FORMAL_DEMO_RECOVERY_PROGRAM_ID := "formal_demo_recovery_b"
+
 const TERRAIN_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 const GATE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/002_shrine_gate_prop_atlas_ai01_auto_003_c01.atlas_texture.tres"
 const CHECKPOINT_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/015_shrine_gate_prop_atlas_ai01_auto_016_c02.atlas_texture.tres"
 const SCALE := Vector2(1.0 / 6.0, 1.0 / 6.0)
@@ -43,6 +46,10 @@ const SPECS := [
 
 
 func _init() -> void:
+	if FORMAL_DEMO_RECOVERY_LOCKED:
+		push_error("该历史生成器已由 formal_demo_recovery_b 冻结，禁止覆盖 F01–F18。")
+		quit(2)
+		return
 	var terrain := load(TERRAIN_PATH) as TileSet
 	var surface := load(SURFACE_PATH) as TileSet
 	var thin := load(THIN_PATH) as TileSet

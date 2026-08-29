@@ -7,16 +7,21 @@ extends Control
 @onready var pause_menu: Panel = $PauseMenu
 @onready var world_map_panel: Panel = $WorldMapPanel
 @onready var detail_panel: Panel = $DetailPanel
+@onready var detail_scrim: ColorRect = $DetailScrim
+@onready var bounty_frame_art: TextureRect = $DetailPanel/BountyFrameArt
 @onready var completion_panel: Panel = $CompletionPanel
 @onready var failure_panel: Panel = $FailurePanel
 @onready var title_background: TextureRect = $TitleBackground
+@onready var focus_band: ColorRect = $MainMenu/FocusBand
+@onready var action_focus_band: ColorRect = $ActionFocusBand
 @onready var main_menu_margin_container: MarginContainer = $MainMenu/MarginContainer
 @onready var pause_panel_margin_container: MarginContainer = $PauseMenu/MarginContainer
 @onready var failure_panel_margin_container: MarginContainer = $FailurePanel/MarginContainer
+@onready var detail_margin_container: MarginContainer = $DetailPanel/MarginContainer
 @onready var main_menu_vbox: VBoxContainer = $MainMenu/MarginContainer/VBoxContainer
+@onready var pause_vbox: VBoxContainer = $PauseMenu/MarginContainer/VBoxContainer
 @onready var detail_vbox: VBoxContainer = $DetailPanel/MarginContainer/VBoxContainer
-@onready var title_label: Label = $MainMenu/MarginContainer/VBoxContainer/TitleLabel
-@onready var status_label: Label = $MainMenu/MarginContainer/VBoxContainer/StatusLabel
+@onready var title_wordmark: TextureRect = $MainMenu/MarginContainer/VBoxContainer/TitleWordmark
 @onready var detail_title_label: Label = $DetailPanel/MarginContainer/VBoxContainer/DetailTitleLabel
 @onready var detail_body_label: Label = $DetailPanel/MarginContainer/VBoxContainer/DetailBodyLabel
 @onready var detail_back_button: Button = $DetailPanel/MarginContainer/VBoxContainer/DetailBackButton
@@ -38,6 +43,8 @@ extends Control
 @onready var failure_label: Label = $FailurePanel/MarginContainer/VBoxContainer/FailureLabel
 @onready var failure_continue_button: Button = $FailurePanel/MarginContainer/VBoxContainer/FailureContinueButton
 
+const InputBindingFormatter := preload("res://scripts/ui/input_binding_formatter.gd")
+
 # DemoShell 只缓存 Main 引用并读取快照；Stage16 进度状态仍由 Main 负责。
 var _main: Node
 var _is_pause_menu_open := false
@@ -51,8 +58,21 @@ var _bounty_list: VBoxContainer
 var _detail_context_icon: TextureRect
 var _build_slot_row: HBoxContainer
 var _pause_return_focus: Button
+var _focus_band_tween: Tween
+var _action_focus_band_tween: Tween
+var _action_buttons: Array[Button] = []
+var _action_focus_sync_pending := false
+var _title_flow_active := true
+var _transparent_detail_style := StyleBoxEmpty.new()
 
 const WORLD_MAP_ASPECT := 1511.0 / 1041.0
+const PAUSE_PANEL_ASPECT := 1.05
+const BOUNTY_PANEL_ASPECT := 1306.0 / 1205.0
+const FOCUS_BAND_MOVE_DURATION := 0.18
+const DETAIL_PARCHMENT_STYLE: StyleBox = preload("res://assets/art/ui/styleboxes/menu_ninepatch_ui_ai01/000_menu_ninepatch_ui_ai_01_auto_001_c_01.stylebox_texture.tres")
+const DETAIL_PARCHMENT_TEXT_COLOR := Color(0.168627, 0.109804, 0.070588, 1.0)
+const BOUNTY_TITLE_COLOR := Color(0.94, 0.84, 0.62, 1.0)
+const BOUNTY_BODY_COLOR := Color(0.82, 0.88, 0.84, 1.0)
 const WAYSTATION_UI_ATLAS: Texture2D = preload("res://assets/art/ui/stage28_waystation_ui_runtime_ai01.png")
 const STAGE31_PERSISTENCE_TRAVEL_UI_ATLAS: Texture2D = preload("res://assets/art/ui/stage31_persistence_travel_ui_runtime_ai01.png")
 const STAGE30_REWARD_ATLAS: Texture2D = preload("res://assets/art/vfx/atlases/stage30_thunder_absorption_reward_vfx_runtime_ai01.png")
@@ -139,56 +159,95 @@ const LEVEL_SELECT_ENTRIES := [
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_main_menu_buttons = [start_button, continue_button, level_select_button, settings_button, controls_button, quit_button]
+	_action_buttons = [resume_button, map_button, travel_button, build_button, restart_button, failure_continue_button]
 	_ensure_level_select_list()
 	_ensure_bounty_list()
+	detail_panel.visibility_changed.connect(_sync_detail_scrim_visibility)
 	resized.connect(_layout_title_menu)
 	_layout_title_menu()
 	_connect_buttons()
 	_pause_return_focus = build_button
-	_copy_button_skin(continue_button)
-	continue_button.add_theme_color_override("font_disabled_color", Color(0.62, 0.59, 0.52, 0.72))
-	continue_button.add_theme_color_override("icon_disabled_color", Color(1.0, 1.0, 1.0, 0.42))
-	for button: Button in [resume_button, map_button, travel_button, build_button, restart_button]:
-		_copy_button_skin(button)
-	start_button.icon = _stage31_ui_texture(&"new_game")
-	start_button.expand_icon = true
-	start_button.add_theme_constant_override("icon_max_width", 24)
 	_open_main_menu()
+	_sync_detail_scrim_visibility()
 
 
-# 标题菜单使用居中锚点与紧凑体量，避免宽屏下漂到左侧或再次覆盖整张标题背景。
+# 共享操作焦点只在暂停或失败面板可见时存在；离开两类面板立即收起。
+func _process(_delta: float) -> void:
+	if action_focus_band.visible and not pause_menu.visible and not failure_panel.visible:
+		_hide_action_focus_band()
+
+
+# C2 主菜单固定在右侧雾区；详情弹窗按视口响应式居中，避免 2K 画面仍显示成小卡片。
 func _layout_title_menu() -> void:
 	var viewport_size := get_viewport_rect().size
-	var panel_width := clampf(viewport_size.x * 0.28, 300.0, 560.0)
-	var panel_height := clampf(viewport_size.y * 0.32, 288.0, 430.0)
-	var panel_center_y_offset := clampf(viewport_size.y * 0.06, 24.0, 70.0)
-	var button_height := clampf(panel_height / 12.0, 28.0, 36.0)
-	var title_font_size := int(roundf(clampf(panel_width * 0.047, 17.0, 27.0)))
-	var button_font_size := int(roundf(clampf(panel_width * 0.034, 14.0, 19.0)))
-	var menu_margin_x := clampf(panel_width * 0.075, 30.0, 44.0)
-	var menu_margin_y := clampf(panel_height * 0.075, 22.0, 34.0)
-	var button_width := clampf(panel_width - (menu_margin_x * 2.0) - 52.0, 196.0, 420.0)
-	var detail_width := minf(panel_width + 40.0, 460.0)
-	var detail_height := minf(panel_height, 300.0)
-	var pause_width := clampf(viewport_size.x * 0.22, 260.0, 360.0)
-	var pause_height := clampf(viewport_size.y * 0.38, 280.0, 340.0)
+	var title_menu_width := clampf(viewport_size.x * 0.35, 300.0, 900.0)
+	var title_menu_height := clampf(viewport_size.y * 0.61, 300.0, 980.0)
+	var title_button_font_size := int(roundf(clampf(title_menu_width * 0.056, 17.0, 42.0)))
+	var title_button_height := maxf(clampf(title_menu_height * 0.064, 28.0, 62.0), title_button_font_size + 11.0)
+	var title_wordmark_height := clampf(title_menu_height * 0.165, 64.0, 140.0)
+	var title_separation := clampf(
+		(title_menu_height - title_wordmark_height - title_button_height * 6.0) / 6.0,
+		6.0,
+		50.0
+	)
+	var title_menu_margin_x := clampf(title_menu_width * 0.04, 12.0, 36.0)
+	var title_wordmark_width := clampf(title_menu_width * 0.78, 220.0, 720.0)
+	var title_button_width := clampf(title_menu_width * 0.92, 220.0, 720.0)
+	var compact_panel_width := clampf(viewport_size.x * 0.28, 300.0, 560.0)
+	var compact_panel_height := clampf(viewport_size.y * 0.32, 288.0, 430.0)
+	var compact_center_y_offset := clampf(viewport_size.y * 0.06, 24.0, 70.0)
+	var compact_button_height := clampf(compact_panel_height / 12.0, 28.0, 36.0)
+	var compact_button_font_size := int(roundf(clampf(compact_panel_width * 0.034, 14.0, 19.0)))
+	var detail_width := minf(
+		clampf(viewport_size.x * 0.42, 360.0, 1120.0),
+		maxf(viewport_size.x - 32.0, 0.0)
+	)
+	var detail_height := minf(
+		clampf(viewport_size.y * 0.56, 300.0, 760.0),
+		maxf(viewport_size.y - 24.0, 0.0)
+	)
+	var bounty_detail_active := bounty_frame_art != null and bounty_frame_art.visible
+	if bounty_detail_active:
+		detail_height = minf(
+			clampf(viewport_size.y * 0.64, 480.0, 900.0),
+			maxf(viewport_size.y - 24.0, 0.0)
+		)
+		detail_width = minf(
+			clampf(detail_height * BOUNTY_PANEL_ASPECT, 360.0, 980.0),
+			maxf(viewport_size.x - 32.0, 0.0)
+		)
+	var detail_title_font_size := int(roundf(clampf(detail_width * 0.026, 16.0, 30.0)))
+	var detail_body_font_size := int(roundf(clampf(detail_width * 0.019, 13.0, 22.0)))
+	var detail_button_font_size := int(roundf(clampf(detail_width * 0.018, 14.0, 21.0)))
+	var detail_button_height := clampf(detail_height * 0.09, 44.0, 72.0)
+	# 02 官印框按生成源比例布局；只在小窗口为可操作性放宽高度占比，避免 2K 实机再次占屏过高。
+	var pause_width := clampf(viewport_size.x * 0.26, 272.0, 680.0)
+	var pause_height := pause_width / PAUSE_PANEL_ASPECT
+	var pause_height_limit_ratio := 0.72 if viewport_size.y < 600.0 else 0.47
+	var pause_height_limit := viewport_size.y * pause_height_limit_ratio
+	if pause_height > pause_height_limit:
+		pause_height = pause_height_limit
+		pause_width = pause_height * PAUSE_PANEL_ASPECT
+	var pause_button_height := clampf(pause_height * 0.08, 30.0, 46.0)
+	var pause_button_font_size := int(roundf(clampf(pause_width * 0.045, 18.0, 30.0)))
+	var pause_button_width := clampf(pause_width * 0.72, 176.0, 480.0)
 	var world_map_width := clampf(viewport_size.x * 0.86, 520.0, 1600.0)
 	var world_map_height := clampf(viewport_size.y * 0.82, 358.0, 1100.0)
 	if world_map_width / world_map_height > WORLD_MAP_ASPECT:
 		world_map_width = world_map_height * WORLD_MAP_ASPECT
 	else:
 		world_map_height = world_map_width / WORLD_MAP_ASPECT
-	var failure_width := clampf(viewport_size.x * 0.24, 300.0, 460.0)
-	var failure_height := clampf(viewport_size.y * 0.20, 180.0, 260.0)
+	var failure_width := clampf(viewport_size.x * 0.26, 360.0, 680.0)
+	var failure_height := clampf(viewport_size.y * 0.22, 220.0, 320.0)
 
-	main_menu.anchor_left = 0.5
-	main_menu.anchor_top = 0.5
-	main_menu.anchor_right = 0.5
-	main_menu.anchor_bottom = 0.5
-	main_menu.offset_left = -panel_width * 0.5
-	main_menu.offset_right = panel_width * 0.5
-	main_menu.offset_top = panel_center_y_offset - panel_height * 0.5
-	main_menu.offset_bottom = panel_center_y_offset + panel_height * 0.5
+	main_menu.anchor_left = 0.745
+	main_menu.anchor_top = 0.515
+	main_menu.anchor_right = 0.745
+	main_menu.anchor_bottom = 0.515
+	main_menu.offset_left = -title_menu_width * 0.5
+	main_menu.offset_right = title_menu_width * 0.5
+	main_menu.offset_top = -title_menu_height * 0.5
+	main_menu.offset_bottom = title_menu_height * 0.5
 	if detail_panel != null:
 		detail_panel.anchor_left = 0.5
 		detail_panel.anchor_top = 0.5
@@ -196,8 +255,16 @@ func _layout_title_menu() -> void:
 		detail_panel.anchor_bottom = 0.5
 		detail_panel.offset_left = -detail_width * 0.5
 		detail_panel.offset_right = detail_width * 0.5
-		detail_panel.offset_top = panel_center_y_offset - detail_height * 0.5
-		detail_panel.offset_bottom = panel_center_y_offset + detail_height * 0.5
+		detail_panel.offset_top = compact_center_y_offset - detail_height * 0.5
+		detail_panel.offset_bottom = compact_center_y_offset + detail_height * 0.5
+	if detail_margin_container != null:
+		var detail_margin_x := clampf(detail_width * 0.1, 52.0, 96.0) if bounty_detail_active else 34.0
+		var detail_margin_top := clampf(detail_height * 0.12, 72.0, 108.0) if bounty_detail_active else 24.0
+		var detail_margin_bottom := clampf(detail_height * 0.20, 112.0, 180.0) if bounty_detail_active else 22.0
+		detail_margin_container.offset_left = detail_margin_x
+		detail_margin_container.offset_top = detail_margin_top
+		detail_margin_container.offset_right = -detail_margin_x
+		detail_margin_container.offset_bottom = -detail_margin_bottom
 	if pause_menu != null:
 		pause_menu.anchor_left = 0.5
 		pause_menu.anchor_top = 0.5
@@ -223,70 +290,93 @@ func _layout_title_menu() -> void:
 		failure_panel.anchor_bottom = 0.5
 		failure_panel.offset_left = -failure_width * 0.5
 		failure_panel.offset_right = failure_width * 0.5
-		failure_panel.offset_top = panel_center_y_offset - failure_height * 0.5
-		failure_panel.offset_bottom = panel_center_y_offset + failure_height * 0.5
+		failure_panel.offset_top = compact_center_y_offset - failure_height * 0.5
+		failure_panel.offset_bottom = compact_center_y_offset + failure_height * 0.5
 	if failure_panel_margin_container != null:
-		var failure_margin_x := clampf(failure_width * 0.09, 18.0, 32.0)
-		var failure_margin_y := clampf(failure_height * 0.14, 18.0, 30.0)
+		var failure_margin_x := clampf(failure_width * 0.12, 34.0, 72.0)
+		var failure_margin_top := clampf(failure_height * 0.18, 38.0, 58.0)
+		var failure_margin_bottom := clampf(failure_height * 0.16, 30.0, 46.0)
 		failure_panel_margin_container.anchor_right = 1.0
 		failure_panel_margin_container.anchor_bottom = 1.0
 		failure_panel_margin_container.offset_left = failure_margin_x
-		failure_panel_margin_container.offset_top = failure_margin_y
+		failure_panel_margin_container.offset_top = failure_margin_top
 		failure_panel_margin_container.offset_right = -failure_margin_x
-		failure_panel_margin_container.offset_bottom = -failure_margin_y
+		failure_panel_margin_container.offset_bottom = -failure_margin_bottom
 	if pause_panel_margin_container != null:
-		var pause_margin_x := clampf(pause_width * 0.10, 22.0, 34.0)
-		var pause_margin_y := clampf(pause_height * 0.12, 20.0, 30.0)
+		var pause_margin_x := clampf(pause_width * 0.10, 34.0, 72.0)
+		var pause_margin_top := clampf(pause_height * 0.14, 44.0, 92.0)
+		var pause_margin_bottom := clampf(pause_height * 0.07, 22.0, 46.0)
 		pause_panel_margin_container.anchor_right = 1.0
 		pause_panel_margin_container.anchor_bottom = 1.0
 		pause_panel_margin_container.offset_left = pause_margin_x
-		pause_panel_margin_container.offset_top = pause_margin_y
+		pause_panel_margin_container.offset_top = pause_margin_top
 		pause_panel_margin_container.offset_right = -pause_margin_x
-		pause_panel_margin_container.offset_bottom = -pause_margin_y
+		pause_panel_margin_container.offset_bottom = -pause_margin_bottom
 	if main_menu_margin_container != null:
 		main_menu_margin_container.anchor_right = 1.0
 		main_menu_margin_container.anchor_bottom = 1.0
-		main_menu_margin_container.offset_left = menu_margin_x
-		main_menu_margin_container.offset_top = menu_margin_y
-		main_menu_margin_container.offset_right = -menu_margin_x
-		main_menu_margin_container.offset_bottom = -menu_margin_y
+		main_menu_margin_container.offset_left = title_menu_margin_x
+		main_menu_margin_container.offset_top = 0.0
+		main_menu_margin_container.offset_right = -title_menu_margin_x
+		main_menu_margin_container.offset_bottom = 0.0
 	if main_menu_vbox != null:
-		main_menu_vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-		main_menu_vbox.add_theme_constant_override("separation", int(roundf(clampf(panel_height * 0.016, 4.0, 8.0))))
+		main_menu_vbox.alignment = BoxContainer.ALIGNMENT_BEGIN
+		main_menu_vbox.add_theme_constant_override("separation", int(roundf(title_separation)))
 
-	if title_label != null:
-		title_label.add_theme_font_size_override("font_size", title_font_size)
-	if status_label != null:
-		status_label.add_theme_font_size_override("font_size", max(11, button_font_size - 3))
+	if title_wordmark != null:
+		title_wordmark.custom_minimum_size = Vector2(title_wordmark_width, title_wordmark_height)
+		title_wordmark.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	if pause_title_label != null:
-		pause_title_label.add_theme_font_size_override("font_size", max(14, button_font_size + 1))
+		pause_title_label.add_theme_font_size_override("font_size", pause_button_font_size + 4)
+	if pause_vbox != null:
+		pause_vbox.add_theme_constant_override("separation", int(roundf(clampf(pause_height * 0.02, 8.0, 16.0))))
 	if failure_label != null:
-		failure_label.add_theme_font_size_override("font_size", max(12, button_font_size - 2))
+		failure_label.add_theme_font_size_override("font_size", max(12, compact_button_font_size - 2))
 	for button: Button in _main_menu_buttons:
 		if button == null:
 			continue
-		button.custom_minimum_size = Vector2(button_width, button_height)
-		button.add_theme_font_size_override("font_size", button_font_size)
+		button.custom_minimum_size = Vector2(title_button_width, title_button_height)
+		button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		button.add_theme_font_size_override("font_size", title_button_font_size)
+	call_deferred("_sync_main_menu_focus_band", true)
+	call_deferred("_sync_action_focus_band_after_layout")
 	if failure_continue_button != null:
-		failure_continue_button.custom_minimum_size = Vector2(clampf(failure_width - 120.0, 180.0, 280.0), button_height)
+		failure_continue_button.custom_minimum_size = Vector2(clampf(failure_width * 0.58, 210.0, 360.0), clampf(failure_height * 0.16, 36.0, 48.0))
 		failure_continue_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		failure_continue_button.add_theme_font_size_override("font_size", button_font_size)
+		failure_continue_button.add_theme_font_size_override("font_size", int(roundf(clampf(failure_width * 0.044, 18.0, 28.0))))
 	for button: Button in [resume_button, map_button, travel_button, build_button, restart_button]:
 		if button == null:
 			continue
-		button.custom_minimum_size = Vector2(clampf(pause_width - 96.0, 176.0, 280.0), button_height)
+		button.custom_minimum_size = Vector2(pause_button_width, pause_button_height)
 		button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		button.add_theme_font_size_override("font_size", button_font_size)
+		button.add_theme_font_size_override("font_size", pause_button_font_size)
 	if _level_select_scroll != null:
 		_level_select_scroll.custom_minimum_size = Vector2(0.0, clampf(detail_height * 0.48, 128.0, 176.0))
 	if _level_select_list != null:
-		_level_select_list.add_theme_constant_override("separation", int(roundf(clampf(button_height * 0.16, 4.0, 6.0))))
+		_level_select_list.add_theme_constant_override("separation", int(roundf(clampf(compact_button_height * 0.16, 4.0, 6.0))))
 		for child: Node in _level_select_list.get_children():
 			var button := child as Button
 			if button == null:
 				continue
-			button.custom_minimum_size = Vector2(0.0, maxf(24.0, button_height - 4.0))
-			button.add_theme_font_size_override("font_size", max(11, button_font_size - 2))
+			button.custom_minimum_size = Vector2(0.0, maxf(24.0, compact_button_height - 4.0))
+			button.add_theme_font_size_override("font_size", max(11, compact_button_font_size - 2))
+	if detail_title_label != null:
+		detail_title_label.add_theme_font_size_override("font_size", detail_title_font_size)
+	if detail_body_label != null:
+		detail_body_label.add_theme_font_size_override("font_size", detail_body_font_size)
+	if detail_back_button != null:
+		detail_back_button.custom_minimum_size = Vector2(clampf(detail_width * 0.46, 220.0, 520.0), detail_button_height)
+		detail_back_button.add_theme_font_size_override("font_size", detail_button_font_size)
+	if _detail_context_icon != null:
+		var context_icon_size := clampf(detail_width * 0.09, 64.0, 96.0)
+		_detail_context_icon.custom_minimum_size = Vector2(context_icon_size, context_icon_size * 0.875)
+	if _bounty_scroll != null:
+		_bounty_scroll.custom_minimum_size = Vector2(
+			0.0,
+			clampf(detail_height * 0.28, 176.0, 240.0)
+			if bounty_detail_active
+			else clampf(detail_height * 0.36, 128.0, 280.0)
+		)
 
 
 # Menu / Esc 负责打开暂停；B / ui_cancel 只在已显示界面内返回，避免与游戏中冲刺冲突。
@@ -317,6 +407,18 @@ func _unhandled_input(event: InputEvent) -> void:
 func bind_main(main: Node) -> void:
 	_main = main
 	refresh_save_state()
+	_sync_gameplay_hud_visibility()
+
+
+# 标题流程包含主菜单、控制说明和选关页；只有真正进入运行态后才允许游戏 HUD 显示。
+func _set_title_flow_active(is_active: bool) -> void:
+	_title_flow_active = is_active
+	_sync_gameplay_hud_visibility()
+
+
+func _sync_gameplay_hud_visibility() -> void:
+	if _main != null and _main.has_method("set_gameplay_hud_visible"):
+		_main.call("set_gameplay_hud_visible", not _title_flow_active)
 
 
 # 公开给 Main 的开始入口；按钮与测试都复用同一条路径。
@@ -347,7 +449,7 @@ func _connect_buttons() -> void:
 	start_button.pressed.connect(_on_start_pressed)
 	continue_button.pressed.connect(_on_continue_pressed)
 	level_select_button.pressed.connect(_open_level_select_panel)
-	settings_button.pressed.connect(_open_detail_panel.bind("设置", "当前使用默认键鼠配置。\n窗口缩放按 640x360 基准适配，音量设置将在音频包接入后开放。"))
+	settings_button.pressed.connect(_on_settings_pressed)
 	controls_button.pressed.connect(_on_controls_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 	detail_back_button.pressed.connect(_close_detail_panel)
@@ -358,6 +460,116 @@ func _connect_buttons() -> void:
 	restart_button.pressed.connect(_on_restart_pressed)
 	map_back_button.pressed.connect(_on_map_back_pressed)
 	failure_continue_button.pressed.connect(_on_failure_continue_pressed)
+	for button: Button in _main_menu_buttons:
+		button.focus_entered.connect(_move_focus_band_to.bind(button))
+		button.mouse_entered.connect(_focus_main_menu_button.bind(button))
+	for button: Button in _action_buttons:
+		button.focus_entered.connect(_move_action_focus_band_to.bind(button))
+		button.mouse_entered.connect(_focus_action_button.bind(button))
+
+
+# 鼠标与手柄共用真实 UI 焦点，保证画面始终只有一条当前符光。
+func _focus_main_menu_button(button: Button) -> void:
+	if not button.disabled:
+		button.grab_focus()
+
+
+# Shader 负责内部流动；这里仅用一个节点平滑追踪目标按钮底边。
+func _move_focus_band_to(button: Button, immediate := false) -> void:
+	if button == null or button.disabled or not main_menu.visible:
+		return
+	var menu_rect := main_menu.get_global_rect()
+	var button_rect := button.get_global_rect()
+	var band_height := clampf(button_rect.size.y * 0.9, 28.0, 58.0)
+	var target_position := button_rect.position - menu_rect.position
+	target_position.y += button_rect.size.y - band_height * 0.5
+	var target_size := Vector2(button_rect.size.x, band_height)
+	if _focus_band_tween != null:
+		_focus_band_tween.kill()
+	if immediate or not focus_band.visible:
+		focus_band.position = target_position
+		focus_band.size = target_size
+		focus_band.visible = true
+		return
+	focus_band.visible = true
+	_focus_band_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	_focus_band_tween.tween_property(focus_band, "position", target_position, FOCUS_BAND_MOVE_DURATION)
+	_focus_band_tween.tween_property(focus_band, "size", target_size, FOCUS_BAND_MOVE_DURATION)
+
+
+# 分辨率变化后重新读取容器排版结果，不另存一套易漂移的坐标。
+func _sync_main_menu_focus_band(immediate := false) -> void:
+	var focus_owner := get_viewport().gui_get_focus_owner() as Button
+	if focus_owner not in _main_menu_buttons or focus_owner.disabled:
+		focus_owner = start_button
+	_move_focus_band_to(focus_owner, immediate)
+
+
+# 暂停和失败复用同一真实焦点；鼠标悬停也先转换为 Godot UI 焦点。
+func _focus_action_button(button: Button) -> void:
+	if button != null and not button.disabled and _is_action_surface_visible(button):
+		button.grab_focus()
+
+
+# Shader 内部持续流动，脚本只把唯一 ActionFocusBand 平滑移动到当前操作项底边。
+func _move_action_focus_band_to(button: Button, immediate := false) -> void:
+	if button == null or button.disabled or not _is_action_surface_visible(button):
+		return
+	var shell_rect := get_global_rect()
+	var button_rect := button.get_global_rect()
+	var band_height := clampf(button_rect.size.y * 0.88, 24.0, 52.0)
+	var target_position := button_rect.position - shell_rect.position
+	target_position.y += button_rect.size.y - band_height * 0.5
+	var target_size := Vector2(button_rect.size.x, band_height)
+	if _action_focus_band_tween != null:
+		_action_focus_band_tween.kill()
+	if immediate or not action_focus_band.visible:
+		action_focus_band.position = target_position
+		action_focus_band.size = target_size
+		action_focus_band.visible = true
+		return
+	action_focus_band.visible = true
+	_action_focus_band_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	_action_focus_band_tween.tween_property(action_focus_band, "position", target_position, FOCUS_BAND_MOVE_DURATION)
+	_action_focus_band_tween.tween_property(action_focus_band, "size", target_size, FOCUS_BAND_MOVE_DURATION)
+
+
+func _is_action_surface_visible(button: Button) -> bool:
+	if button == failure_continue_button:
+		return failure_panel.visible
+	return button in _action_buttons and pause_menu.visible
+
+
+func _sync_action_focus_band(immediate := false) -> void:
+	if failure_panel.visible:
+		_move_action_focus_band_to(failure_continue_button, immediate)
+		return
+	if not pause_menu.visible:
+		_hide_action_focus_band()
+		return
+	var focus_owner := get_viewport().gui_get_focus_owner() as Button
+	if focus_owner not in _action_buttons or focus_owner == failure_continue_button or focus_owner.disabled:
+		focus_owner = resume_button
+	_move_action_focus_band_to(focus_owner, immediate)
+
+
+# Container 会在下一帧重新计算长文案和按钮位置；等待一次布局后再锁定最终底边。
+func _sync_action_focus_band_after_layout() -> void:
+	if _action_focus_sync_pending:
+		return
+	_action_focus_sync_pending = true
+	get_tree().process_frame.connect(_flush_action_focus_band_sync, CONNECT_ONE_SHOT)
+
+
+func _flush_action_focus_band_sync() -> void:
+	_action_focus_sync_pending = false
+	_sync_action_focus_band(true)
+
+
+func _hide_action_focus_band() -> void:
+	if _action_focus_band_tween != null:
+		_action_focus_band_tween.kill()
+	action_focus_band.visible = false
 
 
 # 运行时生成测试选关列表，避免把 dev-only 房间清单硬塞进场景资源。
@@ -378,7 +590,7 @@ func _ensure_level_select_list() -> void:
 	_level_select_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_level_select_scroll.add_child(_level_select_list)
 
-	for entry: Dictionary in LEVEL_SELECT_ENTRIES:
+	for entry: Dictionary in _build_level_select_entries():
 		if bool(entry.get("debug_only", false)) and not OS.is_debug_build():
 			continue
 		var button := Button.new()
@@ -388,6 +600,37 @@ func _ensure_level_select_list() -> void:
 		_copy_button_skin(button)
 		button.pressed.connect(_on_level_select_entry_pressed.bind(entry))
 		_level_select_list.add_child(button)
+
+
+# 正式 F01-F18 始终排在前面；旧房只保留为明确标注的开发测试入口。
+func _build_level_select_entries() -> Array[Dictionary]:
+	var entries_by_path := {}
+	for entry: Dictionary in LEVEL_SELECT_ENTRIES:
+		if not bool(entry.get("debug_only", false)):
+			entries_by_path[str(entry.get("path", ""))] = entry
+
+	var entries: Array[Dictionary] = []
+	var formal_paths := {}
+	if world_map_view != null and world_map_view.has_method("get_formal_room_definitions"):
+		var definitions: Array = world_map_view.call("get_formal_room_definitions")
+		for definition: Dictionary in definitions:
+			var room_path := str(definition.get("path", ""))
+			if not entries_by_path.has(room_path):
+				continue
+			var formal_entry: Dictionary = (entries_by_path[room_path] as Dictionary).duplicate(true)
+			formal_entry["label"] = "%s · %s" % [definition.get("id", "?"), definition.get("title", "未命名关卡")]
+			entries.append(formal_entry)
+			formal_paths[room_path] = true
+
+	for entry: Dictionary in LEVEL_SELECT_ENTRIES:
+		var room_path := str(entry.get("path", ""))
+		if formal_paths.has(room_path) and not bool(entry.get("debug_only", false)):
+			continue
+		var legacy_entry := entry.duplicate(true)
+		if not bool(legacy_entry.get("debug_only", false)):
+			legacy_entry["label"] = "开发留存 · %s" % str(legacy_entry.get("label", "未命名关卡"))
+		entries.append(legacy_entry)
+	return entries
 
 
 # 悬赏榜复用详情面板与按钮皮肤，不额外建立一套菜单场景。
@@ -431,6 +674,7 @@ func _ensure_bounty_list() -> void:
 # 驿厅榜单只渲染 Main 快照；按钮回传固定 id 后再次读取最新状态。
 func show_bounty_board(snapshot: Dictionary) -> void:
 	_ensure_bounty_list()
+	_set_bounty_detail_style(true)
 	_detail_returns_to_game = true
 	_detail_returns_to_pause = false
 	detail_back_button.text = "返回驿厅"
@@ -442,7 +686,7 @@ func show_bounty_board(snapshot: Dictionary) -> void:
 	]
 	if bool(snapshot.get("waystation_intel_unlocked", false)):
 		detail_body_label.text += "\n雷泽荒原路引已解锁。"
-	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	detail_body_label.custom_minimum_size = Vector2(0.0, clampf(detail_panel.size.y * 0.08, 52.0, 72.0))
 	_detail_context_icon.texture = _waystation_ui_texture(&"waystation_clerk_portrait")
 	_detail_context_icon.visible = true
 	_build_slot_row.visible = false
@@ -489,7 +733,7 @@ func _rebuild_bounty_list(snapshot: Dictionary) -> void:
 				disabled = true
 
 		var button := Button.new()
-		button.text = "%s · %s｜%s" % [
+		button.text = "%s · %s\n%s" % [
 			action_label,
 			str(entry.get("title", "未命名悬赏")),
 			str(entry.get("objective", "")),
@@ -497,7 +741,7 @@ func _rebuild_bounty_list(snapshot: Dictionary) -> void:
 		button.disabled = disabled
 		button.icon = _waystation_ui_texture(StringName(entry.get("icon_id", &"")))
 		button.expand_icon = true
-		button.custom_minimum_size.y = 58.0
+		button.custom_minimum_size.y = clampf(detail_panel.size.y * 0.09, 44.0, 72.0)
 		button.tooltip_text = "%s · 奖励：%s" % [entry.get("objective", ""), entry.get("reward", "")]
 		button.set_meta("icon_id", entry.get("icon_id", StringName()))
 		button.set_meta("state_id", entry.get("state_id", state))
@@ -520,6 +764,7 @@ func _on_bounty_entry_pressed(bounty_id: StringName) -> void:
 # 两槽 Build 复用悬赏榜的滚动选择容器，避免再造第三套详情列表。
 func show_build_loadout(snapshot: Dictionary) -> void:
 	_ensure_bounty_list()
+	_set_bounty_detail_style(false)
 	_detail_returns_to_game = false
 	_detail_returns_to_pause = true
 	_pause_return_focus = build_button
@@ -533,7 +778,7 @@ func show_build_loadout(snapshot: Dictionary) -> void:
 	var status_message := str(snapshot.get("status_message", ""))
 	if not status_message.is_empty():
 		detail_body_label.text += "\n%s" % status_message
-	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	detail_body_label.custom_minimum_size = Vector2(0.0, clampf(detail_panel.size.y * 0.08, 52.0, 72.0))
 	_detail_context_icon.visible = false
 	_rebuild_build_slots(snapshot)
 	_build_slot_row.visible = true
@@ -569,7 +814,7 @@ func _rebuild_build_list(snapshot: Dictionary) -> void:
 		var equipped := bool(entry.get("equipped", false))
 		var action_label := "卸下 槽%d" % int(entry.get("slot", 0)) if equipped else "装备"
 		var button := Button.new()
-		button.text = "%s · %s｜%s" % [
+		button.text = "%s · %s\n%s" % [
 			action_label,
 			str(entry.get("label", "未命名圣物")),
 			str(entry.get("effect", "")),
@@ -579,7 +824,7 @@ func _rebuild_build_list(snapshot: Dictionary) -> void:
 		button.set_meta("state_id", entry.get("state_id", &"available"))
 		button.icon = _waystation_ui_texture(StringName(entry.get("icon_id", &"")))
 		button.expand_icon = true
-		button.custom_minimum_size.y = 58.0
+		button.custom_minimum_size.y = clampf(detail_panel.size.y * 0.09, 44.0, 72.0)
 		button.tooltip_text = "%s · 来源：%s" % [entry.get("effect", ""), entry.get("source", "")]
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.focus_mode = Control.FOCUS_ALL
@@ -665,22 +910,35 @@ func _on_build_entry_pressed(build_id: StringName) -> void:
 		show_build_loadout(snapshot)
 
 
-# 选关按钮复用主菜单按钮皮肤，只缩小高度；后续正式关卡 UI 再换专用资产。
+# 选关、详情与暂停按钮复用既有面板按钮皮肤，避免继承 C2 主菜单的无框样式。
 func _copy_button_skin(button: Button) -> void:
+	var skin_source := detail_back_button
 	for state: String in ["normal", "hover", "pressed", "focus"]:
-		var stylebox := start_button.get_theme_stylebox(state)
+		var stylebox := skin_source.get_theme_stylebox(state)
 		if stylebox != null:
 			button.add_theme_stylebox_override(state, stylebox)
 	for color_name: String in ["font_color", "font_hover_color", "font_pressed_color"]:
-		button.add_theme_color_override(color_name, start_button.get_theme_color(color_name))
-	var normal_style := start_button.get_theme_stylebox("normal")
+		button.add_theme_color_override(color_name, skin_source.get_theme_color(color_name))
+	button.add_theme_font_size_override("font_size", max(14, skin_source.get_theme_font_size("font_size")))
+	button.add_theme_constant_override(
+		"icon_max_width",
+		int(roundf(clampf(button.custom_minimum_size.y - 12.0, 32.0, 60.0)))
+	)
+	var normal_style := skin_source.get_theme_stylebox("normal")
 	if normal_style != null:
 		button.add_theme_stylebox_override("disabled", normal_style)
-	button.add_theme_color_override("font_disabled_color", start_button.get_theme_color("font_color"))
+	button.add_theme_color_override("font_disabled_color", skin_source.get_theme_color("font_color"))
+
+
+# 详情弹窗显隐统一驱动暗幕，避免高细节驿站场景穿透正文阅读区。
+func _sync_detail_scrim_visibility() -> void:
+	if detail_scrim != null and detail_panel != null:
+		detail_scrim.visible = detail_panel.visible
 
 
 # 显示主菜单并暂停场景模拟，等待玩家明确开始本轮 Demo。
 func _open_main_menu() -> void:
+	_set_title_flow_active(true)
 	title_background.visible = true
 	main_menu.visible = true
 	detail_panel.visible = false
@@ -696,6 +954,7 @@ func _open_main_menu() -> void:
 	refresh_save_state()
 	_refresh_completion_panel()
 	start_button.grab_focus()
+	call_deferred("_sync_main_menu_focus_band", true)
 
 
 # 开始按钮从教程起点建立正式会话；旧 Main 仍回退到统一重开入口。
@@ -704,6 +963,7 @@ func _on_start_pressed() -> void:
 		_main.call("start_new_game")
 	elif _main != null and _main.has_method("restart_demo"):
 		_main.call("restart_demo")
+	_set_title_flow_active(false)
 
 	title_background.visible = false
 	main_menu.visible = false
@@ -725,6 +985,7 @@ func _on_continue_pressed() -> void:
 		var message := str(result.get("message", "没有可继续的有效存档。")) if result is Dictionary else "没有可继续的有效存档。"
 		_open_detail_panel("继续游戏", message)
 		return
+	_set_title_flow_active(false)
 	title_background.visible = false
 	main_menu.visible = false
 	detail_panel.visible = false
@@ -736,13 +997,46 @@ func _on_continue_pressed() -> void:
 	_refresh_completion_panel()
 
 
-# 控制说明复用同一个详情面板；真正按键重绑定留给后续设置系统。
+# 控制说明保留完整 action 表，但显示文本始终从当前 InputMap 生成。
 func _on_controls_pressed() -> void:
 	_open_detail_panel(
 		"控制说明",
-		"键盘：移动 A/D 或方向键 · 跳跃 Space/W/↑ · 攻击 J · 冲刺 K · 恢复 L · 元素 Q · 姿态 E · 暂停 Esc\n"
-		+ "手柄：左摇杆/十字键 · 跳跃 A · 冲刺 B · 攻击 X · 恢复 Y · 元素 LB · 姿态 RB · 暂停 Menu"
+		"左移：%s\n右移：%s\n跳跃：%s\n下穿平台：按住 %s，并按 %s\n攻击：%s\n冲刺：%s\n恢复：%s\n元素切换：%s\n姿态切换：%s\n暂停：%s"
+		% [
+			_action_binding_pair(&"move_left"),
+			_action_binding_pair(&"move_right"),
+			_action_binding_pair(&"jump"),
+			_action_binding_pair(&"ui_down"),
+			_action_binding_pair(&"jump"),
+			_action_binding_pair(&"attack"),
+			_action_binding_pair(&"dash"),
+			_action_binding_pair(&"recover"),
+			_action_binding_pair(&"element_switch"),
+			_action_binding_pair(&"stance_switch"),
+			_action_binding_pair(&"pause"),
+		]
 	)
+
+
+# Settings 与 Controls 共用 formatter，保证任一真实重绑定在两个入口同步可见。
+func _on_settings_pressed() -> void:
+	var reduced_motion := bool(ProjectSettings.get_setting("accessibility/reduced_motion", false))
+	_open_detail_panel(
+		"设置",
+		"元素切换：%s\n姿态切换：%s\n降低动态效果：%s\n窗口缩放按 640x360 基准适配，音量设置将在音频包接入后开放。"
+		% [
+			_action_binding_pair(&"element_switch"),
+			_action_binding_pair(&"stance_switch"),
+			"开启" if reduced_motion else "关闭",
+		]
+	)
+
+
+func _action_binding_pair(action: StringName) -> String:
+	return "%s · %s" % [
+		InputBindingFormatter.action_label(action, InputBindingFormatter.DEVICE_KEYBOARD),
+		InputBindingFormatter.action_label(action, InputBindingFormatter.DEVICE_CONTROLLER),
+	]
 
 
 func _open_level_select_panel() -> void:
@@ -811,6 +1105,7 @@ func _on_level_select_entry_pressed(entry: Dictionary) -> void:
 	if not started:
 		detail_body_label.text = "无法加载关卡：%s" % room_path
 		return
+	_set_title_flow_active(false)
 
 	title_background.visible = false
 	main_menu.visible = false
@@ -830,6 +1125,7 @@ func _on_quit_pressed() -> void:
 
 # 暂停菜单只负责暂停显示和继续 / 重开命令，不承担正式设置页职责。
 func _open_pause_menu() -> void:
+	_set_title_flow_active(false)
 	title_background.visible = false
 	detail_panel.visible = false
 	pause_menu.visible = true
@@ -841,6 +1137,7 @@ func _open_pause_menu() -> void:
 	_refresh_travel_button()
 	_refresh_completion_panel()
 	resume_button.grab_focus()
+	call_deferred("_sync_action_focus_band_after_layout")
 
 
 # 继续按钮恢复当前运行态，不修改 Main 进度。
@@ -857,8 +1154,11 @@ func _on_map_pressed() -> void:
 	if not (snapshot is Dictionary):
 		return
 
-	if world_map_view != null and world_map_view.has_method("set_map_snapshot"):
-		world_map_view.call("set_map_snapshot", snapshot)
+	if world_map_view != null:
+		if world_map_view.has_method("set_room_scope"):
+			world_map_view.call("set_room_scope", &"formal")
+		if world_map_view.has_method("set_map_snapshot"):
+			world_map_view.call("set_map_snapshot", snapshot)
 	if map_current_room_label != null:
 		var room_label := "未知房间"
 		var room_count := 0
@@ -866,9 +1166,12 @@ func _on_map_pressed() -> void:
 			room_label = str(world_map_view.call("get_current_room_label"))
 		if world_map_view != null and world_map_view.has_method("get_room_count"):
 			room_count = int(world_map_view.call("get_room_count"))
+		var visited_count := Array(snapshot.get("visited_room_paths", [])).size()
+		if world_map_view != null and world_map_view.has_method("get_visited_room_count"):
+			visited_count = int(world_map_view.call("get_visited_room_count"))
 		map_current_room_label.text = "当前位置：%s  ·  已发现 %d / %d" % [
 			room_label,
-			Array(snapshot.get("visited_room_paths", [])).size(),
+			visited_count,
 			room_count,
 		]
 
@@ -878,6 +1181,7 @@ func _on_map_pressed() -> void:
 	completion_panel.visible = false
 	_is_pause_menu_open = true
 	get_tree().paused = true
+	_hide_action_focus_band()
 	map_back_button.grab_focus()
 
 
@@ -888,6 +1192,7 @@ func _on_map_back_pressed() -> void:
 	_is_pause_menu_open = true
 	get_tree().paused = true
 	map_button.grab_focus()
+	call_deferred("_sync_action_focus_band_after_layout")
 	_refresh_completion_panel()
 
 
@@ -902,6 +1207,7 @@ func _on_travel_pressed() -> void:
 
 func show_waystation_travel(snapshot: Dictionary) -> void:
 	_ensure_bounty_list()
+	_set_bounty_detail_style(false)
 	_detail_returns_to_game = false
 	_detail_returns_to_pause = true
 	_pause_return_focus = travel_button
@@ -919,7 +1225,7 @@ func show_waystation_travel(snapshot: Dictionary) -> void:
 	var status_message := str(snapshot.get("status_message", ""))
 	if not status_message.is_empty():
 		detail_body_label.text += "\n%s" % status_message
-	detail_body_label.custom_minimum_size = Vector2(0.0, 44.0)
+	detail_body_label.custom_minimum_size = Vector2(0.0, clampf(detail_panel.size.y * 0.08, 52.0, 72.0))
 	var current_id := StringName(snapshot.get("current_travel_point_id", StringName()))
 	_detail_context_icon.texture = _stage31_ui_texture(
 		&"current_waystation" if current_id == &"waystation_main" else &"current_outpost"
@@ -974,8 +1280,7 @@ func _rebuild_travel_list(snapshot: Dictionary) -> void:
 			icon_id = &"current_waystation" if travel_id == &"waystation_main" else &"current_outpost"
 		button.icon = _stage31_ui_texture(icon_id)
 		button.expand_icon = true
-		button.add_theme_constant_override("icon_max_width", 42)
-		button.custom_minimum_size.y = 58.0
+		button.custom_minimum_size.y = clampf(detail_panel.size.y * 0.09, 44.0, 72.0)
 		button.tooltip_text = "目标未发现" if state_id == &"locked" else str(entry.get("room_path", ""))
 		button.set_meta("travel_id", travel_id)
 		button.set_meta("state_id", state_id)
@@ -1012,6 +1317,7 @@ func _on_build_pressed() -> void:
 func _on_restart_pressed() -> void:
 	if _main != null and _main.has_method("restart_demo"):
 		_main.call("restart_demo")
+	_set_title_flow_active(false)
 
 	title_background.visible = false
 	main_menu.visible = false
@@ -1019,6 +1325,7 @@ func _on_restart_pressed() -> void:
 	pause_menu.visible = false
 	world_map_panel.visible = false
 	failure_panel.visible = false
+	_hide_action_focus_band()
 	_is_pause_menu_open = false
 	get_tree().paused = false
 	_refresh_completion_panel()
@@ -1026,6 +1333,7 @@ func _on_restart_pressed() -> void:
 
 # 从暂停菜单回到试玩；主菜单流程不走这里，避免开始前误恢复模拟。
 func _resume_demo() -> void:
+	_set_title_flow_active(false)
 	detail_panel.visible = false
 	if _level_select_scroll != null:
 		_level_select_scroll.visible = false
@@ -1035,6 +1343,7 @@ func _resume_demo() -> void:
 	pause_menu.visible = false
 	world_map_panel.visible = false
 	failure_panel.visible = false
+	_hide_action_focus_band()
 	_is_pause_menu_open = false
 	_detail_returns_to_game = false
 	_detail_returns_to_pause = false
@@ -1044,6 +1353,7 @@ func _resume_demo() -> void:
 
 # Main 在战败或跌落重生后调用这里，给玩家明确但不阻断输入的恢复提示。
 func show_failure_notice(message: String) -> void:
+	_set_title_flow_active(false)
 	title_background.visible = false
 	main_menu.visible = false
 	detail_panel.visible = false
@@ -1054,11 +1364,15 @@ func show_failure_notice(message: String) -> void:
 	get_tree().paused = false
 	if failure_label != null:
 		failure_label.text = message
+	if failure_continue_button != null:
+		failure_continue_button.grab_focus()
+		call_deferred("_sync_action_focus_band_after_layout")
 	_refresh_completion_panel()
 
 
 # 复用主菜单详情面板显示一次性剧情；关闭后回到运行态而不是主菜单。
 func show_story_event(title: String, body: String) -> void:
+	_set_title_flow_active(false)
 	_detail_returns_to_game = true
 	_detail_returns_to_pause = false
 	detail_back_button.text = "继续"
@@ -1083,14 +1397,27 @@ func show_story_event(title: String, body: String) -> void:
 
 
 func _hide_waystation_detail_art() -> void:
+	_set_bounty_detail_style(false)
 	if _detail_context_icon != null:
 		_detail_context_icon.visible = false
 	if _build_slot_row != null:
 		_build_slot_row.visible = false
 
 
+# 悬赏榜独占新官印框；其余共享详情页继续使用旧纸本容器，避免蓝图未冻结时扩大改动面。
+func _set_bounty_detail_style(active: bool) -> void:
+	if bounty_frame_art.visible == active:
+		return
+	bounty_frame_art.visible = active
+	detail_panel.add_theme_stylebox_override("panel", _transparent_detail_style if active else DETAIL_PARCHMENT_STYLE)
+	detail_title_label.add_theme_color_override("font_color", BOUNTY_TITLE_COLOR if active else DETAIL_PARCHMENT_TEXT_COLOR)
+	detail_body_label.add_theme_color_override("font_color", BOUNTY_BODY_COLOR if active else DETAIL_PARCHMENT_TEXT_COLOR)
+	_layout_title_menu()
+
+
 func _on_failure_continue_pressed() -> void:
 	failure_panel.visible = false
+	_hide_action_focus_band()
 
 
 # Main 在保存结果变化后调用此入口；Continue 只对有效主档或有效备份开放。
@@ -1105,40 +1432,12 @@ func refresh_save_state() -> void:
 	var valid := bool(save_status.get("valid", false))
 	continue_button.disabled = not valid
 	continue_button.focus_mode = Control.FOCUS_ALL if valid else Control.FOCUS_NONE
-	continue_button.icon = _stage31_ui_texture(
-		&"continue_load" if valid else (&"save_error" if bool(save_status.get("corrupted_primary", false)) else &"save_pending")
-	)
-	continue_button.expand_icon = true
-	continue_button.add_theme_constant_override("icon_max_width", 24)
-	_refresh_status_text()
-
-
-# 主菜单状态文案同时标出完成态与本地存档健康状态。
-func _refresh_status_text() -> void:
-	if status_label == null:
-		return
-
-	if _main == null or not _main.has_method("get_demo_progress_snapshot"):
-		status_label.text = "Alpha Demo 候选"
-		return
-
-	var snapshot: Variant = _main.call("get_demo_progress_snapshot")
-	if not (snapshot is Dictionary):
-		status_label.text = "Alpha Demo 候选"
-		return
-
-	var completed_prefix := "Alpha Demo 已完成 · " if bool(snapshot.get("stage16_alpha_demo_completed", false)) else ""
-	if _main.has_method("get_save_status_snapshot"):
-		var save_status: Variant = _main.call("get_save_status_snapshot")
-		if save_status is Dictionary and bool(save_status.get("valid", false)):
-			status_label.text = completed_prefix + ("备份可继续" if bool(save_status.get("from_backup", false)) else "已有本地存档")
-		elif save_status is Dictionary and bool(save_status.get("corrupted_primary", false)):
-			status_label.text = completed_prefix + "存档损坏 · 可安全开始新游戏"
-		else:
-			status_label.text = completed_prefix + "从教程起点开始"
-	else:
-		status_label.text = completed_prefix + "从教程起点开始"
-	_refresh_completion_panel_from_snapshot(snapshot)
+	continue_button.text = "继续游戏"
+	if valid and bool(save_status.get("from_backup", false)):
+		continue_button.text = "继续游戏 · 备份"
+	elif not valid and (bool(save_status.get("corrupted_primary", false)) or bool(save_status.get("corrupted_backup", false))):
+		continue_button.text = "继续游戏 · 存档损坏"
+	_refresh_completion_panel()
 
 
 # 完成态面板只根据 Main 快照显示，不参与流程状态写入。
@@ -1208,6 +1507,3 @@ func _refresh_travel_button() -> void:
 	travel_button.disabled = current_id == StringName()
 	travel_button.focus_mode = Control.FOCUS_NONE if travel_button.disabled else Control.FOCUS_ALL
 	travel_button.text = "驿站传送 · %d/2" % int(snapshot.get("discovered_count", 0)) if not travel_button.disabled else "驿站传送：仅限驿站"
-	travel_button.icon = _stage31_ui_texture(&"travel_available" if bool(snapshot.get("can_travel", false)) else &"travel_locked")
-	travel_button.expand_icon = true
-	travel_button.add_theme_constant_override("icon_max_width", 24)

@@ -11,9 +11,12 @@ const GATE_LOCKED_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate
 const GATE_OPEN_TEXTURE_PATH := "res://assets/art/editor_resources/shrine_gate_prop_atlas_ai01/003_shrine_gate_prop_atlas_ai01_auto_004_c01.atlas_texture.tres"
 const GATE_UNLOCK_VFX_FRAMES_PATH := "res://assets/art/vfx/atlases/vfx_seal_magic_atlas_ai01.spriteframes.tres"
 
+var _stance_changed_signal_count := 0
+
 
 # 输入环境清理：教程测试需要稳定的初始按键状态。
 func before_each() -> void:
+	_stance_changed_signal_count = 0
 	Input.action_release("move_left")
 	Input.action_release("move_right")
 	Input.action_release("jump")
@@ -21,6 +24,8 @@ func before_each() -> void:
 		Input.action_release("attack")
 	if InputMap.has_action("dash"):
 		Input.action_release("dash")
+	if InputMap.has_action("stance_switch"):
+		Input.action_release("stance_switch")
 
 
 # 每条教程测试结束释放输入，避免 dash / attack 状态影响下一条教程流程。
@@ -32,6 +37,8 @@ func after_each() -> void:
 		Input.action_release("attack")
 	if InputMap.has_action("dash"):
 		Input.action_release("dash")
+	if InputMap.has_action("stance_switch"):
+		Input.action_release("stance_switch")
 
 
 # 保护默认入口：Main 必须从教程房启动，并展示第一步教程 HUD。
@@ -55,7 +62,7 @@ func test_main_scene_defaults_to_tutorial_room_and_hud() -> void:
 	assert_not_null(prompt_label)
 	assert_eq(room.scene_file_path, TUTORIAL_ROOM_SCENE_PATH)
 	assert_true(room.has_method("get_camera_limits"))
-	assert_string_contains(step_label.text, "教程 1/4")
+	assert_string_contains(step_label.text, "教程 1/5")
 	assert_true(prompt_label.visible)
 	assert_string_contains(prompt_label.text, "Space")
 
@@ -152,12 +159,16 @@ func test_tutorial_room_exposes_stage_5_gate_and_exit_nodes() -> void:
 	_assert_jump_guide_platform_matches_player_jump(room, jump_platform)
 
 
-# 保护教程顺序：移动跳跃、dash、攻击、出口、完成必须按位置和命中事件推进。
+# 保护教程顺序：移动跳跃、dash、攻击、姿态、出口、完成必须按位置和真实姿态事件推进。
 func test_tutorial_flow_progresses_in_order_and_unlocks_exit() -> void:
 	var room: Node2D = await _spawn_tutorial_room_world()
 	var player: CharacterBody2D = await _spawn_player_into_room(room, Vector2(-320, 96))
 	var dummy: StaticBody2D = room.get_node("TutorialDummy") as StaticBody2D
 	var exit_art := room.get_node_or_null("ExitBarrier/BarrierArt") as Sprite2D
+	assert_true(player.has_signal("stance_changed"))
+	if not player.has_signal("stance_changed"):
+		return
+	player.stance_changed.connect(_on_test_player_stance_changed)
 
 	assert_eq(room.call("get_current_step_id"), &"move_jump")
 	assert_false(room.call("is_exit_unlocked"))
@@ -175,6 +186,13 @@ func test_tutorial_flow_progresses_in_order_and_unlocks_exit() -> void:
 
 	dummy.call("receive_attack", Vector2.RIGHT, 120.0)
 	await _advance_process_frames(2)
+	assert_eq(room.call("get_current_step_id"), &"stance")
+	assert_false(room.call("is_exit_unlocked"), "攻击结束后不能直接打开出口，必须完成疾御换印。")
+	assert_eq(_stance_changed_signal_count, 0, "攻击后、换印前不得提前收到 stance_changed。")
+
+	player.call("cycle_current_stance")
+	await _advance_process_frames(2)
+	assert_eq(_stance_changed_signal_count, 1, "教程出口只能响应一次真实 stance_changed。")
 	assert_eq(room.call("get_current_step_id"), &"exit")
 	assert_true(room.call("is_exit_unlocked"))
 	if exit_art != null:
@@ -194,13 +212,17 @@ func test_tutorial_flow_progresses_in_order_and_unlocks_exit() -> void:
 	assert_eq(room.call("get_current_step_id"), &"complete")
 
 
-# 保护攻击教学反馈：玩家攻击最显眼的红色封印柱时，也必须能打开出口。
-func test_attack_step_allows_red_exit_barrier_to_unlock_exit() -> void:
+# 保护攻击教学反馈：攻击出口柱后仍须等待一次真实姿态切换才能打开出口。
+func test_attack_step_requires_stance_switch_before_red_exit_barrier_unlocks() -> void:
 	var room: Node2D = await _spawn_tutorial_room_world()
 	var player: CharacterBody2D = await _spawn_player_into_room(room, Vector2(-320, 96))
 	var exit_barrier: StaticBody2D = room.get_node("ExitBarrier") as StaticBody2D
 	var exit_barrier_shape: CollisionShape2D = room.get_node("ExitBarrier/CollisionShape2D") as CollisionShape2D
 	var exit_art := room.get_node_or_null("ExitBarrier/BarrierArt") as Sprite2D
+	assert_true(player.has_signal("stance_changed"))
+	if not player.has_signal("stance_changed"):
+		return
+	player.stance_changed.connect(_on_test_player_stance_changed)
 
 	assert_not_null(exit_barrier)
 	assert_not_null(exit_barrier_shape)
@@ -216,6 +238,12 @@ func test_attack_step_allows_red_exit_barrier_to_unlock_exit() -> void:
 	exit_barrier.call("receive_attack", Vector2.RIGHT, 120.0)
 	await _advance_process_frames(2)
 
+	assert_eq(room.call("get_current_step_id"), &"stance")
+	assert_false(room.call("is_exit_unlocked"))
+	assert_eq(_stance_changed_signal_count, 0, "出口柱受击后仍不得伪造 stance_changed。")
+	player.call("cycle_current_stance")
+	await _advance_process_frames(2)
+	assert_eq(_stance_changed_signal_count, 1, "出口柱路径也必须只接收一次真实 stance_changed。")
 	assert_eq(room.call("get_current_step_id"), &"exit")
 	assert_true(room.call("is_exit_unlocked"))
 	assert_true(exit_barrier_shape.disabled)
@@ -229,6 +257,81 @@ func test_attack_step_allows_red_exit_barrier_to_unlock_exit() -> void:
 		assert_eq(exit_vfx.sprite_frames.resource_path, GATE_UNLOCK_VFX_FRAMES_PATH)
 		assert_eq(exit_vfx.get_meta("runtime_source", ""), "vfx_seal_magic_atlas_ai01.gate_unlock_feedback")
 		assert_true(exit_vfx.visible)
+
+
+# 键盘 E 必须沿真实 InputMap 驱动生产玩家完成姿态教学，且单次按下只发一个变化信号。
+func test_keyboard_e_completes_stance_step_once() -> void:
+	var room: Node2D = await _spawn_tutorial_room_world()
+	var player: CharacterBody2D = await _spawn_player_into_room(room, Vector2(-320, 96))
+	await _advance_room_to_stance_step(room)
+	player.stance_changed.connect(_on_test_player_stance_changed)
+
+	var event := InputEventKey.new()
+	event.keycode = KEY_E
+	event.physical_keycode = KEY_E
+	await _send_synthetic_input(event)
+
+	assert_eq(_stance_changed_signal_count, 1)
+	assert_eq(room.call("get_current_step_id"), &"exit")
+	assert_true(room.call("is_exit_unlocked"))
+
+
+# synthetic Joypad RB 与键盘走同一生产输入链，不能靠测试直接调用房间开门。
+func test_synthetic_joypad_rb_completes_stance_step_once() -> void:
+	var room: Node2D = await _spawn_tutorial_room_world()
+	var player: CharacterBody2D = await _spawn_player_into_room(room, Vector2(-320, 96))
+	await _advance_room_to_stance_step(room)
+	player.stance_changed.connect(_on_test_player_stance_changed)
+
+	var event := InputEventJoypadButton.new()
+	event.button_index = JOY_BUTTON_RIGHT_SHOULDER
+	await _send_synthetic_input(event)
+
+	assert_eq(_stance_changed_signal_count, 1)
+	assert_eq(room.call("get_current_step_id"), &"exit")
+	assert_true(room.call("is_exit_unlocked"))
+
+
+# Main 换房式重绑定后旧玩家不得再推进教程，新玩家只需一次真实变化即可完成步骤。
+func test_rebinding_room_player_disconnects_old_stance_signal() -> void:
+	var room: Node2D = await _spawn_tutorial_room_world()
+	var old_player: CharacterBody2D = await _spawn_player_into_room(room, Vector2(-320, 96))
+	await _advance_room_to_stance_step(room)
+	var new_player_scene: PackedScene = load(PLAYER_SCENE_PATH) as PackedScene
+	var new_player := new_player_scene.instantiate() as CharacterBody2D
+	room.add_child(new_player)
+	room.call("bind_player", new_player)
+
+	old_player.call("cycle_current_stance")
+	await _advance_process_frames(2)
+	assert_eq(room.call("get_current_step_id"), &"stance")
+	assert_false(room.call("is_exit_unlocked"))
+
+	new_player.call("cycle_current_stance")
+	await _advance_process_frames(2)
+	assert_eq(room.call("get_current_step_id"), &"exit")
+	assert_true(room.call("is_exit_unlocked"))
+
+
+# 姿态步骤复用唯一强调层，并随最近输入设备从真实 InputMap 显示 E 或 RB / R1。
+func test_stance_prompt_uses_real_binding_for_keyboard_and_controller() -> void:
+	var packed_scene: PackedScene = load(MAIN_SCENE_PATH) as PackedScene
+	var main_scene := packed_scene.instantiate() as Node2D
+	add_child_autofree(main_scene)
+	await get_tree().process_frame
+	var room := main_scene.get_node("Room") as Node2D
+	var hud := main_scene.get_node("HUD/TutorialHUD") as Control
+	var prompt_label := hud.get_node("PromptPanel/PromptLabel") as Label
+	var player := main_scene.get_node("Runtime/PlayerPlaceholder") as CharacterBody2D
+	await _advance_room_to_stance_step(room, player)
+
+	assert_string_contains(prompt_label.text, "姿态：E")
+	assert_eq(hud.find_children("TutorialAttention", "ColorRect", true, false).size(), 1)
+	var controller_event := InputEventJoypadButton.new()
+	controller_event.button_index = JOY_BUTTON_RIGHT_SHOULDER
+	controller_event.pressed = true
+	hud.call("_input", controller_event)
+	assert_string_contains(prompt_label.text, "姿态：RB / R1")
 
 
 # 保护教程第一跳的真实手感：玩家从平台左侧起跳，应能用当前配置实际落到引导平台。
@@ -308,6 +411,40 @@ func _spawn_tutorial_room_world() -> Node2D:
 	return room
 
 
+# 通过位置与真实受击事件抵达姿态步骤，不硬改教程私有状态。
+func _advance_room_to_stance_step(room: Node2D, bound_player: CharacterBody2D = null) -> void:
+	var player := bound_player
+	if player == null:
+		player = room.get_node_or_null("PlayerPlaceholder") as CharacterBody2D
+	if player == null:
+		for child: Node in room.get_children():
+			if child is CharacterBody2D:
+				player = child as CharacterBody2D
+				break
+	assert_not_null(player)
+	if player == null:
+		return
+	player.global_position = Vector2(-80, 60)
+	await _advance_process_frames(2)
+	player.global_position = Vector2(252, 96)
+	await _advance_process_frames(2)
+	var dummy := room.get_node("TutorialDummy") as StaticBody2D
+	dummy.call("receive_attack", Vector2.RIGHT, 120.0)
+	await _advance_process_frames(2)
+	assert_eq(room.call("get_current_step_id"), &"stance")
+	assert_false(room.call("is_exit_unlocked"))
+
+
+# 用 Input.parse_input_event 让键盘 / 手柄走 InputMap，再显式释放避免污染后续测试。
+func _send_synthetic_input(event: InputEvent) -> void:
+	event.pressed = true
+	Input.parse_input_event(event)
+	await _advance_physics_frames(2)
+	event.pressed = false
+	Input.parse_input_event(event)
+	await _advance_physics_frames(2)
+
+
 # 断言 Label 保留在当前小型 HUD 面板内，防止再次贴边或跑出框体。
 func _assert_control_inside_panel_safe_area(control: Control, panel: Control) -> void:
 	var horizontal_margin := 10.0
@@ -323,6 +460,10 @@ func _action_has_joypad_event(action: StringName) -> bool:
 		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 			return true
 	return false
+
+
+func _on_test_player_stance_changed(_stance_id: StringName) -> void:
+	_stance_changed_signal_count += 1
 
 
 # 在教程房中生成玩家并绑定房间，让位置触发和 HUD 上下文能正常工作。

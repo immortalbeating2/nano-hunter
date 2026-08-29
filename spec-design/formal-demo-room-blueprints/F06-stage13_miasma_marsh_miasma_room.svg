@@ -1,0 +1,45 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1500' height='800' viewBox='0 0 1500 800' data-view='topology'>
+<defs><marker id='arrow' markerWidth='9' markerHeight='9' refX='8' refY='3' orient='auto'><path d='M0,0 L0,6 L9,3 z' fill='context-stroke'/></marker><pattern id='grid' width='32' height='32' patternUnits='userSpaceOnUse'><path d='M32 0 L0 0 0 32' fill='none' stroke='#223746' stroke-width='1'/></pattern></defs>
+<rect width='1500' height='800' fill='#0d1822'/><rect x='1' y='1' width='1498' height='798' fill='none' stroke='#5e7686' stroke-width='2'/>
+<text x='70' y='58' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F06 · 瘴气洼地</text>
+<text x='70' y='92' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='18'>静态危险与能力回访 · 3 屏 · 1920×360u</text>
+<text x='1430' y='58' text-anchor='end' fill='#d9bf77' font-family='Microsoft YaHei,Segoe UI' font-size='17'>记忆点：沉没佛首与瘴水盆地</text>
+<rect x='70' y='150' width='1360' height='300' rx='10' fill='#132532' stroke='#506a79' stroke-width='2'/><rect x='70' y='150' width='1360' height='300' rx='10' fill='url(#grid)' opacity='0.7'/>
+<text x='82' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S1</text>
+<line x1='523.333333333333' y1='150' x2='523.333333333333' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='535.333333333333' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S2</text>
+<line x1='976.666666666667' y1='150' x2='976.666666666667' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='988.666666666667' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S3</text>
+<polyline points='92.7,306 351.1,306 591.3,246 895.1,246 1112.7,300 1393.7,300' fill='none' stroke='#55d6e8' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='92.7,306 468.9,360 713.7,378 1031.1,360 1393.7,300' fill='none' stroke='#e9b95d' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='12 7' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='92.7,306 614,246 1058.3,246 1393.7,300' fill='none' stroke='#71d69b' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='7 6' marker-end='url(#arrow)' opacity='0.95'/>
+<circle cx='106.266666666667' cy='306' r='10' fill='#6fd3ff' stroke='#071118' stroke-width='3'/>
+<text x='120.3' y='294' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>来自 F05</text>
+<circle cx='713.733333333333' cy='378' r='10' fill='#f0c75e' stroke='#071118' stroke-width='3'/>
+<text x='727.7' y='366' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>Air Dash 回访奖励</text>
+<circle cx='713.733333333333' cy='408' r='10' fill='#d9845f' stroke='#071118' stroke-width='3'/>
+<text x='727.7' y='396' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>瘴气洼地</text>
+<circle cx='1393.73333333333' cy='300' r='10' fill='#77e39f' stroke='#071118' stroke-width='3'/>
+<text x='1407.7' y='288' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>通往 F07</text>
+<rect x='70' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='84' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S1 · 洼地边缘</text>
+<text x='84' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：展示上下两条线</text>
+<text x='84' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：入口分成上层主路与可见下层诱饵</text>
+<text x='84' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5</text>
+<text x='84' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：首次下落有返回踏台，不软锁</text>
+<rect x='526.666666666667' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='540.666666666667' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S2 · 沉首盆地</text>
+<text x='540.666666666667' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：环境危险核心</text>
+<text x='540.666666666667' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：上层 80–105u 普通跳；下层瘴水跨距需 Ai</text>
+<text x='540.666666666667' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>r Dash</text>
+<text x='540.666666666667' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：2/5</text>
+<text x='540.666666666667' y='627' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：危险两侧均设 96u 安全台</text>
+<rect x='983.333333333333' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='997.333333333333' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S3 · 升岸</text>
+<text x='997.333333333333' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：汇流并离场</text>
+<text x='997.333333333333' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：上下线在出口前汇流，地形向上收束</text>
+<text x='997.333333333333' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5</text>
+<text x='997.333333333333' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：ExitZone 不覆盖回访落点</text>
+<text x='70' y='752' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='14'>俯视结构审阅图；横版玩法不变。1 屏 = 640×360u。first=首次路线 ｜ branch=支路 ｜ revisit=能力回访 ｜ speed=熟练快线 ｜ fallback/retry=安全回落或重试</text>
+<text x='1430' y='780' text-anchor='end' fill='#668091' font-family='Segoe UI' font-size='12'>formal_demo_room_recovery_b · blueprint v2 · view=topology</text>
+</svg>

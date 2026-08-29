@@ -1,6 +1,7 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_e67g2"]
@@ -9,7 +10,7 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="7_xjayi"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="8_g6g0l"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="9_2fcxr"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="10_anj3y"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="10_anj3y"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -29,22 +30,49 @@ size = Vector2(96, 128)
 [node name="Stage13MiasmaMarshGateRoom" type="Node2D" unique_id=969556888]
 script = ExtResource("1")
 seal_gate = true
-camera_limits = Rect2i(-384, -320, 1408, 576)
-next_room_path = "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn"
-next_spawn_id = &"stage13_crossfire_start"
+seal_node_requires_down_input = true
+seal_node_requires_air_dash = true
+seal_node_required_reward_id = &"wind_seal"
+exit_requires_gate_unlocked = false
+restore_forward_gate_on_bind = false
+camera_limits = Rect2i(-320, -240, 1920, 480)
+next_room_path = "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn"
+next_spawn_id = &"stage13_checkpoint_start"
 previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn"
 previous_spawn_id = &"stage13_miasma_return"
 shortcut_room_path = "res://scenes/rooms/stage14_air_dash_gate_room.tscn"
 shortcut_spawn_id = &"stage14_gate_from_wind_cross"
 shortcut_requires_air_dash = true
 shortcut_required_reward_id = &"wind_seal"
+shortcut_requires_down_input = true
+shortcut_revisit_reward_id = &"stage14_reward_two"
+narrative_stele_title = "双印回返法坛"
+narrative_stele_text = "需风印与空中冲刺共同解锁；满足后在法坛前按 ↓ 前往 F14。"
 spawn_positions = {
-&"stage13_gate_from_wind_cross": Vector2(768, 204),
-&"stage13_gate_return": Vector2(768, 204),
+&"stage13_gate_from_wind_cross": Vector2(984, 172),
+&"stage13_gate_return": Vector2(1500, 172),
 &"stage13_gate_start": Vector2(-256, 204)
 }
 default_step_id = &"stage13_gate"
 cleared_step_id = &"stage13_seal_released"
+metadata/formal_room_id = "F07"
+metadata/route_role = "ability_gate_preview_and_permanent_shortcut"
+metadata/safe_floor_y = 160.0
+metadata/normal_exit_uses_generic_door = false
+metadata/transition_visual_type = "seal_threshold"
+metadata/gate_semantics = "ability_gate"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 3
+layout_profile = &"cross_ability_gate"
+solid_rects = Array[Rect2]([Rect2(-320, 224, 1280, 64), Rect2(960, 272, 256, 64), Rect2(1216, 224, 384, 64)])
+one_way_rects = Array[Rect2]([Rect2(272, 176, 224, 16), Rect2(464, 128, 288, 16), Rect2(720, 128, 288, 16), Rect2(976, 176, 272, 16), Rect2(1024, 240, 160, 16), Rect2(1120, 208, 160, 16), Rect2(1216, 208, 192, 16)])
+route_heights = {
+&"first_visit_bypass": 64.0,
+&"sealed_lower_gate": 224.0,
+&"shortcut_return": 192.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=956613298]
 z_index = -4
@@ -98,7 +126,7 @@ polygon = PackedVector2Array(-448, -16, 448, -16, 448, 16, -448, 16)
 metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 
 [node name="SealNode" type="Marker2D" parent="." unique_id=990898070]
-position = Vector2(384, 56)
+position = Vector2(480, 88)
 metadata/anchor_role = "stage13_environmental_seal_mechanism"
 
 [node name="SealArt" type="Sprite2D" parent="SealNode" unique_id=16272120]
@@ -110,7 +138,8 @@ metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.talisman_stake_idle"
 
 [node name="GateBarrier" type="StaticBody2D" parent="." unique_id=1117059962]
-position = Vector2(832, 168)
+metadata/gate_semantics = "ability_gate"
+position = Vector2(608, 168)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier" unique_id=1364731042]
 shape = SubResource("3")
@@ -128,7 +157,7 @@ metadata/asset_binding_note = "dac_gate_art_replaces_red_barrier_visual"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.seal_gate_locked"
 
 [node name="ExitZone" type="Area2D" parent="." unique_id=1600649609]
-position = Vector2(992, 160)
+position = Vector2(1552, 172)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=183867305]
 shape = SubResource("4")
@@ -161,6 +190,7 @@ metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
 metadata/asset_binding_note = "dac_formal_foreground_edge_decor"
 
 [node name="TerrainCollisionVisual" type="TileMapLayer" parent="." unique_id=566767111]
+collision_enabled = false
 visible = false
 z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
@@ -168,6 +198,7 @@ tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAA
 tile_set = ExtResource("8_g6g0l")
 
 [node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=904016835]
+collision_enabled = false
 visible = false
 z_index = 2
 position = Vector2(0, -16)
@@ -215,19 +246,23 @@ tile_set = ExtResource("8_g6g0l")
 collision_enabled = false
 
 [node name="LeftExitZone" type="Area2D" parent="." unique_id=301205180]
-position = Vector2(-352, 160)
+position = Vector2(-304, 204)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=1986736270]
 shape = SubResource("RectangleShape2D_2fcxr")
 
 [node name="ShortcutZone" type="Marker2D" parent="."]
-position = Vector2(640, 56)
+position = Vector2(928, 192)
 metadata/route_role = "wind_seal_air_dash_cross_gate"
 
 [node name="ShortcutMarkerArt" type="Sprite2D" parent="ShortcutZone"]
 z_index = 4
-scale = Vector2(0.34, 0.34)
+scale = Vector2(0.42, 0.42)
 texture = ExtResource("6_2fcxr")
 metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.talisman_stake_idle"
 metadata/anchor_role = "stage20_cross_ability_gate"
+
+[node name="NarrativeStele" type="Marker2D" parent="."]
+position = Vector2(832, 192)
+metadata/route_role = "f14_shortcut_preview_before_trigger"

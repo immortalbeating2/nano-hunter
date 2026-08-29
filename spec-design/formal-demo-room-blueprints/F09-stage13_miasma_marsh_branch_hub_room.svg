@@ -1,0 +1,52 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1500' height='800' viewBox='0 0 1500 800' data-view='topology'>
+<defs><marker id='arrow' markerWidth='9' markerHeight='9' refX='8' refY='3' orient='auto'><path d='M0,0 L0,6 L9,3 z' fill='context-stroke'/></marker><pattern id='grid' width='32' height='32' patternUnits='userSpaceOnUse'><path d='M32 0 L0 0 0 32' fill='none' stroke='#223746' stroke-width='1'/></pattern></defs>
+<rect width='1500' height='800' fill='#0d1822'/><rect x='1' y='1' width='1498' height='798' fill='none' stroke='#5e7686' stroke-width='2'/>
+<text x='70' y='58' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F09 · 瘴泽三路枢纽</text>
+<text x='70' y='92' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='18'>三路分岔与多阶段复用 · 3 屏 · 1920×360u</text>
+<text x='1430' y='58' text-anchor='end' fill='#d9bf77' font-family='Microsoft YaHei,Segoe UI' font-size='17'>记忆点：三面镇妖幡与枯树桥</text>
+<rect x='70' y='150' width='1360' height='300' rx='10' fill='#132532' stroke='#506a79' stroke-width='2'/><rect x='70' y='150' width='1360' height='300' rx='10' fill='url(#grid)' opacity='0.7'/>
+<text x='82' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S1</text>
+<line x1='523.333333333333' y1='150' x2='523.333333333333' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='535.333333333333' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S2</text>
+<line x1='976.666666666667' y1='150' x2='976.666666666667' y2='450' stroke='#668091' stroke-width='2' stroke-dasharray='8 8'/>
+<text x='988.666666666667' y='175' fill='#8caabb' font-family='Segoe UI' font-size='15'>S3</text>
+<polyline points='92.7,318 396.4,318 713.7,306 1393.7,306' fill='none' stroke='#55d6e8' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='713.7,306 795.3,384 1067.3,384' fill='none' stroke='#c984f7' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='10 7' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='713.7,306 849.7,222 1139.9,222' fill='none' stroke='#c984f7' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='10 7' marker-end='url(#arrow)' opacity='0.95'/>
+<polyline points='92.7,318 387.3,222 849.7,222 1393.7,222' fill='none' stroke='#e9b95d' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='12 7' marker-end='url(#arrow)' opacity='0.95'/>
+<circle cx='106.266666666667' cy='318' r='10' fill='#6fd3ff' stroke='#071118' stroke-width='3'/>
+<text x='120.3' y='306' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>来自 F08</text>
+<circle cx='713.733333333333' cy='306' r='10' fill='#f1e4b3' stroke='#071118' stroke-width='3'/>
+<text x='727.7' y='294' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>三路判读点</text>
+<circle cx='1067.33333333333' cy='384' r='10' fill='#c984f7' stroke='#071118' stroke-width='3'/>
+<text x='1081.3' y='372' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>F10 低风险</text>
+<circle cx='1139.86666666667' cy='222' r='10' fill='#c984f7' stroke='#071118' stroke-width='3'/>
+<text x='1153.9' y='210' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>F11 高风险</text>
+<circle cx='1393.73333333333' cy='306' r='10' fill='#77e39f' stroke='#071118' stroke-width='3'/>
+<text x='1407.7' y='294' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>F12 主路</text>
+<circle cx='387.333333333333' cy='222' r='10' fill='#c58cff' stroke='#071118' stroke-width='3'/>
+<text x='401.3' y='210' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>Air Dash 上层入口</text>
+<circle cx='1393.73333333333' cy='222' r='10' fill='#dfb967' stroke='#071118' stroke-width='3'/>
+<text x='1407.7' y='210' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='13' paint-order='stroke' stroke='#0d1822' stroke-width='4'>接 F12 快线</text>
+<rect x='70' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='84' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S1 · 枯桥引入</text>
+<text x='84' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：远距离看见三条高度线</text>
+<text x='84' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：中层入口，上下路线轮廓同时进入镜头</text>
+<text x='84' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5</text>
+<text x='84' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：入口安全区不触发任一支路</text>
+<rect x='526.666666666667' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='540.666666666667' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S2 · 三幡分岔</text>
+<text x='540.666666666667' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：完成风险/回报选择</text>
+<text x='540.666666666667' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：上层挑战、中层主路、下层资源；三条线形态不同</text>
+<text x='540.666666666667' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5</text>
+<text x='540.666666666667' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：返回主判读点只需一次普通跳</text>
+<rect x='983.333333333333' y='485' width='446.666666666667' height='220' rx='9' fill='#162b38' stroke='#3e5b6b'/>
+<text x='997.333333333333' y='515' fill='#f1dca5' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>S3 · 三路出口</text>
+<text x='997.333333333333' y='547' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>职责：将出口语义分开</text>
+<text x='997.333333333333' y='567' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>结构：F11 用祭台阶、F12 用泽岸、F10 用下沉洞</text>
+<text x='997.333333333333' y='587' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5</text>
+<text x='997.333333333333' y='607' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>安全：三个 ExitZone 互不重叠且各有 96u 前</text>
+<text x='997.333333333333' y='627' fill='#c6d6dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>庭</text>
+<text x='70' y='752' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='14'>俯视结构审阅图；横版玩法不变。1 屏 = 640×360u。first=首次路线 ｜ branch=支路 ｜ revisit=能力回访 ｜ speed=熟练快线 ｜ fallback/retry=安全回落或重试</text>
+<text x='1430' y='780' text-anchor='end' fill='#668091' font-family='Segoe UI' font-size='12'>formal_demo_room_recovery_b · blueprint v2 · view=topology</text>
+</svg>

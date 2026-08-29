@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "program_id": "formal_demo_room_recovery_b",
+  "world_map_path": "res://assets/configs/world_map/alpha_demo_world_map.json",
+  "default_fallback": {
+    "room_path": "res://scenes/rooms/stage11_demo_end_room.tscn",
+    "spawn_id": "stage11_demo_end_start"
+  },
+  "formal_rooms": [
+    {"id": "F01", "legacy_id": "01", "title": "初印试炼", "path": "res://scenes/rooms/tutorial_room.tscn", "role": "tutorial", "route_index": 1},
+    {"id": "F02", "legacy_id": "02", "title": "首次镇妖", "path": "res://scenes/rooms/combat_trial_room.tscn", "role": "combat_goal", "route_index": 2},
+    {"id": "F03", "legacy_id": "11", "title": "镇妖驿站", "path": "res://scenes/rooms/stage11_demo_end_room.tscn", "role": "hub", "route_index": 3},
+    {"id": "F04", "legacy_id": "12", "title": "瘴泽入口", "path": "res://scenes/rooms/stage13_miasma_marsh_entry_room.tscn", "role": "region_entry", "route_index": 4},
+    {"id": "F05", "legacy_id": "13", "title": "断瘴授印", "path": "res://scenes/rooms/stage13_miasma_marsh_caster_room.tscn", "role": "wind_seal_tutorial", "route_index": 5},
+    {"id": "F06", "legacy_id": "14", "title": "瘴气洼地", "path": "res://scenes/rooms/stage13_miasma_marsh_miasma_room.tscn", "role": "hazard_revisit", "route_index": 6},
+    {"id": "F07", "legacy_id": "15", "title": "交叉封印门", "path": "res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn", "role": "ability_gate_preview", "route_index": 7},
+    {"id": "F08", "legacy_id": "17", "title": "瘴泽镇界点", "path": "res://scenes/rooms/stage13_miasma_marsh_checkpoint_room.tscn", "role": "recovery", "route_index": 8},
+    {"id": "F09", "legacy_id": "19", "title": "瘴泽三路枢纽", "path": "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn", "role": "branch_hub_revisit", "route_index": 9},
+    {"id": "F10", "legacy_id": "B", "title": "瘴泽遗物藏所", "path": "res://scenes/rooms/stage13_miasma_marsh_resource_branch_room.tscn", "role": "low_risk_branch", "route_index": 10},
+    {"id": "F11", "legacy_id": "C", "title": "镇妖挑战祭台", "path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn", "role": "high_risk_branch", "route_index": 11},
+    {"id": "F12", "legacy_id": "21", "title": "瘴泽封印目标", "path": "res://scenes/rooms/stage13_miasma_marsh_goal_room.tscn", "role": "region_goal", "route_index": 12},
+    {"id": "F13", "legacy_id": "22", "title": "空行神龛", "path": "res://scenes/rooms/stage14_air_dash_shrine_room.tscn", "role": "ability_grant", "route_index": 13},
+    {"id": "F14", "legacy_id": "23", "title": "空冲证明", "path": "res://scenes/rooms/stage14_air_dash_gate_room.tscn", "role": "ability_proof", "route_index": 14},
+    {"id": "F15", "legacy_id": "24", "title": "回访集结", "path": "res://scenes/rooms/stage14_backtrack_hub_room.tscn", "role": "revisit_hub", "route_index": 15},
+    {"id": "F16", "legacy_id": "27", "title": "封妖综合试炼", "path": "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn", "role": "combat_climax", "route_index": 16},
+    {"id": "F17", "legacy_id": "28", "title": "封印守卫", "path": "res://scenes/rooms/stage15_seal_guardian_boss_room.tscn", "role": "boss", "route_index": 17},
+    {"id": "F18", "legacy_id": "29", "title": "战后归驿", "path": "res://scenes/rooms/stage15_completion_room.tscn", "role": "completion_return", "route_index": 18}
+  ],
+  "merged_rooms": [
+    {
+      "source_path": "res://scenes/rooms/goal_trial_room.tscn",
+      "target_id": "F02",
+      "target_path": "res://scenes/rooms/combat_trial_room.tscn",
+      "target_spawn_id": "combat_entry"
+    },
+    {
+      "source_path": "res://scenes/rooms/stage14_loop_return_room.tscn",
+      "target_id": "F15",
+      "target_path": "res://scenes/rooms/stage14_backtrack_hub_room.tscn",
+      "target_spawn_id": "stage14_backtrack_hub_start"
+    },
+    {
+      "source_path": "res://scenes/rooms/stage15_seal_pressure_room.tscn",
+      "target_id": "F16",
+      "target_path": "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn",
+      "target_spawn_id": "stage15_mixed_gauntlet_start"
+    },
+    {
+      "source_path": "res://scenes/rooms/stage15_challenge_branch_room.tscn",
+      "target_id": "F11",
+      "target_path": "res://scenes/rooms/stage13_miasma_marsh_challenge_branch_room.tscn",
+      "target_spawn_id": "stage13_challenge_branch_start"
+    }
+  ],
+  "reserve_room_paths": [
+    "res://scenes/rooms/stage9_zone_entry_room.tscn",
+    "res://scenes/rooms/stage9_zone_combat_room.tscn",
+    "res://scenes/rooms/stage9_zone_charger_room.tscn",
+    "res://scenes/rooms/stage9_zone_switch_room.tscn",
+    "res://scenes/rooms/stage9_zone_final_room.tscn",
+    "res://scenes/rooms/stage10_zone_aerial_room.tscn",
+    "res://scenes/rooms/stage10_zone_challenge_room.tscn",
+    "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn",
+    "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn",
+    "res://scenes/rooms/stage13_miasma_marsh_return_room.tscn",
+    "res://scenes/rooms/stage16_seal_release_threshold_room.tscn",
+    "res://scenes/rooms/stage16_talisman_relay_room.tscn",
+    "res://scenes/rooms/stage16_backtrack_confirmation_room.tscn",
+    "res://scenes/rooms/stage16_corruption_purge_room.tscn",
+    "res://scenes/rooms/stage16_alpha_demo_end_room.tscn",
+    "res://scenes/rooms/stage25_thunder_waste_entry_room.tscn",
+    "res://scenes/rooms/stage25_thunder_waste_stormfield_room.tscn",
+    "res://scenes/rooms/stage25_thunder_waste_slope_room.tscn",
+    "res://scenes/rooms/stage25_thunder_waste_fork_room.tscn",
+    "res://scenes/rooms/stage25_thunder_waste_relay_room.tscn",
+    "res://scenes/rooms/stage25_thunder_waste_outlook_room.tscn",
+    "res://scenes/rooms/stage10_zone_branch_room.tscn"
+  ],
+  "formal_main_route": [
+    "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09",
+    "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F03"
+  ],
+  "formal_branch_connections": [
+    {"from": "F09", "to": "F10", "kind": "resource_loop"},
+    {"from": "F10", "to": "F08", "kind": "permanent_loop"},
+    {"from": "F09", "to": "F11", "kind": "challenge_forward"},
+    {"from": "F11", "to": "F12", "kind": "challenge_forward"},
+    {"from": "F07", "to": "F14", "kind": "ability_shortcut", "requirements": ["wind_seal_unlocked", "air_dash_unlocked"]}
+  ]
+}

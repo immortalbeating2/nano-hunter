@@ -18,6 +18,8 @@ func after_each() -> void:
 	get_tree().paused = false
 	if InputMap.has_action("pause"):
 		Input.action_release("pause")
+	if InputMap.has_action("ui_down"):
+		Input.action_release("ui_down")
 
 
 func test_stage11_board_opens_three_fixed_entries_and_accepts_selected_bounty() -> void:
@@ -33,7 +35,9 @@ func test_stage11_board_opens_three_fixed_entries_and_accepts_selected_bounty() 
 		return
 
 	player.global_position = board.global_position
+	Input.action_press("ui_down")
 	room.call("_process", 0.0)
+	Input.action_release("ui_down")
 	var shell := main.get_node("HUD/DemoShell") as Control
 	var detail_panel := shell.get_node("DetailPanel") as Control
 	var bounty_list := shell.get_node_or_null(

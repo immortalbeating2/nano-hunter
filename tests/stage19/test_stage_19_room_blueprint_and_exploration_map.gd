@@ -15,6 +15,7 @@ const STAGE13_ENTRY_ROOM_PATH := "res://scenes/rooms/stage13_miasma_marsh_entry_
 
 func after_each() -> void:
 	get_tree().paused = false
+	Input.action_release("ui_down")
 
 
 func test_world_map_layout_covers_44_formal_rooms_and_eight_remote_connections() -> void:
@@ -99,7 +100,9 @@ func test_stage11_completes_short_chain_without_finishing_alpha_demo() -> void:
 		return
 
 	player.global_position = (room.get_node("GoalZone") as Node2D).global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(3)
+	Input.action_release("ui_down")
 	var snapshot: Dictionary = main.call("get_demo_progress_snapshot")
 	assert_true(bool(snapshot.get("short_chain_completed", false)))
 	assert_false(bool(snapshot.get("demo_completed", true)))
@@ -122,7 +125,9 @@ func test_stage11_left_returns_stage10_and_right_continues_stage13() -> void:
 		left_transitions.append({"target": target, "spawn": spawn})
 	)
 	left_player.global_position = (left_room.get_node("GoalZone") as Node2D).global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(2)
+	Input.action_release("ui_down")
 	left_player.global_position = (left_room.get_node("ReplayZone") as Node2D).global_position
 	await _advance_process_frames(2)
 	assert_eq(left_transitions.size(), 1)
@@ -138,7 +143,9 @@ func test_stage11_left_returns_stage10_and_right_continues_stage13() -> void:
 		right_transitions.append({"target": target, "spawn": spawn})
 	)
 	right_player.global_position = (right_room.get_node("GoalZone") as Node2D).global_position
+	Input.action_press("ui_down")
 	await _advance_process_frames(2)
+	Input.action_release("ui_down")
 	right_player.global_position = (right_room.get_node("ContinueZone") as Node2D).global_position
 	await _advance_process_frames(2)
 	assert_eq(right_transitions.size(), 1)

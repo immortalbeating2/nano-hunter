@@ -10,6 +10,7 @@ const START_ROOM_ENV := "NANO_HUNTER_REPLAY_START_ROOM"
 const START_SPAWN_ENV := "NANO_HUNTER_REPLAY_START_SPAWN"
 const DEBUG_REWARD_COUNT_ENV := "NANO_HUNTER_REPLAY_DEBUG_REWARD_COUNT"
 const DEBUG_AIR_DASH_ENV := "NANO_HUNTER_REPLAY_DEBUG_AIR_DASH"
+const DEBUG_WIND_SEAL_ENV := "NANO_HUNTER_REPLAY_DEBUG_WIND_SEAL"
 
 
 func _initialize() -> void:
@@ -31,6 +32,7 @@ func _run() -> void:
 	if not start_room.is_empty() and main.has_method("start_demo_at_room"):
 		var debug_progress := {
 			"air_dash_unlocked": OS.get_environment(DEBUG_AIR_DASH_ENV) == "1",
+			"wind_seal_unlocked": OS.get_environment(DEBUG_WIND_SEAL_ENV) == "1",
 			"stage14_backtrack_reward_count": int(OS.get_environment(DEBUG_REWARD_COUNT_ENV)),
 		}
 		main.call("start_demo_at_room", start_room, start_spawn, debug_progress)

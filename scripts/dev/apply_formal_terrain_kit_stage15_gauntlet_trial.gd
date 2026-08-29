@@ -3,11 +3,14 @@ extends SceneTree
 # Stage15 mixed gauntlet 正式 26x9 战斗场蓝图生成。
 # ponytail: 单房间显式蓝图；三类样板稳定后再判断是否提取 helper。
 
+const FORMAL_DEMO_RECOVERY_LOCKED := true
+const FORMAL_DEMO_RECOVERY_PROGRAM_ID := "formal_demo_recovery_b"
+
 const ROOM_PATH := "res://scenes/rooms/stage15_mixed_gauntlet_room.tscn"
 const ROOM_SCRIPT_PATH := "res://scripts/rooms/stage15_mixed_gauntlet_room.gd"
 const TERRAIN_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres"
 const SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres"
-const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres"
+const THIN_SURFACE_TILESET_PATH := "res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres"
 
 const TERRAIN_SCALE := Vector2(1.0 / 6.0, 1.0 / 6.0)
 const PLATFORM_OFFSET := Vector2(0.0, -16.0)
@@ -46,6 +49,9 @@ func _init() -> void:
 
 
 func _run() -> int:
+	if FORMAL_DEMO_RECOVERY_LOCKED:
+		push_error("该历史生成器已由 formal_demo_recovery_b 冻结，禁止覆盖 F01–F18。")
+		return 2
 	var terrain_tileset := load(TERRAIN_TILESET_PATH) as TileSet
 	var surface_tileset := load(SURFACE_TILESET_PATH) as TileSet
 	var thin_surface_tileset := load(THIN_SURFACE_TILESET_PATH) as TileSet

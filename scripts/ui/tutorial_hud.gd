@@ -1,19 +1,25 @@
 extends Control
 
 # TutorialHUD 是当前原型期统一的运行时 HUD。
-# 它只负责把主流程、房间和玩家暴露出来的稳定快照翻译成文本，
+# 它把主流程、房间和玩家暴露出来的稳定快照委托给各显示组件，
 # 不直接驱动房间推进，也不反向写入玩家或主流程状态。
 
 @onready var step_label: Label = $PromptPanel/StepLabel
 @onready var prompt_panel: Panel = $PromptPanel
 @onready var prompt_label: Label = $PromptPanel/PromptLabel
 @onready var battle_panel: Panel = $BattlePanel
+@onready var battle_frame_art: TextureRect = $BattlePanel/FrameArt
+@onready var battle_frame_art_expanded: TextureRect = $BattlePanel/FrameArtExpanded
+@onready var health_icon: TextureRect = $BattlePanel/HealthIcon
 @onready var status_label: Label = $BattlePanel/StatusLabel
 @onready var health_bar_back: ColorRect = $BattlePanel/HealthBarBack
 @onready var health_bar_fill: ColorRect = $BattlePanel/HealthBarFill
+@onready var health_meter_frame_art: TextureRect = $BattlePanel/HealthMeterFrameArt
+@onready var dash_icon: TextureRect = $BattlePanel/DashIcon
 @onready var dash_label: Label = $BattlePanel/DashLabel
 @onready var dash_bar_back: ColorRect = $BattlePanel/DashBarBack
 @onready var dash_bar_fill: ColorRect = $BattlePanel/DashBarFill
+@onready var dash_meter_frame_art: TextureRect = $BattlePanel/DashMeterFrameArt
 @onready var objective_icon: TextureRect = $BattlePanel/ObjectiveIcon
 @onready var recovery_charge_icon: TextureRect = $BattlePanel/RecoveryChargeIcon
 @onready var recovery_label: Label = $BattlePanel/RecoveryLabel
@@ -26,7 +32,9 @@ extends Control
 @onready var boss_meter_frame_art: TextureRect = $BattlePanel/BossMeterFrameArt
 @onready var progress_label: Label = $BattlePanel/ProgressLabel
 @onready var element_panel: Panel = $ElementPanel
-@onready var element_status_label: Label = $ElementPanel/ElementStatusLabel
+@onready var tutorial_attention: ColorRect = $TutorialAttention
+
+const InputBindingFormatter := preload("res://scripts/ui/input_binding_formatter.gd")
 
 const INPUT_MODE_KEYBOARD := "keyboard"
 const INPUT_MODE_CONTROLLER := "controller"
@@ -38,17 +46,45 @@ const COLOR_DASH_COOLDOWN := Color(0.467, 0.647, 0.698, 1.0)
 const COLOR_BAR_LOCKED := Color(0.26, 0.28, 0.30, 0.7)
 const COLOR_RECOVERY_CHARGING := Color(0.922, 0.729, 0.306, 1.0)
 const COLOR_RECOVERY_READY := Color(0.435, 0.906, 0.576, 1.0)
-const BATTLE_PANEL_DEFAULT_HEIGHT := 64.0
-const BATTLE_PANEL_RECOVERY_HEIGHT := 82.0
-const BATTLE_PANEL_BOSS_HEIGHT := 104.0
-const PROMPT_PANEL_FULL_HEIGHT := 48.0
-const PROMPT_PANEL_COMPACT_HEIGHT := 26.0
-const PROMPT_PANEL_FULL_WIDTH := 316.0
-const PROMPT_PANEL_COMPACT_WIDTH := 156.0
-const PROMPT_PANEL_RIGHT_OFFSET := 238.0
-const PROMPT_PANEL_HORIZONTAL_PADDING := 12.0
+const BATTLE_PANEL_WIDTH := 304.0
+const BATTLE_PANEL_DEFAULT_HEIGHT := 112.0
+const BATTLE_PANEL_RECOVERY_HEIGHT := 136.0
+const BATTLE_PANEL_BOSS_HEIGHT := 160.0
+const PROMPT_PANEL_FULL_HEIGHT := 128.0
+const PROMPT_PANEL_COMPACT_HEIGHT := 74.0
+const PROMPT_PANEL_FULL_WIDTH := 512.0
+const PROMPT_PANEL_COMPACT_WIDTH := 340.0
+const HUD_ROW_HEIGHT := 22.0
+const HUD_ROW_LABEL_WIDTH := 50.0
+const HUD_ROW_METER_OFFSET := 80.0
+const HUD_SAFE_MARGIN := 12.0
+const HUD_CONTENT_PADDING := 10.0
+const HUD_PANEL_GAP := 14.0
+const HUD_NARROW_REFLOW_WIDTH := 1180.0
+const HUD_MIN_PHYSICAL_SCALE := 0.8
 const HUD_REFERENCE_VIEWPORT := Vector2(1280.0, 720.0)
+const HUD_CANVAS_BASE := Vector2(2560.0, 1440.0)
 const HUD_MAX_SCALE := 2.0
+const ATTENTION_STATE_HIDDEN := &"hidden"
+const ATTENTION_STATE_ENTER := &"enter"
+const ATTENTION_STATE_IDLE := &"idle"
+const ATTENTION_STATE_WAITING := &"waiting"
+const ATTENTION_STATE_COMPLETE := &"complete"
+const ATTENTION_ENTER_DURATION := 0.22
+const ATTENTION_REMINDER_DELAY := 4.0
+const ATTENTION_COMPLETE_DURATION := 1.0
+const ATTENTION_PADDING := 8.0
+const ATTENTION_CYAN := Color(0.25, 0.92, 0.94, 1.0)
+const ATTENTION_GOLD := Color(0.96, 0.73, 0.31, 1.0)
+const TUTORIAL_STEP_IDS := {
+	&"move_jump": true,
+	&"dash": true,
+	&"attack": true,
+	&"stance": true,
+	&"wind_switch": true,
+	&"exit": true,
+	&"complete": true,
+}
 const TUTORIAL_PROMPTS_KEYBOARD := {
 	&"move_jump": "移动：A/D 或 ←/→。跳跃：Space / W / ↑。",
 	&"dash": "冲刺：K。按住方向穿过低顶门槛。",
@@ -69,47 +105,125 @@ var _main: Node
 var _room: Node
 var _player: CharacterBody2D
 var _input_mode := INPUT_MODE_KEYBOARD
+var _layout_viewport_size := HUD_REFERENCE_VIEWPORT
+var _attention_step_id := &""
+var _attention_state := ATTENTION_STATE_HIDDEN
+var _attention_elapsed := 0.0
+var _reduced_motion_enabled := false
+var _wind_unlock_observation_initialized := false
+var _wind_unlock_observed := false
+var _wind_switch_prompt_active := false
+var _wind_switch_start_element := &""
+var _room_context_cache: Dictionary = {}
 
 
 # 初始化只放默认占位文案，真正内容以后续 bind_main / bind_room / bind_player 为准。
 func _ready() -> void:
 	resized.connect(_layout_runtime_hud)
-	_layout_runtime_hud()
+	if element_panel.has_signal("layout_changed"):
+		var layout_callback := Callable(self, "_on_element_panel_layout_changed")
+		if not element_panel.is_connected("layout_changed", layout_callback):
+			element_panel.connect("layout_changed", layout_callback)
 	status_label.text = "生命"
 	dash_label.text = "冲刺"
-	step_label.text = "教程 1/4 · 移动与跳跃"
+	step_label.text = "教程 1/5 · 移动与跳跃"
 	if prompt_label.text.is_empty():
 		prompt_label.text = "正在等待教程房间..."
 	_sync_prompt_panel_layout()
+	_sync_battle_panel_layout(false, false)
+	_reduced_motion_enabled = bool(ProjectSettings.get_setting("accessibility/reduced_motion", false))
+	_apply_reduced_motion_to_attention()
+	if element_panel.has_method("set_reduced_motion_enabled"):
+		element_panel.call("set_reduced_motion_enabled", _reduced_motion_enabled)
+	_set_attention_state(ATTENTION_STATE_HIDDEN)
+	_layout_runtime_hud()
 	_update_health_status()
 	_update_dash_status()
 	_update_element_status()
 	_update_progress_status()
 
 
-# 运行态 HUD 按真实视口放大整个面板，保留内部 640 基准网格不逐项重排。
+# 运行态按真实视口缩放三块正式面板；窄屏把教程提示下移，避免三块横向互压。
 func _layout_runtime_hud() -> void:
-	var hud_scale := _runtime_hud_scale(get_viewport_rect().size)
+	var physical_size := Vector2(DisplayServer.window_get_size())
+	if physical_size.x <= 0.0 or physical_size.y <= 0.0:
+		physical_size = HUD_REFERENCE_VIEWPORT
+	_layout_runtime_hud_for_viewport(physical_size)
+
+
+# 独立入口让自动化按支持矩阵验证布局，不需要反复改变桌面窗口尺寸。
+func _layout_runtime_hud_for_viewport(viewport_size: Vector2) -> void:
+	_layout_viewport_size = viewport_size
+	var logical_size := _expanded_canvas_size(viewport_size)
+	var hud_scale := _runtime_hud_scale(viewport_size)
 	for panel: Control in [battle_panel, prompt_panel, element_panel]:
 		if panel != null:
 			panel.scale = Vector2(hud_scale, hud_scale)
+			panel.pivot_offset = Vector2.ZERO
+
+	var safe_margin := HUD_SAFE_MARGIN * hud_scale
+	battle_panel.position = Vector2(safe_margin, safe_margin)
+	element_panel.position = Vector2(
+		logical_size.x - safe_margin - element_panel.size.x * hud_scale,
+		safe_margin,
+	)
+	var battle_visual_rect := Rect2(battle_panel.position, battle_panel.size * hud_scale)
+	var element_visual_rect := Rect2(element_panel.position, element_panel.size * hud_scale)
+	if battle_visual_rect.intersects(element_visual_rect):
+		element_panel.position.y = battle_visual_rect.end.y + HUD_PANEL_GAP * hud_scale
+		element_visual_rect = Rect2(element_panel.position, element_panel.size * hud_scale)
+	var prompt_visual_size := prompt_panel.size * hud_scale
+	var prompt_position := Vector2((logical_size.x - prompt_visual_size.x) * 0.5, safe_margin)
+	var prompt_candidate := Rect2(prompt_position, prompt_visual_size)
+	if (
+		viewport_size.x < HUD_NARROW_REFLOW_WIDTH
+		or prompt_candidate.intersects(battle_visual_rect)
+		or prompt_candidate.intersects(element_visual_rect)
+	):
+		prompt_position.y = maxf(
+			battle_visual_rect.end.y,
+			element_visual_rect.end.y,
+		) + HUD_PANEL_GAP * hud_scale
+	prompt_panel.position = prompt_position
+	_update_attention_tracking()
 
 
-# ponytail: 单一比例阈值；如果后续做完整 HUD 皮肤系统，再换成 Theme 尺寸表。
+# 抵消 2560x1440 canvas stretch 后再施加物理字号目标；低分辨率只做有限压缩，常规窗口保持放大后的 HUD。
 func _runtime_hud_scale(viewport_size: Vector2) -> float:
-	return clampf(minf(viewport_size.x / HUD_REFERENCE_VIEWPORT.x, viewport_size.y / HUD_REFERENCE_VIEWPORT.y), 1.0, HUD_MAX_SCALE)
+	var physical_scale := clampf(
+		minf(viewport_size.x / HUD_REFERENCE_VIEWPORT.x, viewport_size.y / HUD_REFERENCE_VIEWPORT.y),
+		HUD_MIN_PHYSICAL_SCALE,
+		HUD_MAX_SCALE,
+	)
+	return physical_scale / maxf(_canvas_scale_for_physical_viewport(viewport_size), 0.01)
+
+
+# `canvas_items + expand` 会按窗口宽高比扩展逻辑画布；这里复现同一换算供布局和测试使用。
+func _expanded_canvas_size(viewport_size: Vector2) -> Vector2:
+	var physical_aspect := viewport_size.x / maxf(viewport_size.y, 1.0)
+	var base_aspect := HUD_CANVAS_BASE.x / HUD_CANVAS_BASE.y
+	if physical_aspect >= base_aspect:
+		return Vector2(HUD_CANVAS_BASE.y * physical_aspect, HUD_CANVAS_BASE.y)
+	return Vector2(HUD_CANVAS_BASE.x, HUD_CANVAS_BASE.x / maxf(physical_aspect, 0.01))
+
+
+func _canvas_scale_for_physical_viewport(viewport_size: Vector2) -> float:
+	var logical_size := _expanded_canvas_size(viewport_size)
+	return minf(viewport_size.x / logical_size.x, viewport_size.y / logical_size.y)
 
 
 # 逐帧刷新轻量状态文本，兜住信号漏连或房间切换瞬间的 HUD 同步问题。
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	# 逐帧刷新轻量文本，保证 dash 冷却、恢复充能和 Boss 生命不依赖信号完整性。
 	_update_dash_status()
 	_update_element_status()
 	_update_progress_status()
+	_update_tutorial_attention(delta)
 
 
 # 记录最近输入设备；教程提示词从同一份房间上下文重新翻译，不让键鼠和手柄文案分叉。
 func _input(event: InputEvent) -> void:
+	_handle_attention_input(event)
 	var next_mode := _input_mode
 	if event is InputEventJoypadButton and (event as InputEventJoypadButton).pressed:
 		next_mode = INPUT_MODE_CONTROLLER
@@ -122,7 +236,10 @@ func _input(event: InputEvent) -> void:
 		return
 
 	_input_mode = next_mode
-	_apply_room_context(_get_room_hud_context())
+	if _wind_switch_prompt_active:
+		_apply_wind_switch_prompt()
+	else:
+		_apply_room_context(_get_room_hud_context())
 
 
 # HUD 的绑定顺序允许主流程、房间和玩家分别到位，因此每次绑定后都要主动同步一次显示。
@@ -153,6 +270,8 @@ func bind_player(player: CharacterBody2D) -> void:
 		if _player.is_connected("health_changed", callback):
 			_player.disconnect("health_changed", callback)
 
+	# 教程观察期属于 HUD 会话，不属于 Player 实例；换房与临时解绑不能伪装成完成或新游戏。
+	# 真正的新游戏会让后续快照回到 wind_seal_unlocked=false，并由状态机统一复位。
 	_player = player
 	if _player != null and _player.has_signal("health_changed"):
 		_player.connect("health_changed", Callable(self, "_on_player_health_changed"))
@@ -175,9 +294,8 @@ func _on_tutorial_step_changed(step_id: StringName, prompt_text: String) -> void
 	# 教程步骤信号只刷新提示区；战斗状态和进度仍从快照统一读取。
 	var room_context := _get_room_hud_context()
 	room_context["step_id"] = step_id
-	step_label.text = str(room_context.get("step_title", str(step_id)))
-	prompt_label.text = _format_prompt_text(str(room_context.get("prompt_text", prompt_text)), _context_step_id(room_context))
-	_sync_prompt_panel_layout()
+	room_context["prompt_text"] = prompt_text
+	_apply_room_context(room_context)
 	_update_dash_status()
 	_update_element_status()
 	_update_progress_status()
@@ -243,33 +361,12 @@ func _update_health_status() -> void:
 	_set_bar_fill(health_bar_fill, health_bar_back, float(maxi(current_health, 0)) / float(maxi(max_health, 1)))
 
 
-# 元素面板只翻译玩家快照；切换、序列计时和反应判定仍由 Player 负责。
+# 元素面板只接收玩家公开快照；状态解析、纹理和动效由独立组件负责。
 func _update_element_status() -> void:
-	if element_status_label == null:
-		return
-
 	var player_status := _get_player_hud_status()
-	var stance_label := str(player_status.get("current_stance_label", "疾印"))
-	var element_label := str(player_status.get("current_element_label", "雷"))
-	var sequence: Dictionary = player_status.get("element_sequence", {})
-	var element_ids: Array = sequence.get("element_ids", [])
-	var sequence_labels: Array[String] = []
-	for element_id: Variant in element_ids:
-		sequence_labels.append("风" if StringName(str(element_id)) == &"wind" else "雷")
-
-	var sequence_text := "序列：—"
-	if not sequence_labels.is_empty():
-		var remaining := float(sequence.get("window_remaining", 0.0))
-		sequence_text = "序列：%s  %.1fs" % [" → ".join(sequence_labels), remaining]
-		var reaction_label := str(sequence.get("reaction_label", ""))
-		if not reaction_label.is_empty():
-			sequence_text += "  %s" % reaction_label
-
-	element_status_label.text = "%s · %s    Q 元素 / E 姿态\n%s" % [
-		stance_label,
-		element_label,
-		sequence_text,
-	]
+	_sync_wind_switch_tutorial(player_status)
+	if element_panel != null and element_panel.has_method("apply_snapshot"):
+		element_panel.call("apply_snapshot", player_status)
 
 
 # Demo 进度和 stage10 成长反馈都通过稳定快照组装成最小可读文案，
@@ -321,7 +418,7 @@ func _update_progress_status() -> void:
 
 	var wind_seal_text := "已获得" if bool(demo_snapshot.get("wind_seal_unlocked", false)) else ""
 	var build_label := str(demo_snapshot.get("active_build_label", ""))
-	if not wind_seal_text.is_empty() or (not build_label.is_empty() and build_label != "尚未调谐"):
+	if lines.size() < 2 and (not wind_seal_text.is_empty() or (not build_label.is_empty() and build_label != "尚未调谐")):
 		lines.append("风印：%s  圣物：%s" % [wind_seal_text if not wind_seal_text.is_empty() else "未获得", build_label])
 
 	progress_label.text = "\n".join(lines)
@@ -374,7 +471,13 @@ func _get_room_hud_context() -> Dictionary:
 		return {}
 
 	var context: Variant = _room.call("get_hud_context")
-	return context if context is Dictionary else {}
+	if not (context is Dictionary):
+		return {}
+	var display_context := (context as Dictionary).duplicate(true)
+	var formal_room_id := str(_room.get_meta("formal_room_id", ""))
+	if not formal_room_id.is_empty():
+		display_context["formal_room_id"] = formal_room_id
+	return display_context
 
 
 # 安全读取玩家 HUD 快照；HUD 不直接依赖玩家内部变量名。
@@ -397,14 +500,74 @@ func _get_main_demo_snapshot() -> Dictionary:
 	return snapshot if snapshot is Dictionary else {}
 
 
-# 把房间上下文字段应用到提示区，不碰战斗状态和主流程进度行。
+# 房间 signal 始终先更新缓存；风印教学激活期间只缓存，不能越过上下文提示覆盖当前 PromptPanel。
 func _apply_room_context(context: Dictionary) -> void:
-	# 房间上下文只写提示区文本，进度和战斗状态由专门刷新函数拼接。
+	_room_context_cache = context.duplicate(true)
+	if _wind_switch_prompt_active:
+		_apply_wind_switch_prompt()
+		return
+	_render_room_context(_room_context_cache)
+
+
+# 真正写 PromptPanel 的唯一房间入口；完成风印教学时也用它恢复最新缓存。
+func _render_room_context(context: Dictionary) -> void:
 	if context.has("step_title"):
-		step_label.text = str(context["step_title"])
+		var formal_room_id := str(context.get("formal_room_id", ""))
+		step_label.text = (
+			"%s · %s" % [formal_room_id, context["step_title"]]
+			if not formal_room_id.is_empty()
+			else str(context["step_title"])
+		)
 	if context.has("prompt_text"):
 		prompt_label.text = _format_prompt_text(str(context["prompt_text"]), _context_step_id(context))
 	_sync_prompt_panel_layout()
+	_set_attention_step(_context_step_id(context))
+
+
+# 解锁观察状态机只接受同一玩家绑定生命周期内的 false -> true；首次看到 true 仅建立 baseline。
+func _sync_wind_switch_tutorial(player_status: Dictionary) -> void:
+	if player_status.is_empty():
+		return
+	var unlocked := bool(player_status.get("wind_seal_unlocked", false))
+	var element_id := StringName(str(player_status.get("current_element_id", "thunder")))
+	if not _wind_unlock_observation_initialized:
+		_wind_unlock_observation_initialized = true
+		_wind_unlock_observed = unlocked
+		return
+
+	if not unlocked:
+		_wind_unlock_observed = false
+		if _wind_switch_prompt_active:
+			_wind_switch_prompt_active = false
+			_wind_switch_start_element = &""
+			_render_room_context(_room_context_cache)
+		return
+
+	if not _wind_unlock_observed:
+		_wind_unlock_observed = true
+		_wind_switch_prompt_active = true
+		_wind_switch_start_element = element_id
+		_apply_wind_switch_prompt()
+		return
+
+	if _wind_switch_prompt_active and element_id != _wind_switch_start_element:
+		_wind_switch_prompt_active = false
+		_wind_switch_start_element = &""
+		_render_room_context(_room_context_cache)
+
+
+# 风印提示复用唯一 PromptPanel 与 TutorialAttention；设备变化只重算这一条绑定文案。
+func _apply_wind_switch_prompt() -> void:
+	var formal_room_id := str(_room_context_cache.get("formal_room_id", ""))
+	step_label.text = (
+		"%s · 风印已解 · 元素切换" % formal_room_id
+		if not formal_room_id.is_empty()
+		else "风印已解 · 元素切换"
+	)
+	var binding := InputBindingFormatter.action_label(&"element_switch", _input_mode)
+	prompt_label.text = "元素：%s。在风印与雷印之间切换一次。" % binding
+	_sync_prompt_panel_layout()
+	_set_attention_step(&"wind_switch")
 
 
 # 空正文房间只保留标题条，避免正式截图里出现大块空提示面板。
@@ -414,16 +577,114 @@ func _sync_prompt_panel_layout() -> void:
 
 	var has_prompt := not prompt_label.text.strip_edges().is_empty()
 	prompt_label.visible = has_prompt
-	prompt_panel.size.y = PROMPT_PANEL_FULL_HEIGHT if has_prompt else PROMPT_PANEL_COMPACT_HEIGHT
 	var panel_width := PROMPT_PANEL_FULL_WIDTH if has_prompt else PROMPT_PANEL_COMPACT_WIDTH
-	prompt_panel.offset_left = PROMPT_PANEL_RIGHT_OFFSET - panel_width
-	prompt_panel.offset_right = PROMPT_PANEL_RIGHT_OFFSET
-	step_label.offset_right = panel_width - PROMPT_PANEL_HORIZONTAL_PADDING
-	prompt_label.offset_right = panel_width - PROMPT_PANEL_HORIZONTAL_PADDING
+	var panel_height := PROMPT_PANEL_FULL_HEIGHT if has_prompt else PROMPT_PANEL_COMPACT_HEIGHT
+	prompt_panel.size = Vector2(panel_width, panel_height)
+	var safe_rect := _panel_content_rect(prompt_panel)
+	var text_rect := safe_rect.grow(-HUD_CONTENT_PADDING)
+	step_label.position = text_rect.position
+	step_label.size = Vector2(text_rect.size.x, 26.0)
+	var body_top := text_rect.position.y + 28.0
+	prompt_label.position = Vector2(text_rect.position.x, body_top)
+	prompt_label.size = Vector2(text_rect.size.x, maxf(text_rect.end.y - body_top, 0.0))
+	_layout_runtime_hud_for_viewport(_layout_viewport_size)
+
+
+# 三块面板都从当前 StyleBox 的 content margin 计算可用区域，避免纹样边框改版后文字再次压线。
+func _panel_content_rect(panel: Panel) -> Rect2:
+	if panel == null:
+		return Rect2()
+	var stylebox := panel.get_theme_stylebox("panel")
+	if stylebox == null:
+		return Rect2(Vector2.ZERO, panel.size)
+	var margins := Vector4(
+		stylebox.get_content_margin(SIDE_LEFT),
+		stylebox.get_content_margin(SIDE_TOP),
+		stylebox.get_content_margin(SIDE_RIGHT),
+		stylebox.get_content_margin(SIDE_BOTTOM),
+	)
+	return Rect2(
+		Vector2(margins.x, margins.y),
+		Vector2(
+			maxf(panel.size.x - margins.x - margins.z, 0.0),
+			maxf(panel.size.y - margins.y - margins.w, 0.0),
+		),
+	)
+
+
+func _sync_battle_panel_layout(has_boss: bool, has_recovery: bool) -> void:
+	if battle_panel == null:
+		return
+	var safe_rect := _panel_content_rect(battle_panel)
+	_layout_meter_row(health_icon, status_label, health_meter_frame_art, health_bar_back, health_bar_fill, safe_rect, 0.0)
+	_layout_meter_row(dash_icon, dash_label, dash_meter_frame_art, dash_bar_back, dash_bar_fill, safe_rect, HUD_ROW_HEIGHT)
+	_layout_meter_row(recovery_charge_icon, recovery_label, recovery_meter_frame_art, recovery_bar_back, recovery_bar_fill, safe_rect, HUD_ROW_HEIGHT * 2.0)
+	_layout_boss_meter_row(safe_rect, HUD_ROW_HEIGHT * 3.0)
+
+	var progress_row := 4.0 if has_boss else 3.0 if has_recovery else 2.0
+	var progress_y := safe_rect.position.y + HUD_ROW_HEIGHT * progress_row
+	var show_objective_icon := not has_boss and not has_recovery
+	var progress_x := safe_rect.position.x + 26.0 if show_objective_icon else safe_rect.position.x
+	progress_label.position = Vector2(progress_x, progress_y)
+	progress_label.size = Vector2(maxf(safe_rect.end.x - progress_x, 0.0), maxf(safe_rect.end.y - progress_y, 0.0))
+	if objective_icon != null:
+		objective_icon.visible = show_objective_icon
+		objective_icon.position = Vector2(safe_rect.position.x, progress_y + 2.0)
+		objective_icon.size = Vector2(18.0, 18.0)
+
+
+func _layout_meter_row(
+	icon: TextureRect,
+	label: Label,
+	frame: TextureRect,
+	back: ColorRect,
+	fill: ColorRect,
+	safe_rect: Rect2,
+	row_offset: float
+) -> void:
+	var row_y := safe_rect.position.y + row_offset
+	var meter_x := safe_rect.position.x + HUD_ROW_METER_OFFSET
+	var meter_width := maxf(safe_rect.end.x - meter_x, 0.0)
+	icon.position = Vector2(safe_rect.position.x, row_y + 2.0)
+	icon.size = Vector2(18.0, 18.0)
+	label.position = Vector2(safe_rect.position.x + 26.0, row_y)
+	label.size = Vector2(HUD_ROW_LABEL_WIDTH, 22.0)
+	frame.position = Vector2(meter_x, row_y)
+	frame.size = Vector2(meter_width, 22.0)
+	back.position = Vector2(meter_x + 7.0, row_y + 7.0)
+	back.size = Vector2(maxf(meter_width - 14.0, 0.0), 8.0)
+	fill.position = back.position + Vector2(2.0, 2.0)
+	fill.size.y = 4.0
+
+
+func _layout_boss_meter_row(safe_rect: Rect2, row_offset: float) -> void:
+	var row_y := safe_rect.position.y + row_offset
+	var meter_x := safe_rect.position.x + HUD_ROW_METER_OFFSET
+	var meter_width := maxf(safe_rect.end.x - meter_x, 0.0)
+	boss_label.position = Vector2(safe_rect.position.x, row_y)
+	boss_label.size = Vector2(HUD_ROW_METER_OFFSET - 8.0, 22.0)
+	boss_meter_frame_art.position = Vector2(meter_x, row_y)
+	boss_meter_frame_art.size = Vector2(meter_width, 22.0)
+	boss_bar_back.position = Vector2(meter_x + 7.0, row_y + 7.0)
+	boss_bar_back.size = Vector2(maxf(meter_width - 14.0, 0.0), 8.0)
+	boss_bar_fill.position = boss_bar_back.position + Vector2(2.0, 2.0)
+	boss_bar_fill.size.y = 4.0
+
+
+# 运行态截图与回归测试只读取这个统一结果，不再复制面板边距常量。
+func get_hud_content_safe_rects() -> Dictionary:
+	return {
+		"PromptPanel": _panel_content_rect(prompt_panel),
+		"BattlePanel": _panel_content_rect(battle_panel),
+		"ElementPanel": _panel_content_rect(element_panel),
+	}
 
 
 # 教程提示按最近输入设备翻译；非教程房或未知步骤继续显示房间原文。
 func _format_prompt_text(raw_text: String, step_id: StringName) -> String:
+	if step_id == &"stance":
+		var key := InputBindingFormatter.action_label(&"stance_switch", _input_mode)
+		return "姿态：%s。切换一次疾印 / 御印，观察攻守差异。" % key
 	var prompts := TUTORIAL_PROMPTS_CONTROLLER if _input_mode == INPUT_MODE_CONTROLLER else TUTORIAL_PROMPTS_KEYBOARD
 	return str(prompts.get(step_id, raw_text))
 
@@ -435,6 +696,155 @@ func _context_step_id(context: Dictionary) -> StringName:
 
 	var step_id: Variant = context["step_id"]
 	return step_id if step_id is StringName else StringName(str(step_id))
+
+
+# 唯一共享符光层只追踪语义步骤；输入设备改写同一步文案时不会生成第二个动画实例。
+func _set_attention_step(step_id: StringName) -> void:
+	if not TUTORIAL_STEP_IDS.has(step_id):
+		_attention_step_id = &""
+		_set_attention_state(ATTENTION_STATE_HIDDEN)
+		return
+	if step_id == _attention_step_id and _attention_state != ATTENTION_STATE_HIDDEN:
+		return
+
+	_attention_step_id = step_id
+	_set_attention_state(
+		ATTENTION_STATE_COMPLETE if step_id == &"complete" else ATTENTION_STATE_ENTER
+	)
+
+
+# 注意状态是进入、静止、等待提醒、完成四态；Shader 始终是同一个实例。
+func _set_attention_state(state: StringName, reset_elapsed: bool = true) -> void:
+	_attention_state = state
+	if reset_elapsed:
+		_attention_elapsed = 0.0
+	if tutorial_attention == null:
+		return
+
+	tutorial_attention.visible = state != ATTENTION_STATE_HIDDEN
+	var shader_material := tutorial_attention.material as ShaderMaterial
+	if shader_material == null:
+		return
+	var color := ATTENTION_GOLD if state == ATTENTION_STATE_COMPLETE else ATTENTION_CYAN
+	var intensity := 0.0
+	match state:
+		ATTENTION_STATE_ENTER:
+			intensity = 1.12
+		ATTENTION_STATE_IDLE:
+			intensity = 0.42
+		ATTENTION_STATE_WAITING:
+			intensity = 0.92
+		ATTENTION_STATE_COMPLETE:
+			intensity = 1.25
+	shader_material.set_shader_parameter("glow_color", color)
+	shader_material.set_shader_parameter("intensity", intensity)
+	_apply_reduced_motion_to_attention()
+
+
+# TIME 流动留在 Shader 内；脚本只管理四态节奏和共享层的轻微强调。
+func _update_tutorial_attention(delta: float) -> void:
+	if _attention_state == ATTENTION_STATE_HIDDEN or tutorial_attention == null:
+		return
+	_attention_elapsed += maxf(delta, 0.0)
+	if _attention_state == ATTENTION_STATE_ENTER and _attention_elapsed >= ATTENTION_ENTER_DURATION:
+		_set_attention_state(ATTENTION_STATE_IDLE, false)
+	if (
+		_attention_state == ATTENTION_STATE_IDLE
+		and _attention_step_id != &"complete"
+		and _attention_elapsed >= ATTENTION_REMINDER_DELAY
+	):
+		_set_attention_state(ATTENTION_STATE_WAITING, false)
+	if _attention_state == ATTENTION_STATE_COMPLETE and _attention_elapsed >= ATTENTION_COMPLETE_DURATION:
+		_set_attention_state(ATTENTION_STATE_IDLE, false)
+
+	var emphasis := 1.0
+	if not _reduced_motion_enabled:
+		if _attention_state == ATTENTION_STATE_ENTER:
+			var enter_progress := clampf(_attention_elapsed / ATTENTION_ENTER_DURATION, 0.0, 1.0)
+			emphasis = 1.0 + sin(enter_progress * PI) * 0.018
+		elif _attention_state == ATTENTION_STATE_WAITING:
+			emphasis = 1.0 + (0.5 + 0.5 * sin(_attention_elapsed * 2.2)) * 0.007
+	tutorial_attention.scale = Vector2.ONE * emphasis
+
+
+# 任一明确的键盘、手柄按钮或摇杆操作都视为玩家已看到提示，停止等待呼吸提醒。
+func _handle_attention_input(event: InputEvent) -> void:
+	var is_relevant := false
+	if event is InputEventKey:
+		var key_event := event as InputEventKey
+		is_relevant = key_event.pressed and not key_event.echo
+	elif event is InputEventJoypadButton:
+		is_relevant = (event as InputEventJoypadButton).pressed
+	elif event is InputEventJoypadMotion:
+		is_relevant = absf((event as InputEventJoypadMotion).axis_value) > 0.35
+	if not is_relevant or _attention_state == ATTENTION_STATE_HIDDEN:
+		return
+	_set_attention_state(ATTENTION_STATE_IDLE)
+
+
+# 共享层追踪 PromptPanel 的实际缩放后矩形，不复制到各个 Label 或输入设备分支。
+func _update_attention_tracking() -> void:
+	if tutorial_attention == null or prompt_panel == null:
+		return
+	var target_rect := Rect2(prompt_panel.position, prompt_panel.size * prompt_panel.scale)
+	var padding := ATTENTION_PADDING * prompt_panel.scale.x
+	tutorial_attention.position = target_rect.position - Vector2.ONE * padding
+	tutorial_attention.size = target_rect.size + Vector2.ONE * padding * 2.0
+	tutorial_attention.pivot_offset = tutorial_attention.size * 0.5
+
+
+# 设置页可直接调用此入口；项目设置缺失时默认保留动效。
+func set_reduced_motion_enabled(enabled: bool) -> void:
+	_reduced_motion_enabled = enabled
+	_apply_reduced_motion_to_attention()
+	if element_panel != null and element_panel.has_method("set_reduced_motion_enabled"):
+		element_panel.call("set_reduced_motion_enabled", enabled)
+	if enabled and tutorial_attention != null:
+		tutorial_attention.scale = Vector2.ONE
+
+
+# 共鸣盘只在 idle/active 尺寸真正切换时请求重排，逐帧快照刷新不会触发布局抖动。
+func _on_element_panel_layout_changed() -> void:
+	_layout_runtime_hud_for_viewport(_layout_viewport_size)
+
+
+func _apply_reduced_motion_to_attention() -> void:
+	if tutorial_attention == null:
+		return
+	var shader_material := tutorial_attention.material as ShaderMaterial
+	if shader_material != null:
+		shader_material.set_shader_parameter("motion_amount", 0.0 if _reduced_motion_enabled else 1.0)
+
+
+# 提供给运行态证据与设置页预览，不暴露内部 Tween 或 Shader 参数细节。
+func get_tutorial_attention_state() -> StringName:
+	return _attention_state
+
+
+func get_tutorial_attention_snapshot() -> Dictionary:
+	return {
+		"step_id": _attention_step_id,
+		"state": _attention_state,
+		"reduced_motion": _reduced_motion_enabled,
+		"target": "PromptPanel" if _attention_state != ATTENTION_STATE_HIDDEN else "",
+	}
+
+
+# 运行态复核读取的必须是当前可见控件，而不是伪造的预期文案或测试专用状态。
+func get_contextual_tutorial_snapshot() -> Dictionary:
+	var prompt_is_visible := prompt_panel != null and prompt_panel.is_visible_in_tree()
+	var attention_is_visible := tutorial_attention != null and tutorial_attention.is_visible_in_tree()
+	return {
+		"active": _wind_switch_prompt_active and prompt_is_visible and attention_is_visible,
+		"step": _attention_step_id,
+		"step_id": _attention_step_id,
+		"title": step_label.text if step_label != null else "",
+		"body": prompt_label.text if prompt_label != null else "",
+		"prompt_visible": prompt_is_visible,
+		"attention_state": _attention_state,
+		"attention_visible": attention_is_visible,
+		"input_mode": _input_mode,
+	}
 
 
 # 用一个原生 ColorRect 宽度表达资源比例；边框和填充节点保持在同一套固定 HUD 网格里。
@@ -476,16 +886,17 @@ func _update_boss_meter(room_context: Dictionary) -> void:
 
 	var panel_height := BATTLE_PANEL_BOSS_HEIGHT if has_boss else BATTLE_PANEL_RECOVERY_HEIGHT if has_recovery else BATTLE_PANEL_DEFAULT_HEIGHT
 	if battle_panel != null:
-		battle_panel.size.y = panel_height
-
-	var progress_y := 82.0 if has_boss else 64.0 if has_recovery else 45.0
-	var show_objective_icon := not has_boss and not has_recovery
-	var progress_x := 26.0 if show_objective_icon else 11.0
-	progress_label.position = Vector2(progress_x, progress_y)
-	progress_label.size = Vector2(184.0 - progress_x, panel_height - progress_y - 6.0)
-	if objective_icon != null:
-		objective_icon.visible = show_objective_icon
-		objective_icon.position = Vector2(11.0, progress_y + 3.0)
+		# 普通与增高状态各用一张完整框体；整张切换可避免官印、链路和侧翼被纵向拉形。
+		var uses_expanded_frame := panel_height > BATTLE_PANEL_DEFAULT_HEIGHT
+		if battle_frame_art != null:
+			battle_frame_art.visible = not uses_expanded_frame
+		if battle_frame_art_expanded != null:
+			battle_frame_art_expanded.visible = uses_expanded_frame
+		var size_changed := not is_equal_approx(battle_panel.size.y, panel_height) or not is_equal_approx(battle_panel.size.x, BATTLE_PANEL_WIDTH)
+		battle_panel.size = Vector2(BATTLE_PANEL_WIDTH, panel_height)
+		_sync_battle_panel_layout(has_boss, has_recovery)
+		if size_changed:
+			_layout_runtime_hud_for_viewport(_layout_viewport_size)
 
 	if not has_boss:
 		_set_bar_fill(boss_bar_fill, boss_bar_back, 0.0)

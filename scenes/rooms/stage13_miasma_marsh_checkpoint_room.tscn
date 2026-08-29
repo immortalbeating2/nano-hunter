@@ -1,6 +1,7 @@
 [gd_scene format=4]
 
 [ext_resource type="Script" path="res://scripts/rooms/stage13_miasma_marsh_room_base.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_background_ai01.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/art/environment/biome_02_miasma_marsh/biome02_miasma_marsh_tiles_ai01.png" id="4"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/dac_continuous_stone_underlay.png" id="4_8pjf3"]
@@ -8,7 +9,7 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="7_kxmes"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="8_osipt"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="9_krc3w"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="10_8isxh"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="10_8isxh"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -24,19 +25,36 @@ size = Vector2(96, 128)
 
 [node name="Stage13MiasmaMarshCheckpointRoom" type="Node2D" unique_id=1080575227]
 script = ExtResource("1")
-camera_limits = Rect2i(-384, -256, 1152, 512)
-next_room_path = "res://scenes/rooms/stage13_miasma_marsh_pressure_room.tscn"
-next_spawn_id = &"stage13_pressure_start"
-previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_crossfire_room.tscn"
-previous_spawn_id = &"stage13_crossfire_return"
+camera_limits = Rect2i(-320, -240, 1280, 480)
+next_room_path = "res://scenes/rooms/stage13_miasma_marsh_branch_hub_room.tscn"
+next_spawn_id = &"stage13_branch_hub_start"
+previous_room_path = "res://scenes/rooms/stage13_miasma_marsh_gate_room.tscn"
+previous_spawn_id = &"stage13_gate_return"
 spawn_positions = {
-&"stage13_checkpoint_from_resource_branch": Vector2(576, 204),
-&"stage13_checkpoint_return": Vector2(576, 204),
+&"stage13_checkpoint_from_resource_branch": Vector2(416, 76),
+&"stage13_checkpoint_return": Vector2(880, 172),
 &"stage13_checkpoint_start": Vector2(-256, 204)
 }
 checkpoint_spawn_id = &"stage13_checkpoint_start"
 default_step_id = &"stage13_checkpoint"
-checkpoint_on_ready = true
+checkpoint_on_ready = false
+checkpoint_requires_down_input = true
+metadata/formal_room_id = "F08"
+metadata/route_role = "safe_checkpoint_and_resource_loop_landing"
+metadata/safe_floor_y = 160.0
+metadata/normal_exit_uses_generic_door = false
+metadata/transition_visual_type = "miasma_boundary"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 2
+layout_profile = &"safe_recovery"
+solid_rects = Array[Rect2]([Rect2(-320, 224, 1280, 64)])
+one_way_rects = Array[Rect2]([Rect2(352, 96, 256, 16)])
+route_heights = {
+&"checkpoint_floor": 224.0,
+&"resource_loop_landing": 96.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=1457319689]
 z_index = -4
@@ -92,6 +110,15 @@ metadata/asset_binding_note = "dac_formal_tileset_underlay_support"
 [node name="RecoveryPoint" type="Marker2D" parent="." unique_id=1901846359]
 position = Vector2(128, 192)
 
+[node name="CheckpointZone" type="Marker2D" parent="."]
+position = Vector2(128, 192)
+metadata/interaction_verb = "ui_down"
+metadata/interaction_role = "safe_recovery"
+
+[node name="ResourceLoopLandingMarker" type="Marker2D" parent="."]
+position = Vector2(416, 76)
+metadata/route_role = "f10_resource_loop_safe_landing"
+
 [node name="CheckpointArt" type="Sprite2D" parent="RecoveryPoint" unique_id=232785227]
 z_index = 4
 scale = Vector2(0.28, 0.28)
@@ -100,7 +127,7 @@ metadata/asset_id = "shrine_gate_prop_atlas_ai01"
 metadata/runtime_source = "shrine_gate_prop_atlas_ai01.checkpoint_active"
 
 [node name="ExitZone" type="Area2D" parent="." unique_id=9978941]
-position = Vector2(736, 160)
+position = Vector2(912, 172)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=633704998]
 shape = SubResource("3")
@@ -133,6 +160,7 @@ metadata/asset_id = "dac_formal_terrain_tileset_ai01_64"
 metadata/asset_binding_note = "dac_formal_foreground_edge_decor"
 
 [node name="TerrainCollisionVisual" type="TileMapLayer" parent="." unique_id=771870520]
+collision_enabled = false
 visible = false
 z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
@@ -140,6 +168,7 @@ tile_map_data = PackedByteArray("AAD6/wMAAAACAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAA
 tile_set = ExtResource("8_osipt")
 
 [node name="PlatformCollisionVisual" type="TileMapLayer" parent="." unique_id=427242586]
+collision_enabled = false
 visible = false
 z_index = 2
 position = Vector2(0, -16)
@@ -187,7 +216,7 @@ tile_set = ExtResource("8_osipt")
 collision_enabled = false
 
 [node name="LeftExitZone" type="Area2D" parent="." unique_id=1227519946]
-position = Vector2(-352, 160)
+position = Vector2(-304, 204)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExitZone" unique_id=1907473180]
 shape = SubResource("RectangleShape2D_osipt")

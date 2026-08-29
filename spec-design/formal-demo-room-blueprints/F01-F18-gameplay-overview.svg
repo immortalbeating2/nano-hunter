@@ -1,0 +1,183 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1040' viewBox='0 0 1600 1040' data-view='gameplay_overview'><rect width='1600' height='1040' fill='#0d1822'/>
+<text x='60' y='58' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F01–F18 Blueprint V2 · 玩法节奏总览</text><text x='60' y='90' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='16'>玩家认知、压力、连接、遭遇、奖励与失败恢复；总目标 30–45 分钟</text>
+<rect x='55' y='125' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='69' y='156' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F01 · 初印试炼</text>
+<text x='69' y='187' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：教学</text>
+<text x='69' y='211' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→1/5→1/5→1/5</text>
+<text x='69' y='235' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：180-240s</text>
+<text x='69' y='259' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：25-40s</text>
+<text x='69' y='283' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：1</text>
+<text x='69' y='307' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='69' y='331' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：tutorial_completed</text>
+<text x='69' y='355' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：当前教学段起点</text>
+<rect x='310' y='125' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='324' y='156' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F02 · 首次镇妖</text>
+<text x='324' y='187' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：首次胜利</text>
+<text x='324' y='211' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5→2/5→0/5</text>
+<text x='324' y='235' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：120-180s</text>
+<text x='324' y='259' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：20-35s</text>
+<text x='324' y='283' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='324' y='307' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：1</text>
+<text x='324' y='331' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：first_bounty_claimed</text>
+<text x='324' y='355' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：观察台</text>
+<rect x='565' y='125' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='579' y='156' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F03 · 镇妖驿站</text>
+<text x='579' y='187' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：Hub</text>
+<text x='579' y='211' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→0/5→0/5</text>
+<text x='579' y='235' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：60-120s</text>
+<text x='579' y='259' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：25-50s</text>
+<text x='579' y='283' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：1</text>
+<text x='579' y='307' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='579' y='331' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：none</text>
+<text x='579' y='355' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：checkpoint</text>
+<rect x='820' y='125' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='834' y='156' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F04 · 瘴泽入口</text>
+<text x='834' y='187' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：区域揭示</text>
+<text x='834' y='211' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→1/5→1/5</text>
+<text x='834' y='235' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：60-90s</text>
+<text x='834' y='259' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：35-55s</text>
+<text x='834' y='283' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='834' y='307' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='834' y='331' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：none</text>
+<text x='834' y='355' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：段首宽台</text>
+<rect x='1075' y='125' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='1089' y='156' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F05 · 断瘴授印</text>
+<text x='1089' y='187' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：单机制教学</text>
+<text x='1089' y='211' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5→0/5→2/5</text>
+<text x='1089' y='235' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：120-180s</text>
+<text x='1089' y='259' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：30-50s</text>
+<text x='1089' y='283' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='1089' y='307' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：1</text>
+<text x='1089' y='331' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：wind_seal_unlocked</text>
+<text x='1089' y='355' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：S3 左缘</text>
+<rect x='1330' y='125' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='1344' y='156' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F06 · 瘴气洼地</text>
+<text x='1344' y='187' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：环境危险</text>
+<text x='1344' y='211' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5→2/5→1/5</text>
+<text x='1344' y='235' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：90-150s</text>
+<text x='1344' y='259' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：35-60s</text>
+<text x='1344' y='283' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='1344' y='307' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='1344' y='331' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：f06_air_dash_reward_claim…</text>
+<text x='1344' y='355' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：本段入口安全台</text>
+<rect x='55' y='417' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='69' y='448' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F07 · 交叉封印门</text>
+<text x='69' y='479' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：能力门预告</text>
+<text x='69' y='503' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→1/5→1/5</text>
+<text x='69' y='527' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：60-100s</text>
+<text x='69' y='551' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：20-35s</text>
+<text x='69' y='575' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：3</text>
+<text x='69' y='599' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='69' y='623' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：f07_cross_gate_completed</text>
+<text x='69' y='647' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：当前前庭</text>
+<rect x='310' y='417' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='324' y='448' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F08 · 瘴泽镇界点</text>
+<text x='324' y='479' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：恢复</text>
+<text x='324' y='503' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→0/5</text>
+<text x='324' y='527' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：30-60s</text>
+<text x='324' y='551' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：20-35s</text>
+<text x='324' y='575' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='324' y='599' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='324' y='623' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：none</text>
+<text x='324' y='647' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：checkpoint</text>
+<rect x='565' y='417' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='579' y='448' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F09 · 瘴泽三路枢纽</text>
+<text x='579' y='479' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：分支选择</text>
+<text x='579' y='503' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→1/5→1/5</text>
+<text x='579' y='527' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：90-150s</text>
+<text x='579' y='551' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：35-60s</text>
+<text x='579' y='575' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：5</text>
+<text x='579' y='599' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='579' y='623' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：f09_air_dash_route_comple…</text>
+<text x='579' y='647' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：三幡判读点</text>
+<rect x='820' y='417' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='834' y='448' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F10 · 瘴泽遗物藏所</text>
+<text x='834' y='479' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：低风险奖励</text>
+<text x='834' y='503' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：1/5→0/5</text>
+<text x='834' y='527' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：90-150s</text>
+<text x='834' y='551' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：20-35s</text>
+<text x='834' y='575' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：1</text>
+<text x='834' y='599' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='834' y='623' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：marsh_relic_collected</text>
+<text x='834' y='647' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：支路入口</text>
+<rect x='1075' y='417' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='1089' y='448' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F11 · 镇妖挑战祭台</text>
+<text x='1089' y='479' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：高风险战斗</text>
+<text x='1089' y='503' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：2/5→4/5→0/5</text>
+<text x='1089' y='527' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：150-240s</text>
+<text x='1089' y='551' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：25-45s</text>
+<text x='1089' y='575' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='1089' y='599' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：1</text>
+<text x='1089' y='623' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：warden_sigil_collected</text>
+<text x='1089' y='647' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：祭台前坪</text>
+<rect x='1330' y='417' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='1344' y='448' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F12 · 瘴泽封印目标</text>
+<text x='1344' y='479' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：区域目标</text>
+<text x='1344' y='503' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→1/5</text>
+<text x='1344' y='527' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：90-150s</text>
+<text x='1344' y='551' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：25-45s</text>
+<text x='1344' y='575' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='1344' y='599' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='1344' y='623' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：miasma_goal_completed</text>
+<text x='1344' y='647' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：对应入口</text>
+<rect x='55' y='709' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='69' y='740' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F13 · 空行神龛</text>
+<text x='69' y='771' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：能力授予</text>
+<text x='69' y='795' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5</text>
+<text x='69' y='819' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：45-90s</text>
+<text x='69' y='843' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：15-25s</text>
+<text x='69' y='867' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='69' y='891' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='69' y='915' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：air_dash_unlocked</text>
+<text x='69' y='939' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：神龛入口</text>
+<rect x='310' y='709' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='324' y='740' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F14 · 空冲证明</text>
+<text x='324' y='771' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：能力证明</text>
+<text x='324' y='795' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→1/5→2/5</text>
+<text x='324' y='819' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：120-180s</text>
+<text x='324' y='843' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：30-55s</text>
+<text x='324' y='867' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：3</text>
+<text x='324' y='891' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='324' y='915' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：air_dash_proof_completed</text>
+<text x='324' y='939' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：对应跨距起跳台</text>
+<rect x='565' y='709' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='579' y='740' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F15 · 回访集结</text>
+<text x='579' y='771' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：回访集结</text>
+<text x='579' y='795' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→0/5</text>
+<text x='579' y='819' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：60-120s</text>
+<text x='579' y='843' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：30-55s</text>
+<text x='579' y='867' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='579' y='891' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='579' y='915' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：none</text>
+<text x='579' y='939' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：入口</text>
+<rect x='820' y='709' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='834' y='740' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F16 · 封妖综合试炼</text>
+<text x='834' y='771' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：综合战斗</text>
+<text x='834' y='795' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：2/5→3/5→4/5→1/5</text>
+<text x='834' y='819' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：240-360s</text>
+<text x='834' y='843' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：120-200s</text>
+<text x='834' y='867' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='834' y='891' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：3</text>
+<text x='834' y='915' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：mixed_gauntlet_completed</text>
+<text x='834' y='939' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：当前战段左缘</text>
+<rect x='1075' y='709' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='1089' y='740' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F17 · 封印守卫</text>
+<text x='1089' y='771' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：Boss</text>
+<text x='1089' y='795' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→5/5</text>
+<text x='1089' y='819' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：300-480s</text>
+<text x='1089' y='843' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：180-360s</text>
+<text x='1089' y='867' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='1089' y='891' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：1</text>
+<text x='1089' y='915' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：seal_guardian_defeated</text>
+<text x='1089' y='939' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：Boss 本地 checkpoint</text>
+<rect x='1330' y='709' width='235' height='258' rx='11' fill='#172c39' stroke='#5b7787' stroke-width='2'/>
+<text x='1344' y='740' fill='#f1dca5' font-family='Segoe UI' font-size='20' font-weight='700'>F18 · 战后归驿</text>
+<text x='1344' y='771' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>阶段：降压返回</text>
+<text x='1344' y='795' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>压力：0/5→0/5</text>
+<text x='1344' y='819' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>首访：60-120s</text>
+<text x='1344' y='843' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>回访：25-45s</text>
+<text x='1344' y='867' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>连接：2</text>
+<text x='1344' y='891' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>遭遇：0</text>
+<text x='1344' y='915' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>奖励：bounty_cycle_completed</text>
+<text x='1344' y='939' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='13'>重置：完成房入口</text>
+<text x='60' y='1010' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='14'>教学→首次胜利→Hub→区域揭示→机制教学→环境危险→门控→恢复→分支→目标→赋能→证明→回访→综合战斗→Boss→归驿</text></svg>

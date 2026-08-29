@@ -16,9 +16,10 @@
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/dac_formal_terrain_tileset_ai01_64.tileset.tres" id="16_go4n2"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/formal_terrain_kit_ai01.tileset.tres" id="17_sqpot"]
 [ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/shrine_trial_tileset_ai01.tileset.tres" id="18_37q1f"]
-[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_thin_platform_visual_ai01.tileset.tres" id="19_iwscs"]
+[ext_resource type="TileSet" path="res://assets/art/tilesets/editor_tilesets/tutorial_jump_platform_visual_ai02.tileset.tres" id="19_iwscs"]
 [ext_resource type="Texture2D" path="res://assets/art/editor_resources/equipment_pickup_atlas_ai01/019_equipment_pickup_atlas_ai01_auto_020_c02.atlas_texture.tres" id="nh_challenge_marker"]
 [ext_resource type="Texture2D" path="res://assets/art/textures/material_texture_atlas_ai01.png" id="nh_mat"]
+[ext_resource type="Script" path="res://scripts/rooms/formal_room_graybox_layout.gd" id="phase2_graybox"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 384)
@@ -37,19 +38,39 @@ size = Vector2(96, 128)
 
 [node name="Stage15MixedGauntletRoom" type="Node2D" unique_id=629684941]
 script = ExtResource("1_3eits")
-challenge_branch_room_path = "res://scenes/rooms/stage15_challenge_branch_room.tscn"
 next_room_path = "res://scenes/rooms/stage15_seal_guardian_boss_room.tscn"
 next_spawn_id = &"stage15_boss_start"
+previous_room_path = "res://scenes/rooms/stage14_backtrack_hub_room.tscn"
+previous_spawn_id = &"stage14_hub_return"
 spawn_positions = {
 &"stage15_boss_return": Vector2(960, 204),
-&"stage15_mixed_gauntlet_return": Vector2(-208, 160),
-&"stage15_mixed_gauntlet_start": Vector2(-384, 160)
+&"stage15_mixed_gauntlet_return": Vector2(-208, 204),
+&"stage15_mixed_gauntlet_start": Vector2(-384, 204)
 }
 checkpoint_spawn_id = &"stage15_mixed_gauntlet_return"
 default_step_id = &"stage15_mixed_gauntlet"
 cleared_step_id = &"stage15_mixed_gauntlet_clear"
 checkpoint_on_ready = true
 require_all_enemies_defeated = true
+metadata/formal_room_id = "F16"
+metadata/route_role = "three_mobility_combat_climax"
+metadata/safe_floor_y = 160.0
+metadata/normal_exit_uses_generic_door = false
+metadata/gate_semantics = "clear_barrier"
+metadata/transition_visual_type = "boss_approach"
+
+[node name="Phase2GrayboxLayout" type="Node2D" parent="."]
+script = ExtResource("phase2_graybox")
+segment_count = 4
+layout_profile = &"four_beat_mixed_gauntlet"
+solid_rects = Array[Rect2]([Rect2(-512, 224, 1664, 64)])
+one_way_rects = Array[Rect2]([Rect2(-64, 160, 192, 16), Rect2(320, 176, 192, 16), Rect2(352, 128, 320, 16), Rect2(640, 96, 256, 16), Rect2(896, 128, 192, 16)])
+route_heights = {
+&"aerial": 96.0,
+&"charger": 256.0,
+&"clear_exit": 192.0,
+&"ground": 224.0
+}
 
 [node name="Backdrop" type="Polygon2D" parent="." unique_id=450718326]
 z_index = -4
@@ -141,9 +162,25 @@ position = Vector2(832, 104)
 script = ExtResource("11_y3gnd")
 config = ExtResource("12_62v5p")
 
+[node name="GroundRouteMarker" type="Marker2D" parent="."]
+position = Vector2(64, 160)
+metadata/required_ability = "move"
+metadata/enemy_role = "basic_melee"
+
+[node name="DashRouteMarker" type="Marker2D" parent="."]
+position = Vector2(448, 160)
+metadata/required_ability = "dash"
+metadata/enemy_role = "ground_charger"
+
+[node name="AirDashRouteMarker" type="Marker2D" parent="."]
+position = Vector2(832, 72)
+metadata/required_ability = "air_dash"
+metadata/enemy_role = "aerial_sentinel"
+
 [node name="GateBarrier" type="StaticBody2D" parent="." unique_id=116858524]
 z_index = 2
 position = Vector2(1024, 168)
+metadata/gate_semantics = "clear_barrier"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GateBarrier" unique_id=863082886]
 shape = SubResource("5")
@@ -199,6 +236,7 @@ z_index = 1
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAD4/wMAAAACAAAAAAD5/wMAAAABAAAAAAD6/wMAAAAAAAAAAAD7/wMAAAABAAAAAAD8/wMAAAAAAAAAAAD9/wMAAAABAAAAAAD+/wMAAAAAAAAAAAD//wMAAAABAAAAAAAAAAMAAAAAAAAAAAABAAMAAAABAAAAAAACAAMAAAAAAAAAAAADAAMAAAABAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAABAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAABAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAABAAAAAAAKAAMAAAAAAAAAAAALAAMAAAABAAAAAAAMAAMAAAAAAAAAAAANAAMAAAABAAAAAAAOAAMAAAAAAAAAAAAPAAMAAAABAAAAAAAQAAMAAAAAAAAAAAARAAMAAAADAAAAAAA=")
 tile_set = ExtResource("17_sqpot")
+collision_enabled = false
 metadata/terrain_template_layer = true
 metadata/asset_binding_note = "tilemap_collision_authority_static_terrain"
 
@@ -209,6 +247,7 @@ position = Vector2(0, -16)
 scale = Vector2(0.16666667, 0.16666667)
 tile_map_data = PackedByteArray("AAD5/wIAAAABAAIAAAD6/wIAAAAAAAIAAAD7/wIAAAAAAAIAAAD8/wIAAAACAAIAAAAFAAIAAAABAAIAAAAGAAIAAAAAAAIAAAAHAAIAAAAAAAIAAAAIAAIAAAACAAIAAAALAAIAAAABAAIAAAAMAAIAAAAAAAIAAAANAAIAAAAAAAIAAAAOAAIAAAACAAIAAAA=")
 tile_set = ExtResource("17_sqpot")
+collision_enabled = false
 metadata/terrain_template_layer = true
 metadata/asset_binding_note = "tilemap_one_way_collision_authority_combat_platform"
 

@@ -1,0 +1,64 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000' data-view='side_view_gameplay'>
+<defs><marker id='side-arrow' markerWidth='9' markerHeight='9' refX='8' refY='3' orient='auto'><path d='M0,0 L0,6 L9,3 z' fill='context-stroke'/></marker><pattern id='side-grid' width='32' height='32' patternUnits='userSpaceOnUse'><path d='M32 0 L0 0 0 32' fill='none' stroke='#263947' stroke-width='1'/></pattern></defs>
+<rect width='1600' height='1000' fill='#0b151d'/><rect x='1' y='1' width='1598' height='998' fill='none' stroke='#5e7686' stroke-width='2'/>
+<text x='70' y='55' fill='#f4e8c8' font-family='Microsoft YaHei,Segoe UI' font-size='30' font-weight='700'>F17 · 封印守卫 · 横版玩法施工图</text>
+<text x='70' y='88' fill='#9fc1d2' font-family='Microsoft YaHei,Segoe UI' font-size='17'>view=side_view_gameplay · 2 屏 · blueprint_status=gameplay_blueprint_complete</text>
+<text x='1530' y='55' text-anchor='end' fill='#d9bf77' font-family='Microsoft YaHei,Segoe UI' font-size='16'>主地标：镇妖大印与守卫石座</text>
+<rect x='70' y='150' width='1460' height='410' rx='10' fill='#132532' stroke='#506a79' stroke-width='2'/>
+<rect x='70' y='150' width='1460' height='82' fill='#102330'/><text x='82' y='174' fill='#5f8193' font-family='Segoe UI' font-size='13'>sky / far</text>
+<rect x='70' y='232' width='1460' height='104' fill='#162c37'/><text x='82' y='257' fill='#6f91a0' font-family='Segoe UI' font-size='13'>mid / landmark</text>
+<rect x='70' y='336' width='1460' height='224' fill='url(#side-grid)' opacity='0.85'/><text x='82' y='361' fill='#7899a8' font-family='Segoe UI' font-size='13'>near / gameplay / foreground-safe</text>
+<rect x='75' y='155' width='720' height='400' fill='none' stroke='#4f7182' stroke-width='1' stroke-dasharray='5 6'/>
+<text x='82' y='198' fill='#c6d6dd' font-family='Segoe UI' font-size='16' font-weight='700'>S1 camera</text>
+<line x1='800' y1='150' x2='800' y2='560' stroke='#88a1ae' stroke-width='2' stroke-dasharray='8 8'/>
+<rect x='805' y='155' width='720' height='400' fill='none' stroke='#4f7182' stroke-width='1' stroke-dasharray='5 6'/>
+<text x='812' y='198' fill='#c6d6dd' font-family='Segoe UI' font-size='16' font-weight='700'>S2 camera</text>
+<polyline points='106.5,414.6 522.6,414.6 858.4,403.2 1252.6,403.2 1471.6,403.2' fill='none' stroke='#263d49' stroke-width='20' stroke-linecap='square' stroke-linejoin='round'/>
+<polyline points='106.5,414.6 522.6,414.6 858.4,403.2 1252.6,403.2 1471.6,403.2' fill='none' stroke='#55d6e8' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' marker-end='url(#side-arrow)'/>
+<polyline points='522.6,414.6 858.4,403.2' fill='none' stroke='#263d49' stroke-width='20' stroke-linecap='square' stroke-linejoin='round'/>
+<polyline points='522.6,414.6 858.4,403.2' fill='none' stroke='#e98989' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='5 5' marker-end='url(#side-arrow)'/>
+<path d='M128.4 402.6 L140.4 414.6 L128.4 426.6 L116.4 414.6 Z' fill='#6fd3ff' stroke='#071118' stroke-width='2'/>
+<text x='142.4' y='402.6' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>来自 F16</text>
+<rect x='484.4' y='405.6' width='18' height='18' rx='3' fill='#6ee7c7' stroke='#071118' stroke-width='2'/>
+<text x='507.4' y='402.6' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>Boss 本地重试</text>
+<rect x='732.6' y='394.2' width='18' height='18' rx='3' fill='#b97777' stroke='#071118' stroke-width='2'/>
+<text x='755.6' y='391.2' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>重型封印门</text>
+<path d='M1135.8 391.2 L1147.8 413.2 L1123.8 413.2 Z' fill='#ff5964' stroke='#071118' stroke-width='2'/>
+<text x='1149.8' y='391.2' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>封印守卫</text>
+<path d='M1471.6 391.2 L1483.6 403.2 L1471.6 415.2 L1459.6 403.2 Z' fill='#77e39f' stroke='#071118' stroke-width='2'/>
+<text x='1485.6' y='391.2' fill='#f2f5f6' font-family='Microsoft YaHei,Segoe UI' font-size='12' paint-order='stroke' stroke='#0b151d' stroke-width='4'>胜利后通往 F18</text>
+<circle cx='1471.6' cy='403.2' r='15' fill='none' stroke='#f4e8c8' stroke-width='2'/><text x='1471.6' y='407.2' text-anchor='middle' fill='#f4e8c8' font-family='Segoe UI' font-size='10'>SP</text>
+<circle cx='128.4' cy='414.6' r='15' fill='none' stroke='#f4e8c8' stroke-width='2'/><text x='128.4' y='418.6' text-anchor='middle' fill='#f4e8c8' font-family='Segoe UI' font-size='10'>SP</text>
+<rect x='70' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#55d6e8' stroke-width='2'/>
+<text x='86' y='622' fill='#55d6e8' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>1 空间与移动</text>
+<text x='86' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>分段：2 屏 / 1280u</text>
+<text x='86' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>首次：300-480s</text>
+<text x='86' y='701' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>回访：180-360s</text>
+<text x='86' y='724' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>节拍：0→5/5，前室停顿后Boss峰值</text>
+<text x='86' y='747' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>路线：入口至锁镜 arena / 本地失败重试</text>
+<rect x='438' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#ef7d7d' stroke-width='2'/>
+<text x='454' y='622' fill='#ef7d7d' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>2 遭遇与危险</text>
+<text x='454' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>策略：authored_combat_encounters</text>
+<text x='454' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>遭遇：F17_seal_guardian</text>
+<text x='454' y='701' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>危险：Boss 攻击 / arena 边界</text>
+<text x='454' y='724' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>回落：前室与 arena 连续地面</text>
+<text x='454' y='747' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>重置：完整重置 Boss 与 arena，10-25 秒内可重开</text>
+<rect x='806' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#c984f7' stroke-width='2'/>
+<text x='822' y='622' fill='#c984f7' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>3 交互、门控与状态</text>
+<text x='822' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>连接：F17_to_F18 / F17_to_F16</text>
+<text x='822' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>交互：Boss 本地重试 / 重型封印门</text>
+<text x='822' y='701' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>奖励：seal_guardian_defeated</text>
+<text x='822' y='724' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>持久状态：seal_guardian_defeated / forward_</text>
+<text x='822' y='743' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>room_completed</text>
+<text x='822' y='766' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>地图：主线出口高；返回口中；可选支路中；秘密低。</text>
+<rect x='1174' y='590' width='355' height='320' rx='10' fill='#142733' stroke='#e9b95d' stroke-width='2'/>
+<text x='1190' y='622' fill='#e9b95d' font-family='Microsoft YaHei,Segoe UI' font-size='18' font-weight='700'>4 相机、地标与表现</text>
+<text x='1190' y='655' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>地标：镇妖大印与守卫石座</text>
+<text x='1190' y='678' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>正向：入口安全地面、主地标与前方第一决策同屏，保留右向 look-ahead</text>
+<text x='1190' y='697' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>。</text>
+<text x='1190' y='720' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>反向：反向出生点、返回地板与最近出口隔离同屏，保留左向 look-ahead</text>
+<text x='1190' y='739' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>。</text>
+<text x='1190' y='762' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>锁镜：Boss 确认后锁定 arena；失败或胜利解除。</text>
+<text x='1190' y='785' fill='#c8d7dd' font-family='Microsoft YaHei,Segoe UI' font-size='12'>遮挡：遮挡角色轮廓超过 15% 或进入 64u 安全圈时淡出</text>
+<text x='70' y='958' fill='#87a8b8' font-family='Microsoft YaHei,Segoe UI' font-size='13'>◆ Spawn/出口 ｜ ▲ 遭遇/危险 ｜ ■ 交互/门控 ｜ 粗灰线=可踩结构 ｜ 彩线=玩家路线 ｜ 四层合同均来自同一 JSON</text>
+<text x='1530' y='980' text-anchor='end' fill='#668091' font-family='Segoe UI' font-size='12'>formal_demo_room_recovery_b · blueprint v2 · view=side_view_gameplay</text></svg>
