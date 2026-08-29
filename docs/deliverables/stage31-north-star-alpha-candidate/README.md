@@ -2,9 +2,9 @@
 
 ## 候选状态
 
-- 当前是可交 Gate26H 真人试玩的源码技术候选，不是 release-final，也没有 Windows 导出包。
+- 本目录记录旧 `44` 房 / Stage31 源码技术候选；F01–F18 Blueprint V2 已取代其正式路线基线，因此候选状态为 `SUPERSEDED`，不是 release-final，也没有 Windows 导出包。
 - Preflight26A、Gate26M、Stage27、Stage28、Stage29、Stage30、Stage31 的批准范围均已实现并通过各自技术门禁。
-- Gate26H 真人路线、手柄舒适度、美术审美、音频试听 / 授权和真实 21:9 仍为开放门禁；完成后才进入 Stage32 Beta Candidate 收口。
+- Gate26H 以 `SUPERSEDED / NOT EXECUTED` 关闭，不标记 `PASS`，也不再作为分支合并或 Stage32 的命名硬门禁。真人路线、手柄舒适度、美术审美、音频试听 / 授权和真实 21:9 仍未签核，待整体关卡设计冻结后由新候选门禁承接。
 
 ## 试玩入口
 
@@ -24,7 +24,7 @@
 ## 交付文件
 
 - `release-notes.md`：候选内容、验证与已知边界。
-- `gate26h-human-playtest-checklist.md`：真人首次路线、回访、手柄、美术、音频、存档与宽屏签核步骤。
+- `gate26h-human-playtest-checklist.md`：已停止执行的历史真人签核范围，用于建立未来新门禁时核对未豁免项。
 - `candidate-manifest.json`：机器可读的候选状态、验证数字和开放门禁。
 
 ## 明确未完成

@@ -1,5 +1,7 @@
 # Stage31 北极星 Alpha 技术候选 Release Notes
 
+> 状态：旧 `44` 房候选已被 F01–F18 Blueprint V2 与后续整体关卡重设取代。Gate26H 于 2026-08-29 以 `SUPERSEDED / NOT EXECUTED` 关闭，不代表真人验收通过。
+
 ## 核心闭环
 
 - 世界图保持 `44` 个正式房间、`8` 条远端连接，不为存档或传送扩房。
@@ -39,7 +41,7 @@
 - Stage31 UI 为复用 Stage16 / Stage28 运行资产的确定性 `4x4` 合成图集，SHA256 为 `dcd3c7496a67339440ac7b08ba75c3e26ded8e1ea4f797d9d91b370aba62d715`。
 - 自动化与 MCP 不替代 Luna / Boss 动作质量、VFX 遮挡、32px / 64px UI 可读性、无 HUD 理解度和真实 21:9 审美签核。
 
-## 当前阻断
+## 当前边界
 
-- Gate26H 尚未由真人签署。
-- Windows export、设置页、最终 mix、发布授权总检与 Beta 包属于 Stage32；本候选不冒充可发布构建。
+- Gate26H 不再执行或签署；其路线、手柄、存档、21:9、美术与音频要求仍未通过，将由关卡设计冻结后的新候选门禁承接。
+- Windows export、设置页、最终 mix、发布授权总检与 Beta 包需要随新关卡路线重新规划；本候选不冒充可发布构建。

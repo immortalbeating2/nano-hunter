@@ -6,7 +6,7 @@
   "main_scene": "res://scenes/main/main.tscn",
   "base_commit": "00a0071",
   "candidate_revision": "commit-containing-this-manifest",
-  "state": "technical_candidate_gate26h_pending",
+  "state": "superseded_by_f01_f18_blueprint_v2",
   "content": {
     "formal_rooms": 44,
     "remote_connections": 8,
@@ -60,11 +60,15 @@
   },
   "human_gate": {
     "id": "Gate26H",
-    "status": "pending",
-    "checklist": "docs/deliverables/stage31-north-star-alpha-candidate/gate26h-human-playtest-checklist.md"
+    "status": "superseded",
+    "execution": "not_executed",
+    "superseded_on": "2026-08-29",
+    "superseded_by": "F01-F18 Blueprint V2 and subsequent whole-level redesign",
+    "checklist": "docs/deliverables/stage31-north-star-alpha-candidate/gate26h-human-playtest-checklist.md",
+    "successor": "to_be_defined_after_level_design_freeze"
   },
   "export": {
     "windows_build_present": false,
-    "owner": "Stage32 Beta Candidate"
+    "owner": "future_candidate_after_level_design_freeze"
   }
 }

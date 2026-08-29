@@ -4,6 +4,8 @@
 美术评估：`docs/assets/2026-07-31-post-stage26-north-star-art-gap-assessment.md`
 执行清单：`docs/implementation-plans/2026-07-31-stage27-32-north-star-beta-roadmap.md`
 
+> 2026-08-29 取代说明：本计划保留为旧 `44` 房 / Stage31 候选的历史路线。F01–F18 Blueprint V2 与后续整体关卡重设已取代其中的 Gate26H → Stage32 依赖；旧 Gate26H 以 `SUPERSEDED / NOT EXECUTED` 关闭，真人验收要求转交给关卡设计冻结后的新候选门禁。
+
 ## Summary
 
 Stage21-26 已完成批准的北极星 Alpha 系统范围，但现有元素 / 姿态主要靠同动作染色与文字表达，Luna 和既有 Boss 只达到技术可运行，驿站 / Build 缺少专属表现，雷泽仍是复用背景和 Polygon 灰盒，音频与跨进程存档缺失。下一路线冻结无边界扩张，按 `Preflight26A -> Gate26M -> Stage27-31 -> Gate26H -> Stage32` 推进一个可公开复核的 Beta 垂直切片。

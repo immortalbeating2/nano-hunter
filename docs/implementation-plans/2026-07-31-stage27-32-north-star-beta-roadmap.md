@@ -1,5 +1,7 @@
 # Stage27-32 北极星 Beta 路线执行清单
 
+> 2026-08-29 取代说明：本清单保留为旧 `44` 房 / Stage31 候选的历史执行记录。F01–F18 Blueprint V2 与后续整体关卡重设已取代 Gate26H → Stage32 依赖；旧 Gate26H 以 `SUPERSEDED / NOT EXECUTED` 关闭，未完成的真人项目不再按本清单执行。
+
 ## 入口
 
 - [x] 北极星差距评估：`spec-design/2026-07-31-post-stage26-north-star-gap-and-stage27-32-roadmap.md`
@@ -21,10 +23,11 @@
 
 - [x] 已批准延后到 Stage31 完成后；未完成时 Stage26 保持“待外部人工签核”，但不阻塞 Stage27-31。
 - [x] Stage31 技术候选与正式真人执行单已交付：`docs/deliverables/stage31-north-star-alpha-candidate/gate26h-human-playtest-checklist.md`。
-- [ ] 真人从主菜单完成一次首次通关、能力回访、悬赏回交和两槽 Build 调整。
-- [ ] 用实体手柄记录菜单、元素 / 姿态切换、误按、舒适度和迷路点。
-- [ ] 复核 Luna 全动作、四类技能 VFX、Seal Guardian 与雷泽 Boss 的读招 / 命中 / 阶段表现。
-- [ ] 完成 Stage27-31 音频候选接受 / 拒绝、真实 21:9 和 32px / 64px UI 可读性记录。
+- [x] 2026-08-29：旧 Gate26H 因候选基线被取代，以 `SUPERSEDED / NOT EXECUTED` 关闭；不是 `PASS`。
+- ~~真人从主菜单完成一次首次通关、能力回访、悬赏回交和两槽 Build 调整。~~ 未执行，转交未来新候选门禁。
+- ~~用实体手柄记录菜单、元素 / 姿态切换、误按、舒适度和迷路点。~~ 未执行，转交未来新候选门禁。
+- ~~复核 Luna 全动作、四类技能 VFX、Seal Guardian 与雷泽 Boss 的读招 / 命中 / 阶段表现。~~ 未执行，转交未来新候选门禁。
+- ~~完成 Stage27-31 音频候选接受 / 拒绝、真实 21:9 和 32px / 64px UI 可读性记录。~~ 未执行，转交未来新候选门禁。
 
 ## Stage27：正式战斗美术、Luna 全动作集与首批音频
 
@@ -92,4 +95,4 @@
 - [x] 新资产先登记 manifest；source、candidate、runtime 和 release 状态保持分离。
 - [x] 非平凡脚本 / 测试有中文文件头与职责说明。
 - [x] 相关 GUT、Godot import、主场景 smoke、运行态复核和 `git diff --check` 均有新鲜证据。
-- [x] Stage27-31 的状态、时间线和当日日志已逐阶段更新；Gate26H 人工结果仍保持开放。
+- [x] Stage27-31 的状态、时间线和当日日志已逐阶段更新；旧 Gate26H 人工结果以 `SUPERSEDED / NOT EXECUTED` 关闭，未来新候选门禁待关卡设计冻结后定义。

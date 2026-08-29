@@ -4,9 +4,12 @@
 
 ## 2026-08-29
 
+- **旧 Gate26H 以 SUPERSEDED 关闭**：Gate26H 原本针对旧 `44` 房 / Stage31 技术候选；F01–F18 Blueprint V2 已改变正式路线，后续还将重设整体关卡，因此旧清单不再执行，最终状态为 `SUPERSEDED / NOT EXECUTED`，不是 `PASS`。
+  结果：旧 Gate26H 不再阻塞本分支合并，也不再作为 Stage32 的命名硬门禁；自然路线、实体手柄、真实 Continue / 双驿站、21:9、美术、音频与授权等真人要求继续保留，待关卡设计冻结后由新候选门禁承接。详情见 `docs/progress/logs/2026-08-29.md`。
+
 - **Stage17–31 / Blueprint V2 长分支受控收口完成**：冻结新内容后，将原先跨资产、正式房间、HUD、运行时、测试与文档的批量未提交现场拆为两个可审计检查点：`9b6634f` 收口运行视觉资产与审计基线，`2d48fe4` 收口正式房间、Blueprint V2 运行时与回归；归属不明的本机配置、根目录草稿、空 backend 文件和重复场景均未混入。
   结果：Stage16 的 F18→F03 旧测试改为当前 `WaystationZone + ui_down` 生产合同；全量初跑揭示的 19 个旧 TileMap、旧坐标、旧 F 编号与旧交互期望全部改读当前 Phase2 / 生产契约，F09 Air Dash 顺序脆弱断言同步删除。
-  关键验证或结论：Godot `4.6.3` import、`room_design 64/64 / 2289`、Stage16 `22/22 / 646`、Stage31 `6/6 / 84`、资产 `4/4 / 770`、`81` 项 strict asset package 通过；最终递归 GUT 为 `66` scripts / `446/446` tests / `12076` assertions、exit `0`。既有 ObjectDB orphan/leak warning 保留；Gate26H 真人路线、实体手柄、21:9、美术 / 音频决定仍是合并前硬门禁，因此未 merge、push 或发布。详情见 `docs/progress/logs/2026-08-29.md`。
+  关键验证或结论：Godot `4.6.3` import、`room_design 64/64 / 2289`、Stage16 `22/22 / 646`、Stage31 `6/6 / 84`、资产 `4/4 / 770`、`81` 项 strict asset package 通过；最终递归 GUT 为 `66` scripts / `446/446` tests / `12076` assertions、exit `0`。既有 ObjectDB orphan/leak warning 保留；本次未 merge、push 或发布，旧 Gate26H 后续已按上条取代决定关闭。详情见 `docs/progress/logs/2026-08-29.md`。
 
 ## 2026-08-27
 
