@@ -1,6 +1,6 @@
 # Plugin Inventory
 
-Last Updated: 2026-07-16
+Last Updated: 2026-09-03
 
 ## 当前结论
 
@@ -18,7 +18,7 @@ Last Updated: 2026-07-16
 - `project.godot` 早期曾残留 `BetterTerrain` autoload / UID 引用，而 `better-terrain` 在当前 Godot 4.6.3 环境下有解析和兼容性风险。
 - `DialogueManager` 与 `ControllerIcons` 虽然没有在 `[editor_plugins]` 启用，但曾作为 `[autoload]` 默认加载；任何 autoload 都会在项目启动时参与加载。
 - 清理 `.godot` 缓存后，历史 UID 引用容易重新暴露为 `Unrecognized UID`。
-- `godot_mcp` 在 headless import 中会启动并停止 MCP bridge，这类日志不是错误；真正需要警惕的是旧 bridge 占用 `6505-6509` 导致当前会话错连。
+- `godot_mcp` 在 headless import 中会启动并停止 MCP bridge，这类日志不是错误；真正需要警惕的是同 workspace 旧 bridge 或错误 owner 占用 `17605-17619`，legacy `6505-6509` 只作为兼容诊断。
 
 ## 插件状态表
 
@@ -37,7 +37,7 @@ Last Updated: 2026-07-16
 
 短期必须使用：
 
-- `godot_mcp`：用于 Godot 编辑器运行态复核、截图、场景树检查和 MCP 工具链。
+- `godot_mcp`：Godot MCP Pro `1.16.0-nh.1`，用于 Godot 编辑器运行态复核、截图、场景树检查、headless 运行和 MCP 工具链。
 - `gut`：当前测试体系依赖它，必须保留。
 
 中期可能有用，但不应现在默认启用：
@@ -70,7 +70,7 @@ Last Updated: 2026-07-16
 2. `project.godot` 的 `[editor_plugins]` 是否启用了当前阶段不需要的插件。
 3. `.godot` 导入缓存是否来自旧插件状态。
 4. Godot MCP 是否在 headless import 中正常启动又退出。这种日志不等于错误。
-5. `6505-6509` 是否有旧 `godot-mcp-pro` bridge 占用，导致当前会话错连。
+5. `17605-17619` 是否有同 workspace 旧 `godot-mcp-pro` bridge 或错误 owner 占用；`6505-6509` 只按 legacy 兼容排查。
 
 ## 启用新插件前检查
 

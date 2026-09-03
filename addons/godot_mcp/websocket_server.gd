@@ -35,6 +35,10 @@ const RENDEZVOUS_PATH := "res://.godot/godot-mcp-pro/current-bridge.json"
 const RENDEZVOUS_STALE_AFTER := 15.0
 const PING_INTERVAL := 5.0
 const INACTIVITY_TIMEOUT := 30.0
+const HANDSHAKE_TIMEOUT := 10.0
+const TOKEN_PATH := "user://mcp_auth_token"
+const TOKEN_SETTING := "godot_mcp_pro/require_connection_token"
+const AUTH_TIMEOUT := 5.0
 
 var _ports: Array[int] = []
 var _port_sources: Dictionary = {}  # port -> source label
@@ -48,11 +52,16 @@ var _connect_times: Dictionary = {}  # port -> float (elapsed seconds since conn
 var _last_activity: Dictionary = {}  # port -> seconds since last received message
 var _ping_timers: Dictionary = {}  # port -> seconds since last ping sent
 var _stale_ports: Dictionary = {}  # port -> heartbeat timeout state for status panel
+var _handshake_timers: Dictionary = {}  # port -> seconds stuck connecting or closing
+var _authed: Dictionary = {}  # port -> bool; true when token is not required or has been accepted
+var _auth_timers: Dictionary = {}
+var _auth_token: String = ""
 var _running: bool = false
 
 
 func start_server() -> void:
 	_running = true
+	_auth_token = _prepare_auth_token()
 	_build_candidate_ports()
 	for p in _ports:
 		_connected[p] = false
@@ -62,6 +71,9 @@ func start_server() -> void:
 		_last_activity[p] = 0.0
 		_ping_timers[p] = 0.0
 		_stale_ports[p] = false
+		_handshake_timers[p] = 0.0
+		_authed[p] = false
+		_auth_timers[p] = 0.0
 		_try_connect(p)
 	print("[MCP] Connecting via rendezvous, stdio 17605-17619, cli 17620-17624, legacy 6505-6509/6510-6514")
 
@@ -80,6 +92,9 @@ func stop_server() -> void:
 	_last_activity.clear()
 	_ping_timers.clear()
 	_stale_ports.clear()
+	_handshake_timers.clear()
+	_authed.clear()
+	_auth_timers.clear()
 	print("[MCP] WebSocket client stopped")
 
 
@@ -224,9 +239,19 @@ func _process(delta: float) -> void:
 					_last_activity[p] = 0.0
 					_ping_timers[p] = 0.0
 					_stale_ports[p] = false
+					_handshake_timers[p] = 0.0
+					_authed[p] = _auth_token.is_empty()
+					_auth_timers[p] = 0.0
 					_timers[p] = 0.0
 					print_verbose("[MCP] Connected on port %d (%s)" % [p, get_port_source(p)])
-					_send_workspace_hello(p)
+					if _authed[p]:
+						_send_workspace_hello(p)
+					else:
+						_send_to_port(p, JSON.stringify({
+							"jsonrpc": "2.0",
+							"method": "auth_required",
+							"params": {"scheme": "shared-token"},
+						}))
 					client_connected.emit()
 				else:
 					_connect_times[p] = _connect_times.get(p, 0.0) + delta
@@ -258,12 +283,32 @@ func _process(delta: float) -> void:
 					client_disconnected.emit()
 					continue
 
+				if not _authed.get(p, true):
+					_auth_timers[p] = _auth_timers.get(p, 0.0) + delta
+					if _auth_timers[p] >= AUTH_TIMEOUT:
+						push_warning("[MCP] Port %d did not authenticate within %.0fs; closing" % [p, AUTH_TIMEOUT])
+						ws.close(4001, "Authentication required")
+						_connected[p] = false
+						_accepted[p] = false
+						_hello_sent[p] = false
+						_peers[p] = null
+						_timers[p] = 0.0
+						client_disconnected.emit()
+						continue
+
 				if _ping_timers.get(p, 0.0) >= PING_INTERVAL:
 					_ping_timers[p] = 0.0
 					ws.send_text(JSON.stringify({"jsonrpc": "2.0", "method": "ping", "params": {}}))
 
 			WebSocketPeer.STATE_CLOSING:
-				pass
+				_handshake_timers[p] = _handshake_timers.get(p, 0.0) + delta
+				if _handshake_timers[p] >= HANDSHAKE_TIMEOUT:
+					_handshake_timers[p] = 0.0
+					_connected[p] = false
+					_accepted[p] = false
+					_hello_sent[p] = false
+					_peers[p] = null
+					_timers[p] = 0.0
 
 			WebSocketPeer.STATE_CLOSED:
 				if _connected.get(p, false):
@@ -276,15 +321,27 @@ func _process(delta: float) -> void:
 				_timers[p] = 0.0
 				_last_activity[p] = 0.0
 				_ping_timers[p] = 0.0
+				_handshake_timers[p] = 0.0
 
 			WebSocketPeer.STATE_CONNECTING:
-				pass
+				_handshake_timers[p] = _handshake_timers.get(p, 0.0) + delta
+				if _handshake_timers[p] >= HANDSHAKE_TIMEOUT:
+					print_verbose("[MCP] Port %d stuck connecting for %.0fs; dropping peer" % [p, HANDSHAKE_TIMEOUT])
+					_handshake_timers[p] = 0.0
+					_connected[p] = false
+					_peers[p] = null
+					_timers[p] = 0.0
 
 
-func _send_to_port(p: int, text: String) -> void:
+func _send_to_port(p: int, text: String) -> bool:
 	var ws: WebSocketPeer = _peers.get(p)
-	if ws and _connected.get(p, false):
-		ws.send_text(text)
+	if ws == null or not _connected.get(p, false):
+		return false
+	var err := ws.send_text(text)
+	if err != OK:
+		push_error("[MCP] Failed to send response on port %d: %s" % [p, error_string(err)])
+		return false
+	return true
 
 
 func _send_workspace_hello(p: int) -> void:
@@ -300,7 +357,7 @@ func _send_workspace_hello(p: int) -> void:
 			"workspace": workspace,
 			"projectPath": workspace,
 			"sessionId": str(_rendezvous_sessions.get(p, "")),
-			"pluginVersion": "1.15.0-nh.1",
+			"pluginVersion": "1.16.0-nh.1",
 			"connectionSource": get_port_source(p),
 		},
 	}
@@ -311,6 +368,41 @@ func _send_workspace_hello(p: int) -> void:
 func send_message(text: String) -> void:
 	for p in _peers:
 		_send_to_port(p, text)
+
+
+func params_or_empty(msg_dict: Dictionary) -> Dictionary:
+	var raw: Variant = msg_dict.get("params", {})
+	return raw if raw is Dictionary else {}
+
+
+func _prepare_auth_token() -> String:
+	var required := false
+	if ProjectSettings.has_setting(TOKEN_SETTING):
+		required = bool(ProjectSettings.get_setting(TOKEN_SETTING))
+	if OS.has_environment("GODOT_MCP_REQUIRE_TOKEN"):
+		var env := OS.get_environment("GODOT_MCP_REQUIRE_TOKEN").strip_edges().to_lower()
+		required = env != "" and env != "0" and env != "false"
+	if not required:
+		if FileAccess.file_exists(TOKEN_PATH):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(TOKEN_PATH))
+		return ""
+
+	var token := _random_token()
+	var file := FileAccess.open(TOKEN_PATH, FileAccess.WRITE)
+	if file == null:
+		push_error("[MCP] Connection token required but %s could not be written; refusing every connection." % TOKEN_PATH)
+		return token
+	file.store_string(token)
+	file.close()
+	print("[MCP] Connection token required. Servers must read %s." % ProjectSettings.globalize_path(TOKEN_PATH))
+	return token
+
+
+func _random_token() -> String:
+	var bytes := PackedByteArray()
+	for _i in 32:
+		bytes.append(randi() % 256)
+	return Marshalls.raw_to_base64(bytes)
 
 
 ## Synchronous dispatch - parse JSON, handle ping/pong/hello ack, queue command execution
@@ -330,23 +422,55 @@ func _dispatch_message(text: String, source_port: int) -> void:
 
 	var msg_dict: Dictionary = msg
 
-	if msg_dict.get("method") == "godot_hello_ack":
+	var id: Variant = msg_dict.get("id")
+	var raw_method: Variant = msg_dict.get("method")
+	if not (raw_method is String) or (raw_method as String).is_empty():
+		_send_response(source_port, id, null, {"code": -32600, "message": "Missing or non-string method"})
+		return
+	var method: String = raw_method
+
+	if method == "godot_hello_ack":
 		_handle_hello_ack(source_port, msg_dict.get("params", {}))
 		return
 
-	if msg_dict.get("method") == "ping":
+	if method == "ping":
 		_send_to_port(source_port, JSON.stringify({"jsonrpc": "2.0", "method": "pong", "params": {}}))
 		return
 
-	if msg_dict.get("method") == "pong":
+	if method == "pong":
 		return
 
-	var id: Variant = msg_dict.get("id")
-	var method: String = msg_dict.get("method", "")
-	var params: Dictionary = msg_dict.get("params", {})
+	if method == "auth":
+		var supplied := str(params_or_empty(msg_dict).get("token", ""))
+		if _auth_token.is_empty() or supplied == _auth_token:
+			_authed[source_port] = true
+			_send_response(source_port, id, {"authenticated": true}, null)
+			_send_workspace_hello(source_port)
+		else:
+			push_warning("[MCP] Port %d presented a wrong token" % source_port)
+			_send_response(source_port, id, null, {"code": -32001, "message": "Invalid token"})
+		return
 
-	if method.is_empty():
-		_send_response(source_port, id, null, {"code": -32600, "message": "Missing method"})
+	if not _authed.get(source_port, true):
+		_send_response(source_port, id, null, {
+			"code": -32001,
+			"message": "This editor requires a connection token. Send auth first.",
+		})
+		return
+
+	var raw_params: Variant = msg_dict.get("params", {})
+	if raw_params == null:
+		raw_params = {}
+	if not raw_params is Dictionary:
+		_send_response(source_port, id, null, {
+			"code": -32602,
+			"message": "params must be an object, got %s" % type_string(typeof(raw_params)),
+		})
+		return
+	var params: Dictionary = raw_params
+
+	if id == null:
+		_execute_notification.call_deferred(method, params)
 		return
 
 	if not command_router:
@@ -354,6 +478,14 @@ func _dispatch_message(text: String, source_port: int) -> void:
 		return
 
 	_execute_command.call_deferred(source_port, id, method, params)
+
+
+func _execute_notification(method: String, params: Dictionary) -> void:
+	if not command_router:
+		return
+	var cmd_result: Dictionary = await command_router.execute(method, params)
+	var ok: bool = not cmd_result.has("error")
+	command_executed.emit(method, ok)
 
 
 func _handle_hello_ack(source_port: int, params: Variant) -> void:

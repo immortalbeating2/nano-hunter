@@ -38,7 +38,7 @@ Godot MCP 复核需要当前客户端已经加载 Godot MCP Pro server 暴露的
 | `6505-6509` | legacy stdio fallback | 只按 legacy stdio 诊断，不优先使用 |
 | `6510-6514` | legacy `godot-cli` fallback | 不按 stale bridge 清理 |
 
-Node stdio server 会跳过 `17620-17624` 和 legacy `6510-6514`。`GODOT_MCP_PORT` 只是 preferred port；只有 `GODOT_MCP_STRICT_PORT=1` 才严格固定。当前 server 支持 lazy reconnect：清出端口后，已加载 MCP 工具入口的会话可在下次命令前重新尝试监听。
+Node stdio server 会跳过 `17620-17624` 和 legacy `6510-6514`。`GODOT_MCP_PORT` 只是 preferred port；只有 `GODOT_MCP_STRICT_PORT=1` 才严格固定。当前 `1.16.0-nh.1` 使用 true lazy bridge：客户端加载 MCP 工具时不占端口，首次 Godot 工具调用或 `get_bridge_status({ repair: true })` 才监听，并在端口释放后重试。
 
 本机曾确认 TCP 动态端口池为 `1024-15000`，所以旧 `6505-6534` 容易被 Foxmail、verge-mihomo 等通用网络软件作为本地动态端口占用。新主端口段 `17605-17624` 避开该动态池，但脚本仍会做实时占用诊断。
 
@@ -177,7 +177,7 @@ tools/godot-mcp-pro-hardening/patch-files/
 
 默认 `Scope=ServerAndPlugin`，只更新全局 Node server 和目标项目 `addons/godot_mcp`，不覆盖目标项目 `scripts/dev`。
 
-当前补丁基线以 `1.15.0-nh.1` 为准：保留上游 `1.15.0` 的 selection 工具、UndoRedo / dry-run 安全修复和 `assert_node_state` 修复，同时继续使用本项目的 `17605-17619` stdio、`17620-17624` CLI、项目本地 rendezvous 与 workspace/session 握手。不要用上游原包直接覆盖当前补丁文件，否则会退回 `6505-6509` / `6510-6514` 旧端口模型并丢失 rendezvous / handshake。
+当前补丁基线以 `1.16.0-nh.1` 为准：保留上游 `1.16.0` 的 headless 工具、token 握手、autoload 回收、请求校验和安全修复，同时继续使用本项目的 `17605-17619` stdio、`17620-17624` CLI、项目本地 rendezvous、workspace/session 握手、bridge lock 和 `get_bridge_status`。不要用上游原包直接覆盖当前补丁文件，否则会退回旧端口模型并丢失本地 hardening。
 
 给其它项目只补插件端，例如 `angel-fallen`：
 

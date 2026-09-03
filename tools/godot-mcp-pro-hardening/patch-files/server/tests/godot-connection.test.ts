@@ -1,13 +1,20 @@
+import { mkdtempSync, rmSync } from "node:fs";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { WebSocket } from "ws";
 import {
   DEFAULT_LEGACY_RESERVED_CLI_PORTS,
   DEFAULT_LEGACY_STDIO_PORTS,
   DEFAULT_RESERVED_CLI_PORTS,
   DEFAULT_STDIO_PORTS,
+  GodotConnection,
   buildCandidatePorts,
   normalizeWorkspacePath,
   parsePortList,
 } from "../src/godot-connection.js";
+import { writeProjectRendezvous } from "../src/utils/bridge-lock.js";
 
 describe("Godot MCP stdio port plan", () => {
   it("uses 17605-17619 for stdio and keeps CLI ranges reserved", () => {
@@ -37,5 +44,77 @@ describe("Godot MCP stdio port plan", () => {
     expect(normalizeWorkspacePath("C:\\Users\\peng8\\Project\\nano-hunter\\")).toBe(
       "c:/users/peng8/project/nano-hunter"
     );
+  });
+
+  it("rejects same-workspace handshakes without the rendezvous session", async () => {
+    const port = await new Promise<number>((resolve, reject) => {
+      const server = createServer();
+      server.once("error", reject);
+      server.listen(0, "127.0.0.1", () => {
+        const address = server.address();
+        server.close(() => resolve(typeof address === "object" && address ? address.port : 0));
+      });
+    });
+    const godot = new GodotConnection(port, true, "C:/workspace/nano-hunter", "session-a", "test");
+    await godot.connect();
+
+    try {
+      const ack = await new Promise<Record<string, unknown>>((resolve, reject) => {
+        const ws = new WebSocket(`ws://127.0.0.1:${port}`);
+        const timer = setTimeout(() => reject(new Error("handshake timed out")), 3000);
+
+        ws.on("open", () => {
+          ws.send(JSON.stringify({
+            jsonrpc: "2.0",
+            method: "godot_hello",
+            params: { workspace: "C:/workspace/nano-hunter", sessionId: "" },
+          }));
+        });
+
+        ws.on("message", (data) => {
+          clearTimeout(timer);
+          ws.close();
+          resolve(JSON.parse(data.toString()) as Record<string, unknown>);
+        });
+
+        ws.on("error", (err) => {
+          clearTimeout(timer);
+          reject(err);
+        });
+      });
+
+      expect(ack).toMatchObject({
+        method: "godot_hello_ack",
+        params: { accepted: false, reason: "Session mismatch" },
+      });
+    } finally {
+      godot.disconnect();
+    }
+  });
+
+  it("marks old project rendezvous files as stale in diagnostics", () => {
+    const workspace = mkdtempSync(join(tmpdir(), "godot-mcp-status-test-"));
+    try {
+      writeProjectRendezvous(workspace, {
+        pid: 1234,
+        port: 17605,
+        workspace,
+        sessionId: "old-session",
+        startedAt: "2026-05-01T00:00:00.000Z",
+        lastHeartbeat: "2026-05-01T00:00:05.000Z",
+        version: "1.15.0-nh.1",
+        kind: "stdio",
+        portPlanVersion: "17605-primary",
+      });
+
+      const godot = new GodotConnection(17605, false, workspace, "new-session", "test");
+      expect(godot.getRendezvousStatus()).toMatchObject({
+        exists: true,
+        stale: true,
+        sessionId: "old-session",
+      });
+    } finally {
+      rmSync(workspace, { recursive: true, force: true });
+    }
   });
 });

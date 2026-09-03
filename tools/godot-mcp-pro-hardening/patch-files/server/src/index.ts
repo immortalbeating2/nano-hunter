@@ -31,6 +31,7 @@ import { registerTestTools } from "./tools/test-tools.js";
 import { registerAnalysisTools } from "./tools/analysis-tools.js";
 import { registerInputMapTools } from "./tools/input-map-tools.js";
 import { registerAndroidTools } from "./tools/android-tools.js";
+import { registerHeadlessTools } from "./tools/headless-tools.js";
 import { registerDiagnosticTools } from "./tools/diagnostic-tools.js";
 import { MINIMAL_TOOLS, createFilteredServer } from "./utils/tool-filter.js";
 import { loadInstructions } from "./utils/load-instructions.js";
@@ -54,7 +55,7 @@ const godot = new GodotConnection(
   strictPort,
   workspace,
   sessionId,
-  "1.15.0-nh.1"
+  "1.16.0-nh.1"
 );
 
 const serverName = MINIMAL_MODE
@@ -68,7 +69,7 @@ const serverName = MINIMAL_MODE
 const server = new McpServer(
   {
     name: serverName,
-    version: "1.15.0-nh.1",
+    version: "1.16.0-nh.1",
   },
   {
     instructions: loadInstructions(),
@@ -90,7 +91,7 @@ registerInputMapTools(toolServer, godot);
 registerDiagnosticTools(toolServer, godot);
 
 // 3D-critical tools (registered in FULL and --3d modes)
-// Core (85) + Physics (6) + AnimationTree (8) + Navigation (5) = 104 tools
+// Core (82 including local diagnostic) + Physics (6) + AnimationTree (8) + Navigation (5) = 101 tool groups plus runtime/editor variants.
 if (!LITE_MODE || THREED_MODE) {
   registerPhysicsTools(server, godot);
   registerAnimationTreeTools(server, godot);
@@ -113,19 +114,11 @@ if (!LITE_MODE) {
   registerTilemapTools(server, godot);
   registerAnalysisTools(server, godot);
   registerAndroidTools(server, godot);
+  registerHeadlessTools(server, godot);
 }
 
-// Start server
+// Start MCP transport. The Godot WebSocket bridge is opened lazily on first tool call.
 async function main() {
-  godot.connect().catch((err) => {
-    console.error(
-      `[MCP] Initial Godot connection failed: ${err.message}. Will retry on first command.`
-    );
-    if (strictPort) {
-      process.exit(1);
-    }
-  });
-
   if (HTTP_MODE) {
     // Streamable HTTP transport — clients connect via http://host:port/mcp
     const transport = new StreamableHTTPServerTransport({

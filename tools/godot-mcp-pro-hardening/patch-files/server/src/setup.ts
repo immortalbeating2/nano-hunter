@@ -200,13 +200,11 @@ async function cmdConfigure(): Promise<void> {
 
   // Default: create .mcp.json in cwd (Claude Code)
   const target = candidates[0]; // Claude Code project-level
+  // No GODOT_MCP_PORT env: lets the server auto-scan the configured stdio range.
+  // Pinning a single port here would force every session to collide.
   const entry = {
     command: "node",
     args: [serverPath],
-    env: {
-      GODOT_MCP_PORT_RANGE: "17605-17619",
-      GODOT_MCP_CLI_PORT_RANGE: "17620-17624",
-    },
   };
 
   let config: McpConfig;

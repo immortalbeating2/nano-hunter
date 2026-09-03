@@ -12,18 +12,8 @@ const COLOR_SUCCESS := Color(0.6, 1, 0.6)
 const COLOR_ERROR := Color(1, 0.6, 0.6)
 const COLOR_DIM := Color(0.6, 0.6, 0.6)
 
-const STDIO_PRIMARY_START := 17605
-const STDIO_PRIMARY_END := 17619
-const CLI_PRIMARY_START := 17620
-const CLI_PRIMARY_END := 17624
-const LEGACY_STDIO_START := 6505
-const LEGACY_STDIO_END := 6509
-const LEGACY_CLI_START := 6510
-const LEGACY_CLI_END := 6514
-
-# 状态面板只用于人工复核：它显示插件扫描范围和端口角色，方便确认 Godot editor
-# 是否看到了 bridge / CLI 端口。真正 stale 清理必须由 PowerShell 脚本结合
-# lock/heartbeat、PID、TCP 连接和 workspace 归属判断，不能只看面板上的连接年龄。
+const BASE_PORT := 6505
+const MAX_PORT := 6509
 
 # Header
 var _status_icon: Label
@@ -52,25 +42,47 @@ func _ready() -> void:
 
 
 func setup(ws_server: Node, cmd_router: Node = null) -> void:
+	# A second setup() — plugin reload, or re-entering the tree — used to stack
+	# another set of connections on top of the previous server's, so callbacks
+	# fired twice and connect() could error on a repeat.
+	_disconnect_server_signals()
+
 	websocket_server = ws_server
 	command_router = cmd_router
 
-	if websocket_server:
+	if is_instance_valid(websocket_server):
 		websocket_server.client_connected.connect(_on_client_connected)
 		websocket_server.client_disconnected.connect(_on_client_disconnected)
-		if websocket_server.has_signal("workspace_handshake_sent"):
-			websocket_server.workspace_handshake_sent.connect(_on_workspace_handshake_sent)
-		if websocket_server.has_signal("workspace_handshake_accepted"):
-			websocket_server.workspace_handshake_accepted.connect(_on_workspace_handshake_accepted)
-		if websocket_server.has_signal("workspace_handshake_rejected"):
-			websocket_server.workspace_handshake_rejected.connect(_on_workspace_handshake_rejected)
+		# Neither signal is guaranteed on an older/newer server node; reaching
+		# for a missing one raises instead of simply skipping it.
 		if websocket_server.has_signal("command_completed"):
 			websocket_server.command_completed.connect(_on_command_completed)
-		else:
+		elif websocket_server.has_signal("command_executed"):
 			websocket_server.command_executed.connect(_on_command_executed)
 
 	if command_router:
 		_populate_tools_list()
+
+
+## Drops any connections made by a previous setup() call.
+func _disconnect_server_signals() -> void:
+	if not is_instance_valid(websocket_server):
+		return
+	var pairs := [
+		["client_connected", _on_client_connected],
+		["client_disconnected", _on_client_disconnected],
+		["command_completed", _on_command_completed],
+		["command_executed", _on_command_executed],
+	]
+	for pair: Array in pairs:
+		var sig: String = pair[0]
+		var callable: Callable = pair[1]
+		if websocket_server.has_signal(sig) and websocket_server.is_connected(sig, callable):
+			websocket_server.disconnect(sig, callable)
+
+
+func _exit_tree() -> void:
+	_disconnect_server_signals()
 
 
 func _build_ui() -> void:
@@ -151,7 +163,7 @@ func _build_clients_tab() -> void:
 	vbox.name = "Clients"
 	_tab_container.add_child(vbox)
 
-	for p in _status_ports():
+	for p in range(BASE_PORT, MAX_PORT + 1):
 		var row := HBoxContainer.new()
 		vbox.add_child(row)
 
@@ -163,7 +175,6 @@ func _build_clients_tab() -> void:
 		var lbl := Label.new()
 		lbl.text = "  Port %d  —  Disconnected" % p
 		row.add_child(lbl)
-		lbl.text = "  Port %d%s  - Disconnected" % [p, _port_role_suffix(p)]
 
 		_port_labels[p] = {"icon": icon, "label": lbl}
 
@@ -227,7 +238,9 @@ func _populate_tools_list() -> void:
 
 
 func _process(_delta: float) -> void:
-	if not websocket_server:
+	# A freed Node is still truthy in GDScript, so after a plugin reload this
+	# ran every frame against a dangling instance.
+	if not is_instance_valid(websocket_server):
 		return
 
 	var count: int = websocket_server.get_client_count()
@@ -235,7 +248,7 @@ func _process(_delta: float) -> void:
 
 	var any_stale := false
 	if websocket_server.has_method("is_port_stale"):
-		for p in _status_ports():
+		for p in range(BASE_PORT, MAX_PORT + 1):
 			if websocket_server.is_port_stale(p):
 				any_stale = true
 				break
@@ -245,7 +258,7 @@ func _process(_delta: float) -> void:
 		_status_label.text = " MCP Pro: Connected"
 	elif any_stale:
 		_status_icon.add_theme_color_override("font_color", COLOR_STALE)
-		_status_label.text = " MCP Pro: Reconnecting (stale connection detected)..."
+		_status_label.text = " MCP Pro: ⚠ Reconnecting (stale connection detected)..."
 	else:
 		_status_icon.add_theme_color_override("font_color", COLOR_DISCONNECTED)
 		_status_label.text = " MCP Pro: Waiting for connection..."
@@ -269,8 +282,6 @@ func _update_clients_tab() -> void:
 			is_stale = websocket_server.is_port_stale(p)
 
 		if p in connected_ports:
-			icon.text = "●"
-			icon.add_theme_color_override("font_color", COLOR_CONNECTED)
 			var time_str := ""
 			if websocket_server.has_method("get_port_connect_time"):
 				var elapsed: float = websocket_server.get_port_connect_time(p)
@@ -278,64 +289,27 @@ func _update_clients_tab() -> void:
 					var mins := int(elapsed) / 60
 					var secs := int(elapsed) % 60
 					time_str = "  (%dm %02ds)" % [mins, secs]
+
 			var idle_str := ""
 			if websocket_server.has_method("get_port_idle_time"):
 				var idle: float = websocket_server.get_port_idle_time(p)
 				if idle >= 2.0:
 					idle_str = "  · idle %.0fs" % idle
-			lbl.text = "  Port %d%s  - Connected%s%s" % [p, _port_role_suffix(p), time_str, idle_str]
+
+			icon.text = "●"
+			icon.add_theme_color_override("font_color", COLOR_CONNECTED)
+			lbl.text = "  Port %d  —  Connected%s%s" % [p, time_str, idle_str]
 		elif is_stale:
 			icon.text = "◐"
 			icon.add_theme_color_override("font_color", COLOR_STALE)
-			lbl.text = "  Port %d%s  - Stale (reconnecting)" % [p, _port_role_suffix(p)]
+			lbl.text = "  Port %d  —  ⚠ Stale (reconnecting)" % p
 		else:
 			icon.text = "○"
 			icon.add_theme_color_override("font_color", COLOR_DISCONNECTED)
-			lbl.text = "  Port %d%s  - Disconnected" % [p, _port_role_suffix(p)]
+			lbl.text = "  Port %d  —  Disconnected" % p
 
 
 # --- Activity callbacks ---
-
-func _port_role_suffix(port: int) -> String:
-	# 端口角色与 Node server / 诊断脚本 / 补丁脚本保持一致：
-	# 17605-17619 是 stdio primary，17620-17624 是 CLI primary；
-	# 6505-6509 / 6510-6514 只保留 legacy 兼容观察。
-	if port >= STDIO_PRIMARY_START and port <= STDIO_PRIMARY_END:
-		return " (stdio primary)"
-	if port >= CLI_PRIMARY_START and port <= CLI_PRIMARY_END:
-		return " (CLI primary)"
-	if port >= LEGACY_STDIO_START and port <= LEGACY_STDIO_END:
-		return " (legacy stdio)"
-	if port >= LEGACY_CLI_START and port <= LEGACY_CLI_END:
-		return " (legacy CLI)"
-	return " (rendezvous)"
-
-
-func _status_ports() -> Array[int]:
-	var ports: Array[int] = []
-	if websocket_server and websocket_server.has_method("get_tracked_ports"):
-		ports = websocket_server.get_tracked_ports()
-	else:
-		for p in range(STDIO_PRIMARY_START, CLI_PRIMARY_END + 1):
-			ports.append(p)
-		for p in range(LEGACY_STDIO_START, LEGACY_CLI_END + 1):
-			ports.append(p)
-	ports.sort()
-	return ports
-
-
-func _apply_port_role_labels() -> void:
-	var connected_ports: Array[int] = []
-	if websocket_server and websocket_server.has_method("get_connected_ports"):
-		connected_ports = websocket_server.get_connected_ports()
-	for p: int in _port_labels:
-		var info: Dictionary = _port_labels[p]
-		var lbl: Label = info["label"]
-		if p in connected_ports:
-			lbl.text = "  Port %d%s  - Connected" % [p, _port_role_suffix(p)]
-		else:
-			lbl.text = "  Port %d%s  - Disconnected" % [p, _port_role_suffix(p)]
-
 
 func _on_client_connected() -> void:
 	_add_log("Client connected", COLOR_CONNECTED)
@@ -343,18 +317,6 @@ func _on_client_connected() -> void:
 
 func _on_client_disconnected() -> void:
 	_add_log("Client disconnected", COLOR_DISCONNECTED)
-
-
-func _on_workspace_handshake_sent(port: int, workspace: String) -> void:
-	_add_log("Handshake sent on port %d for %s" % [port, workspace], COLOR_DIM)
-
-
-func _on_workspace_handshake_accepted(port: int, session_id: String) -> void:
-	_add_log("Handshake accepted on port %d (%s)" % [port, session_id], COLOR_CONNECTED)
-
-
-func _on_workspace_handshake_rejected(port: int, reason: String) -> void:
-	_add_log("Handshake rejected on port %d: %s" % [port, reason], COLOR_ERROR)
 
 
 func _on_command_executed(method: String, ok: bool) -> void:

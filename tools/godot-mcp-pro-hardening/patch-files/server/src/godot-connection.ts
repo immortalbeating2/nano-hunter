@@ -1,6 +1,7 @@
 import { WebSocketServer, WebSocket } from "ws";
 import { randomUUID } from "crypto";
 import { createServer } from "net";
+import { readFileSync } from "fs";
 import {
   JsonRpcRequest,
   JsonRpcResponse,
@@ -14,15 +15,21 @@ import {
 import {
   BridgeLockHeartbeat,
   getDefaultBridgeLockRoot,
+  isHeartbeatStale,
   readProjectRendezvous,
 } from "./utils/bridge-lock.js";
 
 const DEFAULT_STDIO_PORT_RANGE = "17605-17619";
 const DEFAULT_LEGACY_STDIO_PORT_RANGE = "6505-6509";
 const COMMAND_TIMEOUT_MS = 30000;
+const CONNECT_WAIT_TIMEOUT_MS = parseInt(process.env.GODOT_MCP_CONNECT_WAIT_MS || "6000", 10);
+const CONNECT_WAIT_INTERVAL_MS = 100;
 const HEARTBEAT_INTERVAL_MS = 10000;
 const HEARTBEAT_TIMEOUT_MS = HEARTBEAT_INTERVAL_MS * 3;
+const RENDEZVOUS_STALE_AFTER_MS = 15000;
 const TCP_KEEPALIVE_DELAY_MS = 5000;
+const REBIND_CLIENT_WAIT_MS = 4000;
+const BIND_TIMEOUT_MS = 3000;
 export const PORT_PLAN_VERSION = "17605-primary";
 export const DEFAULT_STDIO_PORTS = parsePortList(DEFAULT_STDIO_PORT_RANGE);
 export const DEFAULT_LEGACY_STDIO_PORTS = parsePortList(DEFAULT_LEGACY_STDIO_PORT_RANGE);
@@ -113,6 +120,10 @@ export class GodotConnection {
   private lastError: string | null = null;
   private bridgeLock: BridgeLockHeartbeat;
   private lastPongAt: number = 0;
+  private connectPromise: Promise<void> | null = null;
+  private clientWaitPromise: Promise<void> | null = null;
+  private shutDown = false;
+  private bindFailure: string | null = null;
 
   constructor(
     port: number = DEFAULT_STDIO_PORTS[0],
@@ -150,6 +161,17 @@ export class GodotConnection {
    * 到候选端口。启动失败会清空 wss，后续 sendCommand/ensureListening 可以重试。
    */
   async connect(): Promise<void> {
+    if (this.shutDown) return;
+    if (this.wss) return;
+    if (this.connectPromise) return this.connectPromise;
+
+    this.connectPromise = this.connectOnce().finally(() => {
+      this.connectPromise = null;
+    });
+    return this.connectPromise;
+  }
+
+  private async connectOnce(): Promise<void> {
     if (this.wss) return;
 
     if (this.strictPort && this.reservedCliPorts.includes(this.port)) {
@@ -165,9 +187,14 @@ export class GodotConnection {
       if (this.reservedCliPorts.includes(port)) continue;
       try {
         const wss = await this.bindWebSocketServer(port);
+        if (this.shutDown) {
+          wss.close();
+          return;
+        }
         this.wss = wss;
         this.port = port;
         this.lastError = null;
+        this.bindFailure = null;
         this.bridgeLock.start(this.port);
         this.attachConnectionHandler(wss);
         console.error(
@@ -185,10 +212,11 @@ export class GodotConnection {
     }
 
     const range = this.strictPort ? String(this.port) : this.candidatePorts.join(",");
-    throw new GodotConnectionError(
+    const message =
       `No free Godot MCP stdio bridge ports in ${range}. ` +
-      `Last error: ${lastError?.message ?? "unknown"}.`
-    );
+      `Last error: ${lastError?.message ?? "unknown"}. This server retries the bind on each tool call.`;
+    this.bindFailure = message;
+    throw new GodotConnectionError(message);
   }
 
   /** Try to bind one WebSocketServer. A bind race rejects this candidate and lets connect try the next port. */
@@ -196,12 +224,21 @@ export class GodotConnection {
     return new Promise<WebSocketServer>((resolve, reject) => {
       const wss = new WebSocketServer({ port, host: "127.0.0.1" });
 
+      const timer = setTimeout(() => {
+        wss.off("listening", onListening);
+        wss.off("error", onError);
+        wss.close();
+        reject(new Error(`Bind on port ${port} did not settle within ${BIND_TIMEOUT_MS}ms`));
+      }, BIND_TIMEOUT_MS);
+
       const onError = (err: Error) => {
+        clearTimeout(timer);
         wss.off("listening", onListening);
         wss.close();
         reject(err);
       };
       const onListening = () => {
+        clearTimeout(timer);
         wss.off("error", onError);
         wss.on("error", (err: Error) => {
           this.lastError = err.message;
@@ -245,6 +282,7 @@ export class GodotConnection {
   }
 
   disconnect(): void {
+    this.shutDown = true;
     this.stopHeartbeat();
     this.bridgeLock.stop();
     if (this.client) {
@@ -295,7 +333,7 @@ export class GodotConnection {
   }
 
   getLastError(): string | null {
-    return this.lastError;
+    return this.lastError || this.bindFailure;
   }
 
   getLockPath(): string | null {
@@ -308,9 +346,11 @@ export class GodotConnection {
 
   getRendezvousStatus(): Record<string, unknown> {
     const rendezvous = readProjectRendezvous(this.workspace);
+    const stale = rendezvous ? isHeartbeatStale(rendezvous, RENDEZVOUS_STALE_AFTER_MS) : null;
     return {
       path: this.getRendezvousPath(),
       exists: rendezvous !== null,
+      stale,
       port: rendezvous?.port ?? null,
       pid: rendezvous?.pid ?? null,
       workspace: rendezvous?.workspace ?? null,
@@ -322,13 +362,12 @@ export class GodotConnection {
 
   async sendCommand(
     method: string,
-    params: Record<string, unknown> = {}
+    params: Record<string, unknown> = {},
+    timeoutMs: number = COMMAND_TIMEOUT_MS
   ): Promise<unknown> {
-    await this.ensureListening();
+    await this.ensureConnected();
     if (!this.isConnected()) {
-      throw new GodotConnectionError(
-        "Godot editor is not connected. Make sure the Godot MCP Pro plugin is enabled and the editor is running."
-      );
+      throw new GodotConnectionError(this.disconnectedReason());
     }
 
     const id = randomUUID();
@@ -339,24 +378,94 @@ export class GodotConnection {
       id,
     };
 
+    let payload: string;
+    try {
+      payload = JSON.stringify(request);
+    } catch (err) {
+      throw new GodotConnectionError(
+        `Could not serialize parameters for ${method}: ${(err as Error).message}`
+      );
+    }
+
     return new Promise<unknown>((resolve, reject) => {
       const timer = setTimeout(() => {
         this.pendingRequests.delete(id);
-        reject(new TimeoutError(method, COMMAND_TIMEOUT_MS));
-      }, COMMAND_TIMEOUT_MS);
+        reject(new TimeoutError(method, timeoutMs));
+      }, timeoutMs);
+
+      const fail = (err: Error) => {
+        clearTimeout(timer);
+        this.pendingRequests.delete(id);
+        reject(err);
+      };
 
       this.pendingRequests.set(id, {
         resolve: resolve as (value: JsonRpcResponse) => void,
         reject,
         timer,
       });
-      this.client!.send(JSON.stringify(request));
+
+      this.client!.send(payload, (err?: Error) => {
+        if (err) {
+          fail(new GodotConnectionError(`Failed to send ${method} to Godot: ${err.message}`));
+        }
+      });
     });
   }
 
   async ensureListening(): Promise<void> {
     if (this.wss) return;
     await this.connect();
+  }
+
+  async waitForGodotConnection(): Promise<void> {
+    if (this.isConnected()) return;
+    const deadline = Date.now() + CONNECT_WAIT_TIMEOUT_MS;
+    while (Date.now() < deadline) {
+      await new Promise((resolve) => setTimeout(resolve, CONNECT_WAIT_INTERVAL_MS));
+      if (this.isConnected()) return;
+    }
+  }
+
+  private async ensureConnected(): Promise<void> {
+    if (this.isConnected()) return;
+
+    if (this.clientWaitPromise) {
+      await this.clientWaitPromise;
+      return;
+    }
+
+    if (!this.wss) {
+      try {
+        await this.connect();
+      } catch {
+        return;
+      }
+    }
+
+    if (this.isConnected()) return;
+    const wait = this.waitForGodotConnection().finally(() => {
+      if (this.clientWaitPromise === wait) {
+        this.clientWaitPromise = null;
+      }
+    });
+    this.clientWaitPromise = wait;
+    await wait;
+  }
+
+  /** Explain the current disconnected state without blaming the wrong layer. */
+  private disconnectedReason(): string {
+    if (this.wss === null) {
+      return (
+        `This MCP server could not bind a stdio bridge port in ${this.candidatePorts.join(",")}. ` +
+        "Ports may be held by live or stale MCP sessions. Close an unused session or stale node process; this server retries on each tool call." +
+        (this.bindFailure ? ` Details: ${this.bindFailure}` : "")
+      );
+    }
+    return (
+      `Godot editor is not connected on port ${this.port}. ` +
+      "Make sure the target Godot project is open with the Godot MCP Pro plugin enabled."
+    );
   }
 
   /**
@@ -408,6 +517,11 @@ export class GodotConnection {
     }
 
     const method = (msg as unknown as { method?: string }).method;
+    if (method === "auth_required") {
+      this.sendAuth(ws);
+      return;
+    }
+
     if (method === "godot_hello") {
       this.handleGodotHello(msg as unknown as { params?: Record<string, unknown> }, ws);
       return;
@@ -451,6 +565,36 @@ export class GodotConnection {
     }
   }
 
+  private resolveAuthToken(): string | null {
+    const inline = process.env.GODOT_MCP_TOKEN;
+    if (inline && inline.trim()) return inline.trim();
+    const file = process.env.GODOT_MCP_TOKEN_FILE;
+    if (file) {
+      try {
+        return readFileSync(file, "utf-8").trim();
+      } catch (err) {
+        console.error(`[MCP] Could not read GODOT_MCP_TOKEN_FILE: ${(err as Error).message}`);
+      }
+    }
+    return null;
+  }
+
+  private sendAuth(ws: WebSocket): void {
+    const token = this.resolveAuthToken();
+    if (!token) {
+      console.error(
+        "[MCP] The editor requires a connection token, but neither GODOT_MCP_TOKEN nor GODOT_MCP_TOKEN_FILE is set."
+      );
+      return;
+    }
+    ws.send(JSON.stringify({
+      jsonrpc: "2.0",
+      method: "auth",
+      params: { token },
+      id: randomUUID(),
+    }));
+  }
+
   private handleGodotHello(msg: { params?: Record<string, unknown> }, ws: WebSocket): void {
     // Godot 插件连接后必须先发 godot_hello。workspace 不匹配时关闭这个连接，
     // 且不替换当前 client，避免另一个项目的 editor 抢走本会话 bridge。
@@ -468,7 +612,7 @@ export class GodotConnection {
     }
 
     const incomingSessionId = String(msg.params?.sessionId || "");
-    if (incomingSessionId && incomingSessionId !== this.sessionId) {
+    if (incomingSessionId !== this.sessionId) {
       this.sendHelloAck(ws, false, "Session mismatch");
       ws.close(1008, "Session mismatch");
       console.error(

@@ -24,7 +24,7 @@
 # - 仅补其它项目插件：.\scripts\dev\apply-godot-mcp-pro-hardening-patch.ps1 -ProjectPath C:\Path\To\Project -Scope PluginOnly -DryRun
 # - 独立目录脚本：C:\Tools\godot-mcp-pro-hardening\apply-godot-mcp-pro-hardening-patch.ps1 -ProjectPath C:\Path\To\Project -PatchRoot C:\Tools\godot-mcp-pro-hardening\patch-files -DryRun
 # 安全边界：
-# - 已验证上游版本为 1.12.0、1.13.1、1.15.0 与 1.15.0-nh.1；其它版本默认拒绝真实写入，需人工审查后加 -Force。
+# - 当前补丁模板基于 1.16.0；其它版本默认拒绝真实写入，需人工审查后加 -Force。
 # - 17605-17619 是 stdio bridge 主端口，17620-17624 保留给 godot-cli。
 # - 6505-6509 / 6510-6514 仅作为 legacy fallback，不再作为新方案主力。
 # - 应用前会把已有目标文件备份到 tests/artifacts/local/godot-mcp-patch-backups/<timestamp>/，或 -BackupRoot 指定目录。
@@ -178,15 +178,18 @@ function Get-PatchCopyPlan {
         [string]$SelectedScope,
         [bool]$WithProjectScripts,
         [string]$ServerRoot,
-        [string]$ProjectRoot
+        [string]$ProjectRoot,
+        [string]$PatchRoot
     )
 
     $items = @()
 
     if (Test-IncludesServerPatch -SelectedScope $SelectedScope) {
+        $items += New-PatchCopyItem -Group "server" -Source "server\package.json" -Target (Join-Path $ServerRoot "package.json")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\godot-connection.ts" -Target (Join-Path $ServerRoot "src\godot-connection.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\utils\bridge-lock.ts" -Target (Join-Path $ServerRoot "src\utils\bridge-lock.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\tools\diagnostic-tools.ts" -Target (Join-Path $ServerRoot "src\tools\diagnostic-tools.ts")
+        $items += New-PatchCopyItem -Group "server" -Source "server\src\tools\headless-tools.ts" -Target (Join-Path $ServerRoot "src\tools\headless-tools.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\index.ts" -Target (Join-Path $ServerRoot "src\index.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\cli.ts" -Target (Join-Path $ServerRoot "src\cli.ts")
         $items += New-PatchCopyItem -Group "server" -Source "server\src\setup.ts" -Target (Join-Path $ServerRoot "src\setup.ts")
@@ -195,12 +198,14 @@ function Get-PatchCopyPlan {
     }
 
     if (Test-IncludesPluginPatch -SelectedScope $SelectedScope) {
-        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\plugin.cfg" -Target (Join-Path $ProjectRoot "addons\godot_mcp\plugin.cfg")
-        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\websocket_server.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\websocket_server.gd")
-        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\ui\status_panel.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\ui\status_panel.gd")
-        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\plugin.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\plugin.gd")
-        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\commands\input_commands.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\commands\input_commands.gd")
-        $items += New-PatchCopyItem -Group "plugin" -Source "plugin\addons\godot_mcp\mcp_input_service.gd" -Target (Join-Path $ProjectRoot "addons\godot_mcp\mcp_input_service.gd")
+        $pluginPatchRoot = Join-Path $PatchRoot "plugin\addons\godot_mcp"
+        foreach ($file in Get-ChildItem -LiteralPath $pluginPatchRoot -File -Recurse | Sort-Object FullName) {
+            $relative = $file.FullName.Substring($pluginPatchRoot.Length).TrimStart("\", "/")
+            $items += New-PatchCopyItem `
+                -Group "plugin" `
+                -Source (Join-Path "plugin\addons\godot_mcp" $relative) `
+                -Target (Join-Path (Join-Path $ProjectRoot "addons\godot_mcp") $relative)
+        }
     }
 
     if ($WithProjectScripts) {
@@ -252,7 +257,7 @@ $serverRoot = if ($includesServer) { Resolve-ServerRoot -Path $ServerPath } else
 $resolvedPatchRoot = Resolve-PatchRoot -ExplicitPatchRoot $PatchRoot -ProjectRoot $projectRoot
 $version = if ($includesServer) { Get-PackageVersion -Root $serverRoot } else { "(server skipped)" }
 $backupRootPath = New-PatchBackupRoot -ProjectRoot $projectRoot -ExplicitBackupRoot $BackupRoot -DryRun:$DryRun
-$copyPlan = Get-PatchCopyPlan -SelectedScope $Scope -WithProjectScripts:$IncludeProjectScripts -ServerRoot $serverRoot -ProjectRoot $projectRoot
+$copyPlan = Get-PatchCopyPlan -SelectedScope $Scope -WithProjectScripts:$IncludeProjectScripts -ServerRoot $serverRoot -ProjectRoot $projectRoot -PatchRoot $resolvedPatchRoot
 
 Write-Host "Godot MCP Pro hardening patch"
 Write-Host "Scope:   $Scope"
@@ -274,7 +279,7 @@ if (-not (Test-IncludesPluginPatch -SelectedScope $Scope)) { $skippedGroups += "
 if (-not $IncludeProjectScripts) { $skippedGroups += "optional-project-scripts" }
 Write-Host ("Skipped groups: {0}" -f ($(if ($skippedGroups.Count -gt 0) { $skippedGroups -join ", " } else { "(none)" })))
 
-$verifiedVersions = @("1.12.0", "1.13.1", "1.15.0", "1.15.0-nh.1")
+$verifiedVersions = @("1.16.0", "1.16.0-nh.1")
 if ($includesServer -and $version -notin $verifiedVersions -and -not $Force) {
     Write-Host "Version is not verified for automatic apply. Re-run with -DryRun for inspection or -Force after review."
     if (-not $DryRun) {

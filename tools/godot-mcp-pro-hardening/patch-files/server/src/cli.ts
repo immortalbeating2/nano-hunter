@@ -11,11 +11,13 @@
 import { WebSocketServer, WebSocket } from "ws";
 import { randomUUID } from "crypto";
 import { createServer } from "net";
+import { readFileSync } from "fs";
 
 const BASE_PORT = 17620;
 const MAX_PORT = 17624;
 const CONNECT_TIMEOUT_MS = 10000;
 const COMMAND_TIMEOUT_MS = 30000;
+const expectedWorkspace = process.env.GODOT_MCP_WORKSPACE || process.cwd();
 
 // ─── Command definitions ──────────────────────────────────────────────
 
@@ -63,13 +65,22 @@ const COMMANDS: Record<string, GroupDef> = {
           query: { description: "Text/regex pattern", required: true },
           path: { description: "Directory to search in" },
           file_type: { description: "File extension filter (e.g. 'gd', 'tscn')" },
+          include_addons: { description: "Also search addons/ (default: false)", type: "boolean" },
+        },
+        mapArgs: (p) => {
+          const out: Record<string, unknown> = { query: p.query };
+          if (p.path) out.path = p.path;
+          if (p.file_type) out.file_type = p.file_type;
+          if (p.include_addons) out.include_addons = p.include_addons !== "false";
+          return out;
         },
       },
       "get-setting": {
         description: "Get project settings",
         method: "get_project_settings",
         args: {
-          category: { description: "Settings category filter" },
+          section: { description: "Settings section prefix (e.g. display/window)" },
+          key: { description: "A single setting key to read" },
         },
       },
       "set-setting": {
@@ -77,9 +88,22 @@ const COMMANDS: Record<string, GroupDef> = {
         method: "set_project_setting",
         args: {
           setting: { description: "Setting path (e.g. display/window/size/viewport_width)", required: true },
-          value: { description: "Value to set", required: true },
+          value: { description: "Value to set. JSON arrays build container types, e.g. '[640, 480]'", required: true },
+          type: { description: "Force the stored type: string, int, float, bool, vector2i, color, packed_string_array, ..." },
         },
-        mapArgs: (p) => ({ setting: p.setting, value: autoType(p.value) }),
+        // The addon parameter is `key`; sending `setting` made this command
+        // fail every time. The value is passed through as the raw string
+        // unless it is JSON: the addon converts it to the setting's declared
+        // type, which is what keeps "119" a String on a string-typed setting.
+        // Guessing a type here would defeat that.
+        mapArgs: (p) => {
+          const out: Record<string, unknown> = {
+            key: p.setting,
+            value: jsonOrString(p.value),
+          };
+          if (p.type) out.type = p.type;
+          return out;
+        },
       },
     },
   },
@@ -254,13 +278,14 @@ const COMMANDS: Record<string, GroupDef> = {
         method: "create_script",
         args: {
           path: { description: "Script path", required: true },
-          content: { description: "Script content", required: true },
-          base_type: { description: "Base class (default: Node)" },
+          content: { description: "Script content. Omit to generate an extends/_ready template." },
+          base_type: { description: "Base class to extend (default: Node)" },
           force: { description: "Override open-script-editor guard" },
         },
         mapArgs: (p) => {
-          const r: Record<string, unknown> = { path: p.path, content: p.content };
-          if (p.base_type) r.base_type = p.base_type;
+          const r: Record<string, unknown> = { path: p.path };
+          if (p.content) r.content = p.content;
+          if (p.base_type) r.extends = p.base_type;
           if (p.force !== undefined) r.force = p.force === "true";
           return r;
         },
@@ -315,9 +340,9 @@ const COMMANDS: Record<string, GroupDef> = {
         description: "Get editor output log",
         method: "get_output_log",
         args: {
-          lines: { description: "Number of lines (default: 50)", type: "number" },
+          lines: { description: "Number of lines (default: 100)", type: "number" },
         },
-        mapArgs: (p) => (p.lines ? { lines: parseInt(p.lines) } : {}),
+        mapArgs: (p) => (p.lines ? { max_lines: parseInt(p.lines) } : {}),
       },
       screenshot: {
         description: "Take a screenshot of the running game",
@@ -354,13 +379,14 @@ const COMMANDS: Record<string, GroupDef> = {
         description: "Simulate a key press in the running game",
         method: "simulate_key",
         args: {
-          key: { description: "Key name (e.g. W, A, S, D, Space)", required: true },
-          duration: { description: "Hold duration in seconds", type: "number" },
-          pressed: { description: "true=press, false=release" },
+          key: { description: "Key name (e.g. W, A, S, D, Space) or a KEY_* constant", required: true },
+          pressed: { description: "true=press (default), false=release" },
         },
+        // The addon parameter is `keycode`. There is no hold-duration support
+        // on that side, so the flag that used to be advertised here did
+        // nothing at all; issue a press and a release instead.
         mapArgs: (p) => {
-          const r: Record<string, unknown> = { key: p.key };
-          if (p.duration) r.duration = parseFloat(p.duration);
+          const r: Record<string, unknown> = { keycode: p.key };
           if (p.pressed !== undefined) r.pressed = p.pressed === "true";
           return r;
         },
@@ -385,13 +411,11 @@ const COMMANDS: Record<string, GroupDef> = {
         method: "simulate_action",
         args: {
           action: { description: "Action name (e.g. ui_accept, move_left)", required: true },
-          pressed: { description: "true=press, false=release" },
-          duration: { description: "Hold duration in seconds", type: "number" },
+          pressed: { description: "true=press (default), false=release" },
         },
         mapArgs: (p) => {
           const r: Record<string, unknown> = { action: p.action };
           if (p.pressed !== undefined) r.pressed = p.pressed === "true";
-          if (p.duration) r.duration = parseFloat(p.duration);
           return r;
         },
       },
@@ -443,8 +467,7 @@ const COMMANDS: Record<string, GroupDef> = {
         description: "Execute GDScript in the running game",
         method: "execute_game_script",
         args: {
-          code: { description: "GDScript code", required: true },
-          node_path: { description: "Node context (default: /root)" },
+          code: { description: "GDScript code. Runs in the game process; use print() for output.", required: true },
         },
       },
       ui: {
@@ -459,6 +482,28 @@ const COMMANDS: Record<string, GroupDef> = {
 };
 
 // ─── Argument parsing ─────────────────────────────────────────────────
+
+/**
+ * Parses a JSON array or object, and otherwise hands the string back
+ * untouched. Unlike autoType() this never turns "119" into a number: on the
+ * setting path the addon knows the declared type and converts to it, so
+ * guessing here is how a string-typed setting used to get an int written into
+ * it with no way to opt out.
+ */
+function jsonOrString(value: string): unknown {
+  const trimmed = value.trim();
+  if (
+    (trimmed.startsWith("[") && trimmed.endsWith("]")) ||
+    (trimmed.startsWith("{") && trimmed.endsWith("}"))
+  ) {
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      /* not JSON after all — send it as the literal string */
+    }
+  }
+  return value;
+}
 
 function autoType(value: string): unknown {
   if (value === "true") return true;
@@ -516,7 +561,7 @@ Examples:
   godot-cli node add --type CharacterBody3D --name Player
   godot-cli script read --path res://player.gd
   godot-cli scene play
-  godot-cli input key --key W --duration 0.5`);
+  godot-cli input key --key W`);
 }
 
 function showGroupHelp(groupName: string, group: GroupDef): void {
@@ -568,6 +613,49 @@ async function findFreePort(preferredPort?: number): Promise<number | null> {
   return null;
 }
 
+function normalizeWorkspacePath(path: string): string {
+  return path.replace(/\\/g, "/").replace(/\/+$/g, "").toLowerCase();
+}
+
+function sendHelloAck(ws: WebSocket, port: number, accepted: boolean, reason: string): void {
+  if (ws.readyState !== WebSocket.OPEN) return;
+  ws.send(JSON.stringify({
+    jsonrpc: "2.0",
+    method: "godot_hello_ack",
+    params: {
+      accepted,
+      reason,
+      port,
+      workspace: expectedWorkspace,
+    },
+  }));
+}
+
+function resolveAuthToken(): string | null {
+  const inline = process.env.GODOT_MCP_TOKEN;
+  if (inline && inline.trim()) return inline.trim();
+  const file = process.env.GODOT_MCP_TOKEN_FILE;
+  if (file) {
+    try {
+      return readFileSync(file, "utf-8").trim();
+    } catch (err) {
+      console.error(`Could not read GODOT_MCP_TOKEN_FILE: ${(err as Error).message}`);
+    }
+  }
+  return null;
+}
+
+function sendAuth(ws: WebSocket): void {
+  const token = resolveAuthToken();
+  if (!token || ws.readyState !== WebSocket.OPEN) return;
+  ws.send(JSON.stringify({
+    jsonrpc: "2.0",
+    method: "auth",
+    params: { token },
+    id: randomUUID(),
+  }));
+}
+
 /**
  * Start a WebSocket server and wait for the Godot plugin to connect.
  * Returns the connected client WebSocket and the server (for cleanup).
@@ -589,8 +677,43 @@ function waitForGodot(port: number): Promise<{ client: WebSocket; wss: WebSocket
     });
 
     wss.on("connection", (ws) => {
-      clearTimeout(timeout);
-      resolve({ client: ws, wss });
+      const helloTimeout = setTimeout(() => {
+        ws.close(1008, "Missing godot_hello");
+      }, 2000);
+
+      const handler = (data: Buffer) => {
+        let msg: { method?: string; params?: Record<string, unknown> };
+        try {
+          msg = JSON.parse(data.toString());
+        } catch {
+          clearTimeout(helloTimeout);
+          ws.off("message", handler);
+          ws.close(1008, "Invalid hello");
+          return;
+        }
+
+        if (msg.method === "auth_required") {
+          sendAuth(ws);
+          return;
+        }
+
+        if (msg.method !== "godot_hello") return;
+        clearTimeout(helloTimeout);
+        ws.off("message", handler);
+
+        const workspace = String(msg.params?.workspace || "");
+        if (normalizeWorkspacePath(workspace) !== normalizeWorkspacePath(expectedWorkspace)) {
+          sendHelloAck(ws, port, false, "Workspace mismatch");
+          ws.close(1008, "Workspace mismatch");
+          return;
+        }
+
+        clearTimeout(timeout);
+        sendHelloAck(ws, port, true, "Accepted");
+        resolve({ client: ws, wss });
+      };
+
+      ws.on("message", handler);
     });
   });
 }
